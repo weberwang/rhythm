@@ -41,3 +41,12 @@ This project is indexed by GitNexus as **rhythm** (335 symbols, 448 relationship
 | Index, status, clean, wiki CLI commands | `.claude/skills/gitnexus/gitnexus-cli/SKILL.md` |
 
 <!-- gitnexus:end -->
+
+## Flutter 国际化约定
+
+- 项目使用 Flutter 官方本地化链路：`flutter_localizations`、`intl`、`l10n.yaml` 和 `lib/l10n/*.arb`。
+- 新增或修改文案时，先更新 `lib/l10n/app_en.arb` 模板文件，再同步更新其他语言 ARB 文件。
+- 当前 Flutter 版本不启用 `synthetic-package`；业务代码从 `package:rhythm/l10n/app_localizations.dart` 导入生成类。
+- 修改 ARB 或 `l10n.yaml` 后运行 `flutter gen-l10n`，再运行 `flutter test` 验证生成代码和应用入口配置。
+- `MaterialApp.router` 必须挂载 `AppLocalizations.localizationsDelegates` 和 `AppLocalizations.supportedLocales`。
+- 应用标题等依赖语言环境的文案通过 `onGenerateTitle` 或 widget 上下文读取，不要静态读取本地化实例字段。
