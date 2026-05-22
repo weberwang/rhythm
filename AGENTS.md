@@ -42,6 +42,10 @@ This project is indexed by GitNexus as **rhythm** (335 symbols, 448 relationship
 
 <!-- gitnexus:end -->
 
+## 代码实现约定
+
+- 代码实现优先使用代码注解+代码生成方案。
+
 ## Flutter 国际化约定
 
 - 项目使用 Flutter 官方本地化链路：`flutter_localizations`、`intl`、`l10n.yaml` 和 `lib/l10n/*.arb`。
