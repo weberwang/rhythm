@@ -1,0 +1,41 @@
+# Flutter 工程会生成大量构建缓存与平台脚手架产物，忽略它们可以减少索引噪音。
+
+# Dart / Flutter 构建缓存
+.dart_tool/
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+
+# 平台侧临时生成目录
+ios/Flutter/ephemeral/
+macos/Flutter/ephemeral/
+linux/flutter/ephemeral/
+windows/flutter/ephemeral/
+android/.gradle/
+
+# Flutter 自动生成的插件注册文件
+android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java
+ios/Runner/GeneratedPluginRegistrant.h
+ios/Runner/GeneratedPluginRegistrant.m
+macos/Flutter/GeneratedPluginRegistrant.swift
+linux/flutter/generated_plugin_registrant.h
+linux/flutter/generated_plugin_registrant.cc
+linux/flutter/generated_plugins.cmake
+windows/flutter/generated_plugin_registrant.h
+windows/flutter/generated_plugin_registrant.cc
+windows/flutter/generated_plugins.cmake
+
+# Flutter / Xcode 自动生成配置
+ios/Flutter/Generated.xcconfig
+ios/Flutter/flutter_export_environment.sh
+macos/Flutter/ephemeral/Flutter-Generated.xcconfig
+macos/Flutter/ephemeral/flutter_export_environment.sh
+
+# 测试与构建输出
+coverage/
+test_driver/failure_screenshots/
+
+# IDE 与本地环境产物
+.idea/
+*.iml
