@@ -400,6 +400,101 @@ GoalSchedule + NotificationSetting
 - 数据看板能回答 MVP 成功标准中的核心指标。
 - 内测用户可以完成从激活到周报的完整链路。
 
+### 5.12 页面实现矩阵
+
+按 V0.1 MVP 范围，客户端需要明确落地 `24 个页面形态`：`8 个全局/引导页`、`5 个一级模块页`、`11 个二级详情与设置页`。页面实现统一遵守以下约束：
+
+- 一级模块统一挂在底部导航 Shell 下，避免今日、日历、睡前、洞察、我的出现多套平级导航。
+- 首次激活、手动补录、周报详情、付费墙使用独立全屏路由，避免把长流程塞进弹层。
+- 页面只负责结构编排；卡片、图表、表单分组、空态、入口按钮拆到 `presentation/widgets/`。
+- 任何页面出现 `3 个以上核心区块 + 复杂状态分支` 时，必须拆 `sections/` 子组件，避免单页持续膨胀。
+
+#### 5.12.1 全局与首次激活页面
+
+| 页面 | 路由建议 | 页面形态 | 核心内容 | 建议文件拆分 |
+| --- | --- | --- | --- | --- |
+| 启动分发页 | `/launch` | 启动页 | 判断匿名身份、是否完成 onboarding、是否需要登录恢复、是否直达 Shell | `lib/app/bootstrap/launch_gate.dart` + `lib/app/bootstrap/app_bootstrap.dart` |
+| 欢迎价值页 | `/onboarding/welcome` | 全屏引导页 | 一句话价值、主收益、匿名进入/登录入口 | `lib/features/onboarding/presentation/onboarding_flow_page.dart` + `widgets/steps/onboarding_welcome_step.dart` |
+| 登录选择页 | `/onboarding/sign-in` | 全屏引导页 | Apple/Google/匿名进入、登录收益说明、跳过路径 | `lib/features/auth/presentation/auth_entry_page.dart` 或 `onboarding_flow_page.dart` 内步骤组件 |
+| 健康权限说明页 | `/onboarding/health-permission` | 全屏引导页 | 权限收益、授权按钮、跳过后手动补录说明 | `lib/features/onboarding/presentation/onboarding_flow_page.dart` + `widgets/steps/health_permission_step.dart` |
+| 目标作息设置页 | `/onboarding/goal-setup` | 全屏表单页 | 目标入睡、起床、熬夜阈值、一天起始时间 | `lib/features/goal_schedule/presentation/goal_setup_page.dart` + `widgets/goal_schedule_form.dart` |
+| 提醒策略设置页 | `/onboarding/reminder-setup` | 全屏表单页 | 柔性提醒、到点提醒、周报提醒、提前量 | `lib/features/notifications/presentation/reminder_setup_page.dart` + `widgets/reminder_strategy_form.dart` |
+| 小组件引导页 | `/onboarding/widget-guide` | 全屏引导页 | 小组件价值说明、添加步骤、暂不添加入口 | `lib/features/widget_bridge/presentation/widget_guide_page.dart` |
+| 轻量付费墙页 | `/membership/paywall` | 全屏模态页 | 权益对比、价格卡、试用/购买入口、关闭返回 | `lib/features/membership/presentation/paywall_page.dart` + `widgets/paywall_plan_selector.dart` |
+
+#### 5.12.2 一级模块页面
+
+| 页面 | 路由建议 | 页面形态 | 核心内容 | 建议文件拆分 |
+| --- | --- | --- | --- | --- |
+| 今日页 | `/today` 或 `/` | 一级主页面 | 顶部状态卡、行动卡、恢复建议卡、快捷记录卡、7 日微趋势 | `lib/features/today/presentation/today_page.dart` + `widgets/sections/*` |
+| 日历页 | `/calendar` | 一级主页面 | 月历热力图、筛选栏、达标连续区间、日详情触发入口 | `lib/features/calendar/presentation/calendar_page.dart` + `widgets/calendar_heatmap.dart` |
+| 睡前页 | `/bedtime` | 一级主页面 | 当前时间与目标差、倒计时条、状态选择、动作建议、轻标签入口 | `lib/features/bedtime/presentation/bedtime_page.dart` + `widgets/sections/*` |
+| 洞察页 | `/insights` | 一级主页面 | 本周达标率、稳定度、原因分布、恢复效果、历史入口 | `lib/features/insights/presentation/insights_page.dart` + `widgets/sections/*` |
+| 我的页 | `/profile` | 一级主页面 | 账户卡、会员卡、目标入口、提醒入口、隐私与同步入口 | `lib/features/profile/presentation/profile_page.dart` + `widgets/profile_entry_list.dart` |
+
+#### 5.12.3 二级详情与设置页面
+
+| 页面 | 路由建议 | 页面形态 | 核心内容 | 建议文件拆分 |
+| --- | --- | --- | --- | --- |
+| 手动补录/编辑页 | `/records/edit/:recordDate` | 全屏表单页 | 入睡时间、起床时间、来源说明、保存与放弃修改 | `lib/features/sleep_records/presentation/manual_sleep_record_page.dart` + `widgets/manual_record_form.dart` |
+| 周报详情页 | `/insights/report/:periodStart` | 全屏详情页 | 达标率、稳定度解释、最晚入睡日、主要原因、建议摘要 | `lib/features/insights/presentation/weekly_report_detail_page.dart` |
+| 历史洞察页 | `/insights/history` | 全屏列表页 | 历史周报列表、30 天前历史、付费拦截承接 | `lib/features/insights/presentation/report_history_page.dart` |
+| 目标作息编辑页 | `/profile/goal-schedule` | 二级设置页 | 修改入睡时间、起床时间、阈值、工作日规则 | `lib/features/goal_schedule/presentation/goal_schedule_settings_page.dart` |
+| 提醒设置页 | `/profile/notifications` | 二级设置页 | 柔性提醒、到点提醒、周报提醒、提前量、降级说明 | `lib/features/notifications/presentation/notification_settings_page.dart` |
+| 数据接入与权限页 | `/profile/data-access` | 二级设置页 | HealthKit/Health Connect 状态、最近同步、重新授权、手动模式说明 | `lib/features/profile/presentation/data_access_page.dart` |
+| 账号与同步页 | `/profile/account-sync` | 二级设置页 | 匿名身份、登录绑定、同步状态、失败重试、冲突说明 | `lib/features/sync/presentation/account_sync_page.dart` |
+| 会员中心页 | `/profile/membership` | 二级详情页 | 当前权益、价格方案、恢复购买、常见问题 | `lib/features/membership/presentation/membership_page.dart` |
+| 隐私与数据页 | `/profile/privacy` | 二级设置页 | 隐私协议、数据导出、账号删除、敏感数据说明 | `lib/features/profile/presentation/privacy_data_page.dart` |
+| 小组件与主题页 | `/profile/widget-theme` | 二级设置页 | 小组件样式、桌面入口说明、主题预留位 | `lib/features/widget_bridge/presentation/widget_theme_page.dart` |
+| 时区与特殊模式页 | `/profile/timezone-mode` | 二级设置页 | 当前时区、跨时区提示、轮班/时差模式占位与说明 | `lib/features/goal_schedule/presentation/timezone_mode_page.dart` |
+
+### 5.13 弹出组件实现矩阵
+
+弹出组件只承担 `轻决策、轻输入、轻反馈`。凡是包含长表单、长说明、复杂图表的内容，一律升级成独立页面。实现约束如下：
+
+- 与当前页面强相关、最多 `3 个主操作` 的交互，优先使用底部弹层。
+- 不可逆操作、权限失败补救、离开未保存表单，优先使用确认对话框。
+- 保存成功、同步失败、轻提示统一走 Snackbar 或顶部轻提示，不单独弹居中框。
+- 同一时刻只允许一个主弹层存在，禁止“底部弹层上再叠对话框”的双层打断。
+
+#### 5.13.1 底部弹层与半屏卡片
+
+| 组件 | 类型 | 触发页面 | 触发时机 | 承载内容 | 建议文件 |
+| --- | --- | --- | --- | --- | --- |
+| 目标时间选择弹层 | 底部弹层 | 目标作息设置页、目标作息编辑页 | 点击目标入睡/起床时间 | 时间选择器、推荐区间、确认按钮 | `lib/features/goal_schedule/presentation/widgets/sheets/goal_time_picker_sheet.dart` |
+| 阈值与提前量设置弹层 | 底部弹层 | 目标作息设置页、提醒设置页 | 点击熬夜阈值或提醒提前量 | 分钟步进、说明文案、保存按钮 | `lib/features/goal_schedule/presentation/widgets/sheets/minutes_setting_sheet.dart` |
+| 今日快捷记录操作弹层 | 底部弹层 | 今日页 | 点击快捷记录卡或更多按钮 | 补原因标签、手动补录、修改昨晚记录 | `lib/features/today/presentation/widgets/sheets/today_quick_actions_sheet.dart` |
+| 晚睡原因标签弹层 | 底部弹层 | 今日页、睡前页、日历日详情 | 点击“补原因”或“添加标签” | 默认标签、自定义入口、保存状态 | `lib/features/sleep_records/presentation/widgets/sheets/sleep_delay_tag_picker_sheet.dart` |
+| 日历单日详情弹层 | 半屏详情卡 | 日历页 | 点击某一天 | 实际睡眠、偏差、来源、可信度、标签、备注、编辑入口 | `lib/features/calendar/presentation/widgets/sheets/calendar_day_detail_sheet.dart` |
+| 日历筛选弹层 | 底部弹层 | 日历页 | 点击筛选按钮 | 入睡时间/稳定度/晚睡次数筛选、重置、应用 | `lib/features/calendar/presentation/widgets/sheets/calendar_filter_sheet.dart` |
+| 自定义标签输入弹层 | 底部弹层 | 标签弹层内部 | 选择“自定义标签” | 单字段输入、字符限制、保存 | `lib/features/sleep_records/presentation/widgets/sheets/custom_delay_tag_sheet.dart` |
+| 睡前拖延原因弹层 | 底部弹层 | 睡前页 | 选择“还想拖一会儿”或“今晚大概率会晚睡”后 | 轻量原因标签、建议动作切换 | `lib/features/bedtime/presentation/widgets/sheets/bedtime_delay_reason_sheet.dart` |
+| 恢复计划详情弹层 | 半屏详情卡 | 今日页、洞察页 | 点击恢复建议卡 | 1-3 天建议、完成状态、延期入口 | `lib/features/insights/presentation/widgets/sheets/recovery_plan_detail_sheet.dart` |
+| 稳定度说明弹层 | 底部弹层 | 洞察页 | 点击稳定度说明入口 | 评分口径、近 7 天样本、解释文案 | `lib/features/insights/presentation/widgets/sheets/stability_explainer_sheet.dart` |
+| 会员权益对比弹层 | 底部弹层 | 我的页、洞察页 | 点击权益说明或受限入口 | 免费/会员差异、升级入口、关闭 | `lib/features/membership/presentation/widgets/sheets/membership_benefits_sheet.dart` |
+| 数据来源说明弹层 | 底部弹层 | 日历日详情、手动补录页 | 点击来源/可信度信息 | 来源定义、手动修正说明、最近同步时间 | `lib/features/sleep_records/presentation/widgets/sheets/record_source_explainer_sheet.dart` |
+
+#### 5.13.2 对话框、确认框与轻反馈
+
+| 组件 | 类型 | 触发页面 | 触发时机 | 承载内容 | 建议文件 |
+| --- | --- | --- | --- | --- | --- |
+| 权限被拒绝补救框 | 对话框 | 健康权限说明页、数据接入与权限页 | 用户拒绝权限或权限永久关闭 | 去系统设置、继续手动模式、稍后再说 | `lib/features/onboarding/presentation/widgets/dialogs/permission_recovery_dialog.dart` |
+| 放弃未保存修改确认框 | 对话框 | 目标设置页、提醒设置页、手动补录页 | 返回时表单已修改未保存 | 放弃、继续编辑、保存后离开 | `lib/core/presentation/dialogs/discard_changes_dialog.dart` |
+| 同步失败重试框 | 对话框 | 账号与同步页、数据接入与权限页 | 同步失败且用户主动重试 | 错误摘要、重试、稍后再试 | `lib/features/sync/presentation/widgets/dialogs/sync_retry_dialog.dart` |
+| 删除账号确认框 | 危险对话框 | 隐私与数据页 | 点击删除账号 | 删除影响、二次确认、取消 | `lib/features/profile/presentation/widgets/dialogs/delete_account_dialog.dart` |
+| 数据导出确认框 | 对话框 | 隐私与数据页 | 点击导出数据 | 导出范围、格式、耗时提示 | `lib/features/profile/presentation/widgets/dialogs/export_data_dialog.dart` |
+| 保存成功提示 | Snackbar | 全局复用 | 目标设置、标签保存、记录编辑成功后 | 短文案 + 可选撤销 | `lib/core/presentation/feedback/app_snackbar.dart` |
+| 同步失败轻提示 | Snackbar | 全局复用 | 后台同步失败但不阻塞主流程 | 简短错误 + 查看详情入口 | `lib/core/presentation/feedback/app_snackbar.dart` |
+| 付费拦截轻提示 | 顶部轻提示或 Snackbar | 历史洞察页、恢复计划详情、稳定度说明 | 免费用户点击会员能力位 | 能力说明 + 升级入口 | `lib/features/membership/presentation/widgets/paywall_entry_banner.dart` |
+
+### 5.14 页面与弹层的路由、状态和测试落地原则
+
+- GoRouter 层只声明页面路由；底部弹层、Dialog、Snackbar 由页面内的 `controller/provider` 驱动显示状态，不在路由层注册伪页面。
+- 页面级状态统一落在各自模块的 `application/*_controller.dart`；弹层只消费已经聚合好的 ViewState，不直接拼 Repository。
+- 需要跨页面复用的弹层，只复用 `UI 容器 + 参数对象`，不复用业务判断，避免一个弹层承担多个模块规则。
+- Widget 测试至少覆盖：今日快捷记录弹层、日历单日详情弹层、权限拒绝对话框、同步失败对话框、付费拦截提示。
+- 集成测试至少覆盖：首次激活 -> 今日页、授权失败 -> 手动补录、今日页补标签、日历看详情、洞察触发付费拦截。
+
 ## 六、测试策略
 
 ### 6.1 单元测试
