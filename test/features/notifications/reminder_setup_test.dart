@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rhythm/features/notifications/domain/reminder_settings_state.dart';
 
@@ -18,9 +19,9 @@ void main() {
     await pumpRhythmApp(tester, onboardingCompleted: false);
     await tester.pumpAndSettle();
 
-    await tester.tap(find.text('开始设置'));
+    await tester.tap(find.text('开始建立我的作息目标'));
     await tester.pumpAndSettle();
-    await tester.tap(find.text('匿名体验'));
+    await tester.tap(find.text('匿名进入'));
     await tester.pumpAndSettle();
     await tester.tap(find.text('先用手动模式'));
     await tester.pumpAndSettle();
@@ -30,5 +31,31 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('今晚先轻一点'), findsOneWidget);
+  });
+
+  testWidgets('提醒策略页支持切换开关和修改提前量', (tester) async {
+    await pumpRhythmApp(tester, onboardingCompleted: false);
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text('开始建立我的作息目标'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('匿名进入'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('先用手动模式'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('保存目标，继续下一步'));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.byKey(const Key('target-reminder-switch')));
+    await tester.pumpAndSettle();
+
+    await tester.ensureVisible(find.byKey(const Key('lead-minutes-dropdown')));
+    await tester.tap(find.byKey(const Key('lead-minutes-dropdown')));
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.text('60').last);
+    await tester.tap(find.text('60').last, warnIfMissed: false);
+    await tester.pumpAndSettle();
+
+    expect(find.text('在目标入睡前 60 分钟提醒'), findsOneWidget);
   });
 }

@@ -61,17 +61,17 @@ final class LaunchStateRepositoryProvider
 String _$launchStateRepositoryHash() =>
     r'67977a92aa07d5d0096cb15debffc999606e3da4';
 
-/// 提供是否完成首次引导的异步状态，供启动分发页决定跳转目标。
+/// 提供是否完成首次引导的状态，供启动分发页决定跳转目标。
 
 @ProviderFor(onboardingCompleted)
 const onboardingCompletedProvider = OnboardingCompletedProvider._();
 
-/// 提供是否完成首次引导的异步状态，供启动分发页决定跳转目标。
+/// 提供是否完成首次引导的状态，供启动分发页决定跳转目标。
 
 final class OnboardingCompletedProvider
-    extends $FunctionalProvider<AsyncValue<bool>, bool, FutureOr<bool>>
-    with $FutureModifier<bool>, $FutureProvider<bool> {
-  /// 提供是否完成首次引导的异步状态，供启动分发页决定跳转目标。
+    extends $FunctionalProvider<bool, bool, bool>
+    with $Provider<bool> {
+  /// 提供是否完成首次引导的状态，供启动分发页决定跳转目标。
   const OnboardingCompletedProvider._()
     : super(
         from: null,
@@ -88,14 +88,22 @@ final class OnboardingCompletedProvider
 
   @$internal
   @override
-  $FutureProviderElement<bool> $createElement($ProviderPointer pointer) =>
-      $FutureProviderElement(pointer);
+  $ProviderElement<bool> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
 
   @override
-  FutureOr<bool> create(Ref ref) {
+  bool create(Ref ref) {
     return onboardingCompleted(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(bool value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<bool>(value),
+    );
   }
 }
 
 String _$onboardingCompletedHash() =>
-    r'e8d90e976b7c6cb84f0ca1fdd9f51ddea7352cb8';
+    r'b88b007d9c47e46b5a6d1d9bc447a27aa9035ac0';

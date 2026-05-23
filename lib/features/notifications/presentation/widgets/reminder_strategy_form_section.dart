@@ -1,60 +1,66 @@
 import 'package:flutter/material.dart';
-import 'package:rhythm/features/notifications/domain/reminder_settings_state.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:rhythm/features/notifications/application/reminder_settings_controller.dart';
 import 'package:rhythm/l10n/app_localizations.dart';
 
-/// 展示提醒策略摘要，避免首次引导阶段直接引入复杂交互控件。
-class ReminderStrategyFormSection extends StatelessWidget {
-  /// 创建提醒策略摘要组件实例。
-  const ReminderStrategyFormSection({
-    super.key,
-    required this.state,
-  });
+/// 展示提醒策略表单，确保首次引导中的提醒设置具备真实可交互能力。
+class ReminderStrategyFormSection extends HookConsumerWidget {
+  /// 创建提醒策略表单组件实例。
+  const ReminderStrategyFormSection({super.key});
 
-  /// 当前提醒策略状态。
-  final ReminderSettingsState state;
-
-  /// 渲染提醒策略摘要。
+  /// 渲染提醒策略表单。
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
+    final state = ref.watch(reminderSettingsControllerProvider);
+    final controller = ref.read(reminderSettingsControllerProvider.notifier);
 
     return Column(
       children: [
-        _ReminderCard(
+        _ReminderSwitchCard(
           title: l10n.reminderSoftReminderTitle,
           description: l10n.reminderSoftReminderDescription,
           enabled: state.softReminderEnabled,
+          switchKey: const Key('soft-reminder-switch'),
+          onChanged: controller.setSoftReminderEnabled,
         ),
         const SizedBox(height: 12),
-        _ReminderCard(
+        _ReminderSwitchCard(
           title: l10n.reminderTargetReminderTitle,
           description: l10n.reminderTargetReminderDescription,
           enabled: state.targetReminderEnabled,
+          switchKey: const Key('target-reminder-switch'),
+          onChanged: controller.setTargetReminderEnabled,
         ),
         const SizedBox(height: 12),
-        _ReminderCard(
+        _ReminderSwitchCard(
           title: l10n.reminderWeeklyReportTitle,
           description: l10n.reminderWeeklyReportDescription,
           enabled: state.weeklyReportEnabled,
+          switchKey: const Key('weekly-report-switch'),
+          onChanged: controller.setWeeklyReportEnabled,
         ),
         const SizedBox(height: 12),
-        _ReminderCard(
+        _ReminderLeadTimeCard(
           title: l10n.reminderLeadTimeTitle,
           description: l10n.reminderLeadTimeValue(state.leadMinutes),
-          enabled: true,
+          selectedLeadMinutes: state.leadMinutes,
+          onChanged: controller.updateLeadMinutes,
         ),
       ],
     );
   }
 }
 
-/// 展示单条提醒策略摘要，便于保持信息密度与扫描效率。
-class _ReminderCard extends StatelessWidget {
-  /// 创建提醒摘要卡片实例。
-  const _ReminderCard({
+/// 展示布尔开关型提醒设置，避免页面层重复拼装开关和说明样式。
+class _ReminderSwitchCard extends StatelessWidget {
+  /// 创建提醒开关卡片实例。
+  const _ReminderSwitchCard({
     required this.title,
     required this.description,
     required this.enabled,
+    required this.switchKey,
+    required this.onChanged,
   });
 
   /// 卡片标题。
@@ -66,7 +72,13 @@ class _ReminderCard extends StatelessWidget {
   /// 当前策略是否开启。
   final bool enabled;
 
-  /// 渲染提醒摘要卡片。
+  /// 测试与状态定位使用的控件键。
+  final Key switchKey;
+
+  /// 开关变化后的回调。
+  final ValueChanged<bool> onChanged;
+
+  /// 渲染提醒开关卡片。
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
@@ -80,28 +92,102 @@ class _ReminderCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(24),
         border: Border.all(color: colorScheme.outlineVariant),
       ),
-      child: Row(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(
-            enabled ? Icons.notifications_active_outlined : Icons.notifications_off_outlined,
-            color: enabled ? colorScheme.primary : colorScheme.onSurfaceVariant,
+          Row(
+            children: [
+              Expanded(
+                child: Text(title, style: textTheme.titleMedium),
+              ),
+              Switch.adaptive(
+                key: switchKey,
+                value: enabled,
+                onChanged: onChanged,
+              ),
+            ],
           ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(title, style: textTheme.titleMedium),
-                const SizedBox(height: 8),
-                Text(
-                  description,
-                  style: textTheme.bodyMedium?.copyWith(
-                    color: colorScheme.onSurfaceVariant,
-                    height: 1.5,
+          Text(
+            description,
+            style: textTheme.bodyMedium?.copyWith(
+              color: colorScheme.onSurfaceVariant,
+              height: 1.5,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// 展示提醒提前量设置，保持与其他提醒项相同的信息卡片结构。
+class _ReminderLeadTimeCard extends StatelessWidget {
+  /// 创建提前量设置卡片实例。
+  const _ReminderLeadTimeCard({
+    required this.title,
+    required this.description,
+    required this.selectedLeadMinutes,
+    required this.onChanged,
+  });
+
+  /// 卡片标题。
+  final String title;
+
+  /// 当前描述文案。
+  final String description;
+
+  /// 当前选中的提前量。
+  final int selectedLeadMinutes;
+
+  /// 选择变化后的回调。
+  final ValueChanged<int> onChanged;
+
+  /// 渲染提醒提前量设置卡片。
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
+    const leadOptions = <int>[15, 30, 45, 60, 90];
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: colorScheme.surface,
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(color: colorScheme.outlineVariant),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(title, style: textTheme.titleMedium),
+          const SizedBox(height: 8),
+          DropdownButtonFormField<int>(
+            key: const Key('lead-minutes-dropdown'),
+            initialValue: selectedLeadMinutes,
+            items: leadOptions
+                .map(
+                  (minutes) => DropdownMenuItem<int>(
+                    value: minutes,
+                    child: Text('$minutes'),
                   ),
-                ),
-              ],
+                )
+                .toList(),
+            onChanged: (value) {
+              if (value != null) {
+                onChanged(value);
+              }
+            },
+            decoration: const InputDecoration(
+              border: OutlineInputBorder(),
+            ),
+          ),
+          const SizedBox(height: 12),
+          Text(
+            description,
+            style: textTheme.bodyMedium?.copyWith(
+              color: colorScheme.onSurfaceVariant,
+              height: 1.5,
             ),
           ),
         ],

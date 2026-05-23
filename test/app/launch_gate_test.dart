@@ -8,7 +8,7 @@ void main() {
     await pumpRhythmApp(tester, onboardingCompleted: false);
     await tester.pumpAndSettle();
 
-    expect(find.text('欢迎使用 Rhythm'), findsOneWidget);
+    expect(find.text('先把节奏跑起来'), findsOneWidget);
     expect(find.text('今晚先轻一点'), findsNothing);
   });
 

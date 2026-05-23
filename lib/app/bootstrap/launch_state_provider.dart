@@ -17,8 +17,8 @@ LaunchStateRepository launchStateRepository(Ref ref) {
   return LaunchStateRepository(ref.watch(sharedPreferencesProvider));
 }
 
-/// 提供是否完成首次引导的异步状态，供启动分发页决定跳转目标。
+/// 提供是否完成首次引导的状态，供启动分发页决定跳转目标。
 @riverpod
-Future<bool> onboardingCompleted(Ref ref) async {
+bool onboardingCompleted(Ref ref) {
   return ref.watch(launchStateRepositoryProvider).isOnboardingCompleted();
 }

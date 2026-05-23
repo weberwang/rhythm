@@ -3,115 +3,93 @@ import 'package:rhythm/core/presentation/widgets/rhythm_primary_button.dart';
 import 'package:rhythm/features/onboarding/presentation/widgets/onboarding_step_scaffold.dart';
 import 'package:rhythm/l10n/app_localizations.dart';
 
-/// 展示首次引导欢迎页，向用户说明产品价值并进入下一步。
+/// 欢迎价值页，向用户说明首启的整体节奏。
 class OnboardingWelcomeStep extends StatelessWidget {
-  /// 创建欢迎步骤组件实例。
+  /// 创建欢迎页。
   const OnboardingWelcomeStep({super.key, required this.onContinue});
 
-  /// 点击主按钮后的推进回调。
+  /// 继续到下一步。
   final VoidCallback onContinue;
 
-  /// 渲染欢迎步骤内容。
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-    final textTheme = Theme.of(context).textTheme;
     final l10n = AppLocalizations.of(context);
 
     return OnboardingStepScaffold(
       eyebrow: l10n.onboardingStepOneEyebrow,
-      title: l10n.onboardingWelcomeTitle,
-      description: l10n.onboardingWelcomeDescription,
+      title: '先把节奏跑起来',
+      description: '用更温和的方式，帮你把作息慢慢拨正。',
       content: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              color: colorScheme.surface,
-              borderRadius: BorderRadius.circular(24),
-              border: Border.all(color: colorScheme.outlineVariant),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(l10n.onboardingWelcomeChecklistTitle, style: textTheme.titleMedium),
-                const SizedBox(height: 16),
-                _WelcomeBullet(
-                  title: l10n.onboardingWelcomeBulletAuthTitle,
-                  description: l10n.onboardingWelcomeBulletAuthDescription,
-                ),
-                const SizedBox(height: 12),
-                _WelcomeBullet(
-                  title: l10n.onboardingWelcomeBulletHealthTitle,
-                  description: l10n.onboardingWelcomeBulletHealthDescription,
-                ),
-                const SizedBox(height: 12),
-                _WelcomeBullet(
-                  title: l10n.onboardingWelcomeBulletGoalTitle,
-                  description: l10n.onboardingWelcomeBulletGoalDescription,
-                ),
-              ],
-            ),
+          _BenefitCard(
+            title: '看清节律',
+            description: '昨晚结果、今晚目标和 7 日变化放在同一屏里。',
+          ),
+          const SizedBox(height: 12),
+          _BenefitCard(
+            title: '降低负担',
+            description: '不要求长记录，原因标签点一下就够。',
+          ),
+          const SizedBox(height: 12),
+          _BenefitCard(
+            title: '给出恢复路径',
+            description: '晚睡后先告诉你怎么轻一点回正。',
           ),
         ],
       ),
       primaryAction: RhythmPrimaryButton(
-        label: l10n.onboardingWelcomePrimaryButton,
+        label: '开始建立我的作息目标',
         onPressed: onContinue,
       ),
     );
   }
 }
 
-/// 展示欢迎页的分组说明项，保持信息结构清晰且便于后续替换设计细节。
-class _WelcomeBullet extends StatelessWidget {
-  /// 创建欢迎页说明项实例。
-  const _WelcomeBullet({required this.title, required this.description});
+/// 欢迎页的价值卡片。
+class _BenefitCard extends StatelessWidget {
+  /// 创建价值卡片。
+  const _BenefitCard({required this.title, required this.description});
 
-  /// 说明项标题。
+  /// 标题。
   final String title;
 
-  /// 说明项正文。
+  /// 说明。
   final String description;
 
-  /// 渲染单条说明项。
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
 
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          width: 10,
-          height: 10,
-          margin: const EdgeInsets.only(top: 6),
-          decoration: BoxDecoration(
-            color: colorScheme.primary,
-            borderRadius: BorderRadius.circular(999),
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: colorScheme.surface,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: const [
+          BoxShadow(
+            color: Color(0x0F000000),
+            blurRadius: 18,
+            offset: Offset(0, 6),
           ),
-        ),
-        const SizedBox(width: 12),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(title, style: textTheme.titleSmall),
-              const SizedBox(height: 4),
-              Text(
-                description,
-                style: textTheme.bodyMedium?.copyWith(
-                  color: colorScheme.onSurfaceVariant,
-                  height: 1.5,
-                ),
-              ),
-            ],
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(title, style: textTheme.titleMedium),
+          const SizedBox(height: 8),
+          Text(
+            description,
+            style: textTheme.bodyMedium?.copyWith(
+              color: colorScheme.onSurfaceVariant,
+              height: 1.35,
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

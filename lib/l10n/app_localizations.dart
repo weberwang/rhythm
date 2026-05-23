@@ -287,37 +287,37 @@ abstract class AppLocalizations {
   /// No description provided for @onboardingAuthTitle.
   ///
   /// In en, this message translates to:
-  /// **'Choose how you want to enter'**
+  /// **'Get the rhythm moving first; sign in only when sync is needed.'**
   String get onboardingAuthTitle;
 
   /// No description provided for @onboardingAuthDescription.
   ///
   /// In en, this message translates to:
-  /// **'You can start anonymously now and decide later whether to connect an Apple or Google account.'**
+  /// **'Anonymous entry lowers first-run friction. Sign in is for device transfer and membership sync.'**
   String get onboardingAuthDescription;
 
   /// No description provided for @onboardingAuthAppleLabel.
   ///
   /// In en, this message translates to:
-  /// **'Continue with Apple'**
+  /// **'Local first'**
   String get onboardingAuthAppleLabel;
 
   /// No description provided for @onboardingAuthAppleDescription.
   ///
   /// In en, this message translates to:
-  /// **'Keep the designed account entry visible while leaving the real SDK integration for a later task.'**
+  /// **'Data stays on this device'**
   String get onboardingAuthAppleDescription;
 
   /// No description provided for @onboardingAuthGoogleLabel.
   ///
   /// In en, this message translates to:
-  /// **'Continue with Google'**
+  /// **'Bind later'**
   String get onboardingAuthGoogleLabel;
 
   /// No description provided for @onboardingAuthGoogleDescription.
   ///
   /// In en, this message translates to:
-  /// **'Show the intended flow option first, then connect the real login implementation later.'**
+  /// **'You can still connect an account later'**
   String get onboardingAuthGoogleDescription;
 
   /// No description provided for @onboardingAuthAnonymousButton.
@@ -329,8 +329,14 @@ abstract class AppLocalizations {
   /// No description provided for @onboardingAuthLaterButton.
   ///
   /// In en, this message translates to:
-  /// **'Connect later'**
+  /// **'Use Apple'**
   String get onboardingAuthLaterButton;
+
+  /// No description provided for @onboardingAuthGoogleButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Use Google'**
+  String get onboardingAuthGoogleButton;
 
   /// No description provided for @onboardingStepThreeEyebrow.
   ///
@@ -341,55 +347,55 @@ abstract class AppLocalizations {
   /// No description provided for @onboardingHealthTitle.
   ///
   /// In en, this message translates to:
-  /// **'Connect health data for fuller records'**
+  /// **'Read sleep data'**
   String get onboardingHealthTitle;
 
   /// No description provided for @onboardingHealthDescription.
   ///
   /// In en, this message translates to:
-  /// **'Rhythm will eventually use your existing sleep and activity data to help you review routine changes more steadily.'**
+  /// **'We only read sleep records and do not use them for medical judgment or ads.'**
   String get onboardingHealthDescription;
 
   /// No description provided for @onboardingHealthAppleSummary.
   ///
   /// In en, this message translates to:
-  /// **'You just chose the Apple entry. You can finish account binding later.'**
+  /// **'Auto-sync sleep records'**
   String get onboardingHealthAppleSummary;
 
   /// No description provided for @onboardingHealthGoogleSummary.
   ///
   /// In en, this message translates to:
-  /// **'You just chose the Google entry. You can finish account binding later.'**
+  /// **'The last 30 days will be written into the local rhythm timeline'**
   String get onboardingHealthGoogleSummary;
 
   /// No description provided for @onboardingHealthAnonymousSummary.
   ///
   /// In en, this message translates to:
-  /// **'You are entering anonymously now and can still bind an account later in settings.'**
+  /// **'Authorization failure can fall back'**
   String get onboardingHealthAnonymousSummary;
 
   /// No description provided for @onboardingHealthDefaultSummary.
   ///
   /// In en, this message translates to:
-  /// **'You can first understand what health records help with before deciding whether to authorize.'**
+  /// **'Without permission, you can still manually log and generate weekly reports'**
   String get onboardingHealthDefaultSummary;
 
   /// No description provided for @onboardingHealthBenefitTitle.
   ///
   /// In en, this message translates to:
-  /// **'Why it helps'**
+  /// **'Why enable it'**
   String get onboardingHealthBenefitTitle;
 
   /// No description provided for @onboardingHealthBenefitDescription.
   ///
   /// In en, this message translates to:
-  /// **'Once health data is connected in a later task, you can reduce manual logging and review trends with better continuity.'**
+  /// **'Later health data access reduces manual logging and improves trend review continuity.'**
   String get onboardingHealthBenefitDescription;
 
   /// No description provided for @onboardingHealthCurrentStageTitle.
   ///
   /// In en, this message translates to:
-  /// **'What happens in this stage'**
+  /// **'Stage notes'**
   String get onboardingHealthCurrentStageTitle;
 
   /// No description provided for @onboardingHealthCurrentStageDescription.
@@ -407,25 +413,25 @@ abstract class AppLocalizations {
   /// No description provided for @onboardingHealthAuthorizeButton.
   ///
   /// In en, this message translates to:
-  /// **'Authorize and continue'**
+  /// **'Authorize sleep data'**
   String get onboardingHealthAuthorizeButton;
 
   /// No description provided for @goalSetupEyebrow.
   ///
   /// In en, this message translates to:
-  /// **'Goal setup'**
+  /// **'Set a doable target'**
   String get goalSetupEyebrow;
 
   /// No description provided for @goalSetupPageTitle.
   ///
   /// In en, this message translates to:
-  /// **'Set your target routine'**
+  /// **'The target is a reference line, not a perfect daily red line.'**
   String get goalSetupPageTitle;
 
   /// No description provided for @goalSetupPageDescription.
   ///
   /// In en, this message translates to:
-  /// **'This MVP keeps the form lightweight and locks the first target schedule before reminder preferences are confirmed.'**
+  /// **'Start with a basic target, then adjust later anytime.'**
   String get goalSetupPageDescription;
 
   /// No description provided for @goalSetupContinueButton.
@@ -433,6 +439,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Save goal and continue'**
   String get goalSetupContinueButton;
+
+  /// No description provided for @goalSetupWorkdayTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Workday rule'**
+  String get goalSetupWorkdayTitle;
+
+  /// No description provided for @goalSetupWorkdayWeekdays.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekdays first'**
+  String get goalSetupWorkdayWeekdays;
+
+  /// No description provided for @goalSetupWorkdayFlexible.
+  ///
+  /// In en, this message translates to:
+  /// **'Adjust later'**
+  String get goalSetupWorkdayFlexible;
 
   /// No description provided for @goalScheduleBedtimeLabel.
   ///
@@ -497,19 +521,19 @@ abstract class AppLocalizations {
   /// No description provided for @reminderSetupEyebrow.
   ///
   /// In en, this message translates to:
-  /// **'Reminder setup'**
+  /// **'Set reminders just right'**
   String get reminderSetupEyebrow;
 
   /// No description provided for @reminderSetupPageTitle.
   ///
   /// In en, this message translates to:
-  /// **'Choose your reminder strategy'**
+  /// **'Default to soft reminders and avoid nonstop interruption.'**
   String get reminderSetupPageTitle;
 
   /// No description provided for @reminderSetupPageDescription.
   ///
   /// In en, this message translates to:
-  /// **'Finish the first-run setup by confirming how gentle nudges should support your target schedule.'**
+  /// **'You can start light and decide later whether you need stronger on-time reminders.'**
   String get reminderSetupPageDescription;
 
   /// No description provided for @reminderSetupCompleteButton.
@@ -559,6 +583,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Reminder lead time'**
   String get reminderLeadTimeTitle;
+
+  /// No description provided for @reminderLeadHintTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Lead time suggestion'**
+  String get reminderLeadHintTitle;
+
+  /// No description provided for @reminderLeadHintEarly.
+  ///
+  /// In en, this message translates to:
+  /// **'15 min'**
+  String get reminderLeadHintEarly;
+
+  /// No description provided for @reminderLeadHintRecommended.
+  ///
+  /// In en, this message translates to:
+  /// **'30 min'**
+  String get reminderLeadHintRecommended;
+
+  /// No description provided for @reminderLeadHintMinimal.
+  ///
+  /// In en, this message translates to:
+  /// **'45 min'**
+  String get reminderLeadHintMinimal;
 
   /// Formats reminder lead time values in the onboarding reminder summary.
   ///

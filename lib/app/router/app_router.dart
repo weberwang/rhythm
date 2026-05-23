@@ -12,13 +12,13 @@ import '../bootstrap/launch_gate.dart';
 /// 首次引导欢迎页路由路径。
 const String onboardingWelcomePath = '/onboarding/welcome';
 
-/// 目标设置页路由路径，当前阶段仅保持引导链路闭合。
+/// 目标设置页路由路径。
 const String onboardingGoalSetupPath = '/onboarding/goal-setup';
 
-/// 提醒策略设置页路由路径，用于完成首次激活闭环。
+/// 提醒策略设置页路由路径。
 const String onboardingReminderSetupPath = '/onboarding/reminder-setup';
 
-/// 一级模块与占位页可复用的文案键，避免在路由层过早读取本地化上下文。
+/// 一级模块与占位页可复用的文案键。
 enum AppCopyKey {
   goalSetupTitle,
   goalSetupDescription,
@@ -58,7 +58,7 @@ String appCopy(AppLocalizations l10n, AppCopyKey key) {
   }
 }
 
-/// Rhythm 的一级模块定义，集中管理底部导航文案、图标和路由路径。
+/// Rhythm 的一级模块定义。
 enum RhythmTab {
   today(Icons.nights_stay_outlined, '/'),
   calendar(Icons.calendar_month_outlined, '/calendar'),
@@ -68,13 +68,9 @@ enum RhythmTab {
 
   const RhythmTab(this.icon, this.path);
 
-  /// 底部导航展示图标。
   final IconData icon;
-
-  /// 模块对应的路由路径。
   final String path;
 
-  /// 根据当前语言返回底部导航文案。
   String label(AppLocalizations l10n) {
     switch (this) {
       case RhythmTab.today:
@@ -91,7 +87,7 @@ enum RhythmTab {
   }
 }
 
-/// 创建 App 路由，保持导航规则和 UI 入口解耦。
+/// 创建 App 路由。
 GoRouter createAppRouter() {
   return GoRouter(
     initialLocation: '/launch',
@@ -108,12 +104,9 @@ GoRouter createAppRouter() {
       GoRoute(
         path: onboardingReminderSetupPath,
         builder: (context, state) {
-          // 路由层只做依赖转接，避免提醒页直接感知 Provider 装配细节。
           final container = ProviderScope.containerOf(context, listen: false);
           return ReminderSetupPage(
-            launchStateRepository: container.read(
-              launchStateRepositoryProvider,
-            ),
+            launchStateRepository: container.read(launchStateRepositoryProvider),
           );
         },
       ),
@@ -168,18 +161,14 @@ GoRouter createAppRouter() {
   );
 }
 
-/// 承载五个一级模块的通用页面壳，负责底部导航和当前模块内容。
+/// 带底部导航的通用壳。
 class RhythmShell extends StatelessWidget {
-  /// 创建带底部导航的模块页面壳实例。
+  /// 创建模块壳。
   const RhythmShell({super.key, required this.currentTab, required this.child});
 
-  /// 当前选中的一级模块。
   final RhythmTab currentTab;
-
-  /// 当前模块页面内容。
   final Widget child;
 
-  /// 渲染带底部导航的应用页面。
   @override
   Widget build(BuildContext context) {
     return Builder(
@@ -191,8 +180,7 @@ class RhythmShell extends StatelessWidget {
           bottomNavigationBar: NavigationBar(
             selectedIndex: currentTab.index,
             onDestinationSelected: (index) {
-              final nextTab = RhythmTab.values[index];
-              context.go(nextTab.path);
+              context.go(RhythmTab.values[index].path);
             },
             destinations: [
               for (final tab in RhythmTab.values)
@@ -208,87 +196,74 @@ class RhythmShell extends StatelessWidget {
   }
 }
 
-/// 今日模块入口页，先放置核心价值文案，后续再接入真实作息数据。
+/// 今日页入口。
 class TodayModulePage extends StatelessWidget {
-  /// 创建今日模块入口页实例。
+  /// 创建今日页。
   const TodayModulePage({super.key});
 
-  /// 渲染今日页的首屏骨架。
   @override
   Widget build(BuildContext context) {
-    return Builder(
-      builder: (context) {
-        final textTheme = Theme.of(context).textTheme;
-        final l10n = AppLocalizations.of(context);
+    final textTheme = Theme.of(context).textTheme;
+    final l10n = AppLocalizations.of(context);
 
-        return Padding(
-          padding: const EdgeInsets.all(24),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(l10n.todayPageTitle, style: textTheme.headlineMedium),
-              const SizedBox(height: 24),
-              Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(l10n.todayCardTitle, style: textTheme.titleLarge),
-                      const SizedBox(height: 8),
-                      Text(l10n.todayCardDescription),
-                    ],
-                  ),
-                ),
+    return Padding(
+      padding: const EdgeInsets.all(24),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(l10n.todayPageTitle, style: textTheme.headlineMedium),
+          const SizedBox(height: 24),
+          Card(
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(l10n.todayCardTitle, style: textTheme.titleLarge),
+                  const SizedBox(height: 8),
+                  Text(l10n.todayCardDescription),
+                ],
               ),
-            ],
+            ),
           ),
-        );
-      },
+        ],
+      ),
     );
   }
 }
 
-/// 一级模块的临时入口页，用于在真实功能接入前保持导航闭环完整。
+/// 占位页。
 class ModulePlaceholderPage extends StatelessWidget {
-  /// 创建一级模块占位页实例。
+  /// 创建占位页。
   const ModulePlaceholderPage({
     super.key,
     required this.titleKey,
     required this.descriptionKey,
   });
 
-  /// 模块标题文案键。
   final AppCopyKey titleKey;
-
-  /// 模块说明文案键。
   final AppCopyKey descriptionKey;
 
-  /// 渲染模块入口说明。
   @override
   Widget build(BuildContext context) {
-    return Builder(
-      builder: (context) {
-        final l10n = AppLocalizations.of(context);
-        final textTheme = Theme.of(context).textTheme;
+    final l10n = AppLocalizations.of(context);
+    final textTheme = Theme.of(context).textTheme;
 
-        return Padding(
-          padding: const EdgeInsets.all(24),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(appCopy(l10n, titleKey), style: textTheme.headlineMedium),
-              const SizedBox(height: 24),
-              Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Text(appCopy(l10n, descriptionKey)),
-                ),
-              ),
-            ],
+    return Padding(
+      padding: const EdgeInsets.all(24),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(appCopy(l10n, titleKey), style: textTheme.headlineMedium),
+          const SizedBox(height: 24),
+          Card(
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: Text(appCopy(l10n, descriptionKey)),
+            ),
           ),
-        );
-      },
+        ],
+      ),
     );
   }
 }

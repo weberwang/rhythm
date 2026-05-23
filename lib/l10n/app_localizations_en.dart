@@ -113,67 +113,69 @@ class AppLocalizationsEn extends AppLocalizations {
   String get onboardingStepTwoEyebrow => 'Step 2 / 3';
 
   @override
-  String get onboardingAuthTitle => 'Choose how you want to enter';
+  String get onboardingAuthTitle =>
+      'Get the rhythm moving first; sign in only when sync is needed.';
 
   @override
   String get onboardingAuthDescription =>
-      'You can start anonymously now and decide later whether to connect an Apple or Google account.';
+      'Anonymous entry lowers first-run friction. Sign in is for device transfer and membership sync.';
 
   @override
-  String get onboardingAuthAppleLabel => 'Continue with Apple';
+  String get onboardingAuthAppleLabel => 'Local first';
 
   @override
-  String get onboardingAuthAppleDescription =>
-      'Keep the designed account entry visible while leaving the real SDK integration for a later task.';
+  String get onboardingAuthAppleDescription => 'Data stays on this device';
 
   @override
-  String get onboardingAuthGoogleLabel => 'Continue with Google';
+  String get onboardingAuthGoogleLabel => 'Bind later';
 
   @override
   String get onboardingAuthGoogleDescription =>
-      'Show the intended flow option first, then connect the real login implementation later.';
+      'You can still connect an account later';
 
   @override
   String get onboardingAuthAnonymousButton => 'Continue anonymously';
 
   @override
-  String get onboardingAuthLaterButton => 'Connect later';
+  String get onboardingAuthLaterButton => 'Use Apple';
+
+  @override
+  String get onboardingAuthGoogleButton => 'Use Google';
 
   @override
   String get onboardingStepThreeEyebrow => 'Step 3 / 3';
 
   @override
-  String get onboardingHealthTitle => 'Connect health data for fuller records';
+  String get onboardingHealthTitle => 'Read sleep data';
 
   @override
   String get onboardingHealthDescription =>
-      'Rhythm will eventually use your existing sleep and activity data to help you review routine changes more steadily.';
+      'We only read sleep records and do not use them for medical judgment or ads.';
 
   @override
-  String get onboardingHealthAppleSummary =>
-      'You just chose the Apple entry. You can finish account binding later.';
+  String get onboardingHealthAppleSummary => 'Auto-sync sleep records';
 
   @override
   String get onboardingHealthGoogleSummary =>
-      'You just chose the Google entry. You can finish account binding later.';
+      'The last 30 days will be written into the local rhythm timeline';
 
   @override
   String get onboardingHealthAnonymousSummary =>
-      'You are entering anonymously now and can still bind an account later in settings.';
+      'Authorization failure can fall back';
 
   @override
   String get onboardingHealthDefaultSummary =>
-      'You can first understand what health records help with before deciding whether to authorize.';
+      'Without permission, you can still manually log and generate weekly reports';
 
   @override
-  String get onboardingHealthBenefitTitle => 'Why it helps';
+  String get onboardingHealthBenefitTitle => 'Why enable it';
 
   @override
   String get onboardingHealthBenefitDescription =>
-      'Once health data is connected in a later task, you can reduce manual logging and review trends with better continuity.';
+      'Later health data access reduces manual logging and improves trend review continuity.';
 
   @override
-  String get onboardingHealthCurrentStageTitle => 'What happens in this stage';
+  String get onboardingHealthCurrentStageTitle => 'Stage notes';
 
   @override
   String get onboardingHealthCurrentStageDescription =>
@@ -183,20 +185,30 @@ class AppLocalizationsEn extends AppLocalizations {
   String get onboardingHealthSkipButton => 'Use manual mode first';
 
   @override
-  String get onboardingHealthAuthorizeButton => 'Authorize and continue';
+  String get onboardingHealthAuthorizeButton => 'Authorize sleep data';
 
   @override
-  String get goalSetupEyebrow => 'Goal setup';
+  String get goalSetupEyebrow => 'Set a doable target';
 
   @override
-  String get goalSetupPageTitle => 'Set your target routine';
+  String get goalSetupPageTitle =>
+      'The target is a reference line, not a perfect daily red line.';
 
   @override
   String get goalSetupPageDescription =>
-      'This MVP keeps the form lightweight and locks the first target schedule before reminder preferences are confirmed.';
+      'Start with a basic target, then adjust later anytime.';
 
   @override
   String get goalSetupContinueButton => 'Save goal and continue';
+
+  @override
+  String get goalSetupWorkdayTitle => 'Workday rule';
+
+  @override
+  String get goalSetupWorkdayWeekdays => 'Weekdays first';
+
+  @override
+  String get goalSetupWorkdayFlexible => 'Adjust later';
 
   @override
   String get goalScheduleBedtimeLabel => 'Target bedtime';
@@ -236,14 +248,15 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get reminderSetupEyebrow => 'Reminder setup';
+  String get reminderSetupEyebrow => 'Set reminders just right';
 
   @override
-  String get reminderSetupPageTitle => 'Choose your reminder strategy';
+  String get reminderSetupPageTitle =>
+      'Default to soft reminders and avoid nonstop interruption.';
 
   @override
   String get reminderSetupPageDescription =>
-      'Finish the first-run setup by confirming how gentle nudges should support your target schedule.';
+      'You can start light and decide later whether you need stronger on-time reminders.';
 
   @override
   String get reminderSetupCompleteButton => 'Finish setup and open Today';
@@ -271,6 +284,18 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get reminderLeadTimeTitle => 'Reminder lead time';
+
+  @override
+  String get reminderLeadHintTitle => 'Lead time suggestion';
+
+  @override
+  String get reminderLeadHintEarly => '15 min';
+
+  @override
+  String get reminderLeadHintRecommended => '30 min';
+
+  @override
+  String get reminderLeadHintMinimal => '45 min';
 
   @override
   String reminderLeadTimeValue(int minutes) {

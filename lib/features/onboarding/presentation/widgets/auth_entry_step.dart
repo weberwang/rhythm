@@ -1,118 +1,95 @@
 import 'package:flutter/material.dart';
+import 'package:rhythm/core/presentation/widgets/rhythm_primary_button.dart';
 import 'package:rhythm/core/presentation/widgets/rhythm_secondary_button.dart';
 import 'package:rhythm/features/onboarding/domain/onboarding_draft.dart';
 import 'package:rhythm/features/onboarding/presentation/widgets/onboarding_step_scaffold.dart';
-import 'package:rhythm/l10n/app_localizations.dart';
 
-/// 展示登录方式选择步骤，当前只记录用户选择并允许匿名继续。
+/// 登录选择页，提供匿名进入和后续绑定的入口。
 class AuthEntryStep extends StatelessWidget {
-  /// 创建登录方式选择步骤组件实例。
+  /// 创建登录选择页。
   const AuthEntryStep({super.key, required this.onSelectAuthOption});
 
-  /// 用户选择任一登录方式后的回调。
+  /// 选择某种进入方式。
   final ValueChanged<OnboardingAuthOption> onSelectAuthOption;
 
-  /// 渲染登录方式选择步骤。
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
-
     return OnboardingStepScaffold(
-      eyebrow: l10n.onboardingStepTwoEyebrow,
-      title: l10n.onboardingAuthTitle,
-      description: l10n.onboardingAuthDescription,
+      eyebrow: '匿名也能开始',
+      title: '先把节奏跑起来，登录只在需要同步时再做。',
+      description: '匿名进入降低首启压力，登录用于换机恢复和会员状态同步。',
       content: Column(
-        children: [
-          _AuthOptionCard(
-            label: l10n.onboardingAuthAppleLabel,
-            description: l10n.onboardingAuthAppleDescription,
-            onTap: () => onSelectAuthOption(OnboardingAuthOption.apple),
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: const [
+          _AuthInfoCard(
+            title: '本地优先',
+            description: '数据先留在设备里',
           ),
-          const SizedBox(height: 12),
-          _AuthOptionCard(
-            label: l10n.onboardingAuthGoogleLabel,
-            description: l10n.onboardingAuthGoogleDescription,
-            onTap: () => onSelectAuthOption(OnboardingAuthOption.google),
+          SizedBox(height: 12),
+          _AuthInfoCard(
+            title: '随时绑定',
+            description: '之后再连账号也不会丢',
+          ),
+        ],
+      ),
+      footer: Row(
+        children: [
+          Expanded(
+            child: RhythmSecondaryButton(
+              label: '使用 Apple 继续',
+              onPressed: () => onSelectAuthOption(OnboardingAuthOption.apple),
+            ),
           ),
         ],
       ),
       secondaryAction: RhythmSecondaryButton(
-        label: l10n.onboardingAuthAnonymousButton,
-        onPressed: () => onSelectAuthOption(OnboardingAuthOption.anonymous),
+        label: '使用 Google 继续',
+        onPressed: () => onSelectAuthOption(OnboardingAuthOption.google),
       ),
-      primaryAction: RhythmSecondaryButton(
-        label: l10n.onboardingAuthLaterButton,
+      primaryAction: RhythmPrimaryButton(
+        label: '匿名进入',
         onPressed: () => onSelectAuthOption(OnboardingAuthOption.anonymous),
       ),
     );
   }
 }
 
-/// 承载单个登录入口说明，保持按钮区和说明区分组明确。
-class _AuthOptionCard extends StatelessWidget {
-  /// 创建登录入口卡片实例。
-  const _AuthOptionCard({
-    required this.label,
-    required this.description,
-    required this.onTap,
-  });
+/// 登录页的说明卡。
+class _AuthInfoCard extends StatelessWidget {
+  /// 创建说明卡。
+  const _AuthInfoCard({required this.title, required this.description});
 
-  /// 登录入口标题。
-  final String label;
+  /// 标题。
+  final String title;
 
-  /// 登录入口说明文案。
+  /// 说明。
   final String description;
 
-  /// 点击入口后的回调。
-  final VoidCallback onTap;
-
-  /// 渲染登录入口卡片。
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
 
-    return InkWell(
-      borderRadius: BorderRadius.circular(24),
-      onTap: onTap,
-      child: Ink(
-        width: double.infinity,
-        padding: const EdgeInsets.all(20),
-        decoration: BoxDecoration(
-          color: colorScheme.surface,
-          borderRadius: BorderRadius.circular(24),
-          border: Border.all(color: colorScheme.outlineVariant),
-        ),
-        child: Row(
-          children: [
-            Container(
-              width: 44,
-              height: 44,
-              decoration: BoxDecoration(
-                color: colorScheme.primaryContainer,
-                borderRadius: BorderRadius.circular(14),
-              ),
-              child: Icon(Icons.arrow_forward, color: colorScheme.onPrimary),
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: colorScheme.surfaceContainerHighest.withValues(alpha: 0.35),
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(title, style: textTheme.titleSmall),
+          const SizedBox(height: 6),
+          Text(
+            description,
+            style: textTheme.bodySmall?.copyWith(
+              color: colorScheme.onSurfaceVariant,
+              height: 1.35,
             ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(label, style: textTheme.titleMedium),
-                  const SizedBox(height: 6),
-                  Text(
-                    description,
-                    style: textTheme.bodyMedium?.copyWith(
-                      color: colorScheme.onSurfaceVariant,
-                      height: 1.5,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

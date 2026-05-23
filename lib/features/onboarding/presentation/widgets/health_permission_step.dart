@@ -3,11 +3,10 @@ import 'package:rhythm/core/presentation/widgets/rhythm_primary_button.dart';
 import 'package:rhythm/core/presentation/widgets/rhythm_secondary_button.dart';
 import 'package:rhythm/features/onboarding/domain/onboarding_draft.dart';
 import 'package:rhythm/features/onboarding/presentation/widgets/onboarding_step_scaffold.dart';
-import 'package:rhythm/l10n/app_localizations.dart';
 
-/// 展示健康权限说明步骤，当前仅做价值说明和分流，不接真实系统权限。
+/// 健康权限说明页，只负责说明价值和分流，不接真实系统权限。
 class HealthPermissionStep extends StatelessWidget {
-  /// 创建健康权限说明步骤组件实例。
+  /// 创建权限说明页。
   const HealthPermissionStep({
     super.key,
     required this.selectedAuthOption,
@@ -15,70 +14,77 @@ class HealthPermissionStep extends StatelessWidget {
     required this.onSkip,
   });
 
-  /// 上一步记录的登录方式，用于在说明文案中保持流程连贯。
+  /// 登录方式。
   final OnboardingAuthOption selectedAuthOption;
 
-  /// 点击授权入口后的回调。
+  /// 授权动作。
   final VoidCallback onAuthorize;
 
-  /// 点击跳过入口后的回调。
+  /// 跳过动作。
   final VoidCallback onSkip;
 
-  /// 渲染健康权限说明步骤。
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
     final authSummary = switch (selectedAuthOption) {
-      OnboardingAuthOption.apple => l10n.onboardingHealthAppleSummary,
-      OnboardingAuthOption.google => l10n.onboardingHealthGoogleSummary,
-      OnboardingAuthOption.anonymous => l10n.onboardingHealthAnonymousSummary,
-      OnboardingAuthOption.none => l10n.onboardingHealthDefaultSummary,
+      OnboardingAuthOption.apple => '自动同步睡眠记录',
+      OnboardingAuthOption.google => '近 30 天数据会写入本地节律时间线',
+      OnboardingAuthOption.anonymous => '授权失败可降级',
+      OnboardingAuthOption.none => '没有权限时仍能手动补录并生成周报',
     };
 
     return OnboardingStepScaffold(
-      eyebrow: l10n.onboardingStepThreeEyebrow,
-      title: l10n.onboardingHealthTitle,
-      description: l10n.onboardingHealthDescription,
+      eyebrow: '读取睡眠数据',
+      title: '让结果更省心，但你随时可以跳过，改用手动补录。',
+      description: '我们只读取睡眠记录，不会把数据用于医疗判断或广告。',
       content: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _InfoCard(
-            title: l10n.onboardingHealthBenefitTitle,
-            description: l10n.onboardingHealthBenefitDescription,
+          const _InfoCard(
+            title: '自动同步睡眠记录',
+            description: '近 30 天数据会写入本地节律时间线',
           ),
           const SizedBox(height: 12),
-          _InfoCard(
-            title: l10n.onboardingHealthCurrentStageTitle,
-            description: l10n.onboardingHealthCurrentStageDescription,
+          const _InfoCard(
+            title: '授权失败可降级',
+            description: '没有权限时仍能手动补录并生成周报',
           ),
-          const SizedBox(height: 16),
-          Text(authSummary),
+          const SizedBox(height: 12),
+          const _InfoCard(
+            title: '你可以随时关闭',
+            description: '在系统设置中撤回后仍可继续使用 App',
+          ),
+          const SizedBox(height: 12),
+          Text(
+            authSummary,
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                ),
+          ),
         ],
       ),
-      secondaryAction: RhythmSecondaryButton(
-        label: l10n.onboardingHealthSkipButton,
-        onPressed: onSkip,
-      ),
       primaryAction: RhythmPrimaryButton(
-        label: l10n.onboardingHealthAuthorizeButton,
+        label: '授权读取睡眠数据',
         onPressed: onAuthorize,
+      ),
+      secondaryAction: RhythmSecondaryButton(
+        label: '先用手动模式',
+        onPressed: onSkip,
       ),
     );
   }
 }
 
-/// 展示健康权限页的信息卡片，避免长段文本直接堆叠影响扫描效率。
+/// 权限页的信息卡。
 class _InfoCard extends StatelessWidget {
-  /// 创建信息卡片实例。
+  /// 创建信息卡。
   const _InfoCard({required this.title, required this.description});
 
-  /// 卡片标题。
+  /// 标题。
   final String title;
 
-  /// 卡片说明内容。
+  /// 说明。
   final String description;
 
-  /// 渲染信息卡片。
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
@@ -86,11 +92,17 @@ class _InfoCard extends StatelessWidget {
 
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(18),
       decoration: BoxDecoration(
         color: colorScheme.surface,
-        borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: colorScheme.outlineVariant),
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: const [
+          BoxShadow(
+            color: Color(0x0F000000),
+            blurRadius: 18,
+            offset: Offset(0, 6),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -101,7 +113,7 @@ class _InfoCard extends StatelessWidget {
             description,
             style: textTheme.bodyMedium?.copyWith(
               color: colorScheme.onSurfaceVariant,
-              height: 1.5,
+              height: 1.4,
             ),
           ),
         ],

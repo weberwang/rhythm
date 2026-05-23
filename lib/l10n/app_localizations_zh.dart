@@ -104,83 +104,93 @@ class AppLocalizationsZh extends AppLocalizations {
   String get onboardingStepTwoEyebrow => '第 2 步 / 3';
 
   @override
-  String get onboardingAuthTitle => '选择你的进入方式';
+  String get onboardingAuthTitle => '先把节奏跑起来，登录只在需要同步时再做。';
 
   @override
-  String get onboardingAuthDescription =>
-      '你可以先匿名体验，后续再决定是否绑定 Apple 或 Google 账号。';
+  String get onboardingAuthDescription => '匿名进入降低首启压力，登录用于换机恢复和会员状态同步。';
 
   @override
-  String get onboardingAuthAppleLabel => '使用 Apple 继续';
+  String get onboardingAuthAppleLabel => '本地优先';
 
   @override
-  String get onboardingAuthAppleDescription => '保留设计中的账号入口，当前版本暂不接入真实 SDK。';
+  String get onboardingAuthAppleDescription => '数据先留在设备里';
 
   @override
-  String get onboardingAuthGoogleLabel => '使用 Google 继续';
+  String get onboardingAuthGoogleLabel => '随时绑定';
 
   @override
-  String get onboardingAuthGoogleDescription => '先作为流程选项展示，后续任务再补充真实登录逻辑。';
+  String get onboardingAuthGoogleDescription => '之后再连账号也不会丢';
 
   @override
-  String get onboardingAuthAnonymousButton => '匿名体验';
+  String get onboardingAuthAnonymousButton => '匿名进入';
 
   @override
-  String get onboardingAuthLaterButton => '稍后再绑定账号';
+  String get onboardingAuthLaterButton => '使用 Apple 继续';
+
+  @override
+  String get onboardingAuthGoogleButton => '使用 Google 继续';
 
   @override
   String get onboardingStepThreeEyebrow => '第 3 步 / 3';
 
   @override
-  String get onboardingHealthTitle => '连接健康数据，记录会更完整';
+  String get onboardingHealthTitle => '读取睡眠数据';
 
   @override
-  String get onboardingHealthDescription =>
-      'Rhythm 会优先用你已有的睡眠与活动数据，帮助你更稳定地回看节奏变化。';
+  String get onboardingHealthDescription => '我们只读取睡眠记录，不会把数据用于医疗判断或广告。';
 
   @override
-  String get onboardingHealthAppleSummary => '你刚刚选择了 Apple 入口，后续可再补充账号绑定。';
+  String get onboardingHealthAppleSummary => '自动同步睡眠记录';
 
   @override
-  String get onboardingHealthGoogleSummary => '你刚刚选择了 Google 入口，后续可再补充账号绑定。';
+  String get onboardingHealthGoogleSummary => '近 30 天数据会写入本地节律时间线';
 
   @override
-  String get onboardingHealthAnonymousSummary => '你当前以匿名体验进入，后续也可以在设置里再绑定账号。';
+  String get onboardingHealthAnonymousSummary => '授权失败可降级';
 
   @override
-  String get onboardingHealthDefaultSummary => '你可以先了解健康记录会带来什么，再决定是否授权。';
+  String get onboardingHealthDefaultSummary => '没有权限时仍能手动补录并生成周报';
 
   @override
   String get onboardingHealthBenefitTitle => '为什么建议开启';
 
   @override
   String get onboardingHealthBenefitDescription =>
-      '如果后续接入健康数据，你可以减少手动补录，趋势回顾也会更完整。';
+      '后续接入健康数据后，可减少手动补录并提升趋势回顾完整度。';
 
   @override
   String get onboardingHealthCurrentStageTitle => '当前阶段说明';
 
   @override
   String get onboardingHealthCurrentStageDescription =>
-      '本任务先完成流程说明，不触发真实系统权限请求。';
+      '本任务只完成说明流程，不触发真实系统权限请求。';
 
   @override
   String get onboardingHealthSkipButton => '先用手动模式';
 
   @override
-  String get onboardingHealthAuthorizeButton => '授权并继续';
+  String get onboardingHealthAuthorizeButton => '授权读取睡眠数据';
 
   @override
-  String get goalSetupEyebrow => '目标设置';
+  String get goalSetupEyebrow => '设置一个能做到的目标';
 
   @override
-  String get goalSetupPageTitle => '设置你的目标作息';
+  String get goalSetupPageTitle => '目标是节律的参考线，不是每天必须完美做到的红线。';
 
   @override
-  String get goalSetupPageDescription => '这个 MVP 版本先用轻量表单锁定你的首个目标作息，再进入提醒策略确认。';
+  String get goalSetupPageDescription => '先给出一版基础目标，后面随时可以调整。';
 
   @override
   String get goalSetupContinueButton => '保存目标，继续下一步';
+
+  @override
+  String get goalSetupWorkdayTitle => '工作日规则';
+
+  @override
+  String get goalSetupWorkdayWeekdays => '工作日优先';
+
+  @override
+  String get goalSetupWorkdayFlexible => '后续再调';
 
   @override
   String get goalScheduleBedtimeLabel => '目标入睡时间';
@@ -215,13 +225,13 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
-  String get reminderSetupEyebrow => '提醒策略';
+  String get reminderSetupEyebrow => '把提醒调到刚刚好';
 
   @override
-  String get reminderSetupPageTitle => '选择你的提醒方式';
+  String get reminderSetupPageTitle => '默认只开柔性提醒，不做连续轰炸式打断。';
 
   @override
-  String get reminderSetupPageDescription => '确认好提示节奏后，就可以结束首次设置并进入今日页。';
+  String get reminderSetupPageDescription => '你可以先开轻提醒，后续再决定是否需要到点提醒。';
 
   @override
   String get reminderSetupCompleteButton => '完成设置，进入今日页';
@@ -246,6 +256,18 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get reminderLeadTimeTitle => '提醒提前量';
+
+  @override
+  String get reminderLeadHintTitle => '提前量建议';
+
+  @override
+  String get reminderLeadHintEarly => '15 分钟';
+
+  @override
+  String get reminderLeadHintRecommended => '30 分钟';
+
+  @override
+  String get reminderLeadHintMinimal => '45 分钟';
 
   @override
   String reminderLeadTimeValue(int minutes) {
