@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'onboarding_flow_state.dart';
+part of 'onboarding_flow_controller.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$OnboardingFlowState {
 
- OnboardingFlowStep get currentStep; OnboardingDraft get draft;
+ OnboardingFlowStep get step; OnboardingDraft get draft;
 /// Create a copy of OnboardingFlowState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $OnboardingFlowStateCopyWith<OnboardingFlowState> get copyWith => _$OnboardingFl
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is OnboardingFlowState&&(identical(other.currentStep, currentStep) || other.currentStep == currentStep)&&(identical(other.draft, draft) || other.draft == draft));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is OnboardingFlowState&&(identical(other.step, step) || other.step == step)&&(identical(other.draft, draft) || other.draft == draft));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,currentStep,draft);
+int get hashCode => Object.hash(runtimeType,step,draft);
 
 @override
 String toString() {
-  return 'OnboardingFlowState(currentStep: $currentStep, draft: $draft)';
+  return 'OnboardingFlowState(step: $step, draft: $draft)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $OnboardingFlowStateCopyWith<$Res>  {
   factory $OnboardingFlowStateCopyWith(OnboardingFlowState value, $Res Function(OnboardingFlowState) _then) = _$OnboardingFlowStateCopyWithImpl;
 @useResult
 $Res call({
- OnboardingFlowStep currentStep, OnboardingDraft draft
+ OnboardingFlowStep step, OnboardingDraft draft
 });
 
 
@@ -62,9 +62,9 @@ class _$OnboardingFlowStateCopyWithImpl<$Res>
 
 /// Create a copy of OnboardingFlowState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? currentStep = null,Object? draft = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? step = null,Object? draft = null,}) {
   return _then(_self.copyWith(
-currentStep: null == currentStep ? _self.currentStep : currentStep // ignore: cast_nullable_to_non_nullable
+step: null == step ? _self.step : step // ignore: cast_nullable_to_non_nullable
 as OnboardingFlowStep,draft: null == draft ? _self.draft : draft // ignore: cast_nullable_to_non_nullable
 as OnboardingDraft,
   ));
@@ -160,10 +160,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( OnboardingFlowStep currentStep,  OnboardingDraft draft)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( OnboardingFlowStep step,  OnboardingDraft draft)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _OnboardingFlowState() when $default != null:
-return $default(_that.currentStep,_that.draft);case _:
+return $default(_that.step,_that.draft);case _:
   return orElse();
 
 }
@@ -181,10 +181,10 @@ return $default(_that.currentStep,_that.draft);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( OnboardingFlowStep currentStep,  OnboardingDraft draft)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( OnboardingFlowStep step,  OnboardingDraft draft)  $default,) {final _that = this;
 switch (_that) {
 case _OnboardingFlowState():
-return $default(_that.currentStep,_that.draft);case _:
+return $default(_that.step,_that.draft);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -201,10 +201,10 @@ return $default(_that.currentStep,_that.draft);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( OnboardingFlowStep currentStep,  OnboardingDraft draft)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( OnboardingFlowStep step,  OnboardingDraft draft)?  $default,) {final _that = this;
 switch (_that) {
 case _OnboardingFlowState() when $default != null:
-return $default(_that.currentStep,_that.draft);case _:
+return $default(_that.step,_that.draft);case _:
   return null;
 
 }
@@ -216,10 +216,10 @@ return $default(_that.currentStep,_that.draft);case _:
 
 
 class _OnboardingFlowState implements OnboardingFlowState {
-  const _OnboardingFlowState({this.currentStep = OnboardingFlowStep.welcome, this.draft = const OnboardingDraft()});
+  const _OnboardingFlowState({this.step = OnboardingFlowStep.welcome, this.draft = const OnboardingDraft()});
   
 
-@override@JsonKey() final  OnboardingFlowStep currentStep;
+@override@JsonKey() final  OnboardingFlowStep step;
 @override@JsonKey() final  OnboardingDraft draft;
 
 /// Create a copy of OnboardingFlowState
@@ -232,16 +232,16 @@ _$OnboardingFlowStateCopyWith<_OnboardingFlowState> get copyWith => __$Onboardin
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _OnboardingFlowState&&(identical(other.currentStep, currentStep) || other.currentStep == currentStep)&&(identical(other.draft, draft) || other.draft == draft));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _OnboardingFlowState&&(identical(other.step, step) || other.step == step)&&(identical(other.draft, draft) || other.draft == draft));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,currentStep,draft);
+int get hashCode => Object.hash(runtimeType,step,draft);
 
 @override
 String toString() {
-  return 'OnboardingFlowState(currentStep: $currentStep, draft: $draft)';
+  return 'OnboardingFlowState(step: $step, draft: $draft)';
 }
 
 
@@ -252,7 +252,7 @@ abstract mixin class _$OnboardingFlowStateCopyWith<$Res> implements $OnboardingF
   factory _$OnboardingFlowStateCopyWith(_OnboardingFlowState value, $Res Function(_OnboardingFlowState) _then) = __$OnboardingFlowStateCopyWithImpl;
 @override @useResult
 $Res call({
- OnboardingFlowStep currentStep, OnboardingDraft draft
+ OnboardingFlowStep step, OnboardingDraft draft
 });
 
 
@@ -269,9 +269,9 @@ class __$OnboardingFlowStateCopyWithImpl<$Res>
 
 /// Create a copy of OnboardingFlowState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? currentStep = null,Object? draft = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? step = null,Object? draft = null,}) {
   return _then(_OnboardingFlowState(
-currentStep: null == currentStep ? _self.currentStep : currentStep // ignore: cast_nullable_to_non_nullable
+step: null == step ? _self.step : step // ignore: cast_nullable_to_non_nullable
 as OnboardingFlowStep,draft: null == draft ? _self.draft : draft // ignore: cast_nullable_to_non_nullable
 as OnboardingDraft,
   ));

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rhythm/core/presentation/widgets/rhythm_primary_button.dart';
 import 'package:rhythm/features/onboarding/presentation/widgets/onboarding_step_scaffold.dart';
+import 'package:rhythm/l10n/app_localizations.dart';
 
 /// 展示首次引导欢迎页，向用户说明产品价值并进入下一步。
 class OnboardingWelcomeStep extends StatelessWidget {
@@ -15,11 +16,12 @@ class OnboardingWelcomeStep extends StatelessWidget {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
+    final l10n = AppLocalizations.of(context);
 
     return OnboardingStepScaffold(
-      eyebrow: '首次引导占位页',
-      title: '欢迎使用 Rhythm',
-      description: '从今晚开始，用更温和的方式建立稳定作息，先完成 3 步基础设置。',
+      eyebrow: l10n.onboardingStepOneEyebrow,
+      title: l10n.onboardingWelcomeTitle,
+      description: l10n.onboardingWelcomeDescription,
       content: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -34,21 +36,21 @@ class OnboardingWelcomeStep extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('你将会完成', style: textTheme.titleMedium),
+                Text(l10n.onboardingWelcomeChecklistTitle, style: textTheme.titleMedium),
                 const SizedBox(height: 16),
                 _WelcomeBullet(
-                  title: '选择进入方式',
-                  description: '支持匿名体验，也为后续接入 Apple / Google 登录预留入口。',
+                  title: l10n.onboardingWelcomeBulletAuthTitle,
+                  description: l10n.onboardingWelcomeBulletAuthDescription,
                 ),
                 const SizedBox(height: 12),
                 _WelcomeBullet(
-                  title: '了解健康数据价值',
-                  description: '先说明记录价值，暂不请求真实系统权限。',
+                  title: l10n.onboardingWelcomeBulletHealthTitle,
+                  description: l10n.onboardingWelcomeBulletHealthDescription,
                 ),
                 const SizedBox(height: 12),
                 _WelcomeBullet(
-                  title: '进入目标设置',
-                  description: '本任务只负责把流程导向下一步，不实现目标设置页面内容。',
+                  title: l10n.onboardingWelcomeBulletGoalTitle,
+                  description: l10n.onboardingWelcomeBulletGoalDescription,
                 ),
               ],
             ),
@@ -56,7 +58,7 @@ class OnboardingWelcomeStep extends StatelessWidget {
         ],
       ),
       primaryAction: RhythmPrimaryButton(
-        label: '开始设置',
+        label: l10n.onboardingWelcomePrimaryButton,
         onPressed: onContinue,
       ),
     );

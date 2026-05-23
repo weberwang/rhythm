@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rhythm/core/presentation/widgets/rhythm_secondary_button.dart';
 import 'package:rhythm/features/onboarding/domain/onboarding_draft.dart';
 import 'package:rhythm/features/onboarding/presentation/widgets/onboarding_step_scaffold.dart';
+import 'package:rhythm/l10n/app_localizations.dart';
 
 /// 展示登录方式选择步骤，当前只记录用户选择并允许匿名继续。
 class AuthEntryStep extends StatelessWidget {
@@ -14,31 +15,33 @@ class AuthEntryStep extends StatelessWidget {
   /// 渲染登录方式选择步骤。
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+
     return OnboardingStepScaffold(
-      eyebrow: '第 2 步 / 3',
-      title: '选择你的进入方式',
-      description: '你可以先匿名体验，后续再决定是否绑定 Apple 或 Google 账号。',
+      eyebrow: l10n.onboardingStepTwoEyebrow,
+      title: l10n.onboardingAuthTitle,
+      description: l10n.onboardingAuthDescription,
       content: Column(
         children: [
           _AuthOptionCard(
-            label: '使用 Apple 继续',
-            description: '保留设计中的账号入口，当前版本暂不接入真实 SDK。',
+            label: l10n.onboardingAuthAppleLabel,
+            description: l10n.onboardingAuthAppleDescription,
             onTap: () => onSelectAuthOption(OnboardingAuthOption.apple),
           ),
           const SizedBox(height: 12),
           _AuthOptionCard(
-            label: '使用 Google 继续',
-            description: '先作为流程选项展示，后续任务再补充真实登录逻辑。',
+            label: l10n.onboardingAuthGoogleLabel,
+            description: l10n.onboardingAuthGoogleDescription,
             onTap: () => onSelectAuthOption(OnboardingAuthOption.google),
           ),
         ],
       ),
       secondaryAction: RhythmSecondaryButton(
-        label: '匿名体验',
+        label: l10n.onboardingAuthAnonymousButton,
         onPressed: () => onSelectAuthOption(OnboardingAuthOption.anonymous),
       ),
       primaryAction: RhythmSecondaryButton(
-        label: '稍后再绑定账号',
+        label: l10n.onboardingAuthLaterButton,
         onPressed: () => onSelectAuthOption(OnboardingAuthOption.anonymous),
       ),
     );

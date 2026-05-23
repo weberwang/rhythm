@@ -66,7 +66,12 @@ class OnboardingStepScaffold extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 24),
-              Expanded(child: content),
+              // 引导页在小视口和测试环境下都要稳定展示，主体区改为可滚动避免溢出。
+              Expanded(
+                child: SingleChildScrollView(
+                  child: content,
+                ),
+              ),
               if (footer != null) ...[
                 footer!,
                 const SizedBox(height: 16),

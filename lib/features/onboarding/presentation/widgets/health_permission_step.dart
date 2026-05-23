@@ -3,6 +3,7 @@ import 'package:rhythm/core/presentation/widgets/rhythm_primary_button.dart';
 import 'package:rhythm/core/presentation/widgets/rhythm_secondary_button.dart';
 import 'package:rhythm/features/onboarding/domain/onboarding_draft.dart';
 import 'package:rhythm/features/onboarding/presentation/widgets/onboarding_step_scaffold.dart';
+import 'package:rhythm/l10n/app_localizations.dart';
 
 /// 展示健康权限说明步骤，当前仅做价值说明和分流，不接真实系统权限。
 class HealthPermissionStep extends StatelessWidget {
@@ -26,39 +27,40 @@ class HealthPermissionStep extends StatelessWidget {
   /// 渲染健康权限说明步骤。
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     final authSummary = switch (selectedAuthOption) {
-      OnboardingAuthOption.apple => '你刚刚选择了 Apple 入口，后续可再补充账号绑定。',
-      OnboardingAuthOption.google => '你刚刚选择了 Google 入口，后续可再补充账号绑定。',
-      OnboardingAuthOption.anonymous => '你当前以匿名体验进入，后续也可以在设置里再绑定账号。',
-      OnboardingAuthOption.none => '你可以先了解健康记录会带来什么，再决定是否授权。',
+      OnboardingAuthOption.apple => l10n.onboardingHealthAppleSummary,
+      OnboardingAuthOption.google => l10n.onboardingHealthGoogleSummary,
+      OnboardingAuthOption.anonymous => l10n.onboardingHealthAnonymousSummary,
+      OnboardingAuthOption.none => l10n.onboardingHealthDefaultSummary,
     };
 
     return OnboardingStepScaffold(
-      eyebrow: '第 3 步 / 3',
-      title: '连接健康数据，记录会更完整',
-      description: 'Rhythm 会优先用你已有的睡眠与活动数据，帮助你更稳定地回看节奏变化。',
+      eyebrow: l10n.onboardingStepThreeEyebrow,
+      title: l10n.onboardingHealthTitle,
+      description: l10n.onboardingHealthDescription,
       content: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _InfoCard(
-            title: '为什么建议开启',
-            description: '如果后续接入健康数据，你可以减少手动补录，趋势回顾也会更完整。',
+            title: l10n.onboardingHealthBenefitTitle,
+            description: l10n.onboardingHealthBenefitDescription,
           ),
           const SizedBox(height: 12),
           _InfoCard(
-            title: '当前阶段说明',
-            description: '本任务先完成流程说明，不触发真实系统权限请求。',
+            title: l10n.onboardingHealthCurrentStageTitle,
+            description: l10n.onboardingHealthCurrentStageDescription,
           ),
           const SizedBox(height: 16),
           Text(authSummary),
         ],
       ),
       secondaryAction: RhythmSecondaryButton(
-        label: '先用手动模式',
+        label: l10n.onboardingHealthSkipButton,
         onPressed: onSkip,
       ),
       primaryAction: RhythmPrimaryButton(
-        label: '授权并继续',
+        label: l10n.onboardingHealthAuthorizeButton,
         onPressed: onAuthorize,
       ),
     );

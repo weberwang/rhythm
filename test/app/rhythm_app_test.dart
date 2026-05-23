@@ -1,37 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:rhythm/app/bootstrap/launch_state_provider.dart';
-import 'package:rhythm/app/bootstrap/launch_state_repository.dart';
-import 'package:rhythm/app/rhythm_app.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-/// 创建用于根应用测试的共享偏好实例。
-Future<SharedPreferences> createRootAppTestPreferences() async {
-  SharedPreferences.setMockInitialValues({
-    LaunchStateRepository.onboardingCompletedKey: true,
-  });
-  return SharedPreferences.getInstance();
-}
+import '../support/test_app.dart';
 
-/// 构建显式注入启动依赖的根应用测试装配。
-Future<void> pumpRootApp(WidgetTester tester) async {
-  final sharedPreferences = await createRootAppTestPreferences();
-
-  await tester.pumpWidget(
-    ProviderScope(
-      overrides: [
-        sharedPreferencesProvider.overrideWithValue(sharedPreferences),
-      ],
-      child: const RhythmApp(),
-    ),
-  );
-}
-
-/// 验证根应用在显式注入启动依赖后保持既有导航与主题行为。
+/// 验证根应用在不同首次引导状态下维持既有主题与主导航行为。
 void main() {
+  testWidgets('英文环境下首页和底部导航文案使用国际化资源', (tester) async {
+    await pumpRhythmApp(
+      tester,
+      onboardingCompleted: true,
+      locale: const Locale('en'),
+    );
+    await tester.pumpAndSettle();
+
+    expect(find.text('Today'), findsWidgets);
+    expect(find.text('Calendar'), findsOneWidget);
+    expect(find.text('Take it lighter tonight'), findsOneWidget);
+  });
+
   testWidgets('应用同时挂载亮色和暗色主题并跟随系统', (tester) async {
-    await pumpRootApp(tester);
+    await pumpRhythmApp(tester, onboardingCompleted: true);
 
     final materialApp = tester.widget<MaterialApp>(find.byType(MaterialApp));
 
@@ -45,9 +33,15 @@ void main() {
     );
   });
 
-  testWidgets('启动后展示五个一级模块并默认进入今日页', (tester) async {
-    await pumpRootApp(tester);
-    await tester.pump();
+  testWidgets('首次打开默认进入引导流', (tester) async {
+    await pumpRhythmApp(tester, onboardingCompleted: false);
+    await tester.pumpAndSettle();
+
+    expect(find.text('欢迎使用 Rhythm'), findsOneWidget);
+  });
+
+  testWidgets('完成引导后展示五个一级模块并默认进入今日页', (tester) async {
+    await pumpRhythmApp(tester, onboardingCompleted: true);
     await tester.pumpAndSettle();
 
     expect(find.text('今日'), findsWidgets);
@@ -59,8 +53,7 @@ void main() {
   });
 
   testWidgets('点击底部模块后切换到对应页面', (tester) async {
-    await pumpRootApp(tester);
-    await tester.pump();
+    await pumpRhythmApp(tester, onboardingCompleted: true);
     await tester.pumpAndSettle();
 
     await tester.tap(find.text('日历'));

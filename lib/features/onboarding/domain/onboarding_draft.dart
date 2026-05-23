@@ -2,17 +2,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'onboarding_draft.freezed.dart';
 
-/// 定义首次引导阶段暂存的用户选择，优先使用代码生成保持值语义和 copyWith 一致。
-@freezed
-abstract class OnboardingDraft with _$OnboardingDraft {
-  /// 创建首次引导草稿实例。
-  const factory OnboardingDraft({
-    @Default(OnboardingAuthOption.none) OnboardingAuthOption authOption,
-    @Default(OnboardingHealthPermissionAction.none)
-    OnboardingHealthPermissionAction healthPermissionAction,
-  }) = _OnboardingDraft;
-}
-
 /// 定义引导阶段可选的登录方式，后续接真实 SDK 时只需补齐对应分支。
 enum OnboardingAuthOption {
   /// 尚未选择登录方式。
@@ -38,4 +27,15 @@ enum OnboardingHealthPermissionAction {
 
   /// 用户选择先以手动模式继续。
   skip,
+}
+
+/// 承载首次引导阶段暂存的用户选择，集中保存三步流中的最小状态。
+@freezed
+abstract class OnboardingDraft with _$OnboardingDraft {
+  /// 创建首次引导草稿实例。
+  const factory OnboardingDraft({
+    @Default(OnboardingAuthOption.none) OnboardingAuthOption authOption,
+    @Default(OnboardingHealthPermissionAction.none)
+    OnboardingHealthPermissionAction healthPermissionAction,
+  }) = _OnboardingDraft;
 }
