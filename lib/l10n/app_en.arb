@@ -275,5 +275,36 @@
         "type": "int"
       }
     }
-  }
+  },
+  "bedtimePageTitle": "Bedtime mode",
+  "bedtimeCountdownTitle": "Tonight target",
+  "bedtimeTargetDiffAhead": "{minutes} minutes until your target bedtime",
+  "@bedtimeTargetDiffAhead": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "bedtimeTargetDiffLate": "{minutes} minutes past your target bedtime",
+  "@bedtimeTargetDiffLate": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "bedtimeStatusTitle": "How is tonight feeling?",
+  "bedtimeStatusReady": "Ready to sleep",
+  "bedtimeStatusMoreTime": "I want a bit more time",
+  "bedtimeStatusLikelyLate": "I will probably sleep late tonight",
+  "bedtimeActionTitle": "A lighter next step",
+  "bedtimeActionDimLights": "Dim the lights a bit first",
+  "bedtimeActionPutPhoneAway": "Put the phone away for now",
+  "bedtimeActionTenMinuteWrapUp": "Give yourself 10 minutes to wrap up",
+  "bedtimeActionCloseTonight": "Close tonight as soon as you can",
+  "bedtimeActionPlanRecoveryTomorrow": "Plan a lighter recovery step for tomorrow morning",
+  "bedtimeGoalMissingTitle": "Set tonight’s target first",
+  "bedtimeGoalMissingDescription": "Bedtime mode needs your target schedule before it can calculate tonight’s countdown.",
+  "bedtimeGoalMissingButton": "Set your schedule goal"
 }

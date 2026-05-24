@@ -3,6 +3,10 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rhythm/app/bootstrap/launch_state_repository.dart';
 import 'package:rhythm/core/presentation/widgets/rhythm_primary_button.dart';
+import 'package:rhythm/core/time/time_context_provider.dart';
+import 'package:rhythm/features/goal_schedule/application/goal_schedule_providers.dart';
+import 'package:rhythm/features/notifications/application/bedtime_reminder_scheduler.dart';
+import 'package:rhythm/features/notifications/application/reminder_settings_controller.dart';
 import 'package:rhythm/features/notifications/presentation/widgets/reminder_strategy_form_section.dart';
 import 'package:rhythm/l10n/app_localizations.dart';
 
@@ -19,7 +23,17 @@ class ReminderSetupPage extends HookConsumerWidget {
   /// 首启状态仓储。
   final LaunchStateRepository launchStateRepository;
 
-  Future<void> _completeOnboarding(BuildContext context) async {
+  Future<void> _completeOnboarding(BuildContext context, WidgetRef ref) async {
+    final settings = ref.read(reminderSettingsControllerProvider);
+    final goalSettings = await ref.read(savedGoalScheduleSettingsProvider.future);
+    final timeContext = ref.read(timeContextProvider);
+    await ref
+        .read(bedtimeReminderSchedulerProvider)
+        .scheduleForCurrentSettings(
+          settings: settings,
+          goalSettings: goalSettings,
+          now: timeContext.now,
+        );
     await launchStateRepository.markOnboardingCompleted();
     if (context.mounted) {
       context.go(RhythmTab.today.path);
@@ -45,10 +59,10 @@ class ReminderSetupPage extends HookConsumerWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const _HeaderPill(text: '把提醒调到刚刚好'),
+                      _HeaderPill(text: l10n.reminderSetupEyebrow),
                       const SizedBox(height: 8),
                       Text(
-                        '默认只开柔性提醒，不做连续轰炸式打断。',
+                        l10n.reminderSetupPageTitle,
                         style: textTheme.headlineMedium?.copyWith(
                           fontFamily: 'Funnel Sans',
                           fontWeight: FontWeight.w700,
@@ -58,7 +72,7 @@ class ReminderSetupPage extends HookConsumerWidget {
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        '你可以先开轻提醒，后续再决定是否需要到点提醒。',
+                        l10n.reminderSetupPageDescription,
                         style: textTheme.bodyLarge?.copyWith(
                           fontFamily: 'Geist',
                           color: colorScheme.onSurfaceVariant,
@@ -76,7 +90,7 @@ class ReminderSetupPage extends HookConsumerWidget {
               const SizedBox(height: 12),
               RhythmPrimaryButton(
                 label: l10n.reminderSetupCompleteButton,
-                onPressed: () => _completeOnboarding(context),
+                onPressed: () => _completeOnboarding(context, ref),
               ),
             ],
           ),
@@ -132,18 +146,23 @@ class _LeadTimeHintCard extends StatelessWidget {
         color: colorScheme.tertiaryContainer,
         borderRadius: BorderRadius.circular(16),
       ),
-      child: Column(
+        child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('提前量建议', style: textTheme.titleMedium),
+          Text(
+            AppLocalizations.of(context).reminderLeadHintTitle,
+            style: textTheme.titleMedium,
+          ),
           const SizedBox(height: 10),
           Wrap(
             spacing: 8,
             runSpacing: 8,
-            children: const [
-              _Chip(text: '15 分钟'),
-              _Chip(text: '30 分钟'),
-              _Chip(text: '45 分钟'),
+            children: [
+              _Chip(text: AppLocalizations.of(context).reminderLeadHintEarly),
+              _Chip(
+                text: AppLocalizations.of(context).reminderLeadHintRecommended,
+              ),
+              _Chip(text: AppLocalizations.of(context).reminderLeadHintMinimal),
             ],
           ),
         ],

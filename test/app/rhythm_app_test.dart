@@ -16,6 +16,9 @@ void main() {
     expect(find.text('Today'), findsWidgets);
     expect(find.text('Calendar'), findsOneWidget);
     expect(find.text('Set a sleep goal first'), findsOneWidget);
+    await tester.tap(find.text('Bedtime'));
+    await tester.pumpAndSettle();
+    expect(find.text('Set tonight’s target first'), findsOneWidget);
   });
 
   testWidgets('应用同时挂载亮色和暗色主题并跟随系统', (tester) async {
@@ -60,5 +63,10 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('用热力图看清最近的作息节奏。'), findsOneWidget);
+
+    await tester.tap(find.text('睡前'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('还没有设置今晚目标'), findsOneWidget);
   });
 }

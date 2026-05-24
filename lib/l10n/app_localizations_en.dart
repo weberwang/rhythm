@@ -520,4 +520,62 @@ class AppLocalizationsEn extends AppLocalizations {
   String reminderLeadTimeValue(int minutes) {
     return '$minutes minutes before target bedtime';
   }
+
+  @override
+  String get bedtimePageTitle => 'Bedtime mode';
+
+  @override
+  String get bedtimeCountdownTitle => 'Tonight target';
+
+  @override
+  String bedtimeTargetDiffAhead(int minutes) {
+    return '$minutes minutes until your target bedtime';
+  }
+
+  @override
+  String bedtimeTargetDiffLate(int minutes) {
+    return '$minutes minutes past your target bedtime';
+  }
+
+  @override
+  String get bedtimeStatusTitle => 'How is tonight feeling?';
+
+  @override
+  String get bedtimeStatusReady => 'Ready to sleep';
+
+  @override
+  String get bedtimeStatusMoreTime => 'I want a bit more time';
+
+  @override
+  String get bedtimeStatusLikelyLate => 'I will probably sleep late tonight';
+
+  @override
+  String get bedtimeActionTitle => 'A lighter next step';
+
+  @override
+  String get bedtimeActionDimLights => 'Dim the lights a bit first';
+
+  @override
+  String get bedtimeActionPutPhoneAway => 'Put the phone away for now';
+
+  @override
+  String get bedtimeActionTenMinuteWrapUp =>
+      'Give yourself 10 minutes to wrap up';
+
+  @override
+  String get bedtimeActionCloseTonight => 'Close tonight as soon as you can';
+
+  @override
+  String get bedtimeActionPlanRecoveryTomorrow =>
+      'Plan a lighter recovery step for tomorrow morning';
+
+  @override
+  String get bedtimeGoalMissingTitle => 'Set tonight’s target first';
+
+  @override
+  String get bedtimeGoalMissingDescription =>
+      'Bedtime mode needs your target schedule before it can calculate tonight’s countdown.';
+
+  @override
+  String get bedtimeGoalMissingButton => 'Set your schedule goal';
 }

@@ -479,4 +479,59 @@ class AppLocalizationsZh extends AppLocalizations {
   String reminderLeadTimeValue(int minutes) {
     return '在目标入睡前 $minutes 分钟提醒';
   }
+
+  @override
+  String get bedtimePageTitle => '睡前模式';
+
+  @override
+  String get bedtimeCountdownTitle => '今晚目标';
+
+  @override
+  String bedtimeTargetDiffAhead(int minutes) {
+    return '距离目标入睡还有 $minutes 分钟';
+  }
+
+  @override
+  String bedtimeTargetDiffLate(int minutes) {
+    return '已经晚于目标入睡 $minutes 分钟';
+  }
+
+  @override
+  String get bedtimeStatusTitle => '今晚现在更像哪种状态？';
+
+  @override
+  String get bedtimeStatusReady => '准备睡觉';
+
+  @override
+  String get bedtimeStatusMoreTime => '还想拖一会儿';
+
+  @override
+  String get bedtimeStatusLikelyLate => '今晚大概率会晚睡';
+
+  @override
+  String get bedtimeActionTitle => '下一步先轻一点';
+
+  @override
+  String get bedtimeActionDimLights => '先把灯光收暗一点';
+
+  @override
+  String get bedtimeActionPutPhoneAway => '先把手机放远一点';
+
+  @override
+  String get bedtimeActionTenMinuteWrapUp => '给自己 10 分钟收尾';
+
+  @override
+  String get bedtimeActionCloseTonight => '今晚先尽快收尾';
+
+  @override
+  String get bedtimeActionPlanRecoveryTomorrow => '给明早留一个轻恢复动作';
+
+  @override
+  String get bedtimeGoalMissingTitle => '还没有设置今晚目标';
+
+  @override
+  String get bedtimeGoalMissingDescription => '睡前模式需要先知道你的目标作息，才能给出今晚倒计时和建议。';
+
+  @override
+  String get bedtimeGoalMissingButton => '去设置目标作息';
 }

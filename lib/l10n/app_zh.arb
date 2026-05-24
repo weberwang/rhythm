@@ -171,5 +171,36 @@
         "type": "int"
       }
     }
-  }
+  },
+  "bedtimePageTitle": "睡前模式",
+  "bedtimeCountdownTitle": "今晚目标",
+  "bedtimeTargetDiffAhead": "距离目标入睡还有 {minutes} 分钟",
+  "@bedtimeTargetDiffAhead": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "bedtimeTargetDiffLate": "已经晚于目标入睡 {minutes} 分钟",
+  "@bedtimeTargetDiffLate": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "bedtimeStatusTitle": "今晚现在更像哪种状态？",
+  "bedtimeStatusReady": "准备睡觉",
+  "bedtimeStatusMoreTime": "还想拖一会儿",
+  "bedtimeStatusLikelyLate": "今晚大概率会晚睡",
+  "bedtimeActionTitle": "下一步先轻一点",
+  "bedtimeActionDimLights": "先把灯光收暗一点",
+  "bedtimeActionPutPhoneAway": "先把手机放远一点",
+  "bedtimeActionTenMinuteWrapUp": "给自己 10 分钟收尾",
+  "bedtimeActionCloseTonight": "今晚先尽快收尾",
+  "bedtimeActionPlanRecoveryTomorrow": "给明早留一个轻恢复动作",
+  "bedtimeGoalMissingTitle": "还没有设置今晚目标",
+  "bedtimeGoalMissingDescription": "睡前模式需要先知道你的目标作息，才能给出今晚倒计时和建议。",
+  "bedtimeGoalMissingButton": "去设置目标作息"
 }

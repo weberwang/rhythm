@@ -5,6 +5,7 @@ import 'package:rhythm/app/bootstrap/launch_state_provider.dart';
 import 'package:rhythm/features/goal_schedule/presentation/goal_setup_page.dart';
 import 'package:rhythm/features/notifications/presentation/reminder_setup_page.dart';
 import 'package:rhythm/features/onboarding/presentation/onboarding_flow_page.dart';
+import 'package:rhythm/features/bedtime/presentation/bedtime_page.dart';
 import 'package:rhythm/features/sleep_records/presentation/manual_sleep_record_page.dart';
 import 'package:rhythm/features/sleep_records/presentation/sleep_records_hub_page.dart';
 import 'package:rhythm/features/today/presentation/today_page.dart';
@@ -26,6 +27,9 @@ const String sleepRecordsHubPath = '/sleep-records/manage';
 
 /// 阶段三手动补录页路由路径。
 const String manualSleepRecordPath = '/sleep-records/manual';
+
+/// 睡前模式页路由路径，供底部导航、通知和小组件统一进入。
+const String bedtimeModePath = '/bedtime';
 
 /// 生成阶段三编辑睡眠记录页路由路径。
 String manualSleepRecordEditPath(String recordId) {
@@ -76,7 +80,7 @@ String appCopy(AppLocalizations l10n, AppCopyKey key) {
 enum RhythmTab {
   today(Icons.nights_stay_outlined, '/'),
   calendar(Icons.calendar_month_outlined, '/calendar'),
-  bedtime(Icons.bedtime_outlined, '/bedtime'),
+  bedtime(Icons.bedtime_outlined, bedtimeModePath),
   insights(Icons.insights_outlined, '/insights'),
   profile(Icons.person_outline, '/profile');
 
@@ -152,13 +156,10 @@ GoRouter createAppRouter() {
         ),
       ),
       GoRoute(
-        path: RhythmTab.bedtime.path,
+        path: bedtimeModePath,
         builder: (context, state) => const RhythmShell(
           currentTab: RhythmTab.bedtime,
-          child: ModulePlaceholderPage(
-            titleKey: AppCopyKey.bedtimeTitle,
-            descriptionKey: AppCopyKey.bedtimeDescription,
-          ),
+          child: BedtimePage(),
         ),
       ),
       GoRoute(

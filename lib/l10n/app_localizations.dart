@@ -1003,6 +1003,108 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{minutes} minutes before target bedtime'**
   String reminderLeadTimeValue(int minutes);
+
+  /// No description provided for @bedtimePageTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Bedtime mode'**
+  String get bedtimePageTitle;
+
+  /// No description provided for @bedtimeCountdownTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Tonight target'**
+  String get bedtimeCountdownTitle;
+
+  /// No description provided for @bedtimeTargetDiffAhead.
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes} minutes until your target bedtime'**
+  String bedtimeTargetDiffAhead(int minutes);
+
+  /// No description provided for @bedtimeTargetDiffLate.
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes} minutes past your target bedtime'**
+  String bedtimeTargetDiffLate(int minutes);
+
+  /// No description provided for @bedtimeStatusTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'How is tonight feeling?'**
+  String get bedtimeStatusTitle;
+
+  /// No description provided for @bedtimeStatusReady.
+  ///
+  /// In en, this message translates to:
+  /// **'Ready to sleep'**
+  String get bedtimeStatusReady;
+
+  /// No description provided for @bedtimeStatusMoreTime.
+  ///
+  /// In en, this message translates to:
+  /// **'I want a bit more time'**
+  String get bedtimeStatusMoreTime;
+
+  /// No description provided for @bedtimeStatusLikelyLate.
+  ///
+  /// In en, this message translates to:
+  /// **'I will probably sleep late tonight'**
+  String get bedtimeStatusLikelyLate;
+
+  /// No description provided for @bedtimeActionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'A lighter next step'**
+  String get bedtimeActionTitle;
+
+  /// No description provided for @bedtimeActionDimLights.
+  ///
+  /// In en, this message translates to:
+  /// **'Dim the lights a bit first'**
+  String get bedtimeActionDimLights;
+
+  /// No description provided for @bedtimeActionPutPhoneAway.
+  ///
+  /// In en, this message translates to:
+  /// **'Put the phone away for now'**
+  String get bedtimeActionPutPhoneAway;
+
+  /// No description provided for @bedtimeActionTenMinuteWrapUp.
+  ///
+  /// In en, this message translates to:
+  /// **'Give yourself 10 minutes to wrap up'**
+  String get bedtimeActionTenMinuteWrapUp;
+
+  /// No description provided for @bedtimeActionCloseTonight.
+  ///
+  /// In en, this message translates to:
+  /// **'Close tonight as soon as you can'**
+  String get bedtimeActionCloseTonight;
+
+  /// No description provided for @bedtimeActionPlanRecoveryTomorrow.
+  ///
+  /// In en, this message translates to:
+  /// **'Plan a lighter recovery step for tomorrow morning'**
+  String get bedtimeActionPlanRecoveryTomorrow;
+
+  /// No description provided for @bedtimeGoalMissingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Set tonight’s target first'**
+  String get bedtimeGoalMissingTitle;
+
+  /// No description provided for @bedtimeGoalMissingDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Bedtime mode needs your target schedule before it can calculate tonight’s countdown.'**
+  String get bedtimeGoalMissingDescription;
+
+  /// No description provided for @bedtimeGoalMissingButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Set your schedule goal'**
+  String get bedtimeGoalMissingButton;
 }
 
 class _AppLocalizationsDelegate

@@ -9,13 +9,13 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('先把节奏跑起来'), findsOneWidget);
-    expect(find.text('今晚先轻一点'), findsNothing);
+    expect(find.text('还没有设置作息目标'), findsNothing);
   });
 
   testWidgets('已完成引导时跳转到今日页', (tester) async {
     await pumpRhythmApp(tester, onboardingCompleted: true);
     await tester.pumpAndSettle();
 
-    expect(find.text('今晚先轻一点'), findsOneWidget);
+    expect(find.text('还没有设置作息目标'), findsOneWidget);
   });
 }
