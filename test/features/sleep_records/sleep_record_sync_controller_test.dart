@@ -98,6 +98,16 @@ class _FakeSleepRecordRepository implements SleepRecordRepository {
   }
 
   @override
+  Future<SleepRecord?> readRecordById(String id) async {
+    for (final record in savedRecords) {
+      if (record.id == id) {
+        return record;
+      }
+    }
+    return null;
+  }
+
+  @override
   Future<void> saveRecord(SleepRecord record) async {
     savedRecords.add(record);
   }

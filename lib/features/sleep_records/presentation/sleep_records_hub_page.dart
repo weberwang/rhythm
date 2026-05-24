@@ -157,6 +157,11 @@ class SleepRecordsHubPage extends HookConsumerWidget {
                               '${formatSleepRecordTime(record.fellAsleepAt.hour, record.fellAsleepAt.minute)} - '
                               '${formatSleepRecordTime(record.wokeUpAt.hour, record.wokeUpAt.minute)}',
                             ),
+                            onTap: () {
+                              context.go(
+                                manualSleepRecordEditPath(record.recordId),
+                              );
+                            },
                           ),
                         );
                       },

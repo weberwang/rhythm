@@ -1,14 +1,11 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import '../../support/test_app.dart';
+import '../../support/sleep_records_test_app.dart';
 
 /// 验证阶段三管理页可进入手动补录页。
 void main() {
   testWidgets('从睡眠记录管理页进入手动补录页', (tester) async {
-    await pumpRhythmApp(tester, onboardingCompleted: true);
-    await tester.pumpAndSettle();
-
-    await tester.tap(find.text('进入睡眠记录管理'));
+    await pumpSleepRecordsFlowApp(tester);
     await tester.pumpAndSettle();
 
     await tester.tap(find.text('改用手动模式'));

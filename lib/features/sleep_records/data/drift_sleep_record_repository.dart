@@ -28,6 +28,16 @@ class DriftSleepRecordRepository
   }
 
   @override
+  Future<SleepRecord?> readRecordById(String id) async {
+    for (final record in _records) {
+      if (record.id == id) {
+        return record;
+      }
+    }
+    return null;
+  }
+
+  @override
   Future<List<SleepRecord>> readRecords({
     required DateTime startRecordDate,
     required DateTime endRecordDate,

@@ -18,13 +18,40 @@ import 'package:rhythm/l10n/app_localizations.dart';
 /// 阶段三手动补录页，用于承接无数据和权限失败后的人工补录路径。
 class ManualSleepRecordPage extends HookConsumerWidget {
   /// 创建手动补录页实例。
-  const ManualSleepRecordPage({super.key});
+  const ManualSleepRecordPage({
+    super.key,
+    this.editingRecordId,
+  });
+
+  /// 当前是否处于编辑既有记录场景。
+  final String? editingRecordId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final textTheme = Theme.of(context).textTheme;
     final l10n = AppLocalizations.of(context);
-    final formState = useState(ManualSleepRecordFormState());
+    final existingRecordFuture = useMemoized(
+      () => editingRecordId == null
+          ? Future<SleepRecord?>.value(null)
+          : ref.read(sleepRecordRepositoryProvider).readRecordById(editingRecordId!),
+      [editingRecordId],
+    );
+    final existingRecordSnapshot = useFuture(existingRecordFuture);
+    final existingRecord = existingRecordSnapshot.data;
+    final initialState = existingRecord == null
+        ? ManualSleepRecordFormState()
+        : ManualSleepRecordFormState(
+            sleepHour: existingRecord.fellAsleepAt.hour,
+            sleepMinute: existingRecord.fellAsleepAt.minute,
+            wakeHour: existingRecord.wokeUpAt.hour,
+            wakeMinute: existingRecord.wokeUpAt.minute,
+            isEditing: true,
+          );
+    final formState = useState(initialState);
+    useEffect(() {
+      formState.value = initialState;
+      return null;
+    }, [existingRecord?.id]);
     final state = formState.value;
     final now = DateTime.now();
     final fellAsleepAt = DateTime(
@@ -209,7 +236,7 @@ class ManualSleepRecordPage extends HookConsumerWidget {
                     }
                     formState.value = controller.state;
                     final savedRecord = SleepRecord(
-                      id: 'manual-${now.microsecondsSinceEpoch}',
+                      id: existingRecord?.id ?? 'manual-${now.microsecondsSinceEpoch}',
                       recordDate: recordDate,
                       fellAsleepAt: fellAsleepAt,
                       wokeUpAt: wokeUpAt,
@@ -218,8 +245,8 @@ class ManualSleepRecordPage extends HookConsumerWidget {
                       confidence: SleepRecordConfidence.high,
                       timezone: now.timeZoneName,
                       isUserEdited: true,
-                      sourceRecordId: null,
-                      createdAt: now,
+                      sourceRecordId: existingRecord?.sourceRecordId,
+                      createdAt: existingRecord?.createdAt ?? now,
                       updatedAt: now,
                     );
                     final repository = ref.read(sleepRecordRepositoryProvider);

@@ -26,6 +26,11 @@ const String sleepRecordsHubPath = '/sleep-records/manage';
 /// 阶段三手动补录页路由路径。
 const String manualSleepRecordPath = '/sleep-records/manual';
 
+/// 生成阶段三编辑睡眠记录页路由路径。
+String manualSleepRecordEditPath(String recordId) {
+  return '$manualSleepRecordPath?recordId=$recordId';
+}
+
 /// 一级模块与占位页可复用的文案键。
 enum AppCopyKey {
   goalSetupTitle,
@@ -124,7 +129,9 @@ GoRouter createAppRouter() {
       ),
       GoRoute(
         path: manualSleepRecordPath,
-        builder: (context, state) => const ManualSleepRecordPage(),
+        builder: (context, state) => ManualSleepRecordPage(
+          editingRecordId: state.uri.queryParameters['recordId'],
+        ),
       ),
       GoRoute(
         path: RhythmTab.today.path,

@@ -84,4 +84,27 @@ void main() {
     expect(records.single.recordId, 'manual-1');
     expect(records.single.isUserConfirmed, isTrue);
   });
+
+  test('可按记录主键读取单条底层记录，供编辑页加载既有值', () async {
+    final record = SleepRecord(
+      id: 'manual-edit',
+      recordDate: DateTime.utc(2026, 5, 24),
+      fellAsleepAt: DateTime.utc(2026, 5, 24, 0, 48),
+      wokeUpAt: DateTime.utc(2026, 5, 24, 7, 26),
+      durationMinutes: 398,
+      source: SleepRecordSource.manual,
+      confidence: SleepRecordConfidence.high,
+      timezone: 'Asia/Shanghai',
+      isUserEdited: true,
+      sourceRecordId: null,
+      createdAt: DateTime.utc(2026, 5, 24, 8, 0),
+      updatedAt: DateTime.utc(2026, 5, 24, 8, 0),
+    );
+
+    await repository.saveRecord(record);
+
+    final loaded = await repository.readRecordById('manual-edit');
+
+    expect(loaded, record);
+  });
 }

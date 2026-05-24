@@ -5,6 +5,9 @@ abstract class SleepRecordRepository {
   /// 保存一条原始系统记录或手动补录记录。
   Future<void> saveRecord(SleepRecord record);
 
+  /// 按主键读取单条底层记录，供编辑既有记录场景加载原值。
+  Future<SleepRecord?> readRecordById(String id);
+
   /// 读取指定归属日范围内的底层记录。
   Future<List<SleepRecord>> readRecords({
     required DateTime startRecordDate,
