@@ -380,6 +380,336 @@ abstract class AppLocalizations {
   /// **'Review your week and find clues for a steadier routine.'**
   String get insightsDescription;
 
+  /// No description provided for @insightsViewWeeklyReportButton.
+  ///
+  /// In en, this message translates to:
+  /// **'View full weekly report'**
+  String get insightsViewWeeklyReportButton;
+
+  /// No description provided for @insightsViewHistoryButton.
+  ///
+  /// In en, this message translates to:
+  /// **'View report history'**
+  String get insightsViewHistoryButton;
+
+  /// No description provided for @insightsWeeklyHeadline.
+  ///
+  /// In en, this message translates to:
+  /// **'Your on-track rate was {rate}% over the last 7 days, with a stability score of {score}. The latest night was on {weekday}.'**
+  String insightsWeeklyHeadline(int rate, int score, String weekday);
+
+  /// No description provided for @insightsWeeklyDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'You have already narrowed the swings. Next, handle the most common trigger first: {reason}.'**
+  String insightsWeeklyDescription(String reason);
+
+  /// No description provided for @insightsOnTrackRateLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'On-track rate'**
+  String get insightsOnTrackRateLabel;
+
+  /// No description provided for @insightsStabilityLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Stability'**
+  String get insightsStabilityLabel;
+
+  /// No description provided for @insightsLatestLateTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Latest late night'**
+  String get insightsLatestLateTitle;
+
+  /// No description provided for @insightsNextWeekAdviceTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Next week suggestions'**
+  String get insightsNextWeekAdviceTitle;
+
+  /// No description provided for @insightsNoReasonTags.
+  ///
+  /// In en, this message translates to:
+  /// **'No reason tags yet'**
+  String get insightsNoReasonTags;
+
+  /// No description provided for @insightsNoWeeklyReport.
+  ///
+  /// In en, this message translates to:
+  /// **'No weekly report yet'**
+  String get insightsNoWeeklyReport;
+
+  /// No description provided for @insightsNoHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'No insight history yet'**
+  String get insightsNoHistory;
+
+  /// No description provided for @insightsWeeklyReportPageTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'This week report'**
+  String get insightsWeeklyReportPageTitle;
+
+  /// No description provided for @insightsHistoryPageTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Insight history'**
+  String get insightsHistoryPageTitle;
+
+  /// No description provided for @insightsHistoryHeadline.
+  ///
+  /// In en, this message translates to:
+  /// **'Look back at long-term changes'**
+  String get insightsHistoryHeadline;
+
+  /// No description provided for @insightsHistoryDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'The last 30 days can be viewed directly. Older history hands off to membership here.'**
+  String get insightsHistoryDescription;
+
+  /// No description provided for @insightsHistoryPaywallTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Need a longer timeline?'**
+  String get insightsHistoryPaywallTitle;
+
+  /// No description provided for @insightsHistoryPaywallDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Membership unlocks older history, monthly reports, and a fuller recovery trail.'**
+  String get insightsHistoryPaywallDescription;
+
+  /// No description provided for @insightsHistoryUnlockButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock all insight history'**
+  String get insightsHistoryUnlockButton;
+
+  /// No description provided for @insightsHistoryLocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Outside the free range'**
+  String get insightsHistoryLocked;
+
+  /// No description provided for @insightsHistorySummary.
+  ///
+  /// In en, this message translates to:
+  /// **'On-track rate {rate}% · Stability {score}'**
+  String insightsHistorySummary(int rate, int score);
+
+  /// No description provided for @insightsLatestLateSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'You fell asleep at {time} on {weekday}, which was {minutes} minutes later than your target.'**
+  String insightsLatestLateSummary(String weekday, String time, int minutes);
+
+  /// No description provided for @insightsLatestLateSummaryWithReasons.
+  ///
+  /// In en, this message translates to:
+  /// **'{base} The main reasons were {reasons}.'**
+  String insightsLatestLateSummaryWithReasons(String base, String reasons);
+
+  /// No description provided for @insightsStabilitySummaryInsufficient.
+  ///
+  /// In en, this message translates to:
+  /// **'Not enough samples yet'**
+  String get insightsStabilitySummaryInsufficient;
+
+  /// No description provided for @insightsStabilitySummarySteady.
+  ///
+  /// In en, this message translates to:
+  /// **'This week stayed very steady'**
+  String get insightsStabilitySummarySteady;
+
+  /// No description provided for @insightsStabilitySummaryRecovering.
+  ///
+  /// In en, this message translates to:
+  /// **'This week was not worse. It was settling back down.'**
+  String get insightsStabilitySummaryRecovering;
+
+  /// No description provided for @insightsStabilitySummaryNeedsRecovery.
+  ///
+  /// In en, this message translates to:
+  /// **'This week had obvious swings'**
+  String get insightsStabilitySummaryNeedsRecovery;
+
+  /// No description provided for @insightsStabilityDescriptionInsufficient.
+  ///
+  /// In en, this message translates to:
+  /// **'At least 3 valid days are needed before a formal stability score can be shown.'**
+  String get insightsStabilityDescriptionInsufficient;
+
+  /// No description provided for @insightsStabilityDescriptionSteady.
+  ///
+  /// In en, this message translates to:
+  /// **'Your bedtime offsets and swings were both small, so you can keep the current rhythm.'**
+  String get insightsStabilityDescriptionSteady;
+
+  /// No description provided for @insightsStabilityDescriptionRecovering.
+  ///
+  /// In en, this message translates to:
+  /// **'There is still some drift, but the range is narrowing. Handle the frequent triggers first.'**
+  String get insightsStabilityDescriptionRecovering;
+
+  /// No description provided for @insightsStabilityDescriptionNeedsRecovery.
+  ///
+  /// In en, this message translates to:
+  /// **'The current drift is large enough that a 1 to 3 day recovery plan should come first.'**
+  String get insightsStabilityDescriptionNeedsRecovery;
+
+  /// No description provided for @insightsStabilityExplainerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'How stability is scored'**
+  String get insightsStabilityExplainerTitle;
+
+  /// No description provided for @insightsStabilityScoreLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Current score: {score}'**
+  String insightsStabilityScoreLabel(int score);
+
+  /// No description provided for @insightsStabilitySampleHint.
+  ///
+  /// In en, this message translates to:
+  /// **'A formal stability score appears only after at least 3 valid days.'**
+  String get insightsStabilitySampleHint;
+
+  /// No description provided for @insightsRecoveryEffectTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Recovery effect'**
+  String get insightsRecoveryEffectTitle;
+
+  /// No description provided for @insightsRecoveryNoPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'No recovery plan was triggered this week.'**
+  String get insightsRecoveryNoPlan;
+
+  /// No description provided for @insightsRecoveryPlanSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'After the latest obvious late night, use {days} days to get bedtime back inside the threshold.'**
+  String insightsRecoveryPlanSummary(int days);
+
+  /// No description provided for @insightsRecoveryPlanTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'{days}-day recovery rhythm'**
+  String insightsRecoveryPlanTitle(int days);
+
+  /// No description provided for @insightsRecoveryPlanDetailTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Recovery plan details'**
+  String get insightsRecoveryPlanDetailTitle;
+
+  /// No description provided for @insightsRecoveryStepLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Day {day} · {title}'**
+  String insightsRecoveryStepLabel(int day, String title);
+
+  /// No description provided for @insightsRecoveryStepCloseWorkEarlierTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Pull tonight back first'**
+  String get insightsRecoveryStepCloseWorkEarlierTitle;
+
+  /// No description provided for @insightsRecoveryStepCloseWorkEarlierDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'Finish the last work or entertainment item 45 minutes before your target bedtime.'**
+  String get insightsRecoveryStepCloseWorkEarlierDetail;
+
+  /// No description provided for @insightsRecoveryStepReduceNightNoiseTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reduce the delay buffer'**
+  String get insightsRecoveryStepReduceNightNoiseTitle;
+
+  /// No description provided for @insightsRecoveryStepReduceNightNoiseDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep only one bedtime action tonight so the routine does not slip past the threshold again.'**
+  String get insightsRecoveryStepReduceNightNoiseDetail;
+
+  /// No description provided for @insightsRecoveryStepReviewLateTriggersTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Check whether you are back inside the threshold'**
+  String get insightsRecoveryStepReviewLateTriggersTitle;
+
+  /// No description provided for @insightsRecoveryStepReviewLateTriggersDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'If tonight still runs late, review the late-night triggers and keep the most common one visible.'**
+  String get insightsRecoveryStepReviewLateTriggersDetail;
+
+  /// No description provided for @insightsRecommendationFinishWorkEarlier.
+  ///
+  /// In en, this message translates to:
+  /// **'Finish the last work task before 10:45 PM'**
+  String get insightsRecommendationFinishWorkEarlier;
+
+  /// No description provided for @insightsRecommendationEnableSoftReminder.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn on the soft reminder first on higher-risk midweek days'**
+  String get insightsRecommendationEnableSoftReminder;
+
+  /// No description provided for @insightsRecommendationOpenRecoveryPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'If you run late for 2 days in a row, open the recovery plan immediately'**
+  String get insightsRecommendationOpenRecoveryPlan;
+
+  /// No description provided for @insightsWeekdayMon.
+  ///
+  /// In en, this message translates to:
+  /// **'Mon'**
+  String get insightsWeekdayMon;
+
+  /// No description provided for @insightsWeekdayTue.
+  ///
+  /// In en, this message translates to:
+  /// **'Tue'**
+  String get insightsWeekdayTue;
+
+  /// No description provided for @insightsWeekdayWed.
+  ///
+  /// In en, this message translates to:
+  /// **'Wed'**
+  String get insightsWeekdayWed;
+
+  /// No description provided for @insightsWeekdayThu.
+  ///
+  /// In en, this message translates to:
+  /// **'Thu'**
+  String get insightsWeekdayThu;
+
+  /// No description provided for @insightsWeekdayFri.
+  ///
+  /// In en, this message translates to:
+  /// **'Fri'**
+  String get insightsWeekdayFri;
+
+  /// No description provided for @insightsWeekdaySat.
+  ///
+  /// In en, this message translates to:
+  /// **'Sat'**
+  String get insightsWeekdaySat;
+
+  /// No description provided for @insightsWeekdaySun.
+  ///
+  /// In en, this message translates to:
+  /// **'Sun'**
+  String get insightsWeekdaySun;
+
   /// Profile module placeholder title.
   ///
   /// In en, this message translates to:

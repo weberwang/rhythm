@@ -426,6 +426,10 @@ GoalSchedule + NotificationSetting
 
 目标：让用户在目标时间前进入“准备睡了”的行为干预流程。
 
+- 从阶段五开始直到阶段十一，实施计划统一以 `docs/rhythm-remaining-stages-parallel-implementation-plan-2026-05-24.md` 为准。
+- 这些剩余阶段根据实际情况决定采用串行或并行；对于可拆分的复杂任务，优先采用“共享契约冻结 -> 子代理并行轨道 -> 集成收口 -> 验收回归”的执行模式。
+- 所有显示层实现默认以 `pen/app.pen` 为唯一设计源；若设计稿与现有代码冲突，以 Pencil 设计稿为准。
+
 - 实现睡前页：当前时间、目标时间差、倒计时条、今晚状态选择。
 - 支持三种状态：准备睡觉、还想拖一会儿、今晚大概率会晚睡。
 - 根据状态展示轻量动作建议。
@@ -509,6 +513,24 @@ GoalSchedule + NotificationSetting
 - Widget 测试覆盖日历页有数据、无数据、筛选空结果、单日详情弹层、标签弹层和自定义标签弹层。
 - 集成测试覆盖“日历点击某天 -> 补原因标签 -> 返回详情看到标签”和“筛选晚睡天 -> 清除筛选恢复月视图”两条最小闭环。
 
+并行开发组织方式：
+
+- 串行前置只做共享契约冻结：统一领域模型字段、ViewState 字段、路由参数、埋点参数、国际化 key 命名和测试夹具命名。
+- 前置契约冻结后，领域规则、标签规则、页面组件、弹层组件必须由独立子代理并行开发；每个子代理只接收自己轨道所需上下文，不继承主线程完整上下文。
+- `app_router.dart`、`app_en.arb`、`app_zh.arb`、生成本地化文件和最终 `CalendarController` 装配由集成负责人统一修改，避免多人同时改共享文件。
+- UI 轨道先使用固定 `CalendarViewState` 测试夹具开发，不等待真实 Repository；集成轨道在领域规则和标签规则合入后替换为真实数据流。
+- 每个子代理必须独立跑自己的最小测试，并在返回结果中列出修改文件、测试命令、测试结果、未处理风险和是否触碰共享文件；合流阶段再跑日历专项测试、全量 `flutter test` 和 GitNexus 变更检测。
+- 主线程只负责子代理分派、结果审查、冲突检查和最终合流，不在子代理负责的轨道内手写补丁，除非子代理返回 `BLOCKED` 且需要重新拆分任务。
+
+| 子代理轨道 | 分派时机 | 负责范围 | 主要文件 | 返回要求 |
+| --- | --- | --- | --- | --- |
+| 子代理 A：日历领域规则 | 共享契约已冻结后立即分派 | 热力图等级、月摘要、筛选规则、有效记录口径 | `calendar_day_summary.dart`、`calendar_month_summary.dart`、`calendar_heatmap_rules.dart`、`calendar_filter.dart` | `calendar_heatmap_test.dart` 通过，说明热力图不依赖固定晚睡时间 |
+| 子代理 B：标签领域与保存 | 与子代理 A 同批并行分派 | 默认标签、自定义标签校验、重复合并、标签保存状态 | `sleep_delay_tag.dart`、`sleep_delay_tag_rules.dart`、`sleep_delay_tag_controller.dart` | `sleep_delay_tag_rules_test.dart` 通过，说明标签合并和自定义限制 |
+| 子代理 C：日历页面组件 | `CalendarViewState` 字段冻结后并行分派 | 月份头、热力图、图例、月摘要、页面骨架 | `calendar_page.dart`、`calendar_month_header.dart`、`calendar_heatmap.dart`、`calendar_legend.dart`、`calendar_month_summary_section.dart` | 页面 Widget 测试可用固定状态渲染，说明未接真实 Repository |
+| 子代理 D：弹层组件 | 单日详情 DTO 和标签回调契约冻结后并行分派 | 日详情、筛选、来源说明、标签选择、自定义标签输入 | `calendar_day_detail_sheet.dart`、`calendar_filter_sheet.dart`、`record_source_explainer_sheet.dart`、`sleep_delay_tag_picker_sheet.dart`、`custom_delay_tag_sheet.dart` | 弹层 Widget 测试覆盖打开、选择、保存、关闭，说明未改共享本地化生成文件 |
+| 集成负责人 E：应用集成 | 子代理 A-D 返回并通过审查后执行 | Controller 聚合、路由、埋点、本地化、真实数据流接线 | `calendar_controller.dart`、`calendar_view_state.dart`、`app_router.dart`、`app_en.arb`、`app_zh.arb` | Controller 测试和页面集成测试通过，说明冲突处理结果 |
+| 集成负责人 F：合流验收 | 所有轨道已合入后执行 | 生成本地化、专项测试、全量回归、人工闭环、GitNexus 变更检测 | 测试命令与验收清单 | 专项测试、`flutter test`、人工走查和 `detect_changes` 通过 |
+
 验收：
 
 - 热力图不使用固定 23:00 或 24:00 判断，必须基于用户目标。
@@ -583,13 +605,22 @@ GoalSchedule + NotificationSetting
 - Widget 测试覆盖洞察页、周报详情页、恢复计划详情弹层、稳定度说明弹层和历史洞察页付费拦截。
 - 集成测试覆盖“有 7 天记录 -> 生成周报 -> 打开详情 -> 查看恢复计划 -> 标记完成”的最小闭环。
 
-建议交付顺序：
+并行开发组织：
 
-1. 先完成 `WeeklyReport`、稳定度和原因分布的领域模型与单元测试。
-2. 再完成 `RecoveryPlan` 规则、状态模型和恢复成功判断测试。
-3. 然后实现 `InsightsController`，把周报摘要、恢复计划和会员限制聚合成页面状态。
-4. 接着落地洞察页首屏、周报详情页和历史洞察页，保证核心浏览链路可用。
-5. 最后补齐恢复计划弹层、稳定度说明弹层、国际化文案、埋点和 Widget 测试。
+| 批次 | 可并行泳道 | 负责范围 | 汇合条件 |
+| --- | --- | --- | --- |
+| 第 0 批：契约对齐 | 单泳道先行 | 冻结 `WeeklyReport`、`RecoveryPlan`、`InsightsViewState`、文案 key、埋点参数和测试夹具 | 契约文件、Fake 数据和接口命名确认后再放开并行 |
+| 第 1 批：领域规则并行 | 周报统计、稳定度、恢复计划 | 三组分别实现 `weekly_report_generator`、`stability_score_rules`、`recovery_plan_rules` 和对应单元测试 | 三组单元测试独立通过，且都只依赖第 0 批契约 |
+| 第 2 批：应用与界面并行 | 状态聚合、洞察首页、详情/历史页、弹层/文案 | 应用组聚合 ViewState，页面组用 Fake ViewState 搭 UI，文案组合并 ARB 与生成文件 | Controller 测试、页面冒烟测试、`flutter gen-l10n` 都通过 |
+| 第 3 批：集成收口 | 路由、埋点、Widget 测试、合规扫描 | 统一处理共享文件、跨页面跳转、埋点接入、完整 Widget 覆盖和医疗化禁词扫描 | 洞察相关测试和全量回归通过 |
+
+并行边界：
+
+- 领域规则组只改 `lib/features/insights/domain/` 和 `test/features/insights/*_rules_test.dart`，不修改页面、路由和本地化生成文件。
+- 应用聚合组只改 `lib/features/insights/application/` 和 `insights_controller_test.dart`，通过 Fake Repository/Fake Service 消费领域规则。
+- 页面组只改 `lib/features/insights/presentation/`，在集成前使用 Fake `InsightsViewState` 驱动 UI，不直接接 Repository。
+- 文案与合规组统一负责 `lib/l10n/*.arb`、`flutter gen-l10n` 生成文件和医疗化禁词扫描，其他泳道不并行修改本地化文件。
+- 路由、埋点和共享测试夹具作为汇合点处理，避免多个开发者同时改 `app_router.dart`、埋点入口和测试公共 Fake。
 
 阶段测试清单：
 
@@ -1026,62 +1057,16 @@ P1 看板：
 
 ### 任务 7：实现日历和标签
 
-**文件：**
+**实施任务单：**
 
-- 创建：`lib/features/calendar/presentation/calendar_page.dart`
-- 创建：`lib/features/calendar/presentation/widgets/calendar_month_header.dart`
-- 创建：`lib/features/calendar/presentation/widgets/calendar_heatmap.dart`
-- 创建：`lib/features/calendar/presentation/widgets/calendar_legend.dart`
-- 创建：`lib/features/calendar/presentation/widgets/calendar_month_summary_section.dart`
-- 创建：`lib/features/calendar/presentation/widgets/sheets/calendar_day_detail_sheet.dart`
-- 创建：`lib/features/calendar/presentation/widgets/sheets/calendar_filter_sheet.dart`
-- 创建：`lib/features/calendar/application/calendar_controller.dart`
-- 创建：`lib/features/calendar/application/calendar_view_state.dart`
-- 创建：`lib/features/calendar/domain/calendar_day_summary.dart`
-- 创建：`lib/features/calendar/domain/calendar_month_summary.dart`
-- 创建：`lib/features/calendar/domain/calendar_heatmap_rules.dart`
-- 创建：`lib/features/calendar/domain/calendar_filter.dart`
-- 创建：`lib/features/sleep_records/domain/sleep_delay_tag.dart`
-- 创建：`lib/features/sleep_records/domain/sleep_delay_tag_rules.dart`
-- 创建：`lib/features/sleep_records/application/sleep_delay_tag_controller.dart`
-- 创建：`lib/features/sleep_records/presentation/widgets/sheets/sleep_delay_tag_picker_sheet.dart`
-- 创建：`lib/features/sleep_records/presentation/widgets/sheets/custom_delay_tag_sheet.dart`
-- 创建：`lib/features/sleep_records/presentation/widgets/sheets/record_source_explainer_sheet.dart`
-- 创建：`test/features/calendar/calendar_heatmap_test.dart`
-- 创建：`test/features/calendar/calendar_controller_test.dart`
-- 创建：`test/features/calendar/presentation/calendar_page_test.dart`
-- 创建：`test/features/sleep_records/sleep_delay_tag_rules_test.dart`
-- 创建：`test/features/sleep_records/presentation/sleep_delay_tag_picker_sheet_test.dart`
-- 修改：`lib/app/router/app_router.dart`
-- 修改：`lib/l10n/app_en.arb`
-- 修改：`lib/l10n/app_zh.arb`
+- 独立文档：`docs/rhythm-remaining-stages-parallel-implementation-plan-2026-05-24.md`
 
-**步骤：**
+**执行要求：**
 
-1. 先做 GitNexus 影响分析，分别检查 `appRouter`、睡眠记录 Repository、有效记录查询入口、标签保存入口和本地化生成类的上游影响；如任一结果为 HIGH 或 CRITICAL，先记录风险并暂停确认。
-2. 定义 `CalendarDaySummary`、`CalendarMonthSummary`、`CalendarHeatmapLevel`、`CalendarFilter`、`SleepDelayTag` 和标签规则输入输出，字段必须覆盖日期、有效记录、目标偏差、来源、可信度、标签、备注和筛选状态。
-3. 编写 `calendar_heatmap_test.dart`，覆盖无记录、提前入睡、阈值内、轻度晚睡、明显晚睡、用户修正优先和跨午夜记录归属。
-4. 实现 `calendar_heatmap_rules.dart`，所有颜色等级只基于用户目标入睡时间与熬夜阈值计算，不读取固定晚睡时间。
-5. 编写 `sleep_delay_tag_rules_test.dart`，覆盖默认标签顺序、自定义标签 1-12 字符限制、空白裁剪、重复标签合并和标签数量上限。
-6. 实现 `sleep_delay_tag.dart` 与 `sleep_delay_tag_rules.dart`，默认标签固定为刷手机、加班、游戏、追剧、情绪、聚会、时差、其他。
-7. 编写 `calendar_controller_test.dart`，覆盖月份切换、可见周补齐、无目标空态、无记录空态、权限失败空态、筛选空结果、打开单日详情和保存标签后刷新状态。
-8. 实现 `calendar_controller.dart` 与 `calendar_view_state.dart`，由应用层聚合目标作息、有效睡眠记录、标签、筛选和弹层状态，页面不得直接拼接多个 Repository。
-9. 在 `app_router.dart` 确认 `/calendar` 一级路由挂载到已有底部导航 Shell，并补齐从日历详情进入手动补录/编辑页的跳转参数。
-10. 实现 `calendar_page.dart` 页面骨架，使用 `HookConsumerWidget` 读取 `CalendarViewState`，组合月份头、筛选入口、热力图、图例和月摘要。
-11. 实现 `calendar_heatmap.dart`、`calendar_month_header.dart`、`calendar_legend.dart` 和 `calendar_month_summary_section.dart`，保证日期格子尺寸稳定，今日态、选中态、颜色状态不触发布局跳动。
-12. 实现 `calendar_day_detail_sheet.dart`，展示实际睡眠、偏差、来源、可信度、标签、备注、补原因、编辑记录和来源说明入口。
-13. 实现 `record_source_explainer_sheet.dart`，统一解释系统同步、手动补录、用户修正和可信度，避免页面里散落长说明文案。
-14. 实现 `calendar_filter_sheet.dart`，支持入睡时间偏差、稳定度区间和晚睡次数筛选，并提供重置、应用和清除筛选动作。
-15. 实现 `sleep_delay_tag_controller.dart`、`sleep_delay_tag_picker_sheet.dart` 和 `custom_delay_tag_sheet.dart`，支持默认标签多选、自定义标签输入、保存中状态、取消和保存成功反馈。
-16. 更新 `app_en.arb` 与 `app_zh.arb`，补齐日历标题、筛选、图例、详情、来源说明、默认标签、自定义标签校验、空态、Snackbar 和埋点可读参数文案。
-17. 运行 `flutter gen-l10n`，确认 `package:rhythm/l10n/app_localizations.dart` 中生成字段可被页面和弹层引用。
-18. 接入埋点事件：`calendar_viewed`、`day_detail_viewed`、`delay_tag_added`，事件参数覆盖月份、记录日期、来源、是否用户编辑、标签数量、是否包含自定义标签和入口来源。
-19. 编写 `calendar_page_test.dart`，覆盖有数据月视图、无记录空态、目标缺失空态、筛选空结果、单日详情弹层打开、来源说明弹层打开和编辑入口跳转。
-20. 编写 `sleep_delay_tag_picker_sheet_test.dart`，覆盖默认标签选择、自定义标签保存、空值错误、重复标签合并和保存成功关闭弹层。
-21. 运行 `flutter test test/features/calendar/calendar_heatmap_test.dart test/features/calendar/calendar_controller_test.dart test/features/calendar/presentation/calendar_page_test.dart test/features/sleep_records/sleep_delay_tag_rules_test.dart test/features/sleep_records/presentation/sleep_delay_tag_picker_sheet_test.dart`。
-22. 运行 `flutter test` 做全量回归，确认今日页、睡前模式和睡眠记录相关入口未被日历标签改动破坏。
-23. 人工走查日历闭环：打开日历、切换月份、查看某天详情、补原因标签、编辑记录、筛选晚睡天、清除筛选，确认热力图与今日页同一天达标口径一致。
-24. 提交前运行 `npx gitnexus detect_changes`，确认影响范围只覆盖日历、睡眠标签、本地化、路由入口和预期测试。
+- 任务 7 及其后的剩余阶段，详细文件清单、子代理分派轨道、返回格式、合流顺序、测试命令和验收清单统一以新的并行实施计划文档为准。
+- 实施时必须先冻结共享契约，再并行分派子代理处理各业务轨道。
+- 主线程只负责子代理分派、结果审查、冲突检查和最终合流；不得直接代写子代理轨道内的实现。
+- 合流后必须运行专项测试、全量 `flutter test` 和 `npx gitnexus detect_changes`，确认影响范围符合预期阶段边界。
 
 ### 任务 8：实现洞察周报
 
@@ -1113,83 +1098,188 @@ P1 看板：
 
 **步骤：**
 
-1. 先定义 `WeeklyReport`、`WeeklyReportDaySnapshot`、`WeeklyReportSummary` 和 `ReasonDistributionItem`，明确周报输入、输出字段和数据不足状态。
-2. 编写 `weekly_report_generator_test.dart`，覆盖最近 7 天窗口、至少 3 天有效记录、达标率、最晚入睡日、主要原因和下周建议。
-3. 实现 `weekly_report_generator.dart`，只消费有效睡眠记录、目标作息和原因标签，不直接读取原始健康数据。
-4. 编写 `stability_score_rules_test.dart`，覆盖稳定、轻微波动、明显波动、样本不足四类评分结果。
-5. 实现 `stability_score_rules.dart`，输出 `0-100` 稳定度、等级和非医疗化解释文案键。
-6. 编写 `recovery_plan_rules_test.dart`，覆盖明显晚睡触发、轻微偏差不触发、1-3 天建议、恢复成功和样本不足进行中状态。
-7. 定义 `RecoveryPlan`、`RecoveryPlanStep`、`RecoveryPlanStatus`，实现 `recovery_plan_rules.dart`，确保建议内容使用国际化 key 而不是在领域层写死展示文案。
-8. 编写 `insights_controller_test.dart`，覆盖可生成周报、少于 3 天有效记录、无有效记录、生成异常和免费用户历史限制状态。
-9. 实现 `InsightsViewState` 和 `InsightsController`，从睡眠记录、标签、目标作息、恢复计划和会员状态聚合洞察页状态。
-10. 在 `insights_page.dart` 中搭建页面骨架，使用 `HookConsumerWidget`，并把周报摘要、稳定度、原因分布和恢复效果拆到 `widgets/sections/`。
-11. 实现 `weekly_report_detail_page.dart` 和 `report_history_page.dart`，详情页展示完整周报，历史页承接列表和 30 天前历史的付费拦截。
-12. 实现 `recovery_plan_detail_sheet.dart` 和 `stability_explainer_sheet.dart`，弹层只消费页面聚合状态，不直接调用 Repository。
-13. 更新 `lib/l10n/app_en.arb` 和 `lib/l10n/app_zh.arb`，补齐洞察页、周报详情、历史页、恢复计划、稳定度说明、空态和付费拦截文案。
-14. 运行 `flutter gen-l10n`，确认生成的 `app_localizations*.dart` 包含新增文案键。
-15. 接入洞察埋点，至少覆盖 `weekly_report_viewed`、`recovery_plan_viewed`、`recovery_plan_completed`、`insights_history_viewed` 和 `stability_explainer_opened`。
-16. 编写 `insights_page_test.dart`，覆盖周报可见、数据不足空态、无记录空态、恢复计划弹层和稳定度说明弹层。
-17. 运行 `flutter test test/features/insights/weekly_report_generator_test.dart test/features/insights/stability_score_rules_test.dart test/features/insights/recovery_plan_rules_test.dart test/features/insights/insights_controller_test.dart test/features/insights/presentation/insights_page_test.dart`。
-18. 完成一次文案验收：扫描新增 ARB 和洞察相关 Dart 文件，确认不出现“治疗”“诊断”“治愈”“改善失眠”等医疗化表达。
+**并行开发批次：**
+
+1. 第 0 批：契约与夹具先行。
+   - 运行 GitNexus 影响分析，分别检查 `appRouter`、有效睡眠记录查询入口、原因标签查询入口、会员状态入口、本地化生成类和埋点服务入口；如任一结果为 HIGH 或 CRITICAL，先记录风险并暂停确认。
+   - 定义 `WeeklyReport`、`WeeklyReportDaySnapshot`、`WeeklyReportSummary`、`ReasonDistributionItem`、`RecoveryPlan`、`RecoveryPlanStep`、`RecoveryPlanStatus`、`InsightsViewState` 的字段和命名。
+   - 建立测试夹具约定：最近 7 天有效记录、少于 3 天记录、无记录、明显晚睡、标签分布、免费用户历史限制。
+   - 冻结洞察文案 key 和埋点事件参数，文案值可由文案泳道补齐，但 key 不再由各功能泳道临时新增。
+
+2. 第 1 批 A 泳道：周报统计规则。
+   - 编写 `weekly_report_generator_test.dart`，覆盖最近 7 天窗口、至少 3 天有效记录、达标率、最晚入睡日、主要原因和下周建议。
+   - 实现 `weekly_report_generator.dart` 和 `reason_distribution_rules.dart`，只消费有效睡眠记录、目标作息和原因标签，不直接读取原始健康数据。
+   - 运行 `flutter test test/features/insights/weekly_report_generator_test.dart`。
+
+3. 第 1 批 B 泳道：稳定度规则。
+   - 编写 `stability_score_rules_test.dart`，覆盖稳定、轻微波动、明显波动、样本不足四类评分结果。
+   - 实现 `stability_score_rules.dart`，输出 `0-100` 稳定度、等级和非医疗化解释文案 key。
+   - 运行 `flutter test test/features/insights/stability_score_rules_test.dart`。
+
+4. 第 1 批 C 泳道：恢复计划规则。
+   - 编写 `recovery_plan_rules_test.dart`，覆盖明显晚睡触发、轻微偏差不触发、1-3 天建议、恢复成功和样本不足进行中状态。
+   - 实现 `recovery_plan_rules.dart`，确保建议内容使用国际化 key，而不是在领域层写死展示文案。
+   - 运行 `flutter test test/features/insights/recovery_plan_rules_test.dart`。
+
+5. 第 2 批 A 泳道：应用状态聚合。
+   - 在第 1 批三个领域泳道测试通过后，编写 `insights_controller_test.dart`，覆盖可生成周报、少于 3 天有效记录、无有效记录、生成异常和免费用户历史限制状态。
+   - 实现 `InsightsController`，从睡眠记录、标签、目标作息、恢复计划和会员状态聚合 `InsightsViewState`。
+   - 运行 `flutter test test/features/insights/insights_controller_test.dart`。
+
+6. 第 2 批 B 泳道：洞察首页。
+   - 使用 Fake `InsightsViewState` 搭建 `insights_page.dart`，并拆分 `weekly_report_summary_section.dart`、`stability_section.dart`、`reason_distribution_section.dart`、`recovery_effect_section.dart` 和 `insights_empty_state.dart`。
+   - 页面使用 `HookConsumerWidget`，不直接调用 Repository，不在页面层计算达标率、稳定度或恢复触发。
+   - 编写首页 Widget 测试，覆盖周报可见、数据不足空态和无记录空态。
+
+7. 第 2 批 C 泳道：详情页、历史页与弹层。
+   - 实现 `weekly_report_detail_page.dart`、`report_history_page.dart`、`recovery_plan_detail_sheet.dart` 和 `stability_explainer_sheet.dart`。
+   - 详情页展示完整周报，历史页承接列表和 30 天前历史的付费拦截；弹层只消费聚合状态，不直接调用 Repository。
+   - 编写 Widget 测试，覆盖周报详情、历史付费拦截、恢复计划弹层和稳定度说明弹层。
+
+8. 第 2 批 D 泳道：国际化与合规文案。
+   - 更新 `lib/l10n/app_en.arb` 和 `lib/l10n/app_zh.arb`，补齐洞察页、周报详情、历史页、恢复计划、稳定度说明、空态和付费拦截文案。
+   - 运行 `flutter gen-l10n`，确认生成的 `app_localizations*.dart` 包含第 0 批冻结的文案 key。
+   - 扫描新增 ARB 和洞察相关 Dart 文件，确认不出现“治疗”“诊断”“治愈”“改善失眠”等医疗化表达。
+
+9. 第 3 批：集成汇合。
+   - 合并第 2 批各泳道后，接入洞察埋点：`weekly_report_viewed`、`recovery_plan_viewed`、`recovery_plan_completed`、`insights_history_viewed` 和 `stability_explainer_opened`。
+   - 在 `app_router.dart` 挂载 `/insights`、`/insights/report/:periodStart`、`/insights/history`，并确认底部导航与详情返回路径稳定。
+   - 汇总 `insights_page_test.dart`，覆盖首页、详情页、历史页、恢复计划弹层、稳定度说明弹层和主要 CTA。
+   - 运行 `flutter test test/features/insights/weekly_report_generator_test.dart test/features/insights/stability_score_rules_test.dart test/features/insights/recovery_plan_rules_test.dart test/features/insights/insights_controller_test.dart test/features/insights/presentation/insights_page_test.dart`。
+   - 运行 `flutter test` 做全量回归，确认今日页、日历标签、恢复建议入口和会员拦截未被洞察改动破坏。
+   - 提交前运行 `npx gitnexus detect_changes`，确认影响范围只覆盖洞察、路由、本地化、埋点和预期测试。
+
+**并行约束：**
+
+- 第 0 批完成前不得启动第 1、2 批，避免模型字段、文案 key 和测试夹具反复改名。
+- 第 1 批 A/B/C 三个领域泳道可以同时开发，互相不得修改对方测试文件。
+- 第 2 批 B/C 页面泳道可以在 Controller 未完成时用 Fake ViewState 先行，但最终必须回接真实 `InsightsController`。
+- `lib/l10n/*.arb`、生成的 `app_localizations*.dart`、`app_router.dart` 和埋点入口只在第 2 批 D 或第 3 批统一修改。
 
 ### 任务 9：实现同步、会员和小组件
+
+**并行开发原则：**
+
+- 任务 9 拆成“共享契约准备 -> 三条业务轨道并行 -> 集成收口”三段执行。
+- 共享文件只由契约轨道和集成轨道修改：`lib/app/router/app_router.dart`、`lib/data/local/rhythm_database.dart`、`lib/l10n/app_en.arb`、`lib/l10n/app_zh.arb`。
+- 同步、会员、小组件三条业务轨道不得直接互相依赖；需要跨模块读取时只依赖共享契约、Provider 接口或 Fake 实现。
+- 每条业务轨道必须能独立运行自己的单元测试和 Widget 测试；集成轨道只负责合并路由、国际化、埋点和端到端走查。
+- 并行分支建议使用 `codex/task9-contracts`、`codex/task9-sync`、`codex/task9-membership`、`codex/task9-widget`、`codex/task9-integration`。
+
+**共享契约轨道（先完成，其他轨道基于它开工）：**
+
+**文件：**
+
+- 创建：`lib/features/sync/domain/sync_queue_item.dart`
+- 创建：`lib/features/sync/domain/sync_conflict_policy.dart`
+- 创建：`lib/features/membership/domain/membership_entitlement.dart`
+- 创建：`lib/features/membership/domain/membership_paywall_policy.dart`
+- 创建：`lib/features/widget_bridge/domain/widget_snapshot.dart`
+- 修改：`lib/data/local/rhythm_database.dart`
+- 创建：`test/features/sync/sync_conflict_policy_test.dart`
+- 创建：`test/features/membership/membership_paywall_policy_test.dart`
+- 创建：`test/features/widget_bridge/widget_snapshot_contract_test.dart`
+
+**步骤：**
+
+1. 定义 `SyncQueueItem`、`SyncEntityType`、`SyncOperation`、`SyncRunSummary` 和 `SyncConflictPolicy`，明确目标作息、睡眠记录、原因标签、周报摘要四类实体的同步载荷边界。
+2. 在 `rhythm_database.dart` 中只补齐 `sync_queue` 表结构和最小 DAO 暴露点，不在本轨道实现 Supabase 读写。
+3. 编写 `sync_conflict_policy_test.dart`，覆盖“用户编辑优先”“远端较新但本地未编辑”“删除与更新冲突”“重复同步幂等”四类冲突口径。
+4. 定义 `MembershipEntitlement` 和 `MembershipPaywallPolicy`，明确免费版、试用、月付、年付、永久会员的能力位和付费墙触发条件。
+5. 编写 `membership_paywall_policy_test.dart`，覆盖免费用户受限、试用用户放行、会员用户放行、首次核心体验不强拦四类口径。
+6. 定义 `WidgetSnapshot`，约束小组件只输出今晚目标、距离目标、昨晚状态和入口参数，不暴露过细睡眠健康数据。
+7. 编写 `widget_snapshot_contract_test.dart`，覆盖无目标、无数据、未授权、有完整数据四类快照字段边界。
+
+**并行轨道 A：云同步与账号同步页**
 
 **文件：**
 
 - 创建：`lib/app/bootstrap/supabase_bootstrap.dart`
 - 创建：`lib/data/remote/supabase_sync_remote_data_source.dart`
-- 创建：`lib/data/purchases/purchases_membership_data_source.dart`
-- 创建：`lib/features/sync/domain/sync_queue_item.dart`
-- 创建：`lib/features/sync/domain/sync_conflict_policy.dart`
 - 创建：`lib/features/sync/data/sync_queue_repository.dart`
 - 创建：`lib/features/sync/application/sync_service.dart`
 - 创建：`lib/features/sync/application/account_sync_controller.dart`
 - 创建：`lib/features/sync/presentation/account_sync_page.dart`
 - 创建：`lib/features/sync/presentation/widgets/dialogs/sync_retry_dialog.dart`
-- 创建：`lib/features/membership/domain/membership_entitlement.dart`
-- 创建：`lib/features/membership/domain/membership_paywall_policy.dart`
+- 创建：`test/features/sync/sync_service_test.dart`
+- 创建：`test/features/sync/presentation/account_sync_page_test.dart`
+
+**步骤：**
+
+1. 实现 `SyncQueueRepository`，让应用层只消费队列接口，不直接拼 Drift 查询。
+2. 实现 `supabase_bootstrap.dart` 和 `SupabaseSyncRemoteDataSource`，集中处理 Supabase 初始化、登录态检查、远端表读写和插件错误转换。
+3. 实现 `SyncService` 的同步主流程：读取待同步队列 -> 上传本地变更 -> 拉取远端变更 -> 套用冲突策略 -> 标记队列状态 -> 输出同步摘要。
+4. 编写 `sync_service_test.dart`，覆盖成功同步、失败重试、未登录不触发云同步、冲突合并、网络失败保留队列五类行为。
+5. 实现 `AccountSyncController`、`account_sync_page.dart` 和 `sync_retry_dialog.dart`，展示匿名身份、登录绑定入口、最近同步时间、失败重试和冲突说明。
+6. 编写 `account_sync_page_test.dart`，覆盖未登录、已登录、同步中、同步失败、重试成功五类 UI 状态。
+
+**并行轨道 B：会员权益与付费墙**
+
+**文件：**
+
+- 创建：`lib/data/purchases/purchases_membership_data_source.dart`
 - 创建：`lib/features/membership/data/membership_repository.dart`
 - 创建：`lib/features/membership/application/membership_service.dart`
 - 创建：`lib/features/membership/application/membership_controller.dart`
 - 创建：`lib/features/membership/presentation/membership_page.dart`
 - 创建：`lib/features/membership/presentation/widgets/paywall_entry_banner.dart`
 - 创建：`lib/features/membership/presentation/widgets/sheets/membership_benefits_sheet.dart`
-- 创建：`lib/features/widget_bridge/domain/widget_snapshot.dart`
+- 创建：`test/features/membership/membership_service_test.dart`
+- 创建：`test/features/membership/presentation/membership_page_test.dart`
+
+**步骤：**
+
+1. 实现 `PurchasesMembershipDataSource`，把 `purchases_flutter` 的产品、购买、恢复购买、权益状态转换成项目内部 DTO。
+2. 实现 `MembershipRepository` 和 `MembershipService`，对上只暴露项目内部 `MembershipEntitlement`，不让展示层依赖 Purchases 类型。
+3. 编写 `membership_service_test.dart`，覆盖权益读取、购买成功、购买失败、取消购买、恢复购买、离线降级六类行为。
+4. 实现 `MembershipController`、`membership_page.dart`、`paywall_entry_banner.dart` 和 `membership_benefits_sheet.dart`，覆盖当前权益、方案展示、恢复购买、受限能力拦截和失败提示。
+5. 编写 `membership_page_test.dart`，覆盖免费用户、试用用户、会员用户、购买失败提示和恢复购买入口。
+
+**并行轨道 C：桌面小组件快照与入口**
+
+**文件：**
+
 - 创建：`lib/features/widget_bridge/data/home_widget_gateway.dart`
 - 创建：`lib/features/widget_bridge/application/widget_snapshot_service.dart`
 - 创建：`lib/features/widget_bridge/presentation/widget_theme_page.dart`
-- 修改：`lib/app/router/app_router.dart`
-- 修改：`lib/data/local/rhythm_database.dart`
-- 修改：`lib/l10n/app_en.arb`
-- 修改：`lib/l10n/app_zh.arb`
-- 创建：`test/features/sync/sync_conflict_policy_test.dart`
-- 创建：`test/features/sync/sync_service_test.dart`
-- 创建：`test/features/sync/presentation/account_sync_page_test.dart`
-- 创建：`test/features/membership/membership_service_test.dart`
-- 创建：`test/features/membership/membership_paywall_policy_test.dart`
-- 创建：`test/features/membership/presentation/membership_page_test.dart`
 - 创建：`test/features/widget_bridge/widget_snapshot_service_test.dart`
 - 创建：`test/features/widget_bridge/presentation/widget_theme_page_test.dart`
 
 **步骤：**
 
-1. 定义 `SyncQueueItem`、`SyncEntityType`、`SyncOperation`、`SyncRunSummary` 和 `SyncConflictPolicy`，明确目标作息、睡眠记录、原因标签、周报摘要四类实体的同步载荷边界。
-2. 编写 `sync_conflict_policy_test.dart`，覆盖“用户编辑优先”“远端较新但本地未编辑”“删除与更新冲突”“重复同步幂等”四类冲突口径。
-3. 在 `rhythm_database.dart` 中补齐 `sync_queue` 表访问能力，并实现 `SyncQueueRepository`，让应用层只消费队列接口，不直接拼 Drift 查询。
-4. 实现 `supabase_bootstrap.dart` 和 `SupabaseSyncRemoteDataSource`，集中处理 Supabase 初始化、登录态检查、远端表读写和插件错误转换。
-5. 实现 `SyncService` 的同步主流程：读取待同步队列 -> 上传本地变更 -> 拉取远端变更 -> 套用冲突策略 -> 标记队列状态 -> 输出同步摘要。
-6. 编写 `sync_service_test.dart`，覆盖成功同步、失败重试、未登录不触发云同步、冲突合并、网络失败保留队列五类行为。
-7. 实现 `AccountSyncController`、`account_sync_page.dart` 和 `sync_retry_dialog.dart`，展示匿名身份、登录绑定入口、最近同步时间、失败重试和冲突说明。
-8. 定义 `MembershipEntitlement` 和 `MembershipPaywallPolicy`，明确免费版、试用、月付、年付、永久会员的能力位和付费墙触发条件。
-9. 实现 `PurchasesMembershipDataSource`、`MembershipRepository` 和 `MembershipService`，把 `purchases_flutter` 的产品、购买、恢复购买、权益状态转换成项目内部模型。
-10. 实现 `MembershipController`、`membership_page.dart`、`paywall_entry_banner.dart` 和 `membership_benefits_sheet.dart`，覆盖当前权益、方案展示、恢复购买、受限能力拦截和失败提示。
-11. 定义 `WidgetSnapshot`，实现 `HomeWidgetGateway` 和 `WidgetSnapshotService`，只输出今晚目标、距离目标、昨晚状态和入口参数，不暴露过细睡眠健康数据。
-12. 实现 `widget_theme_page.dart`，展示小组件状态、刷新入口、今日页入口和睡前模式入口，并处理无目标、无数据、未授权三类空态。
-13. 接入路由、国际化和埋点：补齐账号同步、会员中心、小组件设置页面路由，新增所有用户可见文案到 ARB，并覆盖 `sync_started`、`sync_completed`、`sync_failed`、`paywall_viewed`、`subscription_purchased`、`widget_snapshot_updated`。
-14. 编写会员和小组件测试，覆盖付费墙展示条件、权益状态读取、购买失败降级、恢复购买、快照隐私边界、无数据小组件空态。
-15. 运行 `flutter gen-l10n`。
-16. 运行 `flutter test test/features/sync/sync_conflict_policy_test.dart test/features/sync/sync_service_test.dart test/features/sync/presentation/account_sync_page_test.dart test/features/membership/membership_service_test.dart test/features/membership/membership_paywall_policy_test.dart test/features/membership/presentation/membership_page_test.dart test/features/widget_bridge/widget_snapshot_service_test.dart test/features/widget_bridge/presentation/widget_theme_page_test.dart`。
-17. 完成一次人工走查：关闭网络后核心闭环仍可用，未登录不上传云端，会员付费墙不阻断首次核心体验，小组件不展示敏感过细数据。
+1. 实现 `HomeWidgetGateway`，封装 `home_widget` 的数据写入、刷新和点击入口参数，不让页面直接调用插件。
+2. 实现 `WidgetSnapshotService`，从目标作息、今日摘要和权限状态生成 `WidgetSnapshot`。
+3. 编写 `widget_snapshot_service_test.dart`，覆盖有目标、有昨晚记录、无目标、无数据、未授权、隐私字段过滤六类行为。
+4. 实现 `widget_theme_page.dart`，展示小组件状态、刷新入口、今日页入口和睡前模式入口，并处理无目标、无数据、未授权三类空态。
+5. 编写 `widget_theme_page_test.dart`，覆盖三类空态、刷新成功、刷新失败和入口跳转参数。
+
+**集成收口轨道（等 A/B/C 合并后执行）：**
+
+**文件：**
+
+- 修改：`lib/app/router/app_router.dart`
+- 修改：`lib/l10n/app_en.arb`
+- 修改：`lib/l10n/app_zh.arb`
+- 修改：`lib/app/bootstrap/app_bootstrap.dart`
+- 创建：`test/features/task9/task9_integration_surface_test.dart`
+
+**步骤：**
+
+1. 在 `app_router.dart` 接入账号同步、会员中心、小组件设置三个页面路由，确保路径与 5.12 页面清单一致。
+2. 在 `app_bootstrap.dart` 装配 Supabase、Purchases、HomeWidget 三类基础设施初始化，并保持未配置外部服务时可降级启动。
+3. 更新 `app_en.arb` 和 `app_zh.arb`，补齐账号同步、会员中心、小组件设置、错误提示、付费拦截、恢复购买、刷新快照等用户可见文案。
+4. 运行 `flutter gen-l10n`，确认生成的 `app_localizations*.dart` 包含新增文案键。
+5. 接入任务 9 埋点：`sync_started`、`sync_completed`、`sync_failed`、`paywall_viewed`、`subscription_purchased`、`widget_snapshot_updated`。
+6. 编写 `task9_integration_surface_test.dart`，覆盖三个二级页面从我的页入口可达，未登录不触发云同步，会员付费墙不阻断首次核心体验，小组件不展示敏感过细数据。
+7. 运行 `flutter test test/features/sync/sync_conflict_policy_test.dart test/features/sync/sync_service_test.dart test/features/sync/presentation/account_sync_page_test.dart test/features/membership/membership_paywall_policy_test.dart test/features/membership/membership_service_test.dart test/features/membership/presentation/membership_page_test.dart test/features/widget_bridge/widget_snapshot_contract_test.dart test/features/widget_bridge/widget_snapshot_service_test.dart test/features/widget_bridge/presentation/widget_theme_page_test.dart test/features/task9/task9_integration_surface_test.dart`。
+8. 完成一次人工走查：关闭网络后核心闭环仍可用，未登录不上传云端，会员付费墙不阻断首次核心体验，小组件不展示敏感过细数据。
+
+**并行合并顺序：**
+
+1. 先合并共享契约轨道，保证三条业务轨道拥有稳定类型、数据库表和测试口径。
+2. 同步轨道、会员轨道、小组件轨道可同时开发；如出现 ARB、路由、Bootstrap 修改需求，只记录文案键、路径和初始化要求，不直接改共享文件。
+3. 三条业务轨道各自测试通过后，再进入集成收口轨道统一修改共享文件。
+4. 集成收口通过后再跑任务 9 全量测试命令和人工走查。
 
 ### 任务 10：内测收口
 

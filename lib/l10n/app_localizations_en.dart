@@ -161,6 +161,208 @@ class AppLocalizationsEn extends AppLocalizations {
       'Review your week and find clues for a steadier routine.';
 
   @override
+  String get insightsViewWeeklyReportButton => 'View full weekly report';
+
+  @override
+  String get insightsViewHistoryButton => 'View report history';
+
+  @override
+  String insightsWeeklyHeadline(int rate, int score, String weekday) {
+    return 'Your on-track rate was $rate% over the last 7 days, with a stability score of $score. The latest night was on $weekday.';
+  }
+
+  @override
+  String insightsWeeklyDescription(String reason) {
+    return 'You have already narrowed the swings. Next, handle the most common trigger first: $reason.';
+  }
+
+  @override
+  String get insightsOnTrackRateLabel => 'On-track rate';
+
+  @override
+  String get insightsStabilityLabel => 'Stability';
+
+  @override
+  String get insightsLatestLateTitle => 'Latest late night';
+
+  @override
+  String get insightsNextWeekAdviceTitle => 'Next week suggestions';
+
+  @override
+  String get insightsNoReasonTags => 'No reason tags yet';
+
+  @override
+  String get insightsNoWeeklyReport => 'No weekly report yet';
+
+  @override
+  String get insightsNoHistory => 'No insight history yet';
+
+  @override
+  String get insightsWeeklyReportPageTitle => 'This week report';
+
+  @override
+  String get insightsHistoryPageTitle => 'Insight history';
+
+  @override
+  String get insightsHistoryHeadline => 'Look back at long-term changes';
+
+  @override
+  String get insightsHistoryDescription =>
+      'The last 30 days can be viewed directly. Older history hands off to membership here.';
+
+  @override
+  String get insightsHistoryPaywallTitle => 'Need a longer timeline?';
+
+  @override
+  String get insightsHistoryPaywallDescription =>
+      'Membership unlocks older history, monthly reports, and a fuller recovery trail.';
+
+  @override
+  String get insightsHistoryUnlockButton => 'Unlock all insight history';
+
+  @override
+  String get insightsHistoryLocked => 'Outside the free range';
+
+  @override
+  String insightsHistorySummary(int rate, int score) {
+    return 'On-track rate $rate% · Stability $score';
+  }
+
+  @override
+  String insightsLatestLateSummary(String weekday, String time, int minutes) {
+    return 'You fell asleep at $time on $weekday, which was $minutes minutes later than your target.';
+  }
+
+  @override
+  String insightsLatestLateSummaryWithReasons(String base, String reasons) {
+    return '$base The main reasons were $reasons.';
+  }
+
+  @override
+  String get insightsStabilitySummaryInsufficient => 'Not enough samples yet';
+
+  @override
+  String get insightsStabilitySummarySteady => 'This week stayed very steady';
+
+  @override
+  String get insightsStabilitySummaryRecovering =>
+      'This week was not worse. It was settling back down.';
+
+  @override
+  String get insightsStabilitySummaryNeedsRecovery =>
+      'This week had obvious swings';
+
+  @override
+  String get insightsStabilityDescriptionInsufficient =>
+      'At least 3 valid days are needed before a formal stability score can be shown.';
+
+  @override
+  String get insightsStabilityDescriptionSteady =>
+      'Your bedtime offsets and swings were both small, so you can keep the current rhythm.';
+
+  @override
+  String get insightsStabilityDescriptionRecovering =>
+      'There is still some drift, but the range is narrowing. Handle the frequent triggers first.';
+
+  @override
+  String get insightsStabilityDescriptionNeedsRecovery =>
+      'The current drift is large enough that a 1 to 3 day recovery plan should come first.';
+
+  @override
+  String get insightsStabilityExplainerTitle => 'How stability is scored';
+
+  @override
+  String insightsStabilityScoreLabel(int score) {
+    return 'Current score: $score';
+  }
+
+  @override
+  String get insightsStabilitySampleHint =>
+      'A formal stability score appears only after at least 3 valid days.';
+
+  @override
+  String get insightsRecoveryEffectTitle => 'Recovery effect';
+
+  @override
+  String get insightsRecoveryNoPlan =>
+      'No recovery plan was triggered this week.';
+
+  @override
+  String insightsRecoveryPlanSummary(int days) {
+    return 'After the latest obvious late night, use $days days to get bedtime back inside the threshold.';
+  }
+
+  @override
+  String insightsRecoveryPlanTitle(int days) {
+    return '$days-day recovery rhythm';
+  }
+
+  @override
+  String get insightsRecoveryPlanDetailTitle => 'Recovery plan details';
+
+  @override
+  String insightsRecoveryStepLabel(int day, String title) {
+    return 'Day $day · $title';
+  }
+
+  @override
+  String get insightsRecoveryStepCloseWorkEarlierTitle =>
+      'Pull tonight back first';
+
+  @override
+  String get insightsRecoveryStepCloseWorkEarlierDetail =>
+      'Finish the last work or entertainment item 45 minutes before your target bedtime.';
+
+  @override
+  String get insightsRecoveryStepReduceNightNoiseTitle =>
+      'Reduce the delay buffer';
+
+  @override
+  String get insightsRecoveryStepReduceNightNoiseDetail =>
+      'Keep only one bedtime action tonight so the routine does not slip past the threshold again.';
+
+  @override
+  String get insightsRecoveryStepReviewLateTriggersTitle =>
+      'Check whether you are back inside the threshold';
+
+  @override
+  String get insightsRecoveryStepReviewLateTriggersDetail =>
+      'If tonight still runs late, review the late-night triggers and keep the most common one visible.';
+
+  @override
+  String get insightsRecommendationFinishWorkEarlier =>
+      'Finish the last work task before 10:45 PM';
+
+  @override
+  String get insightsRecommendationEnableSoftReminder =>
+      'Turn on the soft reminder first on higher-risk midweek days';
+
+  @override
+  String get insightsRecommendationOpenRecoveryPlan =>
+      'If you run late for 2 days in a row, open the recovery plan immediately';
+
+  @override
+  String get insightsWeekdayMon => 'Mon';
+
+  @override
+  String get insightsWeekdayTue => 'Tue';
+
+  @override
+  String get insightsWeekdayWed => 'Wed';
+
+  @override
+  String get insightsWeekdayThu => 'Thu';
+
+  @override
+  String get insightsWeekdayFri => 'Fri';
+
+  @override
+  String get insightsWeekdaySat => 'Sat';
+
+  @override
+  String get insightsWeekdaySun => 'Sun';
+
+  @override
   String get profileTitle => 'Me';
 
   @override

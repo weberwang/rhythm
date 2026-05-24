@@ -1,7 +1,7 @@
 <!-- gitnexus:start -->
 # GitNexus — Code Intelligence
 
-This project is indexed by GitNexus as **rhythm** (583 symbols, 887 relationships, 7 execution flows). Use the GitNexus MCP tools to understand code, assess impact, and navigate safely.
+This project is indexed by GitNexus as **rhythm** (2359 symbols, 4921 relationships, 58 execution flows). Use the GitNexus MCP tools to understand code, assess impact, and navigate safely.
 
 > If any GitNexus tool warns the index is stale, run `npx gitnexus analyze` in terminal first.
 
@@ -46,6 +46,14 @@ This project is indexed by GitNexus as **rhythm** (583 symbols, 887 relationship
 
 - 代码实现优先使用代码注解+代码生成方案。
 
+## Pencil 设计约束
+
+- 当任务实施文档、实现计划或相关说明引用 `pen/app.pen`、Pencil 设计稿或 Pencil MCP 作为界面来源时，实施该任务必须将 Pencil 设计稿作为显示层实现的唯一设计标准。
+- 遇到这类任务时，必须先通过 Pencil MCP 读取并核对对应页面、区块、文案承载位和交互层级，再开始实现 Flutter 显示层；不允许只根据实施文档文字描述、已有代码或主观判断推断界面结构。
+- 如果当前 Flutter 实现与 Pencil 设计稿不一致，默认以 Pencil 设计稿为准进行调整，而不是优先保持现有实现。
+- 只有在确认 Pencil 设计稿无法承载目标功能时，才允许提出设计缺口；在缺口被明确记录并确认之前，不得擅自偏离设计稿实现显示层。
+- 本约束只作用于显示层设计标准，不要求在 Flutter 运行时直接接入 Pencil；但要求实现结果在结构、信息层级和交互语义上严格对齐设计稿。
+
 ## 插件使用约定
 
 ### 使用时机
@@ -69,13 +77,14 @@ This project is indexed by GitNexus as **rhythm** (583 symbols, 887 relationship
 - `domain/` 禁止直接使用三方包：只保留业务实体、值对象、规则、仓储接口，不允许导入包类型、插件异常类型或平台返回模型。
 - `application/` 不直接调用三方依赖：只负责用例编排、状态聚合和流程推进，可以依赖仓储接口或领域服务，但不能写平台权限、SDK 初始化和原生细节。
 - `presentation/` 不直接接包实现：页面和组件只负责触发用户意图、展示状态和错误结果，不直接持有三方包实例，不直接拼装包参数。
+- `presentation/` 默认强制使用 `hooks_riverpod` 组织显示层代码：页面、区块组件、表单交互、局部 UI 状态、生命周期副作用、控制器装配优先落在 Hook 方案中，目标是减少样板代码、压缩 `Consumer/ConsumerStatefulWidget` 模板代码并保持显示层实现简洁一致。
 - `data/` 是业务插件的主要落点；`app/bootstrap/` 只承接全局初始化型依赖；`core/` 只承接跨 feature 通用但非业务化的公共适配。
 
 ### 现有第三方包清单
 
 - 以下清单覆盖 `pubspec.yaml` 中全部非 SDK 依赖；`flutter`、`flutter_localizations`、`flutter_test` 不计入第三方包。
 - `flutter_riverpod`：默认状态管理和依赖注入入口；新增页面状态、异步状态、控制器装配优先基于它实现，不要手写全局单例或裸 `InheritedWidget`。
-- `hooks_riverpod`：只有在页面明确需要 Hook 能力时使用；没有 Hook 诉求时优先直接用 `flutter_riverpod`。
+- `hooks_riverpod`：显示层默认强制使用的 Riverpod 入口；页面、弹层、表单、局部状态和副作用管理优先使用 `HookConsumerWidget`、`HookWidget` 等 Hook 方案实现，除非用户明确要求不用 Hook，否则不要再回退到 `ConsumerWidget`、`ConsumerStatefulWidget` 作为默认写法。
 - `go_router`：默认路由和跳转能力；页面路由、启动分发、受保护跳转统一走它，不要手写平行导航状态机。
 - `riverpod_annotation`：Provider 注解入口；适合生成式 Provider 的场景优先写 `@riverpod`，不要同一模块混用多套 Provider 风格。
 - `riverpod_generator`：Riverpod 代码生成器；当 Provider 进入稳定阶段或需要统一生成命名、自动 dispose、家族参数时优先使用。

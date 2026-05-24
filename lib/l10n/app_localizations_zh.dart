@@ -152,6 +152,197 @@ class AppLocalizationsZh extends AppLocalizations {
   String get insightsDescription => '复盘一周表现，找到更稳定的作息线索。';
 
   @override
+  String get insightsViewWeeklyReportButton => '查看完整周报';
+
+  @override
+  String get insightsViewHistoryButton => '查看历史洞察';
+
+  @override
+  String insightsWeeklyHeadline(int rate, int score, String weekday) {
+    return '最近 7 天达标率 $rate%，稳定度 $score 分。最晚的一天在$weekday。';
+  }
+
+  @override
+  String insightsWeeklyDescription(String reason) {
+    return '你已经把波动收窄了，下一步只需要先处理掉最常见的拖延原因：$reason。';
+  }
+
+  @override
+  String get insightsOnTrackRateLabel => '达标率';
+
+  @override
+  String get insightsStabilityLabel => '稳定度';
+
+  @override
+  String get insightsLatestLateTitle => '最晚入睡日';
+
+  @override
+  String get insightsNextWeekAdviceTitle => '下周建议';
+
+  @override
+  String get insightsNoReasonTags => '未记录原因标签';
+
+  @override
+  String get insightsNoWeeklyReport => '暂无周报';
+
+  @override
+  String get insightsNoHistory => '暂无历史洞察';
+
+  @override
+  String get insightsWeeklyReportPageTitle => '本周周报';
+
+  @override
+  String get insightsHistoryPageTitle => '历史洞察';
+
+  @override
+  String get insightsHistoryHeadline => '回看长期变化';
+
+  @override
+  String get insightsHistoryDescription => '最近 30 天内可直接查看，30 天前历史会在此承接会员能力。';
+
+  @override
+  String get insightsHistoryPaywallTitle => '需要更长时间线？';
+
+  @override
+  String get insightsHistoryPaywallDescription =>
+      '会员可查看 30 天前历史、月报入口和更完整的恢复轨迹。';
+
+  @override
+  String get insightsHistoryUnlockButton => '解锁全部历史洞察';
+
+  @override
+  String get insightsHistoryLocked => '超过免费范围';
+
+  @override
+  String insightsHistorySummary(int rate, int score) {
+    return '达标率 $rate% · 稳定度 $score';
+  }
+
+  @override
+  String insightsLatestLateSummary(String weekday, String time, int minutes) {
+    return '$weekday $time 入睡，比目标晚 $minutes 分钟。';
+  }
+
+  @override
+  String insightsLatestLateSummaryWithReasons(String base, String reasons) {
+    return '$base 主要原因是 $reasons。';
+  }
+
+  @override
+  String get insightsStabilitySummaryInsufficient => '样本还不够';
+
+  @override
+  String get insightsStabilitySummarySteady => '这一周节奏很稳';
+
+  @override
+  String get insightsStabilitySummaryRecovering => '这一周不是更差，而是正在回稳';
+
+  @override
+  String get insightsStabilitySummaryNeedsRecovery => '这周波动比较明显';
+
+  @override
+  String get insightsStabilityDescriptionInsufficient =>
+      '至少需要 3 天有效记录，才能判断这周是否稳定。';
+
+  @override
+  String get insightsStabilityDescriptionSteady => '你的入睡偏差和波动都比较小，可以继续沿用当前节奏。';
+
+  @override
+  String get insightsStabilityDescriptionRecovering =>
+      '虽然仍有波动，但整体已经开始收窄，优先处理高频拖延原因即可。';
+
+  @override
+  String get insightsStabilityDescriptionNeedsRecovery =>
+      '当前偏差较大，建议优先执行 1 到 3 天恢复计划，把最晚入睡点先拉回阈值内。';
+
+  @override
+  String get insightsStabilityExplainerTitle => '稳定度说明';
+
+  @override
+  String insightsStabilityScoreLabel(int score) {
+    return '当前得分 $score 分';
+  }
+
+  @override
+  String get insightsStabilitySampleHint => '至少需要 3 天有效记录才会生成正式稳定度。';
+
+  @override
+  String get insightsRecoveryEffectTitle => '恢复效果';
+
+  @override
+  String get insightsRecoveryNoPlan => '当前这周还没有触发恢复计划。';
+
+  @override
+  String insightsRecoveryPlanSummary(int days) {
+    return '最近一次明显晚睡后，建议用 $days 天把入睡时间拉回到阈值内。';
+  }
+
+  @override
+  String insightsRecoveryPlanTitle(int days) {
+    return '$days 天恢复节奏';
+  }
+
+  @override
+  String get insightsRecoveryPlanDetailTitle => '恢复计划详情';
+
+  @override
+  String insightsRecoveryStepLabel(int day, String title) {
+    return '第 $day 天 · $title';
+  }
+
+  @override
+  String get insightsRecoveryStepCloseWorkEarlierTitle => '先把今晚收回来';
+
+  @override
+  String get insightsRecoveryStepCloseWorkEarlierDetail =>
+      '把最后一项工作或娱乐提前到目标睡前 45 分钟前结束。';
+
+  @override
+  String get insightsRecoveryStepReduceNightNoiseTitle => '缩短拖延缓冲区';
+
+  @override
+  String get insightsRecoveryStepReduceNightNoiseDetail =>
+      '今天只保留一个睡前动作，避免再次把节奏拖过阈值。';
+
+  @override
+  String get insightsRecoveryStepReviewLateTriggersTitle => '确认是否回到阈值内';
+
+  @override
+  String get insightsRecoveryStepReviewLateTriggersDetail =>
+      '如果今晚仍偏晚，优先查看晚睡原因并保留最常见触发点。';
+
+  @override
+  String get insightsRecommendationFinishWorkEarlier =>
+      '把睡前最后一项工作提前到 22:45 前结束';
+
+  @override
+  String get insightsRecommendationEnableSoftReminder => '周中高风险日优先启用柔性提醒';
+
+  @override
+  String get insightsRecommendationOpenRecoveryPlan => '若连续 2 天偏晚，直接查看恢复计划';
+
+  @override
+  String get insightsWeekdayMon => '周一';
+
+  @override
+  String get insightsWeekdayTue => '周二';
+
+  @override
+  String get insightsWeekdayWed => '周三';
+
+  @override
+  String get insightsWeekdayThu => '周四';
+
+  @override
+  String get insightsWeekdayFri => '周五';
+
+  @override
+  String get insightsWeekdaySat => '周六';
+
+  @override
+  String get insightsWeekdaySun => '周日';
+
+  @override
   String get profileTitle => '我的';
 
   @override

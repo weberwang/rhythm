@@ -54,6 +54,145 @@
   "bedtimeDescription": "进入准备睡了模式，给今晚一个温和收尾。",
   "insightsTitle": "洞察",
   "insightsDescription": "复盘一周表现，找到更稳定的作息线索。",
+  "insightsViewWeeklyReportButton": "查看完整周报",
+  "insightsViewHistoryButton": "查看历史洞察",
+  "insightsWeeklyHeadline": "最近 7 天达标率 {rate}%，稳定度 {score} 分。最晚的一天在{weekday}。",
+  "@insightsWeeklyHeadline": {
+    "placeholders": {
+      "rate": {
+        "type": "int"
+      },
+      "score": {
+        "type": "int"
+      },
+      "weekday": {
+        "type": "String"
+      }
+    }
+  },
+  "insightsWeeklyDescription": "你已经把波动收窄了，下一步只需要先处理掉最常见的拖延原因：{reason}。",
+  "@insightsWeeklyDescription": {
+    "placeholders": {
+      "reason": {
+        "type": "String"
+      }
+    }
+  },
+  "insightsOnTrackRateLabel": "达标率",
+  "insightsStabilityLabel": "稳定度",
+  "insightsLatestLateTitle": "最晚入睡日",
+  "insightsNextWeekAdviceTitle": "下周建议",
+  "insightsNoReasonTags": "未记录原因标签",
+  "insightsNoWeeklyReport": "暂无周报",
+  "insightsNoHistory": "暂无历史洞察",
+  "insightsWeeklyReportPageTitle": "本周周报",
+  "insightsHistoryPageTitle": "历史洞察",
+  "insightsHistoryHeadline": "回看长期变化",
+  "insightsHistoryDescription": "最近 30 天内可直接查看，30 天前历史会在此承接会员能力。",
+  "insightsHistoryPaywallTitle": "需要更长时间线？",
+  "insightsHistoryPaywallDescription": "会员可查看 30 天前历史、月报入口和更完整的恢复轨迹。",
+  "insightsHistoryUnlockButton": "解锁全部历史洞察",
+  "insightsHistoryLocked": "超过免费范围",
+  "insightsHistorySummary": "达标率 {rate}% · 稳定度 {score}",
+  "@insightsHistorySummary": {
+    "placeholders": {
+      "rate": {
+        "type": "int"
+      },
+      "score": {
+        "type": "int"
+      }
+    }
+  },
+  "insightsLatestLateSummary": "{weekday} {time} 入睡，比目标晚 {minutes} 分钟。",
+  "@insightsLatestLateSummary": {
+    "placeholders": {
+      "weekday": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      },
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "insightsLatestLateSummaryWithReasons": "{base} 主要原因是 {reasons}。",
+  "@insightsLatestLateSummaryWithReasons": {
+    "placeholders": {
+      "base": {
+        "type": "String"
+      },
+      "reasons": {
+        "type": "String"
+      }
+    }
+  },
+  "insightsStabilitySummaryInsufficient": "样本还不够",
+  "insightsStabilitySummarySteady": "这一周节奏很稳",
+  "insightsStabilitySummaryRecovering": "这一周不是更差，而是正在回稳",
+  "insightsStabilitySummaryNeedsRecovery": "这周波动比较明显",
+  "insightsStabilityDescriptionInsufficient": "至少需要 3 天有效记录，才能判断这周是否稳定。",
+  "insightsStabilityDescriptionSteady": "你的入睡偏差和波动都比较小，可以继续沿用当前节奏。",
+  "insightsStabilityDescriptionRecovering": "虽然仍有波动，但整体已经开始收窄，优先处理高频拖延原因即可。",
+  "insightsStabilityDescriptionNeedsRecovery": "当前偏差较大，建议优先执行 1 到 3 天恢复计划，把最晚入睡点先拉回阈值内。",
+  "insightsStabilityExplainerTitle": "稳定度说明",
+  "insightsStabilityScoreLabel": "当前得分 {score} 分",
+  "@insightsStabilityScoreLabel": {
+    "placeholders": {
+      "score": {
+        "type": "int"
+      }
+    }
+  },
+  "insightsStabilitySampleHint": "至少需要 3 天有效记录才会生成正式稳定度。",
+  "insightsRecoveryEffectTitle": "恢复效果",
+  "insightsRecoveryNoPlan": "当前这周还没有触发恢复计划。",
+  "insightsRecoveryPlanSummary": "最近一次明显晚睡后，建议用 {days} 天把入睡时间拉回到阈值内。",
+  "@insightsRecoveryPlanSummary": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "insightsRecoveryPlanTitle": "{days} 天恢复节奏",
+  "@insightsRecoveryPlanTitle": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "insightsRecoveryPlanDetailTitle": "恢复计划详情",
+  "insightsRecoveryStepLabel": "第 {day} 天 · {title}",
+  "@insightsRecoveryStepLabel": {
+    "placeholders": {
+      "day": {
+        "type": "int"
+      },
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "insightsRecoveryStepCloseWorkEarlierTitle": "先把今晚收回来",
+  "insightsRecoveryStepCloseWorkEarlierDetail": "把最后一项工作或娱乐提前到目标睡前 45 分钟前结束。",
+  "insightsRecoveryStepReduceNightNoiseTitle": "缩短拖延缓冲区",
+  "insightsRecoveryStepReduceNightNoiseDetail": "今天只保留一个睡前动作，避免再次把节奏拖过阈值。",
+  "insightsRecoveryStepReviewLateTriggersTitle": "确认是否回到阈值内",
+  "insightsRecoveryStepReviewLateTriggersDetail": "如果今晚仍偏晚，优先查看晚睡原因并保留最常见触发点。",
+  "insightsRecommendationFinishWorkEarlier": "把睡前最后一项工作提前到 22:45 前结束",
+  "insightsRecommendationEnableSoftReminder": "周中高风险日优先启用柔性提醒",
+  "insightsRecommendationOpenRecoveryPlan": "若连续 2 天偏晚，直接查看恢复计划",
+  "insightsWeekdayMon": "周一",
+  "insightsWeekdayTue": "周二",
+  "insightsWeekdayWed": "周三",
+  "insightsWeekdayThu": "周四",
+  "insightsWeekdayFri": "周五",
+  "insightsWeekdaySat": "周六",
+  "insightsWeekdaySun": "周日",
   "profileTitle": "我的",
   "profileDescription": "管理目标、提醒、账号和隐私设置。",
   "todayPageTitle": "今日",
