@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:rhythm/data/local/rhythm_database.dart';
 import 'package:rhythm/features/sleep_records/data/drift_sleep_record_repository.dart';
 import 'package:rhythm/features/sleep_records/domain/sleep_record.dart';
 import 'package:rhythm/features/sleep_records/domain/sleep_record_confidence.dart';
@@ -7,12 +8,15 @@ import 'package:rhythm/features/sleep_records/domain/sleep_record_source.dart';
 /// 验证 Drift 睡眠记录仓储可以保存底层记录并解析有效记录。
 void main() {
   late DriftSleepRecordRepository repository;
+  late RhythmDatabase database;
 
   setUp(() {
-    repository = DriftSleepRecordRepository.inMemory();
+    database = RhythmDatabase.inMemory();
+    repository = DriftSleepRecordRepository(database);
   });
 
   tearDown(() async {
+    await database.close();
     await repository.close();
   });
 
@@ -39,7 +43,20 @@ void main() {
       endRecordDate: DateTime.utc(2026, 5, 22),
     );
 
-    expect(records, [record]);
+    expect(records, hasLength(1));
+    final loaded = records.single;
+    expect(loaded.id, record.id);
+    expect(loaded.recordDate, record.recordDate);
+    expect(loaded.fellAsleepAt, record.fellAsleepAt);
+    expect(loaded.wokeUpAt, record.wokeUpAt);
+    expect(loaded.durationMinutes, record.durationMinutes);
+    expect(loaded.source, record.source);
+    expect(loaded.confidence, record.confidence);
+    expect(loaded.timezone, record.timezone);
+    expect(loaded.isUserEdited, record.isUserEdited);
+    expect(loaded.sourceRecordId, record.sourceRecordId);
+    expect(loaded.createdAt, record.createdAt);
+    expect(loaded.updatedAt, record.updatedAt);
   });
 
   test('原始记录与用户修正并存时有效记录优先返回用户确认结果', () async {
@@ -105,6 +122,18 @@ void main() {
 
     final loaded = await repository.readRecordById('manual-edit');
 
-    expect(loaded, record);
+    expect(loaded, isNotNull);
+    expect(loaded!.id, record.id);
+    expect(loaded.recordDate, record.recordDate);
+    expect(loaded.fellAsleepAt, record.fellAsleepAt);
+    expect(loaded.wokeUpAt, record.wokeUpAt);
+    expect(loaded.durationMinutes, record.durationMinutes);
+    expect(loaded.source, record.source);
+    expect(loaded.confidence, record.confidence);
+    expect(loaded.timezone, record.timezone);
+    expect(loaded.isUserEdited, record.isUserEdited);
+    expect(loaded.sourceRecordId, record.sourceRecordId);
+    expect(loaded.createdAt, record.createdAt);
+    expect(loaded.updatedAt, record.updatedAt);
   });
 }

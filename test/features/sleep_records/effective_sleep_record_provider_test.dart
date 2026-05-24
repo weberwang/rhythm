@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rhythm/core/time/time_context.dart';
 import 'package:rhythm/core/time/time_context_provider.dart';
+import 'package:rhythm/data/local/rhythm_database.dart';
 import 'package:rhythm/features/goal_schedule/application/goal_schedule_providers.dart';
 import 'package:rhythm/features/goal_schedule/domain/goal_schedule_settings.dart';
 import 'package:rhythm/features/sleep_records/application/effective_sleep_record_provider.dart';
@@ -16,13 +17,15 @@ import '../../support/sleep_records_test_doubles.dart';
 /// 验证有效记录 Provider 会按业务归属日窗口返回最近 7 天和 30 天结果。
 void main() {
   late DriftSleepRecordRepository repository;
+  late RhythmDatabase database;
 
   setUp(() {
-    repository = DriftSleepRecordRepository.inMemory();
+    database = RhythmDatabase.inMemory();
+    repository = DriftSleepRecordRepository(database);
   });
 
   tearDown(() async {
-    await repository.close();
+    await database.close();
   });
 
   test('最近 7 天 Provider 会按一天起始时间裁剪业务窗口', () async {
@@ -41,6 +44,7 @@ void main() {
 
     final container = ProviderContainer(
       overrides: [
+        rhythmDatabaseProvider.overrideWithValue(database),
         sleepRecordRepositoryProvider.overrideWith((ref) => repository),
         goalScheduleSettingsRepositoryProvider.overrideWithValue(
           TestGoalScheduleSettingsRepository(
@@ -82,6 +86,7 @@ void main() {
 
     final container = ProviderContainer(
       overrides: [
+        rhythmDatabaseProvider.overrideWithValue(database),
         sleepRecordRepositoryProvider.overrideWith((ref) => repository),
         goalScheduleSettingsRepositoryProvider.overrideWithValue(
           TestGoalScheduleSettingsRepository(

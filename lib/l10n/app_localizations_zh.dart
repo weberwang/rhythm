@@ -39,6 +39,107 @@ class AppLocalizationsZh extends AppLocalizations {
   String get calendarDescription => '用热力图看清最近的作息节奏。';
 
   @override
+  String get calendarHeroEyebrow => '五月仍有节律感';
+
+  @override
+  String get calendarHeroTitle => '颜色不是坏消息，而是你与目标时间的距离。';
+
+  @override
+  String get calendarHeroSubtitle => '本月已有 16 天在轨道里，更多 9 天有偏航。';
+
+  @override
+  String get calendarFilterMetGoal => '入轨内';
+
+  @override
+  String get calendarFilterLate => '晚起波动';
+
+  @override
+  String get calendarFilterDataSource => '晚睡次数';
+
+  @override
+  String get calendarFilterAllDays => '全部日期';
+
+  @override
+  String get calendarFilterOpen => '筛选';
+
+  @override
+  String get calendarFilterSheetTitle => '筛选日历反馈';
+
+  @override
+  String get calendarFilterRecordedOnly => '只看有记录日期';
+
+  @override
+  String get calendarFilterLateOnly => '只看晚睡日期';
+
+  @override
+  String calendarFilterLateCountSummary(int count) {
+    return '晚睡 $count 天';
+  }
+
+  @override
+  String get calendarFilterReset => '重置筛选';
+
+  @override
+  String get calendarFilterApply => '应用筛选';
+
+  @override
+  String get calendarMetricOnTrack => '达标率';
+
+  @override
+  String get calendarMetricLatestLate => '最晚一晚';
+
+  @override
+  String get calendarDetailSleepTime => '实际入睡';
+
+  @override
+  String get calendarDetailWakeTime => '实际起床';
+
+  @override
+  String get calendarDetailOffset => '偏差';
+
+  @override
+  String get calendarDetailSource => '来源与可信度';
+
+  @override
+  String get calendarDetailNoRecord => '当天还没有可解释的睡眠记录。';
+
+  @override
+  String get calendarDetailTagsTitle => '原因标签';
+
+  @override
+  String get calendarDetailAddTag => '添加标签';
+
+  @override
+  String get calendarDetailEditRecord => '编辑昨晚记录';
+
+  @override
+  String get sleepDelayTagPickerTitle => '补一个晚睡原因';
+
+  @override
+  String get sleepDelayTagPickerSave => '保存标签';
+
+  @override
+  String get sleepDelayTagPickerCustom => '自定义标签';
+
+  @override
+  String get customDelayTagTitle => '添加自定义原因';
+
+  @override
+  String get customDelayTagHint => '输入这次晚睡的原因';
+
+  @override
+  String get customDelayTagSave => '保存自定义标签';
+
+  @override
+  String get customDelayTagErrorEmpty => '请输入原因标签';
+
+  @override
+  String get customDelayTagErrorTooLong => '原因标签最多 12 个字';
+
+  @override
+  String get customDelayTagErrorDuplicate => '这个原因已经在默认标签里了';
+
+  @override
   String get bedtimeTitle => '睡前';
 
   @override

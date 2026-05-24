@@ -19,7 +19,7 @@ dependencies:
 
   # 本地数据与模型：支撑睡眠记录、周报、恢复计划等结构化数据。
   collection: ^1.19.1
-  drift: ^2.31.0
+  drift: ^2.28.2
   flutter_secure_storage: ^10.2.0
   freezed_annotation: ^3.1.0
   json_annotation: ^4.9.0
@@ -55,6 +55,7 @@ dependencies:
 
 dev_dependencies:
   build_runner: ^2.5.4
+  drift_dev: ^2.28.0
   flutter_test:
     sdk: flutter
   integration_test:

@@ -158,6 +158,204 @@ abstract class AppLocalizations {
   /// **'Use a heatmap to understand your recent routine rhythm.'**
   String get calendarDescription;
 
+  /// No description provided for @calendarHeroEyebrow.
+  ///
+  /// In en, this message translates to:
+  /// **'May still has rhythm'**
+  String get calendarHeroEyebrow;
+
+  /// No description provided for @calendarHeroTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Color is not bad news. It is the distance between you and your target bedtime.'**
+  String get calendarHeroTitle;
+
+  /// No description provided for @calendarHeroSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'You stayed on track for 16 days this month, and drifted on 9 more.'**
+  String get calendarHeroSubtitle;
+
+  /// No description provided for @calendarFilterMetGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'On track'**
+  String get calendarFilterMetGoal;
+
+  /// No description provided for @calendarFilterLate.
+  ///
+  /// In en, this message translates to:
+  /// **'Late drift'**
+  String get calendarFilterLate;
+
+  /// No description provided for @calendarFilterDataSource.
+  ///
+  /// In en, this message translates to:
+  /// **'Late count'**
+  String get calendarFilterDataSource;
+
+  /// No description provided for @calendarFilterAllDays.
+  ///
+  /// In en, this message translates to:
+  /// **'All days'**
+  String get calendarFilterAllDays;
+
+  /// No description provided for @calendarFilterOpen.
+  ///
+  /// In en, this message translates to:
+  /// **'Filter'**
+  String get calendarFilterOpen;
+
+  /// No description provided for @calendarFilterSheetTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Filter calendar feedback'**
+  String get calendarFilterSheetTitle;
+
+  /// No description provided for @calendarFilterRecordedOnly.
+  ///
+  /// In en, this message translates to:
+  /// **'Only show recorded days'**
+  String get calendarFilterRecordedOnly;
+
+  /// No description provided for @calendarFilterLateOnly.
+  ///
+  /// In en, this message translates to:
+  /// **'Only show late days'**
+  String get calendarFilterLateOnly;
+
+  /// No description provided for @calendarFilterLateCountSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} late days'**
+  String calendarFilterLateCountSummary(int count);
+
+  /// No description provided for @calendarFilterReset.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset filters'**
+  String get calendarFilterReset;
+
+  /// No description provided for @calendarFilterApply.
+  ///
+  /// In en, this message translates to:
+  /// **'Apply filters'**
+  String get calendarFilterApply;
+
+  /// No description provided for @calendarMetricOnTrack.
+  ///
+  /// In en, this message translates to:
+  /// **'On-track rate'**
+  String get calendarMetricOnTrack;
+
+  /// No description provided for @calendarMetricLatestLate.
+  ///
+  /// In en, this message translates to:
+  /// **'Latest late night'**
+  String get calendarMetricLatestLate;
+
+  /// No description provided for @calendarDetailSleepTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Actual sleep time'**
+  String get calendarDetailSleepTime;
+
+  /// No description provided for @calendarDetailWakeTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Actual wake time'**
+  String get calendarDetailWakeTime;
+
+  /// No description provided for @calendarDetailOffset.
+  ///
+  /// In en, this message translates to:
+  /// **'Offset'**
+  String get calendarDetailOffset;
+
+  /// No description provided for @calendarDetailSource.
+  ///
+  /// In en, this message translates to:
+  /// **'Source and confidence'**
+  String get calendarDetailSource;
+
+  /// No description provided for @calendarDetailNoRecord.
+  ///
+  /// In en, this message translates to:
+  /// **'There is no explainable sleep record for this day yet.'**
+  String get calendarDetailNoRecord;
+
+  /// No description provided for @calendarDetailTagsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reason tags'**
+  String get calendarDetailTagsTitle;
+
+  /// No description provided for @calendarDetailAddTag.
+  ///
+  /// In en, this message translates to:
+  /// **'Add tag'**
+  String get calendarDetailAddTag;
+
+  /// No description provided for @calendarDetailEditRecord.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit last night'**
+  String get calendarDetailEditRecord;
+
+  /// No description provided for @sleepDelayTagPickerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a late-night reason'**
+  String get sleepDelayTagPickerTitle;
+
+  /// No description provided for @sleepDelayTagPickerSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save tags'**
+  String get sleepDelayTagPickerSave;
+
+  /// No description provided for @sleepDelayTagPickerCustom.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom tag'**
+  String get sleepDelayTagPickerCustom;
+
+  /// No description provided for @customDelayTagTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a custom reason'**
+  String get customDelayTagTitle;
+
+  /// No description provided for @customDelayTagHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Describe why you stayed up late'**
+  String get customDelayTagHint;
+
+  /// No description provided for @customDelayTagSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save custom tag'**
+  String get customDelayTagSave;
+
+  /// No description provided for @customDelayTagErrorEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a reason tag'**
+  String get customDelayTagErrorEmpty;
+
+  /// No description provided for @customDelayTagErrorTooLong.
+  ///
+  /// In en, this message translates to:
+  /// **'Reason tags must be 12 characters or fewer'**
+  String get customDelayTagErrorTooLong;
+
+  /// No description provided for @customDelayTagErrorDuplicate.
+  ///
+  /// In en, this message translates to:
+  /// **'This reason already exists in the default tags'**
+  String get customDelayTagErrorDuplicate;
+
   /// Bedtime module placeholder title.
   ///
   /// In en, this message translates to:

@@ -4,6 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:rhythm/app/bootstrap/launch_state_provider.dart';
 import 'package:rhythm/app/bootstrap/launch_state_repository.dart';
 import 'package:rhythm/app/rhythm_app.dart';
+import 'package:rhythm/data/local/rhythm_database.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// 为测试构建共享偏好实例，显式控制首次引导完成状态。
@@ -26,6 +27,7 @@ Future<void> pumpRhythmApp(
   final sharedPreferences = await createTestPreferences(
     onboardingCompleted: onboardingCompleted,
   );
+  final database = RhythmDatabase.inMemory();
 
   tester.binding.platformDispatcher.localeTestValue = locale;
   tester.binding.platformDispatcher.localesTestValue = <Locale>[locale];
@@ -33,11 +35,13 @@ Future<void> pumpRhythmApp(
     tester.binding.platformDispatcher.clearLocaleTestValue();
     tester.binding.platformDispatcher.clearLocalesTestValue();
   });
+  addTearDown(database.close);
 
   await tester.pumpWidget(
     ProviderScope(
       overrides: [
         sharedPreferencesProvider.overrideWithValue(sharedPreferences),
+        rhythmDatabaseProvider.overrideWithValue(database),
         ...overrides,
       ],
       child: const RhythmApp(),

@@ -1,5 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:rhythm/features/goal_schedule/application/goal_schedule_providers.dart';
+import 'package:rhythm/features/goal_schedule/domain/goal_schedule_settings.dart';
+import 'package:rhythm/features/goal_schedule/domain/repositories/goal_schedule_settings_repository.dart';
+import 'package:rhythm/features/sleep_records/application/effective_sleep_record_provider.dart';
+import 'package:rhythm/features/sleep_records/application/sleep_record_providers.dart';
+import 'package:rhythm/features/sleep_records/domain/effective_sleep_record.dart';
+import 'package:rhythm/features/sleep_records/domain/health_platform_state.dart';
 
 import '../support/test_app.dart';
 
@@ -10,15 +18,16 @@ void main() {
       tester,
       onboardingCompleted: true,
       locale: const Locale('en'),
+      overrides: _rootReadyOverrides,
     );
     await tester.pumpAndSettle();
 
     expect(find.text('Today'), findsWidgets);
     expect(find.text('Calendar'), findsOneWidget);
-    expect(find.text('Set a sleep goal first'), findsOneWidget);
+    expect(find.text('There is no record from last night yet'), findsOneWidget);
     await tester.tap(find.text('Bedtime'));
     await tester.pumpAndSettle();
-    expect(find.text('Set tonight’s target first'), findsOneWidget);
+    expect(find.text('Bedtime mode'), findsOneWidget);
   });
 
   testWidgets('应用同时挂载亮色和暗色主题并跟随系统', (tester) async {
@@ -44,7 +53,11 @@ void main() {
   });
 
   testWidgets('完成引导后展示五个一级模块并默认进入今日页', (tester) async {
-    await pumpRhythmApp(tester, onboardingCompleted: true);
+    await pumpRhythmApp(
+      tester,
+      onboardingCompleted: true,
+      overrides: _rootReadyOverrides,
+    );
     await tester.pumpAndSettle();
 
     expect(find.text('今日'), findsWidgets);
@@ -52,21 +65,58 @@ void main() {
     expect(find.text('睡前'), findsOneWidget);
     expect(find.text('洞察'), findsOneWidget);
     expect(find.text('我的'), findsOneWidget);
-    expect(find.text('还没有设置作息目标'), findsOneWidget);
+    expect(find.text('昨晚还没有记录'), findsOneWidget);
   });
 
   testWidgets('点击底部模块后切换到对应页面', (tester) async {
-    await pumpRhythmApp(tester, onboardingCompleted: true);
+    await pumpRhythmApp(
+      tester,
+      onboardingCompleted: true,
+      overrides: _rootReadyOverrides,
+    );
     await tester.pumpAndSettle();
 
     await tester.tap(find.text('日历'));
     await tester.pumpAndSettle();
 
-    expect(find.text('用热力图看清最近的作息节奏。'), findsOneWidget);
+    expect(find.text('颜色不是坏消息，而是你与目标时间的距离。'), findsOneWidget);
+    expect(find.text('本月已有 16 天在轨道里，更多 9 天有偏航。'), findsOneWidget);
 
     await tester.tap(find.text('睡前'));
     await tester.pumpAndSettle();
 
-    expect(find.text('还没有设置今晚目标'), findsOneWidget);
+    expect(find.text('睡前模式'), findsOneWidget);
   });
 }
+
+const _settings = GoalScheduleSettings(
+  targetBedtimeMinutes: 23 * 60 + 30,
+  targetWakeMinutes: 7 * 60 + 30,
+  lateThresholdMinutes: 30,
+  dayStartMinutes: 4 * 60,
+);
+
+/// 为根应用测试提供固定目标作息，避免阶段六页面被缺省空态抢占。
+class _FakeGoalScheduleSettingsRepository extends GoalScheduleSettingsRepository {
+  _FakeGoalScheduleSettingsRepository(this._settings);
+
+  final GoalScheduleSettings? _settings;
+
+  @override
+  Future<GoalScheduleSettings?> read() async => _settings;
+
+  @override
+  Future<void> save(GoalScheduleSettings settings) async {}
+}
+
+final List<dynamic> _rootReadyOverrides = [
+  goalScheduleSettingsRepositoryProvider.overrideWithValue(
+    _FakeGoalScheduleSettingsRepository(_settings),
+  ),
+  recentEffectiveSleepRecordsProvider.overrideWith(
+    (ref) async => const <EffectiveSleepRecord>[],
+  ),
+  healthPlatformStateProvider.overrideWith(
+    (ref) async => HealthPlatformState.iosAvailable(),
+  ),
+];

@@ -41,6 +41,112 @@ class AppLocalizationsEn extends AppLocalizations {
       'Use a heatmap to understand your recent routine rhythm.';
 
   @override
+  String get calendarHeroEyebrow => 'May still has rhythm';
+
+  @override
+  String get calendarHeroTitle =>
+      'Color is not bad news. It is the distance between you and your target bedtime.';
+
+  @override
+  String get calendarHeroSubtitle =>
+      'You stayed on track for 16 days this month, and drifted on 9 more.';
+
+  @override
+  String get calendarFilterMetGoal => 'On track';
+
+  @override
+  String get calendarFilterLate => 'Late drift';
+
+  @override
+  String get calendarFilterDataSource => 'Late count';
+
+  @override
+  String get calendarFilterAllDays => 'All days';
+
+  @override
+  String get calendarFilterOpen => 'Filter';
+
+  @override
+  String get calendarFilterSheetTitle => 'Filter calendar feedback';
+
+  @override
+  String get calendarFilterRecordedOnly => 'Only show recorded days';
+
+  @override
+  String get calendarFilterLateOnly => 'Only show late days';
+
+  @override
+  String calendarFilterLateCountSummary(int count) {
+    return '$count late days';
+  }
+
+  @override
+  String get calendarFilterReset => 'Reset filters';
+
+  @override
+  String get calendarFilterApply => 'Apply filters';
+
+  @override
+  String get calendarMetricOnTrack => 'On-track rate';
+
+  @override
+  String get calendarMetricLatestLate => 'Latest late night';
+
+  @override
+  String get calendarDetailSleepTime => 'Actual sleep time';
+
+  @override
+  String get calendarDetailWakeTime => 'Actual wake time';
+
+  @override
+  String get calendarDetailOffset => 'Offset';
+
+  @override
+  String get calendarDetailSource => 'Source and confidence';
+
+  @override
+  String get calendarDetailNoRecord =>
+      'There is no explainable sleep record for this day yet.';
+
+  @override
+  String get calendarDetailTagsTitle => 'Reason tags';
+
+  @override
+  String get calendarDetailAddTag => 'Add tag';
+
+  @override
+  String get calendarDetailEditRecord => 'Edit last night';
+
+  @override
+  String get sleepDelayTagPickerTitle => 'Add a late-night reason';
+
+  @override
+  String get sleepDelayTagPickerSave => 'Save tags';
+
+  @override
+  String get sleepDelayTagPickerCustom => 'Custom tag';
+
+  @override
+  String get customDelayTagTitle => 'Add a custom reason';
+
+  @override
+  String get customDelayTagHint => 'Describe why you stayed up late';
+
+  @override
+  String get customDelayTagSave => 'Save custom tag';
+
+  @override
+  String get customDelayTagErrorEmpty => 'Enter a reason tag';
+
+  @override
+  String get customDelayTagErrorTooLong =>
+      'Reason tags must be 12 characters or fewer';
+
+  @override
+  String get customDelayTagErrorDuplicate =>
+      'This reason already exists in the default tags';
+
+  @override
   String get bedtimeTitle => 'Bedtime';
 
   @override

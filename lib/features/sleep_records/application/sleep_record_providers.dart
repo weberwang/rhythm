@@ -1,5 +1,6 @@
 import 'package:rhythm/features/sleep_records/application/sleep_records_analytics.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:rhythm/data/local/rhythm_database.dart';
 import 'package:rhythm/features/sleep_records/application/sleep_record_sync_controller.dart';
 import 'package:rhythm/features/sleep_records/data/health_permission_gateway.dart';
 import 'package:rhythm/features/sleep_records/data/health_sleep_data_source.dart';
@@ -12,7 +13,9 @@ import 'package:rhythm/features/sleep_records/domain/health_platform_state.dart'
 
 /// 提供阶段三睡眠记录仓储实例。
 final sleepRecordRepositoryProvider = Provider<SleepRecordRepository>((ref) {
-  final repository = DriftSleepRecordRepository.inMemory();
+  final repository = DriftSleepRecordRepository(
+    ref.watch(rhythmDatabaseProvider),
+  );
   ref.onDispose(repository.close);
   return repository;
 });

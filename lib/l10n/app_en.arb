@@ -40,6 +40,46 @@
   "@calendarDescription": {
     "description": "Calendar module placeholder description."
   },
+  "calendarHeroEyebrow": "May still has rhythm",
+  "calendarHeroTitle": "Color is not bad news. It is the distance between you and your target bedtime.",
+  "calendarHeroSubtitle": "You stayed on track for 16 days this month, and drifted on 9 more.",
+  "calendarFilterMetGoal": "On track",
+  "calendarFilterLate": "Late drift",
+  "calendarFilterDataSource": "Late count",
+  "calendarFilterAllDays": "All days",
+  "calendarFilterOpen": "Filter",
+  "calendarFilterSheetTitle": "Filter calendar feedback",
+  "calendarFilterRecordedOnly": "Only show recorded days",
+  "calendarFilterLateOnly": "Only show late days",
+  "calendarFilterLateCountSummary": "{count} late days",
+  "@calendarFilterLateCountSummary": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "calendarFilterReset": "Reset filters",
+  "calendarFilterApply": "Apply filters",
+  "calendarMetricOnTrack": "On-track rate",
+  "calendarMetricLatestLate": "Latest late night",
+  "calendarDetailSleepTime": "Actual sleep time",
+  "calendarDetailWakeTime": "Actual wake time",
+  "calendarDetailOffset": "Offset",
+  "calendarDetailSource": "Source and confidence",
+  "calendarDetailNoRecord": "There is no explainable sleep record for this day yet.",
+  "calendarDetailTagsTitle": "Reason tags",
+  "calendarDetailAddTag": "Add tag",
+  "calendarDetailEditRecord": "Edit last night",
+  "sleepDelayTagPickerTitle": "Add a late-night reason",
+  "sleepDelayTagPickerSave": "Save tags",
+  "sleepDelayTagPickerCustom": "Custom tag",
+  "customDelayTagTitle": "Add a custom reason",
+  "customDelayTagHint": "Describe why you stayed up late",
+  "customDelayTagSave": "Save custom tag",
+  "customDelayTagErrorEmpty": "Enter a reason tag",
+  "customDelayTagErrorTooLong": "Reason tags must be 12 characters or fewer",
+  "customDelayTagErrorDuplicate": "This reason already exists in the default tags",
   "bedtimeTitle": "Bedtime",
   "@bedtimeTitle": {
     "description": "Bedtime module placeholder title."

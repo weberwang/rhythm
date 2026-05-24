@@ -10,7 +10,16 @@ enum AnalyticsEventName {
   bedtimeActionClicked('bedtime_action_clicked'),
 
   /// 用户通过通知打开了 App。
-  notificationOpened('notification_opened');
+  notificationOpened('notification_opened'),
+
+  /// 用户查看了日历页。
+  calendarViewed('calendar_viewed'),
+
+  /// 用户查看了某天详情。
+  dayDetailViewed('day_detail_viewed'),
+
+  /// 用户补充了晚睡原因标签。
+  delayTagAdded('delay_tag_added');
 
   const AnalyticsEventName(this.value);
 

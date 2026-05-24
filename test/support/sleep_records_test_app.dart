@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:rhythm/app/bootstrap/launch_state_provider.dart';
 import 'package:rhythm/app/bootstrap/launch_state_repository.dart';
 import 'package:rhythm/app/router/app_router.dart';
+import 'package:rhythm/data/local/rhythm_database.dart';
 import 'package:rhythm/features/sleep_records/presentation/manual_sleep_record_page.dart';
 import 'package:rhythm/features/sleep_records/presentation/sleep_records_hub_page.dart';
 import 'package:rhythm/l10n/app_localizations.dart';
@@ -16,11 +17,13 @@ Future<void> pumpSleepRecordsFlowApp(
   String initialLocation = sleepRecordsHubPath,
   Locale locale = const Locale('zh'),
   List<dynamic> overrides = const <dynamic>[],
+  RhythmDatabase? database,
 }) async {
   SharedPreferences.setMockInitialValues({
     LaunchStateRepository.onboardingCompletedKey: true,
   });
   final sharedPreferences = await SharedPreferences.getInstance();
+  final scopedDatabase = database ?? RhythmDatabase.inMemory();
   final router = GoRouter(
     initialLocation: initialLocation,
     routes: [
@@ -43,11 +46,15 @@ Future<void> pumpSleepRecordsFlowApp(
     tester.binding.platformDispatcher.clearLocaleTestValue();
     tester.binding.platformDispatcher.clearLocalesTestValue();
   });
+  if (database == null) {
+    addTearDown(scopedDatabase.close);
+  }
 
   await tester.pumpWidget(
     ProviderScope(
       overrides: [
         sharedPreferencesProvider.overrideWithValue(sharedPreferences),
+        rhythmDatabaseProvider.overrideWithValue(scopedDatabase),
         ...overrides,
       ],
       child: MaterialApp.router(

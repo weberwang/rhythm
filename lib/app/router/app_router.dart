@@ -3,9 +3,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rhythm/app/bootstrap/launch_state_provider.dart';
 import 'package:rhythm/features/goal_schedule/presentation/goal_setup_page.dart';
+import 'package:rhythm/features/insights/presentation/insights_page.dart';
+import 'package:rhythm/features/insights/presentation/report_history_page.dart';
+import 'package:rhythm/features/insights/presentation/weekly_report_detail_page.dart';
 import 'package:rhythm/features/notifications/presentation/reminder_setup_page.dart';
 import 'package:rhythm/features/onboarding/presentation/onboarding_flow_page.dart';
 import 'package:rhythm/features/bedtime/presentation/bedtime_page.dart';
+import 'package:rhythm/features/calendar/presentation/calendar_page.dart';
 import 'package:rhythm/features/sleep_records/presentation/manual_sleep_record_page.dart';
 import 'package:rhythm/features/sleep_records/presentation/sleep_records_hub_page.dart';
 import 'package:rhythm/features/today/presentation/today_page.dart';
@@ -30,6 +34,12 @@ const String manualSleepRecordPath = '/sleep-records/manual';
 
 /// 睡前模式页路由路径，供底部导航、通知和小组件统一进入。
 const String bedtimeModePath = '/bedtime';
+
+/// 本周周报详情页路由路径。
+const String weeklyReportDetailPath = '/insights/weekly-report';
+
+/// 历史洞察页路由路径。
+const String insightsHistoryPath = '/insights/history';
 
 /// 生成阶段三编辑睡眠记录页路由路径。
 String manualSleepRecordEditPath(String recordId) {
@@ -149,10 +159,7 @@ GoRouter createAppRouter() {
         path: RhythmTab.calendar.path,
         builder: (context, state) => const RhythmShell(
           currentTab: RhythmTab.calendar,
-          child: ModulePlaceholderPage(
-            titleKey: AppCopyKey.calendarTitle,
-            descriptionKey: AppCopyKey.calendarDescription,
-          ),
+          child: CalendarPage(),
         ),
       ),
       GoRoute(
@@ -163,13 +170,18 @@ GoRouter createAppRouter() {
         ),
       ),
       GoRoute(
+        path: weeklyReportDetailPath,
+        builder: (context, state) => const WeeklyReportDetailPage(),
+      ),
+      GoRoute(
+        path: insightsHistoryPath,
+        builder: (context, state) => const ReportHistoryPage(),
+      ),
+      GoRoute(
         path: RhythmTab.insights.path,
         builder: (context, state) => const RhythmShell(
           currentTab: RhythmTab.insights,
-          child: ModulePlaceholderPage(
-            titleKey: AppCopyKey.insightsTitle,
-            descriptionKey: AppCopyKey.insightsDescription,
-          ),
+          child: InsightsPage(),
         ),
       ),
       GoRoute(

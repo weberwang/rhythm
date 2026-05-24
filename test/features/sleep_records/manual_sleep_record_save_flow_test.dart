@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:rhythm/data/local/rhythm_database.dart';
 import 'package:rhythm/features/goal_schedule/application/goal_schedule_providers.dart';
 import 'package:rhythm/features/goal_schedule/domain/goal_schedule_settings.dart';
 import 'package:rhythm/features/sleep_records/application/sleep_record_providers.dart';
@@ -30,7 +31,9 @@ void main() {
   });
 
   testWidgets('从管理页已有记录进入编辑页时展示既有时间', (tester) async {
-    final repository = DriftSleepRecordRepository.inMemory();
+    final database = RhythmDatabase.inMemory();
+    addTearDown(database.close);
+    final repository = DriftSleepRecordRepository(database);
     final record = SleepRecord(
       id: 'manual-edit-1',
       recordDate: DateTime.utc(2026, 5, 22),
@@ -49,6 +52,7 @@ void main() {
 
     await pumpSleepRecordsFlowApp(
       tester,
+      database: database,
       overrides: [
         sleepRecordRepositoryProvider.overrideWith((ref) => repository),
       ],
@@ -64,7 +68,9 @@ void main() {
   });
 
   testWidgets('手动补录保存时使用已保存目标作息的一天起始时间', (tester) async {
-    final repository = DriftSleepRecordRepository.inMemory();
+    final database = RhythmDatabase.inMemory();
+    addTearDown(database.close);
+    final repository = DriftSleepRecordRepository(database);
     final settingsRepository = TestGoalScheduleSettingsRepository(
       const GoalScheduleSettings(
         targetBedtimeMinutes: 23 * 60 + 30,
@@ -76,6 +82,7 @@ void main() {
 
     await pumpSleepRecordsFlowApp(
       tester,
+      database: database,
       overrides: [
         sleepRecordRepositoryProvider.overrideWith((ref) => repository),
         goalScheduleSettingsRepositoryProvider.overrideWithValue(
