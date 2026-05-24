@@ -1,7 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rhythm/features/goal_schedule/application/goal_schedule_form_controller.dart';
+import 'package:rhythm/features/goal_schedule/data/goal_schedule_settings_repository.dart';
 import 'package:rhythm/features/goal_schedule/domain/goal_schedule_form_state.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../support/test_app.dart';
 
@@ -65,5 +67,47 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('把提醒调到刚刚好'), findsOneWidget);
+  });
+
+  testWidgets('目标作息页保存后会持久化目标配置', (tester) async {
+    await pumpRhythmApp(tester, onboardingCompleted: false);
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text('开始建立我的作息目标'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('匿名进入'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('先用手动模式'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('保存目标，继续下一步'));
+    await tester.pumpAndSettle();
+
+    final preferences = await SharedPreferences.getInstance();
+
+    expect(
+      preferences.getInt(
+        SharedPreferencesGoalScheduleSettingsRepository.targetBedtimeMinutesKey,
+      ),
+      23 * 60 + 30,
+    );
+    expect(
+      preferences.getInt(
+        SharedPreferencesGoalScheduleSettingsRepository.targetWakeMinutesKey,
+      ),
+      7 * 60 + 30,
+    );
+    expect(
+      preferences.getInt(
+        SharedPreferencesGoalScheduleSettingsRepository
+            .lateThresholdMinutesKey,
+      ),
+      30,
+    );
+    expect(
+      preferences.getInt(
+        SharedPreferencesGoalScheduleSettingsRepository.dayStartMinutesKey,
+      ),
+      4 * 60,
+    );
   });
 }

@@ -75,6 +75,37 @@ class AppLocalizationsEn extends AppLocalizations {
   String get todayOpenSleepRecordsButton => 'Open sleep record management';
 
   @override
+  String get todayGoalMissingTitle => 'Set a sleep goal first';
+
+  @override
+  String get todayGoalMissingPrimaryAction => 'Set your schedule goal';
+
+  @override
+  String get todayPermissionFailedTitle =>
+      'Sleep data is temporarily unavailable';
+
+  @override
+  String get todayPermissionFailedPrimaryAction => 'Review permission help';
+
+  @override
+  String get todayEmptyTitle => 'There is no record from last night yet';
+
+  @override
+  String get todayEmptyPrimaryAction => 'Manually log last night';
+
+  @override
+  String get todayStatusSectionTitle => 'Last night';
+
+  @override
+  String get todayActionSectionTitle => 'Tonight action';
+
+  @override
+  String get todayTrendSectionTitle => 'Last 7 days';
+
+  @override
+  String get todayRecoverySectionTitle => 'Recovery suggestion';
+
+  @override
   String get sleepRecordsHubTitle => 'Sleep record management';
 
   @override
@@ -138,6 +169,14 @@ class AppLocalizationsEn extends AppLocalizations {
       'Sleep read permission has not been granted. Reauthorize to continue automatic sync.';
 
   @override
+  String get sleepRecordsHubStatusUnavailable =>
+      'Sleep sync is unavailable on this device';
+
+  @override
+  String get sleepRecordsHubStatusUnavailableDescription =>
+      'You can still log last night manually and add automatic records later.';
+
+  @override
   String get sleepRecordsHubStatusManualFallback => 'Manual entry is active';
 
   @override
@@ -150,6 +189,24 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get sleepRecordsHubStatusErrorDescription =>
       'This automatic sync did not complete. You can retry later or switch to manual entry now.';
+
+  @override
+  String get sleepRecordsHubLastSyncedTitle => 'Last synced';
+
+  @override
+  String get sleepRecordsHubFailureReasonTitle => 'Failure reason';
+
+  @override
+  String get sleepRecordsHubFailureReasonSyncFailed =>
+      'Health data could not be read. Please try again later.';
+
+  @override
+  String get sleepRecordsHubFailureReasonPlatformUnavailable =>
+      'Health data is not available on this device right now. Switch to manual entry first.';
+
+  @override
+  String get sleepRecordsHubFailureReasonGeneric =>
+      'This sync did not complete. Please try again later.';
 
   @override
   String get sleepRecordsHubSourceTitle => 'Source and confidence';

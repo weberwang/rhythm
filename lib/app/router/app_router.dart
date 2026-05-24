@@ -7,6 +7,7 @@ import 'package:rhythm/features/notifications/presentation/reminder_setup_page.d
 import 'package:rhythm/features/onboarding/presentation/onboarding_flow_page.dart';
 import 'package:rhythm/features/sleep_records/presentation/manual_sleep_record_page.dart';
 import 'package:rhythm/features/sleep_records/presentation/sleep_records_hub_page.dart';
+import 'package:rhythm/features/today/presentation/today_page.dart';
 import 'package:rhythm/l10n/app_localizations.dart';
 
 import '../bootstrap/launch_gate.dart';
@@ -137,7 +138,7 @@ GoRouter createAppRouter() {
         path: RhythmTab.today.path,
         builder: (context, state) => const RhythmShell(
           currentTab: RhythmTab.today,
-          child: TodayModulePage(),
+          child: TodayPage(),
         ),
       ),
       GoRoute(
@@ -215,49 +216,6 @@ class RhythmShell extends StatelessWidget {
           ),
         );
       },
-    );
-  }
-}
-
-/// 今日页入口。
-class TodayModulePage extends StatelessWidget {
-  /// 创建今日页。
-  const TodayModulePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    final l10n = AppLocalizations.of(context);
-
-    return Padding(
-      padding: const EdgeInsets.all(24),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(l10n.todayPageTitle, style: textTheme.headlineMedium),
-          const SizedBox(height: 24),
-          Card(
-            child: Padding(
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(l10n.todayCardTitle, style: textTheme.titleLarge),
-                  const SizedBox(height: 8),
-                  Text(l10n.todayCardDescription),
-                  const SizedBox(height: 16),
-                  FilledButton(
-                    onPressed: () {
-                      context.go(sleepRecordsHubPath);
-                    },
-                    child: Text(l10n.todayOpenSleepRecordsButton),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
     );
   }
 }

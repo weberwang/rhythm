@@ -28,6 +28,24 @@ void main() {
     expect(controller.state.syncedCount, 0);
   });
 
+  test('平台不受支持时进入 unavailable 状态', () async {
+    final controller = SleepRecordSyncController(
+      permissionGateway: _FakeHealthPermissionGateway(
+        platformState: HealthPlatformState.unsupported(),
+      ),
+      dataSource: _FakeHealthSleepDataSource(records: const []),
+      repository: _FakeSleepRecordRepository(),
+    );
+
+    await controller.syncRecentRecords(
+      dayStartMinutes: 4 * 60,
+      timezone: 'Asia/Shanghai',
+    );
+
+    expect(controller.state.status, SleepRecordSyncStatus.unavailable);
+    expect(controller.state.syncedCount, 0);
+  });
+
   test('读取成功后保存记录并产出同步成功状态', () async {
     final record = SleepRecord(
       id: 'raw-1',
@@ -60,6 +78,25 @@ void main() {
     expect(controller.state.status, SleepRecordSyncStatus.success);
     expect(controller.state.syncedCount, 1);
     expect(repository.savedRecords, [record]);
+    expect(controller.state.lastSyncedAt, isNotNull);
+  });
+
+  test('读取异常时写入失败原因', () async {
+    final controller = SleepRecordSyncController(
+      permissionGateway: _FakeHealthPermissionGateway(
+        platformState: HealthPlatformState.androidAvailable(),
+      ),
+      dataSource: _ThrowingHealthSleepDataSource(),
+      repository: _FakeSleepRecordRepository(),
+    );
+
+    await controller.syncRecentRecords(
+      dayStartMinutes: 4 * 60,
+      timezone: 'Asia/Shanghai',
+    );
+
+    expect(controller.state.status, SleepRecordSyncStatus.error);
+    expect(controller.state.failureReason, 'sync_failed');
   });
 }
 
@@ -83,6 +120,16 @@ class _FakeHealthSleepDataSource extends HealthSleepDataSource {
     required String timezone,
   }) async {
     return records;
+  }
+}
+
+class _ThrowingHealthSleepDataSource extends HealthSleepDataSource {
+  @override
+  Future<List<SleepRecord>> readRecentSleepRecords({
+    required int dayStartMinutes,
+    required String timezone,
+  }) async {
+    throw Exception('sync failed');
   }
 }
 

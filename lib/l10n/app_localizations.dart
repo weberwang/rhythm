@@ -218,6 +218,66 @@ abstract class AppLocalizations {
   /// **'Open sleep record management'**
   String get todayOpenSleepRecordsButton;
 
+  /// No description provided for @todayGoalMissingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Set a sleep goal first'**
+  String get todayGoalMissingTitle;
+
+  /// No description provided for @todayGoalMissingPrimaryAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Set your schedule goal'**
+  String get todayGoalMissingPrimaryAction;
+
+  /// No description provided for @todayPermissionFailedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Sleep data is temporarily unavailable'**
+  String get todayPermissionFailedTitle;
+
+  /// No description provided for @todayPermissionFailedPrimaryAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Review permission help'**
+  String get todayPermissionFailedPrimaryAction;
+
+  /// No description provided for @todayEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'There is no record from last night yet'**
+  String get todayEmptyTitle;
+
+  /// No description provided for @todayEmptyPrimaryAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Manually log last night'**
+  String get todayEmptyPrimaryAction;
+
+  /// No description provided for @todayStatusSectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Last night'**
+  String get todayStatusSectionTitle;
+
+  /// No description provided for @todayActionSectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Tonight action'**
+  String get todayActionSectionTitle;
+
+  /// No description provided for @todayTrendSectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Last 7 days'**
+  String get todayTrendSectionTitle;
+
+  /// No description provided for @todayRecoverySectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Recovery suggestion'**
+  String get todayRecoverySectionTitle;
+
   /// Title for the stage 3 sleep records hub page.
   ///
   /// In en, this message translates to:
@@ -326,6 +386,18 @@ abstract class AppLocalizations {
   /// **'Sleep read permission has not been granted. Reauthorize to continue automatic sync.'**
   String get sleepRecordsHubStatusPermissionRequiredDescription;
 
+  /// No description provided for @sleepRecordsHubStatusUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Sleep sync is unavailable on this device'**
+  String get sleepRecordsHubStatusUnavailable;
+
+  /// No description provided for @sleepRecordsHubStatusUnavailableDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'You can still log last night manually and add automatic records later.'**
+  String get sleepRecordsHubStatusUnavailableDescription;
+
   /// No description provided for @sleepRecordsHubStatusManualFallback.
   ///
   /// In en, this message translates to:
@@ -349,6 +421,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'This automatic sync did not complete. You can retry later or switch to manual entry now.'**
   String get sleepRecordsHubStatusErrorDescription;
+
+  /// No description provided for @sleepRecordsHubLastSyncedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Last synced'**
+  String get sleepRecordsHubLastSyncedTitle;
+
+  /// No description provided for @sleepRecordsHubFailureReasonTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Failure reason'**
+  String get sleepRecordsHubFailureReasonTitle;
+
+  /// No description provided for @sleepRecordsHubFailureReasonSyncFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Health data could not be read. Please try again later.'**
+  String get sleepRecordsHubFailureReasonSyncFailed;
+
+  /// No description provided for @sleepRecordsHubFailureReasonPlatformUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Health data is not available on this device right now. Switch to manual entry first.'**
+  String get sleepRecordsHubFailureReasonPlatformUnavailable;
+
+  /// No description provided for @sleepRecordsHubFailureReasonGeneric.
+  ///
+  /// In en, this message translates to:
+  /// **'This sync did not complete. Please try again later.'**
+  String get sleepRecordsHubFailureReasonGeneric;
 
   /// No description provided for @sleepRecordsHubSourceTitle.
   ///

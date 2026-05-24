@@ -15,7 +15,7 @@ void main() {
 
     expect(find.text('Today'), findsWidgets);
     expect(find.text('Calendar'), findsOneWidget);
-    expect(find.text('Take it lighter tonight'), findsOneWidget);
+    expect(find.text('Set a sleep goal first'), findsOneWidget);
   });
 
   testWidgets('应用同时挂载亮色和暗色主题并跟随系统', (tester) async {
@@ -49,7 +49,7 @@ void main() {
     expect(find.text('睡前'), findsOneWidget);
     expect(find.text('洞察'), findsOneWidget);
     expect(find.text('我的'), findsOneWidget);
-    expect(find.text('今晚先轻一点'), findsOneWidget);
+    expect(find.text('还没有设置作息目标'), findsOneWidget);
   });
 
   testWidgets('点击底部模块后切换到对应页面', (tester) async {

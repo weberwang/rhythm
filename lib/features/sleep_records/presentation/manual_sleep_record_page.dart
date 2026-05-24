@@ -4,6 +4,9 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rhythm/app/router/app_router.dart';
 import 'package:rhythm/core/time/sleep_record_day_resolver.dart';
+import 'package:rhythm/core/time/time_context_provider.dart';
+import 'package:rhythm/features/goal_schedule/application/goal_schedule_providers.dart';
+import 'package:rhythm/features/sleep_records/application/effective_sleep_record_provider.dart';
 import 'package:rhythm/features/sleep_records/application/manual_sleep_record_controller.dart';
 import 'package:rhythm/features/sleep_records/application/sleep_records_analytics.dart';
 import 'package:rhythm/features/sleep_records/application/sleep_record_providers.dart';
@@ -30,6 +33,8 @@ class ManualSleepRecordPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final textTheme = Theme.of(context).textTheme;
     final l10n = AppLocalizations.of(context);
+    final timeContext = ref.watch(timeContextProvider);
+    final goalScheduleAsync = ref.watch(savedGoalScheduleSettingsProvider);
     final existingRecordFuture = useMemoized(
       () => editingRecordId == null
           ? Future<SleepRecord?>.value(null)
@@ -53,7 +58,7 @@ class ManualSleepRecordPage extends HookConsumerWidget {
       return null;
     }, [existingRecord?.id]);
     final state = formState.value;
-    final now = DateTime.now();
+    final now = timeContext.now;
     final fellAsleepAt = DateTime(
       now.year,
       now.month,
@@ -74,7 +79,7 @@ class ManualSleepRecordPage extends HookConsumerWidget {
     }
     final recordDate = SleepRecordDayResolver.resolveRecordDate(
       fellAsleepAt: fellAsleepAt,
-      dayStartMinutes: 4 * 60,
+      dayStartMinutes: goalScheduleAsync.value?.dayStartMinutes ?? 4 * 60,
     );
     final duration = wokeUpAt.difference(fellAsleepAt);
 
@@ -243,7 +248,7 @@ class ManualSleepRecordPage extends HookConsumerWidget {
                       durationMinutes: duration.inMinutes,
                       source: SleepRecordSource.manual,
                       confidence: SleepRecordConfidence.high,
-                      timezone: now.timeZoneName,
+                      timezone: timeContext.timezoneName,
                       isUserEdited: true,
                       sourceRecordId: existingRecord?.sourceRecordId,
                       createdAt: existingRecord?.createdAt ?? now,

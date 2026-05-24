@@ -1,3 +1,5 @@
+import 'package:rhythm/features/goal_schedule/domain/goal_schedule_settings.dart';
+import 'package:rhythm/features/goal_schedule/domain/repositories/goal_schedule_settings_repository.dart';
 import 'package:rhythm/features/sleep_records/data/health_permission_gateway.dart';
 import 'package:rhythm/features/sleep_records/data/health_sleep_data_source.dart';
 import 'package:rhythm/features/sleep_records/domain/health_platform_state.dart';
@@ -52,14 +54,37 @@ class TestHealthSleepDataSource extends HealthSleepDataSource {
   /// 若设置，则在读取时直接抛出异常，用于验证失败分支。
   final Object? exception;
 
+  /// 记录最近一次读取时使用的一天起始时间，便于验证页面是否消费目标配置。
+  int? lastDayStartMinutes;
+
+  /// 记录最近一次读取时使用的时区名称，便于验证是否脱离硬编码。
+  String? lastTimezone;
+
   @override
   Future<List<SleepRecord>> readRecentSleepRecords({
     required int dayStartMinutes,
     required String timezone,
   }) async {
+    lastDayStartMinutes = dayStartMinutes;
+    lastTimezone = timezone;
     if (exception != null) {
       throw exception!;
     }
     return records;
   }
+}
+
+/// 提供阶段三测试共用的目标作息仓储假实现。
+class TestGoalScheduleSettingsRepository
+    implements GoalScheduleSettingsRepository {
+  /// 创建测试目标作息仓储。
+  TestGoalScheduleSettingsRepository(this._settings);
+
+  final GoalScheduleSettings? _settings;
+
+  @override
+  Future<GoalScheduleSettings?> read() async => _settings;
+
+  @override
+  Future<void> save(GoalScheduleSettings settings) async {}
 }

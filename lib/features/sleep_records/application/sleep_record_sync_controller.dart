@@ -23,6 +23,9 @@ enum SleepRecordSyncStatus {
   /// 当前应引导用户进入手动补录降级路径。
   manualFallback,
 
+  /// 当前设备或平台暂不支持自动睡眠同步。
+  unavailable,
+
   /// 当前同步失败，但仍允许用户重试。
   error,
 }
@@ -34,6 +37,8 @@ class SleepRecordSyncState {
     this.status = SleepRecordSyncStatus.idle,
     this.syncedCount = 0,
     this.platformState,
+    this.lastSyncedAt,
+    this.failureReason,
   });
 
   /// 当前同步状态。
@@ -45,12 +50,22 @@ class SleepRecordSyncState {
   /// 当前平台主状态，供管理页决定显示安装、授权或降级卡。
   final HealthPlatformState? platformState;
 
+  /// 最近一次同步完成时间，供管理页展示状态摘要。
+  final DateTime? lastSyncedAt;
+
+  /// 最近一次失败原因代码，供页面与埋点复用。
+  final String? failureReason;
+
   /// 返回带有更新字段的新状态。
   SleepRecordSyncState copyWith({
     SleepRecordSyncStatus? status,
     int? syncedCount,
     HealthPlatformState? platformState,
+    DateTime? lastSyncedAt,
+    String? failureReason,
     bool clearPlatformState = false,
+    bool clearLastSyncedAt = false,
+    bool clearFailureReason = false,
   }) {
     return SleepRecordSyncState(
       status: status ?? this.status,
@@ -58,6 +73,12 @@ class SleepRecordSyncState {
       platformState: clearPlatformState
           ? null
           : platformState ?? this.platformState,
+      lastSyncedAt: clearLastSyncedAt
+          ? null
+          : lastSyncedAt ?? this.lastSyncedAt,
+      failureReason: clearFailureReason
+          ? null
+          : failureReason ?? this.failureReason,
     );
   }
 }
@@ -93,6 +114,7 @@ class SleepRecordSyncController {
     _state = _state.copyWith(
       status: SleepRecordSyncStatus.syncing,
       clearPlatformState: true,
+      clearFailureReason: true,
     );
     final platformState = await permissionGateway.getCurrentPlatformState();
     if (!platformState.canReadData) {
@@ -100,6 +122,7 @@ class SleepRecordSyncController {
         status: _resolveFallbackStatus(platformState),
         syncedCount: 0,
         platformState: platformState,
+        failureReason: 'platform_unavailable',
       );
       return;
     }
@@ -118,12 +141,15 @@ class SleepRecordSyncController {
             : SleepRecordSyncStatus.success,
         syncedCount: records.length,
         platformState: platformState,
+        lastSyncedAt: DateTime.now(),
+        clearFailureReason: true,
       );
     } catch (_) {
       _state = _state.copyWith(
         status: SleepRecordSyncStatus.error,
         syncedCount: 0,
         platformState: platformState,
+        failureReason: 'sync_failed',
       );
     }
   }
@@ -137,6 +163,9 @@ class SleepRecordSyncController {
       case 'android_permission_required':
       case 'ios_permission_required':
         return SleepRecordSyncStatus.permissionRequired;
+      case 'android_unavailable':
+      case 'unsupported':
+        return SleepRecordSyncStatus.unavailable;
       default:
         return SleepRecordSyncStatus.manualFallback;
     }

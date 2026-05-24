@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rhythm/app/router/app_router.dart';
+import 'package:rhythm/core/time/time_context_provider.dart';
+import 'package:rhythm/features/sleep_records/application/effective_sleep_record_provider.dart';
+import 'package:rhythm/features/goal_schedule/application/goal_schedule_providers.dart';
 import 'package:rhythm/features/sleep_records/application/sleep_records_analytics.dart';
 import 'package:rhythm/features/sleep_records/application/sleep_record_providers.dart';
 import 'package:rhythm/features/sleep_records/application/sleep_record_sync_controller.dart';
 import 'package:rhythm/features/sleep_records/domain/health_platform_state.dart';
-import 'package:rhythm/features/sleep_records/domain/sleep_record_source.dart';
-import 'package:rhythm/features/sleep_records/presentation/widgets/sleep_record_time_formatter.dart';
+import 'package:rhythm/features/sleep_records/presentation/widgets/sleep_record_list_section.dart';
 import 'package:rhythm/features/sleep_records/presentation/widgets/sleep_records_sync_card.dart';
 import 'package:rhythm/l10n/app_localizations.dart';
 
@@ -20,6 +22,8 @@ class SleepRecordsHubPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final textTheme = Theme.of(context).textTheme;
     final l10n = AppLocalizations.of(context);
+    final timeContext = ref.watch(timeContextProvider);
+    final goalScheduleAsync = ref.watch(savedGoalScheduleSettingsProvider);
     final platformStateAsync = ref.watch(healthPlatformStateProvider);
     final recordsAsync = ref.watch(recentEffectiveSleepRecordsProvider);
     final syncController = ref.watch(sleepRecordSyncControllerProvider);
@@ -81,8 +85,9 @@ class SleepRecordsHubPage extends HookConsumerWidget {
                   await ref
                       .read(sleepRecordSyncControllerProvider)
                       .syncRecentRecords(
-                        dayStartMinutes: 4 * 60,
-                        timezone: 'Asia/Shanghai',
+                        dayStartMinutes:
+                            goalScheduleAsync.value?.dayStartMinutes ?? 4 * 60,
+                        timezone: timeContext.timezoneName,
                       );
                   await ref.read(sleepRecordsAnalyticsProvider).track(
                     SleepRecordsAnalyticsEvent(
@@ -126,47 +131,7 @@ class SleepRecordsHubPage extends HookConsumerWidget {
               const SizedBox(height: 24),
               Expanded(
                 child: recordsAsync.when(
-                  data: (records) {
-                    if (records.isEmpty) {
-                      return Center(
-                        child: Text(l10n.sleepRecordsHubEmptyState),
-                      );
-                    }
-
-                    return ListView.separated(
-                      itemCount: records.length,
-                      separatorBuilder: (context, index) =>
-                          const SizedBox(height: 12),
-                      itemBuilder: (context, index) {
-                        final record = records[index];
-                        final title = switch (record.source) {
-                          SleepRecordSource.manual =>
-                            l10n.sleepRecordsHubManualRecordTitle,
-                          SleepRecordSource.healthConnect =>
-                            l10n.sleepRecordsHubHealthConnectRecordTitle,
-                          SleepRecordSource.healthKit =>
-                            l10n.sleepRecordsHubHealthKitRecordTitle,
-                          SleepRecordSource.imported =>
-                            l10n.sleepRecordsHubImportedRecordTitle,
-                        };
-
-                        return Card(
-                          child: ListTile(
-                            title: Text(title),
-                            subtitle: Text(
-                              '${formatSleepRecordTime(record.fellAsleepAt.hour, record.fellAsleepAt.minute)} - '
-                              '${formatSleepRecordTime(record.wokeUpAt.hour, record.wokeUpAt.minute)}',
-                            ),
-                            onTap: () {
-                              context.go(
-                                manualSleepRecordEditPath(record.recordId),
-                              );
-                            },
-                          ),
-                        );
-                      },
-                    );
-                  },
+                  data: (records) => SleepRecordListSection(records: records),
                   loading: () =>
                       const Center(child: CircularProgressIndicator()),
                   error: (error, stackTrace) => Center(
@@ -190,6 +155,9 @@ class SleepRecordsHubPage extends HookConsumerWidget {
       case 'android_permission_required':
       case 'ios_permission_required':
         return SleepRecordSyncStatus.permissionRequired;
+      case 'android_unavailable':
+      case 'unsupported':
+        return SleepRecordSyncStatus.unavailable;
       case 'android_available':
       case 'ios_available':
         return SleepRecordSyncStatus.success;

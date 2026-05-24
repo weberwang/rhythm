@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rhythm/features/sleep_records/application/sleep_record_sync_controller.dart';
+import 'package:rhythm/features/sleep_records/presentation/widgets/sync_failure_card.dart';
 import 'package:rhythm/l10n/app_localizations.dart';
 
 /// 阶段三同步状态卡。
@@ -60,6 +61,35 @@ class SleepRecordsSyncCard extends StatelessWidget {
                         : const Color(0xFF4A6B52),
                   ),
                 ),
+                if (syncState.lastSyncedAt != null) ...[
+                  const SizedBox(height: 12),
+                  Row(
+                    children: [
+                      Text(
+                        l10n.sleepRecordsHubLastSyncedTitle,
+                        style: textTheme.bodySmall?.copyWith(
+                          color: isSuccess
+                              ? const Color(0xFFD7E7DA)
+                              : const Color(0xFF4A6B52),
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Text(
+                        _formatLastSynced(syncState.lastSyncedAt!),
+                        style: textTheme.bodySmall?.copyWith(
+                          color: isSuccess
+                              ? const Color(0xFFD7E7DA)
+                              : const Color(0xFF4A6B52),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+                if (syncState.failureReason != null) ...[
+                  const SizedBox(height: 12),
+                  SyncFailureCard(syncState: syncState),
+                ],
               ],
             ),
           ),
@@ -94,6 +124,8 @@ class SleepRecordsSyncCard extends StatelessWidget {
         return l10n.sleepRecordsHubStatusInstallRequired;
       case SleepRecordSyncStatus.permissionRequired:
         return l10n.sleepRecordsHubStatusPermissionRequired;
+      case SleepRecordSyncStatus.unavailable:
+        return l10n.sleepRecordsHubStatusUnavailable;
       case SleepRecordSyncStatus.manualFallback:
         return l10n.sleepRecordsHubStatusManualFallback;
       case SleepRecordSyncStatus.error:
@@ -115,6 +147,8 @@ class SleepRecordsSyncCard extends StatelessWidget {
         return l10n.sleepRecordsHubStatusInstallRequiredDescription;
       case SleepRecordSyncStatus.permissionRequired:
         return l10n.sleepRecordsHubStatusPermissionRequiredDescription;
+      case SleepRecordSyncStatus.unavailable:
+        return l10n.sleepRecordsHubStatusUnavailableDescription;
       case SleepRecordSyncStatus.manualFallback:
         return l10n.sleepRecordsHubStatusManualFallbackDescription;
       case SleepRecordSyncStatus.error:
@@ -132,6 +166,8 @@ class SleepRecordsSyncCard extends StatelessWidget {
         return l10n.sleepRecordsHubInstallButton;
       case SleepRecordSyncStatus.permissionRequired:
         return l10n.sleepRecordsHubAuthorizeButton;
+      case SleepRecordSyncStatus.unavailable:
+        return l10n.sleepRecordsHubManualModeButton;
       case SleepRecordSyncStatus.success:
       case SleepRecordSyncStatus.error:
       case SleepRecordSyncStatus.idle:
@@ -139,5 +175,11 @@ class SleepRecordsSyncCard extends StatelessWidget {
       case SleepRecordSyncStatus.manualFallback:
         return l10n.sleepRecordsHubRetryButton;
     }
+  }
+
+  /// 统一格式化最近同步时间，避免页面层散落时间摘要逻辑。
+  String _formatLastSynced(DateTime value) {
+    return '${value.month.toString().padLeft(2, '0')}-${value.day.toString().padLeft(2, '0')} '
+        '${value.hour.toString().padLeft(2, '0')}:${value.minute.toString().padLeft(2, '0')}';
   }
 }

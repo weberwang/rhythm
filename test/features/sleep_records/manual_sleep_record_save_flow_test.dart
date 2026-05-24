@@ -1,4 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:rhythm/features/goal_schedule/application/goal_schedule_providers.dart';
+import 'package:rhythm/features/goal_schedule/domain/goal_schedule_settings.dart';
 import 'package:rhythm/features/sleep_records/application/sleep_record_providers.dart';
 import 'package:rhythm/features/sleep_records/data/drift_sleep_record_repository.dart';
 import 'package:rhythm/features/sleep_records/domain/sleep_record.dart';
@@ -6,6 +9,7 @@ import 'package:rhythm/features/sleep_records/domain/sleep_record_confidence.dar
 import 'package:rhythm/features/sleep_records/domain/sleep_record_source.dart';
 
 import '../../support/sleep_records_test_app.dart';
+import '../../support/sleep_records_test_doubles.dart';
 
 /// 验证手动补录保存后会回到管理页并展示新增记录。
 void main() {
@@ -13,7 +17,9 @@ void main() {
     await pumpSleepRecordsFlowApp(tester);
     await tester.pumpAndSettle();
 
-    await tester.tap(find.text('改用手动模式'));
+    await tester.tap(
+      find.widgetWithText(FilledButton, '改用手动模式'),
+    );
     await tester.pumpAndSettle();
 
     await tester.tap(find.text('保存补录结果'));
@@ -55,5 +61,43 @@ void main() {
     expect(find.text('手动补录'), findsOneWidget);
     expect(find.text('00:48'), findsOneWidget);
     expect(find.text('07:26'), findsOneWidget);
+  });
+
+  testWidgets('手动补录保存时使用已保存目标作息的一天起始时间', (tester) async {
+    final repository = DriftSleepRecordRepository.inMemory();
+    final settingsRepository = TestGoalScheduleSettingsRepository(
+      const GoalScheduleSettings(
+        targetBedtimeMinutes: 23 * 60 + 30,
+        targetWakeMinutes: 7 * 60 + 30,
+        lateThresholdMinutes: 30,
+        dayStartMinutes: 5 * 60,
+      ),
+    );
+
+    await pumpSleepRecordsFlowApp(
+      tester,
+      overrides: [
+        sleepRecordRepositoryProvider.overrideWith((ref) => repository),
+        goalScheduleSettingsRepositoryProvider.overrideWithValue(
+          settingsRepository,
+        ),
+      ],
+    );
+    await tester.pumpAndSettle();
+
+    await tester.tap(
+      find.widgetWithText(FilledButton, '改用手动模式'),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('保存补录结果'));
+    await tester.pumpAndSettle();
+
+    final records = await repository.readRecords(
+      startRecordDate: DateTime.utc(2000, 1, 1),
+      endRecordDate: DateTime.utc(2100, 1, 1),
+    );
+
+    expect(records.single.recordDate.hour, 0);
+    expect(records.single.recordDate.minute, 0);
   });
 }

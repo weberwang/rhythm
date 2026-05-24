@@ -3,6 +3,8 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rhythm/core/presentation/widgets/rhythm_primary_button.dart';
 import 'package:rhythm/features/goal_schedule/application/goal_schedule_form_controller.dart';
+import 'package:rhythm/features/goal_schedule/application/goal_schedule_providers.dart';
+import 'package:rhythm/features/goal_schedule/domain/goal_schedule_settings.dart';
 import 'package:rhythm/l10n/app_localizations.dart';
 
 import '../../../app/router/app_router.dart';
@@ -63,8 +65,22 @@ class GoalSetupPage extends HookConsumerWidget {
               const SizedBox(height: 12),
               RhythmPrimaryButton(
                 label: l10n.goalSetupContinueButton,
-                onPressed: () {
+                onPressed: () async {
                   if (controller.submit()) {
+                    final form = ref.read(goalScheduleFormControllerProvider);
+                    await ref
+                        .read(goalScheduleSettingsRepositoryProvider)
+                        .save(
+                          GoalScheduleSettings(
+                            targetBedtimeMinutes:
+                                form.bedtimeHour * 60 + form.bedtimeMinute,
+                            targetWakeMinutes:
+                                form.wakeHour * 60 + form.wakeMinute,
+                            lateThresholdMinutes: form.lateThresholdMinutes,
+                            dayStartMinutes:
+                                form.dayStartHour * 60 + form.dayStartMinute,
+                          ),
+                        );
                     context.go(onboardingReminderSetupPath);
                   }
                 },

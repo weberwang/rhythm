@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../support/sleep_records_test_app.dart';
@@ -8,7 +9,9 @@ void main() {
     await pumpSleepRecordsFlowApp(tester);
     await tester.pumpAndSettle();
 
-    await tester.tap(find.text('改用手动模式'));
+    await tester.tap(
+      find.widgetWithText(FilledButton, '改用手动模式'),
+    );
     await tester.pumpAndSettle();
 
     expect(find.text('手动补录'), findsOneWidget);

@@ -9,9 +9,13 @@ void main() {
     final updated = state.copyWith(
       status: SleepRecordSyncStatus.success,
       syncedCount: 3,
+      lastSyncedAt: DateTime.utc(2026, 5, 24, 20),
+      failureReason: 'none',
     );
 
     expect(updated.status, SleepRecordSyncStatus.success);
     expect(updated.syncedCount, 3);
+    expect(updated.lastSyncedAt, DateTime.utc(2026, 5, 24, 20));
+    expect(updated.failureReason, 'none');
   });
 }

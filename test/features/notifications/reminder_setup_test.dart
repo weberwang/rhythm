@@ -30,7 +30,7 @@ void main() {
     await tester.tap(find.text('完成设置，进入今日页'));
     await tester.pumpAndSettle();
 
-    expect(find.text('今晚先轻一点'), findsOneWidget);
+    expect(find.text('今日'), findsWidgets);
   });
 
   testWidgets('提醒策略页支持切换开关和修改提前量', (tester) async {

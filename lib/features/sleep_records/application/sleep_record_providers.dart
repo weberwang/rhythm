@@ -6,7 +6,6 @@ import 'package:rhythm/features/sleep_records/data/health_sleep_data_source.dart
 import 'package:rhythm/features/sleep_records/data/drift_sleep_record_repository.dart';
 import 'package:rhythm/features/sleep_records/data/sleep_health_client.dart';
 import 'package:rhythm/features/sleep_records/data/sleep_health_platform_runtime.dart';
-import 'package:rhythm/features/sleep_records/domain/effective_sleep_record.dart';
 import 'package:rhythm/features/sleep_records/domain/repositories/effective_sleep_record_repository.dart';
 import 'package:rhythm/features/sleep_records/domain/repositories/sleep_record_repository.dart';
 import 'package:rhythm/features/sleep_records/domain/health_platform_state.dart';
@@ -70,14 +69,4 @@ final effectiveSleepRecordRepositoryProvider =
     Provider<EffectiveSleepRecordRepository>((ref) {
   final repository = ref.watch(sleepRecordRepositoryProvider);
   return repository as EffectiveSleepRecordRepository;
-});
-
-/// 读取阶段三最近可展示的有效睡眠记录。
-final recentEffectiveSleepRecordsProvider =
-    FutureProvider<List<EffectiveSleepRecord>>((ref) async {
-  final repository = ref.watch(effectiveSleepRecordRepositoryProvider);
-  return repository.readEffectiveRecords(
-    startRecordDate: DateTime.utc(2000, 1, 1),
-    endRecordDate: DateTime.utc(2100, 1, 1),
-  );
 });

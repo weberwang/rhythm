@@ -69,6 +69,36 @@ class AppLocalizationsZh extends AppLocalizations {
   String get todayOpenSleepRecordsButton => '进入睡眠记录管理';
 
   @override
+  String get todayGoalMissingTitle => '还没有设置作息目标';
+
+  @override
+  String get todayGoalMissingPrimaryAction => '去设置目标作息';
+
+  @override
+  String get todayPermissionFailedTitle => '系统睡眠记录暂时不可用';
+
+  @override
+  String get todayPermissionFailedPrimaryAction => '查看权限说明';
+
+  @override
+  String get todayEmptyTitle => '昨晚还没有记录';
+
+  @override
+  String get todayEmptyPrimaryAction => '手动补录昨晚记录';
+
+  @override
+  String get todayStatusSectionTitle => '昨晚结果';
+
+  @override
+  String get todayActionSectionTitle => '今晚行动';
+
+  @override
+  String get todayTrendSectionTitle => '最近 7 天';
+
+  @override
+  String get todayRecoverySectionTitle => '恢复建议';
+
+  @override
   String get sleepRecordsHubTitle => '睡眠记录管理';
 
   @override
@@ -128,6 +158,13 @@ class AppLocalizationsZh extends AppLocalizations {
       '未获得睡眠记录读取权限，重新授权后可继续自动同步。';
 
   @override
+  String get sleepRecordsHubStatusUnavailable => '当前设备暂不支持睡眠同步';
+
+  @override
+  String get sleepRecordsHubStatusUnavailableDescription =>
+      '你仍可以手动补录昨晚结果，后续再接入自动记录。';
+
+  @override
   String get sleepRecordsHubStatusManualFallback => '当前改用手动补录';
 
   @override
@@ -140,6 +177,22 @@ class AppLocalizationsZh extends AppLocalizations {
   @override
   String get sleepRecordsHubStatusErrorDescription =>
       '这次自动同步没有完成，你可以稍后重试，或直接改用手动补录。';
+
+  @override
+  String get sleepRecordsHubLastSyncedTitle => '最近同步';
+
+  @override
+  String get sleepRecordsHubFailureReasonTitle => '失败原因';
+
+  @override
+  String get sleepRecordsHubFailureReasonSyncFailed => '健康数据读取失败，请稍后重试。';
+
+  @override
+  String get sleepRecordsHubFailureReasonPlatformUnavailable =>
+      '当前设备暂时无法读取健康数据，请先改用手动补录。';
+
+  @override
+  String get sleepRecordsHubFailureReasonGeneric => '这次同步没有完成，请稍后再试。';
 
   @override
   String get sleepRecordsHubSourceTitle => '来源与可信度';
