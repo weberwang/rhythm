@@ -34,7 +34,7 @@ PRD 中仍有开放问题。为避免研发悬停，本规划采用以下默认�
 
 | 问题 | 默认决策 | 理由 |
 | --- | --- | --- |
-| 首发平台 | Flutter 跨平台工程内优先验证 iOS HealthKit，Android Health Connect 保留接口层 | 当前项目已是 Flutter，依赖中已包含 `health`，用跨平台结构承接后续 Android |
+| 首发平台 | Flutter 跨平台工程内同时支持 iOS HealthKit 与 Android Health Connect 主链路；阶段三完成双端权限申请、最近 30 天睡眠记录读取、失败降级与手动补录 | 当前项目已是 Flutter，依赖中已包含 `health`，应在 MVP 阶段直接验证双端核心闭环，设备差异专项后置 |
 | 登录策略 | 支持匿名本地使用，登录用于云同步、换机恢复和会员状态 | 降低首启阻力，保护 2 分钟激活目标 |
 | 数据策略 | 本地 Drift 为主，Supabase 负责账号同步和云备份 | 核心闭环不能依赖网络，云能力渐进上线 |
 | 会员策略 | V0.1 只做会员能力位与轻量付费墙，不强推转化 | 先验证免费闭环和留存，再强化订阅理由 |
@@ -258,17 +258,80 @@ GoalSchedule + NotificationSetting
 
 目标：建立可用的数据闭环基础。
 
-- 封装 HealthKit / Health Connect 读取适配器，先完成 iOS 技术验证。
-- 实现最近 30 天睡眠记录同步。
+- 同时封装 iOS HealthKit 与 Android Health Connect 双端读取适配器，完成主链路接入。
+- 支持 Android Health Connect 可用性检测、安装引导、权限申请、权限恢复和无数据降级。
+- 实现双端最近 30 天睡眠记录同步。
 - 支持同步失败提示、重试和降级到手动补录。
 - 实现手动新增、编辑入睡时间和起床时间。
 - 保留原始系统记录和用户修正状态，避免手动修正破坏来源数据。
 - 完成 `sleep_record_synced`、`sleep_record_sync_failed`、`sleep_record_manual_created`、`sleep_record_manual_edited` 埋点。
 
+阶段依赖：
+
+- 输入依赖：阶段二的目标作息、提醒设置、健康权限说明和首次激活完成状态必须已可读。
+- 数据依赖：目标作息中的 `targetBedtimeMinutes`、`lateThresholdMinutes`、`dayStartMinutes` 需要可被睡眠记录模块直接消费。
+- 平台依赖：iOS 侧需要 HealthKit 权限链路，Android 侧需要 Health Connect 可用性、安装状态和权限状态探测能力。
+- 路由依赖：需要具备从今日页占位入口、权限失败状态和同步失败状态跳转到手动补录页的统一入口约定。
+
+功能任务包拆解：
+
+#### 5.3.1 任务包 A：睡眠记录领域模型与有效记录口径
+
+- 定义 `SleepRecord`、`EffectiveSleepRecord`、`SleepRecordSource`、`SleepRecordConfidence` 等核心模型，明确“原始系统记录”“用户手动补录”“用户修正后的有效记录”三层语义。
+- 抽离 `recordDate` 归属、一日开始时间、跨午夜睡眠、时区保存等规则，避免页面、仓储和同步链路各写一套时间判断。
+- 统一有效记录优先级：用户修正或手动补录优先于系统原始记录，下游页面只消费有效记录，不直接消费底层来源表。
+- 在模型层显式保留来源、可信度、时区和是否用户确认，避免阶段四和阶段六再补字段。
+
+#### 5.3.2 任务包 B：本地存储与查询层
+
+- 建立睡眠记录表、用户修正表或等价覆盖结构，保证原始来源可追溯，且用户编辑不会直接覆盖系统原始记录。
+- 为记录表补齐 `recordDate`、`fellAsleepAt`、`wokeUpAt`、`durationMinutes`、`source`、`timezone`、`confidence`、`isUserEdited`、`lastSyncedAt` 等字段。
+- 建立统一 Repository 与查询层，对上暴露“写入原始记录”“写入手动记录”“查询有效记录”“查询最近 7/30 天记录”等能力。
+- 去重策略优先按平台来源、时间范围和归属日综合判断，避免重复同步产生多条看似不同但语义相同的记录。
+
+#### 5.3.3 任务包 C：iOS HealthKit 主链路
+
+- 完成 HealthKit 权限申请、最近 30 天睡眠记录读取、标准化映射和本地入库。
+- 权限拒绝、用户稍后处理、读取无数据、系统异常四类结果必须映射成统一业务状态，不向上层暴露插件原始错误。
+- iOS 侧读取结果必须带入来源和可信度，后续日历详情页可以解释“记录来自系统同步还是用户修正”。
+- 同步完成后输出摘要结果，为今日页、管理页和埋点提供“读取了多少条记录、最后一次同步时间、是否存在失败”的稳定口径。
+
+#### 5.3.4 任务包 D：Android Health Connect 主链路
+
+- Android 侧必须完成 Health Connect 可用性检测，区分“设备不可用”“未安装”“已安装但未授权”“已授权但无数据”“读取异常”五类状态。
+- 未安装时提供安装引导入口；不可用时提供说明和手动补录降级路径；已安装但未授权时提供重新申请权限入口。
+- 完成 Android 最近 30 天睡眠记录读取、标准化映射和本地入库，保证与 iOS 共用同一套领域模型和查询层。
+- Android 平台差异只在适配层和状态建模层收口，不把安装引导、版本判断和权限恢复逻辑散落到页面或控制器。
+- 本阶段只要求完成 Android 主链路，不在阶段三内展开厂商设备差异、异常机型和多版本兼容专项。
+
+#### 5.3.5 任务包 E：双端同步、失败降级与重试
+
+- 建立统一同步用例：权限检查 -> 平台读取 -> 标准化 -> 去重 -> 入库 -> 产出同步结果摘要。
+- 同步失败时必须区分“权限失败”“平台不可用”“无数据”“读取异常”，确保 UI 能展示不同补救动作，而不是一律给出泛化报错。
+- 失败场景下优先提供两类补救路径：立即重试、进入手动补录；避免用户卡在无出口的错误页。
+- 双端都需要支持重复同步且结果稳定，不允许多次同步后制造重复记录或覆盖用户修正结果。
+
+#### 5.3.6 任务包 F：手动补录、编辑与阶段性管理入口
+
+- 实现手动补录页，支持新增入睡时间、起床时间、记录日期，并复用同一表单完成编辑昨晚记录场景。
+- 手动补录和编辑必须通过统一表单状态与校验层实现，不把跨字段校验直接写在页面中。
+- 补录页要明确展示来源说明，例如“手动补录会作为当前展示基准，但不会删除系统原始记录”。
+- 在今日页正式完成前，提供阶段性的睡眠记录管理入口页，承接同步状态、最近记录列表、重试和手动补录入口，保证阶段三能力可独立验收。
+
+#### 5.3.7 任务包 G：国际化、埋点与测试
+
+- 所有新增用户文案接入 `l10n`，覆盖 Android 安装引导、平台不可用、权限恢复、无数据提示、同步失败、手动补录和编辑成功反馈。
+- 补齐睡眠记录相关埋点，并保证双端都能区分成功同步、失败同步、手动创建和手动编辑四类关键事件。
+- 单元测试优先覆盖记录归属、有效记录优先级、去重策略、平台状态映射和同步结果分类。
+- Widget 测试至少覆盖手动补录页、同步失败状态、Android 未安装引导状态和阶段性管理入口页。
+- 集成测试至少覆盖“iOS 或 Android 主链路成功同步”与“Android 不可用或权限失败后进入手动补录”两条最小闭环。
+
 验收：
 
-- 授权成功时可读取睡眠记录并写入本地库。
-- 授权失败或无数据时可手动补录。
+- iOS HealthKit 授权成功时可读取睡眠记录并写入本地库。
+- Android Health Connect 可用且授权成功时可读取睡眠记录并写入本地库。
+- Android Health Connect 未安装、不可用、授权失败或无数据时，用户仍可通过引导进入手动补录。
+- 双端同步失败后都支持重试和降级补录。
 - 修改记录后日历和今日页读取的是用户确认后的结果。
 
 ### 5.4 阶段四：今日页，第 4-5 周
@@ -281,6 +344,77 @@ GoalSchedule + NotificationSetting
 - 实现快捷记录卡：原因标签、手动补录、修改昨晚记录。
 - 实现最近 7 天微趋势卡。
 - 缺失数据时展示温和空态，引导补录或授权。
+
+阶段依赖：
+
+- 输入依赖：阶段二的目标作息、提醒设置和首次激活完成状态必须已可读。
+- 数据依赖：阶段三的睡眠记录读取、手动补录、用户修正结果和数据来源标记必须已落库。
+- 路由依赖：今日页需要已经具备跳转睡前模式、手动补录页、标签弹层的路由与入口约定。
+- 规则依赖：达标判断、晚睡分钟数、连续表现、恢复触发条件必须已有统一领域口径。
+
+功能任务包拆解：
+
+#### 5.4.1 任务包 A：今日页状态聚合
+
+- 输出一个稳定的 `TodayViewState`，统一承接页面所需全部数据，避免页面层直接拼多个 Repository。
+- 基于 `GoalSchedule`、最近睡眠记录、恢复建议和通知设置生成 `TodaySummary`。
+- 明确四类主状态：有数据、无数据、授权失败、仅手动记录。
+- 明确页面级派生字段：昨晚结果文案、是否达标、偏差分钟数、连续表现、今晚目标、距目标剩余时间、推荐主行动。
+- 对“无昨晚记录但已有目标”“有昨晚记录但无恢复建议”“目标缺失”三类边界场景给出明确降级结果。
+
+#### 5.4.2 任务包 B：顶部状态卡与行动卡
+
+- 顶部状态卡只承载昨晚结果，不混入设置入口、解释性长文案或复杂图表。
+- 状态卡优先展示用户最关心的结论：达标、晚睡多少分钟、提前多少分钟、连续表现是否延续。
+- 行动卡只回答今晚怎么做：今晚目标时间、当前距离目标时间、是否建议现在进入睡前模式。
+- 若距离目标较远，行动卡文案强调“今晚目标”；若距离目标较近，文案强调“准备进入睡前模式”。
+- 两张卡需要为后续埋点预留点击位：进入睡前模式、查看说明、查看更多趋势。
+
+#### 5.4.3 任务包 C：恢复建议卡
+
+- 恢复建议卡只在“明显晚睡且存在有效恢复建议”时出现，不在轻微偏差时过度打扰。
+- 恢复建议卡优先输出 1 个主建议，不在今日页堆叠多条规则说明。
+- 卡片内容包含：触发原因摘要、恢复周期天数、今日建议动作、查看详情入口。
+- 恢复建议文案必须非医疗化，强调“恢复节奏”“今晚先做一步”，不使用失败或羞辱式表达。
+- 恢复建议卡需要支持“稍后查看”和“查看详情”两类后续路径，避免今日页信息过重。
+
+#### 5.4.4 任务包 D：快捷记录与补救入口
+
+- 快捷记录卡承接三类高频补救动作：补原因标签、手动补录、修改昨晚记录。
+- 今日页只负责展示入口，不直接承载长表单；复杂输入统一下沉到弹层或独立页面。
+- 原因标签入口优先命中“昨晚已晚睡且尚未补标签”的场景，减少用户搜索成本。
+- 手动补录入口在“无记录”或“授权失败”时提升优先级，作为主补救路径。
+- 修改昨晚记录入口在已有记录时可见，并明确提示“会以用户确认结果作为今日展示基准”。
+
+#### 5.4.5 任务包 E：7 日微趋势与空态体系
+
+- 7 日微趋势卡只做轻量反馈，不承担完整洞察页职责。
+- 微趋势默认展示最近 7 天的入睡偏差或达标结果，强调“是否变稳”而不是展示复杂统计。
+- 数据不足时展示低压空态，例如“再积累几天就能看到趋势”，而不是直接隐藏整个区块。
+- 无数据、权限失败、目标缺失三类空态必须区分处理，分别给出补录、授权、去设置目标的行动按钮。
+- 空态文案遵守温和语气，不把“没数据”表达成用户失败。
+
+#### 5.4.6 任务包 F：埋点、性能与测试
+
+- 补齐今日页相关埋点：`today_viewed`、`today_primary_action_clicked`、`today_quick_action_clicked`、`today_recovery_card_viewed`。
+- Widget 测试覆盖四类状态和主要 CTA 显示逻辑，避免页面只在单一路径下可用。
+- 单元测试覆盖 `TodaySummary` 计算，确保达标、偏差、连续表现和恢复卡出现条件口径稳定。
+- 今日页首屏信息应在一次进入后快速可读，避免把说明文本、历史统计和设置入口堆在首屏。
+- 页面结构遵守拆分规则：`today_page.dart` 负责编排，区块拆到 `presentation/widgets/sections/`，避免单文件膨胀。
+
+建议交付顺序：
+
+1. 先完成 `TodaySummary` 和 `TodayViewState` 的领域与应用层聚合。
+2. 再落地顶部状态卡和行动卡，保证主信息链路先可用。
+3. 然后接入恢复建议卡和快捷记录卡，打通补救路径。
+4. 最后补齐 7 日微趋势、空态体系、埋点和 Widget 测试。
+
+阶段测试清单：
+
+- 单元测试：达标、偏差分钟数、连续表现、恢复卡出现条件、主行动按钮选择。
+- Widget 测试：有数据、无数据、授权失败、仅手动记录四类页面状态。
+- 路由测试：从今日页进入睡前模式、手动补录、修改昨晚记录、补标签路径正确。
+- 文案验收：晚睡反馈不出现羞辱式表达，空态不出现强命令式文案。
 
 验收：
 
@@ -316,6 +450,65 @@ GoalSchedule + NotificationSetting
 - 支持自定义标签，但入口弱化，避免输入负担。
 - 完成 `calendar_viewed`、`day_detail_viewed`、`delay_tag_added` 埋点。
 
+阶段依赖：
+
+- 输入依赖：阶段二的目标作息、阶段三的有效睡眠记录、阶段四的补标签入口、阶段五的睡前拖延状态必须已形成稳定数据口径。
+- 数据依赖：日历只消费“有效记录”和“用户确认后的原因标签”，不直接读取 Health 原始记录，避免热力图与今日页口径不一致。
+- 路由依赖：需要具备从日历单日详情跳转到手动补录/编辑页、打开标签弹层和查看数据来源说明的入口。
+- 国际化依赖：日历筛选、来源说明、标签保存反馈、自定义标签校验和空态文案必须接入 `l10n`。
+
+功能任务包拆解：
+
+#### 5.6.1 任务包 A：日历领域模型与热力图规则
+
+- 定义 `CalendarDaySummary`、`CalendarMonthSummary`、`CalendarHeatmapLevel` 和 `CalendarFilter`，明确日历页只展示聚合后的天级状态。
+- 热力图颜色必须基于 `targetBedtimeMinutes`、`lateThresholdMinutes` 和有效记录的入睡偏差计算，不允许使用固定 23:00、24:00 或自然日零点作为晚睡判断。
+- 对无记录、提前入睡、阈值内、轻度晚睡、明显晚睡、用户修正记录分别建模，保证 UI 能展示不同颜色、说明和操作入口。
+- 月维度聚合需要输出达标天数、有效记录天数、连续达标区间和最晚入睡日，为日历顶部摘要和后续周报复用。
+
+#### 5.6.2 任务包 B：日历状态聚合与查询边界
+
+- 建立 `CalendarController` 与 `CalendarViewState`，由应用层统一读取目标作息、有效睡眠记录、标签和筛选条件。
+- 日历页面不直接访问 Repository；筛选、月份切换、单日选择、详情弹层打开状态都由 Controller 聚合。
+- 查询范围按当前月份向前后补齐可见周，避免月历首尾日期缺数据导致网格跳动。
+- 当目标作息缺失、记录缺失或权限失败时，输出可操作空态：去设置目标、补录记录、查看数据接入状态。
+
+#### 5.6.3 任务包 C：月历热力图页面
+
+- 实现 `CalendarPage`，使用 `HookConsumerWidget` 组织月份切换、筛选栏、热力图网格、图例和月摘要。
+- 热力图单元格保持稳定尺寸，颜色、图标、选中态和今日态不改变网格布局。
+- 首屏只展示月视图、筛选入口和必要摘要；详细来源、备注、标签编辑下沉到单日详情弹层。
+- 接入 `calendar_viewed` 埋点，事件参数至少包含月份、有效记录天数、是否启用筛选和是否存在目标作息。
+
+#### 5.6.4 任务包 D：单日详情弹层与数据来源说明
+
+- 实现 `CalendarDayDetailSheet`，展示实际睡眠区间、入睡偏差、达标状态、来源、可信度、标签、备注和编辑入口。
+- 详情弹层只承载轻量查看和 3 个以内主操作：补原因、编辑记录、查看来源说明。
+- 数据来源说明通过 `RecordSourceExplainerSheet` 统一解释系统同步、手动补录、用户修正和可信度，不在日历页重复拼长说明。
+- 接入 `day_detail_viewed` 埋点，事件参数至少包含记录日期、是否有有效记录、来源、是否用户编辑、是否已补标签。
+
+#### 5.6.5 任务包 E：筛选模式与月内反馈
+
+- 实现 `CalendarFilterSheet`，支持按入睡时间偏差、稳定度区间和晚睡次数进行筛选，并提供重置与应用。
+- 筛选结果只影响当前日历展示与摘要，不修改底层记录或标签数据。
+- 筛选后需要保留图例与空结果提示，空结果提供“一键清除筛选”动作。
+- 筛选状态进入 `CalendarViewState`，方便 Widget 测试覆盖不同筛选组合。
+
+#### 5.6.6 任务包 F：默认标签、自定义标签与保存反馈
+
+- 定义默认不超过 8 个原因标签：刷手机、加班、游戏、追剧、情绪、聚会、时差、其他，默认标签顺序稳定。
+- 实现 `SleepDelayTagPickerSheet`，支持多选默认标签、打开自定义标签输入、保存、取消和保存中状态。
+- 自定义标签限制为 1-12 个字符，去除前后空白，禁止保存空值；重复标签按已有标签合并，不制造重复记录。
+- 标签保存后立即刷新今日页、日历详情和后续洞察原因分布所依赖的数据，并展示统一 Snackbar 成功反馈。
+- 接入 `delay_tag_added` 埋点，事件参数至少包含记录日期、标签数量、是否包含自定义标签和入口来源。
+
+#### 5.6.7 任务包 G：国际化、测试与验收闭环
+
+- 所有新增用户文案接入 `lib/l10n/app_en.arb` 和 `lib/l10n/app_zh.arb`，修改后运行 `flutter gen-l10n`。
+- 单元测试覆盖热力图等级、月摘要、筛选规则、默认标签、自定义标签校验和重复标签合并。
+- Widget 测试覆盖日历页有数据、无数据、筛选空结果、单日详情弹层、标签弹层和自定义标签弹层。
+- 集成测试覆盖“日历点击某天 -> 补原因标签 -> 返回详情看到标签”和“筛选晚睡天 -> 清除筛选恢复月视图”两条最小闭环。
+
 验收：
 
 - 热力图不使用固定 23:00 或 24:00 判断，必须基于用户目标。
@@ -331,6 +524,79 @@ GoalSchedule + NotificationSetting
 - 支持恢复计划查看状态和完成状态。
 - 洞察页展示周报摘要、原因分布和恢复效果入口。
 - 完成 `recovery_plan_viewed`、`recovery_plan_completed`、`weekly_report_viewed` 埋点。
+
+阶段依赖：
+
+- 输入依赖：阶段二的目标作息、阶段三的有效睡眠记录、阶段六的原因标签和日历统计口径必须已可读。
+- 数据依赖：最近 7 天有效记录、每日达标结果、晚睡偏差分钟数、原因标签、恢复计划状态需要有统一查询入口。
+- 规则依赖：达标率、稳定度、主要原因、恢复触发和恢复成功必须落在领域层，避免洞察页、今日页和周报详情页各算一套。
+- 路由依赖：需要具备 `/insights`、`/insights/report/:periodStart`、`/insights/history` 的页面路由，以及恢复计划详情和稳定度说明弹层触发入口。
+- 商业化依赖：历史洞察页需要能读取会员权益状态，免费用户访问 30 天前历史时进入轻量付费拦截，不影响本周免费周报。
+
+功能任务包拆解：
+
+#### 5.7.1 任务包 A：周报领域模型与统计口径
+
+- 定义 `WeeklyReport`、`WeeklyReportDaySnapshot`、`WeeklyReportSummary`、`ReasonDistributionItem` 等领域模型，明确周报只消费“有效记录”和“有效标签”，不直接读取原始系统记录。
+- 统一最近 7 天窗口计算：以用户设置的 `dayStartMinutes` 和本地时区确定统计周期，保证跨午夜记录和自然日边界一致。
+- 达标率使用“达标天数 / 有效记录天数”，当有效记录少于 3 天时不生成正式周报，只输出积累数据空态。
+- 稳定度使用最近 7 天入睡偏差的简化模型，输出 `0-100` 分、等级和一句非医疗化解释。
+- 主要原因只统计用户主动补录或选择的原因标签，不把缺失标签自动归因，避免误导用户。
+
+#### 5.7.2 任务包 B：恢复计划规则与状态模型
+
+- 定义 `RecoveryPlan`、`RecoveryPlanStep`、`RecoveryPlanStatus`、`RecoveryTriggerReason`，支持 1-3 天轻量恢复建议。
+- 恢复触发条件沿用全局口径：晚睡分钟数大于目标熬夜阈值，且该日为有效记录天。
+- 恢复建议必须是行为建议，例如“今晚把准备动作提前 15 分钟”，不使用“治疗”“诊断”“治愈”“改善失眠”等医疗化表达。
+- 恢复计划状态支持未查看、已查看、已完成、已延期，便于今日页和洞察页共享同一份状态。
+- 恢复成功判断使用“触发后 3 天内至少 2 天回到阈值内”，不足样本时展示进行中，不提前判定失败。
+
+#### 5.7.3 任务包 C：洞察页状态聚合
+
+- 建立 `InsightsViewState` 和 `InsightsController`，由应用层聚合周报摘要、原因分布、恢复计划、历史入口和会员限制状态。
+- 洞察页只读取 `InsightsViewState`，不直接拼接睡眠记录 Repository、标签 Repository、会员 Service 和恢复计划规则。
+- 明确四类页面状态：可生成周报、数据不足、无有效记录、周报生成异常。
+- 页面状态需要给出可执行补救动作：去手动补录、查看日历详情、继续积累、重试生成。
+- 周报生成结果需要可缓存到本地 `reports` 或等价存储，避免每次进入洞察页都重复计算并造成展示抖动。
+
+#### 5.7.4 任务包 D：洞察页与周报详情页
+
+- 洞察页首屏展示本周达标率、稳定度、主要原因和恢复效果入口，避免堆叠复杂长报告。
+- 原因分布优先展示前 3 个主要原因，其余原因合并为“其他”，降低首屏认知负担。
+- 恢复效果入口只展示当前最相关的计划状态：有进行中计划则展示计划，有已完成计划则展示结果摘要。
+- 周报详情页承载完整周报：统计周期、达标率、稳定度解释、最晚入睡日、原因分布、下周建议。
+- 历史洞察页先支持周报列表和 30 天前历史的会员拦截，不在 V0.1 扩展月报和年度报告。
+
+#### 5.7.5 任务包 E：弹层、国际化与合规文案
+
+- 实现恢复计划详情弹层，展示 1-3 天建议、当前完成状态、完成按钮和延期入口。
+- 实现稳定度说明弹层，解释评分样本、偏差口径和“数据不足”边界，不暴露复杂公式。
+- 所有洞察页、周报详情页、历史页、恢复计划弹层和稳定度说明弹层的用户文案必须接入 `l10n`。
+- 文案验收必须扫描医疗化禁词，禁止出现“治疗”“诊断”“治愈”“改善失眠”等表达。
+- 空态文案以“继续积累”“今晚先做一步”“可以补录昨晚记录”为主，不使用惩罚式或羞辱式评价。
+
+#### 5.7.6 任务包 F：埋点、测试与验收闭环
+
+- 补齐洞察相关埋点：`weekly_report_viewed`、`recovery_plan_viewed`、`recovery_plan_completed`、`insights_history_viewed`、`stability_explainer_opened`。
+- 单元测试覆盖周报窗口、达标率、稳定度、原因分布、恢复触发、恢复成功和数据不足降级。
+- Controller 测试覆盖可生成周报、数据不足、无记录、生成异常和会员历史限制五类状态。
+- Widget 测试覆盖洞察页、周报详情页、恢复计划详情弹层、稳定度说明弹层和历史洞察页付费拦截。
+- 集成测试覆盖“有 7 天记录 -> 生成周报 -> 打开详情 -> 查看恢复计划 -> 标记完成”的最小闭环。
+
+建议交付顺序：
+
+1. 先完成 `WeeklyReport`、稳定度和原因分布的领域模型与单元测试。
+2. 再完成 `RecoveryPlan` 规则、状态模型和恢复成功判断测试。
+3. 然后实现 `InsightsController`，把周报摘要、恢复计划和会员限制聚合成页面状态。
+4. 接着落地洞察页首屏、周报详情页和历史洞察页，保证核心浏览链路可用。
+5. 最后补齐恢复计划弹层、稳定度说明弹层、国际化文案、埋点和 Widget 测试。
+
+阶段测试清单：
+
+- 单元测试：达标率、稳定度评分、最晚入睡日、原因分布、恢复触发、恢复成功、数据不足降级。
+- Controller 测试：可生成周报、少于 3 天有效记录、无有效记录、生成异常、免费用户历史限制。
+- Widget 测试：洞察页首屏、周报详情页、历史洞察页、恢复计划详情弹层、稳定度说明弹层。
+- 文案验收：扫描医疗化禁词，确认晚睡反馈只给恢复路径，不输出诊断或惩罚式评价。
 
 验收：
 
@@ -535,7 +801,13 @@ GoalSchedule + NotificationSetting
 ### 6.4 人工验收场景
 
 - iOS 健康权限首次授权、拒绝、再次打开设置。
-- Android Health Connect 不可用、未安装、授权失败。
+- Android 首次进入时检测 Health Connect 可用性。
+- Android Health Connect 未安装时进入安装引导。
+- Android Health Connect 不可用时展示说明并降级手动补录。
+- Android Health Connect 已安装但未授权时重新发起权限申请。
+- Android Health Connect 授权成功后同步最近 30 天睡眠记录。
+- Android Health Connect 授权成功但无睡眠数据时进入手动补录。
+- Android 同步异常时执行重试或降级补录。
 - 时区切换前后记录归属日。
 - 夜间 23:00 至次日 03:00 的跨日记录。
 - 推送权限关闭后的降级提示。
@@ -681,17 +953,24 @@ P1 看板：
 **文件：**
 
 - 创建：`lib/data/health/health_sleep_data_source.dart`
+- 创建：`lib/data/health/health_permission_gateway.dart`
 - 创建：`lib/features/sleep_records/data/sleep_record_repository.dart`
+- 创建：`lib/features/sleep_records/application/sleep_record_sync_controller.dart`
+- 创建：`lib/features/sleep_records/presentation/sleep_records_hub_page.dart`
 - 创建：`lib/features/sleep_records/presentation/manual_sleep_record_page.dart`
 - 创建：`test/features/sleep_records/manual_sleep_record_test.dart`
+- 创建：`test/features/sleep_records/health_sleep_data_source_test.dart`
 
 **步骤：**
 
-- 封装健康数据读取接口和失败结果。
-- 实现手动补录、编辑和数据来源标记。
-- 授权失败时引导手动补录。
-- 覆盖补录和编辑测试。
-- 运行 `flutter test test/features/sleep_records/manual_sleep_record_test.dart`。
+- 封装 iOS HealthKit 与 Android Health Connect 的统一读取接口、权限状态和失败结果。
+- 实现 Android Health Connect 可用性检测、安装引导状态、权限申请和权限恢复分支。
+- 实现最近 30 天睡眠记录同步、去重入库和同步结果摘要。
+- 实现阶段性睡眠记录管理页，承接同步状态、最近记录、重试和手动补录入口。
+- 实现手动补录、编辑和数据来源标记，确保用户修正优先于系统原始记录参与展示。
+- 在 Health Connect 不可用、未安装、权限失败或无数据时引导进入手动补录。
+- 覆盖双端读取状态、补录和编辑测试。
+- 运行 `flutter test test/features/sleep_records/manual_sleep_record_test.dart test/features/sleep_records/health_sleep_data_source_test.dart`。
 
 ### 任务 5：实现今日页
 
@@ -699,16 +978,34 @@ P1 看板：
 
 - 创建：`lib/features/today/presentation/today_page.dart`
 - 创建：`lib/features/today/application/today_controller.dart`
+- 创建：`lib/features/today/application/today_view_state.dart`
 - 创建：`lib/features/today/domain/today_summary.dart`
+- 创建：`lib/features/today/domain/today_primary_action.dart`
+- 创建：`lib/features/today/presentation/widgets/sections/today_status_section.dart`
+- 创建：`lib/features/today/presentation/widgets/sections/today_action_section.dart`
+- 创建：`lib/features/today/presentation/widgets/sections/today_recovery_section.dart`
+- 创建：`lib/features/today/presentation/widgets/sections/today_quick_actions_section.dart`
+- 创建：`lib/features/today/presentation/widgets/sections/today_trend_section.dart`
+- 创建：`lib/features/today/presentation/widgets/states/today_empty_state.dart`
+- 创建：`lib/features/today/presentation/widgets/sheets/today_quick_actions_sheet.dart`
 - 创建：`test/features/today/today_summary_test.dart`
+- 创建：`test/features/today/today_controller_test.dart`
+- 创建：`test/features/today/presentation/today_page_test.dart`
 
 **步骤：**
 
-- 聚合昨晚结果、今晚目标、恢复建议、快捷入口和 7 日趋势。
-- 处理有数据、无数据、授权失败、晚睡后四类状态。
-- 晚睡后展示恢复建议而不是失败惩罚。
-- 覆盖 Summary 计算测试。
-- 运行 `flutter test test/features/today/today_summary_test.dart`。
+1. 先定义 `TodaySummary`、`TodayPrimaryAction` 和 `TodayViewState`，明确今日页展示字段、主行动类型和四类页面状态。
+2. 先写 `today_summary_test.dart`，覆盖达标、晚睡、提前入睡、连续表现、恢复建议显示条件和无记录降级规则。
+3. 实现 `today_controller.dart`，从目标作息、最近睡眠记录、恢复建议和通知设置聚合页面状态，不让页面层直接读多个数据源。
+4. 编写 `today_controller_test.dart`，覆盖“有记录”“无记录”“授权失败”“仅手动记录”四类状态映射。
+5. 在 `today_page.dart` 中搭建页面骨架，使用 `HookConsumerWidget` 组织显示层，并把区块拆到 `widgets/sections/`。
+6. 实现 `today_status_section.dart` 和 `today_action_section.dart`，先让昨晚结果和今晚行动链路稳定可读。
+7. 实现 `today_recovery_section.dart`、`today_quick_actions_section.dart` 和 `today_quick_actions_sheet.dart`，接入补标签、手动补录、修改昨晚记录入口。
+8. 实现 `today_trend_section.dart` 和 `today_empty_state.dart`，补齐 7 日微趋势、无数据、权限失败、目标缺失的温和空态。
+9. 接入今日页埋点，至少覆盖页面曝光、主行动点击、快捷动作点击和恢复建议曝光。
+10. 编写 `today_page_test.dart`，覆盖四类主状态下的首屏区块可见性和关键按钮文案。
+11. 运行 `flutter test test/features/today/today_summary_test.dart test/features/today/today_controller_test.dart test/features/today/presentation/today_page_test.dart`。
+12. 完成一次人工走查：验证“3 秒看懂首屏”“晚睡优先给恢复路径”“无数据优先给补救动作”三项体验目标。
 
 ### 任务 6：实现睡前模式
 
@@ -732,51 +1029,167 @@ P1 看板：
 **文件：**
 
 - 创建：`lib/features/calendar/presentation/calendar_page.dart`
+- 创建：`lib/features/calendar/presentation/widgets/calendar_month_header.dart`
+- 创建：`lib/features/calendar/presentation/widgets/calendar_heatmap.dart`
+- 创建：`lib/features/calendar/presentation/widgets/calendar_legend.dart`
+- 创建：`lib/features/calendar/presentation/widgets/calendar_month_summary_section.dart`
+- 创建：`lib/features/calendar/presentation/widgets/sheets/calendar_day_detail_sheet.dart`
+- 创建：`lib/features/calendar/presentation/widgets/sheets/calendar_filter_sheet.dart`
+- 创建：`lib/features/calendar/application/calendar_controller.dart`
+- 创建：`lib/features/calendar/application/calendar_view_state.dart`
 - 创建：`lib/features/calendar/domain/calendar_day_summary.dart`
-- 创建：`lib/features/sleep_records/presentation/sleep_delay_tag_picker.dart`
+- 创建：`lib/features/calendar/domain/calendar_month_summary.dart`
+- 创建：`lib/features/calendar/domain/calendar_heatmap_rules.dart`
+- 创建：`lib/features/calendar/domain/calendar_filter.dart`
+- 创建：`lib/features/sleep_records/domain/sleep_delay_tag.dart`
+- 创建：`lib/features/sleep_records/domain/sleep_delay_tag_rules.dart`
+- 创建：`lib/features/sleep_records/application/sleep_delay_tag_controller.dart`
+- 创建：`lib/features/sleep_records/presentation/widgets/sheets/sleep_delay_tag_picker_sheet.dart`
+- 创建：`lib/features/sleep_records/presentation/widgets/sheets/custom_delay_tag_sheet.dart`
+- 创建：`lib/features/sleep_records/presentation/widgets/sheets/record_source_explainer_sheet.dart`
 - 创建：`test/features/calendar/calendar_heatmap_test.dart`
+- 创建：`test/features/calendar/calendar_controller_test.dart`
+- 创建：`test/features/calendar/presentation/calendar_page_test.dart`
+- 创建：`test/features/sleep_records/sleep_delay_tag_rules_test.dart`
+- 创建：`test/features/sleep_records/presentation/sleep_delay_tag_picker_sheet_test.dart`
+- 修改：`lib/app/router/app_router.dart`
+- 修改：`lib/l10n/app_en.arb`
+- 修改：`lib/l10n/app_zh.arb`
 
 **步骤：**
 
-- 实现按目标时间偏差着色的月历热力图。
-- 实现每日详情和筛选模式。
-- 实现默认原因标签和自定义标签。
-- 覆盖热力图颜色规则测试。
-- 运行 `flutter test test/features/calendar/calendar_heatmap_test.dart`。
+1. 先做 GitNexus 影响分析，分别检查 `appRouter`、睡眠记录 Repository、有效记录查询入口、标签保存入口和本地化生成类的上游影响；如任一结果为 HIGH 或 CRITICAL，先记录风险并暂停确认。
+2. 定义 `CalendarDaySummary`、`CalendarMonthSummary`、`CalendarHeatmapLevel`、`CalendarFilter`、`SleepDelayTag` 和标签规则输入输出，字段必须覆盖日期、有效记录、目标偏差、来源、可信度、标签、备注和筛选状态。
+3. 编写 `calendar_heatmap_test.dart`，覆盖无记录、提前入睡、阈值内、轻度晚睡、明显晚睡、用户修正优先和跨午夜记录归属。
+4. 实现 `calendar_heatmap_rules.dart`，所有颜色等级只基于用户目标入睡时间与熬夜阈值计算，不读取固定晚睡时间。
+5. 编写 `sleep_delay_tag_rules_test.dart`，覆盖默认标签顺序、自定义标签 1-12 字符限制、空白裁剪、重复标签合并和标签数量上限。
+6. 实现 `sleep_delay_tag.dart` 与 `sleep_delay_tag_rules.dart`，默认标签固定为刷手机、加班、游戏、追剧、情绪、聚会、时差、其他。
+7. 编写 `calendar_controller_test.dart`，覆盖月份切换、可见周补齐、无目标空态、无记录空态、权限失败空态、筛选空结果、打开单日详情和保存标签后刷新状态。
+8. 实现 `calendar_controller.dart` 与 `calendar_view_state.dart`，由应用层聚合目标作息、有效睡眠记录、标签、筛选和弹层状态，页面不得直接拼接多个 Repository。
+9. 在 `app_router.dart` 确认 `/calendar` 一级路由挂载到已有底部导航 Shell，并补齐从日历详情进入手动补录/编辑页的跳转参数。
+10. 实现 `calendar_page.dart` 页面骨架，使用 `HookConsumerWidget` 读取 `CalendarViewState`，组合月份头、筛选入口、热力图、图例和月摘要。
+11. 实现 `calendar_heatmap.dart`、`calendar_month_header.dart`、`calendar_legend.dart` 和 `calendar_month_summary_section.dart`，保证日期格子尺寸稳定，今日态、选中态、颜色状态不触发布局跳动。
+12. 实现 `calendar_day_detail_sheet.dart`，展示实际睡眠、偏差、来源、可信度、标签、备注、补原因、编辑记录和来源说明入口。
+13. 实现 `record_source_explainer_sheet.dart`，统一解释系统同步、手动补录、用户修正和可信度，避免页面里散落长说明文案。
+14. 实现 `calendar_filter_sheet.dart`，支持入睡时间偏差、稳定度区间和晚睡次数筛选，并提供重置、应用和清除筛选动作。
+15. 实现 `sleep_delay_tag_controller.dart`、`sleep_delay_tag_picker_sheet.dart` 和 `custom_delay_tag_sheet.dart`，支持默认标签多选、自定义标签输入、保存中状态、取消和保存成功反馈。
+16. 更新 `app_en.arb` 与 `app_zh.arb`，补齐日历标题、筛选、图例、详情、来源说明、默认标签、自定义标签校验、空态、Snackbar 和埋点可读参数文案。
+17. 运行 `flutter gen-l10n`，确认 `package:rhythm/l10n/app_localizations.dart` 中生成字段可被页面和弹层引用。
+18. 接入埋点事件：`calendar_viewed`、`day_detail_viewed`、`delay_tag_added`，事件参数覆盖月份、记录日期、来源、是否用户编辑、标签数量、是否包含自定义标签和入口来源。
+19. 编写 `calendar_page_test.dart`，覆盖有数据月视图、无记录空态、目标缺失空态、筛选空结果、单日详情弹层打开、来源说明弹层打开和编辑入口跳转。
+20. 编写 `sleep_delay_tag_picker_sheet_test.dart`，覆盖默认标签选择、自定义标签保存、空值错误、重复标签合并和保存成功关闭弹层。
+21. 运行 `flutter test test/features/calendar/calendar_heatmap_test.dart test/features/calendar/calendar_controller_test.dart test/features/calendar/presentation/calendar_page_test.dart test/features/sleep_records/sleep_delay_tag_rules_test.dart test/features/sleep_records/presentation/sleep_delay_tag_picker_sheet_test.dart`。
+22. 运行 `flutter test` 做全量回归，确认今日页、睡前模式和睡眠记录相关入口未被日历标签改动破坏。
+23. 人工走查日历闭环：打开日历、切换月份、查看某天详情、补原因标签、编辑记录、筛选晚睡天、清除筛选，确认热力图与今日页同一天达标口径一致。
+24. 提交前运行 `npx gitnexus detect_changes`，确认影响范围只覆盖日历、睡眠标签、本地化、路由入口和预期测试。
 
 ### 任务 8：实现洞察周报
 
 **文件：**
 
+- 创建：`lib/features/insights/domain/weekly_report.dart`
 - 创建：`lib/features/insights/presentation/insights_page.dart`
 - 创建：`lib/features/insights/domain/weekly_report_generator.dart`
+- 创建：`lib/features/insights/domain/stability_score_rules.dart`
+- 创建：`lib/features/insights/domain/reason_distribution_rules.dart`
+- 创建：`lib/features/insights/domain/recovery_plan.dart`
 - 创建：`lib/features/insights/domain/recovery_plan_rules.dart`
+- 创建：`lib/features/insights/application/insights_controller.dart`
+- 创建：`lib/features/insights/application/insights_view_state.dart`
+- 创建：`lib/features/insights/presentation/weekly_report_detail_page.dart`
+- 创建：`lib/features/insights/presentation/report_history_page.dart`
+- 创建：`lib/features/insights/presentation/widgets/sections/weekly_report_summary_section.dart`
+- 创建：`lib/features/insights/presentation/widgets/sections/stability_section.dart`
+- 创建：`lib/features/insights/presentation/widgets/sections/reason_distribution_section.dart`
+- 创建：`lib/features/insights/presentation/widgets/sections/recovery_effect_section.dart`
+- 创建：`lib/features/insights/presentation/widgets/states/insights_empty_state.dart`
+- 创建：`lib/features/insights/presentation/widgets/sheets/recovery_plan_detail_sheet.dart`
+- 创建：`lib/features/insights/presentation/widgets/sheets/stability_explainer_sheet.dart`
+- 创建：`test/features/insights/stability_score_rules_test.dart`
+- 创建：`test/features/insights/recovery_plan_rules_test.dart`
 - 创建：`test/features/insights/weekly_report_generator_test.dart`
+- 创建：`test/features/insights/insights_controller_test.dart`
+- 创建：`test/features/insights/presentation/insights_page_test.dart`
 
 **步骤：**
 
-- 生成最近 7 天达标率、稳定度、主要原因和下周建议。
-- 明显晚睡后生成 1-3 天恢复建议。
-- 避免医疗化表达。
-- 覆盖周报生成和恢复触发测试。
-- 运行 `flutter test test/features/insights/weekly_report_generator_test.dart`。
+1. 先定义 `WeeklyReport`、`WeeklyReportDaySnapshot`、`WeeklyReportSummary` 和 `ReasonDistributionItem`，明确周报输入、输出字段和数据不足状态。
+2. 编写 `weekly_report_generator_test.dart`，覆盖最近 7 天窗口、至少 3 天有效记录、达标率、最晚入睡日、主要原因和下周建议。
+3. 实现 `weekly_report_generator.dart`，只消费有效睡眠记录、目标作息和原因标签，不直接读取原始健康数据。
+4. 编写 `stability_score_rules_test.dart`，覆盖稳定、轻微波动、明显波动、样本不足四类评分结果。
+5. 实现 `stability_score_rules.dart`，输出 `0-100` 稳定度、等级和非医疗化解释文案键。
+6. 编写 `recovery_plan_rules_test.dart`，覆盖明显晚睡触发、轻微偏差不触发、1-3 天建议、恢复成功和样本不足进行中状态。
+7. 定义 `RecoveryPlan`、`RecoveryPlanStep`、`RecoveryPlanStatus`，实现 `recovery_plan_rules.dart`，确保建议内容使用国际化 key 而不是在领域层写死展示文案。
+8. 编写 `insights_controller_test.dart`，覆盖可生成周报、少于 3 天有效记录、无有效记录、生成异常和免费用户历史限制状态。
+9. 实现 `InsightsViewState` 和 `InsightsController`，从睡眠记录、标签、目标作息、恢复计划和会员状态聚合洞察页状态。
+10. 在 `insights_page.dart` 中搭建页面骨架，使用 `HookConsumerWidget`，并把周报摘要、稳定度、原因分布和恢复效果拆到 `widgets/sections/`。
+11. 实现 `weekly_report_detail_page.dart` 和 `report_history_page.dart`，详情页展示完整周报，历史页承接列表和 30 天前历史的付费拦截。
+12. 实现 `recovery_plan_detail_sheet.dart` 和 `stability_explainer_sheet.dart`，弹层只消费页面聚合状态，不直接调用 Repository。
+13. 更新 `lib/l10n/app_en.arb` 和 `lib/l10n/app_zh.arb`，补齐洞察页、周报详情、历史页、恢复计划、稳定度说明、空态和付费拦截文案。
+14. 运行 `flutter gen-l10n`，确认生成的 `app_localizations*.dart` 包含新增文案键。
+15. 接入洞察埋点，至少覆盖 `weekly_report_viewed`、`recovery_plan_viewed`、`recovery_plan_completed`、`insights_history_viewed` 和 `stability_explainer_opened`。
+16. 编写 `insights_page_test.dart`，覆盖周报可见、数据不足空态、无记录空态、恢复计划弹层和稳定度说明弹层。
+17. 运行 `flutter test test/features/insights/weekly_report_generator_test.dart test/features/insights/stability_score_rules_test.dart test/features/insights/recovery_plan_rules_test.dart test/features/insights/insights_controller_test.dart test/features/insights/presentation/insights_page_test.dart`。
+18. 完成一次文案验收：扫描新增 ARB 和洞察相关 Dart 文件，确认不出现“治疗”“诊断”“治愈”“改善失眠”等医疗化表达。
 
 ### 任务 9：实现同步、会员和小组件
 
 **文件：**
 
+- 创建：`lib/app/bootstrap/supabase_bootstrap.dart`
+- 创建：`lib/data/remote/supabase_sync_remote_data_source.dart`
+- 创建：`lib/data/purchases/purchases_membership_data_source.dart`
+- 创建：`lib/features/sync/domain/sync_queue_item.dart`
+- 创建：`lib/features/sync/domain/sync_conflict_policy.dart`
+- 创建：`lib/features/sync/data/sync_queue_repository.dart`
 - 创建：`lib/features/sync/application/sync_service.dart`
+- 创建：`lib/features/sync/application/account_sync_controller.dart`
+- 创建：`lib/features/sync/presentation/account_sync_page.dart`
+- 创建：`lib/features/sync/presentation/widgets/dialogs/sync_retry_dialog.dart`
+- 创建：`lib/features/membership/domain/membership_entitlement.dart`
+- 创建：`lib/features/membership/domain/membership_paywall_policy.dart`
+- 创建：`lib/features/membership/data/membership_repository.dart`
 - 创建：`lib/features/membership/application/membership_service.dart`
+- 创建：`lib/features/membership/application/membership_controller.dart`
+- 创建：`lib/features/membership/presentation/membership_page.dart`
+- 创建：`lib/features/membership/presentation/widgets/paywall_entry_banner.dart`
+- 创建：`lib/features/membership/presentation/widgets/sheets/membership_benefits_sheet.dart`
+- 创建：`lib/features/widget_bridge/domain/widget_snapshot.dart`
+- 创建：`lib/features/widget_bridge/data/home_widget_gateway.dart`
 - 创建：`lib/features/widget_bridge/application/widget_snapshot_service.dart`
+- 创建：`lib/features/widget_bridge/presentation/widget_theme_page.dart`
+- 修改：`lib/app/router/app_router.dart`
+- 修改：`lib/data/local/rhythm_database.dart`
+- 修改：`lib/l10n/app_en.arb`
+- 修改：`lib/l10n/app_zh.arb`
+- 创建：`test/features/sync/sync_conflict_policy_test.dart`
 - 创建：`test/features/sync/sync_service_test.dart`
+- 创建：`test/features/sync/presentation/account_sync_page_test.dart`
+- 创建：`test/features/membership/membership_service_test.dart`
+- 创建：`test/features/membership/membership_paywall_policy_test.dart`
+- 创建：`test/features/membership/presentation/membership_page_test.dart`
+- 创建：`test/features/widget_bridge/widget_snapshot_service_test.dart`
+- 创建：`test/features/widget_bridge/presentation/widget_theme_page_test.dart`
 
 **步骤：**
 
-- 实现最小同步队列和失败重试。
-- 实现会员权益状态读取和付费墙展示条件。
-- 实现小组件快照输出。
-- 覆盖同步冲突和付费墙展示条件测试。
-- 运行 `flutter test test/features/sync/sync_service_test.dart`。
+1. 定义 `SyncQueueItem`、`SyncEntityType`、`SyncOperation`、`SyncRunSummary` 和 `SyncConflictPolicy`，明确目标作息、睡眠记录、原因标签、周报摘要四类实体的同步载荷边界。
+2. 编写 `sync_conflict_policy_test.dart`，覆盖“用户编辑优先”“远端较新但本地未编辑”“删除与更新冲突”“重复同步幂等”四类冲突口径。
+3. 在 `rhythm_database.dart` 中补齐 `sync_queue` 表访问能力，并实现 `SyncQueueRepository`，让应用层只消费队列接口，不直接拼 Drift 查询。
+4. 实现 `supabase_bootstrap.dart` 和 `SupabaseSyncRemoteDataSource`，集中处理 Supabase 初始化、登录态检查、远端表读写和插件错误转换。
+5. 实现 `SyncService` 的同步主流程：读取待同步队列 -> 上传本地变更 -> 拉取远端变更 -> 套用冲突策略 -> 标记队列状态 -> 输出同步摘要。
+6. 编写 `sync_service_test.dart`，覆盖成功同步、失败重试、未登录不触发云同步、冲突合并、网络失败保留队列五类行为。
+7. 实现 `AccountSyncController`、`account_sync_page.dart` 和 `sync_retry_dialog.dart`，展示匿名身份、登录绑定入口、最近同步时间、失败重试和冲突说明。
+8. 定义 `MembershipEntitlement` 和 `MembershipPaywallPolicy`，明确免费版、试用、月付、年付、永久会员的能力位和付费墙触发条件。
+9. 实现 `PurchasesMembershipDataSource`、`MembershipRepository` 和 `MembershipService`，把 `purchases_flutter` 的产品、购买、恢复购买、权益状态转换成项目内部模型。
+10. 实现 `MembershipController`、`membership_page.dart`、`paywall_entry_banner.dart` 和 `membership_benefits_sheet.dart`，覆盖当前权益、方案展示、恢复购买、受限能力拦截和失败提示。
+11. 定义 `WidgetSnapshot`，实现 `HomeWidgetGateway` 和 `WidgetSnapshotService`，只输出今晚目标、距离目标、昨晚状态和入口参数，不暴露过细睡眠健康数据。
+12. 实现 `widget_theme_page.dart`，展示小组件状态、刷新入口、今日页入口和睡前模式入口，并处理无目标、无数据、未授权三类空态。
+13. 接入路由、国际化和埋点：补齐账号同步、会员中心、小组件设置页面路由，新增所有用户可见文案到 ARB，并覆盖 `sync_started`、`sync_completed`、`sync_failed`、`paywall_viewed`、`subscription_purchased`、`widget_snapshot_updated`。
+14. 编写会员和小组件测试，覆盖付费墙展示条件、权益状态读取、购买失败降级、恢复购买、快照隐私边界、无数据小组件空态。
+15. 运行 `flutter gen-l10n`。
+16. 运行 `flutter test test/features/sync/sync_conflict_policy_test.dart test/features/sync/sync_service_test.dart test/features/sync/presentation/account_sync_page_test.dart test/features/membership/membership_service_test.dart test/features/membership/membership_paywall_policy_test.dart test/features/membership/presentation/membership_page_test.dart test/features/widget_bridge/widget_snapshot_service_test.dart test/features/widget_bridge/presentation/widget_theme_page_test.dart`。
+17. 完成一次人工走查：关闭网络后核心闭环仍可用，未登录不上传云端，会员付费墙不阻断首次核心体验，小组件不展示敏感过细数据。
 
 ### 任务 10：内测收口
 
@@ -809,7 +1222,7 @@ P1 看板：
 
 ### 12.2 暂缓到 V0.2 或 V1.0
 
-- Android Health Connect 深度适配和设备差异专项。
+- Android Health Connect 厂商兼容专项、异常机型差异处理和设备矩阵专项测试。
 - 工作日 / 休息日双目标。
 - 轮班 / 时差模式。
 - 月报、年度报告。

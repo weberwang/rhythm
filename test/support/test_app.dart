@@ -21,6 +21,7 @@ Future<void> pumpRhythmApp(
   WidgetTester tester, {
   required bool onboardingCompleted,
   Locale locale = const Locale('zh'),
+  List<dynamic> overrides = const <dynamic>[],
 }) async {
   final sharedPreferences = await createTestPreferences(
     onboardingCompleted: onboardingCompleted,
@@ -37,6 +38,7 @@ Future<void> pumpRhythmApp(
     ProviderScope(
       overrides: [
         sharedPreferencesProvider.overrideWithValue(sharedPreferences),
+        ...overrides,
       ],
       child: const RhythmApp(),
     ),

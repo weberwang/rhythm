@@ -72,6 +72,168 @@ class AppLocalizationsEn extends AppLocalizations {
       'After you set a target schedule, this area will show last night’s result and tonight’s action.';
 
   @override
+  String get todayOpenSleepRecordsButton => 'Open sleep record management';
+
+  @override
+  String get sleepRecordsHubTitle => 'Sleep record management';
+
+  @override
+  String get sleepRecordsHubSyncTitle => 'Last 30 days of sleep records';
+
+  @override
+  String get sleepRecordsHubSyncDescription =>
+      'Automatic records speed things up. Manual entry is the fallback path.';
+
+  @override
+  String get sleepRecordsHubManualButton => 'Manual entry';
+
+  @override
+  String get sleepRecordsHubRetryButton => 'Retry sync';
+
+  @override
+  String get sleepRecordsHubInstallButton => 'Install Health Connect';
+
+  @override
+  String get sleepRecordsHubAuthorizeButton => 'Reauthorize';
+
+  @override
+  String get sleepRecordsHubManualModeButton => 'Use manual mode';
+
+  @override
+  String get sleepRecordsHubStatusIdle => 'Waiting to sync';
+
+  @override
+  String get sleepRecordsHubStatusIdleDescription =>
+      'No sleep records have been pulled for the last 30 days yet. You can sync first or switch to manual entry.';
+
+  @override
+  String get sleepRecordsHubStatusSyncing => 'Syncing';
+
+  @override
+  String get sleepRecordsHubStatusSyncingDescription =>
+      'Reading the last 30 days of sleep records. Please wait.';
+
+  @override
+  String get sleepRecordsHubStatusConnected => 'Health data connected';
+
+  @override
+  String sleepRecordsHubStatusConnectedDescription(int count) {
+    return 'Saved $count sleep records from the last 30 days.';
+  }
+
+  @override
+  String get sleepRecordsHubStatusInstallRequired =>
+      'Health Connect is required';
+
+  @override
+  String get sleepRecordsHubStatusInstallRequiredDescription =>
+      'Health Connect is not installed on this device yet. Install it to enable automatic sleep sync.';
+
+  @override
+  String get sleepRecordsHubStatusPermissionRequired =>
+      'Sleep access is required';
+
+  @override
+  String get sleepRecordsHubStatusPermissionRequiredDescription =>
+      'Sleep read permission has not been granted. Reauthorize to continue automatic sync.';
+
+  @override
+  String get sleepRecordsHubStatusManualFallback => 'Manual entry is active';
+
+  @override
+  String get sleepRecordsHubStatusManualFallbackDescription =>
+      'No usable sleep record was found. You can still confirm last night manually.';
+
+  @override
+  String get sleepRecordsHubStatusError => 'Sync failed';
+
+  @override
+  String get sleepRecordsHubStatusErrorDescription =>
+      'This automatic sync did not complete. You can retry later or switch to manual entry now.';
+
+  @override
+  String get sleepRecordsHubSourceTitle => 'Source and confidence';
+
+  @override
+  String get sleepRecordsHubSourceBulletOriginal =>
+      '• Automatically synced records keep their original source';
+
+  @override
+  String get sleepRecordsHubSourceBulletManual =>
+      '• Manual corrections do not overwrite raw records; they create a confirmed result';
+
+  @override
+  String get sleepRecordsHubSourceBulletFallback =>
+      '• Today, Calendar, and reports still work without permission';
+
+  @override
+  String get sleepRecordsHubEmptyState => 'No confirmed sleep records yet';
+
+  @override
+  String get sleepRecordsHubLoadFailed => 'Failed to load sleep records';
+
+  @override
+  String get sleepRecordsHubManualRecordTitle => 'Manual sleep record';
+
+  @override
+  String get sleepRecordsHubHealthConnectRecordTitle => 'Health Connect record';
+
+  @override
+  String get sleepRecordsHubHealthKitRecordTitle => 'HealthKit record';
+
+  @override
+  String get sleepRecordsHubImportedRecordTitle => 'Imported record';
+
+  @override
+  String get manualSleepRecordPageTitle => 'Manual entry';
+
+  @override
+  String get manualSleepRecordPageSubtitle =>
+      'Confirm last night’s sleep result manually';
+
+  @override
+  String get manualSleepRecordPageDescription =>
+      'When automatic records are missing or inaccurate, you can manually log or correct sleep and wake times.';
+
+  @override
+  String get manualSleepRecordDateLabel => 'Record date';
+
+  @override
+  String get manualSleepRecordSleepTimeLabel => 'Sleep time';
+
+  @override
+  String get manualSleepRecordWakeTimeLabel => 'Wake time';
+
+  @override
+  String get manualSleepRecordDurationLabel => 'Duration';
+
+  @override
+  String get manualSleepRecordSourceLabel => 'Source';
+
+  @override
+  String get manualSleepRecordSourceValue => 'Manual correction';
+
+  @override
+  String get manualSleepRecordSaveButton => 'Save manual result';
+
+  @override
+  String get manualSleepRecordDiscardButton => 'Discard changes';
+
+  @override
+  String get manualSleepRecordHelperTitle => 'Correction notes';
+
+  @override
+  String get manualSleepRecordHelperDescription =>
+      'The raw system record stays intact. What you save becomes the confirmed result shown first in Today and Calendar.';
+
+  @override
+  String get manualSleepRecordValidationSameTime =>
+      'Sleep time and wake time cannot be the same.';
+
+  @override
+  String get manualSleepRecordEditTimeButton => 'Edit time';
+
+  @override
   String get onboardingStepOneEyebrow => 'Step 1 / 3';
 
   @override

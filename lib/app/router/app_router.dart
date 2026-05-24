@@ -5,6 +5,8 @@ import 'package:rhythm/app/bootstrap/launch_state_provider.dart';
 import 'package:rhythm/features/goal_schedule/presentation/goal_setup_page.dart';
 import 'package:rhythm/features/notifications/presentation/reminder_setup_page.dart';
 import 'package:rhythm/features/onboarding/presentation/onboarding_flow_page.dart';
+import 'package:rhythm/features/sleep_records/presentation/manual_sleep_record_page.dart';
+import 'package:rhythm/features/sleep_records/presentation/sleep_records_hub_page.dart';
 import 'package:rhythm/l10n/app_localizations.dart';
 
 import '../bootstrap/launch_gate.dart';
@@ -17,6 +19,12 @@ const String onboardingGoalSetupPath = '/onboarding/goal-setup';
 
 /// 提醒策略设置页路由路径。
 const String onboardingReminderSetupPath = '/onboarding/reminder-setup';
+
+/// 阶段三睡眠记录管理页路由路径。
+const String sleepRecordsHubPath = '/sleep-records/manage';
+
+/// 阶段三手动补录页路由路径。
+const String manualSleepRecordPath = '/sleep-records/manual';
 
 /// 一级模块与占位页可复用的文案键。
 enum AppCopyKey {
@@ -109,6 +117,14 @@ GoRouter createAppRouter() {
             launchStateRepository: container.read(launchStateRepositoryProvider),
           );
         },
+      ),
+      GoRoute(
+        path: sleepRecordsHubPath,
+        builder: (context, state) => const SleepRecordsHubPage(),
+      ),
+      GoRoute(
+        path: manualSleepRecordPath,
+        builder: (context, state) => const ManualSleepRecordPage(),
       ),
       GoRoute(
         path: RhythmTab.today.path,
@@ -222,6 +238,13 @@ class TodayModulePage extends StatelessWidget {
                   Text(l10n.todayCardTitle, style: textTheme.titleLarge),
                   const SizedBox(height: 8),
                   Text(l10n.todayCardDescription),
+                  const SizedBox(height: 16),
+                  FilledButton(
+                    onPressed: () {
+                      context.go(sleepRecordsHubPath);
+                    },
+                    child: Text(l10n.todayOpenSleepRecordsButton),
+                  ),
                 ],
               ),
             ),

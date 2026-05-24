@@ -66,6 +66,159 @@ class AppLocalizationsZh extends AppLocalizations {
   String get todayCardDescription => '设置目标作息后，这里会展示昨晚结果和今晚行动。';
 
   @override
+  String get todayOpenSleepRecordsButton => '进入睡眠记录管理';
+
+  @override
+  String get sleepRecordsHubTitle => '睡眠记录管理';
+
+  @override
+  String get sleepRecordsHubSyncTitle => '最近 30 天睡眠记录';
+
+  @override
+  String get sleepRecordsHubSyncDescription => '自动记录是加速器，手动补录是保底路径。';
+
+  @override
+  String get sleepRecordsHubManualButton => '手动补录';
+
+  @override
+  String get sleepRecordsHubRetryButton => '重新同步';
+
+  @override
+  String get sleepRecordsHubInstallButton => '安装 Health Connect';
+
+  @override
+  String get sleepRecordsHubAuthorizeButton => '重新授权';
+
+  @override
+  String get sleepRecordsHubManualModeButton => '改用手动模式';
+
+  @override
+  String get sleepRecordsHubStatusIdle => '等待同步';
+
+  @override
+  String get sleepRecordsHubStatusIdleDescription =>
+      '尚未读取最近 30 天睡眠记录，你可以先同步，或直接改用手动补录。';
+
+  @override
+  String get sleepRecordsHubStatusSyncing => '正在同步';
+
+  @override
+  String get sleepRecordsHubStatusSyncingDescription => '正在读取最近 30 天睡眠记录，请稍候。';
+
+  @override
+  String get sleepRecordsHubStatusConnected => '已连接健康数据';
+
+  @override
+  String sleepRecordsHubStatusConnectedDescription(int count) {
+    return '最近 30 天已写入 $count 条睡眠记录。';
+  }
+
+  @override
+  String get sleepRecordsHubStatusInstallRequired => '需要安装 Health Connect';
+
+  @override
+  String get sleepRecordsHubStatusInstallRequiredDescription =>
+      '检测到当前设备尚未安装 Health Connect，安装后才可自动同步睡眠记录。';
+
+  @override
+  String get sleepRecordsHubStatusPermissionRequired => '需要授权读取睡眠数据';
+
+  @override
+  String get sleepRecordsHubStatusPermissionRequiredDescription =>
+      '未获得睡眠记录读取权限，重新授权后可继续自动同步。';
+
+  @override
+  String get sleepRecordsHubStatusManualFallback => '当前改用手动补录';
+
+  @override
+  String get sleepRecordsHubStatusManualFallbackDescription =>
+      '未读取到可用睡眠记录，你仍可手动确认昨晚的睡眠结果。';
+
+  @override
+  String get sleepRecordsHubStatusError => '同步失败';
+
+  @override
+  String get sleepRecordsHubStatusErrorDescription =>
+      '这次自动同步没有完成，你可以稍后重试，或直接改用手动补录。';
+
+  @override
+  String get sleepRecordsHubSourceTitle => '来源与可信度';
+
+  @override
+  String get sleepRecordsHubSourceBulletOriginal => '• 系统自动读取会保留原始来源';
+
+  @override
+  String get sleepRecordsHubSourceBulletManual => '• 手动修正不会覆盖原始记录，只会生成确认结果';
+
+  @override
+  String get sleepRecordsHubSourceBulletFallback => '• 无权限时今日页、日历和周报仍可继续使用';
+
+  @override
+  String get sleepRecordsHubEmptyState => '暂无已确认记录';
+
+  @override
+  String get sleepRecordsHubLoadFailed => '记录加载失败，请稍后再试';
+
+  @override
+  String get sleepRecordsHubManualRecordTitle => '手动补录记录';
+
+  @override
+  String get sleepRecordsHubHealthConnectRecordTitle => 'Health Connect 同步记录';
+
+  @override
+  String get sleepRecordsHubHealthKitRecordTitle => 'HealthKit 同步记录';
+
+  @override
+  String get sleepRecordsHubImportedRecordTitle => '导入记录';
+
+  @override
+  String get manualSleepRecordPageTitle => '手动补录';
+
+  @override
+  String get manualSleepRecordPageSubtitle => '手动确认昨晚的睡眠结果';
+
+  @override
+  String get manualSleepRecordPageDescription =>
+      '当自动记录缺失或不够准确时，你可以直接补录或修正入睡与起床时间。';
+
+  @override
+  String get manualSleepRecordDateLabel => '归属日期';
+
+  @override
+  String get manualSleepRecordSleepTimeLabel => '入睡时间';
+
+  @override
+  String get manualSleepRecordWakeTimeLabel => '起床时间';
+
+  @override
+  String get manualSleepRecordDurationLabel => '睡眠时长';
+
+  @override
+  String get manualSleepRecordSourceLabel => '数据来源';
+
+  @override
+  String get manualSleepRecordSourceValue => '手动修正';
+
+  @override
+  String get manualSleepRecordSaveButton => '保存补录结果';
+
+  @override
+  String get manualSleepRecordDiscardButton => '放弃本次修改';
+
+  @override
+  String get manualSleepRecordHelperTitle => '修正说明';
+
+  @override
+  String get manualSleepRecordHelperDescription =>
+      '系统原始记录会保留，你保存的是“用户确认结果”，今日页和日历都会优先展示它。';
+
+  @override
+  String get manualSleepRecordValidationSameTime => '入睡时间和起床时间不能相同。';
+
+  @override
+  String get manualSleepRecordEditTimeButton => '修改时间';
+
+  @override
   String get onboardingStepOneEyebrow => '第 1 步 / 3';
 
   @override

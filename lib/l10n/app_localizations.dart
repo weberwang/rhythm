@@ -212,6 +212,294 @@ abstract class AppLocalizations {
   /// **'After you set a target schedule, this area will show last night’s result and tonight’s action.'**
   String get todayCardDescription;
 
+  /// Button label that opens the stage 3 sleep records hub from the today placeholder page.
+  ///
+  /// In en, this message translates to:
+  /// **'Open sleep record management'**
+  String get todayOpenSleepRecordsButton;
+
+  /// Title for the stage 3 sleep records hub page.
+  ///
+  /// In en, this message translates to:
+  /// **'Sleep record management'**
+  String get sleepRecordsHubTitle;
+
+  /// Primary sync card title on the stage 3 sleep records hub page.
+  ///
+  /// In en, this message translates to:
+  /// **'Last 30 days of sleep records'**
+  String get sleepRecordsHubSyncTitle;
+
+  /// Primary sync card description on the stage 3 sleep records hub page.
+  ///
+  /// In en, this message translates to:
+  /// **'Automatic records speed things up. Manual entry is the fallback path.'**
+  String get sleepRecordsHubSyncDescription;
+
+  /// Primary button label for manually adding a sleep record.
+  ///
+  /// In en, this message translates to:
+  /// **'Manual entry'**
+  String get sleepRecordsHubManualButton;
+
+  /// No description provided for @sleepRecordsHubRetryButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry sync'**
+  String get sleepRecordsHubRetryButton;
+
+  /// No description provided for @sleepRecordsHubInstallButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Install Health Connect'**
+  String get sleepRecordsHubInstallButton;
+
+  /// No description provided for @sleepRecordsHubAuthorizeButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Reauthorize'**
+  String get sleepRecordsHubAuthorizeButton;
+
+  /// No description provided for @sleepRecordsHubManualModeButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Use manual mode'**
+  String get sleepRecordsHubManualModeButton;
+
+  /// No description provided for @sleepRecordsHubStatusIdle.
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting to sync'**
+  String get sleepRecordsHubStatusIdle;
+
+  /// No description provided for @sleepRecordsHubStatusIdleDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'No sleep records have been pulled for the last 30 days yet. You can sync first or switch to manual entry.'**
+  String get sleepRecordsHubStatusIdleDescription;
+
+  /// No description provided for @sleepRecordsHubStatusSyncing.
+  ///
+  /// In en, this message translates to:
+  /// **'Syncing'**
+  String get sleepRecordsHubStatusSyncing;
+
+  /// No description provided for @sleepRecordsHubStatusSyncingDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Reading the last 30 days of sleep records. Please wait.'**
+  String get sleepRecordsHubStatusSyncingDescription;
+
+  /// No description provided for @sleepRecordsHubStatusConnected.
+  ///
+  /// In en, this message translates to:
+  /// **'Health data connected'**
+  String get sleepRecordsHubStatusConnected;
+
+  /// No description provided for @sleepRecordsHubStatusConnectedDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved {count} sleep records from the last 30 days.'**
+  String sleepRecordsHubStatusConnectedDescription(int count);
+
+  /// No description provided for @sleepRecordsHubStatusInstallRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Health Connect is required'**
+  String get sleepRecordsHubStatusInstallRequired;
+
+  /// No description provided for @sleepRecordsHubStatusInstallRequiredDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Health Connect is not installed on this device yet. Install it to enable automatic sleep sync.'**
+  String get sleepRecordsHubStatusInstallRequiredDescription;
+
+  /// No description provided for @sleepRecordsHubStatusPermissionRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Sleep access is required'**
+  String get sleepRecordsHubStatusPermissionRequired;
+
+  /// No description provided for @sleepRecordsHubStatusPermissionRequiredDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Sleep read permission has not been granted. Reauthorize to continue automatic sync.'**
+  String get sleepRecordsHubStatusPermissionRequiredDescription;
+
+  /// No description provided for @sleepRecordsHubStatusManualFallback.
+  ///
+  /// In en, this message translates to:
+  /// **'Manual entry is active'**
+  String get sleepRecordsHubStatusManualFallback;
+
+  /// No description provided for @sleepRecordsHubStatusManualFallbackDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'No usable sleep record was found. You can still confirm last night manually.'**
+  String get sleepRecordsHubStatusManualFallbackDescription;
+
+  /// No description provided for @sleepRecordsHubStatusError.
+  ///
+  /// In en, this message translates to:
+  /// **'Sync failed'**
+  String get sleepRecordsHubStatusError;
+
+  /// No description provided for @sleepRecordsHubStatusErrorDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'This automatic sync did not complete. You can retry later or switch to manual entry now.'**
+  String get sleepRecordsHubStatusErrorDescription;
+
+  /// No description provided for @sleepRecordsHubSourceTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Source and confidence'**
+  String get sleepRecordsHubSourceTitle;
+
+  /// No description provided for @sleepRecordsHubSourceBulletOriginal.
+  ///
+  /// In en, this message translates to:
+  /// **'• Automatically synced records keep their original source'**
+  String get sleepRecordsHubSourceBulletOriginal;
+
+  /// No description provided for @sleepRecordsHubSourceBulletManual.
+  ///
+  /// In en, this message translates to:
+  /// **'• Manual corrections do not overwrite raw records; they create a confirmed result'**
+  String get sleepRecordsHubSourceBulletManual;
+
+  /// No description provided for @sleepRecordsHubSourceBulletFallback.
+  ///
+  /// In en, this message translates to:
+  /// **'• Today, Calendar, and reports still work without permission'**
+  String get sleepRecordsHubSourceBulletFallback;
+
+  /// Empty state text shown when the stage 3 sleep records hub has no confirmed records yet.
+  ///
+  /// In en, this message translates to:
+  /// **'No confirmed sleep records yet'**
+  String get sleepRecordsHubEmptyState;
+
+  /// Error text shown when the stage 3 sleep records hub cannot load records.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load sleep records'**
+  String get sleepRecordsHubLoadFailed;
+
+  /// List title used for manually added sleep records.
+  ///
+  /// In en, this message translates to:
+  /// **'Manual sleep record'**
+  String get sleepRecordsHubManualRecordTitle;
+
+  /// List title used for Android Health Connect synced records.
+  ///
+  /// In en, this message translates to:
+  /// **'Health Connect record'**
+  String get sleepRecordsHubHealthConnectRecordTitle;
+
+  /// List title used for iOS HealthKit synced records.
+  ///
+  /// In en, this message translates to:
+  /// **'HealthKit record'**
+  String get sleepRecordsHubHealthKitRecordTitle;
+
+  /// List title used for imported sleep records.
+  ///
+  /// In en, this message translates to:
+  /// **'Imported record'**
+  String get sleepRecordsHubImportedRecordTitle;
+
+  /// Title for the manual sleep record page.
+  ///
+  /// In en, this message translates to:
+  /// **'Manual entry'**
+  String get manualSleepRecordPageTitle;
+
+  /// No description provided for @manualSleepRecordPageSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm last night’s sleep result manually'**
+  String get manualSleepRecordPageSubtitle;
+
+  /// No description provided for @manualSleepRecordPageDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'When automatic records are missing or inaccurate, you can manually log or correct sleep and wake times.'**
+  String get manualSleepRecordPageDescription;
+
+  /// No description provided for @manualSleepRecordDateLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Record date'**
+  String get manualSleepRecordDateLabel;
+
+  /// Label for the sleep time field on the manual sleep record page.
+  ///
+  /// In en, this message translates to:
+  /// **'Sleep time'**
+  String get manualSleepRecordSleepTimeLabel;
+
+  /// Label for the wake time field on the manual sleep record page.
+  ///
+  /// In en, this message translates to:
+  /// **'Wake time'**
+  String get manualSleepRecordWakeTimeLabel;
+
+  /// No description provided for @manualSleepRecordDurationLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Duration'**
+  String get manualSleepRecordDurationLabel;
+
+  /// No description provided for @manualSleepRecordSourceLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Source'**
+  String get manualSleepRecordSourceLabel;
+
+  /// No description provided for @manualSleepRecordSourceValue.
+  ///
+  /// In en, this message translates to:
+  /// **'Manual correction'**
+  String get manualSleepRecordSourceValue;
+
+  /// Primary button label for saving a manual sleep record.
+  ///
+  /// In en, this message translates to:
+  /// **'Save manual result'**
+  String get manualSleepRecordSaveButton;
+
+  /// No description provided for @manualSleepRecordDiscardButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Discard changes'**
+  String get manualSleepRecordDiscardButton;
+
+  /// No description provided for @manualSleepRecordHelperTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Correction notes'**
+  String get manualSleepRecordHelperTitle;
+
+  /// No description provided for @manualSleepRecordHelperDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'The raw system record stays intact. What you save becomes the confirmed result shown first in Today and Calendar.'**
+  String get manualSleepRecordHelperDescription;
+
+  /// No description provided for @manualSleepRecordValidationSameTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Sleep time and wake time cannot be the same.'**
+  String get manualSleepRecordValidationSameTime;
+
+  /// No description provided for @manualSleepRecordEditTimeButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit time'**
+  String get manualSleepRecordEditTimeButton;
+
   /// No description provided for @onboardingStepOneEyebrow.
   ///
   /// In en, this message translates to:
