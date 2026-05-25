@@ -1,3 +1,5 @@
+import 'dart:ui' as ui;
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:rhythm/core/time/time_context_provider.dart';
@@ -7,6 +9,7 @@ import 'package:rhythm/features/sleep_records/application/effective_sleep_record
 import 'package:rhythm/features/sleep_records/application/sleep_record_providers.dart';
 import 'package:rhythm/features/sleep_records/domain/effective_sleep_record.dart';
 import 'package:rhythm/features/sleep_records/domain/health_platform_state.dart';
+import 'package:rhythm/l10n/app_localizations.dart';
 
 import '../domain/widget_snapshot.dart';
 
@@ -24,6 +27,7 @@ class WidgetSnapshotService {
     required HealthPlatformState healthPlatformState,
     required DateTime now,
     required Uri entryUri,
+    required AppLocalizations l10n,
   }) {
     if (goalSettings == null) {
       return WidgetSnapshot.goalMissing(entryUri: entryUri);
@@ -61,6 +65,7 @@ class WidgetSnapshotService {
       lastNightStatusLabel: _buildLastNightStatusLabel(
         settings: goalSettings,
         record: _latestRecord(records),
+        l10n: l10n,
       ),
       entryUri: entryUri,
     );
@@ -80,6 +85,7 @@ class WidgetSnapshotService {
   String _buildLastNightStatusLabel({
     required GoalScheduleSettings settings,
     required EffectiveSleepRecord record,
+    required AppLocalizations l10n,
   }) {
     final targetBedtime = DateTime.utc(
       record.recordDate.year,
@@ -91,12 +97,12 @@ class WidgetSnapshotService {
     final offset = record.fellAsleepAt.difference(targetBedtime).inMinutes;
 
     if (offset > 0) {
-      return '昨晚晚 $offset 分钟';
+      return l10n.widgetSnapshotLastNightLate(offset);
     }
     if (offset < 0) {
-      return '昨晚早 ${offset.abs()} 分钟';
+      return l10n.widgetSnapshotLastNightEarly(offset.abs());
     }
-    return '昨晚准点';
+    return l10n.widgetSnapshotLastNightOnTime;
   }
 
   int _calculateMinutesToTarget(int targetBedtimeMinutes, DateTime now) {
@@ -135,10 +141,15 @@ WidgetSnapshotService widgetSnapshotService(Ref ref) {
 @riverpod
 Future<WidgetSnapshot> widgetThemeSnapshot(Ref ref) async {
   final service = ref.watch(widgetSnapshotServiceProvider);
-  final goalSettings = await ref.watch(savedGoalScheduleSettingsProvider.future);
+  final goalSettings = await ref.watch(
+    savedGoalScheduleSettingsProvider.future,
+  );
   final records = await ref.watch(recentEffectiveSleepRecordsProvider.future);
-  final healthPlatformState = await ref.watch(healthPlatformStateProvider.future);
+  final healthPlatformState = await ref.watch(
+    healthPlatformStateProvider.future,
+  );
   final now = ref.watch(timeContextProvider).now;
+  final l10n = lookupAppLocalizations(ui.PlatformDispatcher.instance.locale);
 
   return service.buildSnapshot(
     goalSettings: goalSettings,
@@ -146,5 +157,6 @@ Future<WidgetSnapshot> widgetThemeSnapshot(Ref ref) async {
     healthPlatformState: healthPlatformState,
     now: now,
     entryUri: service.bedtimeEntryUri(),
+    l10n: l10n,
   );
 }

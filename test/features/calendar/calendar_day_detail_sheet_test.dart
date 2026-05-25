@@ -41,6 +41,34 @@ void main() {
     expect(find.text('添加标签'), findsOneWidget);
   });
 
+  testWidgets('英文环境下详情弹层使用本地化日期与偏差文案', (tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        locale: const Locale('en'),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        home: Scaffold(
+          body: CalendarDayDetailSheet(
+            summary: CalendarDaySummary(
+              date: DateTime.utc(2026, 5, 24),
+              record: _buildRecord(),
+              sleepOffsetMinutes: 50,
+              heatLevel: CalendarHeatLevel.late,
+              tags: const <String>['Phone scrolling'],
+            ),
+            onAddTag: () {},
+          ),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    expect(find.text('May 24'), findsOneWidget);
+    expect(find.text('50 minutes'), findsOneWidget);
+    expect(find.text('HealthKit / High confidence'), findsOneWidget);
+    expect(find.text('5 月 24 日'), findsNothing);
+  });
+
   testWidgets('详情弹层提供编辑记录入口', (tester) async {
     final router = GoRouter(
       initialLocation: '/',

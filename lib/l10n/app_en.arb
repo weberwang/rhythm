@@ -71,6 +71,14 @@
   "calendarDetailTagsTitle": "Reason tags",
   "calendarDetailAddTag": "Add tag",
   "calendarDetailEditRecord": "Edit last night",
+  "calendarDetailOffsetValue": "{minutes} minutes",
+  "@calendarDetailOffsetValue": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
   "sleepDelayTagPickerTitle": "Add a late-night reason",
   "sleepDelayTagPickerSave": "Save tags",
   "sleepDelayTagPickerCustom": "Custom tag",
@@ -124,6 +132,7 @@
   "insightsStabilityLabel": "Stability",
   "insightsLatestLateTitle": "Latest late night",
   "insightsNextWeekAdviceTitle": "Next week suggestions",
+  "insightsReasonDistributionTitle": "Main late-night reasons",
   "insightsNoReasonTags": "No reason tags yet",
   "insightsNoWeeklyReport": "No weekly report yet",
   "insightsNoHistory": "No insight history yet",
@@ -313,6 +322,52 @@
   "todayActionSectionTitle": "Tonight action",
   "todayTrendSectionTitle": "Last 7 days",
   "todayRecoverySectionTitle": "Recovery suggestion",
+  "todayQuickActionsTitle": "Quick log",
+  "todayQuickActionManualButton": "Manually log",
+  "todayQuickActionEditButton": "Edit last night",
+  "todayQuickActionOpenHubButton": "Open record hub",
+  "todayRecoveryDescription": "Pull the latest task forward tonight so tomorrow has a little more room to settle back.",
+  "todayTrendEmptyState": "Build a few more days to reveal the trend",
+  "todayStatusUserConfirmed": "Confirmed by you",
+  "todayStatusGoalMet": "Last night stayed near target",
+  "todayStatusLateBy": "Late by {minutes} minutes",
+  "@todayStatusLateBy": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "todayStatusWithinThreshold": "Still inside the threshold",
+  "todayStatusEarlyBy": "{minutes} minutes earlier than target",
+  "@todayStatusEarlyBy": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "todayStatusLateDetail": "{minutes} minutes later than target",
+  "@todayStatusLateDetail": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "todayActionEnterBedtimeMode": "Enter bedtime mode",
+  "todayActionManualRecord": "Manually log last night",
+  "todayActionPermissionHelp": "Review permission help",
+  "todayActionGoalSetup": "Set your schedule goal",
+  "todayActionRecoveryPlan": "View recovery suggestions",
+  "todayActionTargetBedtime": "Tonight target {time}",
+  "@todayActionTargetBedtime": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "sleepRecordsHubTitle": "Sleep record management",
   "@sleepRecordsHubTitle": {
     "description": "Title for the stage 3 sleep records hub page."
@@ -501,6 +556,8 @@
   },
   "bedtimePageTitle": "Bedtime mode",
   "bedtimeCountdownTitle": "Tonight target",
+  "bedtimeCurrentTimeLabel": "Now",
+  "bedtimeTargetTimeLabel": "Target",
   "bedtimeTargetDiffAhead": "{minutes} minutes until your target bedtime",
   "@bedtimeTargetDiffAhead": {
     "placeholders": {
@@ -637,6 +694,31 @@
   "widgetThemeRefreshFailure": "Refresh failed. Please try again later.",
   "widgetThemeOpenTodayButton": "Open Today",
   "widgetThemeOpenBedtimeButton": "Enter Bedtime",
+  "widgetSnapshotLastNightLate": "{minutes} minutes later last night",
+  "@widgetSnapshotLastNightLate": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "widgetSnapshotLastNightEarly": "{minutes} minutes earlier last night",
+  "@widgetSnapshotLastNightEarly": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "widgetSnapshotLastNightOnTime": "Right on time last night",
+  "commonRecordSourceHealthKit": "HealthKit",
+  "commonRecordSourceHealthConnect": "Health Connect",
+  "commonRecordSourceManual": "Manual",
+  "commonRecordSourceImported": "Imported",
+  "commonConfidenceHigh": "High confidence",
+  "commonConfidenceMedium": "Usable",
+  "commonConfidenceLow": "Low confidence",
+  "commonConfidenceUnknown": "Unknown confidence",
   "profileHealthSummaryHealthKitConnected": "HealthKit connected",
   "profileHealthSummaryHealthConnectConnected": "Health Connect connected",
   "profileHealthSummaryPermissionRequired": "Permission needs to be granted again",

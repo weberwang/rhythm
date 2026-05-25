@@ -13,14 +13,17 @@ void main() {
   Future<void> pumpPage(
     WidgetTester tester, {
     required BedtimeViewState state,
+    Locale locale = const Locale('zh'),
   }) async {
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
-          bedtimeControllerProvider.overrideWith(() => _FakeBedtimeController(state)),
+          bedtimeControllerProvider.overrideWith(
+            () => _FakeBedtimeController(state),
+          ),
         ],
         child: MaterialApp(
-          locale: const Locale('zh'),
+          locale: locale,
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
           home: const Scaffold(body: BedtimePage()),
@@ -31,10 +34,7 @@ void main() {
   }
 
   testWidgets('ready 状态显示当前时间、倒计时和三种状态', (tester) async {
-    await pumpPage(
-      tester,
-      state: _readyState(),
-    );
+    await pumpPage(tester, state: _readyState());
 
     expect(find.text('睡前模式'), findsOneWidget);
     expect(find.text('距离目标入睡还有 45 分钟'), findsOneWidget);
@@ -64,13 +64,22 @@ void main() {
   testWidgets('goalMissing 状态显示去设置目标空态', (tester) async {
     await pumpPage(
       tester,
-      state: const BedtimeViewState(
-        status: BedtimeViewStatus.goalMissing,
-      ),
+      state: const BedtimeViewState(status: BedtimeViewStatus.goalMissing),
     );
 
     expect(find.text('还没有设置今晚目标'), findsOneWidget);
     expect(find.text('去设置目标作息'), findsOneWidget);
+  });
+
+  testWidgets('英文环境下倒计时卡使用英文标签', (tester) async {
+    await pumpPage(tester, locale: const Locale('en'), state: _readyState());
+
+    expect(find.text('Bedtime mode'), findsOneWidget);
+    expect(find.text('Tonight target'), findsOneWidget);
+    expect(find.text('Now'), findsOneWidget);
+    expect(find.text('Target'), findsOneWidget);
+    expect(find.text('45 minutes until your target bedtime'), findsOneWidget);
+    expect(find.text('现在'), findsNothing);
   });
 }
 

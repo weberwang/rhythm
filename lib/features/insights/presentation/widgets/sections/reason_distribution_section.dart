@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:rhythm/app/theme/app_theme_tokens.dart';
 import 'package:rhythm/features/insights/domain/weekly_report.dart';
+import 'package:rhythm/l10n/app_localizations.dart';
 
 /// 展示主要晚睡原因分布，保持首页与详情页的排序和比例口径一致。
 class ReasonDistributionSection extends StatelessWidget {
   /// 创建原因分布区块。
-  const ReasonDistributionSection({
-    super.key,
-    required this.items,
-  });
+  const ReasonDistributionSection({super.key, required this.items});
 
   final List<ReasonDistributionItem> items;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     final tokens = theme.brightness == Brightness.dark
         ? AppThemeTokens.dark
         : AppThemeTokens.light;
@@ -29,7 +28,7 @@ class ReasonDistributionSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            '主要晚睡原因',
+            l10n.insightsReasonDistributionTitle,
             style: theme.textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.w700,
             ),
@@ -45,6 +44,7 @@ class ReasonDistributionSection extends StatelessWidget {
   }
 }
 
+/// 单条原因分布行，统一承载标签、比例与进度条。
 class _ReasonRow extends StatelessWidget {
   const _ReasonRow({required this.item});
 
@@ -61,9 +61,9 @@ class _ReasonRow extends StatelessWidget {
             Expanded(
               child: Text(
                 item.label,
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      fontWeight: FontWeight.w600,
-                    ),
+                style: Theme.of(
+                  context,
+                ).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600),
               ),
             ),
             Text('$percentage%'),

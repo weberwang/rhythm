@@ -18,7 +18,7 @@ class TodayRecoverySection extends StatelessWidget {
           children: [
             Text(l10n.todayRecoverySectionTitle),
             const SizedBox(height: 8),
-            const Text('今晚先把最晚一件事提前完成，给明天留一点回正空间。'),
+            Text(l10n.todayRecoveryDescription),
           ],
         ),
       ),

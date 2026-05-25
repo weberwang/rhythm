@@ -38,10 +38,7 @@ class TodayEmptyState extends StatelessWidget {
     );
   }
 
-  String _labelForAction(
-    TodayPrimaryAction action,
-    AppLocalizations l10n,
-  ) {
+  String _labelForAction(TodayPrimaryAction action, AppLocalizations l10n) {
     switch (action) {
       case TodayPrimaryAction.manualRecord:
         return l10n.todayEmptyPrimaryAction;
@@ -50,9 +47,9 @@ class TodayEmptyState extends StatelessWidget {
       case TodayPrimaryAction.openGoalSetup:
         return l10n.todayGoalMissingPrimaryAction;
       case TodayPrimaryAction.enterBedtimeMode:
-        return '进入睡前模式';
+        return l10n.todayActionEnterBedtimeMode;
       case TodayPrimaryAction.viewRecoveryPlan:
-        return '查看恢复建议';
+        return l10n.todayActionRecoveryPlan;
     }
   }
 }

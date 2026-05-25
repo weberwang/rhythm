@@ -31,7 +31,7 @@ void main() {
     );
     await tester.pumpAndSettle();
 
-    await tester.tap(find.text('开始建立我的作息目标'));
+    await tester.tap(find.text('开始设置'));
     await tester.pumpAndSettle();
     await tester.tap(find.text('匿名进入'));
     await tester.pumpAndSettle();
@@ -55,7 +55,7 @@ void main() {
     await pumpRhythmApp(tester, onboardingCompleted: false);
     await tester.pumpAndSettle();
 
-    await tester.tap(find.text('开始建立我的作息目标'));
+    await tester.tap(find.text('开始设置'));
     await tester.pumpAndSettle();
     await tester.tap(find.text('匿名进入'));
     await tester.pumpAndSettle();
@@ -81,10 +81,10 @@ void main() {
 /// 预留提醒调度断言使用的测试调度器，后续阶段五接入完成后应被页面调用。
 class _TestBedtimeReminderScheduler extends BedtimeReminderScheduler {
   _TestBedtimeReminderScheduler()
-      : super(
-          notificationGateway: _NoopNotificationGateway(),
-          timezoneGateway: _NoopTimezoneGateway(),
-        );
+    : super(
+        notificationGateway: _NoopNotificationGateway(),
+        timezoneGateway: _NoopTimezoneGateway(),
+      );
 
   bool scheduleCalled = false;
 

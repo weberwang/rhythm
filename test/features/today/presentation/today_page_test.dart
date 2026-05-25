@@ -13,14 +13,13 @@ void main() {
   Future<void> pumpPage(
     WidgetTester tester, {
     required TodayViewState state,
+    Locale locale = const Locale('zh'),
   }) async {
     await tester.pumpWidget(
       ProviderScope(
-        overrides: [
-          todayControllerProvider.overrideWith((ref) async => state),
-        ],
+        overrides: [todayControllerProvider.overrideWith((ref) async => state)],
         child: MaterialApp(
-          locale: const Locale('zh'),
+          locale: locale,
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
           home: const Scaffold(body: TodayPage()),
@@ -96,6 +95,28 @@ void main() {
     );
 
     expect(find.text('恢复建议'), findsOneWidget);
+  });
+
+  testWidgets('英文环境下 ready 状态使用完整英文文案', (tester) async {
+    await pumpPage(
+      tester,
+      locale: const Locale('en'),
+      state: TodayViewState(
+        status: TodayViewStatus.ready,
+        prioritizeRecoveryCard: true,
+        summary: _buildSummary(showRecoveryCard: true),
+      ),
+    );
+
+    expect(find.text('Last night'), findsOneWidget);
+    expect(find.text('Tonight action'), findsOneWidget);
+    expect(find.text('Quick log'), findsOneWidget);
+    expect(find.text('Recovery suggestion'), findsOneWidget);
+    expect(find.text('Last 7 days'), findsOneWidget);
+    expect(find.text('Late by 45 minutes'), findsOneWidget);
+    expect(find.text('Tonight target 23:30'), findsOneWidget);
+    expect(find.text('View recovery suggestions'), findsOneWidget);
+    expect(find.text('今晚行动'), findsNothing);
   });
 }
 

@@ -50,9 +50,7 @@ class TodayPage extends HookConsumerWidget {
           children: [
             Text(l10n.todayPageTitle, style: textTheme.headlineMedium),
             const SizedBox(height: 24),
-            const Expanded(
-              child: Center(child: CircularProgressIndicator()),
-            ),
+            const Expanded(child: Center(child: CircularProgressIndicator())),
           ],
         ),
         error: (error, stackTrace) => Column(
@@ -60,9 +58,9 @@ class TodayPage extends HookConsumerWidget {
           children: [
             Text(l10n.todayPageTitle, style: textTheme.headlineMedium),
             const SizedBox(height: 24),
-            const Expanded(
+            Expanded(
               child: TodayEmptyState(
-                title: '系统睡眠记录暂时不可用',
+                title: l10n.todayPermissionFailedTitle,
                 primaryAction: todayPrimaryActionPlaceholderPermission,
               ),
             ),
@@ -173,5 +171,4 @@ class _TodayPageBody extends StatelessWidget {
 const todayPrimaryActionPlaceholderManual = TodayPrimaryAction.manualRecord;
 const todayPrimaryActionPlaceholderPermission =
     TodayPrimaryAction.openPermissionHelp;
-const todayPrimaryActionPlaceholderGoalSetup =
-    TodayPrimaryAction.openGoalSetup;
+const todayPrimaryActionPlaceholderGoalSetup = TodayPrimaryAction.openGoalSetup;

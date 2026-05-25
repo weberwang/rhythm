@@ -41,6 +41,14 @@
   "calendarDetailTagsTitle": "原因标签",
   "calendarDetailAddTag": "添加标签",
   "calendarDetailEditRecord": "编辑昨晚记录",
+  "calendarDetailOffsetValue": "{minutes} 分钟",
+  "@calendarDetailOffsetValue": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
   "sleepDelayTagPickerTitle": "补一个晚睡原因",
   "sleepDelayTagPickerSave": "保存标签",
   "sleepDelayTagPickerCustom": "自定义标签",
@@ -82,6 +90,7 @@
   "insightsStabilityLabel": "稳定度",
   "insightsLatestLateTitle": "最晚入睡日",
   "insightsNextWeekAdviceTitle": "下周建议",
+  "insightsReasonDistributionTitle": "主要晚睡原因",
   "insightsNoReasonTags": "未记录原因标签",
   "insightsNoWeeklyReport": "暂无周报",
   "insightsNoHistory": "暂无历史洞察",
@@ -253,6 +262,52 @@
   "todayActionSectionTitle": "今晚行动",
   "todayTrendSectionTitle": "最近 7 天",
   "todayRecoverySectionTitle": "恢复建议",
+  "todayQuickActionsTitle": "快捷记录",
+  "todayQuickActionManualButton": "手动补录",
+  "todayQuickActionEditButton": "修改昨晚记录",
+  "todayQuickActionOpenHubButton": "进入记录管理",
+  "todayRecoveryDescription": "今晚先把最晚一件事提前完成，给明天留一点回正空间。",
+  "todayTrendEmptyState": "再积累几天就能看到趋势",
+  "todayStatusUserConfirmed": "用户确认结果",
+  "todayStatusGoalMet": "昨晚基本达标",
+  "todayStatusLateBy": "昨晚比目标晚了 {minutes} 分钟",
+  "@todayStatusLateBy": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "todayStatusWithinThreshold": "已控制在阈值内",
+  "todayStatusEarlyBy": "比目标提前 {minutes} 分钟",
+  "@todayStatusEarlyBy": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "todayStatusLateDetail": "比目标晚了 {minutes} 分钟",
+  "@todayStatusLateDetail": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "todayActionEnterBedtimeMode": "进入睡前模式",
+  "todayActionManualRecord": "手动补录昨晚记录",
+  "todayActionPermissionHelp": "查看权限说明",
+  "todayActionGoalSetup": "去设置目标作息",
+  "todayActionRecoveryPlan": "查看恢复建议",
+  "todayActionTargetBedtime": "今晚目标 {time}",
+  "@todayActionTargetBedtime": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "sleepRecordsHubTitle": "睡眠记录管理",
   "sleepRecordsHubSyncTitle": "最近 30 天睡眠记录",
   "sleepRecordsHubSyncDescription": "自动记录是加速器，手动补录是保底路径。",
@@ -397,6 +452,8 @@
   },
   "bedtimePageTitle": "睡前模式",
   "bedtimeCountdownTitle": "今晚目标",
+  "bedtimeCurrentTimeLabel": "现在",
+  "bedtimeTargetTimeLabel": "目标",
   "bedtimeTargetDiffAhead": "距离目标入睡还有 {minutes} 分钟",
   "@bedtimeTargetDiffAhead": {
     "placeholders": {
@@ -533,6 +590,31 @@
   "widgetThemeRefreshFailure": "刷新失败，请稍后再试",
   "widgetThemeOpenTodayButton": "打开今日页",
   "widgetThemeOpenBedtimeButton": "进入睡前模式",
+  "widgetSnapshotLastNightLate": "昨晚晚 {minutes} 分钟",
+  "@widgetSnapshotLastNightLate": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "widgetSnapshotLastNightEarly": "昨晚早 {minutes} 分钟",
+  "@widgetSnapshotLastNightEarly": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "widgetSnapshotLastNightOnTime": "昨晚准点",
+  "commonRecordSourceHealthKit": "HealthKit",
+  "commonRecordSourceHealthConnect": "Health Connect",
+  "commonRecordSourceManual": "手动补录",
+  "commonRecordSourceImported": "导入记录",
+  "commonConfidenceHigh": "高可信",
+  "commonConfidenceMedium": "可用",
+  "commonConfidenceLow": "低可信",
+  "commonConfidenceUnknown": "未知可信度",
   "profileHealthSummaryHealthKitConnected": "HealthKit 已连接",
   "profileHealthSummaryHealthConnectConnected": "Health Connect 已连接",
   "profileHealthSummaryPermissionRequired": "需要重新授权",

@@ -302,6 +302,12 @@ abstract class AppLocalizations {
   /// **'Edit last night'**
   String get calendarDetailEditRecord;
 
+  /// No description provided for @calendarDetailOffsetValue.
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes} minutes'**
+  String calendarDetailOffsetValue(int minutes);
+
   /// No description provided for @sleepDelayTagPickerTitle.
   ///
   /// In en, this message translates to:
@@ -427,6 +433,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Next week suggestions'**
   String get insightsNextWeekAdviceTitle;
+
+  /// No description provided for @insightsReasonDistributionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Main late-night reasons'**
+  String get insightsReasonDistributionTitle;
 
   /// No description provided for @insightsNoReasonTags.
   ///
@@ -1069,6 +1081,114 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Recovery suggestion'**
   String get todayRecoverySectionTitle;
+
+  /// No description provided for @todayQuickActionsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick log'**
+  String get todayQuickActionsTitle;
+
+  /// No description provided for @todayQuickActionManualButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Manually log'**
+  String get todayQuickActionManualButton;
+
+  /// No description provided for @todayQuickActionEditButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit last night'**
+  String get todayQuickActionEditButton;
+
+  /// No description provided for @todayQuickActionOpenHubButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Open record hub'**
+  String get todayQuickActionOpenHubButton;
+
+  /// No description provided for @todayRecoveryDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Pull the latest task forward tonight so tomorrow has a little more room to settle back.'**
+  String get todayRecoveryDescription;
+
+  /// No description provided for @todayTrendEmptyState.
+  ///
+  /// In en, this message translates to:
+  /// **'Build a few more days to reveal the trend'**
+  String get todayTrendEmptyState;
+
+  /// No description provided for @todayStatusUserConfirmed.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirmed by you'**
+  String get todayStatusUserConfirmed;
+
+  /// No description provided for @todayStatusGoalMet.
+  ///
+  /// In en, this message translates to:
+  /// **'Last night stayed near target'**
+  String get todayStatusGoalMet;
+
+  /// No description provided for @todayStatusLateBy.
+  ///
+  /// In en, this message translates to:
+  /// **'Late by {minutes} minutes'**
+  String todayStatusLateBy(int minutes);
+
+  /// No description provided for @todayStatusWithinThreshold.
+  ///
+  /// In en, this message translates to:
+  /// **'Still inside the threshold'**
+  String get todayStatusWithinThreshold;
+
+  /// No description provided for @todayStatusEarlyBy.
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes} minutes earlier than target'**
+  String todayStatusEarlyBy(int minutes);
+
+  /// No description provided for @todayStatusLateDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes} minutes later than target'**
+  String todayStatusLateDetail(int minutes);
+
+  /// No description provided for @todayActionEnterBedtimeMode.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter bedtime mode'**
+  String get todayActionEnterBedtimeMode;
+
+  /// No description provided for @todayActionManualRecord.
+  ///
+  /// In en, this message translates to:
+  /// **'Manually log last night'**
+  String get todayActionManualRecord;
+
+  /// No description provided for @todayActionPermissionHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Review permission help'**
+  String get todayActionPermissionHelp;
+
+  /// No description provided for @todayActionGoalSetup.
+  ///
+  /// In en, this message translates to:
+  /// **'Set your schedule goal'**
+  String get todayActionGoalSetup;
+
+  /// No description provided for @todayActionRecoveryPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'View recovery suggestions'**
+  String get todayActionRecoveryPlan;
+
+  /// No description provided for @todayActionTargetBedtime.
+  ///
+  /// In en, this message translates to:
+  /// **'Tonight target {time}'**
+  String todayActionTargetBedtime(String time);
 
   /// Title for the stage 3 sleep records hub page.
   ///
@@ -1808,6 +1928,18 @@ abstract class AppLocalizations {
   /// **'Tonight target'**
   String get bedtimeCountdownTitle;
 
+  /// No description provided for @bedtimeCurrentTimeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Now'**
+  String get bedtimeCurrentTimeLabel;
+
+  /// No description provided for @bedtimeTargetTimeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Target'**
+  String get bedtimeTargetTimeLabel;
+
   /// No description provided for @bedtimeTargetDiffAhead.
   ///
   /// In en, this message translates to:
@@ -2413,6 +2545,72 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Enter Bedtime'**
   String get widgetThemeOpenBedtimeButton;
+
+  /// No description provided for @widgetSnapshotLastNightLate.
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes} minutes later last night'**
+  String widgetSnapshotLastNightLate(int minutes);
+
+  /// No description provided for @widgetSnapshotLastNightEarly.
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes} minutes earlier last night'**
+  String widgetSnapshotLastNightEarly(int minutes);
+
+  /// No description provided for @widgetSnapshotLastNightOnTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Right on time last night'**
+  String get widgetSnapshotLastNightOnTime;
+
+  /// No description provided for @commonRecordSourceHealthKit.
+  ///
+  /// In en, this message translates to:
+  /// **'HealthKit'**
+  String get commonRecordSourceHealthKit;
+
+  /// No description provided for @commonRecordSourceHealthConnect.
+  ///
+  /// In en, this message translates to:
+  /// **'Health Connect'**
+  String get commonRecordSourceHealthConnect;
+
+  /// No description provided for @commonRecordSourceManual.
+  ///
+  /// In en, this message translates to:
+  /// **'Manual'**
+  String get commonRecordSourceManual;
+
+  /// No description provided for @commonRecordSourceImported.
+  ///
+  /// In en, this message translates to:
+  /// **'Imported'**
+  String get commonRecordSourceImported;
+
+  /// No description provided for @commonConfidenceHigh.
+  ///
+  /// In en, this message translates to:
+  /// **'High confidence'**
+  String get commonConfidenceHigh;
+
+  /// No description provided for @commonConfidenceMedium.
+  ///
+  /// In en, this message translates to:
+  /// **'Usable'**
+  String get commonConfidenceMedium;
+
+  /// No description provided for @commonConfidenceLow.
+  ///
+  /// In en, this message translates to:
+  /// **'Low confidence'**
+  String get commonConfidenceLow;
+
+  /// No description provided for @commonConfidenceUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown confidence'**
+  String get commonConfidenceUnknown;
 
   /// No description provided for @profileHealthSummaryHealthKitConnected.
   ///

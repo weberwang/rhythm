@@ -41,8 +41,14 @@ class BedtimeCountdownSection extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                _TimeChip(label: '现在', value: _formatTime(now)),
-                _TimeChip(label: '目标', value: _formatTime(targetBedtime)),
+                _TimeChip(
+                  label: l10n.bedtimeCurrentTimeLabel,
+                  value: _formatTime(now),
+                ),
+                _TimeChip(
+                  label: l10n.bedtimeTargetTimeLabel,
+                  value: _formatTime(targetBedtime),
+                ),
               ],
             ),
             const SizedBox(height: 12),
@@ -76,10 +82,7 @@ class BedtimeCountdownSection extends StatelessWidget {
 
 /// 渲染时间胶囊，避免倒计时主区块里散落重复格式布局。
 class _TimeChip extends StatelessWidget {
-  const _TimeChip({
-    required this.label,
-    required this.value,
-  });
+  const _TimeChip({required this.label, required this.value});
 
   final String label;
   final String value;
@@ -102,9 +105,7 @@ class _TimeChip extends StatelessWidget {
           const SizedBox(height: 4),
           Text(
             value,
-            style: textTheme.titleMedium?.copyWith(
-              fontWeight: FontWeight.w700,
-            ),
+            style: textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700),
           ),
         ],
       ),

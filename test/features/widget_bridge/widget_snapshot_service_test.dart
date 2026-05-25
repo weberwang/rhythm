@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rhythm/features/goal_schedule/domain/goal_schedule_settings.dart';
 import 'package:rhythm/features/sleep_records/domain/effective_sleep_record.dart';
@@ -6,6 +7,7 @@ import 'package:rhythm/features/sleep_records/domain/sleep_record_confidence.dar
 import 'package:rhythm/features/sleep_records/domain/sleep_record_source.dart';
 import 'package:rhythm/features/widget_bridge/application/widget_snapshot_service.dart';
 import 'package:rhythm/features/widget_bridge/domain/widget_snapshot.dart';
+import 'package:rhythm/l10n/app_localizations.dart';
 
 /// 验证小组件快照服务会按阶段九口径裁剪展示信息。
 void main() {
@@ -16,8 +18,11 @@ void main() {
     dayStartMinutes: 4 * 60,
   );
   const service = WidgetSnapshotService();
-  final bedtimeEntry =
-      Uri.parse('rhythm://bedtime?source=widget_bedtime_shortcut');
+  final zhL10n = lookupAppLocalizations(const Locale('zh'));
+  final enL10n = lookupAppLocalizations(const Locale('en'));
+  final bedtimeEntry = Uri.parse(
+    'rhythm://bedtime?source=widget_bedtime_shortcut',
+  );
   final todayEntry = Uri.parse('rhythm://today?source=widget_today');
 
   EffectiveSleepRecord buildRecord({
@@ -51,6 +56,7 @@ void main() {
       healthPlatformState: HealthPlatformState.iosAvailable(),
       now: DateTime.utc(2026, 5, 25, 22, 38),
       entryUri: bedtimeEntry,
+      l10n: zhL10n,
     );
 
     expect(snapshot.state, WidgetSnapshotState.ready);
@@ -67,6 +73,7 @@ void main() {
       healthPlatformState: HealthPlatformState.iosAvailable(),
       now: DateTime.utc(2026, 5, 25, 22, 38),
       entryUri: todayEntry,
+      l10n: zhL10n,
     );
 
     expect(snapshot.state, WidgetSnapshotState.goalMissing);
@@ -82,6 +89,7 @@ void main() {
       healthPlatformState: HealthPlatformState.iosAvailable(),
       now: DateTime.utc(2026, 5, 25, 22, 38),
       entryUri: todayEntry,
+      l10n: zhL10n,
     );
 
     expect(snapshot.state, WidgetSnapshotState.noData);
@@ -102,6 +110,7 @@ void main() {
       healthPlatformState: HealthPlatformState.iosPermissionRequired(),
       now: DateTime.utc(2026, 5, 25, 22, 38),
       entryUri: todayEntry,
+      l10n: zhL10n,
     );
 
     expect(snapshot.state, WidgetSnapshotState.permissionRequired);
@@ -122,6 +131,7 @@ void main() {
       healthPlatformState: HealthPlatformState.iosAvailable(),
       now: DateTime.utc(2026, 5, 25, 22, 38),
       entryUri: bedtimeEntry,
+      l10n: zhL10n,
     );
 
     expect(snapshot.state, WidgetSnapshotState.ready);
@@ -133,10 +143,33 @@ void main() {
       'last_night_status_label',
       'entry_uri',
     });
-    expect(snapshot.toWidgetData().values.any((value) => '$value'.contains('8')), isFalse);
     expect(
-      snapshot.toWidgetData().values.any((value) => '$value'.contains('Asia/Shanghai')),
+      snapshot.toWidgetData().values.any((value) => '$value'.contains('8')),
       isFalse,
     );
+    expect(
+      snapshot.toWidgetData().values.any(
+        (value) => '$value'.contains('Asia/Shanghai'),
+      ),
+      isFalse,
+    );
+  });
+
+  test('英文环境下昨晚状态文案使用英文', () {
+    final snapshot = service.buildSnapshot(
+      goalSettings: settings,
+      records: <EffectiveSleepRecord>[
+        buildRecord(
+          recordDate: DateTime.utc(2026, 5, 24),
+          fellAsleepAt: DateTime.utc(2026, 5, 24, 23, 56),
+        ),
+      ],
+      healthPlatformState: HealthPlatformState.iosAvailable(),
+      now: DateTime.utc(2026, 5, 25, 22, 38),
+      entryUri: bedtimeEntry,
+      l10n: enL10n,
+    );
+
+    expect(snapshot.lastNightStatusLabel, '26 minutes later last night');
   });
 }

@@ -17,29 +17,29 @@ class OnboardingWelcomeStep extends StatelessWidget {
 
     return OnboardingStepScaffold(
       eyebrow: l10n.onboardingStepOneEyebrow,
-      title: '先把节奏跑起来',
-      description: '用更温和的方式，帮你把作息慢慢拨正。',
+      title: l10n.onboardingWelcomeTitle,
+      description: l10n.onboardingWelcomeDescription,
       content: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _BenefitCard(
-            title: '看清节律',
-            description: '昨晚结果、今晚目标和 7 日变化放在同一屏里。',
+            title: l10n.onboardingWelcomeBulletAuthTitle,
+            description: l10n.onboardingWelcomeBulletAuthDescription,
           ),
           const SizedBox(height: 12),
           _BenefitCard(
-            title: '降低负担',
-            description: '不要求长记录，原因标签点一下就够。',
+            title: l10n.onboardingWelcomeBulletHealthTitle,
+            description: l10n.onboardingWelcomeBulletHealthDescription,
           ),
           const SizedBox(height: 12),
           _BenefitCard(
-            title: '给出恢复路径',
-            description: '晚睡后先告诉你怎么轻一点回正。',
+            title: l10n.onboardingWelcomeBulletGoalTitle,
+            description: l10n.onboardingWelcomeBulletGoalDescription,
           ),
         ],
       ),
       primaryAction: RhythmPrimaryButton(
-        label: '开始建立我的作息目标',
+        label: l10n.onboardingWelcomePrimaryButton,
         onPressed: onContinue,
       ),
     );

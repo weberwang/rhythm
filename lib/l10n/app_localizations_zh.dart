@@ -113,6 +113,11 @@ class AppLocalizationsZh extends AppLocalizations {
   String get calendarDetailEditRecord => '编辑昨晚记录';
 
   @override
+  String calendarDetailOffsetValue(int minutes) {
+    return '$minutes 分钟';
+  }
+
+  @override
   String get sleepDelayTagPickerTitle => '补一个晚睡原因';
 
   @override
@@ -178,6 +183,9 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get insightsNextWeekAdviceTitle => '下周建议';
+
+  @override
+  String get insightsReasonDistributionTitle => '主要晚睡原因';
 
   @override
   String get insightsNoReasonTags => '未记录原因标签';
@@ -521,6 +529,68 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get todayRecoverySectionTitle => '恢复建议';
+
+  @override
+  String get todayQuickActionsTitle => '快捷记录';
+
+  @override
+  String get todayQuickActionManualButton => '手动补录';
+
+  @override
+  String get todayQuickActionEditButton => '修改昨晚记录';
+
+  @override
+  String get todayQuickActionOpenHubButton => '进入记录管理';
+
+  @override
+  String get todayRecoveryDescription => '今晚先把最晚一件事提前完成，给明天留一点回正空间。';
+
+  @override
+  String get todayTrendEmptyState => '再积累几天就能看到趋势';
+
+  @override
+  String get todayStatusUserConfirmed => '用户确认结果';
+
+  @override
+  String get todayStatusGoalMet => '昨晚基本达标';
+
+  @override
+  String todayStatusLateBy(int minutes) {
+    return '昨晚比目标晚了 $minutes 分钟';
+  }
+
+  @override
+  String get todayStatusWithinThreshold => '已控制在阈值内';
+
+  @override
+  String todayStatusEarlyBy(int minutes) {
+    return '比目标提前 $minutes 分钟';
+  }
+
+  @override
+  String todayStatusLateDetail(int minutes) {
+    return '比目标晚了 $minutes 分钟';
+  }
+
+  @override
+  String get todayActionEnterBedtimeMode => '进入睡前模式';
+
+  @override
+  String get todayActionManualRecord => '手动补录昨晚记录';
+
+  @override
+  String get todayActionPermissionHelp => '查看权限说明';
+
+  @override
+  String get todayActionGoalSetup => '去设置目标作息';
+
+  @override
+  String get todayActionRecoveryPlan => '查看恢复建议';
+
+  @override
+  String todayActionTargetBedtime(String time) {
+    return '今晚目标 $time';
+  }
 
   @override
   String get sleepRecordsHubTitle => '睡眠记录管理';
@@ -911,6 +981,12 @@ class AppLocalizationsZh extends AppLocalizations {
   String get bedtimeCountdownTitle => '今晚目标';
 
   @override
+  String get bedtimeCurrentTimeLabel => '现在';
+
+  @override
+  String get bedtimeTargetTimeLabel => '目标';
+
+  @override
   String bedtimeTargetDiffAhead(int minutes) {
     return '距离目标入睡还有 $minutes 分钟';
   }
@@ -1228,6 +1304,43 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get widgetThemeOpenBedtimeButton => '进入睡前模式';
+
+  @override
+  String widgetSnapshotLastNightLate(int minutes) {
+    return '昨晚晚 $minutes 分钟';
+  }
+
+  @override
+  String widgetSnapshotLastNightEarly(int minutes) {
+    return '昨晚早 $minutes 分钟';
+  }
+
+  @override
+  String get widgetSnapshotLastNightOnTime => '昨晚准点';
+
+  @override
+  String get commonRecordSourceHealthKit => 'HealthKit';
+
+  @override
+  String get commonRecordSourceHealthConnect => 'Health Connect';
+
+  @override
+  String get commonRecordSourceManual => '手动补录';
+
+  @override
+  String get commonRecordSourceImported => '导入记录';
+
+  @override
+  String get commonConfidenceHigh => '高可信';
+
+  @override
+  String get commonConfidenceMedium => '可用';
+
+  @override
+  String get commonConfidenceLow => '低可信';
+
+  @override
+  String get commonConfidenceUnknown => '未知可信度';
 
   @override
   String get profileHealthSummaryHealthKitConnected => 'HealthKit 已连接';

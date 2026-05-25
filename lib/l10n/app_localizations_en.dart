@@ -118,6 +118,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get calendarDetailEditRecord => 'Edit last night';
 
   @override
+  String calendarDetailOffsetValue(int minutes) {
+    return '$minutes minutes';
+  }
+
+  @override
   String get sleepDelayTagPickerTitle => 'Add a late-night reason';
 
   @override
@@ -187,6 +192,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get insightsNextWeekAdviceTitle => 'Next week suggestions';
+
+  @override
+  String get insightsReasonDistributionTitle => 'Main late-night reasons';
 
   @override
   String get insightsNoReasonTags => 'No reason tags yet';
@@ -555,6 +563,70 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get todayRecoverySectionTitle => 'Recovery suggestion';
+
+  @override
+  String get todayQuickActionsTitle => 'Quick log';
+
+  @override
+  String get todayQuickActionManualButton => 'Manually log';
+
+  @override
+  String get todayQuickActionEditButton => 'Edit last night';
+
+  @override
+  String get todayQuickActionOpenHubButton => 'Open record hub';
+
+  @override
+  String get todayRecoveryDescription =>
+      'Pull the latest task forward tonight so tomorrow has a little more room to settle back.';
+
+  @override
+  String get todayTrendEmptyState =>
+      'Build a few more days to reveal the trend';
+
+  @override
+  String get todayStatusUserConfirmed => 'Confirmed by you';
+
+  @override
+  String get todayStatusGoalMet => 'Last night stayed near target';
+
+  @override
+  String todayStatusLateBy(int minutes) {
+    return 'Late by $minutes minutes';
+  }
+
+  @override
+  String get todayStatusWithinThreshold => 'Still inside the threshold';
+
+  @override
+  String todayStatusEarlyBy(int minutes) {
+    return '$minutes minutes earlier than target';
+  }
+
+  @override
+  String todayStatusLateDetail(int minutes) {
+    return '$minutes minutes later than target';
+  }
+
+  @override
+  String get todayActionEnterBedtimeMode => 'Enter bedtime mode';
+
+  @override
+  String get todayActionManualRecord => 'Manually log last night';
+
+  @override
+  String get todayActionPermissionHelp => 'Review permission help';
+
+  @override
+  String get todayActionGoalSetup => 'Set your schedule goal';
+
+  @override
+  String get todayActionRecoveryPlan => 'View recovery suggestions';
+
+  @override
+  String todayActionTargetBedtime(String time) {
+    return 'Tonight target $time';
+  }
 
   @override
   String get sleepRecordsHubTitle => 'Sleep record management';
@@ -979,6 +1051,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get bedtimeCountdownTitle => 'Tonight target';
 
   @override
+  String get bedtimeCurrentTimeLabel => 'Now';
+
+  @override
+  String get bedtimeTargetTimeLabel => 'Target';
+
+  @override
   String bedtimeTargetDiffAhead(int minutes) {
     return '$minutes minutes until your target bedtime';
   }
@@ -1329,6 +1407,43 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get widgetThemeOpenBedtimeButton => 'Enter Bedtime';
+
+  @override
+  String widgetSnapshotLastNightLate(int minutes) {
+    return '$minutes minutes later last night';
+  }
+
+  @override
+  String widgetSnapshotLastNightEarly(int minutes) {
+    return '$minutes minutes earlier last night';
+  }
+
+  @override
+  String get widgetSnapshotLastNightOnTime => 'Right on time last night';
+
+  @override
+  String get commonRecordSourceHealthKit => 'HealthKit';
+
+  @override
+  String get commonRecordSourceHealthConnect => 'Health Connect';
+
+  @override
+  String get commonRecordSourceManual => 'Manual';
+
+  @override
+  String get commonRecordSourceImported => 'Imported';
+
+  @override
+  String get commonConfidenceHigh => 'High confidence';
+
+  @override
+  String get commonConfidenceMedium => 'Usable';
+
+  @override
+  String get commonConfidenceLow => 'Low confidence';
+
+  @override
+  String get commonConfidenceUnknown => 'Unknown confidence';
 
   @override
   String get profileHealthSummaryHealthKitConnected => 'HealthKit connected';

@@ -32,11 +32,11 @@ class TodayActionSection extends StatelessWidget {
           children: [
             Text(l10n.todayActionSectionTitle),
             const SizedBox(height: 12),
-            Text(_formatTargetBedtime(targetBedtimeMinutes)),
+            Text(_formatTargetBedtime(targetBedtimeMinutes, l10n)),
             const SizedBox(height: 12),
             FilledButton(
               onPressed: onPressed,
-              child: Text(_labelForAction(primaryAction)),
+              child: Text(_labelForAction(primaryAction, l10n)),
             ),
           ],
         ),
@@ -44,24 +44,26 @@ class TodayActionSection extends StatelessWidget {
     );
   }
 
-  String _labelForAction(TodayPrimaryAction action) {
+  /// 统一按主行动类型映射本地化按钮文案，避免页面层散落 switch。
+  String _labelForAction(TodayPrimaryAction action, AppLocalizations l10n) {
     switch (action) {
       case TodayPrimaryAction.enterBedtimeMode:
-        return '进入睡前模式';
+        return l10n.todayActionEnterBedtimeMode;
       case TodayPrimaryAction.manualRecord:
-        return '手动补录昨晚记录';
+        return l10n.todayActionManualRecord;
       case TodayPrimaryAction.openPermissionHelp:
-        return '查看权限说明';
+        return l10n.todayActionPermissionHelp;
       case TodayPrimaryAction.openGoalSetup:
-        return '去设置目标作息';
+        return l10n.todayActionGoalSetup;
       case TodayPrimaryAction.viewRecoveryPlan:
-        return '查看恢复建议';
+        return l10n.todayActionRecoveryPlan;
     }
   }
 
-  String _formatTargetBedtime(int minutes) {
+  /// 统一格式化今晚目标时间，保证中英文环境都能复用同一时间字符串。
+  String _formatTargetBedtime(int minutes, AppLocalizations l10n) {
     final hour = (minutes ~/ 60).toString().padLeft(2, '0');
     final minute = (minutes % 60).toString().padLeft(2, '0');
-    return '今晚目标 $hour:$minute';
+    return l10n.todayActionTargetBedtime('$hour:$minute');
   }
 }

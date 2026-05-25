@@ -28,11 +28,9 @@ class WeeklyReportDetailPage extends HookConsumerWidget {
   }
 }
 
+/// 周报详情主体，负责拼装周报摘要、建议和逐日列表。
 class _DetailBody extends StatelessWidget {
-  const _DetailBody({
-    required this.state,
-    required this.l10n,
-  });
+  const _DetailBody({required this.state, required this.l10n});
 
   final InsightsViewState state;
   final AppLocalizations l10n;
@@ -62,18 +60,20 @@ class _DetailBody extends StatelessWidget {
                   state.stabilityScore!,
                 ),
                 style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w800,
-                    ),
+                  color: Colors.white,
+                  fontWeight: FontWeight.w800,
+                ),
               ),
               const SizedBox(height: 8),
               Text(
                 report.summary.primaryReasonLabel == null
                     ? l10n.insightsDescription
-                    : l10n.insightsWeeklyDescription(report.summary.primaryReasonLabel!),
+                    : l10n.insightsWeeklyDescription(
+                        report.summary.primaryReasonLabel!,
+                      ),
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: const Color(0xFFD7E7DA),
-                    ),
+                  color: const Color(0xFFD7E7DA),
+                ),
               ),
             ],
           ),
@@ -103,18 +103,28 @@ class _DetailBody extends StatelessWidget {
         ),
         const SizedBox(height: 16),
         _InfoCard(
+          highlighted: true,
           title: l10n.insightsNextWeekAdviceTitle,
           content: report.recommendations
-              .map((item) => '• ${InsightsCopyResolver.recommendation(l10n, item)}')
+              .map(
+                (item) =>
+                    '• ${InsightsCopyResolver.recommendation(l10n, item)}',
+              )
               .join('\n'),
         ),
         const SizedBox(height: 16),
-        Text(InsightsCopyResolver.rangeLabel(context, report.startDate, report.endDate)),
+        Text(
+          InsightsCopyResolver.rangeLabel(
+            context,
+            report.startDate,
+            report.endDate,
+          ),
+        ),
         const SizedBox(height: 8),
         for (final day in report.days)
           ListTile(
             contentPadding: EdgeInsets.zero,
-            title: Text(DateFormat('M月d日 EEE', 'zh').format(day.date)),
+            title: Text(_formatDayLabel(context, day.date)),
             subtitle: Text(InsightsCopyResolver.tagsOrFallback(l10n, day.tags)),
             trailing: Text(
               day.sleepOffsetMinutes == null
@@ -131,17 +141,25 @@ class _DetailBody extends StatelessWidget {
 
   /// 通过周报中最晚一天的实际时间和偏差反推目标作息，避免详情页重新依赖目标设置源。
   int _deriveTargetBedtimeMinutes(dynamic report) {
-    final minutes = report.summary.latestLateSleepMinutesOfDay -
+    final minutes =
+        report.summary.latestLateSleepMinutesOfDay -
         report.summary.latestLateOffsetMinutes;
     return ((minutes % (24 * 60)) + 24 * 60) % (24 * 60);
   }
+
+  /// 按语言环境格式化逐日标题，中文保留现有习惯，英文使用本地化月日缩写。
+  String _formatDayLabel(BuildContext context, DateTime date) {
+    final locale = Localizations.localeOf(context).toLanguageTag();
+    if (locale.startsWith('zh')) {
+      return DateFormat('M月d日 EEE', 'zh').format(date);
+    }
+    return DateFormat('MMM d EEE', locale).format(date);
+  }
 }
 
+/// 周报顶部统计卡，统一展示单个摘要指标。
 class _StatCard extends StatelessWidget {
-  const _StatCard({
-    required this.title,
-    required this.value,
-  });
+  const _StatCard({required this.title, required this.value});
 
   final String title;
   final String value;
@@ -161,9 +179,9 @@ class _StatCard extends StatelessWidget {
           const SizedBox(height: 8),
           Text(
             value,
-            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                  fontWeight: FontWeight.w800,
-                ),
+            style: Theme.of(
+              context,
+            ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w800),
           ),
         ],
       ),
@@ -171,21 +189,24 @@ class _StatCard extends StatelessWidget {
   }
 }
 
+/// 周报信息卡，统一承载说明性文本块和强调背景样式。
 class _InfoCard extends StatelessWidget {
   const _InfoCard({
     required this.title,
     required this.content,
+    this.highlighted = false,
   });
 
   final String title;
   final String content;
+  final bool highlighted;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: title == '下周建议' ? const Color(0xFFF4E8CF) : const Color(0xFFF9FBF6),
+        color: highlighted ? const Color(0xFFF4E8CF) : const Color(0xFFF9FBF6),
         borderRadius: BorderRadius.circular(16),
       ),
       child: Column(
@@ -193,9 +214,9 @@ class _InfoCard extends StatelessWidget {
         children: [
           Text(
             title,
-            style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.w700,
-                ),
+            style: Theme.of(
+              context,
+            ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700),
           ),
           const SizedBox(height: 8),
           Text(content),

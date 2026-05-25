@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rhythm/l10n/app_localizations.dart';
 
 /// 渲染今日页快捷记录卡，提供补录、修改和管理入口。
 class TodayQuickActionsSection extends StatelessWidget {
@@ -21,13 +22,15 @@ class TodayQuickActionsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text('快捷记录'),
+            Text(l10n.todayQuickActionsTitle),
             const SizedBox(height: 12),
             Wrap(
               spacing: 8,
@@ -35,15 +38,15 @@ class TodayQuickActionsSection extends StatelessWidget {
               children: [
                 OutlinedButton(
                   onPressed: onManualRecord,
-                  child: const Text('手动补录'),
+                  child: Text(l10n.todayQuickActionManualButton),
                 ),
                 OutlinedButton(
                   onPressed: onEditRecord,
-                  child: const Text('修改昨晚记录'),
+                  child: Text(l10n.todayQuickActionEditButton),
                 ),
                 OutlinedButton(
                   onPressed: onOpenRecordsHub,
-                  child: const Text('进入记录管理'),
+                  child: Text(l10n.todayQuickActionOpenHubButton),
                 ),
               ],
             ),

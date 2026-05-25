@@ -14,14 +14,17 @@ void main() {
   Future<void> pumpInsightsPage(
     WidgetTester tester, {
     required InsightsViewState state,
+    Locale locale = const Locale('zh'),
   }) async {
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
-          insightsControllerProvider.overrideWith(() => _FakeInsightsController(state)),
+          insightsControllerProvider.overrideWith(
+            () => _FakeInsightsController(state),
+          ),
         ],
         child: MaterialApp(
-          locale: const Locale('zh'),
+          locale: locale,
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
           home: const Scaffold(body: InsightsPage()),
@@ -47,6 +50,25 @@ void main() {
     );
 
     expect(find.text('洞察'), findsOneWidget);
+  });
+
+  testWidgets('英文环境下洞察首页不会混入中文标题', (tester) async {
+    await pumpInsightsPage(
+      tester,
+      locale: const Locale('en'),
+      state: _readyInsightsState(),
+    );
+
+    expect(
+      find.text(
+        'Your on-track rate was 56% over the last 7 days, with a stability score of 72. The latest night was on Wed.',
+      ),
+      findsOneWidget,
+    );
+    expect(find.text('Main late-night reasons'), findsOneWidget);
+    expect(find.text('Recovery effect'), findsOneWidget);
+    expect(find.text('View full weekly report'), findsOneWidget);
+    expect(find.text('主要晚睡原因'), findsNothing);
   });
 }
 

@@ -3,6 +3,7 @@ import 'package:rhythm/core/presentation/widgets/rhythm_primary_button.dart';
 import 'package:rhythm/core/presentation/widgets/rhythm_secondary_button.dart';
 import 'package:rhythm/features/onboarding/domain/onboarding_draft.dart';
 import 'package:rhythm/features/onboarding/presentation/widgets/onboarding_step_scaffold.dart';
+import 'package:rhythm/l10n/app_localizations.dart';
 
 /// 健康权限说明页，只负责说明价值和分流，不接真实系统权限。
 class HealthPermissionStep extends StatelessWidget {
@@ -25,49 +26,50 @@ class HealthPermissionStep extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     final authSummary = switch (selectedAuthOption) {
-      OnboardingAuthOption.apple => '自动同步睡眠记录',
-      OnboardingAuthOption.google => '近 30 天数据会写入本地节律时间线',
-      OnboardingAuthOption.anonymous => '授权失败可降级',
-      OnboardingAuthOption.none => '没有权限时仍能手动补录并生成周报',
+      OnboardingAuthOption.apple => l10n.onboardingHealthAppleSummary,
+      OnboardingAuthOption.google => l10n.onboardingHealthGoogleSummary,
+      OnboardingAuthOption.anonymous => l10n.onboardingHealthAnonymousSummary,
+      OnboardingAuthOption.none => l10n.onboardingHealthDefaultSummary,
     };
 
     return OnboardingStepScaffold(
-      eyebrow: '读取睡眠数据',
-      title: '让结果更省心，但你随时可以跳过，改用手动补录。',
-      description: '我们只读取睡眠记录，不会把数据用于医疗判断或广告。',
+      eyebrow: l10n.onboardingStepThreeEyebrow,
+      title: l10n.onboardingHealthTitle,
+      description: l10n.onboardingHealthDescription,
       content: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const _InfoCard(
-            title: '自动同步睡眠记录',
-            description: '近 30 天数据会写入本地节律时间线',
+          _InfoCard(
+            title: l10n.onboardingHealthAppleSummary,
+            description: l10n.onboardingHealthGoogleSummary,
           ),
           const SizedBox(height: 12),
-          const _InfoCard(
-            title: '授权失败可降级',
-            description: '没有权限时仍能手动补录并生成周报',
+          _InfoCard(
+            title: l10n.onboardingHealthAnonymousSummary,
+            description: l10n.onboardingHealthDefaultSummary,
           ),
           const SizedBox(height: 12),
-          const _InfoCard(
-            title: '你可以随时关闭',
-            description: '在系统设置中撤回后仍可继续使用 App',
+          _InfoCard(
+            title: l10n.onboardingHealthBenefitTitle,
+            description: l10n.onboardingHealthBenefitDescription,
           ),
           const SizedBox(height: 12),
           Text(
             authSummary,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: Theme.of(context).colorScheme.onSurfaceVariant,
-                ),
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
+            ),
           ),
         ],
       ),
       primaryAction: RhythmPrimaryButton(
-        label: '授权读取睡眠数据',
+        label: l10n.onboardingHealthAuthorizeButton,
         onPressed: onAuthorize,
       ),
       secondaryAction: RhythmSecondaryButton(
-        label: '先用手动模式',
+        label: l10n.onboardingHealthSkipButton,
         onPressed: onSkip,
       ),
     );

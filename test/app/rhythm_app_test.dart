@@ -49,7 +49,7 @@ void main() {
     await pumpRhythmApp(tester, onboardingCompleted: false);
     await tester.pumpAndSettle();
 
-    expect(find.text('先把节奏跑起来'), findsOneWidget);
+    expect(find.text('欢迎使用 Rhythm'), findsOneWidget);
   });
 
   testWidgets('完成引导后展示五个一级模块并默认进入今日页', (tester) async {

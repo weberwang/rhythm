@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../support/test_app.dart';
@@ -8,9 +9,9 @@ void main() {
     await pumpRhythmApp(tester, onboardingCompleted: false);
     await tester.pumpAndSettle();
 
-    expect(find.text('先把节奏跑起来'), findsOneWidget);
+    expect(find.text('欢迎使用 Rhythm'), findsOneWidget);
 
-    await tester.tap(find.text('开始建立我的作息目标'));
+    await tester.tap(find.text('开始设置'));
     await tester.pumpAndSettle();
 
     expect(find.text('先把节奏跑起来，登录只在需要同步时再做。'), findsOneWidget);
@@ -30,12 +31,49 @@ void main() {
     await pumpRhythmApp(tester, onboardingCompleted: false);
     await tester.pumpAndSettle();
 
-    await tester.tap(find.text('开始建立我的作息目标'));
+    await tester.tap(find.text('开始设置'));
     await tester.pump();
 
+    expect(find.text('先把节奏跑起来，登录只在需要同步时再做。'), findsOneWidget);
+  });
+
+  testWidgets('英文环境下首次引导不会混入中文文案', (tester) async {
+    await pumpRhythmApp(
+      tester,
+      onboardingCompleted: false,
+      locale: const Locale('en'),
+    );
+    await tester.pumpAndSettle();
+
+    expect(find.text('Welcome to Rhythm'), findsOneWidget);
+    expect(find.text('先把节奏跑起来'), findsNothing);
+
+    await tester.tap(find.text('Start setup'));
+    await tester.pumpAndSettle();
+
     expect(
-      find.text('先把节奏跑起来，登录只在需要同步时再做。'),
+      find.text(
+        'Get the rhythm moving first; sign in only when sync is needed.',
+      ),
       findsOneWidget,
     );
+    expect(find.text('Continue anonymously'), findsOneWidget);
+
+    await tester.tap(find.text('Continue anonymously'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Read sleep data'), findsOneWidget);
+    expect(find.text('Use manual mode first'), findsOneWidget);
+
+    await tester.tap(find.text('Use manual mode first'));
+    await tester.pumpAndSettle();
+
+    expect(
+      find.text(
+        'The target is a reference line, not a perfect daily red line.',
+      ),
+      findsOneWidget,
+    );
+    expect(find.text('Workday rule'), findsOneWidget);
   });
 }

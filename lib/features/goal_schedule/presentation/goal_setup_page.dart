@@ -33,11 +33,12 @@ class GoalSetupPage extends HookConsumerWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const _HeaderPill(text: '设置一个能做到的目标'),
+                      _HeaderPill(text: l10n.goalSetupEyebrow),
                       const SizedBox(height: 8),
                       Text(
-                        '目标是节律的参考线，不是每天必须完美做到的红线。',
-                        style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                        l10n.goalSetupPageTitle,
+                        style: Theme.of(context).textTheme.headlineMedium
+                            ?.copyWith(
                               fontFamily: 'Funnel Sans',
                               fontWeight: FontWeight.w700,
                               height: 1.08,
@@ -45,19 +46,19 @@ class GoalSetupPage extends HookConsumerWidget {
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        '先给出一版基础目标，后面随时可以调整。',
+                        l10n.goalSetupPageDescription,
                         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                              fontFamily: 'Geist',
-                              color: Theme.of(context).colorScheme.onSurfaceVariant,
-                              height: 1.4,
-                            ),
+                          fontFamily: 'Geist',
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,
+                          height: 1.4,
+                        ),
                       ),
                       const SizedBox(height: 18),
-                      const _GoalSummaryCard(),
+                      _GoalSummaryCard(l10n: l10n),
                       const SizedBox(height: 12),
                       const GoalScheduleFormSection(),
                       const SizedBox(height: 12),
-                      const _GoalWorkdayCard(),
+                      _GoalWorkdayCard(l10n: l10n),
                     ],
                   ),
                 ),
@@ -125,7 +126,10 @@ class _HeaderPill extends StatelessWidget {
 
 /// 目标作息设置主卡。
 class _GoalSummaryCard extends StatelessWidget {
-  const _GoalSummaryCard();
+  /// 创建目标摘要卡。
+  const _GoalSummaryCard({required this.l10n});
+
+  final AppLocalizations l10n;
 
   @override
   Widget build(BuildContext context) {
@@ -145,11 +149,14 @@ class _GoalSummaryCard extends StatelessWidget {
         ],
       ),
       child: Column(
-        children: const [
-          _GoalRow(label: '目标入睡时间', value: '23:30'),
-          _GoalRow(label: '目标起床时间', value: '07:30'),
-          _GoalRow(label: '晚睡阈值', value: '30 分钟'),
-          _GoalRow(label: '一天起始时间', value: '04:00'),
+        children: [
+          _GoalRow(label: l10n.goalScheduleBedtimeLabel, value: '23:30'),
+          _GoalRow(label: l10n.goalScheduleWakeLabel, value: '07:30'),
+          _GoalRow(
+            label: l10n.goalScheduleLateThresholdLabel,
+            value: l10n.goalScheduleMinutesValue(30),
+          ),
+          _GoalRow(label: l10n.goalScheduleDayStartLabel, value: '04:00'),
         ],
       ),
     );
@@ -191,7 +198,10 @@ class _GoalRow extends StatelessWidget {
 
 /// 工作日规则卡。
 class _GoalWorkdayCard extends StatelessWidget {
-  const _GoalWorkdayCard();
+  /// 创建工作日规则卡。
+  const _GoalWorkdayCard({required this.l10n});
+
+  final AppLocalizations l10n;
 
   @override
   Widget build(BuildContext context) {
@@ -208,14 +218,14 @@ class _GoalWorkdayCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('工作日规则', style: textTheme.titleMedium),
+          Text(l10n.goalSetupWorkdayTitle, style: textTheme.titleMedium),
           const SizedBox(height: 10),
           Wrap(
             spacing: 8,
             runSpacing: 8,
-            children: const [
-              _Chip(text: '工作日优先'),
-              _Chip(text: '后续再调'),
+            children: [
+              _Chip(text: l10n.goalSetupWorkdayWeekdays),
+              _Chip(text: l10n.goalSetupWorkdayFlexible),
             ],
           ),
         ],
@@ -244,9 +254,7 @@ class _Chip extends StatelessWidget {
       ),
       child: Text(
         text,
-        style: textTheme.labelLarge?.copyWith(
-          color: colorScheme.onSurface,
-        ),
+        style: textTheme.labelLarge?.copyWith(color: colorScheme.onSurface),
       ),
     );
   }

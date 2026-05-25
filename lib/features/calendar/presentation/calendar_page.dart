@@ -70,11 +70,13 @@ class CalendarPage extends HookConsumerWidget {
           activeFilter: state.activeFilter,
           monthSummary: monthSummary,
         );
-        final monthLabel = DateFormat('yyyy 年 M 月').format(monthSummary.month);
+        final monthLabel = _formatMonthLabel(context, monthSummary.month);
         final onTrackRate = monthSummary.recordedDays == 0
             ? 0
-            : ((monthSummary.onTargetDays / monthSummary.recordedDays) * 100).round();
-        final latestLateText = monthSummary.latestLateDay?.sleepOffsetMinutes == null
+            : ((monthSummary.onTargetDays / monthSummary.recordedDays) * 100)
+                  .round();
+        final latestLateText =
+            monthSummary.latestLateDay?.sleepOffsetMinutes == null
             ? '--:--'
             : _formatOffset(monthSummary.latestLateDay!.sleepOffsetMinutes!);
 
@@ -138,12 +140,8 @@ class CalendarPage extends HookConsumerWidget {
                       const SizedBox(height: 12),
                       CalendarHeatmap(
                         days: monthSummary.days,
-                        onTapDay: (summary) => _showDayDetail(
-                          context,
-                          ref,
-                          state,
-                          summary,
-                        ),
+                        onTapDay: (summary) =>
+                            _showDayDetail(context, ref, state, summary),
                       ),
                     ],
                   ),
@@ -203,7 +201,9 @@ Future<void> _showFilterSheetWithState(
         lateOnly: lateOnly,
         onApply: (value) async {
           if (ref != null) {
-            await ref.read(calendarControllerProvider.notifier).updateFilter(
+            await ref
+                .read(calendarControllerProvider.notifier)
+                .updateFilter(
                   CalendarFilter(
                     onlyRecordedDays: value.onlyRecordedDays,
                     lateOnly: value.lateOnly,
@@ -216,9 +216,9 @@ Future<void> _showFilterSheetWithState(
         },
         onReset: () async {
           if (ref != null) {
-            await ref.read(calendarControllerProvider.notifier).updateFilter(
-                  const CalendarFilter(),
-                );
+            await ref
+                .read(calendarControllerProvider.notifier)
+                .updateFilter(const CalendarFilter());
           }
           if (context.mounted) {
             Navigator.of(context).pop();
@@ -300,9 +300,9 @@ class _CalendarChip extends StatelessWidget {
       child: Text(
         label,
         style: Theme.of(context).textTheme.labelMedium?.copyWith(
-              color: foregroundColor,
-              fontWeight: FontWeight.w600,
-            ),
+          color: foregroundColor,
+          fontWeight: FontWeight.w600,
+        ),
       ),
     );
   }
@@ -333,16 +333,16 @@ class _CalendarMetricCard extends StatelessWidget {
         children: [
           Text(
             title,
-            style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                  fontWeight: FontWeight.w600,
-                ),
+            style: Theme.of(
+              context,
+            ).textTheme.labelMedium?.copyWith(fontWeight: FontWeight.w600),
           ),
           const SizedBox(height: 10),
           Text(
             value,
-            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                  fontWeight: FontWeight.w800,
-                ),
+            style: Theme.of(
+              context,
+            ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w800),
           ),
         ],
       ),
@@ -358,6 +358,15 @@ String _formatOffset(int minutes) {
   return '${hours.toString().padLeft(2, '0')}:${remainingMinutes.toString().padLeft(2, '0')}';
 }
 
+/// 按语言环境输出月份标题，中文保留当前视觉稿格式，英文走本地化月份表达。
+String _formatMonthLabel(BuildContext context, DateTime month) {
+  final locale = Localizations.localeOf(context).toLanguageTag();
+  if (locale.startsWith('zh')) {
+    return DateFormat('yyyy 年 M 月').format(month);
+  }
+  return DateFormat.yMMMM(locale).format(month);
+}
+
 /// 打开单日详情，并在详情内继续承接补标签动作。
 Future<void> _showDayDetail(
   BuildContext context,
@@ -365,9 +374,9 @@ Future<void> _showDayDetail(
   CalendarViewState state,
   CalendarDaySummary summary,
 ) async {
-  await ref.read(calendarAnalyticsProvider).trackDayDetailViewed(
-        recordDate: summary.date,
-      );
+  await ref
+      .read(calendarAnalyticsProvider)
+      .trackDayDetailViewed(recordDate: summary.date);
   await showModalBottomSheet<void>(
     context: context,
     isScrollControlled: true,
@@ -384,11 +393,12 @@ Future<void> _showDayDetail(
                 tags: state.availableTags,
                 selectedTags: summary.tags,
                 onSave: (tags) async {
-                  await ref.read(sleepDelayTagControllerProvider).saveTags(
-                        recordDate: summary.date,
-                        tags: tags,
-                      );
-                  await ref.read(calendarAnalyticsProvider).trackDelayTagAdded(
+                  await ref
+                      .read(sleepDelayTagControllerProvider)
+                      .saveTags(recordDate: summary.date, tags: tags);
+                  await ref
+                      .read(calendarAnalyticsProvider)
+                      .trackDelayTagAdded(
                         recordDate: summary.date,
                         tag: tags.first,
                       );
@@ -398,11 +408,12 @@ Future<void> _showDayDetail(
                 },
                 onCustomTag: (value) async {
                   final normalized = value.trim();
-                  await ref.read(sleepDelayTagControllerProvider).saveCustomTag(
-                        recordDate: summary.date,
-                        input: value,
-                      );
-                  await ref.read(calendarAnalyticsProvider).trackDelayTagAdded(
+                  await ref
+                      .read(sleepDelayTagControllerProvider)
+                      .saveCustomTag(recordDate: summary.date, input: value);
+                  await ref
+                      .read(calendarAnalyticsProvider)
+                      .trackDelayTagAdded(
                         recordDate: summary.date,
                         tag: normalized,
                       );

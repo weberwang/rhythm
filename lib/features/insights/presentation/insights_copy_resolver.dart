@@ -10,10 +10,7 @@ class InsightsCopyResolver {
   const InsightsCopyResolver._();
 
   /// 生成洞察首页主摘要标题。
-  static String headline(
-    AppLocalizations l10n,
-    WeeklyReportSummary summary,
-  ) {
+  static String headline(AppLocalizations l10n, WeeklyReportSummary summary) {
     return l10n.insightsWeeklyHeadline(
       summary.onTrackRate,
       summary.stabilityScore,
@@ -22,10 +19,7 @@ class InsightsCopyResolver {
   }
 
   /// 根据稳定度等级生成首页副标题和说明弹层主说明。
-  static String stabilitySummary(
-    AppLocalizations l10n,
-    StabilityScore score,
-  ) {
+  static String stabilitySummary(AppLocalizations l10n, StabilityScore score) {
     switch (score.level) {
       case StabilityScoreLevel.insufficient:
         return l10n.insightsStabilitySummaryInsufficient;
@@ -56,19 +50,19 @@ class InsightsCopyResolver {
   }
 
   /// 生成周报详情里的“最晚入睡日”说明。
-  static String latestLateSummary(
-    AppLocalizations l10n,
-    WeeklyReport report,
-  ) {
+  static String latestLateSummary(AppLocalizations l10n, WeeklyReport report) {
     final summary = report.summary;
-    final latestDay = report.days.fold<WeeklyReportDaySnapshot?>(null, (latest, current) {
+    final latestDay = report.days.fold<WeeklyReportDaySnapshot?>(null, (
+      latest,
+      current,
+    ) {
       final latestOffset = latest?.sleepOffsetMinutes ?? -1;
       final currentOffset = current.sleepOffsetMinutes ?? -1;
       return currentOffset > latestOffset ? current : latest;
     });
     final reasons = latestDay == null || latestDay.tags.isEmpty
         ? null
-        : latestDay.tags.join('、');
+        : _joinTags(latestDay.tags, l10n);
     final base = l10n.insightsLatestLateSummary(
       _weekdayLabel(summary.latestLateDayWeekday, l10n),
       _formatMinutesOfDay(summary.latestLateSleepMinutesOfDay),
@@ -96,10 +90,7 @@ class InsightsCopyResolver {
   }
 
   /// 生成恢复效果摘要文案。
-  static String recoverySummary(
-    AppLocalizations l10n,
-    RecoveryPlan? plan,
-  ) {
+  static String recoverySummary(AppLocalizations l10n, RecoveryPlan? plan) {
     if (plan == null) {
       return l10n.insightsRecoveryNoPlan;
     }
@@ -107,10 +98,7 @@ class InsightsCopyResolver {
   }
 
   /// 生成恢复计划标题。
-  static String recoveryTitle(
-    AppLocalizations l10n,
-    RecoveryPlan plan,
-  ) {
+  static String recoveryTitle(AppLocalizations l10n, RecoveryPlan plan) {
     return l10n.insightsRecoveryPlanTitle(plan.horizonDays);
   }
 
@@ -145,10 +133,7 @@ class InsightsCopyResolver {
   }
 
   /// 生成历史周报摘要。
-  static String historySummary(
-    AppLocalizations l10n,
-    WeeklyReport report,
-  ) {
+  static String historySummary(AppLocalizations l10n, WeeklyReport report) {
     if (report.isLocked) {
       return l10n.insightsHistoryLocked;
     }
@@ -170,14 +155,11 @@ class InsightsCopyResolver {
   }
 
   /// 生成单日标签缺失时的替代文案。
-  static String tagsOrFallback(
-    AppLocalizations l10n,
-    List<String> tags,
-  ) {
+  static String tagsOrFallback(AppLocalizations l10n, List<String> tags) {
     if (tags.isEmpty) {
       return l10n.insightsNoReasonTags;
     }
-    return tags.join('、');
+    return _joinTags(tags, l10n);
   }
 
   static String _weekdayLabel(int weekday, AppLocalizations l10n) {
@@ -205,5 +187,12 @@ class InsightsCopyResolver {
     final hour = minutes ~/ 60;
     final minute = minutes % 60;
     return '${hour.toString().padLeft(2, '0')}:${minute.toString().padLeft(2, '0')}';
+  }
+
+  /// 按当前语言环境拼接原因标签，避免英文环境继续使用中文顿号。
+  static String _joinTags(List<String> tags, AppLocalizations l10n) {
+    final localeName = l10n.localeName.toLowerCase();
+    final separator = localeName.startsWith('zh') ? '、' : ', ';
+    return tags.join(separator);
   }
 }

@@ -57,7 +57,7 @@ void main() {
     await pumpRhythmApp(tester, onboardingCompleted: false);
     await tester.pumpAndSettle();
 
-    await tester.tap(find.text('开始建立我的作息目标'));
+    await tester.tap(find.text('开始设置'));
     await tester.pumpAndSettle();
     await tester.tap(find.text('匿名进入'));
     await tester.pumpAndSettle();
@@ -73,7 +73,7 @@ void main() {
     await pumpRhythmApp(tester, onboardingCompleted: false);
     await tester.pumpAndSettle();
 
-    await tester.tap(find.text('开始建立我的作息目标'));
+    await tester.tap(find.text('开始设置'));
     await tester.pumpAndSettle();
     await tester.tap(find.text('匿名进入'));
     await tester.pumpAndSettle();
@@ -98,8 +98,7 @@ void main() {
     );
     expect(
       preferences.getInt(
-        SharedPreferencesGoalScheduleSettingsRepository
-            .lateThresholdMinutesKey,
+        SharedPreferencesGoalScheduleSettingsRepository.lateThresholdMinutesKey,
       ),
       30,
     );

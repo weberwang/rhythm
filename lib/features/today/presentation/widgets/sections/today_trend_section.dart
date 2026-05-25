@@ -24,7 +24,7 @@ class TodayTrendSection extends StatelessWidget {
             SizedBox(
               height: 120,
               child: offsets.isEmpty
-                  ? const Center(child: Text('再积累几天就能看到趋势'))
+                  ? Center(child: Text(l10n.todayTrendEmptyState))
                   : BarChart(
                       BarChartData(
                         alignment: BarChartAlignment.spaceAround,
