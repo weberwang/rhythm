@@ -41,6 +41,11 @@ class ProfilePage extends HookConsumerWidget {
             _EntryListCard(
               entries: [
                 _ProfileEntry(
+                  title: l10n.profileMembershipEntryTitle,
+                  subtitle: l10n.profileMembershipEntrySubtitle,
+                  onTap: () => context.go(membershipCenterPath),
+                ),
+                _ProfileEntry(
                   title: l10n.profileGoalScheduleEntryTitle,
                   subtitle: goalSettingsAsync.when(
                     data: (settings) => settings == null

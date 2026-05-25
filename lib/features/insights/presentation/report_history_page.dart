@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:rhythm/app/router/app_router.dart';
 import 'package:rhythm/features/insights/application/insights_controller.dart';
 import 'package:rhythm/features/insights/application/insights_view_state.dart';
 import 'package:rhythm/features/insights/domain/weekly_report.dart';
@@ -86,7 +88,7 @@ class _HistoryBody extends StatelessWidget {
         SizedBox(
           width: double.infinity,
           child: FilledButton(
-            onPressed: () {},
+            onPressed: () => context.go(membershipCenterPath),
             child: Text(l10n.insightsHistoryUnlockButton),
           ),
         ),

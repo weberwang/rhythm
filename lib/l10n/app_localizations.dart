@@ -488,6 +488,270 @@ abstract class AppLocalizations {
   /// **'Unlock all insight history'**
   String get insightsHistoryUnlockButton;
 
+  /// No description provided for @membershipCenterPageTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Membership center'**
+  String get membershipCenterPageTitle;
+
+  /// No description provided for @membershipCenterHeroTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Connect the long-term improvement layer'**
+  String get membershipCenterHeroTitle;
+
+  /// No description provided for @membershipCenterHeroDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Membership does not replace the core loop. It makes causes and recovery paths easier to understand.'**
+  String get membershipCenterHeroDescription;
+
+  /// No description provided for @membershipStatusFree.
+  ///
+  /// In en, this message translates to:
+  /// **'Free plan'**
+  String get membershipStatusFree;
+
+  /// No description provided for @membershipStatusTrial.
+  ///
+  /// In en, this message translates to:
+  /// **'Trial active'**
+  String get membershipStatusTrial;
+
+  /// No description provided for @membershipStatusMonthly.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly membership active'**
+  String get membershipStatusMonthly;
+
+  /// No description provided for @membershipStatusAnnual.
+  ///
+  /// In en, this message translates to:
+  /// **'Annual membership active'**
+  String get membershipStatusAnnual;
+
+  /// No description provided for @membershipStatusLifetime.
+  ///
+  /// In en, this message translates to:
+  /// **'Lifetime membership active'**
+  String get membershipStatusLifetime;
+
+  /// No description provided for @membershipStatusDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'After upgrading, you can view recovery plan details, long-term history, stability explanations, and richer widgets.'**
+  String get membershipStatusDescription;
+
+  /// No description provided for @membershipPlanMonthly.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly'**
+  String get membershipPlanMonthly;
+
+  /// No description provided for @membershipPlanAnnual.
+  ///
+  /// In en, this message translates to:
+  /// **'Annual'**
+  String get membershipPlanAnnual;
+
+  /// No description provided for @membershipPlanLifetime.
+  ///
+  /// In en, this message translates to:
+  /// **'Lifetime'**
+  String get membershipPlanLifetime;
+
+  /// No description provided for @membershipPlanTrial.
+  ///
+  /// In en, this message translates to:
+  /// **'Trial'**
+  String get membershipPlanTrial;
+
+  /// No description provided for @membershipPlanFree.
+  ///
+  /// In en, this message translates to:
+  /// **'Free'**
+  String get membershipPlanFree;
+
+  /// No description provided for @membershipPlanTryBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'Try first'**
+  String get membershipPlanTryBadge;
+
+  /// No description provided for @membershipPlanRecommendedBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'Recommended'**
+  String get membershipPlanRecommendedBadge;
+
+  /// No description provided for @membershipBenefitRecoveryDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'Full recovery plan details'**
+  String get membershipBenefitRecoveryDetail;
+
+  /// No description provided for @membershipBenefitStabilityExplainer.
+  ///
+  /// In en, this message translates to:
+  /// **'Stability score explanations'**
+  String get membershipBenefitStabilityExplainer;
+
+  /// No description provided for @membershipBenefitHistoryMonthly.
+  ///
+  /// In en, this message translates to:
+  /// **'History older than 30 days and monthly reports'**
+  String get membershipBenefitHistoryMonthly;
+
+  /// No description provided for @membershipBenefitRestoreSync.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase restore and device sync'**
+  String get membershipBenefitRestoreSync;
+
+  /// No description provided for @membershipBenefitsSheetTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Membership benefits'**
+  String get membershipBenefitsSheetTitle;
+
+  /// No description provided for @membershipBenefitsSheetDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Opened from Insights or Profile to explain the boundary between the free and membership plans.'**
+  String get membershipBenefitsSheetDescription;
+
+  /// No description provided for @membershipBenefitRecoveryShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Recovery plan'**
+  String get membershipBenefitRecoveryShort;
+
+  /// No description provided for @membershipBenefitHistoryShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Long-term history'**
+  String get membershipBenefitHistoryShort;
+
+  /// No description provided for @membershipBenefitMonthlyShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly reports'**
+  String get membershipBenefitMonthlyShort;
+
+  /// No description provided for @membershipPrimaryActionAnnual.
+  ///
+  /// In en, this message translates to:
+  /// **'Start annual membership'**
+  String get membershipPrimaryActionAnnual;
+
+  /// No description provided for @membershipPrimaryActionMonthly.
+  ///
+  /// In en, this message translates to:
+  /// **'Start monthly membership'**
+  String get membershipPrimaryActionMonthly;
+
+  /// No description provided for @membershipPrimaryActionManage.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage current membership'**
+  String get membershipPrimaryActionManage;
+
+  /// No description provided for @membershipViewBenefitsButton.
+  ///
+  /// In en, this message translates to:
+  /// **'View benefits'**
+  String get membershipViewBenefitsButton;
+
+  /// No description provided for @membershipRestoreButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore purchases'**
+  String get membershipRestoreButton;
+
+  /// No description provided for @paywallHeroBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock the improvement layer too'**
+  String get paywallHeroBadge;
+
+  /// No description provided for @paywallHeroTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'The free plan gives you results. Membership connects recovery plans, stability explanations, and long-term history.'**
+  String get paywallHeroTitle;
+
+  /// No description provided for @paywallHeroDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'It never hard-blocks first-run. It appears only when you truly want deeper help.'**
+  String get paywallHeroDescription;
+
+  /// No description provided for @paywallHintTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Membership capability'**
+  String get paywallHintTitle;
+
+  /// No description provided for @paywallHintDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Recovery plan details are a membership capability, but the free loop can still continue.'**
+  String get paywallHintDescription;
+
+  /// No description provided for @paywallBenefitRecoveryDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'Recovery plan details'**
+  String get paywallBenefitRecoveryDetail;
+
+  /// No description provided for @paywallBenefitStabilityExplainer.
+  ///
+  /// In en, this message translates to:
+  /// **'Detailed stability explanation'**
+  String get paywallBenefitStabilityExplainer;
+
+  /// No description provided for @paywallBenefitHistoryMonthly.
+  ///
+  /// In en, this message translates to:
+  /// **'History older than 30 days and monthly reports'**
+  String get paywallBenefitHistoryMonthly;
+
+  /// No description provided for @paywallBenefitWidgetSync.
+  ///
+  /// In en, this message translates to:
+  /// **'Richer widgets and cross-device sync'**
+  String get paywallBenefitWidgetSync;
+
+  /// No description provided for @paywallPrimaryActionAnnual.
+  ///
+  /// In en, this message translates to:
+  /// **'Start annual membership'**
+  String get paywallPrimaryActionAnnual;
+
+  /// No description provided for @paywallPrimaryActionMonthly.
+  ///
+  /// In en, this message translates to:
+  /// **'Start monthly membership'**
+  String get paywallPrimaryActionMonthly;
+
+  /// No description provided for @paywallPrimaryActionLifetime.
+  ///
+  /// In en, this message translates to:
+  /// **'Start lifetime membership'**
+  String get paywallPrimaryActionLifetime;
+
+  /// No description provided for @paywallPrimaryActionTrial.
+  ///
+  /// In en, this message translates to:
+  /// **'Start trial'**
+  String get paywallPrimaryActionTrial;
+
+  /// No description provided for @paywallContinueFreeButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep using free plan'**
+  String get paywallContinueFreeButton;
+
   /// No description provided for @insightsHistoryLocked.
   ///
   /// In en, this message translates to:
@@ -1789,6 +2053,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Free plan'**
   String get profileHeroBadgeLabel;
+
+  /// No description provided for @profileMembershipEntryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Membership center'**
+  String get profileMembershipEntryTitle;
+
+  /// No description provided for @profileMembershipEntrySubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock recovery plan details, long-term history, and monthly reports'**
+  String get profileMembershipEntrySubtitle;
 
   /// No description provided for @profileGoalScheduleEntryTitle.
   ///

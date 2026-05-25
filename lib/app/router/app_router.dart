@@ -8,6 +8,8 @@ import 'package:rhythm/features/goal_schedule/presentation/timezone_mode_page.da
 import 'package:rhythm/features/insights/presentation/insights_page.dart';
 import 'package:rhythm/features/insights/presentation/report_history_page.dart';
 import 'package:rhythm/features/insights/presentation/weekly_report_detail_page.dart';
+import 'package:rhythm/features/membership/presentation/membership_page.dart';
+import 'package:rhythm/features/membership/presentation/paywall_page.dart';
 import 'package:rhythm/features/notifications/presentation/notification_settings_page.dart';
 import 'package:rhythm/features/notifications/presentation/reminder_setup_page.dart';
 import 'package:rhythm/features/onboarding/presentation/onboarding_flow_page.dart';
@@ -52,6 +54,12 @@ const String weeklyReportDetailPath = '/insights/weekly-report';
 
 /// 历史洞察页路由路径。
 const String insightsHistoryPath = '/insights/history';
+
+/// 轻量付费墙页路由路径。
+const String membershipPaywallPath = '/membership/paywall';
+
+/// 会员中心页路由路径。
+const String membershipCenterPath = '/membership/center';
 
 /// 账号与同步页路由路径。
 const String profileAccountSyncPath = '/profile/account-sync';
@@ -213,6 +221,14 @@ GoRouter createAppRouter() {
       GoRoute(
         path: insightsHistoryPath,
         builder: (context, state) => const ReportHistoryPage(),
+      ),
+      GoRoute(
+        path: membershipPaywallPath,
+        builder: (context, state) => const PaywallPage(),
+      ),
+      GoRoute(
+        path: membershipCenterPath,
+        builder: (context, state) => const MembershipPage(),
       ),
       GoRoute(
         path: profileAccountSyncPath,

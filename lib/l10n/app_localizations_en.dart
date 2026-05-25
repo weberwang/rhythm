@@ -221,6 +221,149 @@ class AppLocalizationsEn extends AppLocalizations {
   String get insightsHistoryUnlockButton => 'Unlock all insight history';
 
   @override
+  String get membershipCenterPageTitle => 'Membership center';
+
+  @override
+  String get membershipCenterHeroTitle =>
+      'Connect the long-term improvement layer';
+
+  @override
+  String get membershipCenterHeroDescription =>
+      'Membership does not replace the core loop. It makes causes and recovery paths easier to understand.';
+
+  @override
+  String get membershipStatusFree => 'Free plan';
+
+  @override
+  String get membershipStatusTrial => 'Trial active';
+
+  @override
+  String get membershipStatusMonthly => 'Monthly membership active';
+
+  @override
+  String get membershipStatusAnnual => 'Annual membership active';
+
+  @override
+  String get membershipStatusLifetime => 'Lifetime membership active';
+
+  @override
+  String get membershipStatusDescription =>
+      'After upgrading, you can view recovery plan details, long-term history, stability explanations, and richer widgets.';
+
+  @override
+  String get membershipPlanMonthly => 'Monthly';
+
+  @override
+  String get membershipPlanAnnual => 'Annual';
+
+  @override
+  String get membershipPlanLifetime => 'Lifetime';
+
+  @override
+  String get membershipPlanTrial => 'Trial';
+
+  @override
+  String get membershipPlanFree => 'Free';
+
+  @override
+  String get membershipPlanTryBadge => 'Try first';
+
+  @override
+  String get membershipPlanRecommendedBadge => 'Recommended';
+
+  @override
+  String get membershipBenefitRecoveryDetail => 'Full recovery plan details';
+
+  @override
+  String get membershipBenefitStabilityExplainer =>
+      'Stability score explanations';
+
+  @override
+  String get membershipBenefitHistoryMonthly =>
+      'History older than 30 days and monthly reports';
+
+  @override
+  String get membershipBenefitRestoreSync => 'Purchase restore and device sync';
+
+  @override
+  String get membershipBenefitsSheetTitle => 'Membership benefits';
+
+  @override
+  String get membershipBenefitsSheetDescription =>
+      'Opened from Insights or Profile to explain the boundary between the free and membership plans.';
+
+  @override
+  String get membershipBenefitRecoveryShort => 'Recovery plan';
+
+  @override
+  String get membershipBenefitHistoryShort => 'Long-term history';
+
+  @override
+  String get membershipBenefitMonthlyShort => 'Monthly reports';
+
+  @override
+  String get membershipPrimaryActionAnnual => 'Start annual membership';
+
+  @override
+  String get membershipPrimaryActionMonthly => 'Start monthly membership';
+
+  @override
+  String get membershipPrimaryActionManage => 'Manage current membership';
+
+  @override
+  String get membershipViewBenefitsButton => 'View benefits';
+
+  @override
+  String get membershipRestoreButton => 'Restore purchases';
+
+  @override
+  String get paywallHeroBadge => 'Unlock the improvement layer too';
+
+  @override
+  String get paywallHeroTitle =>
+      'The free plan gives you results. Membership connects recovery plans, stability explanations, and long-term history.';
+
+  @override
+  String get paywallHeroDescription =>
+      'It never hard-blocks first-run. It appears only when you truly want deeper help.';
+
+  @override
+  String get paywallHintTitle => 'Membership capability';
+
+  @override
+  String get paywallHintDescription =>
+      'Recovery plan details are a membership capability, but the free loop can still continue.';
+
+  @override
+  String get paywallBenefitRecoveryDetail => 'Recovery plan details';
+
+  @override
+  String get paywallBenefitStabilityExplainer =>
+      'Detailed stability explanation';
+
+  @override
+  String get paywallBenefitHistoryMonthly =>
+      'History older than 30 days and monthly reports';
+
+  @override
+  String get paywallBenefitWidgetSync => 'Richer widgets and cross-device sync';
+
+  @override
+  String get paywallPrimaryActionAnnual => 'Start annual membership';
+
+  @override
+  String get paywallPrimaryActionMonthly => 'Start monthly membership';
+
+  @override
+  String get paywallPrimaryActionLifetime => 'Start lifetime membership';
+
+  @override
+  String get paywallPrimaryActionTrial => 'Start trial';
+
+  @override
+  String get paywallContinueFreeButton => 'Keep using free plan';
+
+  @override
   String get insightsHistoryLocked => 'Outside the free range';
 
   @override
@@ -976,6 +1119,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get profileHeroBadgeLabel => 'Free plan';
+
+  @override
+  String get profileMembershipEntryTitle => 'Membership center';
+
+  @override
+  String get profileMembershipEntrySubtitle =>
+      'Unlock recovery plan details, long-term history, and monthly reports';
 
   @override
   String get profileGoalScheduleEntryTitle => 'Goal schedule settings';

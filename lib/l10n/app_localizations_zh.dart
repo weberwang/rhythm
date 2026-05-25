@@ -211,6 +211,138 @@ class AppLocalizationsZh extends AppLocalizations {
   String get insightsHistoryUnlockButton => '解锁全部历史洞察';
 
   @override
+  String get membershipCenterPageTitle => '会员中心';
+
+  @override
+  String get membershipCenterHeroTitle => '把长期改善能力接上';
+
+  @override
+  String get membershipCenterHeroDescription => '会员不替代核心闭环，而是让你更容易看懂原因和恢复路径。';
+
+  @override
+  String get membershipStatusFree => '免费版中';
+
+  @override
+  String get membershipStatusTrial => '试用中';
+
+  @override
+  String get membershipStatusMonthly => '月会员已激活';
+
+  @override
+  String get membershipStatusAnnual => '年会员已激活';
+
+  @override
+  String get membershipStatusLifetime => '永久会员已激活';
+
+  @override
+  String get membershipStatusDescription => '升级后可查看恢复计划详情、长期历史、稳定度解释和更完整的小组件。';
+
+  @override
+  String get membershipPlanMonthly => '月付';
+
+  @override
+  String get membershipPlanAnnual => '年付';
+
+  @override
+  String get membershipPlanLifetime => '永久';
+
+  @override
+  String get membershipPlanTrial => '试用';
+
+  @override
+  String get membershipPlanFree => '免费';
+
+  @override
+  String get membershipPlanTryBadge => '先试试看';
+
+  @override
+  String get membershipPlanRecommendedBadge => '最推荐';
+
+  @override
+  String get membershipBenefitRecoveryDetail => '恢复计划完整详情';
+
+  @override
+  String get membershipBenefitStabilityExplainer => '稳定度评分解释';
+
+  @override
+  String get membershipBenefitHistoryMonthly => '30 天前历史与月报入口';
+
+  @override
+  String get membershipBenefitRestoreSync => '恢复购买与设备同步';
+
+  @override
+  String get membershipBenefitsSheetTitle => '会员权益对比';
+
+  @override
+  String get membershipBenefitsSheetDescription => '从洞察页或我的页打开，解释免费版与会员版边界。';
+
+  @override
+  String get membershipBenefitRecoveryShort => '恢复计划';
+
+  @override
+  String get membershipBenefitHistoryShort => '长期历史';
+
+  @override
+  String get membershipBenefitMonthlyShort => '月报';
+
+  @override
+  String get membershipPrimaryActionAnnual => '立即开通年会员';
+
+  @override
+  String get membershipPrimaryActionMonthly => '立即开通月会员';
+
+  @override
+  String get membershipPrimaryActionManage => '管理当前会员';
+
+  @override
+  String get membershipViewBenefitsButton => '查看权益说明';
+
+  @override
+  String get membershipRestoreButton => '恢复购买';
+
+  @override
+  String get paywallHeroBadge => '把改善能力也解锁出来';
+
+  @override
+  String get paywallHeroTitle => '免费版给你结果，会员版把恢复计划、稳定度解释和长期历史都接上。';
+
+  @override
+  String get paywallHeroDescription => '不在首开硬拦，只在你真正需要更深帮助的时候出现。';
+
+  @override
+  String get paywallHintTitle => '会员能力提示';
+
+  @override
+  String get paywallHintDescription => '恢复计划详情属于会员能力，但免费闭环仍可继续使用。';
+
+  @override
+  String get paywallBenefitRecoveryDetail => '恢复计划详情';
+
+  @override
+  String get paywallBenefitStabilityExplainer => '稳定度详细解释';
+
+  @override
+  String get paywallBenefitHistoryMonthly => '30 天前历史与月报入口';
+
+  @override
+  String get paywallBenefitWidgetSync => '更完整的小组件与跨端同步';
+
+  @override
+  String get paywallPrimaryActionAnnual => '开通年会员';
+
+  @override
+  String get paywallPrimaryActionMonthly => '开通月会员';
+
+  @override
+  String get paywallPrimaryActionLifetime => '开通永久会员';
+
+  @override
+  String get paywallPrimaryActionTrial => '开始试用';
+
+  @override
+  String get paywallContinueFreeButton => '先继续免费版';
+
+  @override
   String get insightsHistoryLocked => '超过免费范围';
 
   @override
@@ -907,6 +1039,12 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get profileHeroBadgeLabel => '免费版';
+
+  @override
+  String get profileMembershipEntryTitle => '会员中心';
+
+  @override
+  String get profileMembershipEntrySubtitle => '解锁恢复计划详情、长期历史和月报入口';
 
   @override
   String get profileGoalScheduleEntryTitle => '目标作息设置';
