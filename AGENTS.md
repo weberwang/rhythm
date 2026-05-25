@@ -75,6 +75,7 @@ This project is indexed by GitNexus as **rhythm** (2359 symbols, 4921 relationsh
 ### 分层归属
 
 - `domain/` 禁止直接使用三方包：只保留业务实体、值对象、规则、仓储接口，不允许导入包类型、插件异常类型或平台返回模型。
+- `domain/`、`data/` 下的实体类默认必须使用 `freezed` / `freezed_annotation` 注解定义，不允许长期手写可变实体或样板 `copyWith`、相等性、序列化结构；只有用户明确要求或生成链路无法覆盖时才允许例外。
 - `application/` 不直接调用三方依赖：只负责用例编排、状态聚合和流程推进，可以依赖仓储接口或领域服务，但不能写平台权限、SDK 初始化和原生细节。
 - `presentation/` 不直接接包实现：页面和组件只负责触发用户意图、展示状态和错误结果，不直接持有三方包实例，不直接拼装包参数。
 - `presentation/` 默认强制使用 `hooks_riverpod` 组织显示层代码：页面、区块组件、表单交互、局部 UI 状态、生命周期副作用、控制器装配优先落在 Hook 方案中，目标是减少样板代码、压缩 `Consumer/ConsumerStatefulWidget` 模板代码并保持显示层实现简洁一致。
@@ -86,7 +87,7 @@ This project is indexed by GitNexus as **rhythm** (2359 symbols, 4921 relationsh
 - `flutter_riverpod`：默认状态管理和依赖注入入口；新增页面状态、异步状态、控制器装配优先基于它实现，不要手写全局单例或裸 `InheritedWidget`。
 - `hooks_riverpod`：显示层默认强制使用的 Riverpod 入口；页面、弹层、表单、局部状态和副作用管理优先使用 `HookConsumerWidget`、`HookWidget` 等 Hook 方案实现，除非用户明确要求不用 Hook，否则不要再回退到 `ConsumerWidget`、`ConsumerStatefulWidget` 作为默认写法。
 - `go_router`：默认路由和跳转能力；页面路由、启动分发、受保护跳转统一走它，不要手写平行导航状态机。
-- `riverpod_annotation`：Provider 注解入口；适合生成式 Provider 的场景优先写 `@riverpod`，不要同一模块混用多套 Provider 风格。
+- `riverpod_annotation`：Provider 注解入口；项目内 Riverpod Provider 必须默认使用 `@riverpod` 注解定义并通过生成代码接入，不要同一模块混用手写 Provider、旧式 Provider 风格和生成式 Provider 风格。
 - `riverpod_generator`：Riverpod 代码生成器；当 Provider 进入稳定阶段或需要统一生成命名、自动 dispose、家族参数时优先使用。
 - `collection`：集合工具包；需要安全集合操作、分组、比较、空安全辅助时优先使用，不要重复手写通用集合扩展。
 - `drift`：结构化本地数据默认落点；睡眠记录、周报、标签、恢复计划、同步队列等长期业务数据优先用它，不要堆在内存列表或松散 JSON 里。
