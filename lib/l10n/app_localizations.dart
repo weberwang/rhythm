@@ -1633,6 +1633,588 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Set your schedule goal'**
   String get bedtimeGoalMissingButton;
+
+  /// No description provided for @commonCancelButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get commonCancelButton;
+
+  /// No description provided for @commonConfirmButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm'**
+  String get commonConfirmButton;
+
+  /// No description provided for @accountSyncPageTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep it local first, sync later'**
+  String get accountSyncPageTitle;
+
+  /// No description provided for @accountSyncPageDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign-in is for restoring across devices, keeping membership in sync, and recovering your session later.'**
+  String get accountSyncPageDescription;
+
+  /// No description provided for @accountSyncCurrentIdentityTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Current identity'**
+  String get accountSyncCurrentIdentityTitle;
+
+  /// No description provided for @accountSyncSyncStatusTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Sync status'**
+  String get accountSyncSyncStatusTitle;
+
+  /// No description provided for @accountSyncConflictPolicyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Conflict policy'**
+  String get accountSyncConflictPolicyTitle;
+
+  /// No description provided for @accountSyncConflictPolicyDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Manual changes made by you take priority, while source and update time are still preserved.'**
+  String get accountSyncConflictPolicyDescription;
+
+  /// No description provided for @accountSyncIdentityAnonymousTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Anonymous user'**
+  String get accountSyncIdentityAnonymousTitle;
+
+  /// No description provided for @accountSyncIdentityAnonymousDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Local-first mode is active. You can bind an account any time.'**
+  String get accountSyncIdentityAnonymousDescription;
+
+  /// No description provided for @accountSyncIdentitySignInRequiredDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Local-first mode is active. Sign in when you are ready to restore multi-device sync.'**
+  String get accountSyncIdentitySignInRequiredDescription;
+
+  /// No description provided for @accountSyncIdentityLinkedFallbackTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Account linked'**
+  String get accountSyncIdentityLinkedFallbackTitle;
+
+  /// No description provided for @accountSyncIdentityLinkedDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Your account is linked and the cloud session can be restored later.'**
+  String get accountSyncIdentityLinkedDescription;
+
+  /// No description provided for @accountSyncIdentityConnectedDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Your account is linked and the cloud session is active.'**
+  String get accountSyncIdentityConnectedDescription;
+
+  /// No description provided for @accountSyncBindAppleButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Link Apple account'**
+  String get accountSyncBindAppleButton;
+
+  /// No description provided for @accountSyncViewAccountButton.
+  ///
+  /// In en, this message translates to:
+  /// **'View account status'**
+  String get accountSyncViewAccountButton;
+
+  /// No description provided for @accountSyncLocalOnlyDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'This build is staying in local-first mode right now, so no cloud sync has been triggered.'**
+  String get accountSyncLocalOnlyDescription;
+
+  /// No description provided for @accountSyncSignInRequiredDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Cloud sync starts only after sign-in. Your current device data will stay here until then.'**
+  String get accountSyncSignInRequiredDescription;
+
+  /// No description provided for @accountSyncFailedDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'The latest cloud sync failed. You can retry later and keep using local data for now.'**
+  String get accountSyncFailedDescription;
+
+  /// No description provided for @accountSyncSyncedDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'The latest cloud sync completed, so goals, records, and tags are now aligned.'**
+  String get accountSyncSyncedDescription;
+
+  /// No description provided for @accountSyncRetryButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry sync'**
+  String get accountSyncRetryButton;
+
+  /// No description provided for @accountSyncLastSyncedLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Last synced: '**
+  String get accountSyncLastSyncedLabel;
+
+  /// No description provided for @accountSyncUnavailableError.
+  ///
+  /// In en, this message translates to:
+  /// **'Account and sync status is temporarily unavailable'**
+  String get accountSyncUnavailableError;
+
+  /// No description provided for @profileHeroAnonymousTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Anonymous user'**
+  String get profileHeroAnonymousTitle;
+
+  /// No description provided for @profileHeroAnonymousSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Local first ? You can bind an account later'**
+  String get profileHeroAnonymousSubtitle;
+
+  /// No description provided for @profileHeroBadgeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Free plan'**
+  String get profileHeroBadgeLabel;
+
+  /// No description provided for @profileGoalScheduleEntryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Goal schedule settings'**
+  String get profileGoalScheduleEntryTitle;
+
+  /// No description provided for @profileGoalScheduleEntryEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'You have not saved a goal schedule yet'**
+  String get profileGoalScheduleEntryEmpty;
+
+  /// No description provided for @profileGoalScheduleEntryLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading your goal schedule'**
+  String get profileGoalScheduleEntryLoading;
+
+  /// No description provided for @profileGoalScheduleEntryError.
+  ///
+  /// In en, this message translates to:
+  /// **'Goal schedule is temporarily unavailable'**
+  String get profileGoalScheduleEntryError;
+
+  /// No description provided for @profileNotificationEntryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminder settings'**
+  String get profileNotificationEntryTitle;
+
+  /// No description provided for @profileNotificationEntryEnabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Soft reminders are enabled'**
+  String get profileNotificationEntryEnabled;
+
+  /// No description provided for @profileNotificationEntryDisabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminder strategy still needs adjustment'**
+  String get profileNotificationEntryDisabled;
+
+  /// No description provided for @profileDataAccessEntryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Data access and permissions'**
+  String get profileDataAccessEntryTitle;
+
+  /// No description provided for @profileDataAccessEntryLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading access status'**
+  String get profileDataAccessEntryLoading;
+
+  /// No description provided for @profileDataAccessEntryError.
+  ///
+  /// In en, this message translates to:
+  /// **'Access status is temporarily unavailable'**
+  String get profileDataAccessEntryError;
+
+  /// No description provided for @profileTimezoneModeEntryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Timezone and special modes'**
+  String get profileTimezoneModeEntryTitle;
+
+  /// No description provided for @profileTimezoneModeEntrySubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'{timezone} ? Special mode notes'**
+  String profileTimezoneModeEntrySubtitle(String timezone);
+
+  /// No description provided for @profilePrivacyEntryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy and data'**
+  String get profilePrivacyEntryTitle;
+
+  /// No description provided for @profilePrivacyEntrySubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Export, delete, and agreements'**
+  String get profilePrivacyEntrySubtitle;
+
+  /// No description provided for @profileDesktopPresenceTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Desktop presence'**
+  String get profileDesktopPresenceTitle;
+
+  /// No description provided for @profileDesktopPresenceDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'If you place the widget on your home screen, tonight\'s goal and last night\'s status stay visible in your everyday view.'**
+  String get profileDesktopPresenceDescription;
+
+  /// No description provided for @profileHealthSummaryHealthKitConnected.
+  ///
+  /// In en, this message translates to:
+  /// **'HealthKit connected'**
+  String get profileHealthSummaryHealthKitConnected;
+
+  /// No description provided for @profileHealthSummaryHealthConnectConnected.
+  ///
+  /// In en, this message translates to:
+  /// **'Health Connect connected'**
+  String get profileHealthSummaryHealthConnectConnected;
+
+  /// No description provided for @profileHealthSummaryPermissionRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Permission needs to be granted again'**
+  String get profileHealthSummaryPermissionRequired;
+
+  /// No description provided for @profileHealthSummaryManualFallback.
+  ///
+  /// In en, this message translates to:
+  /// **'Manual mode is active for now'**
+  String get profileHealthSummaryManualFallback;
+
+  /// No description provided for @dataAccessPageTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Health data access status'**
+  String get dataAccessPageTitle;
+
+  /// No description provided for @dataAccessPageDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Automatic records speed things up. Manual entry is the fallback path.'**
+  String get dataAccessPageDescription;
+
+  /// No description provided for @dataAccessReauthorizeButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Reauthorize'**
+  String get dataAccessReauthorizeButton;
+
+  /// No description provided for @dataAccessManualModeButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Use manual mode'**
+  String get dataAccessManualModeButton;
+
+  /// No description provided for @dataAccessStatusHealthKitConnected.
+  ///
+  /// In en, this message translates to:
+  /// **'HealthKit connected'**
+  String get dataAccessStatusHealthKitConnected;
+
+  /// No description provided for @dataAccessStatusHealthConnectConnected.
+  ///
+  /// In en, this message translates to:
+  /// **'Health Connect connected'**
+  String get dataAccessStatusHealthConnectConnected;
+
+  /// No description provided for @dataAccessStatusInstallRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Health Connect is required'**
+  String get dataAccessStatusInstallRequired;
+
+  /// No description provided for @dataAccessStatusPermissionRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Permission needs to be granted again'**
+  String get dataAccessStatusPermissionRequired;
+
+  /// No description provided for @dataAccessStatusManualFallback.
+  ///
+  /// In en, this message translates to:
+  /// **'Manual mode is active for now'**
+  String get dataAccessStatusManualFallback;
+
+  /// No description provided for @dataAccessStatusConnectedDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} records were written in the last 30 days.'**
+  String dataAccessStatusConnectedDescription(int count);
+
+  /// No description provided for @dataAccessStatusInstallRequiredDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Health Connect is not installed on this device yet. Install it before automatic sleep syncing can continue.'**
+  String get dataAccessStatusInstallRequiredDescription;
+
+  /// No description provided for @dataAccessStatusPermissionRequiredDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Sleep data permission is missing right now. Reauthorize to resume automatic reading.'**
+  String get dataAccessStatusPermissionRequiredDescription;
+
+  /// No description provided for @dataAccessStatusManualFallbackDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'If this device cannot provide automatic sleep data, you can still keep logging nights manually and reviewing your trend.'**
+  String get dataAccessStatusManualFallbackDescription;
+
+  /// No description provided for @goalScheduleSettingsPageTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Fine-tune your reference line'**
+  String get goalScheduleSettingsPageTitle;
+
+  /// No description provided for @goalScheduleSettingsPageDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'The closer the target is to real life, the more useful the feedback becomes.'**
+  String get goalScheduleSettingsPageDescription;
+
+  /// No description provided for @goalScheduleSettingsSummaryBedtimeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Target bedtime'**
+  String get goalScheduleSettingsSummaryBedtimeLabel;
+
+  /// No description provided for @goalScheduleSettingsSummaryWakeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Target wake time'**
+  String get goalScheduleSettingsSummaryWakeLabel;
+
+  /// No description provided for @goalScheduleSettingsSummaryLateThresholdLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Late threshold'**
+  String get goalScheduleSettingsSummaryLateThresholdLabel;
+
+  /// No description provided for @goalScheduleSettingsSummaryDayStartLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Day start'**
+  String get goalScheduleSettingsSummaryDayStartLabel;
+
+  /// No description provided for @goalScheduleSettingsHintDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'If you have missed the target often in the last two weeks, pull the target 10 to 15 minutes closer to reality first and adjust forward later.'**
+  String get goalScheduleSettingsHintDescription;
+
+  /// No description provided for @goalScheduleSettingsSaveButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Save changes'**
+  String get goalScheduleSettingsSaveButton;
+
+  /// No description provided for @notificationSettingsPageTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep reminders gentle'**
+  String get notificationSettingsPageTitle;
+
+  /// No description provided for @notificationSettingsPageDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Guide first, and avoid turning reminders into high-pressure supervision.'**
+  String get notificationSettingsPageDescription;
+
+  /// No description provided for @notificationSettingsLeadTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Lead time'**
+  String get notificationSettingsLeadTitle;
+
+  /// No description provided for @notificationSettingsSaveButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Save reminder strategy'**
+  String get notificationSettingsSaveButton;
+
+  /// No description provided for @privacyDataPageTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Sensitive data should stay clear and controllable'**
+  String get privacyDataPageTitle;
+
+  /// No description provided for @privacyDataPageDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'We explain what will happen first, then let you decide whether to continue.'**
+  String get privacyDataPageDescription;
+
+  /// No description provided for @privacyDataPolicyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy policy'**
+  String get privacyDataPolicyTitle;
+
+  /// No description provided for @privacyDataPolicyDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'See how your data is stored and used'**
+  String get privacyDataPolicyDescription;
+
+  /// No description provided for @privacyDataPolicyDialogMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'The current version stores goals, records, tags, and reminder settings locally, and does not use your data for advertising.'**
+  String get privacyDataPolicyDialogMessage;
+
+  /// No description provided for @privacyDataExportTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Export data'**
+  String get privacyDataExportTitle;
+
+  /// No description provided for @privacyDataExportDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Export goals, records, tags, and weekly summaries'**
+  String get privacyDataExportDescription;
+
+  /// No description provided for @privacyDataExportDialogTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm data export'**
+  String get privacyDataExportDialogTitle;
+
+  /// No description provided for @privacyDataExportDialogMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'The export will include your goal schedule, sleep records, tags, and weekly summaries. Confirm to continue.'**
+  String get privacyDataExportDialogMessage;
+
+  /// No description provided for @privacyDataDeleteAccountTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete account'**
+  String get privacyDataDeleteAccountTitle;
+
+  /// No description provided for @privacyDataDeleteAccountDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove the cloud account and sync relationship'**
+  String get privacyDataDeleteAccountDescription;
+
+  /// No description provided for @privacyDataDeleteAccountDialogTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm account deletion'**
+  String get privacyDataDeleteAccountDialogTitle;
+
+  /// No description provided for @privacyDataDeleteAccountDialogMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Deleting the account disconnects this device from cloud sync. Local data will not be restored automatically.'**
+  String get privacyDataDeleteAccountDialogMessage;
+
+  /// No description provided for @privacyDataClearLocalTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear local data'**
+  String get privacyDataClearLocalTitle;
+
+  /// No description provided for @privacyDataClearLocalDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Only clear data stored on this device'**
+  String get privacyDataClearLocalDescription;
+
+  /// No description provided for @privacyDataClearLocalDialogTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm local data clear'**
+  String get privacyDataClearLocalDialogTitle;
+
+  /// No description provided for @privacyDataClearLocalDialogMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Clearing local data removes cached goals, records, and tags from this device. Please confirm again before continuing.'**
+  String get privacyDataClearLocalDialogMessage;
+
+  /// No description provided for @privacyDataDangerCardTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Dangerous actions always need a second confirmation'**
+  String get privacyDataDangerCardTitle;
+
+  /// No description provided for @privacyDataDangerCardDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Deleting an account and clearing data must go through a confirmation dialog. They never run directly from a plain list tap.'**
+  String get privacyDataDangerCardDescription;
+
+  /// No description provided for @timezoneModePageTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep boundaries clear before expanding support'**
+  String get timezoneModePageTitle;
+
+  /// No description provided for @timezoneModePageDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'V0.1 does not implement a full shift-work flow yet, but the page still explains the current boundaries clearly.'**
+  String get timezoneModePageDescription;
+
+  /// No description provided for @timezoneModeCurrentTimezoneTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Current timezone'**
+  String get timezoneModeCurrentTimezoneTitle;
+
+  /// No description provided for @timezoneModeCurrentTimezoneDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Each record keeps the timezone from when the event happened, so older records are not reassigned to a new day when you switch timezones later.'**
+  String get timezoneModeCurrentTimezoneDescription;
+
+  /// No description provided for @timezoneModeSpecialModeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Special modes'**
+  String get timezoneModeSpecialModeTitle;
+
+  /// No description provided for @timezoneModeCrossTimezoneDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'? Cross-timezone mode: when a timezone change is detected, Rhythm reminds you to confirm whether the goal needs a temporary adjustment.'**
+  String get timezoneModeCrossTimezoneDescription;
+
+  /// No description provided for @timezoneModeShiftWorkDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'? Shift-work mode: V0.1 only shows placeholder guidance for now and does not participate in the default on-track calculation.'**
+  String get timezoneModeShiftWorkDescription;
 }
 
 class _AppLocalizationsDelegate

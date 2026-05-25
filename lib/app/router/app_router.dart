@@ -2,16 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rhythm/app/bootstrap/launch_state_provider.dart';
+import 'package:rhythm/features/goal_schedule/presentation/goal_schedule_settings_page.dart';
 import 'package:rhythm/features/goal_schedule/presentation/goal_setup_page.dart';
+import 'package:rhythm/features/goal_schedule/presentation/timezone_mode_page.dart';
 import 'package:rhythm/features/insights/presentation/insights_page.dart';
 import 'package:rhythm/features/insights/presentation/report_history_page.dart';
 import 'package:rhythm/features/insights/presentation/weekly_report_detail_page.dart';
+import 'package:rhythm/features/notifications/presentation/notification_settings_page.dart';
 import 'package:rhythm/features/notifications/presentation/reminder_setup_page.dart';
 import 'package:rhythm/features/onboarding/presentation/onboarding_flow_page.dart';
 import 'package:rhythm/features/bedtime/presentation/bedtime_page.dart';
 import 'package:rhythm/features/calendar/presentation/calendar_page.dart';
+import 'package:rhythm/features/profile/presentation/data_access_page.dart';
+import 'package:rhythm/features/profile/presentation/privacy_data_page.dart';
+import 'package:rhythm/features/profile/presentation/profile_page.dart';
 import 'package:rhythm/features/sleep_records/presentation/manual_sleep_record_page.dart';
 import 'package:rhythm/features/sleep_records/presentation/sleep_records_hub_page.dart';
+import 'package:rhythm/features/sync/presentation/account_sync_page.dart';
 import 'package:rhythm/features/today/presentation/today_page.dart';
 import 'package:rhythm/l10n/app_localizations.dart';
 
@@ -40,6 +47,24 @@ const String weeklyReportDetailPath = '/insights/weekly-report';
 
 /// 历史洞察页路由路径。
 const String insightsHistoryPath = '/insights/history';
+
+/// 账号与同步页路由路径。
+const String profileAccountSyncPath = '/profile/account-sync';
+
+/// 数据接入与权限页路由路径。
+const String profileDataAccessPath = '/profile/data-access';
+
+/// 隐私与数据页路由路径。
+const String profilePrivacyDataPath = '/profile/privacy';
+
+/// 目标作息编辑页路由路径。
+const String profileGoalSchedulePath = '/profile/goal-schedule';
+
+/// 提醒设置页路由路径。
+const String profileNotificationSettingsPath = '/profile/notifications';
+
+/// 时区与特殊模式页路由路径。
+const String profileTimezoneModePath = '/profile/timezone-mode';
 
 /// 生成阶段三编辑睡眠记录页路由路径。
 String manualSleepRecordEditPath(String recordId) {
@@ -134,7 +159,9 @@ GoRouter createAppRouter() {
         builder: (context, state) {
           final container = ProviderScope.containerOf(context, listen: false);
           return ReminderSetupPage(
-            launchStateRepository: container.read(launchStateRepositoryProvider),
+            launchStateRepository: container.read(
+              launchStateRepositoryProvider,
+            ),
           );
         },
       ),
@@ -150,10 +177,8 @@ GoRouter createAppRouter() {
       ),
       GoRoute(
         path: RhythmTab.today.path,
-        builder: (context, state) => const RhythmShell(
-          currentTab: RhythmTab.today,
-          child: TodayPage(),
-        ),
+        builder: (context, state) =>
+            const RhythmShell(currentTab: RhythmTab.today, child: TodayPage()),
       ),
       GoRoute(
         path: RhythmTab.calendar.path,
@@ -178,6 +203,30 @@ GoRouter createAppRouter() {
         builder: (context, state) => const ReportHistoryPage(),
       ),
       GoRoute(
+        path: profileAccountSyncPath,
+        builder: (context, state) => const AccountSyncPage(),
+      ),
+      GoRoute(
+        path: profileDataAccessPath,
+        builder: (context, state) => const DataAccessPage(),
+      ),
+      GoRoute(
+        path: profilePrivacyDataPath,
+        builder: (context, state) => const PrivacyDataPage(),
+      ),
+      GoRoute(
+        path: profileGoalSchedulePath,
+        builder: (context, state) => const GoalScheduleSettingsPage(),
+      ),
+      GoRoute(
+        path: profileNotificationSettingsPath,
+        builder: (context, state) => const NotificationSettingsPage(),
+      ),
+      GoRoute(
+        path: profileTimezoneModePath,
+        builder: (context, state) => const TimezoneModePage(),
+      ),
+      GoRoute(
         path: RhythmTab.insights.path,
         builder: (context, state) => const RhythmShell(
           currentTab: RhythmTab.insights,
@@ -188,10 +237,7 @@ GoRouter createAppRouter() {
         path: RhythmTab.profile.path,
         builder: (context, state) => const RhythmShell(
           currentTab: RhythmTab.profile,
-          child: ModulePlaceholderPage(
-            titleKey: AppCopyKey.profileTitle,
-            descriptionKey: AppCopyKey.profileDescription,
-          ),
+          child: ProfilePage(),
         ),
       ),
     ],

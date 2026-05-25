@@ -886,4 +886,345 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get bedtimeGoalMissingButton => 'Set your schedule goal';
+
+  @override
+  String get commonCancelButton => 'Cancel';
+
+  @override
+  String get commonConfirmButton => 'Confirm';
+
+  @override
+  String get accountSyncPageTitle => 'Keep it local first, sync later';
+
+  @override
+  String get accountSyncPageDescription =>
+      'Sign-in is for restoring across devices, keeping membership in sync, and recovering your session later.';
+
+  @override
+  String get accountSyncCurrentIdentityTitle => 'Current identity';
+
+  @override
+  String get accountSyncSyncStatusTitle => 'Sync status';
+
+  @override
+  String get accountSyncConflictPolicyTitle => 'Conflict policy';
+
+  @override
+  String get accountSyncConflictPolicyDescription =>
+      'Manual changes made by you take priority, while source and update time are still preserved.';
+
+  @override
+  String get accountSyncIdentityAnonymousTitle => 'Anonymous user';
+
+  @override
+  String get accountSyncIdentityAnonymousDescription =>
+      'Local-first mode is active. You can bind an account any time.';
+
+  @override
+  String get accountSyncIdentitySignInRequiredDescription =>
+      'Local-first mode is active. Sign in when you are ready to restore multi-device sync.';
+
+  @override
+  String get accountSyncIdentityLinkedFallbackTitle => 'Account linked';
+
+  @override
+  String get accountSyncIdentityLinkedDescription =>
+      'Your account is linked and the cloud session can be restored later.';
+
+  @override
+  String get accountSyncIdentityConnectedDescription =>
+      'Your account is linked and the cloud session is active.';
+
+  @override
+  String get accountSyncBindAppleButton => 'Link Apple account';
+
+  @override
+  String get accountSyncViewAccountButton => 'View account status';
+
+  @override
+  String get accountSyncLocalOnlyDescription =>
+      'This build is staying in local-first mode right now, so no cloud sync has been triggered.';
+
+  @override
+  String get accountSyncSignInRequiredDescription =>
+      'Cloud sync starts only after sign-in. Your current device data will stay here until then.';
+
+  @override
+  String get accountSyncFailedDescription =>
+      'The latest cloud sync failed. You can retry later and keep using local data for now.';
+
+  @override
+  String get accountSyncSyncedDescription =>
+      'The latest cloud sync completed, so goals, records, and tags are now aligned.';
+
+  @override
+  String get accountSyncRetryButton => 'Retry sync';
+
+  @override
+  String get accountSyncLastSyncedLabel => 'Last synced: ';
+
+  @override
+  String get accountSyncUnavailableError =>
+      'Account and sync status is temporarily unavailable';
+
+  @override
+  String get profileHeroAnonymousTitle => 'Anonymous user';
+
+  @override
+  String get profileHeroAnonymousSubtitle =>
+      'Local first ? You can bind an account later';
+
+  @override
+  String get profileHeroBadgeLabel => 'Free plan';
+
+  @override
+  String get profileGoalScheduleEntryTitle => 'Goal schedule settings';
+
+  @override
+  String get profileGoalScheduleEntryEmpty =>
+      'You have not saved a goal schedule yet';
+
+  @override
+  String get profileGoalScheduleEntryLoading => 'Loading your goal schedule';
+
+  @override
+  String get profileGoalScheduleEntryError =>
+      'Goal schedule is temporarily unavailable';
+
+  @override
+  String get profileNotificationEntryTitle => 'Reminder settings';
+
+  @override
+  String get profileNotificationEntryEnabled => 'Soft reminders are enabled';
+
+  @override
+  String get profileNotificationEntryDisabled =>
+      'Reminder strategy still needs adjustment';
+
+  @override
+  String get profileDataAccessEntryTitle => 'Data access and permissions';
+
+  @override
+  String get profileDataAccessEntryLoading => 'Loading access status';
+
+  @override
+  String get profileDataAccessEntryError =>
+      'Access status is temporarily unavailable';
+
+  @override
+  String get profileTimezoneModeEntryTitle => 'Timezone and special modes';
+
+  @override
+  String profileTimezoneModeEntrySubtitle(String timezone) {
+    return '$timezone ? Special mode notes';
+  }
+
+  @override
+  String get profilePrivacyEntryTitle => 'Privacy and data';
+
+  @override
+  String get profilePrivacyEntrySubtitle => 'Export, delete, and agreements';
+
+  @override
+  String get profileDesktopPresenceTitle => 'Desktop presence';
+
+  @override
+  String get profileDesktopPresenceDescription =>
+      'If you place the widget on your home screen, tonights goal and last nights status stay visible in your everyday view.';
+
+  @override
+  String get profileHealthSummaryHealthKitConnected => 'HealthKit connected';
+
+  @override
+  String get profileHealthSummaryHealthConnectConnected =>
+      'Health Connect connected';
+
+  @override
+  String get profileHealthSummaryPermissionRequired =>
+      'Permission needs to be granted again';
+
+  @override
+  String get profileHealthSummaryManualFallback =>
+      'Manual mode is active for now';
+
+  @override
+  String get dataAccessPageTitle => 'Health data access status';
+
+  @override
+  String get dataAccessPageDescription =>
+      'Automatic records speed things up. Manual entry is the fallback path.';
+
+  @override
+  String get dataAccessReauthorizeButton => 'Reauthorize';
+
+  @override
+  String get dataAccessManualModeButton => 'Use manual mode';
+
+  @override
+  String get dataAccessStatusHealthKitConnected => 'HealthKit connected';
+
+  @override
+  String get dataAccessStatusHealthConnectConnected =>
+      'Health Connect connected';
+
+  @override
+  String get dataAccessStatusInstallRequired => 'Health Connect is required';
+
+  @override
+  String get dataAccessStatusPermissionRequired =>
+      'Permission needs to be granted again';
+
+  @override
+  String get dataAccessStatusManualFallback => 'Manual mode is active for now';
+
+  @override
+  String dataAccessStatusConnectedDescription(int count) {
+    return '$count records were written in the last 30 days.';
+  }
+
+  @override
+  String get dataAccessStatusInstallRequiredDescription =>
+      'Health Connect is not installed on this device yet. Install it before automatic sleep syncing can continue.';
+
+  @override
+  String get dataAccessStatusPermissionRequiredDescription =>
+      'Sleep data permission is missing right now. Reauthorize to resume automatic reading.';
+
+  @override
+  String get dataAccessStatusManualFallbackDescription =>
+      'If this device cannot provide automatic sleep data, you can still keep logging nights manually and reviewing your trend.';
+
+  @override
+  String get goalScheduleSettingsPageTitle => 'Fine-tune your reference line';
+
+  @override
+  String get goalScheduleSettingsPageDescription =>
+      'The closer the target is to real life, the more useful the feedback becomes.';
+
+  @override
+  String get goalScheduleSettingsSummaryBedtimeLabel => 'Target bedtime';
+
+  @override
+  String get goalScheduleSettingsSummaryWakeLabel => 'Target wake time';
+
+  @override
+  String get goalScheduleSettingsSummaryLateThresholdLabel => 'Late threshold';
+
+  @override
+  String get goalScheduleSettingsSummaryDayStartLabel => 'Day start';
+
+  @override
+  String get goalScheduleSettingsHintDescription =>
+      'If you have missed the target often in the last two weeks, pull the target 10 to 15 minutes closer to reality first and adjust forward later.';
+
+  @override
+  String get goalScheduleSettingsSaveButton => 'Save changes';
+
+  @override
+  String get notificationSettingsPageTitle => 'Keep reminders gentle';
+
+  @override
+  String get notificationSettingsPageDescription =>
+      'Guide first, and avoid turning reminders into high-pressure supervision.';
+
+  @override
+  String get notificationSettingsLeadTitle => 'Lead time';
+
+  @override
+  String get notificationSettingsSaveButton => 'Save reminder strategy';
+
+  @override
+  String get privacyDataPageTitle =>
+      'Sensitive data should stay clear and controllable';
+
+  @override
+  String get privacyDataPageDescription =>
+      'We explain what will happen first, then let you decide whether to continue.';
+
+  @override
+  String get privacyDataPolicyTitle => 'Privacy policy';
+
+  @override
+  String get privacyDataPolicyDescription =>
+      'See how your data is stored and used';
+
+  @override
+  String get privacyDataPolicyDialogMessage =>
+      'The current version stores goals, records, tags, and reminder settings locally, and does not use your data for advertising.';
+
+  @override
+  String get privacyDataExportTitle => 'Export data';
+
+  @override
+  String get privacyDataExportDescription =>
+      'Export goals, records, tags, and weekly summaries';
+
+  @override
+  String get privacyDataExportDialogTitle => 'Confirm data export';
+
+  @override
+  String get privacyDataExportDialogMessage =>
+      'The export will include your goal schedule, sleep records, tags, and weekly summaries. Confirm to continue.';
+
+  @override
+  String get privacyDataDeleteAccountTitle => 'Delete account';
+
+  @override
+  String get privacyDataDeleteAccountDescription =>
+      'Remove the cloud account and sync relationship';
+
+  @override
+  String get privacyDataDeleteAccountDialogTitle => 'Confirm account deletion';
+
+  @override
+  String get privacyDataDeleteAccountDialogMessage =>
+      'Deleting the account disconnects this device from cloud sync. Local data will not be restored automatically.';
+
+  @override
+  String get privacyDataClearLocalTitle => 'Clear local data';
+
+  @override
+  String get privacyDataClearLocalDescription =>
+      'Only clear data stored on this device';
+
+  @override
+  String get privacyDataClearLocalDialogTitle => 'Confirm local data clear';
+
+  @override
+  String get privacyDataClearLocalDialogMessage =>
+      'Clearing local data removes cached goals, records, and tags from this device. Please confirm again before continuing.';
+
+  @override
+  String get privacyDataDangerCardTitle =>
+      'Dangerous actions always need a second confirmation';
+
+  @override
+  String get privacyDataDangerCardDescription =>
+      'Deleting an account and clearing data must go through a confirmation dialog. They never run directly from a plain list tap.';
+
+  @override
+  String get timezoneModePageTitle =>
+      'Keep boundaries clear before expanding support';
+
+  @override
+  String get timezoneModePageDescription =>
+      'V0.1 does not implement a full shift-work flow yet, but the page still explains the current boundaries clearly.';
+
+  @override
+  String get timezoneModeCurrentTimezoneTitle => 'Current timezone';
+
+  @override
+  String get timezoneModeCurrentTimezoneDescription =>
+      'Each record keeps the timezone from when the event happened, so older records are not reassigned to a new day when you switch timezones later.';
+
+  @override
+  String get timezoneModeSpecialModeTitle => 'Special modes';
+
+  @override
+  String get timezoneModeCrossTimezoneDescription =>
+      '? Cross-timezone mode: when a timezone change is detected, Rhythm reminds you to confirm whether the goal needs a temporary adjustment.';
+
+  @override
+  String get timezoneModeShiftWorkDescription =>
+      '? Shift-work mode: V0.1 only shows placeholder guidance for now and does not participate in the default on-track calculation.';
 }

@@ -826,4 +826,314 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get bedtimeGoalMissingButton => '去设置目标作息';
+
+  @override
+  String get commonCancelButton => '取消';
+
+  @override
+  String get commonConfirmButton => '确认';
+
+  @override
+  String get accountSyncPageTitle => '先本地，后同步';
+
+  @override
+  String get accountSyncPageDescription => '登录是为了换机恢复、多端一致和会员状态同步。';
+
+  @override
+  String get accountSyncCurrentIdentityTitle => '当前身份';
+
+  @override
+  String get accountSyncSyncStatusTitle => '同步状态';
+
+  @override
+  String get accountSyncConflictPolicyTitle => '冲突策略';
+
+  @override
+  String get accountSyncConflictPolicyDescription =>
+      '冲突时以用户手动修改结果优先，同时保留来源和更新时间。';
+
+  @override
+  String get accountSyncIdentityAnonymousTitle => '匿名用户';
+
+  @override
+  String get accountSyncIdentityAnonymousDescription => '本地优先 · 可随时绑定账号';
+
+  @override
+  String get accountSyncIdentitySignInRequiredDescription =>
+      '本地优先 · 登录后可恢复多端同步';
+
+  @override
+  String get accountSyncIdentityLinkedFallbackTitle => '已绑定账号';
+
+  @override
+  String get accountSyncIdentityLinkedDescription => '已绑定账号 · 云端会话可恢复';
+
+  @override
+  String get accountSyncIdentityConnectedDescription => '已绑定账号 · 云端会话已连接';
+
+  @override
+  String get accountSyncBindAppleButton => '绑定 Apple 账号';
+
+  @override
+  String get accountSyncViewAccountButton => '查看账号状态';
+
+  @override
+  String get accountSyncLocalOnlyDescription => '当前环境保持本地优先模式，未触发云端同步。';
+
+  @override
+  String get accountSyncSignInRequiredDescription =>
+      '登录后才会触发云端同步，本地数据会继续留在当前设备。';
+
+  @override
+  String get accountSyncFailedDescription => '最近一次云端同步失败了，你可以稍后重试，同时继续使用本地数据。';
+
+  @override
+  String get accountSyncSyncedDescription => '最近一次云端同步已完成，目标、记录和标签保持一致。';
+
+  @override
+  String get accountSyncRetryButton => '重试同步';
+
+  @override
+  String get accountSyncLastSyncedLabel => '最近同步：';
+
+  @override
+  String get accountSyncUnavailableError => '账号与同步状态暂时不可用';
+
+  @override
+  String get profileHeroAnonymousTitle => '匿名用户';
+
+  @override
+  String get profileHeroAnonymousSubtitle => '本地优先 · 可随时绑定账号';
+
+  @override
+  String get profileHeroBadgeLabel => '免费版';
+
+  @override
+  String get profileGoalScheduleEntryTitle => '目标作息设置';
+
+  @override
+  String get profileGoalScheduleEntryEmpty => '还没有保存目标作息';
+
+  @override
+  String get profileGoalScheduleEntryLoading => '正在读取目标作息';
+
+  @override
+  String get profileGoalScheduleEntryError => '目标作息暂时不可用';
+
+  @override
+  String get profileNotificationEntryTitle => '提醒设置';
+
+  @override
+  String get profileNotificationEntryEnabled => '柔性提醒已开启';
+
+  @override
+  String get profileNotificationEntryDisabled => '提醒策略待调整';
+
+  @override
+  String get profileDataAccessEntryTitle => '数据接入与权限';
+
+  @override
+  String get profileDataAccessEntryLoading => '正在读取接入状态';
+
+  @override
+  String get profileDataAccessEntryError => '接入状态暂时不可用';
+
+  @override
+  String get profileTimezoneModeEntryTitle => '时区与特殊模式';
+
+  @override
+  String profileTimezoneModeEntrySubtitle(String timezone) {
+    return '$timezone · 特殊模式说明';
+  }
+
+  @override
+  String get profilePrivacyEntryTitle => '隐私与数据';
+
+  @override
+  String get profilePrivacyEntrySubtitle => '导出、删除、协议';
+
+  @override
+  String get profileDesktopPresenceTitle => '桌面存在感';
+
+  @override
+  String get profileDesktopPresenceDescription =>
+      '把小组件放到桌面后，今晚目标和昨晚状态会一直留在你的视线里。';
+
+  @override
+  String get profileHealthSummaryHealthKitConnected => 'HealthKit 已连接';
+
+  @override
+  String get profileHealthSummaryHealthConnectConnected => 'Health Connect 已连接';
+
+  @override
+  String get profileHealthSummaryPermissionRequired => '需要重新授权';
+
+  @override
+  String get profileHealthSummaryManualFallback => '当前先使用手动模式';
+
+  @override
+  String get dataAccessPageTitle => '健康数据接入状态';
+
+  @override
+  String get dataAccessPageDescription => '自动记录是加速器，手动补录是保底路径。';
+
+  @override
+  String get dataAccessReauthorizeButton => '重新授权';
+
+  @override
+  String get dataAccessManualModeButton => '改用手动模式';
+
+  @override
+  String get dataAccessStatusHealthKitConnected => 'HealthKit 已连接';
+
+  @override
+  String get dataAccessStatusHealthConnectConnected => 'Health Connect 已连接';
+
+  @override
+  String get dataAccessStatusInstallRequired => '需要安装 Health Connect';
+
+  @override
+  String get dataAccessStatusPermissionRequired => '需要重新授权';
+
+  @override
+  String get dataAccessStatusManualFallback => '当前先使用手动模式';
+
+  @override
+  String dataAccessStatusConnectedDescription(int count) {
+    return '最近 30 天已写入 $count 条记录。';
+  }
+
+  @override
+  String get dataAccessStatusInstallRequiredDescription =>
+      '当前设备尚未安装 Health Connect，安装后才能继续自动读取睡眠数据。';
+
+  @override
+  String get dataAccessStatusPermissionRequiredDescription =>
+      '当前还没有读取睡眠数据的权限，重新授权后即可恢复自动读取。';
+
+  @override
+  String get dataAccessStatusManualFallbackDescription =>
+      '如果当前设备不支持自动读取，你仍然可以继续手动补录和查看趋势。';
+
+  @override
+  String get goalScheduleSettingsPageTitle => '微调你的参考线';
+
+  @override
+  String get goalScheduleSettingsPageDescription => '目标越贴近真实生活，反馈就越有用。';
+
+  @override
+  String get goalScheduleSettingsSummaryBedtimeLabel => '目标入睡时间';
+
+  @override
+  String get goalScheduleSettingsSummaryWakeLabel => '目标起床时间';
+
+  @override
+  String get goalScheduleSettingsSummaryLateThresholdLabel => '晚睡阈值';
+
+  @override
+  String get goalScheduleSettingsSummaryDayStartLabel => '一天起始时间';
+
+  @override
+  String get goalScheduleSettingsHintDescription =>
+      '如果最近两周经常无法达到目标，可以把目标先往现实靠近 10-15 分钟，再慢慢提前。';
+
+  @override
+  String get goalScheduleSettingsSaveButton => '保存修改';
+
+  @override
+  String get notificationSettingsPageTitle => '让提醒保持温和';
+
+  @override
+  String get notificationSettingsPageDescription => '优先做引导，不做高压监督。';
+
+  @override
+  String get notificationSettingsLeadTitle => '提前量';
+
+  @override
+  String get notificationSettingsSaveButton => '保存提醒策略';
+
+  @override
+  String get privacyDataPageTitle => '敏感数据要清楚可控';
+
+  @override
+  String get privacyDataPageDescription => '先告诉你会发生什么，再让你决定是否继续。';
+
+  @override
+  String get privacyDataPolicyTitle => '隐私协议';
+
+  @override
+  String get privacyDataPolicyDescription => '查看我们如何存储和使用数据';
+
+  @override
+  String get privacyDataPolicyDialogMessage =>
+      '当前版本会在本地保存目标、记录、标签与提醒设置，不会把数据用于广告。';
+
+  @override
+  String get privacyDataExportTitle => '导出数据';
+
+  @override
+  String get privacyDataExportDescription => '把目标、记录、标签和周报导出';
+
+  @override
+  String get privacyDataExportDialogTitle => '确认导出数据';
+
+  @override
+  String get privacyDataExportDialogMessage => '导出会包含目标作息、睡眠记录、标签和周报摘要，请确认继续。';
+
+  @override
+  String get privacyDataDeleteAccountTitle => '删除账号';
+
+  @override
+  String get privacyDataDeleteAccountDescription => '删除云端账号与同步关系';
+
+  @override
+  String get privacyDataDeleteAccountDialogTitle => '确认删除账号';
+
+  @override
+  String get privacyDataDeleteAccountDialogMessage =>
+      '删除账号后会断开当前设备与云端同步关系，本地数据不会自动恢复。';
+
+  @override
+  String get privacyDataClearLocalTitle => '清空本地数据';
+
+  @override
+  String get privacyDataClearLocalDescription => '仅清空当前设备缓存';
+
+  @override
+  String get privacyDataClearLocalDialogTitle => '确认清空本地数据';
+
+  @override
+  String get privacyDataClearLocalDialogMessage =>
+      '清空后会移除当前设备上的目标、记录和标签缓存，请再次确认。';
+
+  @override
+  String get privacyDataDangerCardTitle => '危险操作需要二次确认';
+
+  @override
+  String get privacyDataDangerCardDescription =>
+      '删除账号和清空数据都必须经过确认对话框，不会在普通列表点击后直接执行。';
+
+  @override
+  String get timezoneModePageTitle => '先保留边界，再逐渐支持';
+
+  @override
+  String get timezoneModePageDescription => 'V0.1 不做完整轮班逻辑，但页面要给出明确说明。';
+
+  @override
+  String get timezoneModeCurrentTimezoneTitle => '当前时区';
+
+  @override
+  String get timezoneModeCurrentTimezoneDescription =>
+      '记录会保存事件发生时的时区，旧记录不会因切换时区被重算归属日。';
+
+  @override
+  String get timezoneModeSpecialModeTitle => '特殊模式';
+
+  @override
+  String get timezoneModeCrossTimezoneDescription =>
+      '• 跨时区模式：检测到时区变化后，提醒你确认目标是否临时调整。';
+
+  @override
+  String get timezoneModeShiftWorkDescription =>
+      '• 轮班模式：V0.1 先展示占位说明，不参与默认达标计算。';
 }

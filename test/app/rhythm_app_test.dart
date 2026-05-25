@@ -87,6 +87,22 @@ void main() {
 
     expect(find.text('睡前模式'), findsOneWidget);
   });
+
+  testWidgets('点击我的后能进入阶段八的我的页', (tester) async {
+    await pumpRhythmApp(
+      tester,
+      onboardingCompleted: true,
+      overrides: _rootReadyOverrides,
+    );
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text('我的'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('匿名用户'), findsOneWidget);
+    expect(find.text('目标作息设置'), findsOneWidget);
+    expect(find.text('桌面存在感'), findsOneWidget);
+  });
 }
 
 const _settings = GoalScheduleSettings(
@@ -97,7 +113,8 @@ const _settings = GoalScheduleSettings(
 );
 
 /// 为根应用测试提供固定目标作息，避免阶段六页面被缺省空态抢占。
-class _FakeGoalScheduleSettingsRepository extends GoalScheduleSettingsRepository {
+class _FakeGoalScheduleSettingsRepository
+    extends GoalScheduleSettingsRepository {
   _FakeGoalScheduleSettingsRepository(this._settings);
 
   final GoalScheduleSettings? _settings;
