@@ -36,6 +36,7 @@ void main() {
 
     expect(find.text('微调你的参考线'), findsOneWidget);
     expect(find.text('保存修改'), findsOneWidget);
+    expect(find.byIcon(Icons.arrow_back_ios_new_rounded), findsOneWidget);
 
     await tester.tap(find.text('保存修改'));
     await tester.pumpAndSettle();
@@ -45,7 +46,8 @@ void main() {
 }
 
 /// 提供目标作息设置测试仓储，便于断言二级页保存动作是否真正落到仓储层。
-class _FakeGoalScheduleSettingsRepository extends GoalScheduleSettingsRepository {
+class _FakeGoalScheduleSettingsRepository
+    extends GoalScheduleSettingsRepository {
   _FakeGoalScheduleSettingsRepository(this._readSettings);
 
   final GoalScheduleSettings? _readSettings;

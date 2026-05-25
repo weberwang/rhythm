@@ -45,6 +45,7 @@ void main() {
 
     expect(find.text('让提醒保持温和'), findsOneWidget);
     expect(find.text('保存提醒策略'), findsOneWidget);
+    expect(find.byIcon(Icons.arrow_back_ios_new_rounded), findsOneWidget);
 
     await tester.tap(find.text('保存提醒策略'));
     await tester.pumpAndSettle();

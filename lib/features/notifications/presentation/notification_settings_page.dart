@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:rhythm/app/router/app_router.dart';
+import 'package:rhythm/core/presentation/widgets/secondary_page_header.dart';
 import 'package:rhythm/core/presentation/widgets/rhythm_primary_button.dart';
 import 'package:rhythm/core/time/time_context_provider.dart';
 import 'package:rhythm/features/goal_schedule/application/goal_schedule_providers.dart';
@@ -27,9 +29,10 @@ class NotificationSettingsPage extends HookConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                l10n.notificationSettingsPageTitle,
-                style: textTheme.headlineMedium?.copyWith(
+              SecondaryPageHeader(
+                title: l10n.notificationSettingsPageTitle,
+                fallbackLocation: RhythmTab.profile.path,
+                titleStyle: textTheme.headlineSmall?.copyWith(
                   fontFamily: 'Funnel Sans',
                   fontWeight: FontWeight.w700,
                 ),

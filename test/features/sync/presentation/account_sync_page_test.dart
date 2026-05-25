@@ -43,6 +43,7 @@ void main() {
     expect(find.text('已建立云端同步身份'), findsOneWidget);
     expect(find.text('已启用云端同步'), findsOneWidget);
     expect(find.text('云端同步身份已就绪'), findsOneWidget);
+    expect(find.byIcon(Icons.arrow_back_ios_new_rounded), findsOneWidget);
   });
 
   testWidgets('未建立云身份时展示待建立文案', (tester) async {

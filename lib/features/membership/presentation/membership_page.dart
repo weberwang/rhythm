@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:rhythm/app/router/app_router.dart';
+import 'package:rhythm/core/presentation/widgets/secondary_page_header.dart';
 import 'package:rhythm/features/membership/application/membership_controller.dart';
 import 'package:rhythm/features/membership/domain/membership_entitlement.dart';
 import 'package:rhythm/features/membership/domain/membership_snapshot.dart';
@@ -35,10 +37,7 @@ class MembershipPage extends HookConsumerWidget {
 
 /// 承载会员中心页主体结构，避免主页面堆叠过多布局分支。
 class _MembershipBody extends StatelessWidget {
-  const _MembershipBody({
-    required this.state,
-    required this.l10n,
-  });
+  const _MembershipBody({required this.state, required this.l10n});
 
   final MembershipViewState state;
   final AppLocalizations l10n;
@@ -53,27 +52,12 @@ class _MembershipBody extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              Container(
-                width: 34,
-                height: 34,
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.surface,
-                  borderRadius: BorderRadius.circular(9999),
-                  border: Border.all(color: const Color(0xFFD5DFCE)),
-                ),
-                alignment: Alignment.center,
-                child: const Text('‹', style: TextStyle(fontSize: 20)),
-              ),
-              const SizedBox(width: 12),
-              Text(
-                l10n.membershipCenterPageTitle,
-                style: textTheme.headlineSmall?.copyWith(
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-            ],
+          SecondaryPageHeader(
+            title: l10n.membershipCenterPageTitle,
+            fallbackLocation: RhythmTab.profile.path,
+            titleStyle: textTheme.headlineSmall?.copyWith(
+              fontWeight: FontWeight.w700,
+            ),
           ),
           const SizedBox(height: 18),
           Text(
@@ -100,8 +84,15 @@ class _MembershipBody extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               for (final plan in state.snapshot.plans) ...[
-                Expanded(child: _PlanCard(plan: plan, isSelected: plan.packageId == state.effectiveSelectedPackageId)),
-                if (plan != state.snapshot.plans.last) const SizedBox(width: 12),
+                Expanded(
+                  child: _PlanCard(
+                    plan: plan,
+                    isSelected:
+                        plan.packageId == state.effectiveSelectedPackageId,
+                  ),
+                ),
+                if (plan != state.snapshot.plans.last)
+                  const SizedBox(width: 12),
               ],
             ],
           ),
@@ -188,10 +179,7 @@ class _MembershipBody extends StatelessWidget {
 
 /// 展示当前会员状态卡片，复用设计稿里的“免费版中 / 已激活”信息层级。
 class _MembershipStatusCard extends StatelessWidget {
-  const _MembershipStatusCard({
-    required this.title,
-    required this.description,
-  });
+  const _MembershipStatusCard({required this.title, required this.description});
 
   final String title;
   final String description;
@@ -245,10 +233,7 @@ class _MembershipStatusCard extends StatelessWidget {
 
 /// 展示单个套餐卡片，保持会员中心与付费墙一致的价格与推荐层级。
 class _PlanCard extends StatelessWidget {
-  const _PlanCard({
-    required this.plan,
-    required this.isSelected,
-  });
+  const _PlanCard({required this.plan, required this.isSelected});
 
   final MembershipPlan plan;
   final bool isSelected;
@@ -275,7 +260,9 @@ class _PlanCard extends StatelessWidget {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
               decoration: BoxDecoration(
-                color: highlight ? const Color(0xFFF4E8CF) : const Color(0xFFD7E7DA),
+                color: highlight
+                    ? const Color(0xFFF4E8CF)
+                    : const Color(0xFFD7E7DA),
                 borderRadius: BorderRadius.circular(9999),
               ),
               child: Text(
@@ -284,23 +271,26 @@ class _PlanCard extends StatelessWidget {
                     : l10n.membershipPlanTryBadge,
                 style: Theme.of(context).textTheme.labelMedium?.copyWith(
                   fontWeight: FontWeight.w600,
-                  color: highlight ? const Color(0xFFC8913C) : const Color(0xFF1B3A28),
+                  color: highlight
+                      ? const Color(0xFFC8913C)
+                      : const Color(0xFF1B3A28),
                 ),
               ),
             ),
-          if (plan.isRecommended || plan.isTrialEligible) const SizedBox(height: 8),
+          if (plan.isRecommended || plan.isTrialEligible)
+            const SizedBox(height: 8),
           Text(
             _planLabel(plan.tier, l10n),
-            style: Theme.of(context).textTheme.titleSmall?.copyWith(
-              fontWeight: FontWeight.w700,
-            ),
+            style: Theme.of(
+              context,
+            ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700),
           ),
           const SizedBox(height: 8),
           Text(
             plan.priceLabel,
-            style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-              fontWeight: FontWeight.w800,
-            ),
+            style: Theme.of(
+              context,
+            ).textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.w800),
           ),
         ],
       ),

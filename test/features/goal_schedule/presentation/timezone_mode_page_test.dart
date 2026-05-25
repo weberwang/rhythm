@@ -32,5 +32,6 @@ void main() {
     expect(find.text('先保留边界，再逐渐支持'), findsOneWidget);
     expect(find.text('Asia/Shanghai'), findsOneWidget);
     expect(find.text('特殊模式'), findsOneWidget);
+    expect(find.byIcon(Icons.arrow_back_ios_new_rounded), findsOneWidget);
   });
 }

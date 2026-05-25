@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rhythm/app/router/app_router.dart';
+import 'package:rhythm/app/router/secondary_navigation.dart';
 import 'package:rhythm/features/insights/application/insights_controller.dart';
 import 'package:rhythm/features/insights/application/insights_view_state.dart';
 import 'package:rhythm/features/insights/domain/weekly_report.dart';
@@ -29,10 +29,7 @@ class ReportHistoryPage extends HookConsumerWidget {
 }
 
 class _HistoryBody extends StatelessWidget {
-  const _HistoryBody({
-    required this.state,
-    required this.l10n,
-  });
+  const _HistoryBody({required this.state, required this.l10n});
 
   final InsightsViewState state;
   final AppLocalizations l10n;
@@ -48,9 +45,9 @@ class _HistoryBody extends StatelessWidget {
       children: [
         Text(
           l10n.insightsHistoryHeadline,
-          style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                fontWeight: FontWeight.w800,
-              ),
+          style: Theme.of(
+            context,
+          ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w800),
         ),
         const SizedBox(height: 8),
         Text(l10n.insightsHistoryDescription),
@@ -88,7 +85,7 @@ class _HistoryBody extends StatelessWidget {
         SizedBox(
           width: double.infinity,
           child: FilledButton(
-            onPressed: () => context.go(membershipCenterPath),
+            onPressed: () => context.pushSecondary(membershipCenterPath),
             child: Text(l10n.insightsHistoryUnlockButton),
           ),
         ),
@@ -98,10 +95,7 @@ class _HistoryBody extends StatelessWidget {
 }
 
 class _HistoryCard extends StatelessWidget {
-  const _HistoryCard({
-    required this.report,
-    required this.l10n,
-  });
+  const _HistoryCard({required this.report, required this.l10n});
 
   final WeeklyReport report;
   final AppLocalizations l10n;
@@ -109,8 +103,14 @@ class _HistoryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isLocked = report.isLocked;
-    final background = isLocked ? const Color(0xFFF4E8CF) : const Color(0xFFF9FBF6);
-    final title = InsightsCopyResolver.rangeLabel(context, report.startDate, report.endDate);
+    final background = isLocked
+        ? const Color(0xFFF4E8CF)
+        : const Color(0xFFF9FBF6);
+    final title = InsightsCopyResolver.rangeLabel(
+      context,
+      report.startDate,
+      report.endDate,
+    );
     final summary = InsightsCopyResolver.historySummary(l10n, report);
 
     return Container(
@@ -124,9 +124,9 @@ class _HistoryCard extends StatelessWidget {
         children: [
           Text(
             title,
-            style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.w700,
-                ),
+            style: Theme.of(
+              context,
+            ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700),
           ),
           const SizedBox(height: 8),
           Text(summary),

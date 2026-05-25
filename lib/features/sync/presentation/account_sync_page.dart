@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:rhythm/app/router/app_router.dart';
+import 'package:rhythm/core/presentation/widgets/secondary_page_header.dart';
 import 'package:rhythm/l10n/app_localizations.dart';
 
 import '../../../core/presentation/widgets/rhythm_primary_button.dart';
@@ -21,15 +23,15 @@ class AccountSyncPage extends HookConsumerWidget {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(20, 0, 20, 24),
+          padding: const EdgeInsets.fromLTRB(20, 16, 20, 24),
           child: stateAsync.when(
             data: (state) => Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 24),
-                Text(
-                  l10n.accountSyncPageTitle,
-                  style: textTheme.headlineMedium?.copyWith(
+                SecondaryPageHeader(
+                  title: l10n.accountSyncPageTitle,
+                  fallbackLocation: RhythmTab.profile.path,
+                  titleStyle: textTheme.headlineSmall?.copyWith(
                     fontFamily: 'Funnel Sans',
                     fontWeight: FontWeight.w700,
                   ),

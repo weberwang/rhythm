@@ -20,6 +20,7 @@ void main() {
     expect(find.text('导出数据'), findsOneWidget);
     expect(find.text('删除账号'), findsOneWidget);
     expect(find.text('清空本地数据'), findsOneWidget);
+    expect(find.byIcon(Icons.arrow_back_ios_new_rounded), findsOneWidget);
     expect(find.text('危险操作需要二次确认'), findsNothing);
   });
 

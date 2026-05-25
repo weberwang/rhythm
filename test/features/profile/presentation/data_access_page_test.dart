@@ -35,5 +35,6 @@ void main() {
     expect(find.text('重新授权'), findsOneWidget);
     expect(find.text('改用手动模式'), findsOneWidget);
     expect(find.text('来源与可信度'), findsOneWidget);
+    expect(find.byIcon(Icons.arrow_back_ios_new_rounded), findsOneWidget);
   });
 }

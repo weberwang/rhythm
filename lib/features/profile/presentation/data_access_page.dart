@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:rhythm/app/router/app_router.dart';
+import 'package:rhythm/app/router/secondary_navigation.dart';
+import 'package:rhythm/core/presentation/widgets/secondary_page_header.dart';
 import 'package:rhythm/features/sleep_records/application/effective_sleep_record_provider.dart';
 import 'package:rhythm/features/sleep_records/application/sleep_record_providers.dart';
 import 'package:rhythm/features/sleep_records/domain/health_platform_state.dart';
@@ -36,9 +38,10 @@ class DataAccessPage extends HookConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  l10n.dataAccessPageTitle,
-                  style: textTheme.headlineMedium?.copyWith(
+                SecondaryPageHeader(
+                  title: l10n.dataAccessPageTitle,
+                  fallbackLocation: RhythmTab.profile.path,
+                  titleStyle: textTheme.headlineSmall?.copyWith(
                     fontFamily: 'Funnel Sans',
                     fontWeight: FontWeight.w700,
                   ),
@@ -84,7 +87,8 @@ class DataAccessPage extends HookConsumerWidget {
                     const SizedBox(width: 12),
                     Expanded(
                       child: FilledButton.tonal(
-                        onPressed: () => context.go('/sleep-records/manage'),
+                        onPressed: () =>
+                            context.pushSecondary(sleepRecordsHubPath),
                         child: Text(l10n.dataAccessManualModeButton),
                       ),
                     ),

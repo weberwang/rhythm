@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:rhythm/app/router/app_router.dart';
+import 'package:rhythm/core/presentation/widgets/secondary_page_header.dart';
 import 'package:rhythm/l10n/app_localizations.dart';
 
 /// 展示阶段八的隐私与数据页，统一承接协议、导出、删除和清空本地数据入口。
@@ -20,9 +22,10 @@ class PrivacyDataPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  l10n.privacyDataPageTitle,
-                  style: textTheme.headlineMedium?.copyWith(
+                SecondaryPageHeader(
+                  title: l10n.privacyDataPageTitle,
+                  fallbackLocation: RhythmTab.profile.path,
+                  titleStyle: textTheme.headlineSmall?.copyWith(
                     fontFamily: 'Funnel Sans',
                     fontWeight: FontWeight.w700,
                   ),
@@ -215,4 +218,3 @@ class _ActionTile extends StatelessWidget {
     );
   }
 }
-

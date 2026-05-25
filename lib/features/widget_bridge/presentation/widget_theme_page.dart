@@ -3,6 +3,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rhythm/app/router/app_router.dart';
+import 'package:rhythm/app/router/secondary_navigation.dart';
+import 'package:rhythm/core/presentation/widgets/secondary_page_header.dart';
 import 'package:rhythm/features/widget_bridge/application/widget_snapshot_service.dart';
 import 'package:rhythm/features/widget_bridge/data/home_widget_gateway.dart';
 import 'package:rhythm/features/widget_bridge/domain/widget_snapshot.dart';
@@ -100,32 +102,13 @@ class _WidgetThemeBody extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    children: [
-                      InkWell(
-                        onTap: () => context.pop(),
-                        borderRadius: BorderRadius.circular(9999),
-                        child: Container(
-                          width: 34,
-                          height: 34,
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.surface,
-                            borderRadius: BorderRadius.circular(9999),
-                            border: Border.all(color: const Color(0xFFD5DFCE)),
-                          ),
-                          alignment: Alignment.center,
-                          child: const Text('‹', style: TextStyle(fontSize: 20)),
-                        ),
-                      ),
-                      const SizedBox(width: 12),
-                      Text(
-                        l10n.widgetThemePageTitle,
-                        style: textTheme.headlineSmall?.copyWith(
-                          fontFamily: 'Funnel Sans',
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ],
+                  SecondaryPageHeader(
+                    title: l10n.widgetThemePageTitle,
+                    fallbackLocation: RhythmTab.profile.path,
+                    titleStyle: textTheme.headlineSmall?.copyWith(
+                      fontFamily: 'Funnel Sans',
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                   const SizedBox(height: 18),
                   Text(
@@ -157,7 +140,9 @@ class _WidgetThemeBody extends StatelessWidget {
           FilledButton(
             key: const Key('widget-theme-refresh-button'),
             onPressed: refreshing ? null : onRefresh,
-            style: FilledButton.styleFrom(minimumSize: const Size.fromHeight(52)),
+            style: FilledButton.styleFrom(
+              minimumSize: const Size.fromHeight(52),
+            ),
             child: Text(
               refreshing
                   ? l10n.widgetThemeRefreshingButton
@@ -282,7 +267,8 @@ class _WidgetPreviewCard extends StatelessWidget {
   String _lastNightLine(AppLocalizations l10n) {
     return snapshot.lastNightStatusLabel ??
         switch (snapshot.state) {
-          WidgetSnapshotState.goalMissing => l10n.widgetThemeStateGoalMissingTitle,
+          WidgetSnapshotState.goalMissing =>
+            l10n.widgetThemeStateGoalMissingTitle,
           WidgetSnapshotState.noData => l10n.widgetThemePreviewLastNightMissing,
           WidgetSnapshotState.permissionRequired =>
             l10n.widgetThemeStatePermissionTitle,
@@ -396,35 +382,37 @@ class _WidgetStateCard extends StatelessWidget {
   _WidgetStateCopy _stateCopy(AppLocalizations l10n) {
     return switch (snapshot.state) {
       WidgetSnapshotState.goalMissing => _WidgetStateCopy(
-          title: l10n.widgetThemeStateGoalMissingTitle,
-          description: l10n.widgetThemeStateGoalMissingDescription,
-          actionLabel: l10n.widgetThemeStateGoalMissingAction,
-        ),
+        title: l10n.widgetThemeStateGoalMissingTitle,
+        description: l10n.widgetThemeStateGoalMissingDescription,
+        actionLabel: l10n.widgetThemeStateGoalMissingAction,
+      ),
       WidgetSnapshotState.noData => _WidgetStateCopy(
-          title: l10n.widgetThemeStateNoDataTitle,
-          description: l10n.widgetThemeStateNoDataDescription,
-          actionLabel: l10n.widgetThemeStateNoDataAction,
-        ),
+        title: l10n.widgetThemeStateNoDataTitle,
+        description: l10n.widgetThemeStateNoDataDescription,
+        actionLabel: l10n.widgetThemeStateNoDataAction,
+      ),
       WidgetSnapshotState.permissionRequired => _WidgetStateCopy(
-          title: l10n.widgetThemeStatePermissionTitle,
-          description: l10n.widgetThemeStatePermissionDescription,
-          actionLabel: l10n.widgetThemeStatePermissionAction,
-        ),
+        title: l10n.widgetThemeStatePermissionTitle,
+        description: l10n.widgetThemeStatePermissionDescription,
+        actionLabel: l10n.widgetThemeStatePermissionAction,
+      ),
       WidgetSnapshotState.ready => _WidgetStateCopy(
-          title: snapshot.lastNightStatusLabel ?? l10n.widgetThemeStateNoDataTitle,
-          description: l10n.widgetThemeStateReadyDescription,
-        ),
+        title:
+            snapshot.lastNightStatusLabel ?? l10n.widgetThemeStateNoDataTitle,
+        description: l10n.widgetThemeStateReadyDescription,
+      ),
     };
   }
 
   void _handleAction(BuildContext context) {
     switch (snapshot.state) {
       case WidgetSnapshotState.goalMissing:
-        context.go(onboardingGoalSetupPath);
+        // 目标设置页属于二级设置页，需要保留当前来源页返回路径。
+        context.pushSecondary(onboardingGoalSetupPath);
       case WidgetSnapshotState.noData:
-        context.go(manualSleepRecordPath);
+        context.pushSecondary(manualSleepRecordPath);
       case WidgetSnapshotState.permissionRequired:
-        context.go(profileDataAccessPath);
+        context.pushSecondary(profileDataAccessPath);
       case WidgetSnapshotState.ready:
         break;
     }
@@ -468,10 +456,7 @@ class _ThemeReserveCard extends StatelessWidget {
             spacing: 8,
             runSpacing: 8,
             children: [
-              _ThemeChip(
-                text: l10n.widgetThemeOptionDefault,
-                dark: true,
-              ),
+              _ThemeChip(text: l10n.widgetThemeOptionDefault, dark: true),
               _ThemeChip(text: l10n.widgetThemeOptionNight),
               _ThemeChip(text: l10n.widgetThemeOptionFuture),
             ],
@@ -485,10 +470,7 @@ class _ThemeReserveCard extends StatelessWidget {
 /// 主题预留标签，保持设计稿里的“轻量预留”层级。
 class _ThemeChip extends StatelessWidget {
   /// 创建主题标签。
-  const _ThemeChip({
-    required this.text,
-    this.dark = false,
-  });
+  const _ThemeChip({required this.text, this.dark = false});
 
   /// 标签文案。
   final String text;

@@ -38,6 +38,7 @@ void main() {
     expect(find.text('会员中心'), findsOneWidget);
     expect(find.text('把长期改善能力接上'), findsOneWidget);
     expect(find.text('免费版中'), findsOneWidget);
+    expect(find.byIcon(Icons.arrow_back_ios_new_rounded), findsOneWidget);
     expect(find.text('月付'), findsOneWidget);
     expect(find.text('年付'), findsOneWidget);
     expect(find.text('¥15'), findsOneWidget);
@@ -71,6 +72,7 @@ void main() {
     expect(find.text('年会员已激活'), findsOneWidget);
     expect(find.text('恢复购买'), findsOneWidget);
     expect(find.text('查看权益说明'), findsOneWidget);
+    expect(find.byIcon(Icons.arrow_back_ios_new_rounded), findsOneWidget);
   });
 
   testWidgets('点击查看权益说明会打开权益弹层', (tester) async {
