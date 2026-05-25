@@ -12,6 +12,19 @@ class AppTheme {
   /// 构建暗色主题，从同一套语义 token 派生，保证与亮色稿保持同源关系。
   static ThemeData dark() => _buildTheme(AppThemeTokens.dark);
 
+  /// 统一生成 iOS 风格的横向推进动画，避免不同平台出现割裂的页面切换体验。
+  static const PageTransitionsTheme _cupertinoPageTransitionsTheme =
+      PageTransitionsTheme(
+        builders: <TargetPlatform, PageTransitionsBuilder>{
+          TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+          TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+          TargetPlatform.macOS: CupertinoPageTransitionsBuilder(),
+          TargetPlatform.linux: CupertinoPageTransitionsBuilder(),
+          TargetPlatform.windows: CupertinoPageTransitionsBuilder(),
+          TargetPlatform.fuchsia: CupertinoPageTransitionsBuilder(),
+        },
+      );
+
   /// 根据主题 token 生成统一的 Material 主题，减少亮暗主题分叉。
   static ThemeData _buildTheme(AppThemeTokens tokens) {
     final baseScheme = ColorScheme.fromSeed(
@@ -44,13 +57,14 @@ class AppTheme {
       shadow: const Color(0x1A000000),
     );
 
-    final textTheme = Typography.material2021(
-      platform: TargetPlatform.android,
-      colorScheme: colorScheme,
-    ).black.apply(
-      bodyColor: tokens.textPrimary,
-      displayColor: tokens.textPrimary,
-    );
+    final textTheme =
+        Typography.material2021(
+          platform: TargetPlatform.android,
+          colorScheme: colorScheme,
+        ).black.apply(
+          bodyColor: tokens.textPrimary,
+          displayColor: tokens.textPrimary,
+        );
 
     return ThemeData(
       useMaterial3: true,
@@ -60,6 +74,9 @@ class AppTheme {
       canvasColor: tokens.background,
       dividerColor: tokens.divider,
       textTheme: textTheme,
+      // 统一页面切换为 iOS 横向过渡，让 go_router 默认生成的 MaterialPage
+      // 也能直接继承一致的动效，而不需要每条路由单独重复配置。
+      pageTransitionsTheme: _cupertinoPageTransitionsTheme,
       cardTheme: CardThemeData(
         color: tokens.surface,
         elevation: 0,
