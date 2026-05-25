@@ -9,6 +9,7 @@ class TodayEmptyState extends StatelessWidget {
     super.key,
     required this.title,
     required this.primaryAction,
+    required this.onPressed,
   });
 
   /// 空态标题。
@@ -16,6 +17,9 @@ class TodayEmptyState extends StatelessWidget {
 
   /// 当前空态主行动。
   final TodayPrimaryAction primaryAction;
+
+  /// 空态主按钮点击回调，由页面层按具体空态注入跳转行为。
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +33,7 @@ class TodayEmptyState extends StatelessWidget {
             Text(title, textAlign: TextAlign.center),
             const SizedBox(height: 12),
             FilledButton(
-              onPressed: () {},
+              onPressed: onPressed,
               child: Text(_labelForAction(primaryAction, l10n)),
             ),
           ],

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:rhythm/core/presentation/widgets/secondary_page_header.dart';
 import 'package:rhythm/core/presentation/widgets/rhythm_primary_button.dart';
 import 'package:rhythm/features/goal_schedule/application/goal_schedule_form_controller.dart';
 import 'package:rhythm/features/goal_schedule/application/goal_schedule_providers.dart';
@@ -27,7 +28,15 @@ class GoalSetupPage extends HookConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 62),
+              SecondaryPageHeader(
+                title: l10n.goalSetupPageTitle,
+                fallbackLocation: onboardingWelcomePath,
+                titleStyle: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                  fontFamily: 'Funnel Sans',
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              const SizedBox(height: 28),
               Expanded(
                 child: SingleChildScrollView(
                   child: Column(
@@ -82,7 +91,9 @@ class GoalSetupPage extends HookConsumerWidget {
                                 form.dayStartHour * 60 + form.dayStartMinute,
                           ),
                         );
-                    context.go(onboardingReminderSetupPath);
+                    if (context.mounted) {
+                      context.go(onboardingReminderSetupPath);
+                    }
                   }
                 },
               ),
