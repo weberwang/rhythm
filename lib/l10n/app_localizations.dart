@@ -1886,6 +1886,234 @@ abstract class AppLocalizations {
   /// **'If you place the widget on your home screen, tonight\'s goal and last night\'s status stay visible in your everyday view.'**
   String get profileDesktopPresenceDescription;
 
+  /// No description provided for @widgetGuideEyebrow.
+  ///
+  /// In en, this message translates to:
+  /// **'Put tonight\'\'s target on your home screen'**
+  String get widgetGuideEyebrow;
+
+  /// No description provided for @widgetGuideTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep bedtime one step closer instead of opening the app every time.'**
+  String get widgetGuideTitle;
+
+  /// No description provided for @widgetGuideDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'The widget only shows what matters: tonight\'s target, the remaining time, and last night\'s status.'**
+  String get widgetGuideDescription;
+
+  /// No description provided for @widgetGuidePreviewTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Rhythm widget'**
+  String get widgetGuidePreviewTitle;
+
+  /// No description provided for @widgetGuidePreviewRemaining.
+  ///
+  /// In en, this message translates to:
+  /// **'52m to target'**
+  String get widgetGuidePreviewRemaining;
+
+  /// No description provided for @widgetGuidePreviewSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'Tonight target 23:30\nLast night was 26 minutes late'**
+  String get widgetGuidePreviewSummary;
+
+  /// No description provided for @widgetGuideStepAdd.
+  ///
+  /// In en, this message translates to:
+  /// **'• Long-press the home screen and add a widget'**
+  String get widgetGuideStepAdd;
+
+  /// No description provided for @widgetGuideStepChoose.
+  ///
+  /// In en, this message translates to:
+  /// **'• Search for Rhythm and choose the medium widget'**
+  String get widgetGuideStepChoose;
+
+  /// No description provided for @widgetGuideStepPlace.
+  ///
+  /// In en, this message translates to:
+  /// **'• Put it where you usually see it at night'**
+  String get widgetGuideStepPlace;
+
+  /// No description provided for @widgetGuidePrimaryButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Got it, I\'\'ll add it later'**
+  String get widgetGuidePrimaryButton;
+
+  /// No description provided for @widgetThemePageTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Widget and theme'**
+  String get widgetThemePageTitle;
+
+  /// No description provided for @widgetThemeHeroTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Get the presence right first'**
+  String get widgetThemeHeroTitle;
+
+  /// No description provided for @widgetThemeHeroDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'V0.1 keeps theme support lightweight for now. The widget ships first.'**
+  String get widgetThemeHeroDescription;
+
+  /// No description provided for @widgetThemePreviewTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Home screen preview'**
+  String get widgetThemePreviewTitle;
+
+  /// No description provided for @widgetThemePreviewTargetCaption.
+  ///
+  /// In en, this message translates to:
+  /// **'Tonight target'**
+  String get widgetThemePreviewTargetCaption;
+
+  /// No description provided for @widgetThemePreviewLastNightMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'There is no record from last night yet'**
+  String get widgetThemePreviewLastNightMissing;
+
+  /// No description provided for @widgetThemeMinutesToTargetAhead.
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes} minutes to target'**
+  String widgetThemeMinutesToTargetAhead(int minutes);
+
+  /// No description provided for @widgetThemeMinutesToTargetLate.
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes} minutes past target'**
+  String widgetThemeMinutesToTargetLate(int minutes);
+
+  /// No description provided for @widgetThemeStateGoalMissingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No goal schedule yet'**
+  String get widgetThemeStateGoalMissingTitle;
+
+  /// No description provided for @widgetThemeStateGoalMissingDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Set a goal schedule first so the widget knows which bedtime reference to keep visible tonight.'**
+  String get widgetThemeStateGoalMissingDescription;
+
+  /// No description provided for @widgetThemeStateGoalMissingAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Set your schedule goal'**
+  String get widgetThemeStateGoalMissingAction;
+
+  /// No description provided for @widgetThemeStateNoDataTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'There is no record from last night yet'**
+  String get widgetThemeStateNoDataTitle;
+
+  /// No description provided for @widgetThemeStateNoDataDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'The widget can still keep tonight\'s target visible, then fill in last night\'s status after you sync or add it.'**
+  String get widgetThemeStateNoDataDescription;
+
+  /// No description provided for @widgetThemeStateNoDataAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Manually log last night'**
+  String get widgetThemeStateNoDataAction;
+
+  /// No description provided for @widgetThemeStatePermissionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Sleep data permission is still needed'**
+  String get widgetThemeStatePermissionTitle;
+
+  /// No description provided for @widgetThemeStatePermissionDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'The widget only shows essential information and never expands raw sleep details.'**
+  String get widgetThemeStatePermissionDescription;
+
+  /// No description provided for @widgetThemeStatePermissionAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Review data access'**
+  String get widgetThemeStatePermissionAction;
+
+  /// No description provided for @widgetThemeStateReadyDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'The current home screen snapshot is ready to show tonight\'s target and last night\'s status.'**
+  String get widgetThemeStateReadyDescription;
+
+  /// No description provided for @widgetThemeReserveTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Theme reserve'**
+  String get widgetThemeReserveTitle;
+
+  /// No description provided for @widgetThemeOptionDefault.
+  ///
+  /// In en, this message translates to:
+  /// **'Default morning haze'**
+  String get widgetThemeOptionDefault;
+
+  /// No description provided for @widgetThemeOptionNight.
+  ///
+  /// In en, this message translates to:
+  /// **'Midnight stillness'**
+  String get widgetThemeOptionNight;
+
+  /// No description provided for @widgetThemeOptionFuture.
+  ///
+  /// In en, this message translates to:
+  /// **'More later'**
+  String get widgetThemeOptionFuture;
+
+  /// No description provided for @widgetThemeRefreshButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Refresh widget snapshot'**
+  String get widgetThemeRefreshButton;
+
+  /// No description provided for @widgetThemeRefreshingButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Refreshing widget snapshot'**
+  String get widgetThemeRefreshingButton;
+
+  /// No description provided for @widgetThemeRefreshSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Widget snapshot refreshed'**
+  String get widgetThemeRefreshSuccess;
+
+  /// No description provided for @widgetThemeRefreshFailure.
+  ///
+  /// In en, this message translates to:
+  /// **'Refresh failed. Please try again later.'**
+  String get widgetThemeRefreshFailure;
+
+  /// No description provided for @widgetThemeOpenTodayButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Today'**
+  String get widgetThemeOpenTodayButton;
+
+  /// No description provided for @widgetThemeOpenBedtimeButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Bedtime'**
+  String get widgetThemeOpenBedtimeButton;
+
   /// No description provided for @profileHealthSummaryHealthKitConnected.
   ///
   /// In en, this message translates to:

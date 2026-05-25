@@ -279,6 +279,16 @@
 - `WidgetSnapshotService`
 - `WidgetEntrySource`
 - `WidgetThemeViewState`
+- 小组件快照字段只允许输出：
+  - 今晚目标
+  - 距离目标
+  - 昨晚状态
+  - 入口参数
+- 小组件快照禁止输出：
+  - 原始入睡/起床时间
+  - 睡眠时长
+  - 记录来源主键
+  - 时区、可信度和其他过细健康数据
 
 ### 9.3 子代理并行轨道
 

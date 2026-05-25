@@ -960,6 +960,126 @@ class AppLocalizationsZh extends AppLocalizations {
       '把小组件放到桌面后，今晚目标和昨晚状态会一直留在你的视线里。';
 
   @override
+  String get widgetGuideEyebrow => '把今晚的目标放到桌面上';
+
+  @override
+  String get widgetGuideTitle => '让睡前入口更近一点，不用每次都先打开 App。';
+
+  @override
+  String get widgetGuideDescription => '小组件只展示必要信息：今晚目标、剩余时间和昨晚状态。';
+
+  @override
+  String get widgetGuidePreviewTitle => 'Rhythm 小组件';
+
+  @override
+  String get widgetGuidePreviewRemaining => '距目标 52m';
+
+  @override
+  String get widgetGuidePreviewSummary => '今晚目标 23:30\n昨晚比目标晚 26 分钟';
+
+  @override
+  String get widgetGuideStepAdd => '• 长按桌面，添加小组件';
+
+  @override
+  String get widgetGuideStepChoose => '• 搜索 Rhythm，选择中号组件';
+
+  @override
+  String get widgetGuideStepPlace => '• 把它放在晚上最容易看见的位置';
+
+  @override
+  String get widgetGuidePrimaryButton => '知道了，稍后我自己加';
+
+  @override
+  String get widgetThemePageTitle => '小组件与主题';
+
+  @override
+  String get widgetThemeHeroTitle => '先把存在感做好';
+
+  @override
+  String get widgetThemeHeroDescription => 'V0.1 主题只做轻量预留，小组件优先落地。';
+
+  @override
+  String get widgetThemePreviewTitle => '桌面预览';
+
+  @override
+  String get widgetThemePreviewTargetCaption => '今晚目标';
+
+  @override
+  String get widgetThemePreviewLastNightMissing => '昨晚还没有记录';
+
+  @override
+  String widgetThemeMinutesToTargetAhead(int minutes) {
+    return '距目标 $minutes 分钟';
+  }
+
+  @override
+  String widgetThemeMinutesToTargetLate(int minutes) {
+    return '已晚于目标 $minutes 分钟';
+  }
+
+  @override
+  String get widgetThemeStateGoalMissingTitle => '还没有目标作息';
+
+  @override
+  String get widgetThemeStateGoalMissingDescription =>
+      '先设置目标作息后，小组件才知道今晚该展示哪条参考线。';
+
+  @override
+  String get widgetThemeStateGoalMissingAction => '去设置目标作息';
+
+  @override
+  String get widgetThemeStateNoDataTitle => '昨晚还没有记录';
+
+  @override
+  String get widgetThemeStateNoDataDescription =>
+      '小组件会继续展示今晚目标，等你补录或同步到昨晚结果后再补齐状态。';
+
+  @override
+  String get widgetThemeStateNoDataAction => '去补录昨晚记录';
+
+  @override
+  String get widgetThemeStatePermissionTitle => '需要先授权睡眠数据';
+
+  @override
+  String get widgetThemeStatePermissionDescription => '小组件只会展示必要信息，不会展开原始睡眠细节。';
+
+  @override
+  String get widgetThemeStatePermissionAction => '查看数据接入说明';
+
+  @override
+  String get widgetThemeStateReadyDescription => '当前桌面快照已经能稳定展示今晚目标与昨晚状态。';
+
+  @override
+  String get widgetThemeReserveTitle => '主题预留';
+
+  @override
+  String get widgetThemeOptionDefault => '默认晨雾';
+
+  @override
+  String get widgetThemeOptionNight => '深夜静色';
+
+  @override
+  String get widgetThemeOptionFuture => '后续扩展';
+
+  @override
+  String get widgetThemeRefreshButton => '刷新小组件快照';
+
+  @override
+  String get widgetThemeRefreshingButton => '正在刷新小组件快照';
+
+  @override
+  String get widgetThemeRefreshSuccess => '小组件快照已刷新';
+
+  @override
+  String get widgetThemeRefreshFailure => '刷新失败，请稍后再试';
+
+  @override
+  String get widgetThemeOpenTodayButton => '打开今日页';
+
+  @override
+  String get widgetThemeOpenBedtimeButton => '进入睡前模式';
+
+  @override
   String get profileHealthSummaryHealthKitConnected => 'HealthKit 已连接';
 
   @override

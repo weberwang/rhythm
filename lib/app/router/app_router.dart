@@ -20,6 +20,8 @@ import 'package:rhythm/features/sleep_records/presentation/manual_sleep_record_p
 import 'package:rhythm/features/sleep_records/presentation/sleep_records_hub_page.dart';
 import 'package:rhythm/features/sync/presentation/account_sync_page.dart';
 import 'package:rhythm/features/today/presentation/today_page.dart';
+import 'package:rhythm/features/widget_bridge/presentation/widget_guide_page.dart';
+import 'package:rhythm/features/widget_bridge/presentation/widget_theme_page.dart';
 import 'package:rhythm/l10n/app_localizations.dart';
 
 import '../bootstrap/launch_gate.dart';
@@ -32,6 +34,9 @@ const String onboardingGoalSetupPath = '/onboarding/goal-setup';
 
 /// 提醒策略设置页路由路径。
 const String onboardingReminderSetupPath = '/onboarding/reminder-setup';
+
+/// 小组件引导页路由路径。
+const String onboardingWidgetGuidePath = '/onboarding/widget-guide';
 
 /// 阶段三睡眠记录管理页路由路径。
 const String sleepRecordsHubPath = '/sleep-records/manage';
@@ -65,6 +70,9 @@ const String profileNotificationSettingsPath = '/profile/notifications';
 
 /// 时区与特殊模式页路由路径。
 const String profileTimezoneModePath = '/profile/timezone-mode';
+
+/// 小组件与主题页路由路径。
+const String profileWidgetThemePath = '/profile/widget-theme';
 
 /// 生成阶段三编辑睡眠记录页路由路径。
 String manualSleepRecordEditPath(String recordId) {
@@ -166,6 +174,10 @@ GoRouter createAppRouter() {
         },
       ),
       GoRoute(
+        path: onboardingWidgetGuidePath,
+        builder: (context, state) => const WidgetGuidePage(),
+      ),
+      GoRoute(
         path: sleepRecordsHubPath,
         builder: (context, state) => const SleepRecordsHubPage(),
       ),
@@ -225,6 +237,10 @@ GoRouter createAppRouter() {
       GoRoute(
         path: profileTimezoneModePath,
         builder: (context, state) => const TimezoneModePage(),
+      ),
+      GoRoute(
+        path: profileWidgetThemePath,
+        builder: (context, state) => const WidgetThemePage(),
       ),
       GoRoute(
         path: RhythmTab.insights.path,

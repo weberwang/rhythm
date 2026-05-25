@@ -20,7 +20,7 @@ void main() {
     expect(state.leadMinutes, 45);
   });
 
-  testWidgets('提醒策略保存后进入今日页', (tester) async {
+  testWidgets('提醒策略保存后先进入小组件引导页，再进入今日页', (tester) async {
     final scheduler = _TestBedtimeReminderScheduler();
     await pumpRhythmApp(
       tester,
@@ -40,6 +40,11 @@ void main() {
     await tester.tap(find.text('保存目标，继续下一步'));
     await tester.pumpAndSettle();
     await tester.tap(find.text('完成设置，进入今日页'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('让睡前入口更近一点，不用每次都先打开 App。'), findsOneWidget);
+
+    await tester.tap(find.text('知道了，稍后我自己加'));
     await tester.pumpAndSettle();
 
     expect(find.text('今日'), findsWidgets);

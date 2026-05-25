@@ -535,6 +535,58 @@
   "profilePrivacyEntrySubtitle": "Export, delete, and agreements",
   "profileDesktopPresenceTitle": "Desktop presence",
   "profileDesktopPresenceDescription": "If you place the widget on your home screen, tonight's goal and last night's status stay visible in your everyday view.",
+  "widgetGuideEyebrow": "Put tonight''s target on your home screen",
+  "widgetGuideTitle": "Keep bedtime one step closer instead of opening the app every time.",
+  "widgetGuideDescription": "The widget only shows what matters: tonight's target, the remaining time, and last night's status.",
+  "widgetGuidePreviewTitle": "Rhythm widget",
+  "widgetGuidePreviewRemaining": "52m to target",
+  "widgetGuidePreviewSummary": "Tonight target 23:30\nLast night was 26 minutes late",
+  "widgetGuideStepAdd": "• Long-press the home screen and add a widget",
+  "widgetGuideStepChoose": "• Search for Rhythm and choose the medium widget",
+  "widgetGuideStepPlace": "• Put it where you usually see it at night",
+  "widgetGuidePrimaryButton": "Got it, I''ll add it later",
+  "widgetThemePageTitle": "Widget and theme",
+  "widgetThemeHeroTitle": "Get the presence right first",
+  "widgetThemeHeroDescription": "V0.1 keeps theme support lightweight for now. The widget ships first.",
+  "widgetThemePreviewTitle": "Home screen preview",
+  "widgetThemePreviewTargetCaption": "Tonight target",
+  "widgetThemePreviewLastNightMissing": "There is no record from last night yet",
+  "widgetThemeMinutesToTargetAhead": "{minutes} minutes to target",
+  "@widgetThemeMinutesToTargetAhead": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "widgetThemeMinutesToTargetLate": "{minutes} minutes past target",
+  "@widgetThemeMinutesToTargetLate": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "widgetThemeStateGoalMissingTitle": "No goal schedule yet",
+  "widgetThemeStateGoalMissingDescription": "Set a goal schedule first so the widget knows which bedtime reference to keep visible tonight.",
+  "widgetThemeStateGoalMissingAction": "Set your schedule goal",
+  "widgetThemeStateNoDataTitle": "There is no record from last night yet",
+  "widgetThemeStateNoDataDescription": "The widget can still keep tonight's target visible, then fill in last night's status after you sync or add it.",
+  "widgetThemeStateNoDataAction": "Manually log last night",
+  "widgetThemeStatePermissionTitle": "Sleep data permission is still needed",
+  "widgetThemeStatePermissionDescription": "The widget only shows essential information and never expands raw sleep details.",
+  "widgetThemeStatePermissionAction": "Review data access",
+  "widgetThemeStateReadyDescription": "The current home screen snapshot is ready to show tonight's target and last night's status.",
+  "widgetThemeReserveTitle": "Theme reserve",
+  "widgetThemeOptionDefault": "Default morning haze",
+  "widgetThemeOptionNight": "Midnight stillness",
+  "widgetThemeOptionFuture": "More later",
+  "widgetThemeRefreshButton": "Refresh widget snapshot",
+  "widgetThemeRefreshingButton": "Refreshing widget snapshot",
+  "widgetThemeRefreshSuccess": "Widget snapshot refreshed",
+  "widgetThemeRefreshFailure": "Refresh failed. Please try again later.",
+  "widgetThemeOpenTodayButton": "Open Today",
+  "widgetThemeOpenBedtimeButton": "Enter Bedtime",
   "profileHealthSummaryHealthKitConnected": "HealthKit connected",
   "profileHealthSummaryHealthConnectConnected": "Health Connect connected",
   "profileHealthSummaryPermissionRequired": "Permission needs to be granted again",

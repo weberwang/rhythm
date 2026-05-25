@@ -1033,6 +1033,139 @@ class AppLocalizationsEn extends AppLocalizations {
       'If you place the widget on your home screen, tonights goal and last nights status stay visible in your everyday view.';
 
   @override
+  String get widgetGuideEyebrow => 'Put tonight\'s target on your home screen';
+
+  @override
+  String get widgetGuideTitle =>
+      'Keep bedtime one step closer instead of opening the app every time.';
+
+  @override
+  String get widgetGuideDescription =>
+      'The widget only shows what matters: tonights target, the remaining time, and last nights status.';
+
+  @override
+  String get widgetGuidePreviewTitle => 'Rhythm widget';
+
+  @override
+  String get widgetGuidePreviewRemaining => '52m to target';
+
+  @override
+  String get widgetGuidePreviewSummary =>
+      'Tonight target 23:30\nLast night was 26 minutes late';
+
+  @override
+  String get widgetGuideStepAdd =>
+      '• Long-press the home screen and add a widget';
+
+  @override
+  String get widgetGuideStepChoose =>
+      '• Search for Rhythm and choose the medium widget';
+
+  @override
+  String get widgetGuideStepPlace =>
+      '• Put it where you usually see it at night';
+
+  @override
+  String get widgetGuidePrimaryButton => 'Got it, I\'ll add it later';
+
+  @override
+  String get widgetThemePageTitle => 'Widget and theme';
+
+  @override
+  String get widgetThemeHeroTitle => 'Get the presence right first';
+
+  @override
+  String get widgetThemeHeroDescription =>
+      'V0.1 keeps theme support lightweight for now. The widget ships first.';
+
+  @override
+  String get widgetThemePreviewTitle => 'Home screen preview';
+
+  @override
+  String get widgetThemePreviewTargetCaption => 'Tonight target';
+
+  @override
+  String get widgetThemePreviewLastNightMissing =>
+      'There is no record from last night yet';
+
+  @override
+  String widgetThemeMinutesToTargetAhead(int minutes) {
+    return '$minutes minutes to target';
+  }
+
+  @override
+  String widgetThemeMinutesToTargetLate(int minutes) {
+    return '$minutes minutes past target';
+  }
+
+  @override
+  String get widgetThemeStateGoalMissingTitle => 'No goal schedule yet';
+
+  @override
+  String get widgetThemeStateGoalMissingDescription =>
+      'Set a goal schedule first so the widget knows which bedtime reference to keep visible tonight.';
+
+  @override
+  String get widgetThemeStateGoalMissingAction => 'Set your schedule goal';
+
+  @override
+  String get widgetThemeStateNoDataTitle =>
+      'There is no record from last night yet';
+
+  @override
+  String get widgetThemeStateNoDataDescription =>
+      'The widget can still keep tonights target visible, then fill in last nights status after you sync or add it.';
+
+  @override
+  String get widgetThemeStateNoDataAction => 'Manually log last night';
+
+  @override
+  String get widgetThemeStatePermissionTitle =>
+      'Sleep data permission is still needed';
+
+  @override
+  String get widgetThemeStatePermissionDescription =>
+      'The widget only shows essential information and never expands raw sleep details.';
+
+  @override
+  String get widgetThemeStatePermissionAction => 'Review data access';
+
+  @override
+  String get widgetThemeStateReadyDescription =>
+      'The current home screen snapshot is ready to show tonights target and last nights status.';
+
+  @override
+  String get widgetThemeReserveTitle => 'Theme reserve';
+
+  @override
+  String get widgetThemeOptionDefault => 'Default morning haze';
+
+  @override
+  String get widgetThemeOptionNight => 'Midnight stillness';
+
+  @override
+  String get widgetThemeOptionFuture => 'More later';
+
+  @override
+  String get widgetThemeRefreshButton => 'Refresh widget snapshot';
+
+  @override
+  String get widgetThemeRefreshingButton => 'Refreshing widget snapshot';
+
+  @override
+  String get widgetThemeRefreshSuccess => 'Widget snapshot refreshed';
+
+  @override
+  String get widgetThemeRefreshFailure =>
+      'Refresh failed. Please try again later.';
+
+  @override
+  String get widgetThemeOpenTodayButton => 'Open Today';
+
+  @override
+  String get widgetThemeOpenBedtimeButton => 'Enter Bedtime';
+
+  @override
   String get profileHealthSummaryHealthKitConnected => 'HealthKit connected';
 
   @override

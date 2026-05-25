@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../router/app_router.dart';
 import '../../features/notifications/application/notification_entry_controller.dart';
 import '../../features/notifications/data/plugin_local_notification_gateway.dart';
 import '../../features/widget_bridge/application/widget_entry_controller.dart';
@@ -9,6 +10,9 @@ import '../../features/widget_bridge/application/widget_launch_gateway.dart';
 enum BootstrapEntryTarget {
   /// 默认进入正常启动分发。
   defaultFlow,
+
+  /// 直接进入今日页。
+  today,
 
   /// 直接进入睡前模式。
   bedtime,
@@ -43,7 +47,11 @@ Future<BootstrapLaunchEntry> resolveBootstrapLaunchEntry({
 
   final widgetEntryController = WidgetEntryController();
   final widgetUri = await widgetLaunchGateway.readInitialEntry();
-  if (widgetEntryController.resolve(widgetUri) != null) {
+  final widgetEntry = widgetEntryController.resolve(widgetUri);
+  if (widgetEntry?.path == RhythmTab.today.path) {
+    return const BootstrapLaunchEntry(target: BootstrapEntryTarget.today);
+  }
+  if (widgetEntry?.path == bedtimeModePath) {
     return const BootstrapLaunchEntry(target: BootstrapEntryTarget.bedtime);
   }
 

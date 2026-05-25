@@ -20,6 +20,10 @@ class LaunchGate extends HookConsumerWidget {
       if (!context.mounted) {
         return;
       }
+      if (launchEntry.target == BootstrapEntryTarget.today) {
+        context.go(RhythmTab.today.path);
+        return;
+      }
       if (launchEntry.target == BootstrapEntryTarget.bedtime) {
         context.go(bedtimeModePath);
         return;

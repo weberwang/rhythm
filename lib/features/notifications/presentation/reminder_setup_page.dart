@@ -12,7 +12,7 @@ import 'package:rhythm/l10n/app_localizations.dart';
 
 import '../../../app/router/app_router.dart';
 
-/// 提醒策略设置页，完成首启闭环并进入今日页。
+/// 提醒策略设置页，完成首启提醒配置并进入小组件引导页。
 class ReminderSetupPage extends HookConsumerWidget {
   /// 创建提醒策略设置页。
   const ReminderSetupPage({
@@ -36,7 +36,7 @@ class ReminderSetupPage extends HookConsumerWidget {
         );
     await launchStateRepository.markOnboardingCompleted();
     if (context.mounted) {
-      context.go(RhythmTab.today.path);
+      context.go(onboardingWidgetGuidePath);
     }
   }
 

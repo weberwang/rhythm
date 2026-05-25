@@ -19,19 +19,25 @@ class WidgetRouteEntry {
 
 /// 解析小组件入口 Uri，统一收口到睡前模式的跳转契约。
 class WidgetEntryController {
-  /// 解析小组件 Uri，只有明确的 bedtime shortcut 才会产生跳转。
+  /// 解析小组件 Uri，只接收阶段九约定的今日页与睡前模式入口。
   WidgetRouteEntry? resolve(Uri? uri) {
-    if (uri == null || uri.host != 'bedtime') {
+    if (uri == null) {
       return null;
     }
 
-    if (uri.queryParameters['source'] == 'widget_bedtime_shortcut') {
-      return const WidgetRouteEntry(
-        path: bedtimeModePath,
-        source: WidgetEntrySource.bedtimeShortcut,
-      );
+    switch ((uri.host, uri.queryParameters['source'])) {
+      case ('today', 'widget_today'):
+        return WidgetRouteEntry(
+          path: RhythmTab.today.path,
+          source: WidgetEntrySource.todayShortcut,
+        );
+      case ('bedtime', 'widget_bedtime_shortcut'):
+        return const WidgetRouteEntry(
+          path: bedtimeModePath,
+          source: WidgetEntrySource.bedtimeShortcut,
+        );
+      default:
+        return null;
     }
-
-    return null;
   }
 }

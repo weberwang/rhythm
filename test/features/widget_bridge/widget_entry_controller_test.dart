@@ -5,6 +5,17 @@ import 'package:rhythm/features/widget_bridge/domain/widget_entry_source.dart';
 
 /// 验证小组件入口只在有效 bedtime shortcut 时进入睡前页。
 void main() {
+  test('today shortcut 进入今日页', () {
+    final controller = WidgetEntryController();
+
+    final entry = controller.resolve(
+      Uri.parse('rhythm://today?source=widget_today'),
+    );
+
+    expect(entry?.path, RhythmTab.today.path);
+    expect(entry?.source, WidgetEntrySource.todayShortcut);
+  });
+
   test('bedtime shortcut 进入睡前页', () {
     final controller = WidgetEntryController();
 

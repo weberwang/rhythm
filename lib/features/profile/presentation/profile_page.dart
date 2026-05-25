@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:rhythm/app/router/app_router.dart';
 import 'package:rhythm/core/time/time_context_provider.dart';
 import 'package:rhythm/features/goal_schedule/application/goal_schedule_providers.dart';
 import 'package:rhythm/features/goal_schedule/domain/goal_schedule_settings.dart';
@@ -88,6 +89,7 @@ class ProfilePage extends HookConsumerWidget {
               titleStyle: textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.w700,
               ),
+              onTap: () => context.go(profileWidgetThemePath),
             ),
           ],
         ),
@@ -342,6 +344,7 @@ class _InfoCard extends StatelessWidget {
     required this.description,
     this.backgroundColor,
     this.titleStyle,
+    this.onTap,
   });
 
   /// 卡片标题。
@@ -356,9 +359,12 @@ class _InfoCard extends StatelessWidget {
   /// 标题样式。
   final TextStyle? titleStyle;
 
+  /// 可选点击动作，用于把说明卡升级为明确入口。
+  final VoidCallback? onTap;
+
   @override
   Widget build(BuildContext context) {
-    return Container(
+    final content = Container(
       width: double.infinity,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -389,6 +395,16 @@ class _InfoCard extends StatelessWidget {
           ),
         ],
       ),
+    );
+
+    if (onTap == null) {
+      return content;
+    }
+
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(16),
+      child: content,
     );
   }
 }
