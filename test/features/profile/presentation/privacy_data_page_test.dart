@@ -3,9 +3,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:rhythm/features/profile/presentation/privacy_data_page.dart';
 import 'package:rhythm/l10n/app_localizations.dart';
 
-/// 验证隐私与数据页会展示关键操作入口，并对危险操作给出二次确认。
+/// 验证隐私与数据页会展示关键操作入口，且不再展示底部危险提示区域。
 void main() {
-  testWidgets('隐私页展示操作入口和危险提示', (tester) async {
+  testWidgets('隐私页展示操作入口且不展示底部危险提示区域', (tester) async {
     await tester.pumpWidget(
       MaterialApp(
         locale: const Locale('zh'),
@@ -20,7 +20,7 @@ void main() {
     expect(find.text('导出数据'), findsOneWidget);
     expect(find.text('删除账号'), findsOneWidget);
     expect(find.text('清空本地数据'), findsOneWidget);
-    expect(find.text('危险操作需要二次确认'), findsOneWidget);
+    expect(find.text('危险操作需要二次确认'), findsNothing);
   });
 
   testWidgets('点击导出数据会弹出确认对话框', (tester) async {

@@ -76,11 +76,6 @@ class PrivacyDataPage extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(height: 18),
-                _DangerCard(
-                  title: l10n.privacyDataDangerCardTitle,
-                  description: l10n.privacyDataDangerCardDescription,
-                ),
               ],
             ),
           ),
@@ -221,52 +216,3 @@ class _ActionTile extends StatelessWidget {
   }
 }
 
-/// 渲染危险操作提示卡，避免二级页重复拼装警示样式。
-class _DangerCard extends StatelessWidget {
-  /// 创建危险提示卡。
-  const _DangerCard({required this.title, required this.description});
-
-  /// 提示标题。
-  final String title;
-
-  /// 提示说明。
-  final String description;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: const Color(0xFFF4DED7),
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: const [
-          BoxShadow(
-            color: Color(0x0F000000),
-            blurRadius: 18,
-            offset: Offset(0, 6),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            title,
-            style: Theme.of(
-              context,
-            ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            description,
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              color: Theme.of(context).colorScheme.onSurfaceVariant,
-              height: 1.4,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
