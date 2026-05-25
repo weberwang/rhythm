@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../features/goal_schedule/presentation/goal_setup_page.dart';
+import '../../features/onboarding/presentation/onboarding_flow_page.dart';
+import '../../features/sleep_records/presentation/manual_sleep_record_page.dart';
+import '../../features/today/application/today_controller.dart';
 
 /// Rhythm 的一级模块定义，集中管理底部导航文案、图标和路由路径。
 enum RhythmTab {
@@ -22,10 +28,20 @@ enum RhythmTab {
 }
 
 /// 创建 App 路由，保持导航规则和 UI 入口解耦。
-GoRouter createAppRouter() {
+GoRouter createAppRouter({required bool hasCompletedOnboarding}) {
   return GoRouter(
-    initialLocation: RhythmTab.today.path,
+    initialLocation: hasCompletedOnboarding
+        ? RhythmTab.today.path
+        : '/onboarding',
     routes: [
+      GoRoute(
+        path: '/onboarding',
+        builder: (context, state) => const OnboardingFlowPage(),
+      ),
+      GoRoute(
+        path: '/goal-setup',
+        builder: (context, state) => const GoalSetupPage(),
+      ),
       GoRoute(
         path: RhythmTab.today.path,
         builder: (context, state) => const RhythmShell(
@@ -107,14 +123,15 @@ class RhythmShell extends StatelessWidget {
   }
 }
 
-/// 今日模块入口页，先放置核心价值文案，后续再接入真实作息数据。
-class TodayModulePage extends StatelessWidget {
+/// 今日模块入口页，先承接目标、摘要和快捷行动，逐步扩展为完整今日面板。
+class TodayModulePage extends ConsumerWidget {
   const TodayModulePage({super.key});
 
   /// 渲染今日页的首屏骨架。
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final textTheme = Theme.of(context).textTheme;
+    final summary = ref.watch(todaySummaryProvider);
 
     return Padding(
       padding: const EdgeInsets.all(24),
@@ -132,8 +149,26 @@ class TodayModulePage extends StatelessWidget {
                   Text('今晚先轻一点', style: textTheme.titleLarge),
                   const SizedBox(height: 8),
                   const Text('设置目标作息后，这里会展示昨晚结果和今晚行动。'),
+                  if (summary.latestRecordLabel != null) ...[
+                    const SizedBox(height: 12),
+                    Text(summary.latestRecordLabel!),
+                  ],
                 ],
               ),
+            ),
+          ),
+          const SizedBox(height: 16),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: OutlinedButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute<void>(
+                    builder: (_) => const ManualSleepRecordPage(),
+                  ),
+                );
+              },
+              child: const Text('手动补录'),
             ),
           ),
         ],
