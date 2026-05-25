@@ -162,3 +162,37 @@ Describe 'Resolve-NewAndroidDeviceAfterLaunch' {
         $resolved.Name | Should Be 'sdk gphone64 x86 64'
     }
 }
+
+Describe 'Remove-CorruptedFlutterApkIfExists' {
+    It '当 app-debug.apk 是损坏压缩包时会自动删除' {
+        $tempDir = Join-Path ([System.IO.Path]::GetTempPath()) ([System.Guid]::NewGuid().ToString())
+        $apkDir = Join-Path $tempDir 'build\app\outputs\flutter-apk'
+        $apkPath = Join-Path $apkDir 'app-debug.apk'
+        New-Item -ItemType Directory -Force -Path $apkDir | Out-Null
+        Set-Content -Path $apkPath -Value 'not-a-valid-apk'
+
+        try {
+            $removed = Remove-CorruptedFlutterApkIfExists -ProjectRoot $tempDir
+
+            $removed | Should Be $true
+            Test-Path $apkPath | Should Be $false
+        }
+        finally {
+            Remove-Item -LiteralPath $tempDir -Recurse -Force -ErrorAction SilentlyContinue
+        }
+    }
+
+    It '当 app-debug.apk 不存在时不报错也不删除' {
+        $tempDir = Join-Path ([System.IO.Path]::GetTempPath()) ([System.Guid]::NewGuid().ToString())
+        New-Item -ItemType Directory -Force -Path $tempDir | Out-Null
+
+        try {
+            $removed = Remove-CorruptedFlutterApkIfExists -ProjectRoot $tempDir
+
+            $removed | Should Be $false
+        }
+        finally {
+            Remove-Item -LiteralPath $tempDir -Recurse -Force -ErrorAction SilentlyContinue
+        }
+    }
+}

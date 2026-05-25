@@ -166,6 +166,51 @@ function Invoke-FlutterCommand {
     }
 }
 
+function Test-ZipArchiveIntegrity {
+    <#
+    .SYNOPSIS
+    使用 .NET 压缩库快速验证 APK 是否仍是可读取的 ZIP 包。
+    #>
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$Path
+    )
+
+    Add-Type -AssemblyName System.IO.Compression.FileSystem
+    try {
+        $zip = [System.IO.Compression.ZipFile]::OpenRead($Path)
+        $zip.Dispose()
+        return $true
+    }
+    catch {
+        return $false
+    }
+}
+
+function Remove-CorruptedFlutterApkIfExists {
+    <#
+    .SYNOPSIS
+    当上一次构建中断留下损坏 APK 时，提前删除，避免 flutter run 误读旧坏包。
+    #>
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$ProjectRoot
+    )
+
+    $apkPath = Join-Path $ProjectRoot 'build\app\outputs\flutter-apk\app-debug.apk'
+    if (-not (Test-Path $apkPath)) {
+        return $false
+    }
+
+    if (Test-ZipArchiveIntegrity -Path $apkPath) {
+        return $false
+    }
+
+    Write-Host "检测到损坏的旧 APK，已删除：$apkPath" -ForegroundColor Yellow
+    Remove-Item -LiteralPath $apkPath -Force
+    return $true
+}
+
 function Get-AndroidDevices {
     <#
     .SYNOPSIS
@@ -466,6 +511,8 @@ function Start-AndroidDebugSession {
         Write-Host '执行 flutter pub get...' -ForegroundColor Cyan
         Invoke-FlutterCommand -Arguments @('pub', 'get')
     }
+
+    Remove-CorruptedFlutterApkIfExists -ProjectRoot (Get-Location).Path | Out-Null
 
     $device = Resolve-TargetAndroidDevice -TimeoutSeconds $TimeoutSeconds
     Write-Host "开始在设备 [$($device.Name)] 上执行 flutter run..." -ForegroundColor Green

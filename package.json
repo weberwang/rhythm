@@ -1,0 +1,15 @@
+{
+  "name": "rhythm-tooling",
+  "private": true,
+  "description": "Workspace tooling for stable GitNexus execution in this repo.",
+  "devDependencies": {
+    "gitnexus": "1.6.5",
+    "tree-sitter-dart": "1.0.0",
+    "tree-sitter-kotlin": "0.3.8"
+  },
+  "scripts": {
+    "gitnexus:analyze": "gitnexus analyze",
+    "gitnexus:status": "gitnexus status",
+    "gitnexus:rebuild-dart-parser": "scripts\\rebuild-tree-sitter-dart.cmd"
+  }
+}
