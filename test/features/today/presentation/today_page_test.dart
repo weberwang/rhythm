@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:rhythm/app/theme/app_theme.dart';
 import 'package:rhythm/features/today/application/today_controller.dart';
 import 'package:rhythm/features/today/application/today_view_state.dart';
 import 'package:rhythm/features/today/domain/today_primary_action.dart';
@@ -15,11 +16,16 @@ void main() {
     required TodayViewState state,
     Locale locale = const Locale('zh'),
   }) async {
+    tester.view.physicalSize = const Size(430, 932);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.reset);
+
     await tester.pumpWidget(
       ProviderScope(
         overrides: [todayControllerProvider.overrideWith((ref) async => state)],
         child: MaterialApp(
           locale: locale,
+          theme: AppTheme.light(),
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
           home: const Scaffold(body: TodayPage()),
@@ -43,6 +49,51 @@ void main() {
     expect(find.text('今晚行动'), findsOneWidget);
     expect(find.text('快捷记录'), findsOneWidget);
     expect(find.text('最近 7 天'), findsOneWidget);
+  });
+
+  testWidgets('ready 状态将昨晚结果与今晚行动合并到同一张主卡', (tester) async {
+    await pumpPage(
+      tester,
+      state: TodayViewState(
+        status: TodayViewStatus.ready,
+        prioritizeRecoveryCard: false,
+        summary: _buildSummary(),
+      ),
+    );
+
+    final statusCard = find.ancestor(
+      of: find.text('昨晚结果'),
+      matching: find.byType(Card),
+    );
+    final actionCard = find.ancestor(
+      of: find.text('今晚行动'),
+      matching: find.byType(Card),
+    );
+
+    expect(statusCard, findsOneWidget);
+    expect(actionCard, findsOneWidget);
+    expect(
+      statusCard.evaluate().single.widget,
+      same(actionCard.evaluate().single.widget),
+    );
+  });
+
+  testWidgets('ready 状态主卡拉满页面内容宽度', (tester) async {
+    await pumpPage(
+      tester,
+      state: TodayViewState(
+        status: TodayViewStatus.ready,
+        prioritizeRecoveryCard: false,
+        summary: _buildSummary(),
+      ),
+    );
+
+    final statusCard = find.ancestor(
+      of: find.text('昨晚结果'),
+      matching: find.byType(Card),
+    );
+
+    expect(tester.getSize(statusCard).width, moreOrLessEquals(382, epsilon: 1));
   });
 
   testWidgets('empty 状态显示手动补录空态', (tester) async {

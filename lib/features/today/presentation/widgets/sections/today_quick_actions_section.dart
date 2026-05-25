@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rhythm/core/presentation/widgets/rhythm_secondary_button.dart';
 import 'package:rhythm/l10n/app_localizations.dart';
 
 /// 渲染今日页快捷记录卡，提供补录、修改和管理入口。
@@ -27,30 +28,57 @@ class TodayQuickActionsSection extends StatelessWidget {
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(l10n.todayQuickActionsTitle),
-            const SizedBox(height: 12),
-            Wrap(
-              spacing: 8,
-              runSpacing: 8,
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            final useSingleColumn = constraints.maxWidth < 360;
+
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                OutlinedButton(
-                  onPressed: onManualRecord,
-                  child: Text(l10n.todayQuickActionManualButton),
-                ),
-                OutlinedButton(
-                  onPressed: onEditRecord,
-                  child: Text(l10n.todayQuickActionEditButton),
-                ),
-                OutlinedButton(
-                  onPressed: onOpenRecordsHub,
-                  child: Text(l10n.todayQuickActionOpenHubButton),
-                ),
+                Text(l10n.todayQuickActionsTitle),
+                const SizedBox(height: 16),
+                if (useSingleColumn) ...[
+                  RhythmSecondaryButton(
+                    label: l10n.todayQuickActionManualButton,
+                    onPressed: onManualRecord,
+                  ),
+                  const SizedBox(height: 12),
+                  RhythmSecondaryButton(
+                    label: l10n.todayQuickActionEditButton,
+                    onPressed: onEditRecord,
+                  ),
+                  const SizedBox(height: 12),
+                  RhythmSecondaryButton(
+                    label: l10n.todayQuickActionOpenHubButton,
+                    onPressed: onOpenRecordsHub,
+                  ),
+                ] else ...[
+                  Row(
+                    children: [
+                      Expanded(
+                        child: RhythmSecondaryButton(
+                          label: l10n.todayQuickActionManualButton,
+                          onPressed: onManualRecord,
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: RhythmSecondaryButton(
+                          label: l10n.todayQuickActionEditButton,
+                          onPressed: onEditRecord,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 12),
+                  RhythmSecondaryButton(
+                    label: l10n.todayQuickActionOpenHubButton,
+                    onPressed: onOpenRecordsHub,
+                  ),
+                ],
               ],
-            ),
-          ],
+            );
+          },
         ),
       ),
     );

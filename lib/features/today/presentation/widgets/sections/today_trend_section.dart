@@ -30,6 +30,7 @@ class TodayTrendSection extends StatelessWidget {
                         alignment: BarChartAlignment.spaceAround,
                         titlesData: const FlTitlesData(
                           leftTitles: AxisTitles(),
+                          bottomTitles: AxisTitles(),
                           topTitles: AxisTitles(),
                           rightTitles: AxisTitles(),
                         ),

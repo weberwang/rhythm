@@ -3,15 +3,15 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rhythm/app/router/app_router.dart';
+import 'package:rhythm/app/router/secondary_navigation.dart';
 import 'package:rhythm/l10n/app_localizations.dart';
 
 import '../application/today_controller.dart';
 import '../application/today_view_state.dart';
 import '../domain/today_primary_action.dart';
-import 'widgets/sections/today_action_section.dart';
+import 'widgets/sections/today_overview_section.dart';
 import 'widgets/sections/today_quick_actions_section.dart';
 import 'widgets/sections/today_recovery_section.dart';
-import 'widgets/sections/today_status_section.dart';
 import 'widgets/sections/today_trend_section.dart';
 import 'widgets/states/today_empty_state.dart';
 
@@ -38,7 +38,8 @@ class TodayPage extends HookConsumerWidget {
           textTheme: textTheme,
           state: state,
           l10n: l10n,
-          onOpenGoalSetup: () => context.go(onboardingGoalSetupPath),
+          // 目标设置页属于二级设置页，需要保留来源页返回栈。
+          onOpenGoalSetup: () => context.pushSecondary(onboardingGoalSetupPath),
           onOpenPermissionHelp: () => context.go(sleepRecordsHubPath),
           onManualRecord: () => context.go(manualSleepRecordPath),
           onOpenBedtime: () => context.go(RhythmTab.bedtime.path),
@@ -62,6 +63,7 @@ class TodayPage extends HookConsumerWidget {
               child: TodayEmptyState(
                 title: l10n.todayPermissionFailedTitle,
                 primaryAction: todayPrimaryActionPlaceholderPermission,
+                onPressed: () => context.go(sleepRecordsHubPath),
               ),
             ),
           ],
@@ -118,16 +120,19 @@ class _TodayPageBody extends StatelessWidget {
         return TodayEmptyState(
           title: l10n.todayGoalMissingTitle,
           primaryAction: todayPrimaryActionPlaceholderGoalSetup,
+          onPressed: onOpenGoalSetup,
         );
       case TodayViewStatus.permissionFailed:
         return TodayEmptyState(
           title: l10n.todayPermissionFailedTitle,
           primaryAction: todayPrimaryActionPlaceholderPermission,
+          onPressed: onOpenPermissionHelp,
         );
       case TodayViewStatus.empty:
         return TodayEmptyState(
           title: l10n.todayEmptyTitle,
           primaryAction: todayPrimaryActionPlaceholderManual,
+          onPressed: onManualRecord,
         );
       case TodayViewStatus.ready:
         final summary = state.summary!;
@@ -140,13 +145,11 @@ class _TodayPageBody extends StatelessWidget {
         };
         return SingleChildScrollView(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            // 用 stretch 固定所有内容卡片宽度，避免页面在轻量状态下按文本收缩。
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              TodayStatusSection(summary: summary),
-              const SizedBox(height: 12),
-              TodayActionSection(
-                primaryAction: summary.primaryAction,
-                targetBedtimeMinutes: summary.targetBedtimeMinutes,
+              TodayOverviewSection(
+                summary: summary,
                 onPressed: primaryActionHandler,
               ),
               if (state.prioritizeRecoveryCard) ...[

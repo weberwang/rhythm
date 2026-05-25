@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:rhythm/core/presentation/widgets/rhythm_primary_button.dart';
 import 'package:rhythm/features/today/domain/today_primary_action.dart';
 import 'package:rhythm/l10n/app_localizations.dart';
 
-/// 渲染今日页行动卡，统一承载首屏主按钮。
+/// 渲染今日页行动摘要，统一承载首屏主按钮与今晚目标时间。
 class TodayActionSection extends StatelessWidget {
-  /// 创建行动卡。
+  /// 创建行动摘要。
   const TodayActionSection({
     super.key,
     required this.primaryAction,
@@ -24,23 +25,27 @@ class TodayActionSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(l10n.todayActionSectionTitle),
-            const SizedBox(height: 12),
-            Text(_formatTargetBedtime(targetBedtimeMinutes, l10n)),
-            const SizedBox(height: 12),
-            FilledButton(
-              onPressed: onPressed,
-              child: Text(_labelForAction(primaryAction, l10n)),
-            ),
-          ],
+    final textTheme = Theme.of(context).textTheme;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          l10n.todayActionSectionTitle,
+          style: textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700),
         ),
-      ),
+        const SizedBox(height: 10),
+        Text(
+          _formatTargetBedtime(targetBedtimeMinutes, l10n),
+          style: textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w600),
+        ),
+        const SizedBox(height: 16),
+        // 主行动固定拉满宽度，避免长文案和状态切换导致按钮宽度抖动。
+        RhythmPrimaryButton(
+          label: _labelForAction(primaryAction, l10n),
+          onPressed: onPressed,
+        ),
+      ],
     );
   }
 
