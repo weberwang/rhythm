@@ -8,6 +8,15 @@
 
 **Tech Stack:** Flutter, hooks_riverpod, flutter_riverpod, go_router, intl, flutter_test
 
+## 完成结论
+
+- [x] **阶段七功能已完成并已在仓库中落地**
+
+复核说明：
+- 主要实现已包含在提交 `250dadd`（`feat: implement remaining rhythm workspace changes`）中。
+- 2026-05-25 复核通过 `flutter gen-l10n`、`flutter test test/features/insights -r expanded`、`flutter test -r expanded`。
+- GitNexus `detect_changes(compare)` 结果为 `low` 风险，本次阶段七相关变更已集中落在 `insights`、`router`、`l10n` 与对应测试范围。
+
 ---
 
 ## 文件结构
@@ -73,14 +82,14 @@
 **Files:**
 - Modify: `docs/rhythm-remaining-stages-parallel-implementation-plan-2026-05-24.md`
 
-- [ ] **Step 1: 明确周报窗口和样本下限**
+- [x] **Step 1: 明确周报窗口和样本下限**
 
 锁定：
 - 最近 7 天窗口
 - 少于 3 天有效记录不生成正式周报
 - 原因分布只统计用户确认标签
 
-- [ ] **Step 2: 明确恢复计划边界**
+- [x] **Step 2: 明确恢复计划边界**
 
 锁定：
 - 只做 1-3 天规则建议
@@ -97,7 +106,7 @@
 - Create: `lib/features/insights/domain/reason_distribution_rules.dart`
 - Create: `test/features/insights/weekly_report_generator_test.dart`
 
-- [ ] **Step 1: 写失败测试**
+- [x] **Step 1: 写失败测试**
 
 ```dart
 test('最近 7 天内至少 3 天有效记录时生成周报', () {
@@ -107,18 +116,18 @@ test('最近 7 天内至少 3 天有效记录时生成周报', () {
 });
 ```
 
-- [ ] **Step 2: 运行测试**
+- [x] **Step 2: 运行测试**
 
 Run: `flutter test test/features/insights/weekly_report_generator_test.dart -r expanded`
 Expected: FAIL
 
-- [ ] **Step 3: 实现最小规则**
+- [x] **Step 3: 实现最小规则**
 
 要求：
 - 只消费有效记录、目标作息和标签
 - 输出达标率、最晚入睡日、主要原因、下周建议
 
-- [ ] **Step 4: 再跑测试**
+- [x] **Step 4: 再跑测试**
 
 Run: 同上
 Expected: PASS
@@ -134,7 +143,7 @@ Expected: PASS
 - Create: `test/features/insights/stability_score_rules_test.dart`
 - Create: `test/features/insights/recovery_plan_rules_test.dart`
 
-- [ ] **Step 1: 写失败测试，锁定稳定度四种分支**
+- [x] **Step 1: 写失败测试，锁定稳定度四种分支**
 
 ```dart
 test('样本不足时返回数据不足说明', () {
@@ -143,7 +152,7 @@ test('样本不足时返回数据不足说明', () {
 });
 ```
 
-- [ ] **Step 2: 写失败测试，锁定恢复计划触发与成功口径**
+- [x] **Step 2: 写失败测试，锁定恢复计划触发与成功口径**
 
 ```dart
 test('明显晚睡后会生成 1 到 3 天恢复计划', () {
@@ -152,7 +161,7 @@ test('明显晚睡后会生成 1 到 3 天恢复计划', () {
 });
 ```
 
-- [ ] **Step 3: 运行规则测试**
+- [x] **Step 3: 运行规则测试**
 
 Run:
 
@@ -162,7 +171,7 @@ flutter test test/features/insights/stability_score_rules_test.dart test/feature
 
 Expected: FAIL
 
-- [ ] **Step 4: 实现最小规则并再跑测试**
+- [x] **Step 4: 实现最小规则并再跑测试**
 
 Expected: PASS
 
@@ -175,7 +184,7 @@ Expected: PASS
 - Create: `lib/features/insights/application/insights_controller.dart`
 - Create: `test/features/insights/insights_controller_test.dart`
 
-- [ ] **Step 1: 写失败测试**
+- [x] **Step 1: 写失败测试**
 
 ```dart
 test('无有效记录时输出 empty 状态', () async {
@@ -184,18 +193,18 @@ test('无有效记录时输出 empty 状态', () async {
 });
 ```
 
-- [ ] **Step 2: 运行测试**
+- [x] **Step 2: 运行测试**
 
 Run: `flutter test test/features/insights/insights_controller_test.dart -r expanded`
 Expected: FAIL
 
-- [ ] **Step 3: 实现最小控制器**
+- [x] **Step 3: 实现最小控制器**
 
 要求：
 - 只输出 `InsightsViewState`
 - 不在页面层重算达标率、稳定度和恢复计划
 
-- [ ] **Step 4: 再跑测试**
+- [x] **Step 4: 再跑测试**
 
 Expected: PASS
 
@@ -207,9 +216,9 @@ Expected: PASS
 - Create: `lib/features/insights/presentation/*`
 - Create: `test/features/insights/presentation/insights_page_test.dart`
 
-- [ ] **Step 1: 用 Pencil MCP 复核 `uZblo`、`LvFOz`、`yHfEL`、`Q2xhiP`、`ZQBCz`**
+- [x] **Step 1: 用 Pencil MCP 复核 `uZblo`、`LvFOz`、`yHfEL`、`Q2xhiP`、`ZQBCz`**
 
-- [ ] **Step 2: 写失败测试，锁定首页在 ready 状态展示四个核心区块**
+- [x] **Step 2: 写失败测试，锁定首页在 ready 状态展示四个核心区块**
 
 ```dart
 testWidgets('洞察首页 ready 状态展示周报摘要、稳定度、原因分布和恢复效果', (tester) async {
@@ -218,14 +227,14 @@ testWidgets('洞察首页 ready 状态展示周报摘要、稳定度、原因分
 });
 ```
 
-- [ ] **Step 3: 运行页面测试**
+- [x] **Step 3: 运行页面测试**
 
 Run: `flutter test test/features/insights/presentation/insights_page_test.dart -r expanded`
 Expected: FAIL
 
-- [ ] **Step 4: 实现页面与弹层**
+- [x] **Step 4: 实现页面与弹层**
 
-- [ ] **Step 5: 再跑页面测试**
+- [x] **Step 5: 再跑页面测试**
 
 Expected: PASS
 
@@ -238,12 +247,12 @@ Expected: PASS
 - Modify: `lib/l10n/app_en.arb`
 - Modify: `lib/l10n/app_zh.arb`
 
-- [ ] **Step 1: 补文案并生成本地化**
+- [x] **Step 1: 补文案并生成本地化**
 
 Run: `flutter gen-l10n`
 Expected: PASS
 
-- [ ] **Step 2: 跑阶段七专项测试**
+- [x] **Step 2: 跑阶段七专项测试**
 
 Run:
 
@@ -253,12 +262,12 @@ flutter test test/features/insights -r expanded
 
 Expected: PASS
 
-- [ ] **Step 3: 跑全量测试**
+- [x] **Step 3: 跑全量测试**
 
 Run: `flutter test`
 Expected: PASS
 
-- [ ] **Step 4: 运行变更检测并提交**
+- [x] **Step 4: 运行变更检测并提交**
 
 Run: `npx gitnexus detect_changes`
 Expected: 影响范围集中在 `insights`、`router`、`l10n` 和对应测试
