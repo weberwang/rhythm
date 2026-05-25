@@ -271,6 +271,11 @@ class _FakeSleepRecordSyncController extends SleepRecordSyncController {
 /// 提供同步摘要测试用空仓储，避免页面装配依赖真实数据。
 class _NoopSleepRecordRepository implements SleepRecordRepository {
   @override
+  Future<List<SleepRecord>> readAllRecords() async {
+    return const <SleepRecord>[];
+  }
+
+  @override
   Future<SleepRecord?> readRecordById(String id) async => null;
 
   @override

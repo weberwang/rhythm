@@ -1010,6 +1010,18 @@ class AppLocalizationsZh extends AppLocalizations {
   String get accountSyncViewAccountButton => '查看账号状态';
 
   @override
+  String get accountSyncCloudIdentityPendingTitle => '云端同步身份尚未建立';
+
+  @override
+  String get accountSyncCloudIdentityReadyTitle => '已建立云端同步身份';
+
+  @override
+  String get accountSyncCloudIdentityPendingButton => '建立云端同步身份';
+
+  @override
+  String get accountSyncCloudIdentityReadyButton => '云端同步身份已就绪';
+
+  @override
   String get accountSyncLocalOnlyDescription => '当前环境保持本地优先模式，未触发云端同步。';
 
   @override
@@ -1020,7 +1032,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get accountSyncFailedDescription => '最近一次云端同步失败了，你可以稍后重试，同时继续使用本地数据。';
 
   @override
-  String get accountSyncSyncedDescription => '最近一次云端同步已完成，目标、记录和标签保持一致。';
+  String get accountSyncSyncedDescription => '已启用云端同步';
 
   @override
   String get accountSyncRetryButton => '重试同步';

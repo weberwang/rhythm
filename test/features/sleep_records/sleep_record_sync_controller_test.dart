@@ -137,6 +137,11 @@ class _FakeSleepRecordRepository implements SleepRecordRepository {
   final List<SleepRecord> savedRecords = <SleepRecord>[];
 
   @override
+  Future<List<SleepRecord>> readAllRecords() async {
+    return savedRecords;
+  }
+
+  @override
   Future<List<SleepRecord>> readRecords({
     required DateTime startRecordDate,
     required DateTime endRecordDate,

@@ -105,18 +105,19 @@ class AccountSyncPage extends HookConsumerWidget {
     );
   }
 
-  /// 账号页的身份卡需要根据登录态和可恢复能力切换文案，这里集中处理避免页面散落条件分支。
+  /// 账号页的身份卡需要围绕云端同步身份表达，而不是第三方登录入口状态。
   String _identityTitle(AppLocalizations l10n, AccountSyncViewState state) {
     final email = state.email;
     if (email != null && email.isNotEmpty) {
       return email;
     }
     if (state.hasLinkedAccount) {
-      return l10n.accountSyncIdentityLinkedFallbackTitle;
+      return l10n.accountSyncCloudIdentityReadyTitle;
     }
-    return l10n.accountSyncIdentityAnonymousTitle;
+    return l10n.accountSyncCloudIdentityPendingTitle;
   }
 
+  /// 身份说明围绕“是否已建立匿名云身份”切换，避免继续暴露 Apple 绑定语义。
   String _identityDescription(
     AppLocalizations l10n,
     AccountSyncViewState state,
@@ -132,13 +133,14 @@ class AccountSyncPage extends HookConsumerWidget {
     return l10n.accountSyncIdentityAnonymousDescription;
   }
 
+  /// 主按钮语义切到云端身份是否就绪，不再暗示 Apple 账号绑定入口已可用。
   String _primaryActionLabel(
     AppLocalizations l10n,
     AccountSyncViewState state,
   ) {
     return state.hasLinkedAccount
-        ? l10n.accountSyncViewAccountButton
-        : l10n.accountSyncBindAppleButton;
+        ? l10n.accountSyncCloudIdentityReadyButton
+        : l10n.accountSyncCloudIdentityPendingButton;
   }
 
   String _syncDescription(AppLocalizations l10n, AccountSyncViewState state) {

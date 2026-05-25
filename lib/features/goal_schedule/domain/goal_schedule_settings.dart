@@ -6,6 +6,7 @@ class GoalScheduleSettings {
     required this.targetWakeMinutes,
     required this.lateThresholdMinutes,
     required this.dayStartMinutes,
+    this.updatedAt,
   });
 
   /// 目标入睡时间，使用分钟表达，避免页面重复换算。
@@ -20,6 +21,9 @@ class GoalScheduleSettings {
   /// 一天起始时间，供跨午夜统计口径复用。
   final int dayStartMinutes;
 
+  /// 最近一次更新的 UTC 时间戳，供云端同步做新旧判断。
+  final DateTime? updatedAt;
+
   /// 将设置序列化为持久化键值对。
   Map<String, int> toPreferenceMap() {
     return <String, int>{
@@ -28,6 +32,26 @@ class GoalScheduleSettings {
       'late_threshold_minutes': lateThresholdMinutes,
       'day_start_minutes': dayStartMinutes,
     };
+  }
+
+  /// 基于当前对象生成带局部变更的新实例，避免同步链路手写样板复制。
+  GoalScheduleSettings copyWith({
+    int? targetBedtimeMinutes,
+    int? targetWakeMinutes,
+    int? lateThresholdMinutes,
+    int? dayStartMinutes,
+    DateTime? updatedAt,
+    bool clearUpdatedAt = false,
+  }) {
+    return GoalScheduleSettings(
+      targetBedtimeMinutes:
+          targetBedtimeMinutes ?? this.targetBedtimeMinutes,
+      targetWakeMinutes: targetWakeMinutes ?? this.targetWakeMinutes,
+      lateThresholdMinutes:
+          lateThresholdMinutes ?? this.lateThresholdMinutes,
+      dayStartMinutes: dayStartMinutes ?? this.dayStartMinutes,
+      updatedAt: clearUpdatedAt ? null : updatedAt ?? this.updatedAt,
+    );
   }
 
   /// 从持久化值恢复目标作息设置；若任一核心字段缺失，则视为未完成保存。
@@ -61,7 +85,8 @@ class GoalScheduleSettings {
         targetBedtimeMinutes == other.targetBedtimeMinutes &&
         targetWakeMinutes == other.targetWakeMinutes &&
         lateThresholdMinutes == other.lateThresholdMinutes &&
-        dayStartMinutes == other.dayStartMinutes;
+        dayStartMinutes == other.dayStartMinutes &&
+        updatedAt == other.updatedAt;
   }
 
   @override
@@ -70,5 +95,6 @@ class GoalScheduleSettings {
         targetWakeMinutes,
         lateThresholdMinutes,
         dayStartMinutes,
+        updatedAt,
       );
 }

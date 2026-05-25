@@ -13,4 +13,7 @@ abstract class SleepRecordRepository {
     required DateTime startRecordDate,
     required DateTime endRecordDate,
   });
+
+  /// 读取当前本地全部睡眠记录快照，供同步链路做全量对账。
+  Future<List<SleepRecord>> readAllRecords();
 }

@@ -5,7 +5,7 @@ import 'package:rhythm/features/sync/application/account_sync_controller.dart';
 import 'package:rhythm/features/sync/presentation/account_sync_page.dart';
 import 'package:rhythm/l10n/app_localizations.dart';
 
-/// 验证账号与同步页会按控制器状态展示身份、同步摘要和重试入口。
+/// 验证账号同步页会按真实云身份状态展示文案与重试入口。
 void main() {
   Future<void> pumpAccountSyncPage(
     WidgetTester tester, {
@@ -30,7 +30,22 @@ void main() {
     await tester.pumpAndSettle();
   }
 
-  testWidgets('未登录状态展示匿名身份和绑定账号入口', (tester) async {
+  testWidgets('匿名云身份已建立时展示云端同步身份文案', (tester) async {
+    await pumpAccountSyncPage(
+      tester,
+      state: const AccountSyncViewState(
+        status: AccountSyncStatus.synced,
+        hasLinkedAccount: true,
+        email: null,
+      ),
+    );
+
+    expect(find.text('已建立云端同步身份'), findsOneWidget);
+    expect(find.text('已启用云端同步'), findsOneWidget);
+    expect(find.text('云端同步身份已就绪'), findsOneWidget);
+  });
+
+  testWidgets('未建立云身份时展示待建立文案', (tester) async {
     await pumpAccountSyncPage(
       tester,
       state: const AccountSyncViewState(
@@ -39,8 +54,8 @@ void main() {
       ),
     );
 
-    expect(find.text('匿名用户'), findsOneWidget);
-    expect(find.text('绑定 Apple 账号'), findsOneWidget);
+    expect(find.text('云端同步身份尚未建立'), findsOneWidget);
+    expect(find.text('建立云端同步身份'), findsOneWidget);
     expect(find.text('同步状态'), findsOneWidget);
   });
 
@@ -71,7 +86,7 @@ void main() {
     );
 
     expect(find.textContaining('07:42'), findsOneWidget);
-    expect(find.text('最近一次云端同步已完成，目标、记录和标签保持一致。'), findsOneWidget);
+    expect(find.text('已启用云端同步'), findsOneWidget);
   });
 }
 

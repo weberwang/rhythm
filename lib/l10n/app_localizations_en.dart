@@ -1085,6 +1085,22 @@ class AppLocalizationsEn extends AppLocalizations {
   String get accountSyncViewAccountButton => 'View account status';
 
   @override
+  String get accountSyncCloudIdentityPendingTitle =>
+      'Cloud sync identity is not ready yet';
+
+  @override
+  String get accountSyncCloudIdentityReadyTitle =>
+      'Cloud sync identity is ready';
+
+  @override
+  String get accountSyncCloudIdentityPendingButton =>
+      'Create cloud sync identity';
+
+  @override
+  String get accountSyncCloudIdentityReadyButton =>
+      'Cloud sync identity is ready';
+
+  @override
   String get accountSyncLocalOnlyDescription =>
       'This build is staying in local-first mode right now, so no cloud sync has been triggered.';
 
@@ -1097,8 +1113,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'The latest cloud sync failed. You can retry later and keep using local data for now.';
 
   @override
-  String get accountSyncSyncedDescription =>
-      'The latest cloud sync completed, so goals, records, and tags are now aligned.';
+  String get accountSyncSyncedDescription => 'Cloud sync is enabled';
 
   @override
   String get accountSyncRetryButton => 'Retry sync';

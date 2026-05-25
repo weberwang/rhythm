@@ -74,6 +74,17 @@ class DriftSleepRecordRepository
   }
 
   @override
+  Future<List<SleepRecord>> readAllRecords() async {
+    final rows = await (_database.select(_database.sleepRecords)
+          ..orderBy([
+            (table) => OrderingTerm.asc(table.recordDate),
+            (table) => OrderingTerm.desc(table.updatedAt),
+          ]))
+        .get();
+    return rows.map(_toDomain).toList(growable: false);
+  }
+
+  @override
   Future<List<EffectiveSleepRecord>> readEffectiveRecords({
     required DateTime startRecordDate,
     required DateTime endRecordDate,
@@ -94,6 +105,7 @@ class DriftSleepRecordRepository
     }
   }
 
+  /// 把数据库行规范化为领域模型，确保同步比较统一使用 UTC 时间。
   SleepRecord _toDomain(SleepRecordEntry row) {
     return SleepRecord(
       id: row.id,

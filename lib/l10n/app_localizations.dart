@@ -1994,6 +1994,30 @@ abstract class AppLocalizations {
   /// **'View account status'**
   String get accountSyncViewAccountButton;
 
+  /// No description provided for @accountSyncCloudIdentityPendingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Cloud sync identity is not ready yet'**
+  String get accountSyncCloudIdentityPendingTitle;
+
+  /// No description provided for @accountSyncCloudIdentityReadyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Cloud sync identity is ready'**
+  String get accountSyncCloudIdentityReadyTitle;
+
+  /// No description provided for @accountSyncCloudIdentityPendingButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Create cloud sync identity'**
+  String get accountSyncCloudIdentityPendingButton;
+
+  /// No description provided for @accountSyncCloudIdentityReadyButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Cloud sync identity is ready'**
+  String get accountSyncCloudIdentityReadyButton;
+
   /// No description provided for @accountSyncLocalOnlyDescription.
   ///
   /// In en, this message translates to:
@@ -2015,7 +2039,7 @@ abstract class AppLocalizations {
   /// No description provided for @accountSyncSyncedDescription.
   ///
   /// In en, this message translates to:
-  /// **'The latest cloud sync completed, so goals, records, and tags are now aligned.'**
+  /// **'Cloud sync is enabled'**
   String get accountSyncSyncedDescription;
 
   /// No description provided for @accountSyncRetryButton.

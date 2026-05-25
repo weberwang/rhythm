@@ -12,10 +12,10 @@ final accountSyncControllerProvider =
 
 /// 标记账号与同步页当前所处的主状态，供显示层切换卡片文案与操作入口。
 enum AccountSyncStatus {
-  /// 当前保持本地优先模式，没有进入远端同步。
+  /// 当前保持本地优先模式，尚未启用正式云同步。
   localOnly,
 
-  /// 当前需要先登录账号，才能开始多端同步。
+  /// 当前云身份还未建立完成，暂不能执行正式同步。
   signInRequired,
 
   /// 最近一次同步失败，允许用户手动重试。
@@ -38,7 +38,7 @@ class AccountSyncViewState {
   /// 页面当前主状态。
   final AccountSyncStatus status;
 
-  /// 当前设备是否已经绑定可恢复的远端账号。
+  /// 当前设备是否已经建立可恢复的云端同步身份。
   final bool hasLinkedAccount;
 
   /// 若当前账号可读出邮箱，则提供给显示层直接展示。
@@ -65,16 +65,23 @@ class AccountSyncController extends AsyncNotifier<AccountSyncViewState> {
 
   /// 应用层只保留状态与账号字段，最终文案交由显示层按语言环境解析。
   AccountSyncViewState _fromSummary(SyncRunSummary summary) {
+    if (!summary.configured) {
+      return const AccountSyncViewState(
+        status: AccountSyncStatus.localOnly,
+        hasLinkedAccount: false,
+      );
+    }
+
     if (summary.hadFailure) {
       return AccountSyncViewState(
         status: AccountSyncStatus.failed,
-        hasLinkedAccount: summary.signedIn || summary.email != null,
+        hasLinkedAccount: summary.signedIn,
         email: summary.email,
         lastSyncedAt: summary.lastSyncedAt,
       );
     }
 
-    if (summary.requiresSignIn) {
+    if (!summary.signedIn) {
       return AccountSyncViewState(
         status: AccountSyncStatus.signInRequired,
         hasLinkedAccount: false,
@@ -83,10 +90,10 @@ class AccountSyncController extends AsyncNotifier<AccountSyncViewState> {
       );
     }
 
-    if (summary.localOnly) {
+    if (!summary.supportsRemoteSync) {
       return AccountSyncViewState(
         status: AccountSyncStatus.localOnly,
-        hasLinkedAccount: summary.signedIn || summary.email != null,
+        hasLinkedAccount: true,
         email: summary.email,
         lastSyncedAt: summary.lastSyncedAt,
       );
@@ -94,7 +101,7 @@ class AccountSyncController extends AsyncNotifier<AccountSyncViewState> {
 
     return AccountSyncViewState(
       status: AccountSyncStatus.synced,
-      hasLinkedAccount: summary.signedIn || summary.email != null,
+      hasLinkedAccount: true,
       email: summary.email,
       lastSyncedAt: summary.lastSyncedAt,
     );
