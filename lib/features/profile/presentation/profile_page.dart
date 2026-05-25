@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rhythm/app/router/app_router.dart';
+import 'package:rhythm/app/router/secondary_navigation.dart';
 import 'package:rhythm/core/time/time_context_provider.dart';
 import 'package:rhythm/features/goal_schedule/application/goal_schedule_providers.dart';
 import 'package:rhythm/features/goal_schedule/domain/goal_schedule_settings.dart';
 import 'package:rhythm/features/notifications/application/reminder_settings_controller.dart';
+import 'package:rhythm/features/preferences/application/app_preferences_providers.dart';
+import 'package:rhythm/features/preferences/domain/app_locale_preference.dart';
+import 'package:rhythm/features/preferences/domain/app_theme_preference.dart';
 import 'package:rhythm/features/sleep_records/application/sleep_record_providers.dart';
 import 'package:rhythm/features/sleep_records/domain/health_platform_state.dart';
 import 'package:rhythm/l10n/app_localizations.dart';
@@ -35,15 +38,17 @@ class ProfilePage extends HookConsumerWidget {
               title: l10n.profileHeroAnonymousTitle,
               subtitle: l10n.profileHeroAnonymousSubtitle,
               badgeLabel: l10n.profileHeroBadgeLabel,
-              onTap: () => context.go('/profile/account-sync'),
+              onTap: () => context.pushSecondary(profileAccountSyncPath),
             ),
+            const SizedBox(height: 18),
+            const _ProfilePreferencesCard(),
             const SizedBox(height: 18),
             _EntryListCard(
               entries: [
                 _ProfileEntry(
                   title: l10n.profileMembershipEntryTitle,
                   subtitle: l10n.profileMembershipEntrySubtitle,
-                  onTap: () => context.go(membershipCenterPath),
+                  onTap: () => context.pushSecondary(membershipCenterPath),
                 ),
                 _ProfileEntry(
                   title: l10n.profileGoalScheduleEntryTitle,
@@ -55,14 +60,15 @@ class ProfilePage extends HookConsumerWidget {
                     error: (error, stackTrace) =>
                         l10n.profileGoalScheduleEntryError,
                   ),
-                  onTap: () => context.go('/profile/goal-schedule'),
+                  onTap: () => context.pushSecondary(profileGoalSchedulePath),
                 ),
                 _ProfileEntry(
                   title: l10n.profileNotificationEntryTitle,
                   subtitle: reminderSettings.softReminderEnabled
                       ? l10n.profileNotificationEntryEnabled
                       : l10n.profileNotificationEntryDisabled,
-                  onTap: () => context.go('/profile/notifications'),
+                  onTap: () =>
+                      context.pushSecondary(profileNotificationSettingsPath),
                 ),
                 _ProfileEntry(
                   title: l10n.profileDataAccessEntryTitle,
@@ -72,17 +78,17 @@ class ProfilePage extends HookConsumerWidget {
                     error: (error, stackTrace) =>
                         l10n.profileDataAccessEntryError,
                   ),
-                  onTap: () => context.go('/profile/data-access'),
+                  onTap: () => context.pushSecondary(profileDataAccessPath),
                 ),
                 _ProfileEntry(
                   title: l10n.profileTimezoneModeEntryTitle,
                   subtitle: l10n.profileTimezoneModeEntrySubtitle(timezoneName),
-                  onTap: () => context.go('/profile/timezone-mode'),
+                  onTap: () => context.pushSecondary(profileTimezoneModePath),
                 ),
                 _ProfileEntry(
                   title: l10n.profilePrivacyEntryTitle,
                   subtitle: l10n.profilePrivacyEntrySubtitle,
-                  onTap: () => context.go('/profile/privacy'),
+                  onTap: () => context.pushSecondary(profilePrivacyDataPath),
                 ),
               ],
             ),
@@ -94,7 +100,7 @@ class ProfilePage extends HookConsumerWidget {
               titleStyle: textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.w700,
               ),
-              onTap: () => context.go(profileWidgetThemePath),
+              onTap: () => context.pushSecondary(profileWidgetThemePath),
             ),
           ],
         ),
@@ -133,6 +139,322 @@ class ProfilePage extends HookConsumerWidget {
       default:
         return l10n.profileHealthSummaryManualFallback;
     }
+  }
+}
+
+/// 承载我的页内的轻量偏好切换，统一处理语言与主题的即时生效体验。
+class _ProfilePreferencesCard extends HookConsumerWidget {
+  /// 创建偏好设置卡片。
+  const _ProfilePreferencesCard();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final l10n = AppLocalizations.of(context);
+    final preferences = ref.watch(appPreferencesControllerProvider);
+
+    return Container(
+      key: const Key('profile-preferences-card'),
+      width: double.infinity,
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: theme.brightness == Brightness.dark
+            ? colorScheme.surfaceContainerHighest
+            : const Color(0xFFF1F6EE),
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: const [
+          BoxShadow(
+            color: Color(0x0F000000),
+            blurRadius: 18,
+            offset: Offset(0, 6),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            l10n.profilePreferencesCardTitle,
+            style: theme.textTheme.titleMedium?.copyWith(
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          const SizedBox(height: 14),
+          _PreferenceSection<AppLocalePreference>(
+            title: l10n.profilePreferencesLocaleTitle,
+            currentValueLabel: _localePreferenceLabel(
+              l10n,
+              preferences.localePreference,
+            ),
+            selectedValue: preferences.localePreference,
+            options: [
+              _PreferenceOption<AppLocalePreference>(
+                value: AppLocalePreference.system,
+                label: l10n.profilePreferencesFollowSystem,
+                key: const Key('profile-preferences-locale-system'),
+              ),
+              _PreferenceOption<AppLocalePreference>(
+                value: AppLocalePreference.simplifiedChinese,
+                label: l10n.profilePreferencesSimplifiedChinese,
+                key: const Key('profile-preferences-locale-zh'),
+              ),
+              _PreferenceOption<AppLocalePreference>(
+                value: AppLocalePreference.english,
+                label: l10n.profilePreferencesEnglish,
+                key: const Key('profile-preferences-locale-english'),
+              ),
+            ],
+            onSelected: (value) async {
+              if (value == preferences.localePreference) {
+                return;
+              }
+              final succeeded = await ref
+                  .read(appPreferencesControllerProvider.notifier)
+                  .updateLocale(value);
+              if (!context.mounted || succeeded) {
+                return;
+              }
+              _showPreferenceSaveFailure(context, l10n);
+            },
+          ),
+          const SizedBox(height: 16),
+          _PreferenceSection<AppThemePreference>(
+            title: l10n.profilePreferencesThemeTitle,
+            currentValueLabel: _themePreferenceLabel(
+              l10n,
+              preferences.themePreference,
+            ),
+            selectedValue: preferences.themePreference,
+            options: [
+              _PreferenceOption<AppThemePreference>(
+                value: AppThemePreference.system,
+                label: l10n.profilePreferencesFollowSystem,
+                key: const Key('profile-preferences-theme-system'),
+              ),
+              _PreferenceOption<AppThemePreference>(
+                value: AppThemePreference.light,
+                label: l10n.profilePreferencesLight,
+                key: const Key('profile-preferences-theme-light'),
+              ),
+              _PreferenceOption<AppThemePreference>(
+                value: AppThemePreference.dark,
+                label: l10n.profilePreferencesDark,
+                key: const Key('profile-preferences-theme-dark'),
+              ),
+            ],
+            onSelected: (value) async {
+              if (value == preferences.themePreference) {
+                return;
+              }
+              final succeeded = await ref
+                  .read(appPreferencesControllerProvider.notifier)
+                  .updateTheme(value);
+              if (!context.mounted || succeeded) {
+                return;
+              }
+              _showPreferenceSaveFailure(context, l10n);
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// 解析语言偏好的展示值，确保摘要与选项文本保持一致。
+  String _localePreferenceLabel(
+    AppLocalizations l10n,
+    AppLocalePreference preference,
+  ) {
+    switch (preference) {
+      case AppLocalePreference.system:
+        return l10n.profilePreferencesFollowSystem;
+      case AppLocalePreference.simplifiedChinese:
+        return l10n.profilePreferencesSimplifiedChinese;
+      case AppLocalePreference.english:
+        return l10n.profilePreferencesEnglish;
+    }
+  }
+
+  /// 解析主题偏好的展示值，避免显示层重复维护主题文案映射。
+  String _themePreferenceLabel(
+    AppLocalizations l10n,
+    AppThemePreference preference,
+  ) {
+    switch (preference) {
+      case AppThemePreference.system:
+        return l10n.profilePreferencesFollowSystem;
+      case AppThemePreference.light:
+        return l10n.profilePreferencesLight;
+      case AppThemePreference.dark:
+        return l10n.profilePreferencesDark;
+    }
+  }
+
+  void _showPreferenceSaveFailure(BuildContext context, AppLocalizations l10n) {
+    final messenger = ScaffoldMessenger.of(context);
+    messenger.hideCurrentSnackBar();
+    messenger.showSnackBar(
+      SnackBar(content: Text(l10n.profilePreferencesSaveFailed)),
+    );
+  }
+}
+
+/// 渲染偏好卡片中的单个设置分组，统一标题、摘要和三段式切换布局。
+class _PreferenceSection<T> extends StatelessWidget {
+  /// 创建偏好分组。
+  const _PreferenceSection({
+    required this.title,
+    required this.currentValueLabel,
+    required this.selectedValue,
+    required this.options,
+    required this.onSelected,
+  });
+
+  /// 分组标题。
+  final String title;
+
+  /// 当前生效值摘要。
+  final String currentValueLabel;
+
+  /// 当前选中的值。
+  final T selectedValue;
+
+  /// 可切换的选项列表。
+  final List<_PreferenceOption<T>> options;
+
+  /// 点击某个选项后的处理逻辑。
+  final ValueChanged<T> onSelected;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Expanded(
+              child: Text(
+                title,
+                style: theme.textTheme.titleSmall?.copyWith(
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ),
+            Text(
+              currentValueLabel,
+              style: theme.textTheme.labelLarge?.copyWith(
+                color: colorScheme.primary,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 10),
+        Container(
+          decoration: BoxDecoration(
+            color: colorScheme.surface,
+            borderRadius: BorderRadius.circular(14),
+            border: Border.all(color: colorScheme.outlineVariant),
+          ),
+          child: Row(
+            children: [
+              for (var index = 0; index < options.length; index++)
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(
+                      index == 0 ? 4 : 2,
+                      4,
+                      index == options.length - 1 ? 4 : 2,
+                      4,
+                    ),
+                    child: _PreferenceOptionButton<T>(
+                      option: options[index],
+                      selected: selectedValue == options[index].value,
+                      onTap: () => onSelected(options[index].value),
+                    ),
+                  ),
+                ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+/// 描述偏好卡片中的一个可选项，统一封装值、文案和测试 key。
+class _PreferenceOption<T> {
+  /// 创建偏好选项。
+  const _PreferenceOption({
+    required this.value,
+    required this.label,
+    required this.key,
+  });
+
+  /// 选项实际值。
+  final T value;
+
+  /// 展示给用户的标签。
+  final String label;
+
+  /// 用于测试定位的稳定 key。
+  final Key key;
+}
+
+/// 渲染偏好卡片中的单个选项按钮，保持选中态与未选中态层级清晰。
+class _PreferenceOptionButton<T> extends StatelessWidget {
+  /// 创建偏好选项按钮。
+  const _PreferenceOptionButton({
+    required this.option,
+    required this.selected,
+    required this.onTap,
+  });
+
+  /// 当前渲染的选项。
+  final _PreferenceOption<T> option;
+
+  /// 是否为当前选中项。
+  final bool selected;
+
+  /// 点击后的回调。
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
+    return InkWell(
+      key: option.key,
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(10),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 180),
+        curve: Curves.easeOutCubic,
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
+        decoration: BoxDecoration(
+          color: selected ? colorScheme.primaryContainer : Colors.transparent,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Center(
+          child: Text(
+            option.label,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: theme.textTheme.labelLarge?.copyWith(
+              color: selected
+                  ? colorScheme.onPrimaryContainer
+                  : colorScheme.onSurfaceVariant,
+              fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
 

@@ -1179,6 +1179,33 @@ class AppLocalizationsZh extends AppLocalizations {
   String get profilePrivacyEntrySubtitle => '导出、删除、协议';
 
   @override
+  String get profilePreferencesCardTitle => '偏好设置';
+
+  @override
+  String get profilePreferencesLocaleTitle => '语言';
+
+  @override
+  String get profilePreferencesThemeTitle => '主题';
+
+  @override
+  String get profilePreferencesFollowSystem => '跟随系统';
+
+  @override
+  String get profilePreferencesSimplifiedChinese => '简体中文';
+
+  @override
+  String get profilePreferencesEnglish => 'English';
+
+  @override
+  String get profilePreferencesLight => '浅色';
+
+  @override
+  String get profilePreferencesDark => '深色';
+
+  @override
+  String get profilePreferencesSaveFailed => '设置未保存成功，请稍后再试';
+
+  @override
   String get profileDesktopPresenceTitle => '桌面存在感';
 
   @override

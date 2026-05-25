@@ -2306,6 +2306,60 @@ abstract class AppLocalizations {
   /// **'Export, delete, and agreements'**
   String get profilePrivacyEntrySubtitle;
 
+  /// No description provided for @profilePreferencesCardTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Preferences'**
+  String get profilePreferencesCardTitle;
+
+  /// No description provided for @profilePreferencesLocaleTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get profilePreferencesLocaleTitle;
+
+  /// No description provided for @profilePreferencesThemeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Theme'**
+  String get profilePreferencesThemeTitle;
+
+  /// No description provided for @profilePreferencesFollowSystem.
+  ///
+  /// In en, this message translates to:
+  /// **'Follow system'**
+  String get profilePreferencesFollowSystem;
+
+  /// No description provided for @profilePreferencesSimplifiedChinese.
+  ///
+  /// In en, this message translates to:
+  /// **'Simplified Chinese'**
+  String get profilePreferencesSimplifiedChinese;
+
+  /// No description provided for @profilePreferencesEnglish.
+  ///
+  /// In en, this message translates to:
+  /// **'English'**
+  String get profilePreferencesEnglish;
+
+  /// No description provided for @profilePreferencesLight.
+  ///
+  /// In en, this message translates to:
+  /// **'Light'**
+  String get profilePreferencesLight;
+
+  /// No description provided for @profilePreferencesDark.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark'**
+  String get profilePreferencesDark;
+
+  /// No description provided for @profilePreferencesSaveFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Preferences could not be saved. Please try again later.'**
+  String get profilePreferencesSaveFailed;
+
   /// No description provided for @profileDesktopPresenceTitle.
   ///
   /// In en, this message translates to:

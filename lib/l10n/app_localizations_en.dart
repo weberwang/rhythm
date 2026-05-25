@@ -1269,6 +1269,34 @@ class AppLocalizationsEn extends AppLocalizations {
   String get profilePrivacyEntrySubtitle => 'Export, delete, and agreements';
 
   @override
+  String get profilePreferencesCardTitle => 'Preferences';
+
+  @override
+  String get profilePreferencesLocaleTitle => 'Language';
+
+  @override
+  String get profilePreferencesThemeTitle => 'Theme';
+
+  @override
+  String get profilePreferencesFollowSystem => 'Follow system';
+
+  @override
+  String get profilePreferencesSimplifiedChinese => 'Simplified Chinese';
+
+  @override
+  String get profilePreferencesEnglish => 'English';
+
+  @override
+  String get profilePreferencesLight => 'Light';
+
+  @override
+  String get profilePreferencesDark => 'Dark';
+
+  @override
+  String get profilePreferencesSaveFailed =>
+      'Preferences could not be saved. Please try again later.';
+
+  @override
   String get profileDesktopPresenceTitle => 'Desktop presence';
 
   @override

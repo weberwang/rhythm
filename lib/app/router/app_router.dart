@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -161,119 +162,204 @@ GoRouter createAppRouter() {
   return GoRouter(
     initialLocation: '/launch',
     routes: [
-      GoRoute(path: '/launch', builder: (context, state) => const LaunchGate()),
+      GoRoute(
+        path: '/launch',
+        pageBuilder: (context, state) =>
+            buildStaticRootPage(key: state.pageKey, child: const LaunchGate()),
+      ),
       GoRoute(
         path: onboardingWelcomePath,
-        builder: (context, state) => const OnboardingFlowPage(),
+        pageBuilder: (context, state) => buildSecondaryPage(
+          key: state.pageKey,
+          child: const OnboardingFlowPage(),
+        ),
       ),
       GoRoute(
         path: onboardingGoalSetupPath,
-        builder: (context, state) => const GoalSetupPage(),
+        pageBuilder: (context, state) => buildSecondaryPage(
+          key: state.pageKey,
+          child: const GoalSetupPage(),
+        ),
       ),
       GoRoute(
         path: onboardingReminderSetupPath,
-        builder: (context, state) {
+        pageBuilder: (context, state) {
           final container = ProviderScope.containerOf(context, listen: false);
-          return ReminderSetupPage(
-            launchStateRepository: container.read(
-              launchStateRepositoryProvider,
+          return buildSecondaryPage(
+            key: state.pageKey,
+            child: ReminderSetupPage(
+              launchStateRepository: container.read(
+                launchStateRepositoryProvider,
+              ),
             ),
           );
         },
       ),
       GoRoute(
         path: onboardingWidgetGuidePath,
-        builder: (context, state) => const WidgetGuidePage(),
+        pageBuilder: (context, state) => buildSecondaryPage(
+          key: state.pageKey,
+          child: const WidgetGuidePage(),
+        ),
       ),
       GoRoute(
         path: sleepRecordsHubPath,
-        builder: (context, state) => const SleepRecordsHubPage(),
+        pageBuilder: (context, state) => buildSecondaryPage(
+          key: state.pageKey,
+          child: const SleepRecordsHubPage(),
+        ),
       ),
       GoRoute(
         path: manualSleepRecordPath,
-        builder: (context, state) => ManualSleepRecordPage(
-          editingRecordId: state.uri.queryParameters['recordId'],
+        pageBuilder: (context, state) => buildSecondaryPage(
+          key: state.pageKey,
+          child: ManualSleepRecordPage(
+            editingRecordId: state.uri.queryParameters['recordId'],
+          ),
         ),
       ),
       GoRoute(
         path: RhythmTab.today.path,
-        builder: (context, state) =>
-            const RhythmShell(currentTab: RhythmTab.today, child: TodayPage()),
+        pageBuilder: (context, state) => buildTabRootPage(
+          key: state.pageKey,
+          child: const RhythmShell(
+            currentTab: RhythmTab.today,
+            child: TodayPage(),
+          ),
+        ),
       ),
       GoRoute(
         path: RhythmTab.calendar.path,
-        builder: (context, state) => const RhythmShell(
-          currentTab: RhythmTab.calendar,
-          child: CalendarPage(),
+        pageBuilder: (context, state) => buildTabRootPage(
+          key: state.pageKey,
+          child: const RhythmShell(
+            currentTab: RhythmTab.calendar,
+            child: CalendarPage(),
+          ),
         ),
       ),
       GoRoute(
         path: bedtimeModePath,
-        builder: (context, state) => const RhythmShell(
-          currentTab: RhythmTab.bedtime,
-          child: BedtimePage(),
+        pageBuilder: (context, state) => buildTabRootPage(
+          key: state.pageKey,
+          child: const RhythmShell(
+            currentTab: RhythmTab.bedtime,
+            child: BedtimePage(),
+          ),
         ),
       ),
       GoRoute(
         path: weeklyReportDetailPath,
-        builder: (context, state) => const WeeklyReportDetailPage(),
+        pageBuilder: (context, state) => buildSecondaryPage(
+          key: state.pageKey,
+          child: const WeeklyReportDetailPage(),
+        ),
       ),
       GoRoute(
         path: insightsHistoryPath,
-        builder: (context, state) => const ReportHistoryPage(),
+        pageBuilder: (context, state) => buildSecondaryPage(
+          key: state.pageKey,
+          child: const ReportHistoryPage(),
+        ),
       ),
       GoRoute(
         path: membershipPaywallPath,
-        builder: (context, state) => const PaywallPage(),
+        pageBuilder: (context, state) =>
+            buildSecondaryPage(key: state.pageKey, child: const PaywallPage()),
       ),
       GoRoute(
         path: membershipCenterPath,
-        builder: (context, state) => const MembershipPage(),
+        pageBuilder: (context, state) => buildSecondaryPage(
+          key: state.pageKey,
+          child: const MembershipPage(),
+        ),
       ),
       GoRoute(
         path: profileAccountSyncPath,
-        builder: (context, state) => const AccountSyncPage(),
+        pageBuilder: (context, state) => buildSecondaryPage(
+          key: state.pageKey,
+          child: const AccountSyncPage(),
+        ),
       ),
       GoRoute(
         path: profileDataAccessPath,
-        builder: (context, state) => const DataAccessPage(),
+        pageBuilder: (context, state) => buildSecondaryPage(
+          key: state.pageKey,
+          child: const DataAccessPage(),
+        ),
       ),
       GoRoute(
         path: profilePrivacyDataPath,
-        builder: (context, state) => const PrivacyDataPage(),
+        pageBuilder: (context, state) => buildSecondaryPage(
+          key: state.pageKey,
+          child: const PrivacyDataPage(),
+        ),
       ),
       GoRoute(
         path: profileGoalSchedulePath,
-        builder: (context, state) => const GoalScheduleSettingsPage(),
+        pageBuilder: (context, state) => buildSecondaryPage(
+          key: state.pageKey,
+          child: const GoalScheduleSettingsPage(),
+        ),
       ),
       GoRoute(
         path: profileNotificationSettingsPath,
-        builder: (context, state) => const NotificationSettingsPage(),
+        pageBuilder: (context, state) => buildSecondaryPage(
+          key: state.pageKey,
+          child: const NotificationSettingsPage(),
+        ),
       ),
       GoRoute(
         path: profileTimezoneModePath,
-        builder: (context, state) => const TimezoneModePage(),
+        pageBuilder: (context, state) => buildSecondaryPage(
+          key: state.pageKey,
+          child: const TimezoneModePage(),
+        ),
       ),
       GoRoute(
         path: profileWidgetThemePath,
-        builder: (context, state) => const WidgetThemePage(),
+        pageBuilder: (context, state) => buildSecondaryPage(
+          key: state.pageKey,
+          child: const WidgetThemePage(),
+        ),
       ),
       GoRoute(
         path: RhythmTab.insights.path,
-        builder: (context, state) => const RhythmShell(
-          currentTab: RhythmTab.insights,
-          child: InsightsPage(),
+        pageBuilder: (context, state) => buildTabRootPage(
+          key: state.pageKey,
+          child: const RhythmShell(
+            currentTab: RhythmTab.insights,
+            child: InsightsPage(),
+          ),
         ),
       ),
       GoRoute(
         path: RhythmTab.profile.path,
-        builder: (context, state) => const RhythmShell(
-          currentTab: RhythmTab.profile,
-          child: ProfilePage(),
+        pageBuilder: (context, state) => buildTabRootPage(
+          key: state.pageKey,
+          child: const RhythmShell(
+            currentTab: RhythmTab.profile,
+            child: ProfilePage(),
+          ),
         ),
       ),
     ],
   );
+}
+
+/// 一级 tab 根页面使用无过渡切换，避免底部导航被误读为入栈跳转。
+Page<void> buildTabRootPage({required LocalKey key, required Widget child}) {
+  return NoTransitionPage<void>(key: key, child: child);
+}
+
+/// 应用启动入口不需要过渡动画，避免首帧和分发页出现额外闪动。
+Page<void> buildStaticRootPage({required LocalKey key, required Widget child}) {
+  return NoTransitionPage<void>(key: key, child: child);
+}
+
+/// 二级页统一使用 iOS 风格页面对象，保证详情和设置页仍保留推入返回语义。
+Page<void> buildSecondaryPage({required LocalKey key, required Widget child}) {
+  return CupertinoPage<void>(key: key, child: child);
 }
 
 /// 带底部导航的通用壳。
