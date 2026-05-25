@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rhythm/app/router/app_router.dart';
+import 'package:rhythm/app/router/secondary_navigation.dart';
+import 'package:rhythm/core/presentation/widgets/secondary_page_header.dart';
 import 'package:rhythm/core/time/sleep_record_day_resolver.dart';
 import 'package:rhythm/core/time/time_context_provider.dart';
 import 'package:rhythm/features/goal_schedule/application/goal_schedule_providers.dart';
@@ -21,10 +22,7 @@ import 'package:rhythm/l10n/app_localizations.dart';
 /// 阶段三手动补录页，用于承接无数据和权限失败后的人工补录路径。
 class ManualSleepRecordPage extends HookConsumerWidget {
   /// 创建手动补录页实例。
-  const ManualSleepRecordPage({
-    super.key,
-    this.editingRecordId,
-  });
+  const ManualSleepRecordPage({super.key, this.editingRecordId});
 
   /// 当前是否处于编辑既有记录场景。
   final String? editingRecordId;
@@ -38,7 +36,9 @@ class ManualSleepRecordPage extends HookConsumerWidget {
     final existingRecordFuture = useMemoized(
       () => editingRecordId == null
           ? Future<SleepRecord?>.value(null)
-          : ref.read(sleepRecordRepositoryProvider).readRecordById(editingRecordId!),
+          : ref
+                .read(sleepRecordRepositoryProvider)
+                .readRecordById(editingRecordId!),
       [editingRecordId],
     );
     final existingRecordSnapshot = useFuture(existingRecordFuture);
@@ -89,9 +89,17 @@ class ManualSleepRecordPage extends HookConsumerWidget {
           padding: const EdgeInsets.all(24),
           child: SingleChildScrollView(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              // 手动补录页同时包含摘要卡和说明卡，统一拉满可避免短文案块收缩。
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Text(l10n.manualSleepRecordPageTitle, style: textTheme.headlineMedium),
+                SecondaryPageHeader(
+                  title: l10n.manualSleepRecordPageTitle,
+                  fallbackLocation: sleepRecordsHubPath,
+                  titleStyle: textTheme.headlineSmall?.copyWith(
+                    fontFamily: 'Funnel Sans',
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
                 const SizedBox(height: 12),
                 Text(
                   l10n.manualSleepRecordPageSubtitle,
@@ -100,7 +108,9 @@ class ManualSleepRecordPage extends HookConsumerWidget {
                 const SizedBox(height: 8),
                 Text(
                   l10n.manualSleepRecordPageDescription,
-                  style: textTheme.bodyMedium?.copyWith(color: const Color(0xFF4A6B52)),
+                  style: textTheme.bodyMedium?.copyWith(
+                    color: const Color(0xFF4A6B52),
+                  ),
                 ),
                 const SizedBox(height: 24),
                 Card(
@@ -132,7 +142,8 @@ class ManualSleepRecordPage extends HookConsumerWidget {
                         const SizedBox(height: 12),
                         SleepRecordSummaryRow(
                           label: l10n.manualSleepRecordDurationLabel,
-                          value: '${duration.inHours}h ${duration.inMinutes.remainder(60)}m',
+                          value:
+                              '${duration.inHours}h ${duration.inMinutes.remainder(60)}m',
                         ),
                         const SizedBox(height: 12),
                         SleepRecordSummaryRow(
@@ -241,7 +252,9 @@ class ManualSleepRecordPage extends HookConsumerWidget {
                     }
                     formState.value = controller.state;
                     final savedRecord = SleepRecord(
-                      id: existingRecord?.id ?? 'manual-${now.microsecondsSinceEpoch}',
+                      id:
+                          existingRecord?.id ??
+                          'manual-${now.microsecondsSinceEpoch}',
                       recordDate: recordDate,
                       fellAsleepAt: fellAsleepAt,
                       wokeUpAt: wokeUpAt,
@@ -256,26 +269,30 @@ class ManualSleepRecordPage extends HookConsumerWidget {
                     );
                     final repository = ref.read(sleepRecordRepositoryProvider);
                     await repository.saveRecord(savedRecord);
-                    await ref.read(sleepRecordsAnalyticsProvider).track(
-                      SleepRecordsAnalyticsEvent(
-                        name: 'sleep_records_manual_saved',
-                        parameters: <String, Object?>{
-                          'duration_minutes': duration.inMinutes,
-                        },
-                      ),
-                    );
+                    await ref
+                        .read(sleepRecordsAnalyticsProvider)
+                        .track(
+                          SleepRecordsAnalyticsEvent(
+                            name: 'sleep_records_manual_saved',
+                            parameters: <String, Object?>{
+                              'duration_minutes': duration.inMinutes,
+                            },
+                          ),
+                        );
                     ref.invalidate(recentEffectiveSleepRecordsProvider);
                     if (!context.mounted) {
                       return;
                     }
-                    context.go(sleepRecordsHubPath);
+                    // 保存完成后优先回到来源页，直达打开时再兜底回记录管理页。
+                    context.popSecondaryOrGo(sleepRecordsHubPath);
                   },
                   child: Text(l10n.manualSleepRecordSaveButton),
                 ),
                 const SizedBox(height: 12),
                 OutlinedButton(
                   onPressed: () {
-                    context.go(sleepRecordsHubPath);
+                    // 放弃修改时保留来源页返回语义，避免二级页直接覆盖栈顶。
+                    context.popSecondaryOrGo(sleepRecordsHubPath);
                   },
                   child: Text(l10n.manualSleepRecordDiscardButton),
                 ),

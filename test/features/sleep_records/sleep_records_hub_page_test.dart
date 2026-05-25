@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rhythm/core/time/time_context.dart';
 import 'package:rhythm/core/time/time_context_provider.dart';
@@ -23,6 +24,21 @@ void main() {
     expect(find.text('最近 30 天睡眠记录'), findsOneWidget);
     expect(find.text('改用手动模式'), findsWidgets);
     expect(find.text('来源与可信度'), findsOneWidget);
+    expect(find.byIcon(Icons.arrow_back_ios_new_rounded), findsOneWidget);
+  });
+
+  testWidgets('来源说明卡占满手机内容区宽度', (tester) async {
+    await tester.binding.setSurfaceSize(const Size(390, 844));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+
+    await _pumpSleepRecordsHubPage(tester, overrides: const []);
+
+    final card = find.ancestor(
+      of: find.text('来源与可信度'),
+      matching: find.byType(Card),
+    );
+
+    expect(tester.getSize(card).width, closeTo(342, 0.1));
   });
 
   testWidgets('Android 未安装 Health Connect 时展示安装引导', (tester) async {
@@ -248,13 +264,13 @@ Future<void> _pumpSleepRecordsHubPage(
 /// 提供测试专用同步控制器，避免页面摘要测试依赖真实平台调用。
 class _FakeSleepRecordSyncController extends SleepRecordSyncController {
   _FakeSleepRecordSyncController(this._state)
-      : super(
-          permissionGateway: TestHealthPermissionGateway(
-            platformState: HealthPlatformState.androidAvailable(),
-          ),
-          dataSource: TestHealthSleepDataSource(records: const []),
-          repository: _NoopSleepRecordRepository(),
-        );
+    : super(
+        permissionGateway: TestHealthPermissionGateway(
+          platformState: HealthPlatformState.androidAvailable(),
+        ),
+        dataSource: TestHealthSleepDataSource(records: const []),
+        repository: _NoopSleepRecordRepository(),
+      );
 
   final SleepRecordSyncState _state;
 

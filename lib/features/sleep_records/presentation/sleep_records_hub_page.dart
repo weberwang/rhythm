@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rhythm/app/router/app_router.dart';
+import 'package:rhythm/app/router/secondary_navigation.dart';
+import 'package:rhythm/core/presentation/widgets/secondary_page_header.dart';
 import 'package:rhythm/core/time/time_context_provider.dart';
 import 'package:rhythm/features/sleep_records/application/effective_sleep_record_provider.dart';
 import 'package:rhythm/features/goal_schedule/application/goal_schedule_providers.dart';
@@ -44,17 +45,26 @@ class SleepRecordsHubPage extends HookConsumerWidget {
         child: Padding(
           padding: const EdgeInsets.all(24),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            // 管理页卡片存在纯文本说明块，统一拉满可避免状态切换后宽度忽大忽小。
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text(l10n.sleepRecordsHubTitle, style: textTheme.headlineMedium),
-              const SizedBox(height: 24),
+              SecondaryPageHeader(
+                title: l10n.sleepRecordsHubTitle,
+                fallbackLocation: RhythmTab.today.path,
+                titleStyle: textTheme.headlineSmall?.copyWith(
+                  fontFamily: 'Funnel Sans',
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              const SizedBox(height: 18),
               SleepRecordsSyncCard(
-                syncState: syncController.state.status == SleepRecordSyncStatus.idle
+                syncState:
+                    syncController.state.status == SleepRecordSyncStatus.idle
                     ? syncState
                     : syncController.state,
                 onPrimaryPressed: () async {
-                  final currentState = syncController.state.status ==
-                          SleepRecordSyncStatus.idle
+                  final currentState =
+                      syncController.state.status == SleepRecordSyncStatus.idle
                       ? syncState
                       : syncController.state;
                   if (currentState.status ==
@@ -62,22 +72,28 @@ class SleepRecordsHubPage extends HookConsumerWidget {
                     await ref
                         .read(healthPermissionGatewayProvider)
                         .openHealthProviderInstallation();
-                    await ref.read(sleepRecordsAnalyticsProvider).track(
-                      const SleepRecordsAnalyticsEvent(
-                        name: 'sleep_records_install_health_connect',
-                      ),
-                    );
+                    await ref
+                        .read(sleepRecordsAnalyticsProvider)
+                        .track(
+                          const SleepRecordsAnalyticsEvent(
+                            name: 'sleep_records_install_health_connect',
+                          ),
+                        );
                     ref.invalidate(healthPlatformStateProvider);
                     return;
                   }
                   if (currentState.status ==
                       SleepRecordSyncStatus.permissionRequired) {
-                    await ref.read(healthPermissionGatewayProvider).requestAccess();
-                    await ref.read(sleepRecordsAnalyticsProvider).track(
-                      const SleepRecordsAnalyticsEvent(
-                        name: 'sleep_records_request_access',
-                      ),
-                    );
+                    await ref
+                        .read(healthPermissionGatewayProvider)
+                        .requestAccess();
+                    await ref
+                        .read(sleepRecordsAnalyticsProvider)
+                        .track(
+                          const SleepRecordsAnalyticsEvent(
+                            name: 'sleep_records_request_access',
+                          ),
+                        );
                     ref.invalidate(healthPlatformStateProvider);
                     return;
                   }
@@ -89,22 +105,24 @@ class SleepRecordsHubPage extends HookConsumerWidget {
                             goalScheduleAsync.value?.dayStartMinutes ?? 4 * 60,
                         timezone: timeContext.timezoneName,
                       );
-                  await ref.read(sleepRecordsAnalyticsProvider).track(
-                    SleepRecordsAnalyticsEvent(
-                      name: 'sleep_records_sync_attempt',
-                      parameters: <String, Object?>{
-                        'status': ref
-                            .read(sleepRecordSyncControllerProvider)
-                            .state
-                            .status
-                            .name,
-                      },
-                    ),
-                  );
+                  await ref
+                      .read(sleepRecordsAnalyticsProvider)
+                      .track(
+                        SleepRecordsAnalyticsEvent(
+                          name: 'sleep_records_sync_attempt',
+                          parameters: <String, Object?>{
+                            'status': ref
+                                .read(sleepRecordSyncControllerProvider)
+                                .state
+                                .status
+                                .name,
+                          },
+                        ),
+                      );
                   ref.invalidate(recentEffectiveSleepRecordsProvider);
                 },
                 onSecondaryPressed: () {
-                  context.go(manualSleepRecordPath);
+                  context.pushSecondary(manualSleepRecordPath);
                 },
               ),
               const SizedBox(height: 16),
@@ -134,9 +152,8 @@ class SleepRecordsHubPage extends HookConsumerWidget {
                   data: (records) => SleepRecordListSection(records: records),
                   loading: () =>
                       const Center(child: CircularProgressIndicator()),
-                  error: (error, stackTrace) => Center(
-                    child: Text(l10n.sleepRecordsHubLoadFailed),
-                  ),
+                  error: (error, stackTrace) =>
+                      Center(child: Text(l10n.sleepRecordsHubLoadFailed)),
                 ),
               ),
             ],

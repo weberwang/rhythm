@@ -61,6 +61,20 @@ void main() {
     expect(find.text('先把灯光收暗一点'), findsOneWidget);
   });
 
+  testWidgets('动作建议卡占满手机内容区宽度', (tester) async {
+    await tester.binding.setSurfaceSize(const Size(390, 844));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+
+    await pumpPage(tester, state: _readyState());
+
+    final card = find.ancestor(
+      of: find.text('下一步先轻一点'),
+      matching: find.byType(Card),
+    );
+
+    expect(tester.getSize(card).width, closeTo(342, 0.1));
+  });
+
   testWidgets('goalMissing 状态显示去设置目标空态', (tester) async {
     await pumpPage(
       tester,

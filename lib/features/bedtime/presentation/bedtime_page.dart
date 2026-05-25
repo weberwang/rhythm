@@ -80,7 +80,8 @@ class _BedtimePageBody extends HookConsumerWidget {
             Expanded(
               child: SingleChildScrollView(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  // 用 stretch 固定卡片区块宽度，避免纯文本建议卡按内容收缩。
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     // 倒计时、状态选择和建议拆成独立区块，避免睡前页主文件再次膨胀。
                     BedtimeCountdownSection(

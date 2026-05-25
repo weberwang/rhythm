@@ -42,6 +42,27 @@ void main() {
     expect(find.text('失败原因'), findsOneWidget);
     expect(find.text('健康数据读取失败，请稍后重试。'), findsOneWidget);
   });
+
+  testWidgets('同步状态卡占满手机内容区宽度', (tester) async {
+    await tester.binding.setSurfaceSize(const Size(390, 844));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+
+    await tester.pumpWidget(
+      _buildTestApp(
+        child: SleepRecordsSyncCard(
+          syncState: const SleepRecordSyncState(
+            status: SleepRecordSyncStatus.idle,
+          ),
+          onPrimaryPressed: _noop,
+          onSecondaryPressed: _noop,
+        ),
+      ),
+    );
+
+    final card = find.byType(Card).first;
+
+    expect(tester.getSize(card).width, closeTo(390, 0.1));
+  });
 }
 
 /// 构造带本地化上下文的最小测试壳。

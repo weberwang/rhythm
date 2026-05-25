@@ -29,7 +29,8 @@ class SleepRecordsSyncCard extends StatelessWidget {
     final isSuccess = syncState.status == SleepRecordSyncStatus.success;
 
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      // 同步状态文案在不同平台与失败分支长度差异较大，统一拉满避免摘要卡收缩。
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Text(l10n.sleepRecordsHubSyncTitle, style: textTheme.titleLarge),
         const SizedBox(height: 8),
