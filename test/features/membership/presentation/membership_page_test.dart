@@ -243,6 +243,36 @@ void main() {
     expect(find.text('长期历史'), findsOneWidget);
     expect(find.text('月报'), findsOneWidget);
   });
+
+  testWidgets('权益弹层会展示免费版与会员版对比说明', (tester) async {
+    await _pumpPage(
+      tester,
+      viewState: MembershipViewState(
+        snapshot: MembershipSnapshot.fallback(
+          isConfigured: false,
+          entitlement: const MembershipEntitlement.free(),
+          plans: const <MembershipPlan>[
+            MembershipPlan(
+              packageId: 'annual_plan',
+              tier: MembershipTier.annual,
+              priceLabel: '¥16',
+              isRecommended: true,
+            ),
+          ],
+        ),
+      ),
+    );
+
+    await tester.tap(find.text('查看权益说明'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('免费版'), findsAtLeastNWidgets(1));
+    expect(find.text('会员版'), findsAtLeastNWidgets(1));
+    expect(find.text('基础摘要'), findsOneWidget);
+    expect(find.text('完整详情'), findsOneWidget);
+    expect(find.text('近 30 天'), findsOneWidget);
+    expect(find.text('更早历史'), findsOneWidget);
+  });
 }
 
 Future<void> _pumpPage(
