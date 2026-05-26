@@ -1282,7 +1282,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String profileTimezoneModeEntrySubtitle(String timezone) {
-    return '$timezone ? Special mode notes';
+    return '$timezone · Record timing and special cases';
   }
 
   @override
@@ -1673,12 +1673,11 @@ class AppLocalizationsEn extends AppLocalizations {
       'Deleting an account and clearing data must go through a confirmation dialog. They never run directly from a plain list tap.';
 
   @override
-  String get timezoneModePageTitle =>
-      'Keep boundaries clear before expanding support';
+  String get timezoneModePageTitle => 'Timezones and record timing';
 
   @override
   String get timezoneModePageDescription =>
-      'V0.1 does not implement a full shift-work flow yet, but the page still explains the current boundaries clearly.';
+      'This page explains how timezone changes affect record timing and how special schedules are handled.';
 
   @override
   String get timezoneModeCurrentTimezoneTitle => 'Current timezone';
@@ -1688,13 +1687,13 @@ class AppLocalizationsEn extends AppLocalizations {
       'Each record keeps the timezone from when the event happened, so older records are not reassigned to a new day when you switch timezones later.';
 
   @override
-  String get timezoneModeSpecialModeTitle => 'Special modes';
+  String get timezoneModeSpecialModeTitle => 'Special cases';
 
   @override
   String get timezoneModeCrossTimezoneDescription =>
-      '? Cross-timezone mode: when a timezone change is detected, Rhythm reminds you to confirm whether the goal needs a temporary adjustment.';
+      '• When a timezone change is detected, Rhythm reminds you to confirm whether the goal needs a temporary adjustment.';
 
   @override
   String get timezoneModeShiftWorkDescription =>
-      '? Shift-work mode: V0.1 only shows placeholder guidance for now and does not participate in the default on-track calculation.';
+      '• Shift-based schedules are not included in the default on-track calculation yet, so it is best to review goals and records separately.';
 }

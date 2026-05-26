@@ -2327,7 +2327,7 @@ abstract class AppLocalizations {
   /// No description provided for @profileTimezoneModeEntrySubtitle.
   ///
   /// In en, this message translates to:
-  /// **'{timezone} ? Special mode notes'**
+  /// **'{timezone} · Record timing and special cases'**
   String profileTimezoneModeEntrySubtitle(String timezone);
 
   /// No description provided for @profilePrivacyEntryTitle.
@@ -3005,13 +3005,13 @@ abstract class AppLocalizations {
   /// No description provided for @timezoneModePageTitle.
   ///
   /// In en, this message translates to:
-  /// **'Keep boundaries clear before expanding support'**
+  /// **'Timezones and record timing'**
   String get timezoneModePageTitle;
 
   /// No description provided for @timezoneModePageDescription.
   ///
   /// In en, this message translates to:
-  /// **'V0.1 does not implement a full shift-work flow yet, but the page still explains the current boundaries clearly.'**
+  /// **'This page explains how timezone changes affect record timing and how special schedules are handled.'**
   String get timezoneModePageDescription;
 
   /// No description provided for @timezoneModeCurrentTimezoneTitle.
@@ -3029,19 +3029,19 @@ abstract class AppLocalizations {
   /// No description provided for @timezoneModeSpecialModeTitle.
   ///
   /// In en, this message translates to:
-  /// **'Special modes'**
+  /// **'Special cases'**
   String get timezoneModeSpecialModeTitle;
 
   /// No description provided for @timezoneModeCrossTimezoneDescription.
   ///
   /// In en, this message translates to:
-  /// **'? Cross-timezone mode: when a timezone change is detected, Rhythm reminds you to confirm whether the goal needs a temporary adjustment.'**
+  /// **'• When a timezone change is detected, Rhythm reminds you to confirm whether the goal needs a temporary adjustment.'**
   String get timezoneModeCrossTimezoneDescription;
 
   /// No description provided for @timezoneModeShiftWorkDescription.
   ///
   /// In en, this message translates to:
-  /// **'? Shift-work mode: V0.1 only shows placeholder guidance for now and does not participate in the default on-track calculation.'**
+  /// **'• Shift-based schedules are not included in the default on-track calculation yet, so it is best to review goals and records separately.'**
   String get timezoneModeShiftWorkDescription;
 }
 

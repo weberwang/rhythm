@@ -35,65 +35,69 @@ class _CustomDelayTagSheetState extends State<CustomDelayTagSheet> {
     final l10n = AppLocalizations.of(context);
 
     return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 18, 20, 24),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              l10n.customDelayTagTitle,
-              style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                    fontWeight: FontWeight.w800,
-                  ),
-            ),
-            const SizedBox(height: 12),
-            TextField(
-              controller: _controller,
-              decoration: InputDecoration(
-                hintText: l10n.customDelayTagHint,
-                border: const OutlineInputBorder(),
-                errorText: _errorText,
+      child: SizedBox(
+        // 二级自定义弹层保持与标签选择弹层一致的全宽呈现，避免连续操作时宽度跳变。
+        width: double.infinity,
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(20, 18, 20, 24),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                l10n.customDelayTagTitle,
+                style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                      fontWeight: FontWeight.w800,
+                    ),
               ),
-            ),
-            const SizedBox(height: 16),
-            FilledButton(
-              onPressed: _isSaving
-                  ? null
-                  : () async {
-                      setState(() {
-                        _isSaving = true;
-                        _errorText = null;
-                      });
-                      try {
-                        final normalized =
-                            SleepDelayTagRules.validateCustomTag(
-                          _controller.text,
-                        );
-                        await widget.onSave(normalized);
-                        if (mounted && Navigator.of(context).canPop()) {
-                          Navigator.of(context).pop();
+              const SizedBox(height: 12),
+              TextField(
+                controller: _controller,
+                decoration: InputDecoration(
+                  hintText: l10n.customDelayTagHint,
+                  border: const OutlineInputBorder(),
+                  errorText: _errorText,
+                ),
+              ),
+              const SizedBox(height: 16),
+              FilledButton(
+                onPressed: _isSaving
+                    ? null
+                    : () async {
+                        setState(() {
+                          _isSaving = true;
+                          _errorText = null;
+                        });
+                        try {
+                          final normalized =
+                              SleepDelayTagRules.validateCustomTag(
+                            _controller.text,
+                          );
+                          await widget.onSave(normalized);
+                          if (mounted && Navigator.of(context).canPop()) {
+                            Navigator.of(context).pop();
+                          }
+                        } on SleepDelayTagValidationException catch (error) {
+                          if (mounted) {
+                            setState(() {
+                              _errorText = _mapErrorText(
+                                l10n: l10n,
+                                error: error.error,
+                              );
+                            });
+                          }
+                        } finally {
+                          if (mounted) {
+                            setState(() {
+                              _isSaving = false;
+                            });
+                          }
                         }
-                      } on SleepDelayTagValidationException catch (error) {
-                        if (mounted) {
-                          setState(() {
-                            _errorText = _mapErrorText(
-                              l10n: l10n,
-                              error: error.error,
-                            );
-                          });
-                        }
-                      } finally {
-                        if (mounted) {
-                          setState(() {
-                            _isSaving = false;
-                          });
-                        }
-                      }
-                    },
-              child: Text(l10n.customDelayTagSave),
-            ),
-          ],
+                      },
+                child: Text(l10n.customDelayTagSave),
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -1191,7 +1191,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String profileTimezoneModeEntrySubtitle(String timezone) {
-    return '$timezone · 特殊模式说明';
+    return '$timezone · 记录归属与特殊情况';
   }
 
   @override
@@ -1552,10 +1552,10 @@ class AppLocalizationsZh extends AppLocalizations {
       '删除账号和清空数据都必须经过确认对话框，不会在普通列表点击后直接执行。';
 
   @override
-  String get timezoneModePageTitle => '先保留边界，再逐渐支持';
+  String get timezoneModePageTitle => '时区与记录归属';
 
   @override
-  String get timezoneModePageDescription => 'V0.1 不做完整轮班逻辑，但页面要给出明确说明。';
+  String get timezoneModePageDescription => '这里会说明时区变化对记录归属的影响，以及特殊作息的处理方式。';
 
   @override
   String get timezoneModeCurrentTimezoneTitle => '当前时区';
@@ -1565,13 +1565,13 @@ class AppLocalizationsZh extends AppLocalizations {
       '记录会保存事件发生时的时区，旧记录不会因切换时区被重算归属日。';
 
   @override
-  String get timezoneModeSpecialModeTitle => '特殊模式';
+  String get timezoneModeSpecialModeTitle => '特殊情况';
 
   @override
   String get timezoneModeCrossTimezoneDescription =>
-      '• 跨时区模式：检测到时区变化后，提醒你确认目标是否临时调整。';
+      '• 跨时区时，如果检测到时区变化，我们会提醒你确认目标是否需要临时调整。';
 
   @override
   String get timezoneModeShiftWorkDescription =>
-      '• 轮班模式：V0.1 先展示占位说明，不参与默认达标计算。';
+      '• 轮班作息暂不参与默认达标计算，建议先把记录和目标分开查看。';
 }

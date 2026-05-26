@@ -5,9 +5,9 @@ import 'package:rhythm/core/presentation/widgets/secondary_page_header.dart';
 import 'package:rhythm/core/time/time_context_provider.dart';
 import 'package:rhythm/l10n/app_localizations.dart';
 
-/// 展示阶段八的时区与特殊模式页，统一承接当前时区说明和特殊模式边界。
+/// 展示时区与特殊情况说明页，帮助用户理解记录归属规则和特殊作息处理方式。
 class TimezoneModePage extends HookConsumerWidget {
-  /// 创建时区与特殊模式页。
+  /// 创建时区与特殊情况说明页。
   const TimezoneModePage({super.key});
 
   @override
@@ -69,6 +69,7 @@ class TimezoneModePage extends HookConsumerWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      // 将特殊情况拆成独立段落，便于后续逐项替换为真实能力说明。
                       Text(l10n.timezoneModeCrossTimezoneDescription),
                       const SizedBox(height: 8),
                       Text(l10n.timezoneModeShiftWorkDescription),

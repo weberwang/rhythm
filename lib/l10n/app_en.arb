@@ -653,7 +653,7 @@
   "profileDataAccessEntryLoading": "Loading access status",
   "profileDataAccessEntryError": "Access status is temporarily unavailable",
   "profileTimezoneModeEntryTitle": "Timezone and special modes",
-  "profileTimezoneModeEntrySubtitle": "{timezone} ? Special mode notes",
+  "profileTimezoneModeEntrySubtitle": "{timezone} · Record timing and special cases",
   "@profileTimezoneModeEntrySubtitle": {
     "placeholders": {
       "timezone": {
@@ -808,11 +808,11 @@
   "privacyDataClearLocalDialogMessage": "Clearing local data removes cached goals, records, and tags from this device. Please confirm again before continuing.",
   "privacyDataDangerCardTitle": "Dangerous actions always need a second confirmation",
   "privacyDataDangerCardDescription": "Deleting an account and clearing data must go through a confirmation dialog. They never run directly from a plain list tap.",
-  "timezoneModePageTitle": "Keep boundaries clear before expanding support",
-  "timezoneModePageDescription": "V0.1 does not implement a full shift-work flow yet, but the page still explains the current boundaries clearly.",
+  "timezoneModePageTitle": "Timezones and record timing",
+  "timezoneModePageDescription": "This page explains how timezone changes affect record timing and how special schedules are handled.",
   "timezoneModeCurrentTimezoneTitle": "Current timezone",
   "timezoneModeCurrentTimezoneDescription": "Each record keeps the timezone from when the event happened, so older records are not reassigned to a new day when you switch timezones later.",
-  "timezoneModeSpecialModeTitle": "Special modes",
-  "timezoneModeCrossTimezoneDescription": "? Cross-timezone mode: when a timezone change is detected, Rhythm reminds you to confirm whether the goal needs a temporary adjustment.",
-  "timezoneModeShiftWorkDescription": "? Shift-work mode: V0.1 only shows placeholder guidance for now and does not participate in the default on-track calculation."
+  "timezoneModeSpecialModeTitle": "Special cases",
+  "timezoneModeCrossTimezoneDescription": "• When a timezone change is detected, Rhythm reminds you to confirm whether the goal needs a temporary adjustment.",
+  "timezoneModeShiftWorkDescription": "• Shift-based schedules are not included in the default on-track calculation yet, so it is best to review goals and records separately."
 }

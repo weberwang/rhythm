@@ -45,67 +45,71 @@ class _SleepDelayTagPickerSheetState extends State<SleepDelayTagPickerSheet> {
     final l10n = AppLocalizations.of(context);
 
     return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 18, 20, 24),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              l10n.sleepDelayTagPickerTitle,
-              style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                    fontWeight: FontWeight.w800,
-                  ),
-            ),
-            const SizedBox(height: 12),
-            Wrap(
-              spacing: 8,
-              runSpacing: 8,
-              children: [
-                for (final tag in widget.tags)
-                  ChoiceChip(
-                    label: Text(tag.name),
-                    selected: _selectedTag == tag.name,
-                    onSelected: (_) {
-                      setState(() {
-                        _selectedTag = tag.name;
-                      });
-                    },
-                  ),
-              ],
-            ),
-            const SizedBox(height: 16),
-            FilledButton(
-              onPressed: _selectedTag == null
-                  ? null
-                  : () => widget.onSave(<String>[_selectedTag!]),
-              child: Text(l10n.sleepDelayTagPickerSave),
-            ),
-            const SizedBox(height: 8),
-            TextButton(
-              onPressed: () async {
-                await showModalBottomSheet<void>(
-                  context: context,
-                  isScrollControlled: true,
-                  builder: (context) {
-                    return CustomDelayTagSheet(
-                      onSave: (value) async {
-                        if (widget.onCustomTag != null) {
-                          await widget.onCustomTag!(value);
-                          if (mounted && context.mounted) {
-                            Navigator.of(context).pop();
-                          }
-                          return;
-                        }
-                        widget.onSave(<String>[value]);
+      child: SizedBox(
+        // Material 3 底部弹层在宽屏松约束下会默认收窄，这里强制铺满可用宽度以对齐移动端设计稿。
+        width: double.infinity,
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(20, 18, 20, 24),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                l10n.sleepDelayTagPickerTitle,
+                style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                      fontWeight: FontWeight.w800,
+                    ),
+              ),
+              const SizedBox(height: 12),
+              Wrap(
+                spacing: 8,
+                runSpacing: 8,
+                children: [
+                  for (final tag in widget.tags)
+                    ChoiceChip(
+                      label: Text(tag.name),
+                      selected: _selectedTag == tag.name,
+                      onSelected: (_) {
+                        setState(() {
+                          _selectedTag = tag.name;
+                        });
                       },
-                    );
-                  },
-                );
-              },
-              child: Text(l10n.sleepDelayTagPickerCustom),
-            ),
-          ],
+                    ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              FilledButton(
+                onPressed: _selectedTag == null
+                    ? null
+                    : () => widget.onSave(<String>[_selectedTag!]),
+                child: Text(l10n.sleepDelayTagPickerSave),
+              ),
+              const SizedBox(height: 8),
+              TextButton(
+                onPressed: () async {
+                  await showModalBottomSheet<void>(
+                    context: context,
+                    isScrollControlled: true,
+                    builder: (context) {
+                      return CustomDelayTagSheet(
+                        onSave: (value) async {
+                          if (widget.onCustomTag != null) {
+                            await widget.onCustomTag!(value);
+                            if (mounted && context.mounted) {
+                              Navigator.of(context).pop();
+                            }
+                            return;
+                          }
+                          widget.onSave(<String>[value]);
+                        },
+                      );
+                    },
+                  );
+                },
+                child: Text(l10n.sleepDelayTagPickerCustom),
+              ),
+            ],
+          ),
         ),
       ),
     );
