@@ -272,6 +272,65 @@ void main() {
     expect(state.monthSummary!.days, isNotEmpty);
     expect(state.monthSummary!.days.every((day) => day.isLate), isTrue);
   });
+
+  test('保存标签后仅局部回写状态且不会先进入 loading', () async {
+    final repository = InMemorySleepDelayTagRepository();
+    final container = ProviderContainer(
+      overrides: [
+        sleepDelayTagRepositoryProvider.overrideWithValue(repository),
+        goalScheduleSettingsRepositoryProvider.overrideWithValue(
+          TestGoalScheduleSettingsRepository(settings),
+        ),
+        recentThirtyDayEffectiveSleepRecordsProvider.overrideWith(
+          (ref) async => <EffectiveSleepRecord>[
+            _buildRecord(
+              id: 'late',
+              recordDate: DateTime.utc(2026, 5, 24),
+              fellAsleepAt: DateTime.utc(2026, 5, 25, 0, 20),
+            ),
+          ],
+        ),
+        timeContextProvider.overrideWithValue(
+          TimeContext(
+            now: DateTime.utc(2026, 5, 24, 20),
+            timezoneName: 'Asia/Shanghai',
+          ),
+        ),
+      ],
+    );
+    addTearDown(container.dispose);
+
+    await container.read(calendarControllerProvider.future);
+    final transitions = <AsyncValue<CalendarViewState>>[];
+    final subscription = container.listen<AsyncValue<CalendarViewState>>(
+      calendarControllerProvider,
+      (previous, next) {
+        transitions.add(next);
+      },
+      fireImmediately: false,
+    );
+    addTearDown(subscription.close);
+
+    await repository.saveTags(
+      recordDate: DateTime.utc(2026, 5, 24),
+      tags: const <String>['刷手机'],
+    );
+    await container
+        .read(calendarControllerProvider.notifier)
+        .refreshDayTags(DateTime.utc(2026, 5, 24));
+
+    final state = await container.read(calendarControllerProvider.future);
+    final day = state.monthSummary!.days.firstWhere(
+      (item) => item.date == DateTime.utc(2026, 5, 24),
+    );
+
+    expect(
+      transitions.any((value) => value is AsyncLoading<CalendarViewState>),
+      isFalse,
+    );
+    expect(day.tags, ['刷手机']);
+    expect(day.primaryMood, CalendarDayMood.drained);
+  });
 }
 
 /// 构造日历控制器测试用有效记录。

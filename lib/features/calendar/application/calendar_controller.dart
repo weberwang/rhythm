@@ -4,6 +4,7 @@ import 'package:rhythm/features/calendar/application/calendar_view_state.dart';
 import 'package:rhythm/features/calendar/domain/calendar_day_summary.dart';
 import 'package:rhythm/features/calendar/domain/calendar_filter.dart';
 import 'package:rhythm/features/calendar/domain/calendar_heatmap_rules.dart';
+import 'package:rhythm/features/calendar/domain/calendar_mood_rules.dart';
 import 'package:rhythm/features/goal_schedule/application/goal_schedule_providers.dart';
 import 'package:rhythm/features/goal_schedule/domain/goal_schedule_settings.dart';
 import 'package:rhythm/features/sleep_records/application/effective_sleep_record_provider.dart';
@@ -38,6 +39,65 @@ class CalendarController extends AsyncNotifier<CalendarViewState> {
     state = AsyncData(await _buildState());
   }
 
+  /// 只回写单日标签结果，避免标签保存后把整页打回加载态。
+  Future<void> refreshDayTags(DateTime recordDate) async {
+    final currentState = state is AsyncData<CalendarViewState>
+        ? (state as AsyncData<CalendarViewState>).value
+        : null;
+    if (currentState == null ||
+        currentState.status != CalendarViewStatus.ready) {
+      await reload();
+      return;
+    }
+
+    final monthSummary = currentState.monthSummary;
+    if (monthSummary == null) {
+      await reload();
+      return;
+    }
+
+    final normalizedDate = DateTime.utc(
+      recordDate.year,
+      recordDate.month,
+      recordDate.day,
+    );
+    final previousDay = monthSummary.days
+        .where((day) => day.date == normalizedDate)
+        .firstOrNull;
+    if (previousDay == null) {
+      await reload();
+      return;
+    }
+
+    final repository = ref.read(sleepDelayTagRepositoryProvider);
+    final latestTags = await repository.readTags(recordDate: normalizedDate);
+    final updatedDay = _copyDayWithTags(previousDay, latestTags);
+    final updatedDays = monthSummary.days
+        .map((day) => day.date == normalizedDate ? updatedDay : day)
+        .toList(growable: false);
+    final updatedTagsByDate = <DateTime, List<String>>{
+      ...currentState.savedTagsByDate,
+    };
+    if (latestTags.isEmpty) {
+      updatedTagsByDate.remove(normalizedDate);
+    } else {
+      updatedTagsByDate[normalizedDate] = List<String>.from(latestTags);
+    }
+
+    state = AsyncData(
+      CalendarViewState(
+        status: CalendarViewStatus.ready,
+        monthSummary: CalendarHeatmapRules.buildMonthSummary(
+          month: monthSummary.month,
+          days: updatedDays,
+        ),
+        availableTags: currentState.availableTags,
+        savedTagsByDate: updatedTagsByDate,
+        activeFilter: currentState.activeFilter,
+      ),
+    );
+  }
+
   Future<CalendarViewState> _buildState() async {
     final settings = await ref.read(savedGoalScheduleSettingsProvider.future);
     if (settings == null) {
@@ -69,6 +129,23 @@ class CalendarController extends AsyncNotifier<CalendarViewState> {
       activeFilter: _filter,
     );
   }
+}
+
+/// 基于既有记录和热力结果，仅替换标签相关字段，避免无关数据重复计算。
+CalendarDaySummary _copyDayWithTags(
+  CalendarDaySummary source,
+  List<String> tags,
+) {
+  final mood = CalendarMoodRules.resolve(tags);
+  return CalendarDaySummary(
+    date: source.date,
+    record: source.record,
+    sleepOffsetMinutes: source.sleepOffsetMinutes,
+    heatLevel: source.heatLevel,
+    tags: List<String>.from(tags),
+    primaryMood: mood.primaryMood,
+    hasSecondaryMood: mood.hasSecondaryMood,
+  );
 }
 
 /// 生成当前月份所有日期的热力摘要，避免页面层自行遍历记录。

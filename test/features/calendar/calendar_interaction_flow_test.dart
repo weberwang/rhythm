@@ -128,6 +128,55 @@ void main() {
     expect(find.byKey(const Key('calendar-mood-paper-24')), findsOneWidget);
   });
 
+  testWidgets('保存标签后不会回到整页加载态', (tester) async {
+    final repository = InMemorySleepDelayTagRepository();
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          sleepDelayTagRepositoryProvider.overrideWithValue(repository),
+          goalScheduleSettingsRepositoryProvider.overrideWithValue(
+            TestGoalScheduleSettingsRepository(settings),
+          ),
+          recentThirtyDayEffectiveSleepRecordsProvider.overrideWith(
+            (ref) async => <EffectiveSleepRecord>[
+              _buildRecord(
+                id: 'r24',
+                recordDate: DateTime.utc(2026, 5, 24),
+                fellAsleepAt: DateTime.utc(2026, 5, 25, 0, 20),
+              ),
+            ],
+          ),
+          timeContextProvider.overrideWithValue(
+            TimeContext(
+              now: DateTime.utc(2026, 5, 24, 20),
+              timezoneName: 'Asia/Shanghai',
+            ),
+          ),
+        ],
+        child: MaterialApp(
+          locale: const Locale('zh'),
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: const Scaffold(body: CalendarPage()),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    await tester.ensureVisible(find.text('24').first);
+    await tester.tap(find.text('24').first);
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('添加标签'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('刷手机'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('保存标签'));
+    await tester.pump();
+
+    expect(find.byType(CircularProgressIndicator), findsNothing);
+    expect(find.text('颜色不是坏消息，而是你与目标时间的距离。'), findsOneWidget);
+  });
+
   testWidgets('自定义标签输入无效时在真实交互链路里展示错误', (tester) async {
     final repository = InMemorySleepDelayTagRepository();
     await tester.pumpWidget(

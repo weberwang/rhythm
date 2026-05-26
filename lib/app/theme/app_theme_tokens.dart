@@ -118,10 +118,10 @@ class AppThemeTokens {
     dangerSurface: Color(0xFFF4DED7),
     success: Color(0xFF4F7B5A),
     successSurface: Color(0xFFD7E7DA),
-    moodCalmPaper: Color(0xFFDCE7D8),
-    moodRestlessPaper: Color(0xFFE7D9C2),
-    moodDrainedPaper: Color(0xFFE6E1D8),
-    moodExcitedPaper: Color(0xFFF1D9CF),
+    moodCalmPaper: Color(0xFFC9E5C8),
+    moodRestlessPaper: Color(0xFFF0D18F),
+    moodDrainedPaper: Color(0xFFD7CBBE),
+    moodExcitedPaper: Color(0xFFF2B8A6),
   );
 
   /// 基于 Pencil 深色睡前页语义反推出的暗色 token，避免简单反色导致压迫感过强。
@@ -145,9 +145,9 @@ class AppThemeTokens {
     dangerSurface: Color(0xFF3D2A28),
     success: Color(0xFF8AB295),
     successSurface: Color(0xFF223A2D),
-    moodCalmPaper: Color(0xFF304432),
-    moodRestlessPaper: Color(0xFF463A27),
-    moodDrainedPaper: Color(0xFF403D37),
-    moodExcitedPaper: Color(0xFF4A332F),
+    moodCalmPaper: Color(0xFF5E8A61),
+    moodRestlessPaper: Color(0xFF8F6A28),
+    moodDrainedPaper: Color(0xFF7B6C61),
+    moodExcitedPaper: Color(0xFF956255),
   );
 }

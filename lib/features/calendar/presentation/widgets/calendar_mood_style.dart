@@ -43,42 +43,58 @@ CalendarMoodStyle resolveCalendarMoodStyle(
   final tokens = Theme.of(context).brightness == Brightness.dark
       ? AppThemeTokens.dark
       : AppThemeTokens.light;
+  return resolveCalendarMoodStyleFromTokens(tokens, mood);
+}
+
+/// 基于明确的主题 token 解析纸片样式，方便亮暗主题单独验证。
+CalendarMoodStyle resolveCalendarMoodStyleFromTokens(
+  AppThemeTokens tokens,
+  CalendarDayMood mood,
+) {
   switch (mood) {
     case CalendarDayMood.calm:
       return CalendarMoodStyle(
         fillColor: tokens.moodCalmPaper,
-        edgeColor: tokens.primaryMuted,
+        edgeColor: tokens.brightness == Brightness.dark
+            ? const Color(0xFFB9D8B7)
+            : const Color(0xFF4F7B5A),
         rotationRadians: 0,
         widthFactor: 0.5,
         heightFactor: 0.23,
-        opacity: 0.55,
+        opacity: tokens.brightness == Brightness.dark ? 0.88 : 0.74,
       );
     case CalendarDayMood.restless:
       return CalendarMoodStyle(
         fillColor: tokens.moodRestlessPaper,
-        edgeColor: tokens.warning,
+        edgeColor: tokens.brightness == Brightness.dark
+            ? const Color(0xFFF0C978)
+            : const Color(0xFFB77A19),
         rotationRadians: 3 * math.pi / 180,
         widthFactor: 0.44,
         heightFactor: 0.2,
-        opacity: 0.6,
+        opacity: tokens.brightness == Brightness.dark ? 0.9 : 0.78,
       );
     case CalendarDayMood.drained:
       return CalendarMoodStyle(
         fillColor: tokens.moodDrainedPaper,
-        edgeColor: tokens.textMuted,
+        edgeColor: tokens.brightness == Brightness.dark
+            ? const Color(0xFFE2D5CB)
+            : const Color(0xFF8C7768),
         rotationRadians: -2 * math.pi / 180,
         widthFactor: 0.46,
         heightFactor: 0.18,
-        opacity: 0.42,
+        opacity: tokens.brightness == Brightness.dark ? 0.84 : 0.7,
       );
     case CalendarDayMood.excited:
       return CalendarMoodStyle(
         fillColor: tokens.moodExcitedPaper,
-        edgeColor: tokens.danger,
+        edgeColor: tokens.brightness == Brightness.dark
+            ? const Color(0xFFF0B2A0)
+            : const Color(0xFFC66C50),
         rotationRadians: -3 * math.pi / 180,
         widthFactor: 0.48,
         heightFactor: 0.22,
-        opacity: 0.58,
+        opacity: tokens.brightness == Brightness.dark ? 0.9 : 0.76,
       );
   }
 }

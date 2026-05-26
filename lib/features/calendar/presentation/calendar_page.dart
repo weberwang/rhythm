@@ -332,7 +332,9 @@ Future<void> _showDayDetail(
                   await ref
                       .read(sleepDelayTagControllerProvider)
                       .saveTags(recordDate: summary.date, tags: tags);
-                  await ref.read(calendarControllerProvider.notifier).reload();
+                  await ref
+                      .read(calendarControllerProvider.notifier)
+                      .refreshDayTags(summary.date);
                   await ref
                       .read(calendarAnalyticsProvider)
                       .trackDelayTagAdded(
@@ -348,7 +350,9 @@ Future<void> _showDayDetail(
                   await ref
                       .read(sleepDelayTagControllerProvider)
                       .saveCustomTag(recordDate: summary.date, input: value);
-                  await ref.read(calendarControllerProvider.notifier).reload();
+                  await ref
+                      .read(calendarControllerProvider.notifier)
+                      .refreshDayTags(summary.date);
                   await ref
                       .read(calendarAnalyticsProvider)
                       .trackDelayTagAdded(
