@@ -173,8 +173,14 @@ abstract class AppLocalizations {
   /// No description provided for @calendarHeroSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'You stayed on track for 16 days this month, and drifted on 9 more.'**
-  String get calendarHeroSubtitle;
+  /// **'You stayed on track for {onTrackDays} days this month, and drifted on {driftDays} more.'**
+  String calendarHeroSubtitle(int onTrackDays, int driftDays);
+
+  /// No description provided for @calendarHeroSubtitleEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'There is no usable rhythm sample this month yet. Log a few days first, then come back to review the trend.'**
+  String get calendarHeroSubtitleEmpty;
 
   /// No description provided for @calendarFilterMetGoal.
   ///

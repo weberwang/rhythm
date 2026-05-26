@@ -12,7 +12,18 @@
   "calendarDescription": "用热力图看清最近的作息节奏。",
   "calendarHeroEyebrow": "五月仍有节律感",
   "calendarHeroTitle": "颜色不是坏消息，而是你与目标时间的距离。",
-  "calendarHeroSubtitle": "本月已有 16 天在轨道里，更多 9 天有偏航。",
+  "calendarHeroSubtitle": "本月已有 {onTrackDays} 天在轨道里，更多 {driftDays} 天有偏航。",
+  "@calendarHeroSubtitle": {
+    "placeholders": {
+      "onTrackDays": {
+        "type": "int"
+      },
+      "driftDays": {
+        "type": "int"
+      }
+    }
+  },
+  "calendarHeroSubtitleEmpty": "本月还没有可用节律样本。先记录几天，再回来看走势。",
   "calendarFilterMetGoal": "入轨内",
   "calendarFilterLate": "晚起波动",
   "calendarFilterDataSource": "晚睡次数",

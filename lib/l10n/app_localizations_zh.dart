@@ -45,7 +45,12 @@ class AppLocalizationsZh extends AppLocalizations {
   String get calendarHeroTitle => '颜色不是坏消息，而是你与目标时间的距离。';
 
   @override
-  String get calendarHeroSubtitle => '本月已有 16 天在轨道里，更多 9 天有偏航。';
+  String calendarHeroSubtitle(int onTrackDays, int driftDays) {
+    return '本月已有 $onTrackDays 天在轨道里，更多 $driftDays 天有偏航。';
+  }
+
+  @override
+  String get calendarHeroSubtitleEmpty => '本月还没有可用节律样本。先记录几天，再回来看走势。';
 
   @override
   String get calendarFilterMetGoal => '入轨内';

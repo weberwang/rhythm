@@ -41,9 +41,23 @@ void main() {
     await pumpPage(tester, state: _readyState());
 
     expect(find.text('颜色不是坏消息，而是你与目标时间的距离。'), findsOneWidget);
+    expect(find.text('本月已有 3 天在轨道里，更多 2 天有偏航。'), findsOneWidget);
     expect(find.text('全部日期'), findsOneWidget);
     expect(find.text('达标率'), findsOneWidget);
     expect(find.text('最晚一晚'), findsOneWidget);
+  });
+
+  testWidgets('当月还没有记录时顶部摘要显示空态提示', (tester) async {
+    await pumpPage(
+      tester,
+      state: _readyState(
+        onTargetDays: 0,
+        recordedDays: 0,
+        latestLateDayIndex: null,
+      ),
+    );
+
+    expect(find.text('本月还没有可用节律样本。先记录几天，再回来看走势。'), findsOneWidget);
   });
 
   testWidgets('顶部筛选栏默认显示条件摘要、统计摘要和唯一操作入口', (tester) async {
@@ -216,6 +230,24 @@ CalendarViewState _readyStateWithFilter(CalendarFilter activeFilter) {
 /// 兼容现有测试调用方式，便于逐步补齐筛选态断言。
 CalendarViewState _readyState({
   CalendarFilter activeFilter = const CalendarFilter(),
+  int onTargetDays = 3,
+  int recordedDays = 5,
+  int? latestLateDayIndex = 23,
 }) {
-  return _readyStateWithFilter(activeFilter);
+  final baseState = _readyStateWithFilter(activeFilter);
+  final monthSummary = baseState.monthSummary!;
+  return CalendarViewState(
+    status: baseState.status,
+    monthSummary: CalendarMonthSummary(
+      month: monthSummary.month,
+      days: monthSummary.days,
+      onTargetDays: onTargetDays,
+      recordedDays: recordedDays,
+      latestLateDay: latestLateDayIndex == null
+          ? null
+          : monthSummary.days[latestLateDayIndex],
+    ),
+    availableTags: baseState.availableTags,
+    activeFilter: baseState.activeFilter,
+  );
 }

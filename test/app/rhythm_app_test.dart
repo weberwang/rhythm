@@ -80,7 +80,7 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('颜色不是坏消息，而是你与目标时间的距离。'), findsOneWidget);
-    expect(find.text('本月已有 16 天在轨道里，更多 9 天有偏航。'), findsOneWidget);
+    expect(find.text('本月还没有可用节律样本。先记录几天，再回来看走势。'), findsOneWidget);
 
     await tester.tap(find.text('睡前'));
     await tester.pumpAndSettle();

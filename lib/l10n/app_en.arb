@@ -42,7 +42,18 @@
   },
   "calendarHeroEyebrow": "May still has rhythm",
   "calendarHeroTitle": "Color is not bad news. It is the distance between you and your target bedtime.",
-  "calendarHeroSubtitle": "You stayed on track for 16 days this month, and drifted on 9 more.",
+  "calendarHeroSubtitle": "You stayed on track for {onTrackDays} days this month, and drifted on {driftDays} more.",
+  "@calendarHeroSubtitle": {
+    "placeholders": {
+      "onTrackDays": {
+        "type": "int"
+      },
+      "driftDays": {
+        "type": "int"
+      }
+    }
+  },
+  "calendarHeroSubtitleEmpty": "There is no usable rhythm sample this month yet. Log a few days first, then come back to review the trend.",
   "calendarFilterMetGoal": "On track",
   "calendarFilterLate": "Late drift",
   "calendarFilterDataSource": "Late count",

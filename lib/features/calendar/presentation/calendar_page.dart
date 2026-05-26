@@ -70,6 +70,7 @@ class CalendarPage extends HookConsumerWidget {
             .where((day) => day.heatLevel == CalendarHeatLevel.late)
             .length;
         final monthLabel = _formatMonthLabel(context, monthSummary.month);
+        final driftDays = monthSummary.recordedDays - monthSummary.onTargetDays;
         final onTrackRate = monthSummary.recordedDays == 0
             ? 0
             : ((monthSummary.onTargetDays / monthSummary.recordedDays) * 100)
@@ -78,6 +79,13 @@ class CalendarPage extends HookConsumerWidget {
             monthSummary.latestLateDay?.sleepOffsetMinutes == null
             ? '--:--'
             : _formatOffset(monthSummary.latestLateDay!.sleepOffsetMinutes!);
+        // 顶部摘要直接绑定当月统计，避免继续展示固定示例文案。
+        final heroSubtitle = _buildHeroSubtitle(
+          l10n,
+          onTrackDays: monthSummary.onTargetDays,
+          driftDays: driftDays,
+          recordedDays: monthSummary.recordedDays,
+        );
 
         return SingleChildScrollView(
           padding: const EdgeInsets.fromLTRB(20, 18, 20, 24),
@@ -101,7 +109,7 @@ class CalendarPage extends HookConsumerWidget {
               ),
               const SizedBox(height: 8),
               Text(
-                l10n.calendarHeroSubtitle,
+                heroSubtitle,
                 style: theme.textTheme.bodyMedium?.copyWith(
                   color: tokens.textSecondary,
                 ),
@@ -268,6 +276,19 @@ String _formatOffset(int minutes) {
   final hours = safeMinutes ~/ 60;
   final remainingMinutes = safeMinutes % 60;
   return '${hours.toString().padLeft(2, '0')}:${remainingMinutes.toString().padLeft(2, '0')}';
+}
+
+/// 根据当月统计生成顶部摘要，确保首屏文案反映真实记录结果。
+String _buildHeroSubtitle(
+  AppLocalizations l10n, {
+  required int onTrackDays,
+  required int driftDays,
+  required int recordedDays,
+}) {
+  if (recordedDays == 0) {
+    return l10n.calendarHeroSubtitleEmpty;
+  }
+  return l10n.calendarHeroSubtitle(onTrackDays, driftDays);
 }
 
 /// 按语言环境输出月份标题，中文保留当前视觉稿格式，英文走本地化月份表达。

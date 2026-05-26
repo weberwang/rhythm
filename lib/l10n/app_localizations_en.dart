@@ -48,8 +48,13 @@ class AppLocalizationsEn extends AppLocalizations {
       'Color is not bad news. It is the distance between you and your target bedtime.';
 
   @override
-  String get calendarHeroSubtitle =>
-      'You stayed on track for 16 days this month, and drifted on 9 more.';
+  String calendarHeroSubtitle(int onTrackDays, int driftDays) {
+    return 'You stayed on track for $onTrackDays days this month, and drifted on $driftDays more.';
+  }
+
+  @override
+  String get calendarHeroSubtitleEmpty =>
+      'There is no usable rhythm sample this month yet. Log a few days first, then come back to review the trend.';
 
   @override
   String get calendarFilterMetGoal => 'On track';
