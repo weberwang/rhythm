@@ -136,6 +136,57 @@ void main() {
     expect(find.text('立即开通年会员'), findsNothing);
   });
 
+  testWidgets('切换套餐时卡片尺寸保持稳定，避免选中外框抖动', (tester) async {
+    await _pumpPage(
+      tester,
+      viewState: MembershipViewState(
+        snapshot: MembershipSnapshot.fallback(
+          isConfigured: false,
+          entitlement: const MembershipEntitlement.free(),
+          plans: const <MembershipPlan>[
+            MembershipPlan(
+              packageId: 'monthly_plan',
+              tier: MembershipTier.monthly,
+              priceLabel: '¥3',
+            ),
+            MembershipPlan(
+              packageId: 'annual_plan',
+              tier: MembershipTier.annual,
+              priceLabel: '¥16',
+              isRecommended: true,
+            ),
+            MembershipPlan(
+              packageId: 'lifetime_plan',
+              tier: MembershipTier.lifetime,
+              priceLabel: '¥32',
+            ),
+          ],
+        ),
+      ),
+    );
+
+    final monthlyCard = find.ancestor(
+      of: find.text('月付'),
+      matching: find.byType(InkWell),
+    );
+    final annualCard = find.ancestor(
+      of: find.text('年付'),
+      matching: find.byType(InkWell),
+    );
+
+    final monthlySizeBefore = tester.getSize(monthlyCard);
+    final annualSizeBefore = tester.getSize(annualCard);
+
+    await tester.tap(find.text('月付'));
+    await tester.pumpAndSettle();
+
+    final monthlySizeAfter = tester.getSize(monthlyCard);
+    final annualSizeAfter = tester.getSize(annualCard);
+
+    expect(monthlySizeAfter, monthlySizeBefore);
+    expect(annualSizeAfter, annualSizeBefore);
+  });
+
   testWidgets('已开通会员时展示当前权益状态与恢复购买入口', (tester) async {
     await _pumpPage(
       tester,

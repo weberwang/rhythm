@@ -277,8 +277,17 @@ class _PlanCard extends StatelessWidget {
               color: highlight
                   ? const Color(0xFFC8913C)
                   : const Color(0xFFD5DFCE),
-              width: isSelected ? 1.5 : 1,
+              width: 1,
             ),
+            boxShadow: isSelected
+                ? const <BoxShadow>[
+                    BoxShadow(
+                      color: Color(0x1A1B3A28),
+                      blurRadius: 10,
+                      offset: Offset(0, 4),
+                    ),
+                  ]
+                : null,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

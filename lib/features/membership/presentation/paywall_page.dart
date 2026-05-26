@@ -220,8 +220,17 @@ class _PaywallPlanCard extends StatelessWidget {
               color: recommended
                   ? const Color(0xFFC8913C)
                   : const Color(0xFF2A5641),
-              width: isSelected ? 1.5 : 1,
+              width: 1,
             ),
+            boxShadow: isSelected
+                ? const <BoxShadow>[
+                    BoxShadow(
+                      color: Color(0x29000000),
+                      blurRadius: 12,
+                      offset: Offset(0, 5),
+                    ),
+                  ]
+                : null,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
