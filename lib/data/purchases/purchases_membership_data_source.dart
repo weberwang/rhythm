@@ -53,7 +53,10 @@ class PurchasesMembershipDataSource {
       );
     }
 
-    final purchaseResult = await Purchases.purchasePackage(package);
+    // 使用新版 PurchaseParams 入口，避免继续依赖已废弃的直接购买方法。
+    final purchaseResult = await Purchases.purchase(
+      PurchaseParams.package(package),
+    );
     return _buildSnapshot(
       customerInfo: purchaseResult.customerInfo,
       offerings: offerings,

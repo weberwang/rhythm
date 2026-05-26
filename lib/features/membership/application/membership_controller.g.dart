@@ -37,7 +37,7 @@ final class MembershipControllerProvider
 }
 
 String _$membershipControllerHash() =>
-    r'a19d551e799a41fa90c79fc80f59f703ab811726';
+    r'c856242b0afa801e7156eb059db682556a23e21a';
 
 /// 提供会员页面控制器，统一编排首屏快照、套餐切换与购买恢复动作。
 

@@ -4,7 +4,6 @@ import 'package:rhythm/core/time/time_context.dart';
 import 'package:rhythm/core/time/time_context_provider.dart';
 import 'package:rhythm/features/goal_schedule/application/goal_schedule_providers.dart';
 import 'package:rhythm/features/goal_schedule/domain/goal_schedule_settings.dart';
-import 'package:rhythm/features/goal_schedule/domain/repositories/goal_schedule_settings_repository.dart';
 import 'package:rhythm/features/sleep_records/application/sleep_record_sync_controller.dart';
 import 'package:rhythm/features/sleep_records/application/sleep_record_providers.dart';
 import 'package:rhythm/features/sleep_records/domain/health_platform_state.dart';

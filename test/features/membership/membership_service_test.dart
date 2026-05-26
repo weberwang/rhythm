@@ -1,8 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rhythm/features/membership/application/membership_service.dart';
 import 'package:rhythm/features/membership/data/membership_repository.dart';
-import 'package:rhythm/features/membership/domain/membership_entitlement.dart';
-import 'package:rhythm/features/membership/domain/membership_paywall_policy.dart';
 
 /// 验证会员服务会统一收口快照读取、购买恢复和拦截判断。
 void main() {

@@ -69,13 +69,14 @@ class _CustomDelayTagSheetState extends State<CustomDelayTagSheet> {
                           _errorText = null;
                         });
                         try {
+                          final navigator = Navigator.of(context);
                           final normalized =
                               SleepDelayTagRules.validateCustomTag(
                             _controller.text,
                           );
                           await widget.onSave(normalized);
-                          if (mounted && Navigator.of(context).canPop()) {
-                            Navigator.of(context).pop();
+                          if (mounted && navigator.canPop()) {
+                            navigator.pop();
                           }
                         } on SleepDelayTagValidationException catch (error) {
                           if (mounted) {

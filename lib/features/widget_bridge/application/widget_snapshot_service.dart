@@ -1,6 +1,5 @@
 import 'dart:ui' as ui;
 
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:rhythm/core/time/time_context_provider.dart';
 import 'package:rhythm/features/goal_schedule/application/goal_schedule_providers.dart';

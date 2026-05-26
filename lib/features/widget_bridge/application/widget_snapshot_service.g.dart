@@ -104,4 +104,4 @@ final class WidgetThemeSnapshotProvider
 }
 
 String _$widgetThemeSnapshotHash() =>
-    r'394698ff38eae56cf281feafff8b3d497ca10ed2';
+    r'b0fc7f8549477572fc6509726aa9d8d455b8d1df';

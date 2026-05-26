@@ -4,7 +4,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rhythm/app/router/app_router.dart';
 import 'package:rhythm/features/insights/application/insights_controller.dart';
 import 'package:rhythm/features/insights/application/insights_view_state.dart';
-import 'package:rhythm/features/insights/presentation/insights_copy_resolver.dart';
 import 'package:rhythm/features/insights/presentation/widgets/sections/reason_distribution_section.dart';
 import 'package:rhythm/features/insights/presentation/widgets/sections/recovery_effect_section.dart';
 import 'package:rhythm/features/insights/presentation/widgets/sections/stability_section.dart';

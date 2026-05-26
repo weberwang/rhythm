@@ -3,7 +3,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:rhythm/features/insights/application/insights_controller.dart';
 import 'package:rhythm/features/insights/application/insights_view_state.dart';
-import 'package:rhythm/features/insights/domain/recovery_plan.dart';
 import 'package:rhythm/features/insights/domain/weekly_report_generator.dart';
 import 'package:rhythm/features/insights/presentation/insights_copy_resolver.dart';
 import 'package:rhythm/l10n/app_localizations.dart';

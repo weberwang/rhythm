@@ -1,6 +1,5 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:rhythm/features/membership/application/membership_service.dart';
-import 'package:rhythm/features/membership/domain/membership_entitlement.dart';
 import 'package:rhythm/features/membership/domain/membership_snapshot.dart';
 
 part 'membership_controller.g.dart';

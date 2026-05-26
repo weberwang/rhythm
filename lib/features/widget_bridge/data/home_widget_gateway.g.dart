@@ -58,4 +58,4 @@ final class HomeWidgetGatewayProvider
   }
 }
 
-String _$homeWidgetGatewayHash() => r'012fc864c5119da8099a9f1cc859fec24352c0e0';
+String _$homeWidgetGatewayHash() => r'821b31e41d65acb3a7616bc4b0edb8697af6ef7a';

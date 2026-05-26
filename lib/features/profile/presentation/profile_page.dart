@@ -282,12 +282,10 @@ class _ProfilePreferencesCard extends HookConsumerWidget {
 
   /// 解析系统实际语言名，确保“跟随系统”时展示的是当前生效语言而不是抽象状态。
   String _systemLocaleLabel(BuildContext context, AppLocalizations l10n) {
-    final systemLocale =
-        basicLocaleListResolution(
-          View.of(context).platformDispatcher.locales,
-          AppLocalizations.supportedLocales,
-        ) ??
-        const Locale('en');
+    final systemLocale = basicLocaleListResolution(
+      View.of(context).platformDispatcher.locales,
+      AppLocalizations.supportedLocales,
+    );
     switch (systemLocale.languageCode) {
       case 'zh':
         return l10n.profilePreferencesSimplifiedChineseNative;

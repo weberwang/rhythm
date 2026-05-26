@@ -3,7 +3,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rhythm/core/presentation/widgets/rhythm_primary_button.dart';
 import 'package:rhythm/features/bedtime/application/bedtime_controller.dart';
 import 'package:rhythm/features/bedtime/application/bedtime_view_state.dart';
-import 'package:rhythm/features/bedtime/domain/bedtime_status.dart';
 import 'package:rhythm/l10n/app_localizations.dart';
 
 import 'widgets/sections/bedtime_action_suggestion_section.dart';

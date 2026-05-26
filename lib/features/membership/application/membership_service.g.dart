@@ -8,12 +8,12 @@ part of 'membership_service.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
-/// 提供会员服务默认实例，统一收口快照读取与入口拦截判定。
+/// 提供会员服务默认实例，统一收口快照读取与权益判断。
 
 @ProviderFor(membershipService)
 const membershipServiceProvider = MembershipServiceProvider._();
 
-/// 提供会员服务默认实例，统一收口快照读取与入口拦截判定。
+/// 提供会员服务默认实例，统一收口快照读取与权益判断。
 
 final class MembershipServiceProvider
     extends
@@ -23,7 +23,7 @@ final class MembershipServiceProvider
           MembershipService
         >
     with $Provider<MembershipService> {
-  /// 提供会员服务默认实例，统一收口快照读取与入口拦截判定。
+  /// 提供会员服务默认实例，统一收口快照读取与权益判断。
   const MembershipServiceProvider._()
     : super(
         from: null,
