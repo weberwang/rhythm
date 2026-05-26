@@ -1,7 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rhythm/core/analytics/analytics_event.dart';
-import 'package:rhythm/core/analytics/analytics_gateway.dart';
 import 'package:rhythm/core/analytics/in_memory_analytics_gateway.dart';
 import 'package:rhythm/core/time/time_context.dart';
 import 'package:rhythm/core/time/time_context_provider.dart';
@@ -10,7 +9,6 @@ import 'package:rhythm/features/bedtime/application/bedtime_view_state.dart';
 import 'package:rhythm/features/bedtime/data/in_memory_bedtime_session_repository.dart';
 import 'package:rhythm/features/bedtime/domain/bedtime_action.dart';
 import 'package:rhythm/features/bedtime/domain/bedtime_status.dart';
-import 'package:rhythm/features/bedtime/domain/repositories/bedtime_session_repository.dart';
 import 'package:rhythm/features/goal_schedule/application/goal_schedule_providers.dart';
 import 'package:rhythm/features/goal_schedule/domain/goal_schedule_settings.dart';
 import 'package:rhythm/features/goal_schedule/domain/repositories/goal_schedule_settings_repository.dart';
@@ -208,13 +206,44 @@ void main() {
       isNotEmpty,
     );
   });
+
+  test('目标作息更新后会重新计算睡前页状态', () async {
+    final repository = _FakeGoalScheduleSettingsRepository(null);
+    final container = ProviderContainer(
+      overrides: [
+        goalScheduleSettingsRepositoryProvider.overrideWithValue(repository),
+        bedtimeSessionRepositoryProvider.overrideWith(
+          (ref) => InMemoryBedtimeSessionRepository(),
+        ),
+        analyticsGatewayProvider.overrideWithValue(InMemoryAnalyticsGateway()),
+        timeContextProvider.overrideWithValue(
+          TimeContext(
+            now: DateTime(2026, 5, 24, 22, 45),
+            timezoneName: 'Asia/Shanghai',
+          ),
+        ),
+      ],
+    );
+    addTearDown(container.dispose);
+
+    final initial = await container.read(bedtimeControllerProvider.future);
+    expect(initial.status, BedtimeViewStatus.goalMissing);
+
+    await repository.save(settings);
+    container.invalidate(savedGoalScheduleSettingsProvider);
+
+    final updated = await container.read(bedtimeControllerProvider.future);
+
+    expect(updated.status, BedtimeViewStatus.ready);
+    expect(updated.targetBedtime, isNotNull);
+  });
 }
 
 /// 提供测试用目标作息仓储，避免控制器测试依赖真实持久化。
 class _FakeGoalScheduleSettingsRepository extends GoalScheduleSettingsRepository {
   _FakeGoalScheduleSettingsRepository(this._settings);
 
-  final GoalScheduleSettings? _settings;
+  GoalScheduleSettings? _settings;
 
   @override
   Future<GoalScheduleSettings?> read() async {
@@ -222,5 +251,8 @@ class _FakeGoalScheduleSettingsRepository extends GoalScheduleSettingsRepository
   }
 
   @override
-  Future<void> save(GoalScheduleSettings settings) async {}
+  Future<void> save(GoalScheduleSettings settings) async {
+    // 测试通过直接改写当前值，模拟用户保存新的目标作息。
+    _settings = settings;
+  }
 }

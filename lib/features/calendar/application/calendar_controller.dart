@@ -24,7 +24,8 @@ class CalendarController extends AsyncNotifier<CalendarViewState> {
 
   @override
   Future<CalendarViewState> build() async {
-    return _buildState();
+    final settings = await ref.watch(savedGoalScheduleSettingsProvider.future);
+    return _buildState(settings: settings);
   }
 
   /// 更新筛选条件并重新计算当前月份摘要。
@@ -36,7 +37,8 @@ class CalendarController extends AsyncNotifier<CalendarViewState> {
   /// 重新读取记录和标签并刷新当前月份摘要，供标签保存后实时回写页面。
   Future<void> reload() async {
     state = const AsyncLoading();
-    state = AsyncData(await _buildState());
+    final settings = await ref.read(savedGoalScheduleSettingsProvider.future);
+    state = AsyncData(await _buildState(settings: settings));
   }
 
   /// 只回写单日标签结果，避免标签保存后把整页打回加载态。
@@ -98,8 +100,9 @@ class CalendarController extends AsyncNotifier<CalendarViewState> {
     );
   }
 
-  Future<CalendarViewState> _buildState() async {
-    final settings = await ref.read(savedGoalScheduleSettingsProvider.future);
+  Future<CalendarViewState> _buildState({
+    required GoalScheduleSettings? settings,
+  }) async {
     if (settings == null) {
       return const CalendarViewState(status: CalendarViewStatus.goalMissing);
     }

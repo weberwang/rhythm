@@ -85,11 +85,14 @@ class TestGoalScheduleSettingsRepository
   /// 创建测试目标作息仓储。
   TestGoalScheduleSettingsRepository(this._settings);
 
-  final GoalScheduleSettings? _settings;
+  GoalScheduleSettings? _settings;
 
   @override
   Future<GoalScheduleSettings?> read() async => _settings;
 
   @override
-  Future<void> save(GoalScheduleSettings settings) async {}
+  Future<void> save(GoalScheduleSettings settings) async {
+    // 测试里允许动态切换当前目标作息，便于覆盖保存后触发重算的场景。
+    _settings = settings;
+  }
 }

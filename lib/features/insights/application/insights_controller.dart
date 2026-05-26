@@ -19,7 +19,7 @@ final insightsControllerProvider =
 class InsightsController extends AsyncNotifier<InsightsViewState> {
   @override
   Future<InsightsViewState> build() async {
-    final settings = await ref.read(savedGoalScheduleSettingsProvider.future);
+    final settings = await ref.watch(savedGoalScheduleSettingsProvider.future);
     if (settings == null) {
       return const InsightsViewState(status: InsightsStatus.empty);
     }

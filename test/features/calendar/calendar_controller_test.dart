@@ -331,6 +331,39 @@ void main() {
     expect(day.tags, ['刷手机']);
     expect(day.primaryMood, CalendarDayMood.drained);
   });
+
+  test('目标作息更新后会重新生成日历状态', () async {
+    final repository = TestGoalScheduleSettingsRepository(null);
+    final container = ProviderContainer(
+      overrides: [
+        sleepDelayTagRepositoryProvider.overrideWithValue(
+          InMemorySleepDelayTagRepository(),
+        ),
+        goalScheduleSettingsRepositoryProvider.overrideWithValue(repository),
+        recentThirtyDayEffectiveSleepRecordsProvider.overrideWith(
+          (ref) async => const <EffectiveSleepRecord>[],
+        ),
+        timeContextProvider.overrideWithValue(
+          TimeContext(
+            now: DateTime.utc(2026, 5, 24, 20),
+            timezoneName: 'Asia/Shanghai',
+          ),
+        ),
+      ],
+    );
+    addTearDown(container.dispose);
+
+    final initial = await container.read(calendarControllerProvider.future);
+    expect(initial.status, CalendarViewStatus.goalMissing);
+
+    await repository.save(settings);
+    container.invalidate(savedGoalScheduleSettingsProvider);
+
+    final updated = await container.read(calendarControllerProvider.future);
+
+    expect(updated.status, CalendarViewStatus.ready);
+    expect(updated.monthSummary, isNotNull);
+  });
 }
 
 /// 构造日历控制器测试用有效记录。

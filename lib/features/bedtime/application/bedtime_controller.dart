@@ -44,8 +44,7 @@ class BedtimeController extends AsyncNotifier<BedtimeViewState> {
   Future<BedtimeViewState> build() async {
     _sessionRepository = ref.read(bedtimeSessionRepositoryProvider);
     _analyticsGateway = ref.read(analyticsGatewayProvider);
-
-    final settings = await ref.read(savedGoalScheduleSettingsProvider.future);
+    final settings = await ref.watch(savedGoalScheduleSettingsProvider.future);
     if (settings == null) {
       return const BedtimeViewState(status: BedtimeViewStatus.goalMissing);
     }

@@ -90,6 +90,55 @@ void main() {
     expect(state.weeklyReport, isNotNull);
     expect(state.recoveryPlan, isNotNull);
   });
+
+  test('目标作息更新后会重新生成洞察状态', () async {
+    final repository = TestGoalScheduleSettingsRepository(null);
+    final container = ProviderContainer(
+      overrides: [
+        sleepDelayTagRepositoryProvider.overrideWithValue(
+          InMemorySleepDelayTagRepository(),
+        ),
+        goalScheduleSettingsRepositoryProvider.overrideWithValue(repository),
+        recentSevenDayEffectiveSleepRecordsProvider.overrideWith(
+          (ref) async => <EffectiveSleepRecord>[
+            _record(
+              'r1',
+              DateTime.utc(2026, 5, 20),
+              DateTime.utc(2026, 5, 20, 23, 50),
+            ),
+            _record(
+              'r2',
+              DateTime.utc(2026, 5, 21),
+              DateTime.utc(2026, 5, 22, 0, 40),
+            ),
+            _record(
+              'r3',
+              DateTime.utc(2026, 5, 22),
+              DateTime.utc(2026, 5, 23, 1, 20),
+            ),
+          ],
+        ),
+        timeContextProvider.overrideWithValue(
+          TimeContext(
+            now: DateTime.utc(2026, 5, 24, 20),
+            timezoneName: 'Asia/Shanghai',
+          ),
+        ),
+      ],
+    );
+    addTearDown(container.dispose);
+
+    final initial = await container.read(insightsControllerProvider.future);
+    expect(initial.status, InsightsStatus.empty);
+
+    await repository.save(settings);
+    container.invalidate(savedGoalScheduleSettingsProvider);
+
+    final updated = await container.read(insightsControllerProvider.future);
+
+    expect(updated.status, InsightsStatus.ready);
+    expect(updated.weeklyReport, isNotNull);
+  });
 }
 
 EffectiveSleepRecord _record(String id, DateTime recordDate, DateTime fellAsleepAt) {

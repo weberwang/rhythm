@@ -6,6 +6,7 @@ import 'package:rhythm/core/presentation/widgets/secondary_page_header.dart';
 import 'package:rhythm/core/presentation/widgets/rhythm_primary_button.dart';
 import 'package:rhythm/features/goal_schedule/application/goal_schedule_form_controller.dart';
 import 'package:rhythm/features/goal_schedule/application/goal_schedule_providers.dart';
+import 'package:rhythm/features/goal_schedule/application/goal_schedule_settings_save_service.dart';
 import 'package:rhythm/features/goal_schedule/domain/goal_schedule_form_state.dart';
 import 'package:rhythm/features/goal_schedule/domain/goal_schedule_settings.dart';
 import 'package:rhythm/l10n/app_localizations.dart';
@@ -103,7 +104,7 @@ class GoalScheduleSettingsPage extends HookConsumerWidget {
                     return;
                   }
                   await ref
-                      .read(goalScheduleSettingsRepositoryProvider)
+                      .read(goalScheduleSettingsSaveServiceProvider)
                       .save(
                         GoalScheduleSettings(
                           targetBedtimeMinutes:
