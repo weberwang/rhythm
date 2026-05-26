@@ -35,6 +35,13 @@ migrate_working_dir/
 /node_modules/
 /.npm-cache/
 
+# Codex / 本地技能副本
+/.agents/skills/flutter-init/
+/.agents/skills/flutter-pen-to-architecture/
+/.agents/skills/flutter-prd-rd-writer/
+/.agents/skills/flutter-project-guardrails/
+/.agents/skills/mobile-ui-design-coach/
+
 # Symbolication related
 app.*.symbols
 
