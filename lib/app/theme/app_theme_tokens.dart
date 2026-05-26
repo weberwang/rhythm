@@ -22,6 +22,10 @@ class AppThemeTokens {
     required this.dangerSurface,
     required this.success,
     required this.successSurface,
+    required this.moodCalmPaper,
+    required this.moodRestlessPaper,
+    required this.moodDrainedPaper,
+    required this.moodExcitedPaper,
   });
 
   /// 主题明暗模式，用于统一生成 ColorScheme。
@@ -81,6 +85,18 @@ class AppThemeTokens {
   /// 成功容器底色。
   final Color successSurface;
 
+  /// 平静情绪纸片雾层色。
+  final Color moodCalmPaper;
+
+  /// 烦躁情绪纸片雾层色。
+  final Color moodRestlessPaper;
+
+  /// 空耗情绪纸片雾层色。
+  final Color moodDrainedPaper;
+
+  /// 兴奋情绪纸片雾层色。
+  final Color moodExcitedPaper;
+
   /// 基于 Pencil 亮色稿整理出的主题语义 token。
   static const AppThemeTokens light = AppThemeTokens(
     brightness: Brightness.light,
@@ -102,6 +118,10 @@ class AppThemeTokens {
     dangerSurface: Color(0xFFF4DED7),
     success: Color(0xFF4F7B5A),
     successSurface: Color(0xFFD7E7DA),
+    moodCalmPaper: Color(0xFFDCE7D8),
+    moodRestlessPaper: Color(0xFFE7D9C2),
+    moodDrainedPaper: Color(0xFFE6E1D8),
+    moodExcitedPaper: Color(0xFFF1D9CF),
   );
 
   /// 基于 Pencil 深色睡前页语义反推出的暗色 token，避免简单反色导致压迫感过强。
@@ -125,5 +145,9 @@ class AppThemeTokens {
     dangerSurface: Color(0xFF3D2A28),
     success: Color(0xFF8AB295),
     successSurface: Color(0xFF223A2D),
+    moodCalmPaper: Color(0xFF304432),
+    moodRestlessPaper: Color(0xFF463A27),
+    moodDrainedPaper: Color(0xFF403D37),
+    moodExcitedPaper: Color(0xFF4A332F),
   );
 }

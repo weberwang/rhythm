@@ -48,9 +48,21 @@
   "calendarFilterDataSource": "Late count",
   "calendarFilterAllDays": "All days",
   "calendarFilterOpen": "Filter",
+  "calendarFilterOpenSemantics": "Open filters",
+  "calendarFilterOpenActiveSemantics": "Open filters, filters are active",
   "calendarFilterSheetTitle": "Filter calendar feedback",
   "calendarFilterRecordedOnly": "Only show recorded days",
   "calendarFilterLateOnly": "Only show late days",
+  "calendarFilterSummaryRecorded": "Recorded only",
+  "calendarFilterSummaryLateOnly": "Late only",
+  "calendarFilterSummaryAppliedCount": "{count} filters on",
+  "@calendarFilterSummaryAppliedCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "calendarFilterLateCountSummary": "{count} late days",
   "@calendarFilterLateCountSummary": {
     "placeholders": {

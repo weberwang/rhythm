@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:rhythm/features/calendar/domain/calendar_day_summary.dart';
+import 'package:rhythm/features/calendar/presentation/widgets/calendar_mood_style.dart';
 import 'package:rhythm/features/sleep_records/domain/sleep_record_confidence.dart';
 import 'package:rhythm/features/sleep_records/domain/sleep_record_source.dart';
 import 'package:rhythm/l10n/app_localizations.dart';
@@ -28,6 +29,7 @@ class CalendarDayDetailSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final record = summary.record;
+    final mood = summary.primaryMood;
 
     return SafeArea(
       child: Padding(
@@ -36,6 +38,18 @@ class CalendarDayDetailSheet extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            if (mood != null) ...[
+              Container(
+                key: const Key('calendar-day-mood-accent'),
+                width: 44,
+                height: 6,
+                decoration: BoxDecoration(
+                  color: resolveCalendarMoodStyle(context, mood).edgeColor,
+                  borderRadius: BorderRadius.circular(999),
+                ),
+              ),
+              const SizedBox(height: 12),
+            ],
             Text(
               _formatDateLabel(context),
               style: Theme.of(

@@ -73,7 +73,7 @@
 - Create: `lib/features/calendar/domain/calendar_mood_rules.dart`
 - Test: `test/features/calendar/calendar_mood_rules_test.dart`
 
-- [ ] **Step 1: 先写失败测试，锁定默认标签、多标签优先级和未命中标签回退**
+- [x] **Step 1: 先写失败测试，锁定默认标签、多标签优先级和未命中标签回退**
 
 ```dart
 import 'package:flutter_test/flutter_test.dart';
@@ -110,12 +110,12 @@ void main() {
 }
 ```
 
-- [ ] **Step 2: 运行规则测试，确认当前缺口**
+- [x] **Step 2: 运行规则测试，确认当前缺口**
 
 Run: `flutter test test/features/calendar/calendar_mood_rules_test.dart -r expanded`
 Expected: FAIL，提示 `calendar_day_mood.dart` 或 `CalendarMoodRules.resolve` 尚不存在
 
-- [ ] **Step 3: 用最小实现补齐情绪枚举和规则解析**
+- [x] **Step 3: 用最小实现补齐情绪枚举和规则解析**
 
 ```dart
 /// 表示首页日历纸片要表达的主情绪。
@@ -191,12 +191,12 @@ class CalendarMoodRules {
 }
 ```
 
-- [ ] **Step 4: 再跑规则测试，确认归类口径稳定**
+- [x] **Step 4: 再跑规则测试，确认归类口径稳定**
 
 Run: `flutter test test/features/calendar/calendar_mood_rules_test.dart -r expanded`
 Expected: PASS
 
-- [ ] **Step 5: 提交情绪规则基础层**
+- [ ] **Step 5: 提交情绪规则基础层（按 AGENTS 统一收口流程延后）**
 
 ```bash
 git add lib/features/calendar/domain/calendar_day_mood.dart lib/features/calendar/domain/calendar_mood_rules.dart test/features/calendar/calendar_mood_rules_test.dart
@@ -214,7 +214,7 @@ git commit -m "feat: add calendar mood rules"
 - Modify: `test/features/calendar/calendar_page_analytics_flow_test.dart`
 - Modify: `test/features/calendar/calendar_day_detail_sheet_test.dart`
 
-- [ ] **Step 1: 先写失败测试，锁定已保存标签会生成主情绪和第二层标记**
+- [x] **Step 1: 先写失败测试，锁定已保存标签会生成主情绪和第二层标记**
 
 ```dart
 test('控制器会把已保存标签映射成主情绪和叠层标记', () async {
@@ -253,12 +253,12 @@ test('控制器会把已保存标签映射成主情绪和叠层标记', () async
 });
 ```
 
-- [ ] **Step 2: 运行控制器测试，确认摘要契约仍缺少情绪字段**
+- [x] **Step 2: 运行控制器测试，确认摘要契约仍缺少情绪字段**
 
 Run: `flutter test test/features/calendar/calendar_controller_test.dart -r expanded`
 Expected: FAIL，提示 `primaryMood` / `hasSecondaryMood` 未定义
 
-- [ ] **Step 3: 扩展 `CalendarDaySummary` 和摘要生成规则，并同步更新所有构造夹具**
+- [x] **Step 3: 扩展 `CalendarDaySummary` 和摘要生成规则，并同步更新所有构造夹具**
 
 ```dart
 class CalendarDaySummary {
@@ -339,12 +339,12 @@ CalendarDaySummary(
 );
 ```
 
-- [ ] **Step 4: 运行摘要相关测试，确认新字段已经贯穿现有夹具**
+- [x] **Step 4: 运行摘要相关测试，确认新字段已经贯穿现有夹具**
 
 Run: `flutter test test/features/calendar/calendar_controller_test.dart test/features/calendar/calendar_page_test.dart test/features/calendar/calendar_interaction_flow_test.dart test/features/calendar/calendar_page_analytics_flow_test.dart test/features/calendar/calendar_day_detail_sheet_test.dart -r expanded`
 Expected: PASS
 
-- [ ] **Step 5: 提交摘要契约扩展**
+- [ ] **Step 5: 提交摘要契约扩展（按 AGENTS 统一收口流程延后）**
 
 ```bash
 git add lib/features/calendar/domain/calendar_day_summary.dart lib/features/calendar/domain/calendar_heatmap_rules.dart test/features/calendar/calendar_controller_test.dart test/features/calendar/calendar_page_test.dart test/features/calendar/calendar_interaction_flow_test.dart test/features/calendar/calendar_page_analytics_flow_test.dart test/features/calendar/calendar_day_detail_sheet_test.dart
@@ -361,7 +361,7 @@ git commit -m "feat: carry mood data into calendar summaries"
 - Create: `test/features/calendar/calendar_heatmap_test.dart`
 - Modify: `test/features/calendar/calendar_page_test.dart`
 
-- [ ] **Step 1: 先写失败测试，锁定无标签、单标签、多标签三种纸片表现**
+- [x] **Step 1: 先写失败测试，锁定无标签、单标签、多标签三种纸片表现**
 
 ```dart
 testWidgets('有主情绪的日期格会渲染纸片，多标签时露出第二层纸边', (tester) async {
@@ -408,12 +408,12 @@ testWidgets('页面级 ready 状态会把带标签日期渲染为情绪纸片', 
 });
 ```
 
-- [ ] **Step 2: 运行热力图测试，确认纸片层尚未实现**
+- [x] **Step 2: 运行热力图测试，确认纸片层尚未实现**
 
 Run: `flutter test test/features/calendar/calendar_heatmap_test.dart -r expanded`
 Expected: FAIL，提示找不到纸片 key 或 `CalendarMoodPaper` 组件
 
-- [ ] **Step 3: 实现主题语义色、纸片样式解析器和热力图叠层**
+- [x] **Step 3: 实现主题语义色、纸片样式解析器和热力图叠层**
 
 ```dart
 class AppThemeTokens {
@@ -548,12 +548,12 @@ return Container(
 );
 ```
 
-- [ ] **Step 4: 跑热力图与页面测试，确认纸片只出现在有情绪的日期格**
+- [x] **Step 4: 跑热力图与页面测试，确认纸片只出现在有情绪的日期格**
 
 Run: `flutter test test/features/calendar/calendar_heatmap_test.dart test/features/calendar/calendar_page_test.dart -r expanded`
 Expected: PASS
 
-- [ ] **Step 5: 提交情绪纸片显示层**
+- [ ] **Step 5: 提交情绪纸片显示层（按 AGENTS 统一收口流程延后）**
 
 ```bash
 git add lib/app/theme/app_theme_tokens.dart lib/features/calendar/presentation/widgets/calendar_mood_style.dart lib/features/calendar/presentation/widgets/calendar_mood_paper.dart lib/features/calendar/presentation/widgets/calendar_heatmap.dart test/features/calendar/calendar_heatmap_test.dart test/features/calendar/calendar_page_test.dart
@@ -566,7 +566,7 @@ git commit -m "feat: render mood paper on calendar heatmap"
 - Modify: `lib/features/calendar/presentation/widgets/sheets/calendar_day_detail_sheet.dart`
 - Modify: `test/features/calendar/calendar_day_detail_sheet_test.dart`
 
-- [ ] **Step 1: 先写失败测试，锁定有主情绪时显示导条、无主情绪时不显示**
+- [x] **Step 1: 先写失败测试，锁定有主情绪时显示导条、无主情绪时不显示**
 
 ```dart
 testWidgets('详情弹层会复用主情绪导条', (tester) async {
@@ -597,12 +597,12 @@ testWidgets('详情弹层会复用主情绪导条', (tester) async {
 });
 ```
 
-- [ ] **Step 2: 运行详情测试，确认导条尚未接入**
+- [x] **Step 2: 运行详情测试，确认导条尚未接入**
 
 Run: `flutter test test/features/calendar/calendar_day_detail_sheet_test.dart -r expanded`
 Expected: FAIL，提示找不到 `calendar-day-mood-accent`
 
-- [ ] **Step 3: 在详情标题上方加入主情绪导条，并复用同一套样式解析器**
+- [x] **Step 3: 在详情标题上方加入主情绪导条，并复用同一套样式解析器**
 
 ```dart
 final mood = summary.primaryMood;
@@ -621,12 +621,12 @@ if (mood != null) ...[
 ]
 ```
 
-- [ ] **Step 4: 再跑详情测试，确认首页与详情的主情绪已对齐**
+- [x] **Step 4: 再跑详情测试，确认首页与详情的主情绪已对齐**
 
 Run: `flutter test test/features/calendar/calendar_day_detail_sheet_test.dart -r expanded`
 Expected: PASS
 
-- [ ] **Step 5: 提交详情一致性改动**
+- [ ] **Step 5: 提交详情一致性改动（按 AGENTS 统一收口流程延后）**
 
 ```bash
 git add lib/features/calendar/presentation/widgets/sheets/calendar_day_detail_sheet.dart test/features/calendar/calendar_day_detail_sheet_test.dart
@@ -638,7 +638,7 @@ git commit -m "feat: reuse mood accent in calendar detail sheet"
 **Files:**
 - Modify: `docs/superpowers/plans/2026-05-25-calendar-mood-paper.md`
 
-- [ ] **Step 1: 跑完整日历专项测试，确认领域、页面、交互链路全部回归**
+- [x] **Step 1: 跑完整日历专项测试，确认领域、页面、交互链路全部回归**
 
 Run: `flutter test test/features/calendar -r expanded`
 Expected: PASS

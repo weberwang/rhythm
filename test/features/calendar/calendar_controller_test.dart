@@ -4,6 +4,7 @@ import 'package:rhythm/core/time/time_context.dart';
 import 'package:rhythm/core/time/time_context_provider.dart';
 import 'package:rhythm/features/calendar/application/calendar_controller.dart';
 import 'package:rhythm/features/calendar/application/calendar_view_state.dart';
+import 'package:rhythm/features/calendar/domain/calendar_day_mood.dart';
 import 'package:rhythm/features/calendar/domain/calendar_filter.dart';
 import 'package:rhythm/features/goal_schedule/application/goal_schedule_providers.dart';
 import 'package:rhythm/features/goal_schedule/domain/goal_schedule_settings.dart';
@@ -160,6 +161,40 @@ void main() {
     expect(day.tags, ['刷手机']);
   });
 
+  test('控制器会把已保存标签映射成主情绪和叠层标记', () async {
+    final repository = InMemorySleepDelayTagRepository();
+    await repository.saveTags(
+      recordDate: DateTime.utc(2026, 5, 24),
+      tags: const <String>['加班', '游戏'],
+    );
+    final container = ProviderContainer(
+      overrides: [
+        sleepDelayTagRepositoryProvider.overrideWithValue(repository),
+        goalScheduleSettingsRepositoryProvider.overrideWithValue(
+          TestGoalScheduleSettingsRepository(settings),
+        ),
+        recentThirtyDayEffectiveSleepRecordsProvider.overrideWith(
+          (ref) async => const <EffectiveSleepRecord>[],
+        ),
+        timeContextProvider.overrideWithValue(
+          TimeContext(
+            now: DateTime.utc(2026, 5, 24, 20),
+            timezoneName: 'Asia/Shanghai',
+          ),
+        ),
+      ],
+    );
+    addTearDown(container.dispose);
+
+    final state = await container.read(calendarControllerProvider.future);
+    final day = state.monthSummary!.days.firstWhere(
+      (item) => item.date == DateTime.utc(2026, 5, 24),
+    );
+
+    expect(day.primaryMood, CalendarDayMood.restless);
+    expect(day.hasSecondaryMood, isTrue);
+  });
+
   test('应用仅看有记录筛选后只保留有记录日期', () async {
     final container = ProviderContainer(
       overrides: [
@@ -230,9 +265,7 @@ void main() {
     addTearDown(container.dispose);
 
     final controller = container.read(calendarControllerProvider.notifier);
-    await controller.updateFilter(
-      const CalendarFilter(lateOnly: true),
-    );
+    await controller.updateFilter(const CalendarFilter(lateOnly: true));
     final state = await container.read(calendarControllerProvider.future);
 
     expect(state.activeFilter.lateOnly, isTrue);

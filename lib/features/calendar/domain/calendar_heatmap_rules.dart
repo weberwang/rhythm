@@ -1,6 +1,7 @@
 import 'package:rhythm/features/calendar/domain/calendar_day_summary.dart';
 import 'package:rhythm/features/calendar/domain/calendar_heat_level.dart';
 import 'package:rhythm/features/calendar/domain/calendar_month_summary.dart';
+import 'package:rhythm/features/calendar/domain/calendar_mood_rules.dart';
 import 'package:rhythm/features/goal_schedule/domain/goal_schedule_settings.dart';
 import 'package:rhythm/features/sleep_records/domain/effective_sleep_record.dart';
 
@@ -15,6 +16,7 @@ class CalendarHeatmapRules {
     required GoalScheduleSettings settings,
     required List<String> tags,
   }) {
+    final mood = CalendarMoodRules.resolve(tags);
     if (record == null) {
       return CalendarDaySummary(
         date: date,
@@ -22,6 +24,8 @@ class CalendarHeatmapRules {
         sleepOffsetMinutes: null,
         heatLevel: CalendarHeatLevel.noRecord,
         tags: tags,
+        primaryMood: mood.primaryMood,
+        hasSecondaryMood: mood.hasSecondaryMood,
       );
     }
 
@@ -43,6 +47,8 @@ class CalendarHeatmapRules {
         lateThresholdMinutes: settings.lateThresholdMinutes,
       ),
       tags: tags,
+      primaryMood: mood.primaryMood,
+      hasSecondaryMood: mood.hasSecondaryMood,
     );
   }
 

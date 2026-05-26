@@ -18,9 +18,21 @@
   "calendarFilterDataSource": "晚睡次数",
   "calendarFilterAllDays": "全部日期",
   "calendarFilterOpen": "筛选",
+  "calendarFilterOpenSemantics": "打开筛选",
+  "calendarFilterOpenActiveSemantics": "打开筛选，当前已启用筛选",
   "calendarFilterSheetTitle": "筛选日历反馈",
   "calendarFilterRecordedOnly": "只看有记录日期",
   "calendarFilterLateOnly": "只看晚睡日期",
+  "calendarFilterSummaryRecorded": "仅记录",
+  "calendarFilterSummaryLateOnly": "仅晚睡",
+  "calendarFilterSummaryAppliedCount": "已筛选 {count} 项",
+  "@calendarFilterSummaryAppliedCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "calendarFilterLateCountSummary": "晚睡 {count} 天",
   "@calendarFilterLateCountSummary": {
     "placeholders": {

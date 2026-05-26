@@ -67,6 +67,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get calendarFilterOpen => 'Filter';
 
   @override
+  String get calendarFilterOpenSemantics => 'Open filters';
+
+  @override
+  String get calendarFilterOpenActiveSemantics =>
+      'Open filters, filters are active';
+
+  @override
   String get calendarFilterSheetTitle => 'Filter calendar feedback';
 
   @override
@@ -74,6 +81,17 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get calendarFilterLateOnly => 'Only show late days';
+
+  @override
+  String get calendarFilterSummaryRecorded => 'Recorded only';
+
+  @override
+  String get calendarFilterSummaryLateOnly => 'Late only';
+
+  @override
+  String calendarFilterSummaryAppliedCount(int count) {
+    return '$count filters on';
+  }
 
   @override
   String calendarFilterLateCountSummary(int count) {

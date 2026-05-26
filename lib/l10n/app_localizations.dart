@@ -206,6 +206,18 @@ abstract class AppLocalizations {
   /// **'Filter'**
   String get calendarFilterOpen;
 
+  /// No description provided for @calendarFilterOpenSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'Open filters'**
+  String get calendarFilterOpenSemantics;
+
+  /// No description provided for @calendarFilterOpenActiveSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'Open filters, filters are active'**
+  String get calendarFilterOpenActiveSemantics;
+
   /// No description provided for @calendarFilterSheetTitle.
   ///
   /// In en, this message translates to:
@@ -223,6 +235,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Only show late days'**
   String get calendarFilterLateOnly;
+
+  /// No description provided for @calendarFilterSummaryRecorded.
+  ///
+  /// In en, this message translates to:
+  /// **'Recorded only'**
+  String get calendarFilterSummaryRecorded;
+
+  /// No description provided for @calendarFilterSummaryLateOnly.
+  ///
+  /// In en, this message translates to:
+  /// **'Late only'**
+  String get calendarFilterSummaryLateOnly;
+
+  /// No description provided for @calendarFilterSummaryAppliedCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} filters on'**
+  String calendarFilterSummaryAppliedCount(int count);
 
   /// No description provided for @calendarFilterLateCountSummary.
   ///

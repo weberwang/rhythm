@@ -1,17 +1,19 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:rhythm/app/router/app_router.dart';
 import 'package:rhythm/app/theme/app_theme_tokens.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:rhythm/features/calendar/application/calendar_analytics.dart';
 import 'package:rhythm/features/calendar/application/calendar_controller.dart';
 import 'package:rhythm/features/calendar/application/calendar_view_state.dart';
 import 'package:rhythm/features/calendar/domain/calendar_day_summary.dart';
 import 'package:rhythm/features/calendar/domain/calendar_filter.dart';
 import 'package:rhythm/features/calendar/domain/calendar_heat_level.dart';
-import 'package:rhythm/features/calendar/domain/calendar_month_summary.dart';
+import 'package:rhythm/features/calendar/presentation/widgets/calendar_filter_bar.dart';
 import 'package:rhythm/features/calendar/presentation/widgets/calendar_heatmap.dart';
 import 'package:rhythm/features/calendar/presentation/widgets/sheets/calendar_day_detail_sheet.dart';
 import 'package:rhythm/features/calendar/presentation/widgets/sheets/calendar_filter_sheet.dart';
@@ -64,12 +66,9 @@ class CalendarPage extends HookConsumerWidget {
         }
 
         final monthSummary = state.monthSummary!;
-        final filterSummaryChips = _buildFilterSummaryChips(
-          l10n: l10n,
-          tokens: tokens,
-          activeFilter: state.activeFilter,
-          monthSummary: monthSummary,
-        );
+        final lateCount = monthSummary.days
+            .where((day) => day.heatLevel == CalendarHeatLevel.late)
+            .length;
         final monthLabel = _formatMonthLabel(context, monthSummary.month);
         final onTrackRate = monthSummary.recordedDays == 0
             ? 0
@@ -108,21 +107,17 @@ class CalendarPage extends HookConsumerWidget {
                 ),
               ),
               const SizedBox(height: 18),
-              Wrap(
-                spacing: 8,
-                runSpacing: 8,
-                children: [
-                  ...filterSummaryChips,
-                  ActionChip(
-                    label: Text(l10n.calendarFilterOpen),
-                    onPressed: () => _showFilterSheetWithState(
-                      context,
-                      state.activeFilter.onlyRecordedDays,
-                      state.activeFilter.lateOnly,
-                      ref,
-                    ),
-                  ),
-                ],
+              CalendarFilterBar(
+                l10n: l10n,
+                tokens: tokens,
+                activeFilter: state.activeFilter,
+                lateCount: lateCount,
+                onOpenFilter: () => _showFilterSheetWithState(
+                  context,
+                  state.activeFilter.onlyRecordedDays,
+                  state.activeFilter.lateOnly,
+                  ref,
+                ),
               ),
               const SizedBox(height: 18),
               Card(
@@ -182,10 +177,6 @@ class CalendarPage extends HookConsumerWidget {
   }
 }
 
-Future<void> _showFilterSheet(BuildContext context) {
-  return _showFilterSheetWithState(context, false, false, null);
-}
-
 Future<void> _showFilterSheetWithState(
   BuildContext context,
   bool onlyRecordedDays,
@@ -227,85 +218,6 @@ Future<void> _showFilterSheetWithState(
       );
     },
   );
-}
-
-List<Widget> _buildFilterSummaryChips({
-  required AppLocalizations l10n,
-  required AppThemeTokens tokens,
-  required CalendarFilter activeFilter,
-  required CalendarMonthSummary monthSummary,
-}) {
-  final chips = <Widget>[];
-  final lateCount = monthSummary.days
-      .where((day) => day.heatLevel == CalendarHeatLevel.late)
-      .length;
-
-  if (!activeFilter.onlyRecordedDays && !activeFilter.lateOnly) {
-    chips.add(
-      _CalendarChip(
-        label: l10n.calendarFilterAllDays,
-        backgroundColor: tokens.successSurface,
-        foregroundColor: tokens.primary,
-      ),
-    );
-  }
-  if (activeFilter.onlyRecordedDays) {
-    chips.add(
-      _CalendarChip(
-        label: l10n.calendarFilterRecordedOnly,
-        backgroundColor: tokens.successSurface,
-        foregroundColor: tokens.primary,
-      ),
-    );
-  }
-  if (activeFilter.lateOnly) {
-    chips.add(
-      _CalendarChip(
-        label: l10n.calendarFilterLateOnly,
-        backgroundColor: tokens.warningSurface,
-        foregroundColor: tokens.textPrimary,
-      ),
-    );
-  }
-  chips.add(
-    _CalendarChip(
-      label: l10n.calendarFilterLateCountSummary(lateCount),
-      backgroundColor: tokens.surface,
-      foregroundColor: tokens.textSecondary,
-    ),
-  );
-  return chips;
-}
-
-/// 轻量筛选胶囊，先承接阶段六首屏结构。
-class _CalendarChip extends StatelessWidget {
-  const _CalendarChip({
-    required this.label,
-    required this.backgroundColor,
-    required this.foregroundColor,
-  });
-
-  final String label;
-  final Color backgroundColor;
-  final Color foregroundColor;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      decoration: BoxDecoration(
-        color: backgroundColor,
-        borderRadius: BorderRadius.circular(999),
-      ),
-      child: Text(
-        label,
-        style: Theme.of(context).textTheme.labelMedium?.copyWith(
-          color: foregroundColor,
-          fontWeight: FontWeight.w600,
-        ),
-      ),
-    );
-  }
 }
 
 /// 承接首屏底部两个摘要卡。
@@ -374,9 +286,12 @@ Future<void> _showDayDetail(
   CalendarViewState state,
   CalendarDaySummary summary,
 ) async {
-  await ref
-      .read(calendarAnalyticsProvider)
-      .trackDayDetailViewed(recordDate: summary.date);
+  // 埋点不阻塞弹层打开，避免异步等待后继续使用页面 context。
+  unawaited(
+    ref
+        .read(calendarAnalyticsProvider)
+        .trackDayDetailViewed(recordDate: summary.date),
+  );
   await showModalBottomSheet<void>(
     context: context,
     isScrollControlled: true,
@@ -396,6 +311,7 @@ Future<void> _showDayDetail(
                   await ref
                       .read(sleepDelayTagControllerProvider)
                       .saveTags(recordDate: summary.date, tags: tags);
+                  await ref.read(calendarControllerProvider.notifier).reload();
                   await ref
                       .read(calendarAnalyticsProvider)
                       .trackDelayTagAdded(
@@ -411,6 +327,7 @@ Future<void> _showDayDetail(
                   await ref
                       .read(sleepDelayTagControllerProvider)
                       .saveCustomTag(recordDate: summary.date, input: value);
+                  await ref.read(calendarControllerProvider.notifier).reload();
                   await ref
                       .read(calendarAnalyticsProvider)
                       .trackDelayTagAdded(

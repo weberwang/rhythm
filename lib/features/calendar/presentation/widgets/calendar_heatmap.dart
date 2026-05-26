@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rhythm/app/theme/app_theme_tokens.dart';
 import 'package:rhythm/features/calendar/domain/calendar_day_summary.dart';
 import 'package:rhythm/features/calendar/domain/calendar_heat_level.dart';
+import 'package:rhythm/features/calendar/presentation/widgets/calendar_mood_paper.dart';
 
 /// 渲染日历页热力网格，按日摘要真实映射颜色和日期。
 class CalendarHeatmap extends StatelessWidget {
@@ -40,13 +41,19 @@ class CalendarHeatmap extends StatelessWidget {
           child: InkWell(
             borderRadius: BorderRadius.circular(10),
             onTap: () => onTapDay(day),
-            child: Center(
-              child: Text(
-                '${day.date.day}',
-                style: Theme.of(context).textTheme.labelMedium?.copyWith(
+            child: Stack(
+              children: [
+                if (day.primaryMood != null) CalendarMoodPaper(day: day),
+                Align(
+                  alignment: const Alignment(0, -0.12),
+                  child: Text(
+                    '${day.date.day}',
+                    style: Theme.of(context).textTheme.labelMedium?.copyWith(
                       fontWeight: FontWeight.w700,
                     ),
-              ),
+                  ),
+                ),
+              ],
             ),
           ),
         );

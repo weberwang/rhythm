@@ -63,6 +63,12 @@ class AppLocalizationsZh extends AppLocalizations {
   String get calendarFilterOpen => '筛选';
 
   @override
+  String get calendarFilterOpenSemantics => '打开筛选';
+
+  @override
+  String get calendarFilterOpenActiveSemantics => '打开筛选，当前已启用筛选';
+
+  @override
   String get calendarFilterSheetTitle => '筛选日历反馈';
 
   @override
@@ -70,6 +76,17 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get calendarFilterLateOnly => '只看晚睡日期';
+
+  @override
+  String get calendarFilterSummaryRecorded => '仅记录';
+
+  @override
+  String get calendarFilterSummaryLateOnly => '仅晚睡';
+
+  @override
+  String calendarFilterSummaryAppliedCount(int count) {
+    return '已筛选 $count 项';
+  }
 
   @override
   String calendarFilterLateCountSummary(int count) {

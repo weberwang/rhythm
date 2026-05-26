@@ -6,6 +6,7 @@ import 'package:rhythm/core/analytics/in_memory_analytics_gateway.dart';
 import 'package:rhythm/features/calendar/application/calendar_analytics.dart';
 import 'package:rhythm/features/calendar/application/calendar_controller.dart';
 import 'package:rhythm/features/calendar/application/calendar_view_state.dart';
+import 'package:rhythm/features/calendar/domain/calendar_day_mood.dart';
 import 'package:rhythm/features/calendar/domain/calendar_day_summary.dart';
 import 'package:rhythm/features/calendar/domain/calendar_heat_level.dart';
 import 'package:rhythm/features/calendar/domain/calendar_month_summary.dart';
@@ -80,7 +81,9 @@ CalendarViewState _readyState() {
         ),
         sleepOffsetMinutes: 50,
         heatLevel: CalendarHeatLevel.late,
-        tags: const <String>[],
+        tags: const <String>['刷手机'],
+        primaryMood: CalendarDayMood.drained,
+        hasSecondaryMood: false,
       );
     }
     return CalendarDaySummary(
@@ -89,6 +92,8 @@ CalendarViewState _readyState() {
       sleepOffsetMinutes: null,
       heatLevel: CalendarHeatLevel.noRecord,
       tags: const <String>[],
+      primaryMood: null,
+      hasSecondaryMood: false,
     );
   });
   return CalendarViewState(
@@ -113,4 +118,7 @@ class _FakeCalendarController extends CalendarController {
   Future<CalendarViewState> build() async {
     return _state;
   }
+
+  @override
+  Future<void> reload() async {}
 }

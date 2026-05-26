@@ -3,11 +3,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rhythm/features/calendar/application/calendar_controller.dart';
 import 'package:rhythm/features/calendar/application/calendar_view_state.dart';
+import 'package:rhythm/features/calendar/domain/calendar_day_mood.dart';
 import 'package:rhythm/features/calendar/domain/calendar_day_summary.dart';
 import 'package:rhythm/features/calendar/domain/calendar_filter.dart';
 import 'package:rhythm/features/calendar/domain/calendar_heat_level.dart';
 import 'package:rhythm/features/calendar/domain/calendar_month_summary.dart';
 import 'package:rhythm/features/calendar/presentation/calendar_page.dart';
+import 'package:rhythm/features/calendar/presentation/widgets/calendar_mood_paper.dart';
 import 'package:rhythm/features/sleep_records/domain/sleep_delay_tag_rules.dart';
 import 'package:rhythm/l10n/app_localizations.dart';
 
@@ -44,7 +46,27 @@ void main() {
     expect(find.text('最晚一晚'), findsOneWidget);
   });
 
-  testWidgets('已应用筛选时显示对应筛选摘要', (tester) async {
+  testWidgets('顶部筛选栏默认显示条件摘要、统计摘要和唯一操作入口', (tester) async {
+    await pumpPage(tester, state: _readyState());
+
+    expect(find.text('全部日期'), findsOneWidget);
+    expect(find.text('晚睡 1 天'), findsOneWidget);
+    expect(find.widgetWithText(OutlinedButton, '筛选'), findsOneWidget);
+  });
+
+  testWidgets('仅记录筛选生效时显示短摘要', (tester) async {
+    await pumpPage(
+      tester,
+      state: _readyState(
+        activeFilter: const CalendarFilter(onlyRecordedDays: true),
+      ),
+    );
+
+    expect(find.text('仅记录'), findsOneWidget);
+    expect(find.text('全部日期'), findsNothing);
+  });
+
+  testWidgets('双筛选生效时汇总显示已筛选 2 项', (tester) async {
     await pumpPage(
       tester,
       state: _readyState(
@@ -55,20 +77,42 @@ void main() {
       ),
     );
 
-    expect(find.text('只看有记录日期'), findsOneWidget);
-    expect(find.text('只看晚睡日期'), findsOneWidget);
+    expect(find.text('已筛选 2 项'), findsOneWidget);
+    expect(find.text('只看有记录日期'), findsNothing);
+    expect(find.text('只看晚睡日期'), findsNothing);
     expect(find.text('全部日期'), findsNothing);
+  });
+
+  testWidgets('点击筛选按钮会打开筛选弹层', (tester) async {
+    await pumpPage(tester, state: _readyState());
+
+    await tester.tap(find.widgetWithText(OutlinedButton, '筛选'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('筛选日历反馈'), findsOneWidget);
+  });
+
+  testWidgets('窄屏宽度下顶部筛选栏不溢出', (tester) async {
+    await tester.binding.setSurfaceSize(const Size(320, 720));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+
+    await pumpPage(tester, state: _readyState());
+
+    expect(tester.takeException(), isNull);
+    expect(find.widgetWithText(OutlinedButton, '筛选'), findsOneWidget);
   });
 
   testWidgets('不同热力等级日期格使用不同颜色语义', (tester) async {
     await pumpPage(tester, state: _readyState());
 
-    final containers = tester.widgetList<Container>(
-      find.descendant(
-        of: find.byType(GridView),
-        matching: find.byType(Container),
-      ),
-    ).toList();
+    final containers = tester
+        .widgetList<Container>(
+          find.descendant(
+            of: find.byType(GridView),
+            matching: find.byType(Container),
+          ),
+        )
+        .toList();
 
     final decorated = containers
         .where((item) => item.decoration is BoxDecoration)
@@ -80,6 +124,12 @@ void main() {
         .toSet();
 
     expect(colors.length, greaterThan(1));
+  });
+
+  testWidgets('页面级 ready 状态会把带标签日期渲染为情绪纸片', (tester) async {
+    await pumpPage(tester, state: _readyState());
+
+    expect(find.byType(CalendarMoodPaper), findsOneWidget);
   });
 
   testWidgets('goalMissing 状态显示缺少目标空态', (tester) async {
@@ -113,6 +163,8 @@ CalendarViewState _readyStateWithFilter(CalendarFilter activeFilter) {
         sleepOffsetMinutes: null,
         heatLevel: CalendarHeatLevel.noRecord,
         tags: const <String>[],
+        primaryMood: null,
+        hasSecondaryMood: false,
       );
     }
     if (index == 1) {
@@ -122,6 +174,8 @@ CalendarViewState _readyStateWithFilter(CalendarFilter activeFilter) {
         sleepOffsetMinutes: 10,
         heatLevel: CalendarHeatLevel.onTarget,
         tags: const <String>[],
+        primaryMood: null,
+        hasSecondaryMood: false,
       );
     }
     if (index == 2) {
@@ -130,7 +184,9 @@ CalendarViewState _readyStateWithFilter(CalendarFilter activeFilter) {
         record: null,
         sleepOffsetMinutes: 42,
         heatLevel: CalendarHeatLevel.late,
-        tags: const <String>[],
+        tags: const <String>['加班', '游戏'],
+        primaryMood: CalendarDayMood.restless,
+        hasSecondaryMood: true,
       );
     }
     return CalendarDaySummary(
@@ -139,6 +195,8 @@ CalendarViewState _readyStateWithFilter(CalendarFilter activeFilter) {
       sleepOffsetMinutes: null,
       heatLevel: CalendarHeatLevel.noRecord,
       tags: const <String>[],
+      primaryMood: null,
+      hasSecondaryMood: false,
     );
   });
   return CalendarViewState(

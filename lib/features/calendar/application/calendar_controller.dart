@@ -29,6 +29,11 @@ class CalendarController extends AsyncNotifier<CalendarViewState> {
   /// 更新筛选条件并重新计算当前月份摘要。
   Future<void> updateFilter(CalendarFilter filter) async {
     _filter = filter;
+    await reload();
+  }
+
+  /// 重新读取记录和标签并刷新当前月份摘要，供标签保存后实时回写页面。
+  Future<void> reload() async {
     state = const AsyncLoading();
     state = AsyncData(await _buildState());
   }
@@ -39,13 +44,12 @@ class CalendarController extends AsyncNotifier<CalendarViewState> {
       return const CalendarViewState(status: CalendarViewStatus.goalMissing);
     }
 
-    final records = await ref.read(recentThirtyDayEffectiveSleepRecordsProvider.future);
+    final records = await ref.read(
+      recentThirtyDayEffectiveSleepRecordsProvider.future,
+    );
     final now = ref.read(timeContextProvider).now;
     final month = DateTime.utc(now.year, now.month);
-    final savedTagsByDate = await _loadTagsForMonth(
-      ref: ref,
-      month: month,
-    );
+    final savedTagsByDate = await _loadTagsForMonth(ref: ref, month: month);
     final days = _buildMonthDays(
       month: month,
       settings: settings,
