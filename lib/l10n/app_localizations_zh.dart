@@ -772,6 +772,43 @@ class AppLocalizationsZh extends AppLocalizations {
   String get manualSleepRecordSourceValue => '手动修正';
 
   @override
+  String get recordSourceExplainerTitle => '数据来源说明';
+
+  @override
+  String get recordSourceExplainerDescription =>
+      '说明这条记录来自哪里、可信度如何理解，以及为什么手动修正会成为最终确认结果。';
+
+  @override
+  String get recordSourceExplainerChipHealthKit => 'HealthKit';
+
+  @override
+  String get recordSourceExplainerChipManual => '手动修正';
+
+  @override
+  String get recordSourceExplainerChipConfidence => '可信度';
+
+  @override
+  String get recordSourceExplainerHealthTitle => '系统来源';
+
+  @override
+  String get recordSourceExplainerHealthBody =>
+      '当睡眠数据来自 HealthKit 或 Health Connect 时，Rhythm 会保留原始来源，方便你回溯记录是从哪里来的。';
+
+  @override
+  String get recordSourceExplainerManualTitle => '手动修正';
+
+  @override
+  String get recordSourceExplainerManualBody =>
+      '手动修改不会覆盖原始记录，而是生成一条用户确认结果，供今日页和日历优先展示。';
+
+  @override
+  String get recordSourceExplainerConfidenceTitle => '可信度';
+
+  @override
+  String get recordSourceExplainerConfidenceBody =>
+      '可信度表示当前来源记录的完整度和可参考程度；一旦由你手动确认，会按最终展示结果处理。';
+
+  @override
   String get manualSleepRecordSaveButton => '保存补录结果';
 
   @override

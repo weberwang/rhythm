@@ -23,6 +23,7 @@ void main() {
     );
     await tester.pumpAndSettle();
 
+    await tester.scrollUntilVisible(find.text('保存补录结果'), 200);
     await tester.tap(find.text('保存补录结果'));
     await tester.pumpAndSettle();
 
@@ -96,6 +97,7 @@ void main() {
       find.widgetWithText(FilledButton, '改用手动模式'),
     );
     await tester.pumpAndSettle();
+    await tester.scrollUntilVisible(find.text('保存补录结果'), 200);
     await tester.tap(find.text('保存补录结果'));
     await tester.pumpAndSettle();
 

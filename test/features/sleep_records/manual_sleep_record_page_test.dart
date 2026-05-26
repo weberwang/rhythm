@@ -61,6 +61,20 @@ void main() {
     expect(tester.getSize(card).width, closeTo(342, 0.1));
   });
 
+  testWidgets('手动补录页点击数据来源后打开说明弹层', (tester) async {
+    await pumpSleepRecordsFlowApp(tester);
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.widgetWithText(FilledButton, '改用手动模式'));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text('手动修正'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('数据来源说明'), findsOneWidget);
+    expect(find.text('可信度'), findsAtLeastNWidgets(2));
+  });
+
   testWidgets('手动补录作为二级页打开时放弃会返回来源页', (tester) async {
     final router = await _pumpSleepRecordsFlowRouterApp(
       tester,

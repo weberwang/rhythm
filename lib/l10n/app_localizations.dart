@@ -1520,6 +1520,72 @@ abstract class AppLocalizations {
   /// **'Manual correction'**
   String get manualSleepRecordSourceValue;
 
+  /// No description provided for @recordSourceExplainerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Source details'**
+  String get recordSourceExplainerTitle;
+
+  /// No description provided for @recordSourceExplainerDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Explain where the record came from, how confidence is interpreted, and why manual corrections stay as the confirmed result.'**
+  String get recordSourceExplainerDescription;
+
+  /// No description provided for @recordSourceExplainerChipHealthKit.
+  ///
+  /// In en, this message translates to:
+  /// **'HealthKit'**
+  String get recordSourceExplainerChipHealthKit;
+
+  /// No description provided for @recordSourceExplainerChipManual.
+  ///
+  /// In en, this message translates to:
+  /// **'Manual correction'**
+  String get recordSourceExplainerChipManual;
+
+  /// No description provided for @recordSourceExplainerChipConfidence.
+  ///
+  /// In en, this message translates to:
+  /// **'Confidence'**
+  String get recordSourceExplainerChipConfidence;
+
+  /// No description provided for @recordSourceExplainerHealthTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'System source'**
+  String get recordSourceExplainerHealthTitle;
+
+  /// No description provided for @recordSourceExplainerHealthBody.
+  ///
+  /// In en, this message translates to:
+  /// **'When sleep data comes from HealthKit or Health Connect, Rhythm keeps the original source so you can trace where the record came from.'**
+  String get recordSourceExplainerHealthBody;
+
+  /// No description provided for @recordSourceExplainerManualTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Manual correction'**
+  String get recordSourceExplainerManualTitle;
+
+  /// No description provided for @recordSourceExplainerManualBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Manual edits do not overwrite raw records. They become the confirmed result shown first in Today and Calendar.'**
+  String get recordSourceExplainerManualBody;
+
+  /// No description provided for @recordSourceExplainerConfidenceTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Confidence'**
+  String get recordSourceExplainerConfidenceTitle;
+
+  /// No description provided for @recordSourceExplainerConfidenceBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Confidence reflects how complete and trustworthy the source record is right now. Manual confirmation is treated as the final display result.'**
+  String get recordSourceExplainerConfidenceBody;
+
   /// Primary button label for saving a manual sleep record.
   ///
   /// In en, this message translates to:

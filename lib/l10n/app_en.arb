@@ -486,6 +486,17 @@
   "manualSleepRecordDurationLabel": "Duration",
   "manualSleepRecordSourceLabel": "Source",
   "manualSleepRecordSourceValue": "Manual correction",
+  "recordSourceExplainerTitle": "Source details",
+  "recordSourceExplainerDescription": "Explain where the record came from, how confidence is interpreted, and why manual corrections stay as the confirmed result.",
+  "recordSourceExplainerChipHealthKit": "HealthKit",
+  "recordSourceExplainerChipManual": "Manual correction",
+  "recordSourceExplainerChipConfidence": "Confidence",
+  "recordSourceExplainerHealthTitle": "System source",
+  "recordSourceExplainerHealthBody": "When sleep data comes from HealthKit or Health Connect, Rhythm keeps the original source so you can trace where the record came from.",
+  "recordSourceExplainerManualTitle": "Manual correction",
+  "recordSourceExplainerManualBody": "Manual edits do not overwrite raw records. They become the confirmed result shown first in Today and Calendar.",
+  "recordSourceExplainerConfidenceTitle": "Confidence",
+  "recordSourceExplainerConfidenceBody": "Confidence reflects how complete and trustworthy the source record is right now. Manual confirmation is treated as the final display result.",
   "manualSleepRecordSaveButton": "Save manual result",
   "@manualSleepRecordSaveButton": {
     "description": "Primary button label for saving a manual sleep record."

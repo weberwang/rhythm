@@ -16,6 +16,7 @@ import 'package:rhythm/features/sleep_records/domain/sleep_record.dart';
 import 'package:rhythm/features/sleep_records/domain/sleep_record_confidence.dart';
 import 'package:rhythm/features/sleep_records/domain/sleep_record_source.dart';
 import 'package:rhythm/features/sleep_records/presentation/widgets/sleep_record_summary_row.dart';
+import 'package:rhythm/features/sleep_records/presentation/widgets/sheets/record_source_explainer_sheet.dart';
 import 'package:rhythm/features/sleep_records/presentation/widgets/sleep_record_time_formatter.dart';
 import 'package:rhythm/l10n/app_localizations.dart';
 
@@ -149,6 +150,14 @@ class ManualSleepRecordPage extends HookConsumerWidget {
                         SleepRecordSummaryRow(
                           label: l10n.manualSleepRecordSourceLabel,
                           value: l10n.manualSleepRecordSourceValue,
+                          onTap: () async {
+                            await showModalBottomSheet<void>(
+                              context: context,
+                              isScrollControlled: true,
+                              builder: (_) =>
+                                  const RecordSourceExplainerSheet(),
+                            );
+                          },
                         ),
                       ],
                     ),

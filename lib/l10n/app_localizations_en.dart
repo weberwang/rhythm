@@ -820,6 +820,43 @@ class AppLocalizationsEn extends AppLocalizations {
   String get manualSleepRecordSourceValue => 'Manual correction';
 
   @override
+  String get recordSourceExplainerTitle => 'Source details';
+
+  @override
+  String get recordSourceExplainerDescription =>
+      'Explain where the record came from, how confidence is interpreted, and why manual corrections stay as the confirmed result.';
+
+  @override
+  String get recordSourceExplainerChipHealthKit => 'HealthKit';
+
+  @override
+  String get recordSourceExplainerChipManual => 'Manual correction';
+
+  @override
+  String get recordSourceExplainerChipConfidence => 'Confidence';
+
+  @override
+  String get recordSourceExplainerHealthTitle => 'System source';
+
+  @override
+  String get recordSourceExplainerHealthBody =>
+      'When sleep data comes from HealthKit or Health Connect, Rhythm keeps the original source so you can trace where the record came from.';
+
+  @override
+  String get recordSourceExplainerManualTitle => 'Manual correction';
+
+  @override
+  String get recordSourceExplainerManualBody =>
+      'Manual edits do not overwrite raw records. They become the confirmed result shown first in Today and Calendar.';
+
+  @override
+  String get recordSourceExplainerConfidenceTitle => 'Confidence';
+
+  @override
+  String get recordSourceExplainerConfidenceBody =>
+      'Confidence reflects how complete and trustworthy the source record is right now. Manual confirmation is treated as the final display result.';
+
+  @override
   String get manualSleepRecordSaveButton => 'Save manual result';
 
   @override
