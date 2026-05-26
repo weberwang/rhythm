@@ -184,6 +184,7 @@ class _ProfilePreferencesCard extends HookConsumerWidget {
           _PreferenceSection<AppLocalePreference>(
             title: l10n.profilePreferencesLocaleTitle,
             currentValueLabel: _localePreferenceLabel(
+              context,
               l10n,
               preferences.localePreference,
             ),
@@ -191,12 +192,13 @@ class _ProfilePreferencesCard extends HookConsumerWidget {
             options: [
               _PreferenceOption<AppLocalePreference>(
                 value: AppLocalePreference.system,
-                label: l10n.profilePreferencesFollowSystem,
+                label: l10n.profilePreferencesSystemShort,
                 key: const Key('profile-preferences-locale-system'),
               ),
               _PreferenceOption<AppLocalePreference>(
                 value: AppLocalePreference.simplifiedChinese,
-                label: l10n.profilePreferencesSimplifiedChinese,
+                // 语言选项固定展示语言本名，避免英文界面把中文语言名再翻译一遍。
+                label: l10n.profilePreferencesSimplifiedChineseNative,
                 key: const Key('profile-preferences-locale-zh'),
               ),
               _PreferenceOption<AppLocalePreference>(
@@ -229,7 +231,7 @@ class _ProfilePreferencesCard extends HookConsumerWidget {
             options: [
               _PreferenceOption<AppThemePreference>(
                 value: AppThemePreference.system,
-                label: l10n.profilePreferencesFollowSystem,
+                label: l10n.profilePreferencesSystemShort,
                 key: const Key('profile-preferences-theme-system'),
               ),
               _PreferenceOption<AppThemePreference>(
@@ -263,16 +265,36 @@ class _ProfilePreferencesCard extends HookConsumerWidget {
 
   /// 解析语言偏好的展示值，确保摘要与选项文本保持一致。
   String _localePreferenceLabel(
+    BuildContext context,
     AppLocalizations l10n,
     AppLocalePreference preference,
   ) {
     switch (preference) {
       case AppLocalePreference.system:
-        return l10n.profilePreferencesFollowSystem;
+        return _systemLocaleLabel(context, l10n);
       case AppLocalePreference.simplifiedChinese:
-        return l10n.profilePreferencesSimplifiedChinese;
+        // 当前生效语言摘要也保持语言本名，减少跨语言界面里的理解成本。
+        return l10n.profilePreferencesSimplifiedChineseNative;
       case AppLocalePreference.english:
         return l10n.profilePreferencesEnglish;
+    }
+  }
+
+  /// 解析系统实际语言名，确保“跟随系统”时展示的是当前生效语言而不是抽象状态。
+  String _systemLocaleLabel(BuildContext context, AppLocalizations l10n) {
+    final systemLocale =
+        basicLocaleListResolution(
+          View.of(context).platformDispatcher.locales,
+          AppLocalizations.supportedLocales,
+        ) ??
+        const Locale('en');
+    switch (systemLocale.languageCode) {
+      case 'zh':
+        return l10n.profilePreferencesSimplifiedChineseNative;
+      case 'en':
+        return l10n.profilePreferencesEnglish;
+      default:
+        return l10n.profilePreferencesFollowSystem;
     }
   }
 
@@ -346,6 +368,8 @@ class _PreferenceSection<T> extends StatelessWidget {
             ),
             Text(
               currentValueLabel,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
               style: theme.textTheme.labelLarge?.copyWith(
                 color: colorScheme.primary,
                 fontWeight: FontWeight.w600,

@@ -1191,7 +1191,13 @@ class AppLocalizationsZh extends AppLocalizations {
   String get profilePreferencesFollowSystem => '跟随系统';
 
   @override
+  String get profilePreferencesSystemShort => '系统';
+
+  @override
   String get profilePreferencesSimplifiedChinese => '简体中文';
+
+  @override
+  String get profilePreferencesSimplifiedChineseNative => '简体中文';
 
   @override
   String get profilePreferencesEnglish => 'English';

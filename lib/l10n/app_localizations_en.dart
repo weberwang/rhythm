@@ -1281,7 +1281,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get profilePreferencesFollowSystem => 'Follow system';
 
   @override
+  String get profilePreferencesSystemShort => 'System';
+
+  @override
   String get profilePreferencesSimplifiedChinese => 'Simplified Chinese';
+
+  @override
+  String get profilePreferencesSimplifiedChineseNative => '简体中文';
 
   @override
   String get profilePreferencesEnglish => 'English';

@@ -37,6 +37,45 @@ void main() {
     expect(find.text('Anonymous user'), findsOneWidget);
   });
 
+  testWidgets('英文界面的语言选项使用短系统标签并保留中文语言名', (tester) async {
+    await _pumpProfilePreferencesPage(tester);
+
+    await tester.tap(
+      find.byKey(const Key('profile-preferences-locale-english')),
+    );
+    await tester.pumpAndSettle();
+
+    expect(
+      find.descendant(
+        of: find.byKey(const Key('profile-preferences-locale-system')),
+        matching: find.text('System'),
+      ),
+      findsOneWidget,
+    );
+    expect(
+      find.descendant(
+        of: find.byKey(const Key('profile-preferences-theme-system')),
+        matching: find.text('System'),
+      ),
+      findsOneWidget,
+    );
+    expect(
+      find.descendant(
+        of: find.byKey(const Key('profile-preferences-locale-zh')),
+        matching: find.text('简体中文'),
+      ),
+      findsOneWidget,
+    );
+    expect(
+      find.descendant(
+        of: find.byKey(const Key('profile-preferences-card')),
+        matching: find.text('简体中文'),
+      ),
+      findsWidgets,
+    );
+    expect(find.text('Simplified Chinese'), findsNothing);
+  });
+
   testWidgets('切换为深色后当前壳会立即刷新主题模式', (tester) async {
     await _pumpProfilePreferencesPage(tester);
 

@@ -2330,11 +2330,23 @@ abstract class AppLocalizations {
   /// **'Follow system'**
   String get profilePreferencesFollowSystem;
 
+  /// No description provided for @profilePreferencesSystemShort.
+  ///
+  /// In en, this message translates to:
+  /// **'System'**
+  String get profilePreferencesSystemShort;
+
   /// No description provided for @profilePreferencesSimplifiedChinese.
   ///
   /// In en, this message translates to:
   /// **'Simplified Chinese'**
   String get profilePreferencesSimplifiedChinese;
+
+  /// No description provided for @profilePreferencesSimplifiedChineseNative.
+  ///
+  /// In en, this message translates to:
+  /// **'简体中文'**
+  String get profilePreferencesSimplifiedChineseNative;
 
   /// No description provided for @profilePreferencesEnglish.
   ///
