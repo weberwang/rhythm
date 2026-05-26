@@ -94,9 +94,31 @@ class _FakeLocalDataClearService extends LocalDataClearService {
 }
 
 /// 提供页面测试用小组件网关替身，避免构造真实插件依赖。
+/// 提供隐私页测试用小组件网关替身，避免弹窗流程依赖真实插件实现。
 class _FakeHomeWidgetGateway implements HomeWidgetGateway {
   @override
+  Future<HomeWidgetInstallationState> getInstallationState() async {
+    return HomeWidgetInstallationState.available;
+  }
+
+  @override
+  Future<HomeWidgetPinSupportState> getPinSupportState() async {
+    return HomeWidgetPinSupportState.supported;
+  }
+
+  @override
+  Future<bool> requestPin() async {
+    return true;
+  }
+
+  @override
+  Future<Uri?> readInitialEntry() async => null;
+
+  @override
   Future<void> saveSnapshot(WidgetSnapshot snapshot) async {}
+
+  @override
+  Future<void> clearSnapshot() async {}
 
   @override
   Future<void> refresh() async {}

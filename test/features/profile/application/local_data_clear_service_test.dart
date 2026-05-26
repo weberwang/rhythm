@@ -132,14 +132,36 @@ void main() {
   });
 }
 
+/// 提供本地数据清理测试用小组件网关替身，避免依赖真实插件状态。
 class _FakeHomeWidgetGateway implements HomeWidgetGateway {
   WidgetSnapshot? savedSnapshot;
   bool refreshed = false;
 
   @override
+  Future<HomeWidgetInstallationState> getInstallationState() async {
+    return HomeWidgetInstallationState.available;
+  }
+
+  @override
+  Future<HomeWidgetPinSupportState> getPinSupportState() async {
+    return HomeWidgetPinSupportState.supported;
+  }
+
+  @override
+  Future<bool> requestPin() async {
+    return true;
+  }
+
+  @override
+  Future<Uri?> readInitialEntry() async => null;
+
+  @override
   Future<void> saveSnapshot(WidgetSnapshot snapshot) async {
     savedSnapshot = snapshot;
   }
+
+  @override
+  Future<void> clearSnapshot() async {}
 
   @override
   Future<void> refresh() async {

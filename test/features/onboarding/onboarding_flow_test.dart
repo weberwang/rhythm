@@ -24,7 +24,8 @@ void main() {
     await tester.tap(find.text('先用手动模式'));
     await tester.pumpAndSettle();
 
-    expect(find.text('目标是节律的参考线，不是每天必须完美做到的红线。'), findsOneWidget);
+    // 目标设置页会同时在页头和主标题区复用同一文案，这里显式校验双处渲染。
+    expect(find.text('目标是节律的参考线，不是每天必须完美做到的红线。'), findsNWidgets(2));
   });
 
   testWidgets('点击开始后立即切换到登录步骤', (tester) async {
@@ -72,7 +73,8 @@ void main() {
       find.text(
         'The target is a reference line, not a perfect daily red line.',
       ),
-      findsOneWidget,
+      // 英文目标设置页同样会在页头和主标题区复用标题文案。
+      findsNWidgets(2),
     );
     expect(find.text('Workday rule'), findsOneWidget);
   });
