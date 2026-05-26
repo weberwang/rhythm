@@ -2,6 +2,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rhythm/features/goal_schedule/domain/goal_schedule_settings.dart';
 import 'package:rhythm/features/notifications/data/local_notification_gateway.dart';
 import 'package:rhythm/features/notifications/data/timezone_gateway.dart';
+import 'package:rhythm/features/notifications/data/plugin_local_notification_gateway.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 import '../domain/bedtime_reminder_plan.dart';
 import '../domain/reminder_settings_state.dart';
@@ -18,6 +20,13 @@ final localNotificationGatewayProvider = Provider<LocalNotificationGateway>((
   return NoopLocalNotificationGateway();
 });
 
+/// 聚合当前通知权限状态，避免页面层直接理解平台插件差异。
+final notificationPermissionGrantedProvider =
+    FutureProvider.autoDispose<bool>((ref) async {
+      final gateway = ref.watch(localNotificationGatewayProvider);
+      return gateway.isPermissionGranted();
+    });
+
 /// 提供睡前提醒调度器，集中承接提醒生成和插件调度逻辑。
 final bedtimeReminderSchedulerProvider = Provider<BedtimeReminderScheduler>((
   ref,
@@ -27,6 +36,15 @@ final bedtimeReminderSchedulerProvider = Provider<BedtimeReminderScheduler>((
     timezoneGateway: ref.watch(timezoneGatewayProvider),
   );
 });
+
+/// 提供真实通知插件网关，供应用启动时注入统一调度链路。
+final pluginLocalNotificationGatewayProvider =
+    Provider<PluginLocalNotificationGateway>((ref) {
+      return PluginLocalNotificationGateway(
+        plugin: FlutterLocalNotificationsPlugin(),
+        timezoneGateway: ref.watch(timezoneGatewayProvider),
+      );
+    });
 
 /// 编排睡前提醒计划，确保默认温和且不连续强打扰。
 class BedtimeReminderScheduler {

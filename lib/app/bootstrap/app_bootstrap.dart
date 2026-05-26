@@ -3,6 +3,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../features/notifications/application/bedtime_reminder_scheduler.dart';
 import '../../features/notifications/data/plugin_local_notification_gateway.dart';
 import '../../features/notifications/data/timezone_gateway.dart';
 import '../../features/widget_bridge/application/widget_launch_gateway.dart';
@@ -32,6 +33,8 @@ Future<void> bootstrapApp() async {
         // 启动阶段先注入持久化依赖，避免路由分发时重复异步获取实例。
         sharedPreferencesProvider.overrideWithValue(sharedPreferences),
         bootstrapLaunchEntryProvider.overrideWithValue(launchEntry),
+        // 启动期注入同一个真实通知网关，确保设置页申请权限与后续调度共用一套插件实例。
+        localNotificationGatewayProvider.overrideWithValue(notificationGateway),
         // 将启动期解析出的 Supabase 状态注入全局，供同步链路直接消费。
         supabaseBootstrapStateProvider.overrideWithValue(
           supabaseBootstrapState,

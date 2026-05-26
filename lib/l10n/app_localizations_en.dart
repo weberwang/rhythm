@@ -1431,6 +1431,23 @@ class AppLocalizationsEn extends AppLocalizations {
       'The current home screen snapshot can already show tonights target and last nights status.';
 
   @override
+  String get widgetThemePinButton => 'Add to home screen';
+
+  @override
+  String get widgetThemePinningButton => 'Opening the system add panel';
+
+  @override
+  String get widgetThemePinSuccess => 'The system add panel is open';
+
+  @override
+  String get widgetThemePinManualHint =>
+      'Please add the Rhythm widget from your system home screen first.';
+
+  @override
+  String get widgetThemePinFailure =>
+      'Unable to open the system add panel right now. Please try again later.';
+
+  @override
   String get widgetThemeRefreshButton => 'Refresh widget snapshot';
 
   @override
@@ -1584,6 +1601,14 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get notificationSettingsPageDescription =>
       'Guide first, and avoid turning reminders into high-pressure supervision.';
+
+  @override
+  String get notificationSettingsPermissionGranted =>
+      'Notification permission is on';
+
+  @override
+  String get notificationSettingsPermissionMissing =>
+      'Notification permission is off';
 
   @override
   String get notificationSettingsLeadTitle => 'Lead time';

@@ -22,11 +22,16 @@ void main() {
 
   testWidgets('提醒策略保存后先进入小组件引导页，再进入今日页', (tester) async {
     final scheduler = _TestBedtimeReminderScheduler();
+    final notificationGateway = _FakeNotificationGateway(
+      permissionGranted: false,
+      permissionAfterRequest: true,
+    );
     await pumpRhythmApp(
       tester,
       onboardingCompleted: false,
       overrides: [
         bedtimeReminderSchedulerProvider.overrideWithValue(scheduler),
+        localNotificationGatewayProvider.overrideWithValue(notificationGateway),
       ],
     );
     await tester.pumpAndSettle();
@@ -43,6 +48,7 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('让睡前入口更近一点，不用每次都先打开 App。'), findsOneWidget);
+    expect(notificationGateway.requestPermissionCalled, isTrue);
 
     await tester.tap(find.text('知道了，稍后我自己加'));
     await tester.pumpAndSettle();
@@ -82,7 +88,7 @@ void main() {
 class _TestBedtimeReminderScheduler extends BedtimeReminderScheduler {
   _TestBedtimeReminderScheduler()
     : super(
-        notificationGateway: _NoopNotificationGateway(),
+        notificationGateway: _FakeNotificationGateway(permissionGranted: true),
         timezoneGateway: _NoopTimezoneGateway(),
       );
 
@@ -99,7 +105,17 @@ class _TestBedtimeReminderScheduler extends BedtimeReminderScheduler {
   }
 }
 
-class _NoopNotificationGateway implements LocalNotificationGateway {
+/// 提供引导页测试用通知网关，确保权限申请与状态读取都可验证。
+class _FakeNotificationGateway implements LocalNotificationGateway {
+  _FakeNotificationGateway({
+    required this.permissionGranted,
+    bool? permissionAfterRequest,
+  }) : _permissionAfterRequest = permissionAfterRequest ?? permissionGranted;
+
+  bool permissionGranted;
+  final bool _permissionAfterRequest;
+  bool requestPermissionCalled = false;
+
   @override
   Future<void> cancelBedtimeReminders() async {}
 
@@ -109,8 +125,13 @@ class _NoopNotificationGateway implements LocalNotificationGateway {
   }) async {}
 
   @override
+  Future<bool> isPermissionGranted() async => permissionGranted;
+
+  @override
   Future<bool> requestPermission() async {
-    return true;
+    requestPermissionCalled = true;
+    permissionGranted = _permissionAfterRequest;
+    return permissionGranted;
   }
 
   @override

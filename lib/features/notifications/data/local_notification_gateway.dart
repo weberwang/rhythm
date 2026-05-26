@@ -7,6 +7,9 @@ abstract class LocalNotificationGateway {
     required void Function(String? payload) onOpened,
   });
 
+  /// 读取当前通知权限状态，供页面实时刷新系统授权结果。
+  Future<bool> isPermissionGranted();
+
   /// 申请通知权限。
   Future<bool> requestPermission();
 
@@ -26,6 +29,11 @@ class NoopLocalNotificationGateway implements LocalNotificationGateway {
   Future<void> initialize({
     required void Function(String? payload) onOpened,
   }) async {}
+
+  @override
+  Future<bool> isPermissionGranted() async {
+    return true;
+  }
 
   @override
   Future<bool> requestPermission() async {

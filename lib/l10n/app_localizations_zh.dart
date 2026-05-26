@@ -1328,6 +1328,21 @@ class AppLocalizationsZh extends AppLocalizations {
   String get widgetThemeStateReadyDescription => '当前桌面快照已经能展示今晚目标与昨晚状态。';
 
   @override
+  String get widgetThemePinButton => '添加到桌面';
+
+  @override
+  String get widgetThemePinningButton => '正在打开系统添加面板';
+
+  @override
+  String get widgetThemePinSuccess => '系统添加面板已打开';
+
+  @override
+  String get widgetThemePinManualHint => '请先在系统桌面手动添加 Rhythm 小组件';
+
+  @override
+  String get widgetThemePinFailure => '暂时无法打开系统添加面板，请稍后再试';
+
+  @override
   String get widgetThemeRefreshButton => '刷新小组件快照';
 
   @override
@@ -1471,6 +1486,12 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get notificationSettingsPageDescription => '优先做引导，不做高压监督。';
+
+  @override
+  String get notificationSettingsPermissionGranted => '通知权限已开启';
+
+  @override
+  String get notificationSettingsPermissionMissing => '通知权限未开启';
 
   @override
   String get notificationSettingsLeadTitle => '提前量';

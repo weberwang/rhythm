@@ -2582,6 +2582,36 @@ abstract class AppLocalizations {
   /// **'The current home screen snapshot can already show tonight\'s target and last night\'s status.'**
   String get widgetThemeStateReadyDescription;
 
+  /// No description provided for @widgetThemePinButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Add to home screen'**
+  String get widgetThemePinButton;
+
+  /// No description provided for @widgetThemePinningButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Opening the system add panel'**
+  String get widgetThemePinningButton;
+
+  /// No description provided for @widgetThemePinSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'The system add panel is open'**
+  String get widgetThemePinSuccess;
+
+  /// No description provided for @widgetThemePinManualHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Please add the Rhythm widget from your system home screen first.'**
+  String get widgetThemePinManualHint;
+
+  /// No description provided for @widgetThemePinFailure.
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to open the system add panel right now. Please try again later.'**
+  String get widgetThemePinFailure;
+
   /// No description provided for @widgetThemeRefreshButton.
   ///
   /// In en, this message translates to:
@@ -2851,6 +2881,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Guide first, and avoid turning reminders into high-pressure supervision.'**
   String get notificationSettingsPageDescription;
+
+  /// No description provided for @notificationSettingsPermissionGranted.
+  ///
+  /// In en, this message translates to:
+  /// **'Notification permission is on'**
+  String get notificationSettingsPermissionGranted;
+
+  /// No description provided for @notificationSettingsPermissionMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'Notification permission is off'**
+  String get notificationSettingsPermissionMissing;
 
   /// No description provided for @notificationSettingsLeadTitle.
   ///

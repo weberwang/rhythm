@@ -24,6 +24,12 @@ class ReminderSetupPage extends HookConsumerWidget {
   final LaunchStateRepository launchStateRepository;
 
   Future<void> _completeOnboarding(BuildContext context, WidgetRef ref) async {
+    final notificationGateway = ref.read(localNotificationGatewayProvider);
+    final hasPermission = await notificationGateway.isPermissionGranted();
+    if (!hasPermission) {
+      await notificationGateway.requestPermission();
+      ref.invalidate(notificationPermissionGrantedProvider);
+    }
     final settings = ref.read(reminderSettingsControllerProvider);
     final goalSettings = await ref.read(savedGoalScheduleSettingsProvider.future);
     final timeContext = ref.read(timeContextProvider);

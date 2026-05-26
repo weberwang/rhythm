@@ -26,8 +26,16 @@ class PluginLocalNotificationGateway implements LocalNotificationGateway {
   }) async {
     final settings = InitializationSettings(
       android: const AndroidInitializationSettings('@mipmap/ic_launcher'),
-      iOS: const DarwinInitializationSettings(),
-      macOS: const DarwinInitializationSettings(),
+      iOS: const DarwinInitializationSettings(
+        requestAlertPermission: false,
+        requestBadgePermission: false,
+        requestSoundPermission: false,
+      ),
+      macOS: const DarwinInitializationSettings(
+        requestAlertPermission: false,
+        requestBadgePermission: false,
+        requestSoundPermission: false,
+      ),
     );
     await _plugin.initialize(
       settings: settings,
@@ -35,6 +43,26 @@ class PluginLocalNotificationGateway implements LocalNotificationGateway {
         onOpened(response.payload);
       },
     );
+  }
+
+  @override
+  Future<bool> isPermissionGranted() async {
+    if (defaultTargetPlatform == TargetPlatform.android) {
+      final android = _plugin.resolvePlatformSpecificImplementation<
+          AndroidFlutterLocalNotificationsPlugin>();
+      return await android?.areNotificationsEnabled() ?? true;
+    }
+    if (defaultTargetPlatform == TargetPlatform.iOS) {
+      final ios = _plugin.resolvePlatformSpecificImplementation<
+          IOSFlutterLocalNotificationsPlugin>();
+      return (await ios?.checkPermissions())?.isEnabled ?? false;
+    }
+    if (defaultTargetPlatform == TargetPlatform.macOS) {
+      final macos = _plugin.resolvePlatformSpecificImplementation<
+          MacOSFlutterLocalNotificationsPlugin>();
+      return (await macos?.checkPermissions())?.isEnabled ?? false;
+    }
+    return true;
   }
 
   @override

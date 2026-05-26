@@ -108,6 +108,11 @@ class _MemoryNotificationGateway implements LocalNotificationGateway {
   }) async {}
 
   @override
+  Future<bool> isPermissionGranted() async {
+    return true;
+  }
+
+  @override
   Future<bool> requestPermission() async {
     return true;
   }
