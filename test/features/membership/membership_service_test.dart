@@ -24,8 +24,12 @@ void main() {
     final snapshot = await service.loadSnapshot();
 
     expect(snapshot.entitlement.tier, MembershipTier.free);
-    expect(snapshot.plans, hasLength(2));
+    expect(snapshot.plans, hasLength(3));
     expect(snapshot.recommendedPlan?.tier, MembershipTier.annual);
+    expect(
+      snapshot.plans.map((plan) => plan.priceLabel).toList(),
+      <String>['¥3', '¥16', '¥32'],
+    );
     expect(repository.loadCount, 1);
   });
 

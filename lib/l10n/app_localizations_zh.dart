@@ -322,6 +322,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String get membershipPrimaryActionMonthly => '立即开通月会员';
 
   @override
+  String get membershipPrimaryActionLifetime => '立即开通永久会员';
+
+  @override
   String get membershipPrimaryActionManage => '管理当前会员';
 
   @override
@@ -1274,12 +1277,6 @@ class AppLocalizationsZh extends AppLocalizations {
   String get widgetThemePageTitle => '小组件与主题';
 
   @override
-  String get widgetThemeHeroTitle => '先把存在感做好';
-
-  @override
-  String get widgetThemeHeroDescription => 'V0.1 主题只做轻量预留，小组件优先落地。';
-
-  @override
   String get widgetThemePreviewTitle => '桌面预览';
 
   @override
@@ -1328,19 +1325,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get widgetThemeStatePermissionAction => '查看数据接入说明';
 
   @override
-  String get widgetThemeStateReadyDescription => '当前桌面快照已经能稳定展示今晚目标与昨晚状态。';
-
-  @override
-  String get widgetThemeReserveTitle => '主题预留';
-
-  @override
-  String get widgetThemeOptionDefault => '默认晨雾';
-
-  @override
-  String get widgetThemeOptionNight => '深夜静色';
-
-  @override
-  String get widgetThemeOptionFuture => '后续扩展';
+  String get widgetThemeStateReadyDescription => '当前桌面快照已经能展示今晚目标与昨晚状态。';
 
   @override
   String get widgetThemeRefreshButton => '刷新小组件快照';
@@ -1353,6 +1338,9 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get widgetThemeRefreshFailure => '刷新失败，请稍后再试';
+
+  @override
+  String get widgetThemeRefreshUnavailable => '当前设备还没有添加 Rhythm 小组件';
 
   @override
   String get widgetThemeOpenTodayButton => '打开今日页';

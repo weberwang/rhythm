@@ -16,7 +16,7 @@ class PurchasesMembershipDataSource {
   /// 创建 RevenueCat 会员数据源。
   const PurchasesMembershipDataSource();
 
-  /// 读取当前会员快照；当 SDK 尚未配置时自动退回免费版兜底。
+  /// 读取当前会员快照；当 SDK 尚未配置时自动退回到免费版兜底。
   Future<MembershipSnapshot> loadSnapshot() async {
     final isConfigured = await Purchases.isConfigured;
     if (!isConfigured) {
@@ -32,7 +32,7 @@ class PurchasesMembershipDataSource {
         isConfigured: true,
       );
     } catch (_) {
-      // SDK 配置存在但当前环境不可用时，继续回退到免费版，避免首屏链路被会员能力拖垮。
+      // SDK 已接入但当前环境不可用时，继续回落到免费版，避免会员链路拖垮首屏。
       return _fallbackSnapshot(isConfigured: true);
     }
   }
@@ -45,10 +45,7 @@ class PurchasesMembershipDataSource {
     }
 
     final offerings = await _loadOfferingsSafely();
-    final package = _findPackage(
-      offerings: offerings,
-      packageId: packageId,
-    );
+    final package = _findPackage(offerings: offerings, packageId: packageId);
     if (package == null) {
       return _buildSnapshotFromOfferingsOnly(
         offerings: offerings,
@@ -211,20 +208,25 @@ class PurchasesMembershipDataSource {
     return null;
   }
 
-  /// 兜底套餐与设计稿价格保持一致，确保未接真实后台时也能完整演示会员路径。
+  /// 兜底套餐保持轻量低门槛价格，保证未接真实后台时也能完整演示会员路径。
   List<MembershipPlan> _fallbackPlans() {
     return const <MembershipPlan>[
       MembershipPlan(
         packageId: 'monthly_plan',
         tier: MembershipTier.monthly,
-        priceLabel: '¥15',
+        priceLabel: '¥3',
       ),
       MembershipPlan(
         packageId: 'annual_plan',
         tier: MembershipTier.annual,
-        priceLabel: '¥98',
+        priceLabel: '¥16',
         isRecommended: true,
         isTrialEligible: true,
+      ),
+      MembershipPlan(
+        packageId: 'lifetime_plan',
+        tier: MembershipTier.lifetime,
+        priceLabel: '¥32',
       ),
     ];
   }
@@ -237,7 +239,7 @@ class PurchasesMembershipDataSource {
     return _tierFromProductId(entitlement.productIdentifier);
   }
 
-  /// 基于 RevenueCat 套餐类型推断内部会员层级，不在阶段十范围内的类型默认归并到月付。
+  /// 基于 RevenueCat 套餐类型推断内部会员层级。
   MembershipTier _tierFromPackage(Package package) {
     switch (package.packageType) {
       case PackageType.lifetime:

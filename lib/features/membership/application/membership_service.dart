@@ -1,10 +1,13 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:rhythm/core/time/time_context_provider.dart';
 import 'package:rhythm/features/membership/data/membership_repository.dart';
+import 'package:rhythm/features/membership/domain/membership_entitlement.dart';
+import 'package:rhythm/features/membership/domain/membership_paywall_policy.dart';
+import 'package:rhythm/features/membership/domain/membership_snapshot.dart';
 
 part 'membership_service.g.dart';
 
-/// 提供会员服务默认实例，统一收口快照读取与入口拦截判定。
+/// 提供会员服务默认实例，统一收口快照读取与权益判断。
 @riverpod
 MembershipService membershipService(Ref ref) {
   return MembershipService(
@@ -44,7 +47,7 @@ class MembershipService {
     return _withFallbackPlans(_repository.restoreMembership());
   }
 
-  /// 对单个高意图入口执行统一会员判定，避免页面各自复制规则。
+  /// 对单个高意图入口执行统一会员判定，避免页面层复制规则。
   Future<MembershipAccessResult> evaluateAccess({
     required PaywallEntryContext entryContext,
     DateTime? targetDate,
@@ -66,21 +69,27 @@ class MembershipService {
     if (snapshot.plans.isNotEmpty) {
       return snapshot;
     }
-    return snapshot.copyWith(
-      plans: const <MembershipPlan>[
-        MembershipPlan(
-          packageId: 'monthly_plan',
-          tier: MembershipTier.monthly,
-          priceLabel: '¥15',
-        ),
-        MembershipPlan(
-          packageId: 'annual_plan',
-          tier: MembershipTier.annual,
-          priceLabel: '¥98',
-          isRecommended: true,
-          isTrialEligible: true,
-        ),
-      ],
-    );
+    return snapshot.copyWith(plans: _fallbackPlans);
   }
 }
+
+/// 兜底套餐保持一份静态定义，确保会员中心与付费墙价格一致。
+const List<MembershipPlan> _fallbackPlans = <MembershipPlan>[
+  MembershipPlan(
+    packageId: 'monthly_plan',
+    tier: MembershipTier.monthly,
+    priceLabel: '¥3',
+  ),
+  MembershipPlan(
+    packageId: 'annual_plan',
+    tier: MembershipTier.annual,
+    priceLabel: '¥16',
+    isRecommended: true,
+    isTrialEligible: true,
+  ),
+  MembershipPlan(
+    packageId: 'lifetime_plan',
+    tier: MembershipTier.lifetime,
+    priceLabel: '¥32',
+  ),
+];

@@ -698,6 +698,12 @@ abstract class AppLocalizations {
   /// **'Start monthly membership'**
   String get membershipPrimaryActionMonthly;
 
+  /// No description provided for @membershipPrimaryActionLifetime.
+  ///
+  /// In en, this message translates to:
+  /// **'Start lifetime membership'**
+  String get membershipPrimaryActionLifetime;
+
   /// No description provided for @membershipPrimaryActionManage.
   ///
   /// In en, this message translates to:
@@ -2486,18 +2492,6 @@ abstract class AppLocalizations {
   /// **'Widget and theme'**
   String get widgetThemePageTitle;
 
-  /// No description provided for @widgetThemeHeroTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Get the presence right first'**
-  String get widgetThemeHeroTitle;
-
-  /// No description provided for @widgetThemeHeroDescription.
-  ///
-  /// In en, this message translates to:
-  /// **'V0.1 keeps theme support lightweight for now. The widget ships first.'**
-  String get widgetThemeHeroDescription;
-
   /// No description provided for @widgetThemePreviewTitle.
   ///
   /// In en, this message translates to:
@@ -2585,32 +2579,8 @@ abstract class AppLocalizations {
   /// No description provided for @widgetThemeStateReadyDescription.
   ///
   /// In en, this message translates to:
-  /// **'The current home screen snapshot is ready to show tonight\'s target and last night\'s status.'**
+  /// **'The current home screen snapshot can already show tonight\'s target and last night\'s status.'**
   String get widgetThemeStateReadyDescription;
-
-  /// No description provided for @widgetThemeReserveTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Theme reserve'**
-  String get widgetThemeReserveTitle;
-
-  /// No description provided for @widgetThemeOptionDefault.
-  ///
-  /// In en, this message translates to:
-  /// **'Default morning haze'**
-  String get widgetThemeOptionDefault;
-
-  /// No description provided for @widgetThemeOptionNight.
-  ///
-  /// In en, this message translates to:
-  /// **'Midnight stillness'**
-  String get widgetThemeOptionNight;
-
-  /// No description provided for @widgetThemeOptionFuture.
-  ///
-  /// In en, this message translates to:
-  /// **'More later'**
-  String get widgetThemeOptionFuture;
 
   /// No description provided for @widgetThemeRefreshButton.
   ///
@@ -2635,6 +2605,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Refresh failed. Please try again later.'**
   String get widgetThemeRefreshFailure;
+
+  /// No description provided for @widgetThemeRefreshUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Rhythm widget has not been added on this device yet.'**
+  String get widgetThemeRefreshUnavailable;
 
   /// No description provided for @widgetThemeOpenTodayButton.
   ///

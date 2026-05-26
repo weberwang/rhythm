@@ -339,6 +339,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get membershipPrimaryActionMonthly => 'Start monthly membership';
 
   @override
+  String get membershipPrimaryActionLifetime => 'Start lifetime membership';
+
+  @override
   String get membershipPrimaryActionManage => 'Manage current membership';
 
   @override
@@ -1372,13 +1375,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get widgetThemePageTitle => 'Widget and theme';
 
   @override
-  String get widgetThemeHeroTitle => 'Get the presence right first';
-
-  @override
-  String get widgetThemeHeroDescription =>
-      'V0.1 keeps theme support lightweight for now. The widget ships first.';
-
-  @override
   String get widgetThemePreviewTitle => 'Home screen preview';
 
   @override
@@ -1432,19 +1428,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get widgetThemeStateReadyDescription =>
-      'The current home screen snapshot is ready to show tonights target and last nights status.';
-
-  @override
-  String get widgetThemeReserveTitle => 'Theme reserve';
-
-  @override
-  String get widgetThemeOptionDefault => 'Default morning haze';
-
-  @override
-  String get widgetThemeOptionNight => 'Midnight stillness';
-
-  @override
-  String get widgetThemeOptionFuture => 'More later';
+      'The current home screen snapshot can already show tonights target and last nights status.';
 
   @override
   String get widgetThemeRefreshButton => 'Refresh widget snapshot';
@@ -1458,6 +1442,10 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get widgetThemeRefreshFailure =>
       'Refresh failed. Please try again later.';
+
+  @override
+  String get widgetThemeRefreshUnavailable =>
+      'Rhythm widget has not been added on this device yet.';
 
   @override
   String get widgetThemeOpenTodayButton => 'Open Today';

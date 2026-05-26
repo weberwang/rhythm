@@ -21,14 +21,19 @@ void main() {
             MembershipPlan(
               packageId: 'monthly_plan',
               tier: MembershipTier.monthly,
-              priceLabel: '¥15',
+              priceLabel: '¥3',
             ),
             MembershipPlan(
               packageId: 'annual_plan',
               tier: MembershipTier.annual,
-              priceLabel: '¥98',
+              priceLabel: '¥16',
               isRecommended: true,
               isTrialEligible: true,
+            ),
+            MembershipPlan(
+              packageId: 'lifetime_plan',
+              tier: MembershipTier.lifetime,
+              priceLabel: '¥32',
             ),
           ],
         ),
@@ -41,9 +46,94 @@ void main() {
     expect(find.byIcon(Icons.arrow_back_ios_new_rounded), findsOneWidget);
     expect(find.text('月付'), findsOneWidget);
     expect(find.text('年付'), findsOneWidget);
-    expect(find.text('¥15'), findsOneWidget);
-    expect(find.text('¥98'), findsOneWidget);
+    expect(find.text('永久'), findsOneWidget);
+    expect(find.text('¥3'), findsOneWidget);
+    expect(find.text('¥16'), findsOneWidget);
+    expect(find.text('¥32'), findsOneWidget);
     expect(find.text('立即开通年会员'), findsOneWidget);
+  });
+
+  testWidgets('月付与年付套餐卡保持等高，避免推荐角标挤压布局', (tester) async {
+    await _pumpPage(
+      tester,
+      viewState: MembershipViewState(
+        snapshot: MembershipSnapshot.fallback(
+          isConfigured: false,
+          entitlement: const MembershipEntitlement.free(),
+          plans: const <MembershipPlan>[
+            MembershipPlan(
+              packageId: 'monthly_plan',
+              tier: MembershipTier.monthly,
+              priceLabel: '¥3',
+            ),
+            MembershipPlan(
+              packageId: 'annual_plan',
+              tier: MembershipTier.annual,
+              priceLabel: '¥16',
+              isRecommended: true,
+              isTrialEligible: true,
+            ),
+          ],
+        ),
+      ),
+    );
+
+    final monthlyCard = find.ancestor(
+      of: find.text('月付'),
+      matching: find.byType(InkWell),
+    );
+    final annualCard = find.ancestor(
+      of: find.text('年付'),
+      matching: find.byType(InkWell),
+    );
+
+    expect(monthlyCard, findsOneWidget);
+    expect(annualCard, findsOneWidget);
+
+    final monthlySize = tester.getSize(monthlyCard);
+    final annualSize = tester.getSize(annualCard);
+
+    expect((monthlySize.height - annualSize.height).abs(), lessThan(0.1));
+  });
+
+  testWidgets('点击套餐卡后会切换主按钮文案', (tester) async {
+    await _pumpPage(
+      tester,
+      viewState: MembershipViewState(
+        snapshot: MembershipSnapshot.fallback(
+          isConfigured: false,
+          entitlement: const MembershipEntitlement.free(),
+          plans: const <MembershipPlan>[
+            MembershipPlan(
+              packageId: 'monthly_plan',
+              tier: MembershipTier.monthly,
+              priceLabel: '¥3',
+            ),
+            MembershipPlan(
+              packageId: 'annual_plan',
+              tier: MembershipTier.annual,
+              priceLabel: '¥16',
+              isRecommended: true,
+            ),
+            MembershipPlan(
+              packageId: 'lifetime_plan',
+              tier: MembershipTier.lifetime,
+              priceLabel: '¥32',
+            ),
+          ],
+        ),
+      ),
+    );
+
+    expect(find.text('立即开通年会员'), findsOneWidget);
+
+    await tester.tap(find.text('月付'));
+    await tester.pumpAndSettle();
+    expect(find.text('立即开通月会员'), findsOneWidget);
+
+    await tester.tap(find.text('永久'));
+    await tester.pumpAndSettle();
+    expect(find.text('立即开通年会员'), findsNothing);
   });
 
   testWidgets('已开通会员时展示当前权益状态与恢复购买入口', (tester) async {
@@ -61,7 +151,7 @@ void main() {
             MembershipPlan(
               packageId: 'annual_plan',
               tier: MembershipTier.annual,
-              priceLabel: '¥98',
+              priceLabel: '¥16',
               isRecommended: true,
             ),
           ],
@@ -86,7 +176,7 @@ void main() {
             MembershipPlan(
               packageId: 'annual_plan',
               tier: MembershipTier.annual,
-              priceLabel: '¥98',
+              priceLabel: '¥16',
               isRecommended: true,
             ),
           ],

@@ -6,7 +6,7 @@ import 'package:rhythm/features/membership/domain/membership_snapshot.dart';
 import 'package:rhythm/features/membership/presentation/widgets/paywall_entry_banner.dart';
 import 'package:rhythm/l10n/app_localizations.dart';
 
-/// 展示阶段十轻量付费墙，只在高意图入口点击后出现，不阻断首次核心体验。
+/// 展示轻量付费墙，只在高意图入口点击后出现，不阻断首次核心体验。
 class PaywallPage extends HookConsumerWidget {
   /// 创建轻量付费墙页。
   const PaywallPage({super.key});
@@ -37,8 +37,8 @@ class PaywallPage extends HookConsumerWidget {
   }
 }
 
-/// 承载轻量付费墙主体结构，对齐 Pencil 中深色背景、标题、套餐与双按钮层级。
-class _PaywallBody extends StatelessWidget {
+/// 承载轻量付费墙主体结构，对齐深色背景、标题、套餐与双按钮层级。
+class _PaywallBody extends ConsumerWidget {
   const _PaywallBody({
     required this.state,
     required this.l10n,
@@ -48,7 +48,7 @@ class _PaywallBody extends StatelessWidget {
   final AppLocalizations l10n;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final textTheme = Theme.of(context).textTheme;
 
     return Padding(
@@ -62,7 +62,10 @@ class _PaywallBody extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 7,
+                    ),
                     decoration: BoxDecoration(
                       color: const Color(0xFF254535),
                       borderRadius: BorderRadius.circular(9999),
@@ -93,13 +96,31 @@ class _PaywallBody extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 18),
-                  Row(
-                    children: [
-                      for (final plan in state.snapshot.plans) ...[
-                        Expanded(child: _PaywallPlanCard(plan: plan, isSelected: plan.packageId == state.effectiveSelectedPackageId)),
-                        if (plan != state.snapshot.plans.last) const SizedBox(width: 12),
+                  IntrinsicHeight(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        for (final plan in state.snapshot.plans) ...[
+                          Expanded(
+                            child: _PaywallPlanCard(
+                              plan: plan,
+                              isSelected:
+                                  plan.packageId ==
+                                  state.effectiveSelectedPackageId,
+                              onTap: state.isProcessing
+                                  ? null
+                                  : () => ref
+                                        .read(
+                                          membershipControllerProvider.notifier,
+                                        )
+                                        .selectPackage(plan.packageId),
+                            ),
+                          ),
+                          if (plan != state.snapshot.plans.last)
+                            const SizedBox(width: 12),
+                        ],
                       ],
-                    ],
+                    ),
                   ),
                   const SizedBox(height: 18),
                   PaywallEntryBanner(
@@ -108,7 +129,9 @@ class _PaywallBody extends StatelessWidget {
                   ),
                   const SizedBox(height: 18),
                   _PaywallBenefitItem(text: l10n.paywallBenefitRecoveryDetail),
-                  _PaywallBenefitItem(text: l10n.paywallBenefitStabilityExplainer),
+                  _PaywallBenefitItem(
+                    text: l10n.paywallBenefitStabilityExplainer,
+                  ),
                   _PaywallBenefitItem(text: l10n.paywallBenefitHistoryMonthly),
                   _PaywallBenefitItem(text: l10n.paywallBenefitWidgetSync),
                 ],
@@ -140,7 +163,7 @@ class _PaywallBody extends StatelessWidget {
     );
   }
 
-  /// 根据当前选中套餐生成主操作文案，保持轻量付费墙 CTA 聚焦在推荐年付。
+  /// 根据当前选中套餐生成主操作文案，保持轻量付费墙 CTA 聚焦在被选套餐。
   String _primaryActionLabel(
     AppLocalizations l10n,
     MembershipPlan? plan,
@@ -165,64 +188,88 @@ class _PaywallPlanCard extends StatelessWidget {
   const _PaywallPlanCard({
     required this.plan,
     required this.isSelected,
+    required this.onTap,
   });
 
   final MembershipPlan plan;
   final bool isSelected;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
     final recommended = plan.isRecommended;
-    final background = recommended ? const Color(0xFFF9FBF6) : const Color(0xFF173324);
-    final foreground = recommended ? const Color(0xFF1B3A28) : Colors.white;
+    final background = recommended
+        ? const Color(0xFFF9FBF6)
+        : const Color(0xFF173324);
+    final foreground = recommended
+        ? const Color(0xFF1B3A28)
+        : Colors.white;
     final l10n = AppLocalizations.of(context);
 
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: background,
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(
-          color: recommended ? const Color(0xFFC8913C) : const Color(0xFF2A5641),
-          width: isSelected ? 1.5 : 1,
-        ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
-            decoration: BoxDecoration(
-              color: recommended ? const Color(0xFFF4E8CF) : const Color(0xFF224634),
-              borderRadius: BorderRadius.circular(9999),
+        child: Ink(
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: background,
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(
+              color: recommended
+                  ? const Color(0xFFC8913C)
+                  : const Color(0xFF2A5641),
+              width: isSelected ? 1.5 : 1,
             ),
-            child: Text(
-              recommended
-                  ? l10n.membershipPlanRecommendedBadge
-                  : l10n.membershipPlanTryBadge,
-              style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                color: recommended ? const Color(0xFFC8913C) : Colors.white,
-                fontWeight: FontWeight.w600,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (plan.isRecommended || plan.isTrialEligible)
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 7,
+                  ),
+                  decoration: BoxDecoration(
+                    color: recommended
+                        ? const Color(0xFFF4E8CF)
+                        : const Color(0xFF224634),
+                    borderRadius: BorderRadius.circular(9999),
+                  ),
+                  child: Text(
+                    recommended
+                        ? l10n.membershipPlanRecommendedBadge
+                        : l10n.membershipPlanTryBadge,
+                    style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                      color: recommended
+                          ? const Color(0xFFC8913C)
+                          : Colors.white,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              if (plan.isRecommended || plan.isTrialEligible)
+                const SizedBox(height: 10),
+              Text(
+                _labelForTier(plan.tier, l10n),
+                style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                  color: foreground,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
-            ),
+              const Spacer(),
+              Text(
+                plan.priceLabel,
+                style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                  color: foreground,
+                  fontWeight: FontWeight.w800,
+                ),
+              ),
+            ],
           ),
-          const SizedBox(height: 8),
-          Text(
-            _labelForTier(plan.tier, l10n),
-            style: Theme.of(context).textTheme.titleSmall?.copyWith(
-              color: foreground,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            plan.priceLabel,
-            style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-              color: foreground,
-              fontWeight: FontWeight.w800,
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }

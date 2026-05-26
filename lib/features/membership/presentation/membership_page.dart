@@ -8,7 +8,7 @@ import 'package:rhythm/features/membership/domain/membership_snapshot.dart';
 import 'package:rhythm/features/membership/presentation/widgets/sheets/membership_benefits_sheet.dart';
 import 'package:rhythm/l10n/app_localizations.dart';
 
-/// 展示阶段十会员中心页，承接权益说明、套餐选择和恢复购买入口。
+/// 展示会员中心页，承接权益说明、套餐选择和恢复购买入口。
 class MembershipPage extends HookConsumerWidget {
   /// 创建会员中心页。
   const MembershipPage({super.key});
@@ -36,14 +36,14 @@ class MembershipPage extends HookConsumerWidget {
 }
 
 /// 承载会员中心页主体结构，避免主页面堆叠过多布局分支。
-class _MembershipBody extends StatelessWidget {
+class _MembershipBody extends ConsumerWidget {
   const _MembershipBody({required this.state, required this.l10n});
 
   final MembershipViewState state;
   final AppLocalizations l10n;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final textTheme = Theme.of(context).textTheme;
     final selectedPlan = state.selectedPlan;
 
@@ -80,21 +80,29 @@ class _MembershipBody extends StatelessWidget {
             description: l10n.membershipStatusDescription,
           ),
           const SizedBox(height: 18),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              for (final plan in state.snapshot.plans) ...[
-                Expanded(
-                  child: _PlanCard(
-                    plan: plan,
-                    isSelected:
-                        plan.packageId == state.effectiveSelectedPackageId,
+          IntrinsicHeight(
+            child: Row(
+              // 套餐卡跟随最高卡片统一高度，避免推荐角标只把单张卡片撑高后破坏整行对齐。
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                for (final plan in state.snapshot.plans) ...[
+                  Expanded(
+                    child: _PlanCard(
+                      plan: plan,
+                      isSelected:
+                          plan.packageId == state.effectiveSelectedPackageId,
+                      onTap: state.isProcessing
+                          ? null
+                          : () => ref
+                                .read(membershipControllerProvider.notifier)
+                                .selectPackage(plan.packageId),
+                    ),
                   ),
-                ),
-                if (plan != state.snapshot.plans.last)
-                  const SizedBox(width: 12),
+                  if (plan != state.snapshot.plans.last)
+                    const SizedBox(width: 12),
+                ],
               ],
-            ],
+            ),
           ),
           const SizedBox(height: 18),
           Expanded(
@@ -154,10 +162,17 @@ class _MembershipBody extends StatelessWidget {
     if (state.snapshot.entitlement.hasPremiumAccess) {
       return l10n.membershipPrimaryActionManage;
     }
-    if (selectedPlan?.tier == MembershipTier.annual) {
-      return l10n.membershipPrimaryActionAnnual;
+    switch (selectedPlan?.tier) {
+      case MembershipTier.monthly:
+        return l10n.membershipPrimaryActionMonthly;
+      case MembershipTier.lifetime:
+        return l10n.membershipPrimaryActionLifetime;
+      case MembershipTier.trial:
+      case MembershipTier.free:
+      case null:
+      case MembershipTier.annual:
+        return l10n.membershipPrimaryActionAnnual;
     }
-    return l10n.membershipPrimaryActionMonthly;
   }
 
   /// 根据权益层级映射会员状态标题，避免业务层直接持有最终展示文案。
@@ -233,66 +248,83 @@ class _MembershipStatusCard extends StatelessWidget {
 
 /// 展示单个套餐卡片，保持会员中心与付费墙一致的价格与推荐层级。
 class _PlanCard extends StatelessWidget {
-  const _PlanCard({required this.plan, required this.isSelected});
+  const _PlanCard({
+    required this.plan,
+    required this.isSelected,
+    required this.onTap,
+  });
 
   final MembershipPlan plan;
   final bool isSelected;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
     final highlight = plan.isRecommended;
     final l10n = AppLocalizations.of(context);
 
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: highlight ? const Color(0xFFF9FBF6) : const Color(0xFFE8F0E1),
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(
-          color: highlight ? const Color(0xFFC8913C) : const Color(0xFFD5DFCE),
-          width: isSelected ? 1.5 : 1,
-        ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          if (plan.isRecommended || plan.isTrialEligible)
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
-              decoration: BoxDecoration(
-                color: highlight
-                    ? const Color(0xFFF4E8CF)
-                    : const Color(0xFFD7E7DA),
-                borderRadius: BorderRadius.circular(9999),
-              ),
-              child: Text(
-                highlight
-                    ? l10n.membershipPlanRecommendedBadge
-                    : l10n.membershipPlanTryBadge,
-                style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                  fontWeight: FontWeight.w600,
-                  color: highlight
-                      ? const Color(0xFFC8913C)
-                      : const Color(0xFF1B3A28),
-                ),
-              ),
+        child: Ink(
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: highlight ? const Color(0xFFF9FBF6) : const Color(0xFFE8F0E1),
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(
+              color: highlight
+                  ? const Color(0xFFC8913C)
+                  : const Color(0xFFD5DFCE),
+              width: isSelected ? 1.5 : 1,
             ),
-          if (plan.isRecommended || plan.isTrialEligible)
-            const SizedBox(height: 8),
-          Text(
-            _planLabel(plan.tier, l10n),
-            style: Theme.of(
-              context,
-            ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700),
           ),
-          const SizedBox(height: 8),
-          Text(
-            plan.priceLabel,
-            style: Theme.of(
-              context,
-            ).textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.w800),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (plan.isRecommended || plan.isTrialEligible)
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 7,
+                  ),
+                  decoration: BoxDecoration(
+                    color: highlight
+                        ? const Color(0xFFF4E8CF)
+                        : const Color(0xFFD7E7DA),
+                    borderRadius: BorderRadius.circular(9999),
+                  ),
+                  child: Text(
+                    highlight
+                        ? l10n.membershipPlanRecommendedBadge
+                        : l10n.membershipPlanTryBadge,
+                    style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                      fontWeight: FontWeight.w600,
+                      color: highlight
+                          ? const Color(0xFFC8913C)
+                          : const Color(0xFF1B3A28),
+                    ),
+                  ),
+                ),
+              if (plan.isRecommended || plan.isTrialEligible)
+                const SizedBox(height: 10),
+              Text(
+                _planLabel(plan.tier, l10n),
+                style: Theme.of(
+                  context,
+                ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700),
+              ),
+              const Spacer(),
+              Text(
+                plan.priceLabel,
+                style: Theme.of(
+                  context,
+                ).textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.w800),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

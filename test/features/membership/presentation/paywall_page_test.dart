@@ -10,7 +10,7 @@ import 'package:rhythm/l10n/app_localizations.dart';
 
 /// 验证轻量付费墙页会展示阶段十设计稿要求的标题、套餐与双按钮。
 void main() {
-  testWidgets('轻量付费墙展示会员说明、套餐卡和继续免费入口', (tester) async {
+  testWidgets('轻量付费墙展示会员说明、三档套餐卡和继续免费入口', (tester) async {
     await _pumpPage(
       tester,
       viewState: MembershipViewState(
@@ -21,14 +21,19 @@ void main() {
             MembershipPlan(
               packageId: 'monthly_plan',
               tier: MembershipTier.monthly,
-              priceLabel: '¥15',
+              priceLabel: '¥3',
               isTrialEligible: true,
             ),
             MembershipPlan(
               packageId: 'annual_plan',
               tier: MembershipTier.annual,
-              priceLabel: '¥98',
+              priceLabel: '¥16',
               isRecommended: true,
+            ),
+            MembershipPlan(
+              packageId: 'lifetime_plan',
+              tier: MembershipTier.lifetime,
+              priceLabel: '¥32',
             ),
           ],
         ),
@@ -39,8 +44,49 @@ void main() {
     expect(find.text('免费版给你结果，会员版把恢复计划、稳定度解释和长期历史都接上。'), findsOneWidget);
     expect(find.text('月付'), findsOneWidget);
     expect(find.text('年付'), findsOneWidget);
+    expect(find.text('永久'), findsOneWidget);
     expect(find.text('开通年会员'), findsOneWidget);
     expect(find.text('先继续免费版'), findsOneWidget);
+  });
+
+  testWidgets('点击付费墙套餐卡后会切换主按钮文案', (tester) async {
+    await _pumpPage(
+      tester,
+      viewState: MembershipViewState(
+        snapshot: MembershipSnapshot.fallback(
+          isConfigured: false,
+          entitlement: const MembershipEntitlement.free(),
+          plans: const <MembershipPlan>[
+            MembershipPlan(
+              packageId: 'monthly_plan',
+              tier: MembershipTier.monthly,
+              priceLabel: '¥3',
+            ),
+            MembershipPlan(
+              packageId: 'annual_plan',
+              tier: MembershipTier.annual,
+              priceLabel: '¥16',
+              isRecommended: true,
+            ),
+            MembershipPlan(
+              packageId: 'lifetime_plan',
+              tier: MembershipTier.lifetime,
+              priceLabel: '¥32',
+            ),
+          ],
+        ),
+      ),
+    );
+
+    expect(find.text('开通年会员'), findsOneWidget);
+
+    await tester.tap(find.text('月付'));
+    await tester.pumpAndSettle();
+    expect(find.text('开通月会员'), findsOneWidget);
+
+    await tester.tap(find.text('永久'));
+    await tester.pumpAndSettle();
+    expect(find.text('开通永久会员'), findsOneWidget);
   });
 }
 
