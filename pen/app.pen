@@ -313,7 +313,7 @@
                   "fill": "$font-secondary",
                   "content": "LTE",
                   "fontFamily": "Inter",
-                  "fontSize": 12,
+                  "fontSize": 13,
                   "fontWeight": "600"
                 },
                 {
@@ -322,7 +322,7 @@
                   "fill": "$font-secondary",
                   "content": "87%",
                   "fontFamily": "Inter",
-                  "fontSize": 12,
+                  "fontSize": 13,
                   "fontWeight": "600"
                 }
               ]
@@ -354,11 +354,11 @@
                 {
                   "type": "frame",
                   "id": "ZgI0c",
-                  "fill": "$surface-accent-soft",
+                  "fill": "#e3eee0",
                   "cornerRadius": "$radius-pill",
                   "padding": [
-                    7,
-                    12
+                    12,
+                    10
                   ],
                   "children": [
                     {
@@ -367,7 +367,7 @@
                       "fill": "$font-secondary",
                       "content": "今晚先轻一点",
                       "fontFamily": "$font-body",
-                      "fontSize": 12,
+                      "fontSize": 13,
                       "fontWeight": "600"
                     }
                   ]
@@ -381,7 +381,7 @@
                   "content": "用更温和的方式，帮你把作息慢慢拨正。",
                   "lineHeight": 1.08,
                   "fontFamily": "$font-heading",
-                  "fontSize": 28,
+                  "fontSize": 32,
                   "fontWeight": "700"
                 },
                 {
@@ -393,7 +393,7 @@
                   "content": "不是监督你打卡，而是让你每天都看得懂自己离目标还有多远。",
                   "lineHeight": 1.4,
                   "fontFamily": "$font-body",
-                  "fontSize": 14,
+                  "fontSize": 15,
                   "fontWeight": "500"
                 }
               ]
@@ -409,8 +409,8 @@
                   "type": "frame",
                   "id": "Q9hcY",
                   "width": "fill_container",
-                  "fill": "$surface-card",
-                  "cornerRadius": "$radius-lg",
+                  "fill": "#fbfcf8",
+                  "cornerRadius": 20,
                   "effect": {
                     "type": "shadow",
                     "shadowType": "outer",
@@ -452,8 +452,8 @@
                   "type": "frame",
                   "id": "y3yOQM",
                   "width": "fill_container",
-                  "fill": "$surface-card",
-                  "cornerRadius": "$radius-lg",
+                  "fill": "#fbfcf8",
+                  "cornerRadius": 20,
                   "effect": {
                     "type": "shadow",
                     "shadowType": "outer",
@@ -495,8 +495,8 @@
                   "type": "frame",
                   "id": "IGCxy",
                   "width": "fill_container",
-                  "fill": "$surface-card",
-                  "cornerRadius": "$radius-lg",
+                  "fill": "#fbfcf8",
+                  "cornerRadius": 20,
                   "effect": {
                     "type": "shadow",
                     "shadowType": "outer",
@@ -551,7 +551,7 @@
                   "width": "fill_container",
                   "height": 54,
                   "fill": "$accent-primary",
-                  "cornerRadius": "$radius-lg",
+                  "cornerRadius": 20,
                   "effect": {
                     "type": "shadow",
                     "shadowType": "outer",
@@ -581,11 +581,11 @@
                   "id": "w9867",
                   "width": "fill_container",
                   "height": 50,
-                  "fill": "$surface-card",
-                  "cornerRadius": "$radius-lg",
+                  "fill": "#fbfcf8",
+                  "cornerRadius": 20,
                   "stroke": {
                     "thickness": 1,
-                    "fill": "$border-soft"
+                    "fill": "#ffffff00"
                   },
                   "justifyContent": "center",
                   "alignItems": "center",
@@ -654,7 +654,7 @@
                   "fill": "$font-secondary",
                   "content": "LTE",
                   "fontFamily": "Inter",
-                  "fontSize": 12,
+                  "fontSize": 13,
                   "fontWeight": "600"
                 },
                 {
@@ -663,7 +663,7 @@
                   "fill": "$font-secondary",
                   "content": "87%",
                   "fontFamily": "Inter",
-                  "fontSize": 12,
+                  "fontSize": 13,
                   "fontWeight": "600"
                 }
               ]
@@ -695,11 +695,11 @@
                 {
                   "type": "frame",
                   "id": "m8rMgi",
-                  "fill": "$surface-accent-soft",
+                  "fill": "#e3eee0",
                   "cornerRadius": "$radius-pill",
                   "padding": [
-                    7,
-                    12
+                    12,
+                    10
                   ],
                   "children": [
                     {
@@ -708,7 +708,7 @@
                       "fill": "$font-secondary",
                       "content": "匿名也能开始",
                       "fontFamily": "$font-body",
-                      "fontSize": 12,
+                      "fontSize": 13,
                       "fontWeight": "600"
                     }
                   ]
@@ -722,7 +722,7 @@
                   "content": "先把节奏跑起来，登录只在需要同步时再做。",
                   "lineHeight": 1.08,
                   "fontFamily": "$font-heading",
-                  "fontSize": 28,
+                  "fontSize": 32,
                   "fontWeight": "700"
                 },
                 {
@@ -734,7 +734,7 @@
                   "content": "匿名进入降低首启压力，登录用于换机恢复和会员状态同步。",
                   "lineHeight": 1.4,
                   "fontFamily": "$font-body",
-                  "fontSize": 14,
+                  "fontSize": 15,
                   "fontWeight": "500"
                 }
               ]
@@ -749,8 +749,8 @@
                   "type": "frame",
                   "id": "hc5DI",
                   "width": "fill_container",
-                  "fill": "$surface-secondary",
-                  "cornerRadius": "$radius-lg",
+                  "fill": "#eef4ea",
+                  "cornerRadius": 20,
                   "layout": "vertical",
                   "gap": 6,
                   "padding": 14,
@@ -761,7 +761,7 @@
                       "fill": "$font-primary",
                       "content": "本地优先",
                       "fontFamily": "$font-body",
-                      "fontSize": 14,
+                      "fontSize": 15,
                       "fontWeight": "700"
                     },
                     {
@@ -773,7 +773,7 @@
                       "content": "数据先留在设备里",
                       "lineHeight": 1.35,
                       "fontFamily": "$font-body",
-                      "fontSize": 12,
+                      "fontSize": 13,
                       "fontWeight": "500"
                     }
                   ]
@@ -782,8 +782,8 @@
                   "type": "frame",
                   "id": "Y93vy5",
                   "width": "fill_container",
-                  "fill": "$surface-secondary",
-                  "cornerRadius": "$radius-lg",
+                  "fill": "#eef4ea",
+                  "cornerRadius": 20,
                   "layout": "vertical",
                   "gap": 6,
                   "padding": 14,
@@ -794,7 +794,7 @@
                       "fill": "$font-primary",
                       "content": "随时绑定",
                       "fontFamily": "$font-body",
-                      "fontSize": 14,
+                      "fontSize": 15,
                       "fontWeight": "700"
                     },
                     {
@@ -806,7 +806,7 @@
                       "content": "之后再连账号也不会丢",
                       "lineHeight": 1.35,
                       "fontFamily": "$font-body",
-                      "fontSize": 12,
+                      "fontSize": 13,
                       "fontWeight": "500"
                     }
                   ]
@@ -825,8 +825,8 @@
                   "id": "kg2S5",
                   "width": "fill_container",
                   "height": 54,
-                  "fill": "$surface-card",
-                  "cornerRadius": "$radius-lg",
+                  "fill": "#fbfcf8",
+                  "cornerRadius": 20,
                   "effect": {
                     "type": "shadow",
                     "shadowType": "outer",
@@ -856,8 +856,8 @@
                   "id": "ytyxk",
                   "width": "fill_container",
                   "height": 54,
-                  "fill": "$surface-card",
-                  "cornerRadius": "$radius-lg",
+                  "fill": "#fbfcf8",
+                  "cornerRadius": 20,
                   "effect": {
                     "type": "shadow",
                     "shadowType": "outer",
@@ -888,7 +888,7 @@
                   "width": "fill_container",
                   "height": 54,
                   "fill": "$accent-primary",
-                  "cornerRadius": "$radius-lg",
+                  "cornerRadius": 20,
                   "effect": {
                     "type": "shadow",
                     "shadowType": "outer",
@@ -924,7 +924,7 @@
               "content": "你可以先匿名使用，后续在“我的”里再绑定账号。",
               "lineHeight": 1.35,
               "fontFamily": "$font-body",
-              "fontSize": 12,
+              "fontSize": 13,
               "fontWeight": "500"
             }
           ]
@@ -978,7 +978,7 @@
                   "fill": "$font-secondary",
                   "content": "LTE",
                   "fontFamily": "Inter",
-                  "fontSize": 12,
+                  "fontSize": 13,
                   "fontWeight": "600"
                 },
                 {
@@ -987,7 +987,7 @@
                   "fill": "$font-secondary",
                   "content": "87%",
                   "fontFamily": "Inter",
-                  "fontSize": 12,
+                  "fontSize": 13,
                   "fontWeight": "600"
                 }
               ]
@@ -1019,11 +1019,11 @@
                 {
                   "type": "frame",
                   "id": "FinT8",
-                  "fill": "$surface-accent-soft",
+                  "fill": "#e3eee0",
                   "cornerRadius": "$radius-pill",
                   "padding": [
-                    7,
-                    12
+                    12,
+                    10
                   ],
                   "children": [
                     {
@@ -1032,7 +1032,7 @@
                       "fill": "$font-secondary",
                       "content": "读取睡眠数据",
                       "fontFamily": "$font-body",
-                      "fontSize": 12,
+                      "fontSize": 13,
                       "fontWeight": "600"
                     }
                   ]
@@ -1046,7 +1046,7 @@
                   "content": "让结果更省心，但你随时可以跳过，改用手动补录。",
                   "lineHeight": 1.08,
                   "fontFamily": "$font-heading",
-                  "fontSize": 28,
+                  "fontSize": 32,
                   "fontWeight": "700"
                 },
                 {
@@ -1058,7 +1058,7 @@
                   "content": "我们只读取睡眠记录，不会把数据用于医疗判断或广告。",
                   "lineHeight": 1.4,
                   "fontFamily": "$font-body",
-                  "fontSize": 14,
+                  "fontSize": 15,
                   "fontWeight": "500"
                 }
               ]
@@ -1067,8 +1067,8 @@
               "type": "frame",
               "id": "H3EzTp",
               "width": "fill_container",
-              "fill": "$surface-card",
-              "cornerRadius": "$radius-lg",
+              "fill": "#fbfcf8",
+              "cornerRadius": 20,
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
@@ -1096,7 +1096,7 @@
                       "fill": "$font-primary",
                       "content": "自动同步睡眠记录",
                       "fontFamily": "$font-body",
-                      "fontSize": 14,
+                      "fontSize": 15,
                       "fontWeight": "700"
                     },
                     {
@@ -1108,7 +1108,7 @@
                       "content": "近 30 天数据会写入本地节律时间线",
                       "lineHeight": 1.35,
                       "fontFamily": "$font-body",
-                      "fontSize": 12,
+                      "fontSize": 13,
                       "fontWeight": "500"
                     }
                   ]
@@ -1126,7 +1126,7 @@
                       "fill": "$font-primary",
                       "content": "授权失败可降级",
                       "fontFamily": "$font-body",
-                      "fontSize": 14,
+                      "fontSize": 15,
                       "fontWeight": "700"
                     },
                     {
@@ -1138,7 +1138,7 @@
                       "content": "没有权限时仍能手动补录并生成周报",
                       "lineHeight": 1.35,
                       "fontFamily": "$font-body",
-                      "fontSize": 12,
+                      "fontSize": 13,
                       "fontWeight": "500"
                     }
                   ]
@@ -1156,7 +1156,7 @@
                       "fill": "$font-primary",
                       "content": "你可以随时关闭",
                       "fontFamily": "$font-body",
-                      "fontSize": 14,
+                      "fontSize": 15,
                       "fontWeight": "700"
                     },
                     {
@@ -1168,7 +1168,7 @@
                       "content": "在系统设置中撤回后仍可继续使用 App",
                       "lineHeight": 1.35,
                       "fontFamily": "$font-body",
-                      "fontSize": 12,
+                      "fontSize": 13,
                       "fontWeight": "500"
                     }
                   ]
@@ -1190,7 +1190,7 @@
                   "width": "fill_container",
                   "height": 54,
                   "fill": "$accent-primary",
-                  "cornerRadius": "$radius-lg",
+                  "cornerRadius": 20,
                   "effect": {
                     "type": "shadow",
                     "shadowType": "outer",
@@ -1220,11 +1220,11 @@
                   "id": "lTS48",
                   "width": "fill_container",
                   "height": 50,
-                  "fill": "$surface-card",
-                  "cornerRadius": "$radius-lg",
+                  "fill": "#fbfcf8",
+                  "cornerRadius": 20,
                   "stroke": {
                     "thickness": 1,
-                    "fill": "$border-soft"
+                    "fill": "#ffffff00"
                   },
                   "justifyContent": "center",
                   "alignItems": "center",
@@ -1293,7 +1293,7 @@
                   "fill": "$font-secondary",
                   "content": "LTE",
                   "fontFamily": "Inter",
-                  "fontSize": 12,
+                  "fontSize": 13,
                   "fontWeight": "600"
                 },
                 {
@@ -1302,7 +1302,7 @@
                   "fill": "$font-secondary",
                   "content": "87%",
                   "fontFamily": "Inter",
-                  "fontSize": 12,
+                  "fontSize": 13,
                   "fontWeight": "600"
                 }
               ]
@@ -1334,11 +1334,11 @@
                 {
                   "type": "frame",
                   "id": "WHvSJ",
-                  "fill": "$surface-accent-soft",
+                  "fill": "#e3eee0",
                   "cornerRadius": "$radius-pill",
                   "padding": [
-                    7,
-                    12
+                    12,
+                    10
                   ],
                   "children": [
                     {
@@ -1347,7 +1347,7 @@
                       "fill": "$font-secondary",
                       "content": "设置一个能做到的目标",
                       "fontFamily": "$font-body",
-                      "fontSize": 12,
+                      "fontSize": 13,
                       "fontWeight": "600"
                     }
                   ]
@@ -1361,7 +1361,7 @@
                   "content": "目标是节律的参考线，不是每天必须完美做到的红线。",
                   "lineHeight": 1.08,
                   "fontFamily": "$font-heading",
-                  "fontSize": 28,
+                  "fontSize": 32,
                   "fontWeight": "700"
                 },
                 {
@@ -1373,7 +1373,7 @@
                   "content": "先给出一版基础目标，后面随时可以调整。",
                   "lineHeight": 1.4,
                   "fontFamily": "$font-body",
-                  "fontSize": 14,
+                  "fontSize": 15,
                   "fontWeight": "500"
                 }
               ]
@@ -1382,8 +1382,8 @@
               "type": "frame",
               "id": "BwBWr",
               "width": "fill_container",
-              "fill": "$surface-card",
-              "cornerRadius": "$radius-lg",
+              "fill": "#fbfcf8",
+              "cornerRadius": 20,
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
@@ -1415,7 +1415,7 @@
                       "fill": "$font-primary",
                       "content": "目标入睡时间",
                       "fontFamily": "$font-body",
-                      "fontSize": 14,
+                      "fontSize": 15,
                       "fontWeight": "600"
                     },
                     {
@@ -1446,7 +1446,7 @@
                       "fill": "$font-primary",
                       "content": "目标起床时间",
                       "fontFamily": "$font-body",
-                      "fontSize": 14,
+                      "fontSize": 15,
                       "fontWeight": "600"
                     },
                     {
@@ -1477,7 +1477,7 @@
                       "fill": "$font-primary",
                       "content": "晚睡阈值",
                       "fontFamily": "$font-body",
-                      "fontSize": 14,
+                      "fontSize": 15,
                       "fontWeight": "600"
                     },
                     {
@@ -1508,7 +1508,7 @@
                       "fill": "$font-primary",
                       "content": "一天起始时间",
                       "fontFamily": "$font-body",
-                      "fontSize": 14,
+                      "fontSize": 15,
                       "fontWeight": "600"
                     },
                     {
@@ -1528,8 +1528,8 @@
               "type": "frame",
               "id": "ek4nn",
               "width": "fill_container",
-              "fill": "$surface-secondary",
-              "cornerRadius": "$radius-lg",
+              "fill": "#eef4ea",
+              "cornerRadius": 20,
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
@@ -1550,7 +1550,7 @@
                   "fill": "$font-primary",
                   "content": "工作日规则",
                   "fontFamily": "$font-body",
-                  "fontSize": 14,
+                  "fontSize": 15,
                   "fontWeight": "700"
                 },
                 {
@@ -1562,11 +1562,11 @@
                     {
                       "type": "frame",
                       "id": "EcrNa",
-                      "fill": "$surface-card",
+                      "fill": "#fbfcf8",
                       "cornerRadius": "$radius-pill",
                       "padding": [
-                        7,
-                        12
+                        12,
+                        10
                       ],
                       "children": [
                         {
@@ -1575,7 +1575,7 @@
                           "fill": "$font-primary",
                           "content": "周一到周五",
                           "fontFamily": "$font-body",
-                          "fontSize": 12,
+                          "fontSize": 13,
                           "fontWeight": "600"
                         }
                       ]
@@ -1583,11 +1583,11 @@
                     {
                       "type": "frame",
                       "id": "nlPCA",
-                      "fill": "$surface-card",
+                      "fill": "#fbfcf8",
                       "cornerRadius": "$radius-pill",
                       "padding": [
-                        7,
-                        12
+                        12,
+                        10
                       ],
                       "children": [
                         {
@@ -1596,7 +1596,7 @@
                           "fill": "$font-primary",
                           "content": "周末稍晚 20 分钟",
                           "fontFamily": "$font-body",
-                          "fontSize": 12,
+                          "fontSize": 13,
                           "fontWeight": "600"
                         }
                       ]
@@ -1620,7 +1620,7 @@
                   "width": "fill_container",
                   "height": 54,
                   "fill": "$accent-primary",
-                  "cornerRadius": "$radius-lg",
+                  "cornerRadius": 20,
                   "effect": {
                     "type": "shadow",
                     "shadowType": "outer",
@@ -1698,7 +1698,7 @@
                   "fill": "$font-secondary",
                   "content": "LTE",
                   "fontFamily": "Inter",
-                  "fontSize": 12,
+                  "fontSize": 13,
                   "fontWeight": "600"
                 },
                 {
@@ -1707,7 +1707,7 @@
                   "fill": "$font-secondary",
                   "content": "87%",
                   "fontFamily": "Inter",
-                  "fontSize": 12,
+                  "fontSize": 13,
                   "fontWeight": "600"
                 }
               ]
@@ -1739,11 +1739,11 @@
                 {
                   "type": "frame",
                   "id": "VCOih",
-                  "fill": "$surface-accent-soft",
+                  "fill": "#e3eee0",
                   "cornerRadius": "$radius-pill",
                   "padding": [
-                    7,
-                    12
+                    12,
+                    10
                   ],
                   "children": [
                     {
@@ -1752,7 +1752,7 @@
                       "fill": "$font-secondary",
                       "content": "把提醒调到刚刚好",
                       "fontFamily": "$font-body",
-                      "fontSize": 12,
+                      "fontSize": 13,
                       "fontWeight": "600"
                     }
                   ]
@@ -1766,7 +1766,7 @@
                   "content": "默认只开柔性提醒，不做连续轰炸式打断。",
                   "lineHeight": 1.08,
                   "fontFamily": "$font-heading",
-                  "fontSize": 28,
+                  "fontSize": 32,
                   "fontWeight": "700"
                 },
                 {
@@ -1778,7 +1778,7 @@
                   "content": "你可以先开轻提醒，后续再决定是否需要到点提醒。",
                   "lineHeight": 1.4,
                   "fontFamily": "$font-body",
-                  "fontSize": 14,
+                  "fontSize": 15,
                   "fontWeight": "500"
                 }
               ]
@@ -1787,8 +1787,8 @@
               "type": "frame",
               "id": "yCNFR",
               "width": "fill_container",
-              "fill": "$surface-card",
-              "cornerRadius": "$radius-lg",
+              "fill": "#fbfcf8",
+              "cornerRadius": 20,
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
@@ -1827,7 +1827,7 @@
                           "fill": "$font-primary",
                           "content": "柔性提醒",
                           "fontFamily": "$font-body",
-                          "fontSize": 14,
+                          "fontSize": 15,
                           "fontWeight": "700"
                         },
                         {
@@ -1839,7 +1839,7 @@
                           "content": "目标前 45 分钟",
                           "lineHeight": 1.35,
                           "fontFamily": "$font-body",
-                          "fontSize": 12,
+                          "fontSize": 13,
                           "fontWeight": "500"
                         }
                       ]
@@ -1890,7 +1890,7 @@
                           "fill": "$font-primary",
                           "content": "到点提醒",
                           "fontFamily": "$font-body",
-                          "fontSize": 14,
+                          "fontSize": 15,
                           "fontWeight": "700"
                         },
                         {
@@ -1902,7 +1902,7 @@
                           "content": "刚到目标时间时提醒一次",
                           "lineHeight": 1.35,
                           "fontFamily": "$font-body",
-                          "fontSize": 12,
+                          "fontSize": 13,
                           "fontWeight": "500"
                         }
                       ]
@@ -1952,7 +1952,7 @@
                           "fill": "$font-primary",
                           "content": "周报提醒",
                           "fontFamily": "$font-body",
-                          "fontSize": 14,
+                          "fontSize": 15,
                           "fontWeight": "700"
                         },
                         {
@@ -1964,7 +1964,7 @@
                           "content": "每周日早上推送周报",
                           "lineHeight": 1.35,
                           "fontFamily": "$font-body",
-                          "fontSize": 12,
+                          "fontSize": 13,
                           "fontWeight": "500"
                         }
                       ]
@@ -1998,7 +1998,7 @@
               "id": "h2jzE",
               "width": "fill_container",
               "fill": "$warning-soft",
-              "cornerRadius": "$radius-lg",
+              "cornerRadius": 20,
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
@@ -2019,7 +2019,7 @@
                   "fill": "$font-primary",
                   "content": "提前量建议",
                   "fontFamily": "$font-body",
-                  "fontSize": 14,
+                  "fontSize": 15,
                   "fontWeight": "700"
                 },
                 {
@@ -2031,11 +2031,11 @@
                     {
                       "type": "frame",
                       "id": "axOnz",
-                      "fill": "$surface-card",
+                      "fill": "#fbfcf8",
                       "cornerRadius": "$radius-pill",
                       "padding": [
-                        7,
-                        12
+                        12,
+                        10
                       ],
                       "children": [
                         {
@@ -2044,7 +2044,7 @@
                           "fill": "$font-primary",
                           "content": "30 分钟",
                           "fontFamily": "$font-body",
-                          "fontSize": 12,
+                          "fontSize": 13,
                           "fontWeight": "600"
                         }
                       ]
@@ -2055,8 +2055,8 @@
                       "fill": "$surface-inverse",
                       "cornerRadius": "$radius-pill",
                       "padding": [
-                        7,
-                        12
+                        12,
+                        10
                       ],
                       "children": [
                         {
@@ -2065,7 +2065,7 @@
                           "fill": "$font-inverse",
                           "content": "45 分钟",
                           "fontFamily": "$font-body",
-                          "fontSize": 12,
+                          "fontSize": 13,
                           "fontWeight": "600"
                         }
                       ]
@@ -2073,11 +2073,11 @@
                     {
                       "type": "frame",
                       "id": "rXx1E",
-                      "fill": "$surface-card",
+                      "fill": "#fbfcf8",
                       "cornerRadius": "$radius-pill",
                       "padding": [
-                        7,
-                        12
+                        12,
+                        10
                       ],
                       "children": [
                         {
@@ -2086,7 +2086,7 @@
                           "fill": "$font-primary",
                           "content": "60 分钟",
                           "fontFamily": "$font-body",
-                          "fontSize": 12,
+                          "fontSize": 13,
                           "fontWeight": "600"
                         }
                       ]
@@ -2101,7 +2101,7 @@
               "width": "fill_container",
               "height": 54,
               "fill": "$accent-primary",
-              "cornerRadius": "$radius-lg",
+              "cornerRadius": 20,
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
@@ -2545,11 +2545,11 @@
                 {
                   "type": "frame",
                   "id": "Ka5e8",
-                  "fill": "$surface-accent-soft",
+                  "fill": "#eef4ea",
                   "cornerRadius": "$radius-pill",
                   "padding": [
-                    7,
-                    12
+                    12,
+                    10
                   ],
                   "children": [
                     {
@@ -2558,7 +2558,7 @@
                       "fill": "$font-secondary",
                       "content": "周五，先把昨晚看清楚",
                       "fontFamily": "$font-body",
-                      "fontSize": 12,
+                      "fontSize": 13,
                       "fontWeight": "600"
                     }
                   ]
@@ -2572,7 +2572,7 @@
                   "content": "昨晚 00:48 入睡，比目标晚了 26 分钟。今天还是能慢慢收回来。",
                   "lineHeight": 1.08,
                   "fontFamily": "$font-heading",
-                  "fontSize": 28,
+                  "fontSize": 32,
                   "fontWeight": "700"
                 },
                 {
@@ -2584,7 +2584,7 @@
                   "content": "今晚目标 23:30，若能提前 10 分钟收尾，这周会更稳。",
                   "lineHeight": 1.4,
                   "fontFamily": "$font-body",
-                  "fontSize": 14,
+                  "fontSize": 15,
                   "fontWeight": "500"
                 }
               ]
@@ -2594,7 +2594,7 @@
               "id": "PyQx0",
               "width": "fill_container",
               "fill": "$surface-inverse",
-              "cornerRadius": "$radius-lg",
+              "cornerRadius": 20,
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
@@ -2657,7 +2657,7 @@
                         {
                           "type": "frame",
                           "id": "K1wc9",
-                          "fill": "#244A36",
+                          "fill": "#173324",
                           "cornerRadius": "$radius-pill",
                           "padding": [
                             7,
@@ -2697,8 +2697,8 @@
               "type": "frame",
               "id": "lB8u5",
               "width": "fill_container",
-              "fill": "$surface-card",
-              "cornerRadius": "$radius-lg",
+              "fill": "#fbfcf8",
+              "cornerRadius": 20,
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
@@ -2732,8 +2732,8 @@
                       "type": "frame",
                       "id": "W2dFh",
                       "width": "fill_container",
-                      "fill": "$surface-secondary",
-                      "cornerRadius": "$radius-lg",
+                      "fill": "#eef4ea",
+                      "cornerRadius": 20,
                       "layout": "vertical",
                       "gap": 8,
                       "padding": 14,
@@ -2762,8 +2762,8 @@
                       "type": "frame",
                       "id": "ohcHV",
                       "width": "fill_container",
-                      "fill": "$warning-soft",
-                      "cornerRadius": "$radius-lg",
+                      "fill": "#f3ecdd",
+                      "cornerRadius": 20,
                       "layout": "vertical",
                       "gap": 8,
                       "padding": 14,
@@ -2796,7 +2796,7 @@
                   "width": "fill_container",
                   "height": 54,
                   "fill": "$accent-primary",
-                  "cornerRadius": "$radius-lg",
+                  "cornerRadius": 20,
                   "effect": {
                     "type": "shadow",
                     "shadowType": "outer",
@@ -2827,8 +2827,8 @@
               "type": "frame",
               "id": "OnsMG",
               "width": "fill_container",
-              "fill": "$warning-soft",
-              "cornerRadius": "$radius-lg",
+              "fill": "#f3ecdd",
+              "cornerRadius": 20,
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
@@ -2870,8 +2870,8 @@
               "type": "frame",
               "id": "Z7BXB",
               "width": "fill_container",
-              "fill": "$surface-card",
-              "cornerRadius": "$radius-lg",
+              "fill": "#fbfcf8",
+              "cornerRadius": 20,
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
@@ -2905,8 +2905,8 @@
                       "type": "frame",
                       "id": "RqwhW",
                       "width": "fill_container",
-                      "fill": "$surface-secondary",
-                      "cornerRadius": "$radius-lg",
+                      "fill": "#eef4ea",
+                      "cornerRadius": 20,
                       "layout": "vertical",
                       "gap": 6,
                       "padding": [
@@ -2933,8 +2933,8 @@
                       "type": "frame",
                       "id": "yn02R",
                       "width": "fill_container",
-                      "fill": "$surface-secondary",
-                      "cornerRadius": "$radius-lg",
+                      "fill": "#eef4ea",
+                      "cornerRadius": 20,
                       "layout": "vertical",
                       "gap": 6,
                       "padding": [
@@ -2961,8 +2961,8 @@
                       "type": "frame",
                       "id": "oiORO",
                       "width": "fill_container",
-                      "fill": "$surface-secondary",
-                      "cornerRadius": "$radius-lg",
+                      "fill": "#eef4ea",
+                      "cornerRadius": 20,
                       "layout": "vertical",
                       "gap": 6,
                       "padding": [
@@ -2993,8 +2993,8 @@
               "type": "frame",
               "id": "P8WJk",
               "width": "fill_container",
-              "fill": "$surface-card",
-              "cornerRadius": "$radius-lg",
+              "fill": "#fbfcf8",
+              "cornerRadius": 20,
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
@@ -3241,11 +3241,11 @@
               "id": "tFFkX",
               "width": "fill_container",
               "height": "fill_container",
-              "fill": "$surface-card",
+              "fill": "#173324",
               "cornerRadius": "$radius-pill",
               "stroke": {
                 "thickness": 1,
-                "fill": "$border-soft"
+                "fill": "#295140"
               },
               "gap": 6,
               "padding": 4,
@@ -3255,7 +3255,7 @@
                   "id": "lnjQJ",
                   "width": "fill_container",
                   "height": "fill_container",
-                  "fill": "$accent-primary",
+                  "fill": "#fbfcf8",
                   "cornerRadius": "$radius-pill",
                   "layout": "vertical",
                   "gap": 4,
@@ -3265,7 +3265,7 @@
                     {
                       "type": "text",
                       "id": "Yo5KW",
-                      "fill": "$font-inverse",
+                      "fill": "#1b3a28",
                       "content": "今",
                       "fontFamily": "$font-body",
                       "fontSize": 14,
@@ -3274,7 +3274,7 @@
                     {
                       "type": "text",
                       "id": "waWUk",
-                      "fill": "$font-inverse",
+                      "fill": "#1b3a28",
                       "content": "今日",
                       "fontFamily": "$font-body",
                       "fontSize": 9,
@@ -3298,7 +3298,7 @@
                     {
                       "type": "text",
                       "id": "gAmZg",
-                      "fill": "$font-muted",
+                      "fill": "#d7e7da",
                       "content": "历",
                       "fontFamily": "$font-body",
                       "fontSize": 14,
@@ -3307,7 +3307,7 @@
                     {
                       "type": "text",
                       "id": "SH0Y3",
-                      "fill": "$font-muted",
+                      "fill": "#d7e7da",
                       "content": "日历",
                       "fontFamily": "$font-body",
                       "fontSize": 9,
@@ -3331,7 +3331,7 @@
                     {
                       "type": "text",
                       "id": "VjtgU",
-                      "fill": "$font-muted",
+                      "fill": "#d7e7da",
                       "content": "睡",
                       "fontFamily": "$font-body",
                       "fontSize": 14,
@@ -3340,7 +3340,7 @@
                     {
                       "type": "text",
                       "id": "K7LgN",
-                      "fill": "$font-muted",
+                      "fill": "#d7e7da",
                       "content": "睡前",
                       "fontFamily": "$font-body",
                       "fontSize": 9,
@@ -3364,7 +3364,7 @@
                     {
                       "type": "text",
                       "id": "L3m7AR",
-                      "fill": "$font-muted",
+                      "fill": "#d7e7da",
                       "content": "察",
                       "fontFamily": "$font-body",
                       "fontSize": 14,
@@ -3373,7 +3373,7 @@
                     {
                       "type": "text",
                       "id": "UTvxV",
-                      "fill": "$font-muted",
+                      "fill": "#d7e7da",
                       "content": "洞察",
                       "fontFamily": "$font-body",
                       "fontSize": 9,
@@ -3397,7 +3397,7 @@
                     {
                       "type": "text",
                       "id": "V3n3eb",
-                      "fill": "$font-muted",
+                      "fill": "#d7e7da",
                       "content": "我",
                       "fontFamily": "$font-body",
                       "fontSize": 14,
@@ -3406,7 +3406,7 @@
                     {
                       "type": "text",
                       "id": "LW55N",
-                      "fill": "$font-muted",
+                      "fill": "#d7e7da",
                       "content": "我的",
                       "fontFamily": "$font-body",
                       "fontSize": 9,
@@ -3509,7 +3509,7 @@
                 {
                   "type": "frame",
                   "id": "DWd9k",
-                  "fill": "$surface-accent-soft",
+                  "fill": "#e3eee0",
                   "cornerRadius": "$radius-pill",
                   "padding": [
                     7,
@@ -3536,7 +3536,7 @@
                   "content": "颜色不是好坏标签，而是你与目标时间的距离。",
                   "lineHeight": 1.08,
                   "fontFamily": "$font-heading",
-                  "fontSize": 28,
+                  "fontSize": 32,
                   "fontWeight": "700"
                 },
                 {
@@ -3583,7 +3583,7 @@
                 {
                   "type": "frame",
                   "id": "wTZub",
-                  "fill": "$surface-card",
+                  "fill": "#fbfcf8",
                   "cornerRadius": "$radius-pill",
                   "padding": [
                     7,
@@ -3604,7 +3604,7 @@
                 {
                   "type": "frame",
                   "id": "f5wemj",
-                  "fill": "$surface-card",
+                  "fill": "#fbfcf8",
                   "cornerRadius": "$radius-pill",
                   "padding": [
                     7,
@@ -3628,8 +3628,8 @@
               "type": "frame",
               "id": "Jhxpw",
               "width": "fill_container",
-              "fill": "$surface-card",
-              "cornerRadius": "$radius-lg",
+              "fill": "#fbfcf8",
+              "cornerRadius": 20,
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
@@ -3663,7 +3663,7 @@
                     {
                       "type": "frame",
                       "id": "NcjFJ",
-                      "fill": "$success-soft",
+                      "fill": "#dfeadf",
                       "cornerRadius": "$radius-pill",
                       "padding": [
                         7,
@@ -3693,8 +3693,8 @@
                       "type": "frame",
                       "id": "GamBY",
                       "width": "fill_container",
-                      "fill": "$surface-accent-soft",
-                      "cornerRadius": "$radius-md",
+                      "fill": "#e3eee0",
+                      "cornerRadius": 14,
                       "layout": "vertical",
                       "gap": 6,
                       "padding": [
@@ -3726,8 +3726,8 @@
                       "type": "frame",
                       "id": "ZKcua",
                       "width": "fill_container",
-                      "fill": "$success-soft",
-                      "cornerRadius": "$radius-md",
+                      "fill": "#dfeadf",
+                      "cornerRadius": 14,
                       "layout": "vertical",
                       "gap": 6,
                       "padding": [
@@ -3759,8 +3759,8 @@
                       "type": "frame",
                       "id": "jNRdm",
                       "width": "fill_container",
-                      "fill": "$warning-soft",
-                      "cornerRadius": "$radius-md",
+                      "fill": "#f3ecdd",
+                      "cornerRadius": 14,
                       "layout": "vertical",
                       "gap": 6,
                       "padding": [
@@ -3793,7 +3793,7 @@
                       "id": "bufDe",
                       "width": "fill_container",
                       "fill": "$danger-soft",
-                      "cornerRadius": "$radius-md",
+                      "cornerRadius": 14,
                       "layout": "vertical",
                       "gap": 6,
                       "padding": [
@@ -3825,8 +3825,8 @@
                       "type": "frame",
                       "id": "tsA3d",
                       "width": "fill_container",
-                      "fill": "$surface-accent-soft",
-                      "cornerRadius": "$radius-md",
+                      "fill": "#e3eee0",
+                      "cornerRadius": 14,
                       "layout": "vertical",
                       "gap": 6,
                       "padding": [
@@ -3858,8 +3858,8 @@
                       "type": "frame",
                       "id": "IYEBF",
                       "width": "fill_container",
-                      "fill": "$success-soft",
-                      "cornerRadius": "$radius-md",
+                      "fill": "#dfeadf",
+                      "cornerRadius": 14,
                       "layout": "vertical",
                       "gap": 6,
                       "padding": [
@@ -3891,8 +3891,8 @@
                       "type": "frame",
                       "id": "mZ2lg",
                       "width": "fill_container",
-                      "fill": "$warning-soft",
-                      "cornerRadius": "$radius-md",
+                      "fill": "#f3ecdd",
+                      "cornerRadius": 14,
                       "layout": "vertical",
                       "gap": 6,
                       "padding": [
@@ -3933,7 +3933,7 @@
                       "id": "V8eBM4",
                       "width": "fill_container",
                       "fill": "$danger-soft",
-                      "cornerRadius": "$radius-md",
+                      "cornerRadius": 14,
                       "layout": "vertical",
                       "gap": 6,
                       "padding": [
@@ -3965,8 +3965,8 @@
                       "type": "frame",
                       "id": "X20ZW",
                       "width": "fill_container",
-                      "fill": "$surface-accent-soft",
-                      "cornerRadius": "$radius-md",
+                      "fill": "#e3eee0",
+                      "cornerRadius": 14,
                       "layout": "vertical",
                       "gap": 6,
                       "padding": [
@@ -3998,8 +3998,8 @@
                       "type": "frame",
                       "id": "vZjoL",
                       "width": "fill_container",
-                      "fill": "$success-soft",
-                      "cornerRadius": "$radius-md",
+                      "fill": "#dfeadf",
+                      "cornerRadius": 14,
                       "layout": "vertical",
                       "gap": 6,
                       "padding": [
@@ -4031,8 +4031,8 @@
                       "type": "frame",
                       "id": "p17hyy",
                       "width": "fill_container",
-                      "fill": "$warning-soft",
-                      "cornerRadius": "$radius-md",
+                      "fill": "#f3ecdd",
+                      "cornerRadius": 14,
                       "layout": "vertical",
                       "gap": 6,
                       "padding": [
@@ -4065,7 +4065,7 @@
                       "id": "De6GM",
                       "width": "fill_container",
                       "fill": "$danger-soft",
-                      "cornerRadius": "$radius-md",
+                      "cornerRadius": 14,
                       "layout": "vertical",
                       "gap": 6,
                       "padding": [
@@ -4097,8 +4097,8 @@
                       "type": "frame",
                       "id": "g5cTRd",
                       "width": "fill_container",
-                      "fill": "$surface-accent-soft",
-                      "cornerRadius": "$radius-md",
+                      "fill": "#e3eee0",
+                      "cornerRadius": 14,
                       "layout": "vertical",
                       "gap": 6,
                       "padding": [
@@ -4130,8 +4130,8 @@
                       "type": "frame",
                       "id": "X2IdN",
                       "width": "fill_container",
-                      "fill": "$success-soft",
-                      "cornerRadius": "$radius-md",
+                      "fill": "#dfeadf",
+                      "cornerRadius": 14,
                       "layout": "vertical",
                       "gap": 6,
                       "padding": [
@@ -4171,8 +4171,8 @@
                       "type": "frame",
                       "id": "GWrLL",
                       "width": "fill_container",
-                      "fill": "$warning-soft",
-                      "cornerRadius": "$radius-md",
+                      "fill": "#f3ecdd",
+                      "cornerRadius": 14,
                       "layout": "vertical",
                       "gap": 6,
                       "padding": [
@@ -4205,7 +4205,7 @@
                       "id": "UqTfV",
                       "width": "fill_container",
                       "fill": "$danger-soft",
-                      "cornerRadius": "$radius-md",
+                      "cornerRadius": 14,
                       "layout": "vertical",
                       "gap": 6,
                       "padding": [
@@ -4237,8 +4237,8 @@
                       "type": "frame",
                       "id": "DFNZy",
                       "width": "fill_container",
-                      "fill": "$surface-accent-soft",
-                      "cornerRadius": "$radius-md",
+                      "fill": "#e3eee0",
+                      "cornerRadius": 14,
                       "layout": "vertical",
                       "gap": 6,
                       "padding": [
@@ -4270,8 +4270,8 @@
                       "type": "frame",
                       "id": "rcVgR",
                       "width": "fill_container",
-                      "fill": "$success-soft",
-                      "cornerRadius": "$radius-md",
+                      "fill": "#dfeadf",
+                      "cornerRadius": 14,
                       "layout": "vertical",
                       "gap": 6,
                       "padding": [
@@ -4303,8 +4303,8 @@
                       "type": "frame",
                       "id": "sbbaS",
                       "width": "fill_container",
-                      "fill": "$warning-soft",
-                      "cornerRadius": "$radius-md",
+                      "fill": "#f3ecdd",
+                      "cornerRadius": 14,
                       "layout": "vertical",
                       "gap": 6,
                       "padding": [
@@ -4337,7 +4337,7 @@
                       "id": "xlTSq",
                       "width": "fill_container",
                       "fill": "$danger-soft",
-                      "cornerRadius": "$radius-md",
+                      "cornerRadius": 14,
                       "layout": "vertical",
                       "gap": 6,
                       "padding": [
@@ -4369,8 +4369,8 @@
                       "type": "frame",
                       "id": "ecaFD",
                       "width": "fill_container",
-                      "fill": "$surface-accent-soft",
-                      "cornerRadius": "$radius-md",
+                      "fill": "#e3eee0",
+                      "cornerRadius": 14,
                       "layout": "vertical",
                       "gap": 6,
                       "padding": [
@@ -4410,8 +4410,8 @@
                       "type": "frame",
                       "id": "neRbD",
                       "width": "fill_container",
-                      "fill": "$success-soft",
-                      "cornerRadius": "$radius-md",
+                      "fill": "#dfeadf",
+                      "cornerRadius": 14,
                       "layout": "vertical",
                       "gap": 6,
                       "padding": [
@@ -4443,8 +4443,8 @@
                       "type": "frame",
                       "id": "Tgwiw",
                       "width": "fill_container",
-                      "fill": "$warning-soft",
-                      "cornerRadius": "$radius-md",
+                      "fill": "#f3ecdd",
+                      "cornerRadius": 14,
                       "layout": "vertical",
                       "gap": 6,
                       "padding": [
@@ -4477,7 +4477,7 @@
                       "id": "SPhdx",
                       "width": "fill_container",
                       "fill": "$danger-soft",
-                      "cornerRadius": "$radius-md",
+                      "cornerRadius": 14,
                       "layout": "vertical",
                       "gap": 6,
                       "padding": [
@@ -4509,8 +4509,8 @@
                       "type": "frame",
                       "id": "lW7Qt",
                       "width": "fill_container",
-                      "fill": "$surface-accent-soft",
-                      "cornerRadius": "$radius-md",
+                      "fill": "#e3eee0",
+                      "cornerRadius": 14,
                       "layout": "vertical",
                       "gap": 6,
                       "padding": [
@@ -4542,8 +4542,8 @@
                       "type": "frame",
                       "id": "oh86q",
                       "width": "fill_container",
-                      "fill": "$success-soft",
-                      "cornerRadius": "$radius-md",
+                      "fill": "#dfeadf",
+                      "cornerRadius": 14,
                       "layout": "vertical",
                       "gap": 6,
                       "padding": [
@@ -4575,8 +4575,8 @@
                       "type": "frame",
                       "id": "jAMW1",
                       "width": "fill_container",
-                      "fill": "$warning-soft",
-                      "cornerRadius": "$radius-md",
+                      "fill": "#f3ecdd",
+                      "cornerRadius": 14,
                       "layout": "vertical",
                       "gap": 6,
                       "padding": [
@@ -4609,7 +4609,7 @@
                       "id": "AwayT",
                       "width": "fill_container",
                       "fill": "$danger-soft",
-                      "cornerRadius": "$radius-md",
+                      "cornerRadius": 14,
                       "layout": "vertical",
                       "gap": 6,
                       "padding": [
@@ -4649,8 +4649,8 @@
                       "type": "frame",
                       "id": "X7Y3s4",
                       "width": "fill_container",
-                      "fill": "$surface-accent-soft",
-                      "cornerRadius": "$radius-md",
+                      "fill": "#e3eee0",
+                      "cornerRadius": 14,
                       "layout": "vertical",
                       "gap": 6,
                       "padding": [
@@ -4682,8 +4682,8 @@
                       "type": "frame",
                       "id": "s4bbtK",
                       "width": "fill_container",
-                      "fill": "$success-soft",
-                      "cornerRadius": "$radius-md",
+                      "fill": "#dfeadf",
+                      "cornerRadius": 14,
                       "layout": "vertical",
                       "gap": 6,
                       "padding": [
@@ -4715,8 +4715,8 @@
                       "type": "frame",
                       "id": "PSKtF",
                       "width": "fill_container",
-                      "fill": "$warning-soft",
-                      "cornerRadius": "$radius-md",
+                      "fill": "#f3ecdd",
+                      "cornerRadius": 14,
                       "layout": "vertical",
                       "gap": 6,
                       "padding": [
@@ -4749,7 +4749,7 @@
                       "id": "PkJCy",
                       "width": "fill_container",
                       "fill": "$danger-soft",
-                      "cornerRadius": "$radius-md",
+                      "cornerRadius": 14,
                       "layout": "vertical",
                       "gap": 6,
                       "padding": [
@@ -4781,8 +4781,8 @@
                       "type": "frame",
                       "id": "dUP3A",
                       "width": "fill_container",
-                      "fill": "$surface-accent-soft",
-                      "cornerRadius": "$radius-md",
+                      "fill": "#e3eee0",
+                      "cornerRadius": 14,
                       "layout": "vertical",
                       "gap": 6,
                       "padding": [
@@ -4814,8 +4814,8 @@
                       "type": "frame",
                       "id": "Tj6kB",
                       "width": "fill_container",
-                      "fill": "$success-soft",
-                      "cornerRadius": "$radius-md",
+                      "fill": "#dfeadf",
+                      "cornerRadius": 14,
                       "layout": "vertical",
                       "gap": 6,
                       "padding": [
@@ -4847,8 +4847,8 @@
                       "type": "frame",
                       "id": "ub8NG",
                       "width": "fill_container",
-                      "fill": "$warning-soft",
-                      "cornerRadius": "$radius-md",
+                      "fill": "#f3ecdd",
+                      "cornerRadius": 14,
                       "layout": "vertical",
                       "gap": 6,
                       "padding": [
@@ -4890,8 +4890,8 @@
                   "type": "frame",
                   "id": "oUnEV",
                   "width": "fill_container",
-                  "fill": "$surface-secondary",
-                  "cornerRadius": "$radius-lg",
+                  "fill": "#eef4ea",
+                  "cornerRadius": 20,
                   "layout": "vertical",
                   "gap": 8,
                   "padding": 16,
@@ -4920,8 +4920,8 @@
                   "type": "frame",
                   "id": "Fc5Hs",
                   "width": "fill_container",
-                  "fill": "$surface-secondary",
-                  "cornerRadius": "$radius-lg",
+                  "fill": "#eef4ea",
+                  "cornerRadius": 20,
                   "layout": "vertical",
                   "gap": 8,
                   "padding": 16,
@@ -4952,8 +4952,8 @@
               "type": "frame",
               "id": "CAQ5z",
               "width": "fill_container",
-              "fill": "$surface-card",
-              "cornerRadius": "$radius-lg",
+              "fill": "#fbfcf8",
+              "cornerRadius": 20,
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
@@ -4992,7 +4992,7 @@
                 {
                   "type": "frame",
                   "id": "x4udUA",
-                  "fill": "$surface-accent-soft",
+                  "fill": "#e3eee0",
                   "cornerRadius": "$radius-pill",
                   "padding": [
                     7,
@@ -5032,11 +5032,11 @@
               "id": "WPUxF",
               "width": "fill_container",
               "height": "fill_container",
-              "fill": "$surface-card",
+              "fill": "#173324",
               "cornerRadius": "$radius-pill",
               "stroke": {
                 "thickness": 1,
-                "fill": "$border-soft"
+                "fill": "#295140"
               },
               "gap": 6,
               "padding": 4,
@@ -5046,7 +5046,7 @@
                   "id": "cFXnH",
                   "width": "fill_container",
                   "height": "fill_container",
-                  "fill": "$accent-primary",
+                  "fill": "#fbfcf8",
                   "cornerRadius": "$radius-pill",
                   "layout": "vertical",
                   "gap": 4,
@@ -5056,7 +5056,7 @@
                     {
                       "type": "text",
                       "id": "lzNmZ",
-                      "fill": "$font-inverse",
+                      "fill": "#1b3a28",
                       "content": "今",
                       "fontFamily": "$font-body",
                       "fontSize": 14,
@@ -5065,7 +5065,7 @@
                     {
                       "type": "text",
                       "id": "fiHnB",
-                      "fill": "$font-inverse",
+                      "fill": "#1b3a28",
                       "content": "今日",
                       "fontFamily": "$font-body",
                       "fontSize": 9,
@@ -5089,7 +5089,7 @@
                     {
                       "type": "text",
                       "id": "tU67g",
-                      "fill": "$font-muted",
+                      "fill": "#d7e7da",
                       "content": "历",
                       "fontFamily": "$font-body",
                       "fontSize": 14,
@@ -5098,7 +5098,7 @@
                     {
                       "type": "text",
                       "id": "O6cxwE",
-                      "fill": "$font-muted",
+                      "fill": "#d7e7da",
                       "content": "日历",
                       "fontFamily": "$font-body",
                       "fontSize": 9,
@@ -5122,7 +5122,7 @@
                     {
                       "type": "text",
                       "id": "N941SZ",
-                      "fill": "$font-muted",
+                      "fill": "#d7e7da",
                       "content": "睡",
                       "fontFamily": "$font-body",
                       "fontSize": 14,
@@ -5131,7 +5131,7 @@
                     {
                       "type": "text",
                       "id": "r1K8Q",
-                      "fill": "$font-muted",
+                      "fill": "#d7e7da",
                       "content": "睡前",
                       "fontFamily": "$font-body",
                       "fontSize": 9,
@@ -5155,7 +5155,7 @@
                     {
                       "type": "text",
                       "id": "QGXw8",
-                      "fill": "$font-muted",
+                      "fill": "#d7e7da",
                       "content": "察",
                       "fontFamily": "$font-body",
                       "fontSize": 14,
@@ -5164,7 +5164,7 @@
                     {
                       "type": "text",
                       "id": "QNJBy",
-                      "fill": "$font-muted",
+                      "fill": "#d7e7da",
                       "content": "洞察",
                       "fontFamily": "$font-body",
                       "fontSize": 9,
@@ -5188,7 +5188,7 @@
                     {
                       "type": "text",
                       "id": "WDsSZ",
-                      "fill": "$font-muted",
+                      "fill": "#d7e7da",
                       "content": "我",
                       "fontFamily": "$font-body",
                       "fontSize": 14,
@@ -5197,7 +5197,7 @@
                     {
                       "type": "text",
                       "id": "FiSbt",
-                      "fill": "$font-muted",
+                      "fill": "#d7e7da",
                       "content": "我的",
                       "fontFamily": "$font-body",
                       "fontSize": 9,
@@ -5221,7 +5221,7 @@
       "clip": true,
       "width": 390,
       "height": 844,
-      "fill": "#102419",
+      "fill": "#13281e",
       "layout": "vertical",
       "children": [
         {
@@ -5300,11 +5300,11 @@
                 {
                   "type": "frame",
                   "id": "WNn4R",
-                  "fill": "#254535",
+                  "fill": "#13281e",
                   "cornerRadius": "$radius-pill",
                   "padding": [
-                    7,
-                    12
+                    12,
+                    10
                   ],
                   "children": [
                     {
@@ -5313,7 +5313,7 @@
                       "fill": "$font-inverse",
                       "content": "现在适合开始收尾了",
                       "fontFamily": "$font-body",
-                      "fontSize": 12,
+                      "fontSize": 13,
                       "fontWeight": "600"
                     }
                   ]
@@ -5327,7 +5327,7 @@
                   "content": "离目标入睡还剩 52 分钟。你不需要一下子完美，只要先做第一个动作。",
                   "lineHeight": 1.08,
                   "fontFamily": "$font-heading",
-                  "fontSize": 28,
+                  "fontSize": 32,
                   "fontWeight": "700"
                 },
                 {
@@ -5339,7 +5339,7 @@
                   "content": "选择今晚的状态后，Rhythm 会给你一条最轻的收尾建议。",
                   "lineHeight": 1.4,
                   "fontFamily": "$font-body",
-                  "fontSize": 14,
+                  "fontSize": 15,
                   "fontWeight": "500"
                 }
               ]
@@ -5349,7 +5349,7 @@
               "id": "QRIQ0",
               "width": "fill_container",
               "fill": "#173324",
-              "cornerRadius": "$radius-lg",
+              "cornerRadius": 20,
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
@@ -5370,7 +5370,7 @@
                   "fill": "$font-inverse",
                   "content": "00:52",
                   "fontFamily": "$font-data",
-                  "fontSize": 42,
+                  "fontSize": 46,
                   "fontWeight": "700"
                 },
                 {
@@ -5390,7 +5390,7 @@
                   "id": "V4RvCc",
                   "width": "fill_container",
                   "height": 10,
-                  "fill": "#28533E",
+                  "fill": "#214131",
                   "cornerRadius": "$radius-pill",
                   "layout": "vertical",
                   "children": [
@@ -5411,7 +5411,7 @@
               "id": "XEijJ",
               "width": "fill_container",
               "fill": "#173324",
-              "cornerRadius": "$radius-lg",
+              "cornerRadius": 20,
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
@@ -5439,8 +5439,8 @@
                   "type": "frame",
                   "id": "epgrC",
                   "width": "fill_container",
-                  "fill": "$surface-card",
-                  "cornerRadius": "$radius-lg",
+                  "fill": "#fbfcf8",
+                  "cornerRadius": 20,
                   "stroke": {
                     "thickness": 1,
                     "fill": "#FFFFFF00"
@@ -5492,11 +5492,11 @@
                   "type": "frame",
                   "id": "ywtx9",
                   "width": "fill_container",
-                  "fill": "#224634",
-                  "cornerRadius": "$radius-lg",
+                  "fill": "#1d382b",
+                  "cornerRadius": 20,
                   "stroke": {
                     "thickness": 1,
-                    "fill": "#2A5641"
+                    "fill": "#ffffff00"
                   },
                   "padding": 14,
                   "justifyContent": "space_between",
@@ -5545,11 +5545,11 @@
                   "type": "frame",
                   "id": "ANXZb",
                   "width": "fill_container",
-                  "fill": "#224634",
-                  "cornerRadius": "$radius-lg",
+                  "fill": "#1d382b",
+                  "cornerRadius": 20,
                   "stroke": {
                     "thickness": 1,
-                    "fill": "#2A5641"
+                    "fill": "#ffffff00"
                   },
                   "padding": 14,
                   "justifyContent": "space_between",
@@ -5601,7 +5601,7 @@
               "id": "kPG1x",
               "width": "fill_container",
               "fill": "#173324",
-              "cornerRadius": "$radius-lg",
+              "cornerRadius": 20,
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
@@ -5697,7 +5697,7 @@
                   "id": "bGl6l",
                   "width": "fill_container",
                   "height": "fill_container",
-                  "fill": "$surface-card",
+                  "fill": "#fbfcf8",
                   "cornerRadius": "$radius-pill",
                   "layout": "vertical",
                   "gap": 4,
@@ -5740,7 +5740,7 @@
                     {
                       "type": "text",
                       "id": "PbHEI",
-                      "fill": "$font-muted",
+                      "fill": "#d7e7da",
                       "content": "历",
                       "fontFamily": "$font-body",
                       "fontSize": 14,
@@ -5749,7 +5749,7 @@
                     {
                       "type": "text",
                       "id": "OTFUk",
-                      "fill": "$font-muted",
+                      "fill": "#d7e7da",
                       "content": "日历",
                       "fontFamily": "$font-body",
                       "fontSize": 9,
@@ -5773,7 +5773,7 @@
                     {
                       "type": "text",
                       "id": "L1KtiH",
-                      "fill": "$font-muted",
+                      "fill": "#d7e7da",
                       "content": "睡",
                       "fontFamily": "$font-body",
                       "fontSize": 14,
@@ -5782,7 +5782,7 @@
                     {
                       "type": "text",
                       "id": "BmiEp",
-                      "fill": "$font-muted",
+                      "fill": "#d7e7da",
                       "content": "睡前",
                       "fontFamily": "$font-body",
                       "fontSize": 9,
@@ -5806,7 +5806,7 @@
                     {
                       "type": "text",
                       "id": "V7BVT",
-                      "fill": "$font-muted",
+                      "fill": "#d7e7da",
                       "content": "察",
                       "fontFamily": "$font-body",
                       "fontSize": 14,
@@ -5815,7 +5815,7 @@
                     {
                       "type": "text",
                       "id": "YqO6T",
-                      "fill": "$font-muted",
+                      "fill": "#d7e7da",
                       "content": "洞察",
                       "fontFamily": "$font-body",
                       "fontSize": 9,
@@ -5839,7 +5839,7 @@
                     {
                       "type": "text",
                       "id": "V5EvjR",
-                      "fill": "$font-muted",
+                      "fill": "#d7e7da",
                       "content": "我",
                       "fontFamily": "$font-body",
                       "fontSize": 14,
@@ -5848,7 +5848,7 @@
                     {
                       "type": "text",
                       "id": "nqLDm",
-                      "fill": "$font-muted",
+                      "fill": "#d7e7da",
                       "content": "我的",
                       "fontFamily": "$font-body",
                       "fontSize": 9,
@@ -5910,7 +5910,7 @@
                   "fill": "$font-secondary",
                   "content": "LTE",
                   "fontFamily": "Inter",
-                  "fontSize": 12,
+                  "fontSize": 13,
                   "fontWeight": "600"
                 },
                 {
@@ -5919,7 +5919,7 @@
                   "fill": "$font-secondary",
                   "content": "87%",
                   "fontFamily": "Inter",
-                  "fontSize": 12,
+                  "fontSize": 13,
                   "fontWeight": "600"
                 }
               ]
@@ -5951,11 +5951,11 @@
                 {
                   "type": "frame",
                   "id": "iEZ75",
-                  "fill": "$surface-accent-soft",
+                  "fill": "#e3eee0",
                   "cornerRadius": "$radius-pill",
                   "padding": [
-                    7,
-                    12
+                    12,
+                    10
                   ],
                   "children": [
                     {
@@ -5964,7 +5964,7 @@
                       "fill": "$font-secondary",
                       "content": "这一周不是更差，而是正在回稳",
                       "fontFamily": "$font-body",
-                      "fontSize": 12,
+                      "fontSize": 13,
                       "fontWeight": "600"
                     }
                   ]
@@ -5978,7 +5978,7 @@
                   "content": "最近 7 天达标率 56%，稳定度 72 分。最晚的一天在周三。",
                   "lineHeight": 1.08,
                   "fontFamily": "$font-heading",
-                  "fontSize": 28,
+                  "fontSize": 32,
                   "fontWeight": "700"
                 },
                 {
@@ -5990,7 +5990,7 @@
                   "content": "你已经把波动收窄了，下一步只需要处理掉最常见的拖延原因。",
                   "lineHeight": 1.4,
                   "fontFamily": "$font-body",
-                  "fontSize": 14,
+                  "fontSize": 15,
                   "fontWeight": "500"
                 }
               ]
@@ -6000,7 +6000,7 @@
               "id": "l2WqmO",
               "width": "fill_container",
               "fill": "$surface-inverse",
-              "cornerRadius": "$radius-lg",
+              "cornerRadius": 20,
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
@@ -6025,8 +6025,8 @@
                       "type": "frame",
                       "id": "Vmrz2",
                       "width": "fill_container",
-                      "fill": "#214634",
-                      "cornerRadius": "$radius-lg",
+                      "fill": "#173324",
+                      "cornerRadius": 20,
                       "layout": "vertical",
                       "gap": 8,
                       "padding": 14,
@@ -6037,7 +6037,7 @@
                           "fill": "#D7E7DA",
                           "content": "达标率",
                           "fontFamily": "$font-body",
-                          "fontSize": 12,
+                          "fontSize": 13,
                           "fontWeight": "600"
                         },
                         {
@@ -6046,7 +6046,7 @@
                           "fill": "$font-inverse",
                           "content": "56%",
                           "fontFamily": "$font-data",
-                          "fontSize": 28,
+                          "fontSize": 32,
                           "fontWeight": "700"
                         }
                       ]
@@ -6055,8 +6055,8 @@
                       "type": "frame",
                       "id": "SQo93",
                       "width": "fill_container",
-                      "fill": "#214634",
-                      "cornerRadius": "$radius-lg",
+                      "fill": "#173324",
+                      "cornerRadius": 20,
                       "layout": "vertical",
                       "gap": 8,
                       "padding": 14,
@@ -6067,7 +6067,7 @@
                           "fill": "#D7E7DA",
                           "content": "稳定度",
                           "fontFamily": "$font-body",
-                          "fontSize": 12,
+                          "fontSize": 13,
                           "fontWeight": "600"
                         },
                         {
@@ -6076,7 +6076,7 @@
                           "fill": "$font-inverse",
                           "content": "72",
                           "fontFamily": "$font-data",
-                          "fontSize": 28,
+                          "fontSize": 32,
                           "fontWeight": "700"
                         }
                       ]
@@ -6089,8 +6089,8 @@
               "type": "frame",
               "id": "d8PaAb",
               "width": "fill_container",
-              "fill": "$surface-card",
-              "cornerRadius": "$radius-lg",
+              "fill": "#fbfcf8",
+              "cornerRadius": 20,
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
@@ -6152,7 +6152,7 @@
                       "id": "dVvom",
                       "width": "fill_container",
                       "height": 10,
-                      "fill": "$surface-accent-soft",
+                      "fill": "#e3eee0",
                       "cornerRadius": "$radius-pill",
                       "layout": "vertical",
                       "children": [
@@ -6206,7 +6206,7 @@
                       "id": "VU988",
                       "width": "fill_container",
                       "height": 10,
-                      "fill": "$surface-accent-soft",
+                      "fill": "#e3eee0",
                       "cornerRadius": "$radius-pill",
                       "layout": "vertical",
                       "children": [
@@ -6260,7 +6260,7 @@
                       "id": "t16x7c",
                       "width": "fill_container",
                       "height": 10,
-                      "fill": "$surface-accent-soft",
+                      "fill": "#e3eee0",
                       "cornerRadius": "$radius-pill",
                       "layout": "vertical",
                       "children": [
@@ -6282,8 +6282,8 @@
               "type": "frame",
               "id": "jNcxQ",
               "width": "fill_container",
-              "fill": "$warning-soft",
-              "cornerRadius": "$radius-lg",
+              "fill": "#f3ecdd",
+              "cornerRadius": 20,
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
@@ -6327,7 +6327,7 @@
               "width": "fill_container",
               "height": 54,
               "fill": "$accent-primary",
-              "cornerRadius": "$radius-lg",
+              "cornerRadius": 20,
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
@@ -6372,11 +6372,11 @@
               "id": "E3XHE5",
               "width": "fill_container",
               "height": "fill_container",
-              "fill": "$surface-card",
+              "fill": "#173324",
               "cornerRadius": "$radius-pill",
               "stroke": {
                 "thickness": 1,
-                "fill": "$border-soft"
+                "fill": "#295140"
               },
               "gap": 6,
               "padding": 4,
@@ -6386,7 +6386,7 @@
                   "id": "qZXpY",
                   "width": "fill_container",
                   "height": "fill_container",
-                  "fill": "$accent-primary",
+                  "fill": "#fbfcf8",
                   "cornerRadius": "$radius-pill",
                   "layout": "vertical",
                   "gap": 4,
@@ -6396,16 +6396,16 @@
                     {
                       "type": "text",
                       "id": "SbJug",
-                      "fill": "$font-inverse",
+                      "fill": "#1b3a28",
                       "content": "今",
                       "fontFamily": "$font-body",
-                      "fontSize": 14,
+                      "fontSize": 15,
                       "fontWeight": "700"
                     },
                     {
                       "type": "text",
                       "id": "FPD78",
-                      "fill": "$font-inverse",
+                      "fill": "#1b3a28",
                       "content": "今日",
                       "fontFamily": "$font-body",
                       "fontSize": 9,
@@ -6429,16 +6429,16 @@
                     {
                       "type": "text",
                       "id": "Ojqjo",
-                      "fill": "$font-muted",
+                      "fill": "#d7e7da",
                       "content": "历",
                       "fontFamily": "$font-body",
-                      "fontSize": 14,
+                      "fontSize": 15,
                       "fontWeight": "700"
                     },
                     {
                       "type": "text",
                       "id": "ZDia7",
-                      "fill": "$font-muted",
+                      "fill": "#d7e7da",
                       "content": "日历",
                       "fontFamily": "$font-body",
                       "fontSize": 9,
@@ -6462,16 +6462,16 @@
                     {
                       "type": "text",
                       "id": "SfPsc",
-                      "fill": "$font-muted",
+                      "fill": "#d7e7da",
                       "content": "睡",
                       "fontFamily": "$font-body",
-                      "fontSize": 14,
+                      "fontSize": 15,
                       "fontWeight": "700"
                     },
                     {
                       "type": "text",
                       "id": "LbaxR",
-                      "fill": "$font-muted",
+                      "fill": "#d7e7da",
                       "content": "睡前",
                       "fontFamily": "$font-body",
                       "fontSize": 9,
@@ -6495,16 +6495,16 @@
                     {
                       "type": "text",
                       "id": "N1voq",
-                      "fill": "$font-muted",
+                      "fill": "#d7e7da",
                       "content": "察",
                       "fontFamily": "$font-body",
-                      "fontSize": 14,
+                      "fontSize": 15,
                       "fontWeight": "700"
                     },
                     {
                       "type": "text",
                       "id": "H1d8E",
-                      "fill": "$font-muted",
+                      "fill": "#d7e7da",
                       "content": "洞察",
                       "fontFamily": "$font-body",
                       "fontSize": 9,
@@ -6528,16 +6528,16 @@
                     {
                       "type": "text",
                       "id": "OLQRz",
-                      "fill": "$font-muted",
+                      "fill": "#d7e7da",
                       "content": "我",
                       "fontFamily": "$font-body",
-                      "fontSize": 14,
+                      "fontSize": 15,
                       "fontWeight": "700"
                     },
                     {
                       "type": "text",
                       "id": "TMleu",
-                      "fill": "$font-muted",
+                      "fill": "#d7e7da",
                       "content": "我的",
                       "fontFamily": "$font-body",
                       "fontSize": 9,
@@ -6599,7 +6599,7 @@
                   "fill": "$font-secondary",
                   "content": "LTE",
                   "fontFamily": "Inter",
-                  "fontSize": 12,
+                  "fontSize": 13,
                   "fontWeight": "600"
                 },
                 {
@@ -6608,7 +6608,7 @@
                   "fill": "$font-secondary",
                   "content": "87%",
                   "fontFamily": "Inter",
-                  "fontSize": 12,
+                  "fontSize": 13,
                   "fontWeight": "600"
                 }
               ]
@@ -6635,7 +6635,7 @@
               "id": "HpqUO",
               "width": "fill_container",
               "fill": "$surface-inverse",
-              "cornerRadius": "$radius-lg",
+              "cornerRadius": 20,
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
@@ -6660,7 +6660,7 @@
                     {
                       "type": "ellipse",
                       "id": "zOqJA",
-                      "fill": "#2C5F3B",
+                      "fill": "#214131",
                       "width": 52,
                       "height": 52
                     },
@@ -6689,7 +6689,7 @@
                           "content": "本地优先 · 可随时绑定账号",
                           "lineHeight": 1.35,
                           "fontFamily": "$font-body",
-                          "fontSize": 12,
+                          "fontSize": 13,
                           "fontWeight": "500"
                         }
                       ]
@@ -6699,11 +6699,11 @@
                 {
                   "type": "frame",
                   "id": "jAIfN",
-                  "fill": "#264735",
+                  "fill": "#1d382b",
                   "cornerRadius": "$radius-pill",
                   "padding": [
-                    7,
-                    12
+                    12,
+                    10
                   ],
                   "children": [
                     {
@@ -6712,7 +6712,7 @@
                       "fill": "$font-inverse",
                       "content": "免费版",
                       "fontFamily": "$font-body",
-                      "fontSize": 12,
+                      "fontSize": 13,
                       "fontWeight": "600"
                     }
                   ]
@@ -6723,8 +6723,8 @@
               "type": "frame",
               "id": "Ypy0v",
               "width": "fill_container",
-              "fill": "$surface-card",
-              "cornerRadius": "$radius-lg",
+              "fill": "#fbfcf8",
+              "cornerRadius": 20,
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
@@ -6759,7 +6759,7 @@
                           "fill": "$font-primary",
                           "content": "目标作息设置",
                           "fontFamily": "$font-body",
-                          "fontSize": 14,
+                          "fontSize": 15,
                           "fontWeight": "700"
                         },
                         {
@@ -6771,7 +6771,7 @@
                           "content": "23:30 / 07:30",
                           "lineHeight": 1.35,
                           "fontFamily": "$font-body",
-                          "fontSize": 12,
+                          "fontSize": 13,
                           "fontWeight": "500"
                         }
                       ]
@@ -6815,7 +6815,7 @@
                           "fill": "$font-primary",
                           "content": "提醒设置",
                           "fontFamily": "$font-body",
-                          "fontSize": 14,
+                          "fontSize": 15,
                           "fontWeight": "700"
                         },
                         {
@@ -6827,7 +6827,7 @@
                           "content": "柔性提醒已开启",
                           "lineHeight": 1.35,
                           "fontFamily": "$font-body",
-                          "fontSize": 12,
+                          "fontSize": 13,
                           "fontWeight": "500"
                         }
                       ]
@@ -6871,7 +6871,7 @@
                           "fill": "$font-primary",
                           "content": "数据接入与权限",
                           "fontFamily": "$font-body",
-                          "fontSize": 14,
+                          "fontSize": 15,
                           "fontWeight": "700"
                         },
                         {
@@ -6883,7 +6883,7 @@
                           "content": "HealthKit 已连接",
                           "lineHeight": 1.35,
                           "fontFamily": "$font-body",
-                          "fontSize": 12,
+                          "fontSize": 13,
                           "fontWeight": "500"
                         }
                       ]
@@ -6927,7 +6927,7 @@
                           "fill": "$font-primary",
                           "content": "会员与权益",
                           "fontFamily": "$font-body",
-                          "fontSize": 14,
+                          "fontSize": 15,
                           "fontWeight": "700"
                         },
                         {
@@ -6939,7 +6939,7 @@
                           "content": "恢复计划与历史报告",
                           "lineHeight": 1.35,
                           "fontFamily": "$font-body",
-                          "fontSize": 12,
+                          "fontSize": 13,
                           "fontWeight": "500"
                         }
                       ]
@@ -6983,7 +6983,7 @@
                           "fill": "$font-primary",
                           "content": "隐私与数据",
                           "fontFamily": "$font-body",
-                          "fontSize": 14,
+                          "fontSize": 15,
                           "fontWeight": "700"
                         },
                         {
@@ -6995,7 +6995,7 @@
                           "content": "导出、删除、协议",
                           "lineHeight": 1.35,
                           "fontFamily": "$font-body",
-                          "fontSize": 12,
+                          "fontSize": 13,
                           "fontWeight": "500"
                         }
                       ]
@@ -7017,8 +7017,8 @@
               "type": "frame",
               "id": "b73Uc",
               "width": "fill_container",
-              "fill": "$surface-secondary",
-              "cornerRadius": "$radius-lg",
+              "fill": "#eef4ea",
+              "cornerRadius": 20,
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
@@ -7076,11 +7076,11 @@
               "id": "XIjRV",
               "width": "fill_container",
               "height": "fill_container",
-              "fill": "$surface-card",
+              "fill": "#173324",
               "cornerRadius": "$radius-pill",
               "stroke": {
                 "thickness": 1,
-                "fill": "$border-soft"
+                "fill": "#295140"
               },
               "gap": 6,
               "padding": 4,
@@ -7090,7 +7090,7 @@
                   "id": "N6ss2z",
                   "width": "fill_container",
                   "height": "fill_container",
-                  "fill": "$accent-primary",
+                  "fill": "#fbfcf8",
                   "cornerRadius": "$radius-pill",
                   "layout": "vertical",
                   "gap": 4,
@@ -7100,16 +7100,16 @@
                     {
                       "type": "text",
                       "id": "Mhq3s",
-                      "fill": "$font-inverse",
+                      "fill": "#1b3a28",
                       "content": "今",
                       "fontFamily": "$font-body",
-                      "fontSize": 14,
+                      "fontSize": 15,
                       "fontWeight": "700"
                     },
                     {
                       "type": "text",
                       "id": "P3Rs5z",
-                      "fill": "$font-inverse",
+                      "fill": "#1b3a28",
                       "content": "今日",
                       "fontFamily": "$font-body",
                       "fontSize": 9,
@@ -7133,16 +7133,16 @@
                     {
                       "type": "text",
                       "id": "yV7Qa",
-                      "fill": "$font-muted",
+                      "fill": "#d7e7da",
                       "content": "历",
                       "fontFamily": "$font-body",
-                      "fontSize": 14,
+                      "fontSize": 15,
                       "fontWeight": "700"
                     },
                     {
                       "type": "text",
                       "id": "y84Bk",
-                      "fill": "$font-muted",
+                      "fill": "#d7e7da",
                       "content": "日历",
                       "fontFamily": "$font-body",
                       "fontSize": 9,
@@ -7166,16 +7166,16 @@
                     {
                       "type": "text",
                       "id": "PFG77",
-                      "fill": "$font-muted",
+                      "fill": "#d7e7da",
                       "content": "睡",
                       "fontFamily": "$font-body",
-                      "fontSize": 14,
+                      "fontSize": 15,
                       "fontWeight": "700"
                     },
                     {
                       "type": "text",
                       "id": "yNpDl",
-                      "fill": "$font-muted",
+                      "fill": "#d7e7da",
                       "content": "睡前",
                       "fontFamily": "$font-body",
                       "fontSize": 9,
@@ -7199,16 +7199,16 @@
                     {
                       "type": "text",
                       "id": "aRK9c",
-                      "fill": "$font-muted",
+                      "fill": "#d7e7da",
                       "content": "察",
                       "fontFamily": "$font-body",
-                      "fontSize": 14,
+                      "fontSize": 15,
                       "fontWeight": "700"
                     },
                     {
                       "type": "text",
                       "id": "vDMaI",
-                      "fill": "$font-muted",
+                      "fill": "#d7e7da",
                       "content": "洞察",
                       "fontFamily": "$font-body",
                       "fontSize": 9,
@@ -7232,16 +7232,16 @@
                     {
                       "type": "text",
                       "id": "U2m3A4",
-                      "fill": "$font-muted",
+                      "fill": "#d7e7da",
                       "content": "我",
                       "fontFamily": "$font-body",
-                      "fontSize": 14,
+                      "fontSize": 15,
                       "fontWeight": "700"
                     },
                     {
                       "type": "text",
                       "id": "TyRD3",
-                      "fill": "$font-muted",
+                      "fill": "#d7e7da",
                       "content": "我的",
                       "fontFamily": "$font-body",
                       "fontSize": 9,
@@ -7303,7 +7303,7 @@
                   "fill": "$font-inverse",
                   "content": "LTE",
                   "fontFamily": "Inter",
-                  "fontSize": 12,
+                  "fontSize": 13,
                   "fontWeight": "600"
                 },
                 {
@@ -7312,7 +7312,7 @@
                   "fill": "$font-inverse",
                   "content": "87%",
                   "fontFamily": "Inter",
-                  "fontSize": 12,
+                  "fontSize": 13,
                   "fontWeight": "600"
                 }
               ]
@@ -7344,11 +7344,11 @@
                 {
                   "type": "frame",
                   "id": "HFUFA",
-                  "fill": "#254535",
+                  "fill": "#173324",
                   "cornerRadius": "$radius-pill",
                   "padding": [
-                    7,
-                    12
+                    12,
+                    10
                   ],
                   "children": [
                     {
@@ -7357,7 +7357,7 @@
                       "fill": "$font-inverse",
                       "content": "把改善能力也解锁出来",
                       "fontFamily": "$font-body",
-                      "fontSize": 12,
+                      "fontSize": 13,
                       "fontWeight": "600"
                     }
                   ]
@@ -7371,7 +7371,7 @@
                   "content": "免费版给你结果，会员版把恢复计划、稳定度解释和长期历史都接上。",
                   "lineHeight": 1.08,
                   "fontFamily": "$font-heading",
-                  "fontSize": 28,
+                  "fontSize": 32,
                   "fontWeight": "700"
                 },
                 {
@@ -7383,7 +7383,7 @@
                   "content": "不在首开硬拦，只在你真正需要更深帮助的时候出现。",
                   "lineHeight": 1.4,
                   "fontFamily": "$font-body",
-                  "fontSize": 14,
+                  "fontSize": 15,
                   "fontWeight": "500"
                 }
               ]
@@ -7399,10 +7399,10 @@
                   "id": "b2XijK",
                   "width": "fill_container",
                   "fill": "#173324",
-                  "cornerRadius": "$radius-lg",
+                  "cornerRadius": 20,
                   "stroke": {
                     "thickness": 1,
-                    "fill": "#2A5641"
+                    "fill": "#ffffff00"
                   },
                   "layout": "vertical",
                   "gap": 8,
@@ -7411,11 +7411,11 @@
                     {
                       "type": "frame",
                       "id": "AYQY8",
-                      "fill": "#224634",
+                      "fill": "#1d382b",
                       "cornerRadius": "$radius-pill",
                       "padding": [
-                        7,
-                        12
+                        12,
+                        10
                       ],
                       "children": [
                         {
@@ -7424,7 +7424,7 @@
                           "fill": "$font-inverse",
                           "content": "先试试看",
                           "fontFamily": "$font-body",
-                          "fontSize": 12,
+                          "fontSize": 13,
                           "fontWeight": "600"
                         }
                       ]
@@ -7435,7 +7435,7 @@
                       "fill": "$font-inverse",
                       "content": "月付",
                       "fontFamily": "$font-body",
-                      "fontSize": 14,
+                      "fontSize": 15,
                       "fontWeight": "700"
                     },
                     {
@@ -7453,8 +7453,8 @@
                   "type": "frame",
                   "id": "j9rVLB",
                   "width": "fill_container",
-                  "fill": "$surface-card",
-                  "cornerRadius": "$radius-lg",
+                  "fill": "#fbfcf8",
+                  "cornerRadius": 20,
                   "stroke": {
                     "thickness": 1,
                     "fill": "$warning"
@@ -7466,11 +7466,11 @@
                     {
                       "type": "frame",
                       "id": "kXJgC",
-                      "fill": "$warning-soft",
+                      "fill": "#f3ecdd",
                       "cornerRadius": "$radius-pill",
                       "padding": [
-                        7,
-                        12
+                        12,
+                        10
                       ],
                       "children": [
                         {
@@ -7479,7 +7479,7 @@
                           "fill": "$warning",
                           "content": "最推荐",
                           "fontFamily": "$font-body",
-                          "fontSize": 12,
+                          "fontSize": 13,
                           "fontWeight": "600"
                         }
                       ]
@@ -7490,7 +7490,7 @@
                       "fill": "$font-primary",
                       "content": "年付",
                       "fontFamily": "$font-body",
-                      "fontSize": 14,
+                      "fontSize": 15,
                       "fontWeight": "700"
                     },
                     {
@@ -7511,7 +7511,7 @@
               "id": "Ez3wh",
               "width": "fill_container",
               "fill": "#173324",
-              "cornerRadius": "$radius-lg",
+              "cornerRadius": 20,
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
@@ -7591,7 +7591,7 @@
                   "width": "fill_container",
                   "height": 54,
                   "fill": "$warning",
-                  "cornerRadius": "$radius-lg",
+                  "cornerRadius": 20,
                   "effect": {
                     "type": "shadow",
                     "shadowType": "outer",
@@ -7621,11 +7621,11 @@
                   "id": "UZzEY",
                   "width": "fill_container",
                   "height": 50,
-                  "fill": "$surface-card",
-                  "cornerRadius": "$radius-lg",
+                  "fill": "#fbfcf8",
+                  "cornerRadius": 20,
                   "stroke": {
                     "thickness": 1,
-                    "fill": "$border-soft"
+                    "fill": "#ffffff00"
                   },
                   "justifyContent": "center",
                   "alignItems": "center",
@@ -7694,7 +7694,7 @@
                   "fill": "$font-secondary",
                   "content": "LTE",
                   "fontFamily": "Inter",
-                  "fontSize": 12,
+                  "fontSize": 13,
                   "fontWeight": "600"
                 },
                 {
@@ -7703,7 +7703,7 @@
                   "fill": "$font-secondary",
                   "content": "87%",
                   "fontFamily": "Inter",
-                  "fontSize": 12,
+                  "fontSize": 13,
                   "fontWeight": "600"
                 }
               ]
@@ -7743,11 +7743,11 @@
                       "id": "gvQuw",
                       "width": 34,
                       "height": 34,
-                      "fill": "$surface-card",
+                      "fill": "#fbfcf8",
                       "cornerRadius": "$radius-pill",
                       "stroke": {
                         "thickness": 1,
-                        "fill": "$border-soft"
+                        "fill": "#ffffff00"
                       },
                       "justifyContent": "center",
                       "alignItems": "center",
@@ -7769,7 +7769,7 @@
                       "fill": "$font-primary",
                       "content": "本周周报",
                       "fontFamily": "$font-heading",
-                      "fontSize": 24,
+                      "fontSize": 26,
                       "fontWeight": "700"
                     }
                   ]
@@ -7777,11 +7777,11 @@
                 {
                   "type": "frame",
                   "id": "R1yxIx",
-                  "fill": "$surface-accent-soft",
+                  "fill": "#e3eee0",
                   "cornerRadius": "$radius-pill",
                   "padding": [
-                    7,
-                    12
+                    12,
+                    10
                   ],
                   "children": [
                     {
@@ -7790,7 +7790,7 @@
                       "fill": "$font-secondary",
                       "content": "05.13 - 05.19",
                       "fontFamily": "$font-body",
-                      "fontSize": 12,
+                      "fontSize": 13,
                       "fontWeight": "600"
                     }
                   ]
@@ -7802,7 +7802,7 @@
               "id": "y2Lg2",
               "width": "fill_container",
               "fill": "$surface-inverse",
-              "cornerRadius": "$radius-lg",
+              "cornerRadius": 20,
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
@@ -7823,7 +7823,7 @@
                   "fill": "$font-inverse",
                   "content": "这周比上周更稳",
                   "fontFamily": "$font-heading",
-                  "fontSize": 26,
+                  "fontSize": 28,
                   "fontWeight": "700"
                 },
                 {
@@ -7850,8 +7850,8 @@
                   "type": "frame",
                   "id": "Fviom",
                   "width": "fill_container",
-                  "fill": "$surface-secondary",
-                  "cornerRadius": "$radius-lg",
+                  "fill": "#eef4ea",
+                  "cornerRadius": 20,
                   "effect": {
                     "type": "shadow",
                     "shadowType": "outer",
@@ -7872,7 +7872,7 @@
                       "fill": "$font-secondary",
                       "content": "达标率",
                       "fontFamily": "$font-body",
-                      "fontSize": 12,
+                      "fontSize": 13,
                       "fontWeight": "600"
                     },
                     {
@@ -7881,7 +7881,7 @@
                       "fill": "$font-primary",
                       "content": "56%",
                       "fontFamily": "$font-data",
-                      "fontSize": 28,
+                      "fontSize": 32,
                       "fontWeight": "700"
                     }
                   ]
@@ -7890,8 +7890,8 @@
                   "type": "frame",
                   "id": "VwTP7",
                   "width": "fill_container",
-                  "fill": "$surface-card",
-                  "cornerRadius": "$radius-lg",
+                  "fill": "#fbfcf8",
+                  "cornerRadius": 20,
                   "effect": {
                     "type": "shadow",
                     "shadowType": "outer",
@@ -7912,7 +7912,7 @@
                       "fill": "$font-secondary",
                       "content": "稳定度",
                       "fontFamily": "$font-body",
-                      "fontSize": 12,
+                      "fontSize": 13,
                       "fontWeight": "600"
                     },
                     {
@@ -7921,7 +7921,7 @@
                       "fill": "$font-primary",
                       "content": "72",
                       "fontFamily": "$font-data",
-                      "fontSize": 28,
+                      "fontSize": 32,
                       "fontWeight": "700"
                     }
                   ]
@@ -7932,8 +7932,8 @@
               "type": "frame",
               "id": "EjTtC",
               "width": "fill_container",
-              "fill": "$surface-card",
-              "cornerRadius": "$radius-lg",
+              "fill": "#fbfcf8",
+              "cornerRadius": 20,
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
@@ -7975,8 +7975,8 @@
               "type": "frame",
               "id": "r5v2r",
               "width": "fill_container",
-              "fill": "$warning-soft",
-              "cornerRadius": "$radius-lg",
+              "fill": "#f3ecdd",
+              "cornerRadius": 20,
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
@@ -8089,7 +8089,7 @@
                   "fill": "$font-secondary",
                   "content": "LTE",
                   "fontFamily": "Inter",
-                  "fontSize": 12,
+                  "fontSize": 13,
                   "fontWeight": "600"
                 },
                 {
@@ -8098,7 +8098,7 @@
                   "fill": "$font-secondary",
                   "content": "87%",
                   "fontFamily": "Inter",
-                  "fontSize": 12,
+                  "fontSize": 13,
                   "fontWeight": "600"
                 }
               ]
@@ -8138,11 +8138,11 @@
                       "id": "t8Nugb",
                       "width": 34,
                       "height": 34,
-                      "fill": "$surface-card",
+                      "fill": "#fbfcf8",
                       "cornerRadius": "$radius-pill",
                       "stroke": {
                         "thickness": 1,
-                        "fill": "$border-soft"
+                        "fill": "#ffffff00"
                       },
                       "justifyContent": "center",
                       "alignItems": "center",
@@ -8164,7 +8164,7 @@
                       "fill": "$font-primary",
                       "content": "历史洞察",
                       "fontFamily": "$font-heading",
-                      "fontSize": 24,
+                      "fontSize": 26,
                       "fontWeight": "700"
                     }
                   ]
@@ -8172,11 +8172,11 @@
                 {
                   "type": "frame",
                   "id": "lFaJI",
-                  "fill": "$surface-accent-soft",
+                  "fill": "#e3eee0",
                   "cornerRadius": "$radius-pill",
                   "padding": [
-                    7,
-                    12
+                    12,
+                    10
                   ],
                   "children": [
                     {
@@ -8185,7 +8185,7 @@
                       "fill": "$font-secondary",
                       "content": "近 12 周",
                       "fontFamily": "$font-body",
-                      "fontSize": 12,
+                      "fontSize": 13,
                       "fontWeight": "600"
                     }
                   ]
@@ -8205,7 +8205,7 @@
                   "fill": "$font-primary",
                   "content": "回看长期变化",
                   "fontFamily": "$font-heading",
-                  "fontSize": 24,
+                  "fontSize": 26,
                   "fontWeight": "700"
                 },
                 {
@@ -8226,8 +8226,8 @@
               "type": "frame",
               "id": "qqziI",
               "width": "fill_container",
-              "fill": "$surface-card",
-              "cornerRadius": "$radius-lg",
+              "fill": "#fbfcf8",
+              "cornerRadius": 20,
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
@@ -8261,11 +8261,11 @@
                     {
                       "type": "frame",
                       "id": "x2RkA",
-                      "fill": "$surface-accent-soft",
+                      "fill": "#e3eee0",
                       "cornerRadius": "$radius-pill",
                       "padding": [
-                        7,
-                        12
+                        12,
+                        10
                       ],
                       "children": [
                         {
@@ -8274,7 +8274,7 @@
                           "fill": "$font-secondary",
                           "content": "查看详情",
                           "fontFamily": "$font-body",
-                          "fontSize": 12,
+                          "fontSize": 13,
                           "fontWeight": "600"
                         }
                       ]
@@ -8299,8 +8299,8 @@
               "type": "frame",
               "id": "EYb5c",
               "width": "fill_container",
-              "fill": "$surface-card",
-              "cornerRadius": "$radius-lg",
+              "fill": "#fbfcf8",
+              "cornerRadius": 20,
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
@@ -8334,11 +8334,11 @@
                     {
                       "type": "frame",
                       "id": "uel0L",
-                      "fill": "$surface-accent-soft",
+                      "fill": "#e3eee0",
                       "cornerRadius": "$radius-pill",
                       "padding": [
-                        7,
-                        12
+                        12,
+                        10
                       ],
                       "children": [
                         {
@@ -8347,7 +8347,7 @@
                           "fill": "$font-secondary",
                           "content": "查看详情",
                           "fontFamily": "$font-body",
-                          "fontSize": 12,
+                          "fontSize": 13,
                           "fontWeight": "600"
                         }
                       ]
@@ -8372,8 +8372,8 @@
               "type": "frame",
               "id": "EG496",
               "width": "fill_container",
-              "fill": "$warning-soft",
-              "cornerRadius": "$radius-lg",
+              "fill": "#f3ecdd",
+              "cornerRadius": 20,
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
@@ -8410,8 +8410,8 @@
                       "fill": "$warning",
                       "cornerRadius": "$radius-pill",
                       "padding": [
-                        7,
-                        12
+                        12,
+                        10
                       ],
                       "children": [
                         {
@@ -8420,7 +8420,7 @@
                           "fill": "$font-primary",
                           "content": "升级查看",
                           "fontFamily": "$font-body",
-                          "fontSize": 12,
+                          "fontSize": 13,
                           "fontWeight": "600"
                         }
                       ]
@@ -8446,7 +8446,7 @@
               "id": "ajGdp",
               "width": "fill_container",
               "fill": "$surface-inverse",
-              "cornerRadius": "$radius-lg",
+              "cornerRadius": 20,
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
@@ -8490,7 +8490,7 @@
               "width": "fill_container",
               "height": 54,
               "fill": "$accent-primary",
-              "cornerRadius": "$radius-lg",
+              "cornerRadius": 20,
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
@@ -8566,7 +8566,7 @@
                   "fill": "$font-secondary",
                   "content": "LTE",
                   "fontFamily": "Inter",
-                  "fontSize": 12,
+                  "fontSize": 13,
                   "fontWeight": "600"
                 },
                 {
@@ -8575,7 +8575,7 @@
                   "fill": "$font-secondary",
                   "content": "87%",
                   "fontFamily": "Inter",
-                  "fontSize": 12,
+                  "fontSize": 13,
                   "fontWeight": "600"
                 }
               ]
@@ -8615,11 +8615,11 @@
                       "id": "k0aGNh",
                       "width": 34,
                       "height": 34,
-                      "fill": "$surface-card",
+                      "fill": "#fbfcf8",
                       "cornerRadius": "$radius-pill",
                       "stroke": {
                         "thickness": 1,
-                        "fill": "$border-soft"
+                        "fill": "#ffffff00"
                       },
                       "justifyContent": "center",
                       "alignItems": "center",
@@ -8641,7 +8641,7 @@
                       "fill": "$font-primary",
                       "content": "目标作息",
                       "fontFamily": "$font-heading",
-                      "fontSize": 24,
+                      "fontSize": 26,
                       "fontWeight": "700"
                     }
                   ]
@@ -8649,11 +8649,11 @@
                 {
                   "type": "frame",
                   "id": "FDhSB",
-                  "fill": "$surface-accent-soft",
+                  "fill": "#e3eee0",
                   "cornerRadius": "$radius-pill",
                   "padding": [
-                    7,
-                    12
+                    12,
+                    10
                   ],
                   "children": [
                     {
@@ -8662,7 +8662,7 @@
                       "fill": "$font-secondary",
                       "content": "已保存",
                       "fontFamily": "$font-body",
-                      "fontSize": 12,
+                      "fontSize": 13,
                       "fontWeight": "600"
                     }
                   ]
@@ -8682,7 +8682,7 @@
                   "fill": "$font-primary",
                   "content": "微调你的参考线",
                   "fontFamily": "$font-heading",
-                  "fontSize": 24,
+                  "fontSize": 26,
                   "fontWeight": "700"
                 },
                 {
@@ -8703,8 +8703,8 @@
               "type": "frame",
               "id": "SNY3f",
               "width": "fill_container",
-              "fill": "$surface-card",
-              "cornerRadius": "$radius-lg",
+              "fill": "#fbfcf8",
+              "cornerRadius": 20,
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
@@ -8736,7 +8736,7 @@
                       "fill": "$font-primary",
                       "content": "工作日目标入睡",
                       "fontFamily": "$font-body",
-                      "fontSize": 14,
+                      "fontSize": 15,
                       "fontWeight": "600"
                     },
                     {
@@ -8767,7 +8767,7 @@
                       "fill": "$font-primary",
                       "content": "工作日目标起床",
                       "fontFamily": "$font-body",
-                      "fontSize": 14,
+                      "fontSize": 15,
                       "fontWeight": "600"
                     },
                     {
@@ -8798,7 +8798,7 @@
                       "fill": "$font-primary",
                       "content": "周末目标入睡",
                       "fontFamily": "$font-body",
-                      "fontSize": 14,
+                      "fontSize": 15,
                       "fontWeight": "600"
                     },
                     {
@@ -8829,7 +8829,7 @@
                       "fill": "$font-primary",
                       "content": "晚睡阈值",
                       "fontFamily": "$font-body",
-                      "fontSize": 14,
+                      "fontSize": 15,
                       "fontWeight": "600"
                     },
                     {
@@ -8860,7 +8860,7 @@
                       "fill": "$font-primary",
                       "content": "一天起始时间",
                       "fontFamily": "$font-body",
-                      "fontSize": 14,
+                      "fontSize": 15,
                       "fontWeight": "600"
                     },
                     {
@@ -8880,8 +8880,8 @@
               "type": "frame",
               "id": "lr733",
               "width": "fill_container",
-              "fill": "$surface-secondary",
-              "cornerRadius": "$radius-lg",
+              "fill": "#eef4ea",
+              "cornerRadius": 20,
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
@@ -8916,7 +8916,7 @@
               "width": "fill_container",
               "height": 54,
               "fill": "$accent-primary",
-              "cornerRadius": "$radius-lg",
+              "cornerRadius": 20,
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
@@ -8992,7 +8992,7 @@
                   "fill": "$font-secondary",
                   "content": "LTE",
                   "fontFamily": "Inter",
-                  "fontSize": 12,
+                  "fontSize": 13,
                   "fontWeight": "600"
                 },
                 {
@@ -9001,7 +9001,7 @@
                   "fill": "$font-secondary",
                   "content": "87%",
                   "fontFamily": "Inter",
-                  "fontSize": 12,
+                  "fontSize": 13,
                   "fontWeight": "600"
                 }
               ]
@@ -9041,11 +9041,11 @@
                       "id": "XvENO",
                       "width": 34,
                       "height": 34,
-                      "fill": "$surface-card",
+                      "fill": "#fbfcf8",
                       "cornerRadius": "$radius-pill",
                       "stroke": {
                         "thickness": 1,
-                        "fill": "$border-soft"
+                        "fill": "#ffffff00"
                       },
                       "justifyContent": "center",
                       "alignItems": "center",
@@ -9067,7 +9067,7 @@
                       "fill": "$font-primary",
                       "content": "提醒设置",
                       "fontFamily": "$font-heading",
-                      "fontSize": 24,
+                      "fontSize": 26,
                       "fontWeight": "700"
                     }
                   ]
@@ -9087,7 +9087,7 @@
                   "fill": "$font-primary",
                   "content": "让提醒保持温和",
                   "fontFamily": "$font-heading",
-                  "fontSize": 24,
+                  "fontSize": 26,
                   "fontWeight": "700"
                 },
                 {
@@ -9108,8 +9108,8 @@
               "type": "frame",
               "id": "z0D6cS",
               "width": "fill_container",
-              "fill": "$surface-card",
-              "cornerRadius": "$radius-lg",
+              "fill": "#fbfcf8",
+              "cornerRadius": 20,
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
@@ -9144,7 +9144,7 @@
                           "fill": "$font-primary",
                           "content": "柔性提醒",
                           "fontFamily": "$font-body",
-                          "fontSize": 14,
+                          "fontSize": 15,
                           "fontWeight": "700"
                         },
                         {
@@ -9156,7 +9156,7 @@
                           "content": "目标前 45 分钟提醒一次",
                           "lineHeight": 1.35,
                           "fontFamily": "$font-body",
-                          "fontSize": 12,
+                          "fontSize": 13,
                           "fontWeight": "500"
                         }
                       ]
@@ -9164,11 +9164,11 @@
                     {
                       "type": "frame",
                       "id": "FdShj",
-                      "fill": "$success-soft",
+                      "fill": "#dfeadf",
                       "cornerRadius": "$radius-pill",
                       "padding": [
-                        7,
-                        12
+                        12,
+                        10
                       ],
                       "children": [
                         {
@@ -9177,7 +9177,7 @@
                           "fill": "$success",
                           "content": "开",
                           "fontFamily": "$font-body",
-                          "fontSize": 12,
+                          "fontSize": 13,
                           "fontWeight": "600"
                         }
                       ]
@@ -9204,7 +9204,7 @@
                           "fill": "$font-primary",
                           "content": "到点提醒",
                           "fontFamily": "$font-body",
-                          "fontSize": 14,
+                          "fontSize": 15,
                           "fontWeight": "700"
                         },
                         {
@@ -9216,7 +9216,7 @@
                           "content": "到达目标时间时再提醒一次",
                           "lineHeight": 1.35,
                           "fontFamily": "$font-body",
-                          "fontSize": 12,
+                          "fontSize": 13,
                           "fontWeight": "500"
                         }
                       ]
@@ -9224,11 +9224,11 @@
                     {
                       "type": "frame",
                       "id": "W3mjNi",
-                      "fill": "$surface-accent-soft",
+                      "fill": "#e3eee0",
                       "cornerRadius": "$radius-pill",
                       "padding": [
-                        7,
-                        12
+                        12,
+                        10
                       ],
                       "children": [
                         {
@@ -9237,7 +9237,7 @@
                           "fill": "$font-secondary",
                           "content": "关",
                           "fontFamily": "$font-body",
-                          "fontSize": 12,
+                          "fontSize": 13,
                           "fontWeight": "600"
                         }
                       ]
@@ -9264,7 +9264,7 @@
                           "fill": "$font-primary",
                           "content": "延迟提醒",
                           "fontFamily": "$font-body",
-                          "fontSize": 14,
+                          "fontSize": 15,
                           "fontWeight": "700"
                         },
                         {
@@ -9276,7 +9276,7 @@
                           "content": "仍未进入睡前模式时补一次",
                           "lineHeight": 1.35,
                           "fontFamily": "$font-body",
-                          "fontSize": 12,
+                          "fontSize": 13,
                           "fontWeight": "500"
                         }
                       ]
@@ -9284,11 +9284,11 @@
                     {
                       "type": "frame",
                       "id": "G0Lmpx",
-                      "fill": "$surface-accent-soft",
+                      "fill": "#e3eee0",
                       "cornerRadius": "$radius-pill",
                       "padding": [
-                        7,
-                        12
+                        12,
+                        10
                       ],
                       "children": [
                         {
@@ -9297,7 +9297,7 @@
                           "fill": "$font-secondary",
                           "content": "关",
                           "fontFamily": "$font-body",
-                          "fontSize": 12,
+                          "fontSize": 13,
                           "fontWeight": "600"
                         }
                       ]
@@ -9324,7 +9324,7 @@
                           "fill": "$font-primary",
                           "content": "周报提醒",
                           "fontFamily": "$font-body",
-                          "fontSize": 14,
+                          "fontSize": 15,
                           "fontWeight": "700"
                         },
                         {
@@ -9336,7 +9336,7 @@
                           "content": "周日 09:00 推送",
                           "lineHeight": 1.35,
                           "fontFamily": "$font-body",
-                          "fontSize": 12,
+                          "fontSize": 13,
                           "fontWeight": "500"
                         }
                       ]
@@ -9344,11 +9344,11 @@
                     {
                       "type": "frame",
                       "id": "SvA2B",
-                      "fill": "$success-soft",
+                      "fill": "#dfeadf",
                       "cornerRadius": "$radius-pill",
                       "padding": [
-                        7,
-                        12
+                        12,
+                        10
                       ],
                       "children": [
                         {
@@ -9357,7 +9357,7 @@
                           "fill": "$success",
                           "content": "开",
                           "fontFamily": "$font-body",
-                          "fontSize": 12,
+                          "fontSize": 13,
                           "fontWeight": "600"
                         }
                       ]
@@ -9370,8 +9370,8 @@
               "type": "frame",
               "id": "C0p4o",
               "width": "fill_container",
-              "fill": "$warning-soft",
-              "cornerRadius": "$radius-lg",
+              "fill": "#f3ecdd",
+              "cornerRadius": 20,
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
@@ -9404,11 +9404,11 @@
                     {
                       "type": "frame",
                       "id": "LMMRa",
-                      "fill": "$surface-card",
+                      "fill": "#fbfcf8",
                       "cornerRadius": "$radius-pill",
                       "padding": [
-                        7,
-                        12
+                        12,
+                        10
                       ],
                       "children": [
                         {
@@ -9417,7 +9417,7 @@
                           "fill": "$font-primary",
                           "content": "30 分钟",
                           "fontFamily": "$font-body",
-                          "fontSize": 12,
+                          "fontSize": 13,
                           "fontWeight": "600"
                         }
                       ]
@@ -9428,8 +9428,8 @@
                       "fill": "$surface-inverse",
                       "cornerRadius": "$radius-pill",
                       "padding": [
-                        7,
-                        12
+                        12,
+                        10
                       ],
                       "children": [
                         {
@@ -9438,7 +9438,7 @@
                           "fill": "$font-inverse",
                           "content": "45 分钟",
                           "fontFamily": "$font-body",
-                          "fontSize": 12,
+                          "fontSize": 13,
                           "fontWeight": "600"
                         }
                       ]
@@ -9446,11 +9446,11 @@
                     {
                       "type": "frame",
                       "id": "O1U1r",
-                      "fill": "$surface-card",
+                      "fill": "#fbfcf8",
                       "cornerRadius": "$radius-pill",
                       "padding": [
-                        7,
-                        12
+                        12,
+                        10
                       ],
                       "children": [
                         {
@@ -9459,7 +9459,7 @@
                           "fill": "$font-primary",
                           "content": "60 分钟",
                           "fontFamily": "$font-body",
-                          "fontSize": 12,
+                          "fontSize": 13,
                           "fontWeight": "600"
                         }
                       ]
@@ -9474,7 +9474,7 @@
               "width": "fill_container",
               "height": 54,
               "fill": "$accent-primary",
-              "cornerRadius": "$radius-lg",
+              "cornerRadius": 20,
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
@@ -9550,7 +9550,7 @@
                   "fill": "$font-secondary",
                   "content": "LTE",
                   "fontFamily": "Inter",
-                  "fontSize": 12,
+                  "fontSize": 13,
                   "fontWeight": "600"
                 },
                 {
@@ -9559,7 +9559,7 @@
                   "fill": "$font-secondary",
                   "content": "87%",
                   "fontFamily": "Inter",
-                  "fontSize": 12,
+                  "fontSize": 13,
                   "fontWeight": "600"
                 }
               ]
@@ -9599,11 +9599,11 @@
                       "id": "xLdla",
                       "width": 34,
                       "height": 34,
-                      "fill": "$surface-card",
+                      "fill": "#fbfcf8",
                       "cornerRadius": "$radius-pill",
                       "stroke": {
                         "thickness": 1,
-                        "fill": "$border-soft"
+                        "fill": "#ffffff00"
                       },
                       "justifyContent": "center",
                       "alignItems": "center",
@@ -9625,7 +9625,7 @@
                       "fill": "$font-primary",
                       "content": "数据接入",
                       "fontFamily": "$font-heading",
-                      "fontSize": 24,
+                      "fontSize": 26,
                       "fontWeight": "700"
                     }
                   ]
@@ -9645,7 +9645,7 @@
                   "fill": "$font-primary",
                   "content": "健康数据接入状态",
                   "fontFamily": "$font-heading",
-                  "fontSize": 24,
+                  "fontSize": 26,
                   "fontWeight": "700"
                 },
                 {
@@ -9667,7 +9667,7 @@
               "id": "m5A5rg",
               "width": "fill_container",
               "fill": "$surface-inverse",
-              "cornerRadius": "$radius-lg",
+              "cornerRadius": 20,
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
@@ -9716,8 +9716,8 @@
                   "id": "M2SpJN",
                   "width": "fill_container",
                   "height": 58,
-                  "fill": "$surface-card",
-                  "cornerRadius": "$radius-lg",
+                  "fill": "#fbfcf8",
+                  "cornerRadius": 20,
                   "effect": {
                     "type": "shadow",
                     "shadowType": "outer",
@@ -9738,7 +9738,7 @@
                       "fill": "$font-primary",
                       "content": "重新授权",
                       "fontFamily": "$font-body",
-                      "fontSize": 14,
+                      "fontSize": 15,
                       "fontWeight": "700"
                     }
                   ]
@@ -9748,8 +9748,8 @@
                   "id": "HJEqj",
                   "width": "fill_container",
                   "height": 58,
-                  "fill": "$warning-soft",
-                  "cornerRadius": "$radius-lg",
+                  "fill": "#f3ecdd",
+                  "cornerRadius": 20,
                   "effect": {
                     "type": "shadow",
                     "shadowType": "outer",
@@ -9770,7 +9770,7 @@
                       "fill": "$font-primary",
                       "content": "改用手动模式",
                       "fontFamily": "$font-body",
-                      "fontSize": 14,
+                      "fontSize": 15,
                       "fontWeight": "700"
                     }
                   ]
@@ -9781,8 +9781,8 @@
               "type": "frame",
               "id": "c8210G",
               "width": "fill_container",
-              "fill": "$surface-card",
-              "cornerRadius": "$radius-lg",
+              "fill": "#fbfcf8",
+              "cornerRadius": 20,
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
@@ -9895,7 +9895,7 @@
                   "fill": "$font-secondary",
                   "content": "LTE",
                   "fontFamily": "Inter",
-                  "fontSize": 12,
+                  "fontSize": 13,
                   "fontWeight": "600"
                 },
                 {
@@ -9904,7 +9904,7 @@
                   "fill": "$font-secondary",
                   "content": "87%",
                   "fontFamily": "Inter",
-                  "fontSize": 12,
+                  "fontSize": 13,
                   "fontWeight": "600"
                 }
               ]
@@ -9944,11 +9944,11 @@
                       "id": "tugX0",
                       "width": 34,
                       "height": 34,
-                      "fill": "$surface-card",
+                      "fill": "#fbfcf8",
                       "cornerRadius": "$radius-pill",
                       "stroke": {
                         "thickness": 1,
-                        "fill": "$border-soft"
+                        "fill": "#ffffff00"
                       },
                       "justifyContent": "center",
                       "alignItems": "center",
@@ -9970,7 +9970,7 @@
                       "fill": "$font-primary",
                       "content": "账号与同步",
                       "fontFamily": "$font-heading",
-                      "fontSize": 24,
+                      "fontSize": 26,
                       "fontWeight": "700"
                     }
                   ]
@@ -9990,7 +9990,7 @@
                   "fill": "$font-primary",
                   "content": "先本地，后同步",
                   "fontFamily": "$font-heading",
-                  "fontSize": 24,
+                  "fontSize": 26,
                   "fontWeight": "700"
                 },
                 {
@@ -10011,8 +10011,8 @@
               "type": "frame",
               "id": "n09YW",
               "width": "fill_container",
-              "fill": "$surface-card",
-              "cornerRadius": "$radius-lg",
+              "fill": "#fbfcf8",
+              "cornerRadius": 20,
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
@@ -10054,7 +10054,7 @@
                   "width": "fill_container",
                   "height": 54,
                   "fill": "$accent-primary",
-                  "cornerRadius": "$radius-lg",
+                  "cornerRadius": 20,
                   "effect": {
                     "type": "shadow",
                     "shadowType": "outer",
@@ -10085,8 +10085,8 @@
               "type": "frame",
               "id": "hS4dF",
               "width": "fill_container",
-              "fill": "$warning-soft",
-              "cornerRadius": "$radius-lg",
+              "fill": "#f3ecdd",
+              "cornerRadius": 20,
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
@@ -10127,11 +10127,11 @@
                   "id": "hJNsS",
                   "width": "fill_container",
                   "height": 50,
-                  "fill": "$surface-card",
-                  "cornerRadius": "$radius-lg",
+                  "fill": "#fbfcf8",
+                  "cornerRadius": 20,
                   "stroke": {
                     "thickness": 1,
-                    "fill": "$border-soft"
+                    "fill": "#ffffff00"
                   },
                   "justifyContent": "center",
                   "alignItems": "center",
@@ -10153,8 +10153,8 @@
               "type": "frame",
               "id": "k8wUQ",
               "width": "fill_container",
-              "fill": "$surface-secondary",
-              "cornerRadius": "$radius-lg",
+              "fill": "#eef4ea",
+              "cornerRadius": 20,
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
@@ -10234,7 +10234,7 @@
                   "fill": "$font-secondary",
                   "content": "LTE",
                   "fontFamily": "Inter",
-                  "fontSize": 12,
+                  "fontSize": 13,
                   "fontWeight": "600"
                 },
                 {
@@ -10243,7 +10243,7 @@
                   "fill": "$font-secondary",
                   "content": "87%",
                   "fontFamily": "Inter",
-                  "fontSize": 12,
+                  "fontSize": 13,
                   "fontWeight": "600"
                 }
               ]
@@ -10283,11 +10283,11 @@
                       "id": "hnkfA",
                       "width": 34,
                       "height": 34,
-                      "fill": "$surface-card",
+                      "fill": "#fbfcf8",
                       "cornerRadius": "$radius-pill",
                       "stroke": {
                         "thickness": 1,
-                        "fill": "$border-soft"
+                        "fill": "#ffffff00"
                       },
                       "justifyContent": "center",
                       "alignItems": "center",
@@ -10309,7 +10309,7 @@
                       "fill": "$font-primary",
                       "content": "会员中心",
                       "fontFamily": "$font-heading",
-                      "fontSize": 24,
+                      "fontSize": 26,
                       "fontWeight": "700"
                     }
                   ]
@@ -10329,7 +10329,7 @@
                   "fill": "$font-primary",
                   "content": "把长期改善能力接上",
                   "fontFamily": "$font-heading",
-                  "fontSize": 24,
+                  "fontSize": 26,
                   "fontWeight": "700"
                 },
                 {
@@ -10351,7 +10351,7 @@
               "id": "y5IANm",
               "width": "fill_container",
               "fill": "$surface-inverse",
-              "cornerRadius": "$radius-lg",
+              "cornerRadius": 20,
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
@@ -10369,11 +10369,11 @@
                 {
                   "type": "frame",
                   "id": "gCdxQ",
-                  "fill": "#264735",
+                  "fill": "#1d382b",
                   "cornerRadius": "$radius-pill",
                   "padding": [
-                    7,
-                    12
+                    12,
+                    10
                   ],
                   "children": [
                     {
@@ -10382,7 +10382,7 @@
                       "fill": "$font-inverse",
                       "content": "免费版中",
                       "fontFamily": "$font-body",
-                      "fontSize": 12,
+                      "fontSize": 13,
                       "fontWeight": "600"
                     }
                   ]
@@ -10411,8 +10411,8 @@
                   "type": "frame",
                   "id": "l3WOz",
                   "width": "fill_container",
-                  "fill": "$surface-card",
-                  "cornerRadius": "$radius-lg",
+                  "fill": "#fbfcf8",
+                  "cornerRadius": 20,
                   "effect": {
                     "type": "shadow",
                     "shadowType": "outer",
@@ -10433,7 +10433,7 @@
                       "fill": "$font-primary",
                       "content": "月付",
                       "fontFamily": "$font-body",
-                      "fontSize": 14,
+                      "fontSize": 15,
                       "fontWeight": "700"
                     },
                     {
@@ -10442,7 +10442,7 @@
                       "fill": "$font-primary",
                       "content": "¥15",
                       "fontFamily": "$font-data",
-                      "fontSize": 28,
+                      "fontSize": 32,
                       "fontWeight": "700"
                     }
                   ]
@@ -10451,8 +10451,8 @@
                   "type": "frame",
                   "id": "kqwJJ",
                   "width": "fill_container",
-                  "fill": "$warning-soft",
-                  "cornerRadius": "$radius-lg",
+                  "fill": "#f3ecdd",
+                  "cornerRadius": 20,
                   "effect": {
                     "type": "shadow",
                     "shadowType": "outer",
@@ -10473,7 +10473,7 @@
                       "fill": "$font-primary",
                       "content": "年付",
                       "fontFamily": "$font-body",
-                      "fontSize": 14,
+                      "fontSize": 15,
                       "fontWeight": "700"
                     },
                     {
@@ -10482,7 +10482,7 @@
                       "fill": "$font-primary",
                       "content": "¥98",
                       "fontFamily": "$font-data",
-                      "fontSize": 28,
+                      "fontSize": 32,
                       "fontWeight": "700"
                     }
                   ]
@@ -10493,8 +10493,8 @@
               "type": "frame",
               "id": "oMlHS",
               "width": "fill_container",
-              "fill": "$surface-card",
-              "cornerRadius": "$radius-lg",
+              "fill": "#fbfcf8",
+              "cornerRadius": 20,
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
@@ -10565,7 +10565,7 @@
               "width": "fill_container",
               "height": 54,
               "fill": "$accent-primary",
-              "cornerRadius": "$radius-lg",
+              "cornerRadius": 20,
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
@@ -10641,7 +10641,7 @@
                   "fill": "$font-secondary",
                   "content": "LTE",
                   "fontFamily": "Inter",
-                  "fontSize": 12,
+                  "fontSize": 13,
                   "fontWeight": "600"
                 },
                 {
@@ -10650,7 +10650,7 @@
                   "fill": "$font-secondary",
                   "content": "87%",
                   "fontFamily": "Inter",
-                  "fontSize": 12,
+                  "fontSize": 13,
                   "fontWeight": "600"
                 }
               ]
@@ -10690,11 +10690,11 @@
                       "id": "JoN86",
                       "width": 34,
                       "height": 34,
-                      "fill": "$surface-card",
+                      "fill": "#fbfcf8",
                       "cornerRadius": "$radius-pill",
                       "stroke": {
                         "thickness": 1,
-                        "fill": "$border-soft"
+                        "fill": "#ffffff00"
                       },
                       "justifyContent": "center",
                       "alignItems": "center",
@@ -10716,7 +10716,7 @@
                       "fill": "$font-primary",
                       "content": "隐私与数据",
                       "fontFamily": "$font-heading",
-                      "fontSize": 24,
+                      "fontSize": 26,
                       "fontWeight": "700"
                     }
                   ]
@@ -10736,7 +10736,7 @@
                   "fill": "$font-primary",
                   "content": "敏感数据要清楚可控",
                   "fontFamily": "$font-heading",
-                  "fontSize": 24,
+                  "fontSize": 26,
                   "fontWeight": "700"
                 },
                 {
@@ -10757,8 +10757,8 @@
               "type": "frame",
               "id": "n8e1H1",
               "width": "fill_container",
-              "fill": "$surface-card",
-              "cornerRadius": "$radius-lg",
+              "fill": "#fbfcf8",
+              "cornerRadius": 20,
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
@@ -10793,7 +10793,7 @@
                           "fill": "$font-primary",
                           "content": "隐私协议",
                           "fontFamily": "$font-body",
-                          "fontSize": 14,
+                          "fontSize": 15,
                           "fontWeight": "700"
                         },
                         {
@@ -10805,7 +10805,7 @@
                           "content": "查看我们如何存储和使用数据",
                           "lineHeight": 1.35,
                           "fontFamily": "$font-body",
-                          "fontSize": 12,
+                          "fontSize": 13,
                           "fontWeight": "500"
                         }
                       ]
@@ -10841,7 +10841,7 @@
                           "fill": "$font-primary",
                           "content": "导出数据",
                           "fontFamily": "$font-body",
-                          "fontSize": 14,
+                          "fontSize": 15,
                           "fontWeight": "700"
                         },
                         {
@@ -10853,7 +10853,7 @@
                           "content": "把目标、记录、标签和周报导出",
                           "lineHeight": 1.35,
                           "fontFamily": "$font-body",
-                          "fontSize": 12,
+                          "fontSize": 13,
                           "fontWeight": "500"
                         }
                       ]
@@ -10889,7 +10889,7 @@
                           "fill": "$font-primary",
                           "content": "删除账号",
                           "fontFamily": "$font-body",
-                          "fontSize": 14,
+                          "fontSize": 15,
                           "fontWeight": "700"
                         },
                         {
@@ -10901,7 +10901,7 @@
                           "content": "删除云端账号与同步关系",
                           "lineHeight": 1.35,
                           "fontFamily": "$font-body",
-                          "fontSize": 12,
+                          "fontSize": 13,
                           "fontWeight": "500"
                         }
                       ]
@@ -10937,7 +10937,7 @@
                           "fill": "$font-primary",
                           "content": "清空本地数据",
                           "fontFamily": "$font-body",
-                          "fontSize": 14,
+                          "fontSize": 15,
                           "fontWeight": "700"
                         },
                         {
@@ -10949,7 +10949,7 @@
                           "content": "仅清空当前设备缓存",
                           "lineHeight": 1.35,
                           "fontFamily": "$font-body",
-                          "fontSize": 12,
+                          "fontSize": 13,
                           "fontWeight": "500"
                         }
                       ]
@@ -10972,7 +10972,7 @@
               "id": "XYlil",
               "width": "fill_container",
               "fill": "$danger-soft",
-              "cornerRadius": "$radius-lg",
+              "cornerRadius": 20,
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
@@ -11061,7 +11061,7 @@
                   "fill": "$font-secondary",
                   "content": "LTE",
                   "fontFamily": "Inter",
-                  "fontSize": 12,
+                  "fontSize": 13,
                   "fontWeight": "600"
                 },
                 {
@@ -11070,7 +11070,7 @@
                   "fill": "$font-secondary",
                   "content": "87%",
                   "fontFamily": "Inter",
-                  "fontSize": 12,
+                  "fontSize": 13,
                   "fontWeight": "600"
                 }
               ]
@@ -11110,11 +11110,11 @@
                       "id": "dgJiD",
                       "width": 34,
                       "height": 34,
-                      "fill": "$surface-card",
+                      "fill": "#fbfcf8",
                       "cornerRadius": "$radius-pill",
                       "stroke": {
                         "thickness": 1,
-                        "fill": "$border-soft"
+                        "fill": "#ffffff00"
                       },
                       "justifyContent": "center",
                       "alignItems": "center",
@@ -11136,7 +11136,7 @@
                       "fill": "$font-primary",
                       "content": "小组件与主题",
                       "fontFamily": "$font-heading",
-                      "fontSize": 24,
+                      "fontSize": 26,
                       "fontWeight": "700"
                     }
                   ]
@@ -11156,7 +11156,7 @@
                   "fill": "$font-primary",
                   "content": "先把存在感做好",
                   "fontFamily": "$font-heading",
-                  "fontSize": 24,
+                  "fontSize": 26,
                   "fontWeight": "700"
                 },
                 {
@@ -11178,7 +11178,7 @@
               "id": "bYHR7",
               "width": "fill_container",
               "fill": "$surface-inverse",
-              "cornerRadius": "$radius-lg",
+              "cornerRadius": 20,
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
@@ -11233,7 +11233,7 @@
                           "content": "今晚目标\n昨晚晚 26 分钟",
                           "lineHeight": 1.35,
                           "fontFamily": "$font-body",
-                          "fontSize": 12,
+                          "fontSize": 13,
                           "fontWeight": "500"
                         }
                       ]
@@ -11247,25 +11247,25 @@
                       "children": [
                         {
                           "type": "rectangle",
-                          "cornerRadius": "$radius-md",
+                          "cornerRadius": 14,
                           "id": "mRaai",
-                          "fill": "#2C5F3B",
+                          "fill": "#214131",
                           "width": "fill_container",
                           "height": 42
                         },
                         {
                           "type": "rectangle",
-                          "cornerRadius": "$radius-md",
+                          "cornerRadius": 14,
                           "id": "cWhw1",
-                          "fill": "#2C5F3B",
+                          "fill": "#214131",
                           "width": "fill_container",
                           "height": 58
                         },
                         {
                           "type": "rectangle",
-                          "cornerRadius": "$radius-md",
+                          "cornerRadius": 14,
                           "id": "R4Mdr",
-                          "fill": "#2C5F3B",
+                          "fill": "#214131",
                           "width": "fill_container",
                           "height": 35
                         }
@@ -11279,8 +11279,8 @@
               "type": "frame",
               "id": "o2YAHZ",
               "width": "fill_container",
-              "fill": "$surface-card",
-              "cornerRadius": "$radius-lg",
+              "fill": "#fbfcf8",
+              "cornerRadius": 20,
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
@@ -11316,8 +11316,8 @@
                       "fill": "$surface-inverse",
                       "cornerRadius": "$radius-pill",
                       "padding": [
-                        7,
-                        12
+                        12,
+                        10
                       ],
                       "children": [
                         {
@@ -11326,7 +11326,7 @@
                           "fill": "$font-inverse",
                           "content": "默认晨雾",
                           "fontFamily": "$font-body",
-                          "fontSize": 12,
+                          "fontSize": 13,
                           "fontWeight": "600"
                         }
                       ]
@@ -11334,11 +11334,11 @@
                     {
                       "type": "frame",
                       "id": "ow86S",
-                      "fill": "$surface-accent-soft",
+                      "fill": "#e3eee0",
                       "cornerRadius": "$radius-pill",
                       "padding": [
-                        7,
-                        12
+                        12,
+                        10
                       ],
                       "children": [
                         {
@@ -11347,7 +11347,7 @@
                           "fill": "$font-primary",
                           "content": "深夜静色",
                           "fontFamily": "$font-body",
-                          "fontSize": 12,
+                          "fontSize": 13,
                           "fontWeight": "600"
                         }
                       ]
@@ -11355,11 +11355,11 @@
                     {
                       "type": "frame",
                       "id": "fzT4j",
-                      "fill": "$surface-accent-soft",
+                      "fill": "#e3eee0",
                       "cornerRadius": "$radius-pill",
                       "padding": [
-                        7,
-                        12
+                        12,
+                        10
                       ],
                       "children": [
                         {
@@ -11368,7 +11368,7 @@
                           "fill": "$font-primary",
                           "content": "后续扩展",
                           "fontFamily": "$font-body",
-                          "fontSize": 12,
+                          "fontSize": 13,
                           "fontWeight": "600"
                         }
                       ]
@@ -11428,7 +11428,7 @@
                   "fill": "$font-secondary",
                   "content": "LTE",
                   "fontFamily": "Inter",
-                  "fontSize": 12,
+                  "fontSize": 13,
                   "fontWeight": "600"
                 },
                 {
@@ -11437,7 +11437,7 @@
                   "fill": "$font-secondary",
                   "content": "87%",
                   "fontFamily": "Inter",
-                  "fontSize": 12,
+                  "fontSize": 13,
                   "fontWeight": "600"
                 }
               ]
@@ -11477,11 +11477,11 @@
                       "id": "WSEqZ",
                       "width": 34,
                       "height": 34,
-                      "fill": "$surface-card",
+                      "fill": "#fbfcf8",
                       "cornerRadius": "$radius-pill",
                       "stroke": {
                         "thickness": 1,
-                        "fill": "$border-soft"
+                        "fill": "#ffffff00"
                       },
                       "justifyContent": "center",
                       "alignItems": "center",
@@ -11503,7 +11503,7 @@
                       "fill": "$font-primary",
                       "content": "时区与特殊模式",
                       "fontFamily": "$font-heading",
-                      "fontSize": 24,
+                      "fontSize": 26,
                       "fontWeight": "700"
                     }
                   ]
@@ -11523,7 +11523,7 @@
                   "fill": "$font-primary",
                   "content": "先保留边界，再渐进支持",
                   "fontFamily": "$font-heading",
-                  "fontSize": 24,
+                  "fontSize": 26,
                   "fontWeight": "700"
                 },
                 {
@@ -11544,8 +11544,8 @@
               "type": "frame",
               "id": "Kf7kZ",
               "width": "fill_container",
-              "fill": "$surface-card",
-              "cornerRadius": "$radius-lg",
+              "fill": "#fbfcf8",
+              "cornerRadius": 20,
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
@@ -11575,7 +11575,7 @@
                   "fill": "$font-primary",
                   "content": "Asia/Shanghai",
                   "fontFamily": "$font-data",
-                  "fontSize": 22,
+                  "fontSize": 24,
                   "fontWeight": "700"
                 },
                 {
@@ -11596,8 +11596,8 @@
               "type": "frame",
               "id": "VHtRS",
               "width": "fill_container",
-              "fill": "$warning-soft",
-              "cornerRadius": "$radius-lg",
+              "fill": "#f3ecdd",
+              "cornerRadius": 20,
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
@@ -11652,11 +11652,11 @@
               "id": "bq7tX",
               "width": "fill_container",
               "height": 50,
-              "fill": "$surface-card",
-              "cornerRadius": "$radius-lg",
+              "fill": "#fbfcf8",
+              "cornerRadius": 20,
               "stroke": {
                 "thickness": 1,
-                "fill": "$border-soft"
+                "fill": "#ffffff00"
               },
               "justifyContent": "center",
               "alignItems": "center",
@@ -11715,7 +11715,7 @@
               "content": "左侧为底部弹层与半屏详情卡，右侧为确认框、轻提示和会员拦截提示。",
               "lineHeight": 1.4,
               "fontFamily": "$font-body",
-              "fontSize": 14,
+              "fontSize": 15,
               "fontWeight": "500"
             }
           ]
@@ -11739,8 +11739,8 @@
                   "id": "T10UU",
                   "clip": true,
                   "width": "fill_container",
-                  "fill": "$surface-card",
-                  "cornerRadius": "$radius-lg",
+                  "fill": "#fbfcf8",
+                  "cornerRadius": 20,
                   "effect": {
                     "type": "shadow",
                     "shadowType": "outer",
@@ -11757,7 +11757,7 @@
                       "type": "frame",
                       "id": "y3wDYT",
                       "width": "fill_container",
-                      "fill": "$surface-card",
+                      "fill": "#fbfcf8",
                       "layout": "vertical",
                       "gap": 10,
                       "padding": [
@@ -11805,11 +11805,11 @@
                             {
                               "type": "frame",
                               "id": "MGd6H",
-                              "fill": "$surface-accent-soft",
+                              "fill": "#e3eee0",
                               "cornerRadius": "$radius-pill",
                               "padding": [
-                                7,
-                                12
+                                12,
+                                10
                               ],
                               "children": [
                                 {
@@ -11818,7 +11818,7 @@
                                   "fill": "$font-secondary",
                                   "content": "时间选择",
                                   "fontFamily": "$font-body",
-                                  "fontSize": 12,
+                                  "fontSize": 13,
                                   "fontWeight": "600"
                                 }
                               ]
@@ -11826,11 +11826,11 @@
                             {
                               "type": "frame",
                               "id": "Hj7Pl",
-                              "fill": "$surface-accent-soft",
+                              "fill": "#e3eee0",
                               "cornerRadius": "$radius-pill",
                               "padding": [
-                                7,
-                                12
+                                12,
+                                10
                               ],
                               "children": [
                                 {
@@ -11839,7 +11839,7 @@
                                   "fill": "$font-secondary",
                                   "content": "推荐区间",
                                   "fontFamily": "$font-body",
-                                  "fontSize": 12,
+                                  "fontSize": 13,
                                   "fontWeight": "600"
                                 }
                               ]
@@ -11847,11 +11847,11 @@
                             {
                               "type": "frame",
                               "id": "tUb5R",
-                              "fill": "$surface-accent-soft",
+                              "fill": "#e3eee0",
                               "cornerRadius": "$radius-pill",
                               "padding": [
-                                7,
-                                12
+                                12,
+                                10
                               ],
                               "children": [
                                 {
@@ -11860,7 +11860,7 @@
                                   "fill": "$font-secondary",
                                   "content": "确认按钮",
                                   "fontFamily": "$font-body",
-                                  "fontSize": 12,
+                                  "fontSize": 13,
                                   "fontWeight": "600"
                                 }
                               ]
@@ -11876,8 +11876,8 @@
                   "id": "u9kKNY",
                   "clip": true,
                   "width": "fill_container",
-                  "fill": "$surface-card",
-                  "cornerRadius": "$radius-lg",
+                  "fill": "#fbfcf8",
+                  "cornerRadius": 20,
                   "effect": {
                     "type": "shadow",
                     "shadowType": "outer",
@@ -11894,7 +11894,7 @@
                       "type": "frame",
                       "id": "RHKLa",
                       "width": "fill_container",
-                      "fill": "$surface-card",
+                      "fill": "#fbfcf8",
                       "layout": "vertical",
                       "gap": 10,
                       "padding": [
@@ -11942,11 +11942,11 @@
                             {
                               "type": "frame",
                               "id": "aW9Ar",
-                              "fill": "$surface-accent-soft",
+                              "fill": "#e3eee0",
                               "cornerRadius": "$radius-pill",
                               "padding": [
-                                7,
-                                12
+                                12,
+                                10
                               ],
                               "children": [
                                 {
@@ -11955,7 +11955,7 @@
                                   "fill": "$font-secondary",
                                   "content": "补标签",
                                   "fontFamily": "$font-body",
-                                  "fontSize": 12,
+                                  "fontSize": 13,
                                   "fontWeight": "600"
                                 }
                               ]
@@ -11963,11 +11963,11 @@
                             {
                               "type": "frame",
                               "id": "VMvkl",
-                              "fill": "$surface-accent-soft",
+                              "fill": "#e3eee0",
                               "cornerRadius": "$radius-pill",
                               "padding": [
-                                7,
-                                12
+                                12,
+                                10
                               ],
                               "children": [
                                 {
@@ -11976,7 +11976,7 @@
                                   "fill": "$font-secondary",
                                   "content": "手动补录",
                                   "fontFamily": "$font-body",
-                                  "fontSize": 12,
+                                  "fontSize": 13,
                                   "fontWeight": "600"
                                 }
                               ]
@@ -11984,11 +11984,11 @@
                             {
                               "type": "frame",
                               "id": "hMXvY",
-                              "fill": "$surface-accent-soft",
+                              "fill": "#e3eee0",
                               "cornerRadius": "$radius-pill",
                               "padding": [
-                                7,
-                                12
+                                12,
+                                10
                               ],
                               "children": [
                                 {
@@ -11997,7 +11997,7 @@
                                   "fill": "$font-secondary",
                                   "content": "修改记录",
                                   "fontFamily": "$font-body",
-                                  "fontSize": 12,
+                                  "fontSize": 13,
                                   "fontWeight": "600"
                                 }
                               ]
@@ -12013,8 +12013,8 @@
                   "id": "MUy3V",
                   "clip": true,
                   "width": "fill_container",
-                  "fill": "$surface-card",
-                  "cornerRadius": "$radius-lg",
+                  "fill": "#fbfcf8",
+                  "cornerRadius": 20,
                   "effect": {
                     "type": "shadow",
                     "shadowType": "outer",
@@ -12031,7 +12031,7 @@
                       "type": "frame",
                       "id": "fvytT",
                       "width": "fill_container",
-                      "fill": "$surface-card",
+                      "fill": "#fbfcf8",
                       "layout": "vertical",
                       "gap": 10,
                       "padding": [
@@ -12079,11 +12079,11 @@
                             {
                               "type": "frame",
                               "id": "KtNwX",
-                              "fill": "$surface-accent-soft",
+                              "fill": "#e3eee0",
                               "cornerRadius": "$radius-pill",
                               "padding": [
-                                7,
-                                12
+                                12,
+                                10
                               ],
                               "children": [
                                 {
@@ -12092,7 +12092,7 @@
                                   "fill": "$font-secondary",
                                   "content": "偏差",
                                   "fontFamily": "$font-body",
-                                  "fontSize": 12,
+                                  "fontSize": 13,
                                   "fontWeight": "600"
                                 }
                               ]
@@ -12100,11 +12100,11 @@
                             {
                               "type": "frame",
                               "id": "TPLp8",
-                              "fill": "$surface-accent-soft",
+                              "fill": "#e3eee0",
                               "cornerRadius": "$radius-pill",
                               "padding": [
-                                7,
-                                12
+                                12,
+                                10
                               ],
                               "children": [
                                 {
@@ -12113,7 +12113,7 @@
                                   "fill": "$font-secondary",
                                   "content": "来源",
                                   "fontFamily": "$font-body",
-                                  "fontSize": 12,
+                                  "fontSize": 13,
                                   "fontWeight": "600"
                                 }
                               ]
@@ -12121,11 +12121,11 @@
                             {
                               "type": "frame",
                               "id": "EQLcC",
-                              "fill": "$surface-accent-soft",
+                              "fill": "#e3eee0",
                               "cornerRadius": "$radius-pill",
                               "padding": [
-                                7,
-                                12
+                                12,
+                                10
                               ],
                               "children": [
                                 {
@@ -12134,7 +12134,7 @@
                                   "fill": "$font-secondary",
                                   "content": "编辑入口",
                                   "fontFamily": "$font-body",
-                                  "fontSize": 12,
+                                  "fontSize": 13,
                                   "fontWeight": "600"
                                 }
                               ]
@@ -12151,7 +12151,7 @@
                   "clip": true,
                   "width": "fill_container",
                   "fill": "$surface-inverse",
-                  "cornerRadius": "$radius-lg",
+                  "cornerRadius": 20,
                   "effect": {
                     "type": "shadow",
                     "shadowType": "outer",
@@ -12182,7 +12182,7 @@
                           "type": "rectangle",
                           "cornerRadius": "$radius-pill",
                           "id": "C5O5j1",
-                          "fill": "#335845",
+                          "fill": "#214131",
                           "width": 64,
                           "height": 6
                         },
@@ -12216,11 +12216,11 @@
                             {
                               "type": "frame",
                               "id": "qXtUU",
-                              "fill": "#254535",
+                              "fill": "#173324",
                               "cornerRadius": "$radius-pill",
                               "padding": [
-                                7,
-                                12
+                                12,
+                                10
                               ],
                               "children": [
                                 {
@@ -12229,7 +12229,7 @@
                                   "fill": "$font-inverse",
                                   "content": "刷手机",
                                   "fontFamily": "$font-body",
-                                  "fontSize": 12,
+                                  "fontSize": 13,
                                   "fontWeight": "600"
                                 }
                               ]
@@ -12237,11 +12237,11 @@
                             {
                               "type": "frame",
                               "id": "zeDTQ",
-                              "fill": "#254535",
+                              "fill": "#173324",
                               "cornerRadius": "$radius-pill",
                               "padding": [
-                                7,
-                                12
+                                12,
+                                10
                               ],
                               "children": [
                                 {
@@ -12250,7 +12250,7 @@
                                   "fill": "$font-inverse",
                                   "content": "工作",
                                   "fontFamily": "$font-body",
-                                  "fontSize": 12,
+                                  "fontSize": 13,
                                   "fontWeight": "600"
                                 }
                               ]
@@ -12258,11 +12258,11 @@
                             {
                               "type": "frame",
                               "id": "xGu48",
-                              "fill": "#254535",
+                              "fill": "#173324",
                               "cornerRadius": "$radius-pill",
                               "padding": [
-                                7,
-                                12
+                                12,
+                                10
                               ],
                               "children": [
                                 {
@@ -12271,7 +12271,7 @@
                                   "fill": "$font-inverse",
                                   "content": "情绪",
                                   "fontFamily": "$font-body",
-                                  "fontSize": 12,
+                                  "fontSize": 13,
                                   "fontWeight": "600"
                                 }
                               ]
@@ -12287,8 +12287,8 @@
                   "id": "i4sb1",
                   "clip": true,
                   "width": "fill_container",
-                  "fill": "$surface-card",
-                  "cornerRadius": "$radius-lg",
+                  "fill": "#fbfcf8",
+                  "cornerRadius": 20,
                   "effect": {
                     "type": "shadow",
                     "shadowType": "outer",
@@ -12305,7 +12305,7 @@
                       "type": "frame",
                       "id": "O77vcg",
                       "width": "fill_container",
-                      "fill": "$surface-card",
+                      "fill": "#fbfcf8",
                       "layout": "vertical",
                       "gap": 10,
                       "padding": [
@@ -12353,11 +12353,11 @@
                             {
                               "type": "frame",
                               "id": "i5vso",
-                              "fill": "$surface-accent-soft",
+                              "fill": "#e3eee0",
                               "cornerRadius": "$radius-pill",
                               "padding": [
-                                7,
-                                12
+                                12,
+                                10
                               ],
                               "children": [
                                 {
@@ -12366,7 +12366,7 @@
                                   "fill": "$font-secondary",
                                   "content": "第 1 天",
                                   "fontFamily": "$font-body",
-                                  "fontSize": 12,
+                                  "fontSize": 13,
                                   "fontWeight": "600"
                                 }
                               ]
@@ -12374,11 +12374,11 @@
                             {
                               "type": "frame",
                               "id": "EBUBW",
-                              "fill": "$surface-accent-soft",
+                              "fill": "#e3eee0",
                               "cornerRadius": "$radius-pill",
                               "padding": [
-                                7,
-                                12
+                                12,
+                                10
                               ],
                               "children": [
                                 {
@@ -12387,7 +12387,7 @@
                                   "fill": "$font-secondary",
                                   "content": "完成状态",
                                   "fontFamily": "$font-body",
-                                  "fontSize": 12,
+                                  "fontSize": 13,
                                   "fontWeight": "600"
                                 }
                               ]
@@ -12395,11 +12395,11 @@
                             {
                               "type": "frame",
                               "id": "MNpvQ",
-                              "fill": "$surface-accent-soft",
+                              "fill": "#e3eee0",
                               "cornerRadius": "$radius-pill",
                               "padding": [
-                                7,
-                                12
+                                12,
+                                10
                               ],
                               "children": [
                                 {
@@ -12408,7 +12408,7 @@
                                   "fill": "$font-secondary",
                                   "content": "延期",
                                   "fontFamily": "$font-body",
-                                  "fontSize": 12,
+                                  "fontSize": 13,
                                   "fontWeight": "600"
                                 }
                               ]
@@ -12424,8 +12424,8 @@
                   "id": "piBb5",
                   "clip": true,
                   "width": "fill_container",
-                  "fill": "$surface-card",
-                  "cornerRadius": "$radius-lg",
+                  "fill": "#fbfcf8",
+                  "cornerRadius": 20,
                   "effect": {
                     "type": "shadow",
                     "shadowType": "outer",
@@ -12442,7 +12442,7 @@
                       "type": "frame",
                       "id": "BPD7y",
                       "width": "fill_container",
-                      "fill": "$surface-card",
+                      "fill": "#fbfcf8",
                       "layout": "vertical",
                       "gap": 10,
                       "padding": [
@@ -12490,11 +12490,11 @@
                             {
                               "type": "frame",
                               "id": "msmIu",
-                              "fill": "$surface-accent-soft",
+                              "fill": "#e3eee0",
                               "cornerRadius": "$radius-pill",
                               "padding": [
-                                7,
-                                12
+                                12,
+                                10
                               ],
                               "children": [
                                 {
@@ -12503,7 +12503,7 @@
                                   "fill": "$font-secondary",
                                   "content": "近 7 天",
                                   "fontFamily": "$font-body",
-                                  "fontSize": 12,
+                                  "fontSize": 13,
                                   "fontWeight": "600"
                                 }
                               ]
@@ -12511,11 +12511,11 @@
                             {
                               "type": "frame",
                               "id": "adFet",
-                              "fill": "$surface-accent-soft",
+                              "fill": "#e3eee0",
                               "cornerRadius": "$radius-pill",
                               "padding": [
-                                7,
-                                12
+                                12,
+                                10
                               ],
                               "children": [
                                 {
@@ -12524,7 +12524,7 @@
                                   "fill": "$font-secondary",
                                   "content": "评分口径",
                                   "fontFamily": "$font-body",
-                                  "fontSize": 12,
+                                  "fontSize": 13,
                                   "fontWeight": "600"
                                 }
                               ]
@@ -12532,11 +12532,11 @@
                             {
                               "type": "frame",
                               "id": "MMNtp",
-                              "fill": "$surface-accent-soft",
+                              "fill": "#e3eee0",
                               "cornerRadius": "$radius-pill",
                               "padding": [
-                                7,
-                                12
+                                12,
+                                10
                               ],
                               "children": [
                                 {
@@ -12545,7 +12545,7 @@
                                   "fill": "$font-secondary",
                                   "content": "会员解释",
                                   "fontFamily": "$font-body",
-                                  "fontSize": 12,
+                                  "fontSize": 13,
                                   "fontWeight": "600"
                                 }
                               ]
@@ -12581,8 +12581,8 @@
                           "type": "frame",
                           "id": "s8L5qq",
                           "width": 320,
-                          "fill": "$warning-soft",
-                          "cornerRadius": "$radius-lg",
+                          "fill": "#f3ecdd",
+                          "cornerRadius": 20,
                           "effect": {
                             "type": "shadow",
                             "shadowType": "outer",
@@ -12630,11 +12630,11 @@
                                   "id": "bZELx",
                                   "width": "fill_container",
                                   "height": 44,
-                                  "fill": "$surface-card",
-                                  "cornerRadius": "$radius-md",
+                                  "fill": "#fbfcf8",
+                                  "cornerRadius": 14,
                                   "stroke": {
                                     "thickness": 1,
-                                    "fill": "$border-soft"
+                                    "fill": "#ffffff00"
                                   },
                                   "justifyContent": "center",
                                   "alignItems": "center",
@@ -12656,7 +12656,7 @@
                                   "width": "fill_container",
                                   "height": 44,
                                   "fill": "$accent-primary",
-                                  "cornerRadius": "$radius-md",
+                                  "cornerRadius": 14,
                                   "justifyContent": "center",
                                   "alignItems": "center",
                                   "children": [
@@ -12679,8 +12679,8 @@
                           "type": "frame",
                           "id": "StQFP",
                           "width": 320,
-                          "fill": "$surface-card",
-                          "cornerRadius": "$radius-lg",
+                          "fill": "#fbfcf8",
+                          "cornerRadius": 20,
                           "effect": {
                             "type": "shadow",
                             "shadowType": "outer",
@@ -12728,11 +12728,11 @@
                                   "id": "Y6h8c3",
                                   "width": "fill_container",
                                   "height": 44,
-                                  "fill": "$surface-card",
-                                  "cornerRadius": "$radius-md",
+                                  "fill": "#fbfcf8",
+                                  "cornerRadius": 14,
                                   "stroke": {
                                     "thickness": 1,
-                                    "fill": "$border-soft"
+                                    "fill": "#ffffff00"
                                   },
                                   "justifyContent": "center",
                                   "alignItems": "center",
@@ -12754,7 +12754,7 @@
                                   "width": "fill_container",
                                   "height": 44,
                                   "fill": "$accent-primary",
-                                  "cornerRadius": "$radius-md",
+                                  "cornerRadius": 14,
                                   "justifyContent": "center",
                                   "alignItems": "center",
                                   "children": [
@@ -12786,7 +12786,7 @@
                           "id": "pwomM",
                           "width": 320,
                           "fill": "$danger-soft",
-                          "cornerRadius": "$radius-lg",
+                          "cornerRadius": 20,
                           "effect": {
                             "type": "shadow",
                             "shadowType": "outer",
@@ -12834,11 +12834,11 @@
                                   "id": "PT0O2",
                                   "width": "fill_container",
                                   "height": 44,
-                                  "fill": "$surface-card",
-                                  "cornerRadius": "$radius-md",
+                                  "fill": "#fbfcf8",
+                                  "cornerRadius": 14,
                                   "stroke": {
                                     "thickness": 1,
-                                    "fill": "$border-soft"
+                                    "fill": "#ffffff00"
                                   },
                                   "justifyContent": "center",
                                   "alignItems": "center",
@@ -12860,7 +12860,7 @@
                                   "width": "fill_container",
                                   "height": 44,
                                   "fill": "$accent-primary",
-                                  "cornerRadius": "$radius-md",
+                                  "cornerRadius": 14,
                                   "justifyContent": "center",
                                   "alignItems": "center",
                                   "children": [
@@ -12883,8 +12883,8 @@
                           "type": "frame",
                           "id": "egcsJ",
                           "width": 320,
-                          "fill": "$surface-card",
-                          "cornerRadius": "$radius-lg",
+                          "fill": "#fbfcf8",
+                          "cornerRadius": 20,
                           "effect": {
                             "type": "shadow",
                             "shadowType": "outer",
@@ -12932,11 +12932,11 @@
                                   "id": "FXCI3",
                                   "width": "fill_container",
                                   "height": 44,
-                                  "fill": "$surface-card",
-                                  "cornerRadius": "$radius-md",
+                                  "fill": "#fbfcf8",
+                                  "cornerRadius": 14,
                                   "stroke": {
                                     "thickness": 1,
-                                    "fill": "$border-soft"
+                                    "fill": "#ffffff00"
                                   },
                                   "justifyContent": "center",
                                   "alignItems": "center",
@@ -12958,7 +12958,7 @@
                                   "width": "fill_container",
                                   "height": 44,
                                   "fill": "$accent-primary",
-                                  "cornerRadius": "$radius-md",
+                                  "cornerRadius": 14,
                                   "justifyContent": "center",
                                   "alignItems": "center",
                                   "children": [
@@ -12993,7 +12993,7 @@
                       "id": "Th2qZ",
                       "width": 360,
                       "fill": "$surface-inverse",
-                      "cornerRadius": "$radius-lg",
+                      "cornerRadius": 20,
                       "effect": {
                         "type": "shadow",
                         "shadowType": "outer",
@@ -13042,7 +13042,7 @@
                               "content": "目标作息已更新，可在今晚生效。",
                               "lineHeight": 1.35,
                               "fontFamily": "$font-body",
-                              "fontSize": 12,
+                              "fontSize": 13,
                               "fontWeight": "500"
                             }
                           ]
@@ -13053,8 +13053,8 @@
                       "type": "frame",
                       "id": "dW4to",
                       "width": 360,
-                      "fill": "$warning-soft",
-                      "cornerRadius": "$radius-lg",
+                      "fill": "#f3ecdd",
+                      "cornerRadius": 20,
                       "effect": {
                         "type": "shadow",
                         "shadowType": "outer",
@@ -13103,7 +13103,7 @@
                               "content": "云端同步失败，稍后可在账号页重试。",
                               "lineHeight": 1.35,
                               "fontFamily": "$font-body",
-                              "fontSize": 12,
+                              "fontSize": 13,
                               "fontWeight": "500"
                             }
                           ]
@@ -13114,8 +13114,8 @@
                       "type": "frame",
                       "id": "zWWjh",
                       "width": 360,
-                      "fill": "$surface-card",
-                      "cornerRadius": "$radius-lg",
+                      "fill": "#fbfcf8",
+                      "cornerRadius": 20,
                       "effect": {
                         "type": "shadow",
                         "shadowType": "outer",
@@ -13164,7 +13164,7 @@
                               "content": "恢复计划详情属于会员能力，仍可继续使用免费闭环。",
                               "lineHeight": 1.35,
                               "fontFamily": "$font-body",
-                              "fontSize": 12,
+                              "fontSize": 13,
                               "fontWeight": "500"
                             }
                           ]
@@ -14438,7 +14438,7 @@
                   "fill": "$font-secondary",
                   "content": "LTE",
                   "fontFamily": "Inter",
-                  "fontSize": 12,
+                  "fontSize": 13,
                   "fontWeight": "600"
                 },
                 {
@@ -14447,7 +14447,7 @@
                   "fill": "$font-secondary",
                   "content": "87%",
                   "fontFamily": "Inter",
-                  "fontSize": 12,
+                  "fontSize": 13,
                   "fontWeight": "600"
                 }
               ]
@@ -14487,11 +14487,11 @@
                       "id": "Jlo2Y",
                       "width": 34,
                       "height": 34,
-                      "fill": "$surface-card",
+                      "fill": "#fbfcf8",
                       "cornerRadius": "$radius-pill",
                       "stroke": {
                         "thickness": 1,
-                        "fill": "$border-soft"
+                        "fill": "#ffffff00"
                       },
                       "justifyContent": "center",
                       "alignItems": "center",
@@ -14513,7 +14513,7 @@
                       "fill": "$font-primary",
                       "content": "手动补录",
                       "fontFamily": "$font-heading",
-                      "fontSize": 24,
+                      "fontSize": 26,
                       "fontWeight": "700"
                     }
                   ]
@@ -14521,11 +14521,11 @@
                 {
                   "type": "frame",
                   "id": "lg3xR",
-                  "fill": "$surface-accent-soft",
+                  "fill": "#e3eee0",
                   "cornerRadius": "$radius-pill",
                   "padding": [
-                    7,
-                    12
+                    12,
+                    10
                   ],
                   "children": [
                     {
@@ -14534,7 +14534,7 @@
                       "fill": "$font-secondary",
                       "content": "保存后生效",
                       "fontFamily": "$font-body",
-                      "fontSize": 12,
+                      "fontSize": 13,
                       "fontWeight": "600"
                     }
                   ]
@@ -14554,7 +14554,7 @@
                   "fill": "$font-primary",
                   "content": "手动确认昨晚的睡眠结果",
                   "fontFamily": "$font-heading",
-                  "fontSize": 24,
+                  "fontSize": 26,
                   "fontWeight": "700"
                 },
                 {
@@ -14575,8 +14575,8 @@
               "type": "frame",
               "id": "mMA0z",
               "width": "fill_container",
-              "fill": "$surface-card",
-              "cornerRadius": "$radius-lg",
+              "fill": "#fbfcf8",
+              "cornerRadius": 20,
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
@@ -14608,7 +14608,7 @@
                       "fill": "$font-primary",
                       "content": "归属日期",
                       "fontFamily": "$font-body",
-                      "fontSize": 14,
+                      "fontSize": 15,
                       "fontWeight": "600"
                     },
                     {
@@ -14639,7 +14639,7 @@
                       "fill": "$font-primary",
                       "content": "入睡时间",
                       "fontFamily": "$font-body",
-                      "fontSize": 14,
+                      "fontSize": 15,
                       "fontWeight": "600"
                     },
                     {
@@ -14670,7 +14670,7 @@
                       "fill": "$font-primary",
                       "content": "起床时间",
                       "fontFamily": "$font-body",
-                      "fontSize": 14,
+                      "fontSize": 15,
                       "fontWeight": "600"
                     },
                     {
@@ -14701,7 +14701,7 @@
                       "fill": "$font-primary",
                       "content": "睡眠时长",
                       "fontFamily": "$font-body",
-                      "fontSize": 14,
+                      "fontSize": 15,
                       "fontWeight": "600"
                     },
                     {
@@ -14732,7 +14732,7 @@
                       "fill": "$font-primary",
                       "content": "数据来源",
                       "fontFamily": "$font-body",
-                      "fontSize": 14,
+                      "fontSize": 15,
                       "fontWeight": "600"
                     },
                     {
@@ -14752,8 +14752,8 @@
               "type": "frame",
               "id": "EzWlw",
               "width": "fill_container",
-              "fill": "$warning-soft",
-              "cornerRadius": "$radius-lg",
+              "fill": "#f3ecdd",
+              "cornerRadius": 20,
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
@@ -14806,7 +14806,7 @@
                   "width": "fill_container",
                   "height": 54,
                   "fill": "$accent-primary",
-                  "cornerRadius": "$radius-lg",
+                  "cornerRadius": 20,
                   "effect": {
                     "type": "shadow",
                     "shadowType": "outer",
@@ -14836,11 +14836,11 @@
                   "id": "a68eA",
                   "width": "fill_container",
                   "height": 50,
-                  "fill": "$surface-card",
-                  "cornerRadius": "$radius-lg",
+                  "fill": "#fbfcf8",
+                  "cornerRadius": 20,
                   "stroke": {
                     "thickness": 1,
-                    "fill": "$border-soft"
+                    "fill": "#ffffff00"
                   },
                   "justifyContent": "center",
                   "alignItems": "center",
