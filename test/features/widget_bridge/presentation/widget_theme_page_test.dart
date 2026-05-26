@@ -4,17 +4,14 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rhythm/app/bootstrap/launch_state_provider.dart';
 import 'package:rhythm/app/router/app_router.dart';
-import 'package:rhythm/app/theme/app_theme.dart';
 import 'package:rhythm/features/widget_bridge/data/home_widget_gateway.dart';
-import 'package:rhythm/features/preferences/application/app_preferences_providers.dart';
-import 'package:rhythm/features/preferences/domain/app_theme_preference.dart';
 import 'package:rhythm/features/widget_bridge/application/widget_snapshot_service.dart';
 import 'package:rhythm/features/widget_bridge/domain/widget_snapshot.dart';
 import 'package:rhythm/features/widget_bridge/presentation/widget_theme_page.dart';
 import 'package:rhythm/l10n/app_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// 验证小组件与主题页会展示真实主题切换、刷新反馈和快捷入口。
+/// 验证小组件页会展示添加入口、刷新反馈和快捷入口。
 void main() {
   testWidgets('页面不再展示阶段性说明文案', (tester) async {
     await _pumpPage(
@@ -130,7 +127,7 @@ void main() {
     expect(find.text('当前设备还没有添加 Rhythm 小组件'), findsOneWidget);
   });
 
-  testWidgets('页面内切换主题后立刻驱动全局主题模式', (tester) async {
+  testWidgets('页面不再重复展示主题切换区', (tester) async {
     await _pumpPage(
       tester,
       snapshot: WidgetSnapshot.ready(
@@ -141,16 +138,55 @@ void main() {
       ),
     );
 
-    await tester.scrollUntilVisible(
-      find.byKey(const Key('widget-theme-option-dark')),
-      200,
+    expect(find.text('主题'), findsNothing);
+    expect(find.byKey(const Key('widget-theme-option-dark')), findsNothing);
+    expect(find.text('跟随系统'), findsNothing);
+  });
+
+  testWidgets('支持固定到桌面时主按钮展示添加入口并触发请求', (tester) async {
+    final gateway = _FakeHomeWidgetGateway(
+      pinSupportState: HomeWidgetPinSupportState.supported,
     );
-    await tester.tap(find.byKey(const Key('widget-theme-option-dark')));
+    await _pumpPage(
+      tester,
+      snapshot: WidgetSnapshot.ready(
+        targetBedtimeLabel: '23:30',
+        minutesToTarget: 52,
+        lastNightStatusLabel: '昨晚晚 26 分钟',
+        entryUri: Uri.parse('rhythm://bedtime?source=widget_bedtime_shortcut'),
+      ),
+      gateway: gateway,
+    );
+
+    expect(find.text('添加到桌面'), findsOneWidget);
+
+    await tester.tap(find.byKey(const Key('widget-theme-pin-button')));
     await tester.pumpAndSettle();
 
-    final app = tester.widget<MaterialApp>(find.byType(MaterialApp));
-    expect(app.themeMode, ThemeMode.dark);
-    expect(find.text('深色'), findsWidgets);
+    expect(gateway.pinRequested, isTrue);
+    expect(find.text('系统添加面板已打开'), findsOneWidget);
+  });
+
+  testWidgets('不支持固定到桌面时展示手动添加引导', (tester) async {
+    final gateway = _FakeHomeWidgetGateway(
+      pinSupportState: HomeWidgetPinSupportState.unsupported,
+    );
+    await _pumpPage(
+      tester,
+      snapshot: WidgetSnapshot.ready(
+        targetBedtimeLabel: '23:30',
+        minutesToTarget: 52,
+        lastNightStatusLabel: '昨晚晚 26 分钟',
+        entryUri: Uri.parse('rhythm://bedtime?source=widget_bedtime_shortcut'),
+      ),
+      gateway: gateway,
+    );
+
+    await tester.tap(find.byKey(const Key('widget-theme-pin-button')));
+    await tester.pumpAndSettle();
+
+    expect(gateway.pinRequested, isFalse);
+    expect(find.text('请先在系统桌面手动添加 Rhythm 小组件'), findsOneWidget);
   });
 
   testWidgets('页面提供今日页和睡前模式两个快捷入口', (tester) async {
@@ -233,7 +269,7 @@ Future<void> _pumpPage(
   await tester.pumpAndSettle();
 }
 
-/// 为页面测试提供真实主题偏好注入，确保页面内切换可以驱动全局主题模式。
+/// 为页面测试提供最小应用壳，避免页面依赖真实启动流程。
 class _WidgetThemeTestApp extends ConsumerWidget {
   /// 创建测试壳。
   const _WidgetThemeTestApp();
@@ -242,9 +278,6 @@ class _WidgetThemeTestApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
       locale: const Locale('zh'),
-      theme: AppTheme.light(),
-      darkTheme: AppTheme.dark(),
-      themeMode: ref.watch(appThemeModeProvider),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       home: const Scaffold(body: WidgetThemePage()),
@@ -257,16 +290,33 @@ class _FakeHomeWidgetGateway implements HomeWidgetGateway {
   _FakeHomeWidgetGateway({
     this.shouldThrow = false,
     this.installationState = HomeWidgetInstallationState.available,
+    this.pinSupportState = HomeWidgetPinSupportState.supported,
   });
 
   final bool shouldThrow;
   final HomeWidgetInstallationState installationState;
+  final HomeWidgetPinSupportState pinSupportState;
   bool saveCalled = false;
   bool updateCalled = false;
+  bool pinRequested = false;
 
   @override
   Future<HomeWidgetInstallationState> getInstallationState() async {
     return installationState;
+  }
+
+  @override
+  Future<HomeWidgetPinSupportState> getPinSupportState() async {
+    return pinSupportState;
+  }
+
+  @override
+  Future<bool> requestPin() async {
+    if (pinSupportState == HomeWidgetPinSupportState.supported) {
+      pinRequested = true;
+      return true;
+    }
+    return false;
   }
 
   @override

@@ -115,6 +115,16 @@ class _FakeHomeWidgetGateway implements HomeWidgetGateway {
   }
 
   @override
+  Future<HomeWidgetPinSupportState> getPinSupportState() async {
+    return HomeWidgetPinSupportState.supported;
+  }
+
+  @override
+  Future<bool> requestPin() async {
+    return true;
+  }
+
+  @override
   Future<Uri?> readInitialEntry() async => null;
 
   @override

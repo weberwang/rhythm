@@ -5,14 +5,12 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rhythm/app/router/app_router.dart';
 import 'package:rhythm/app/router/secondary_navigation.dart';
 import 'package:rhythm/core/presentation/widgets/secondary_page_header.dart';
-import 'package:rhythm/features/preferences/application/app_preferences_providers.dart';
-import 'package:rhythm/features/preferences/domain/app_theme_preference.dart';
 import 'package:rhythm/features/widget_bridge/application/widget_snapshot_service.dart';
 import 'package:rhythm/features/widget_bridge/data/home_widget_gateway.dart';
 import 'package:rhythm/features/widget_bridge/domain/widget_snapshot.dart';
 import 'package:rhythm/l10n/app_localizations.dart';
 
-/// 展示小组件预览、刷新入口和主题切换的二级设置页。
+/// 展示小组件预览、添加入口和状态说明的二级设置页。
 class WidgetThemePage extends HookConsumerWidget {
   /// 创建小组件与主题页。
   const WidgetThemePage({super.key});
@@ -21,8 +19,40 @@ class WidgetThemePage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
     final snapshotAsync = ref.watch(widgetThemeSnapshotProvider);
-    final preferences = ref.watch(appPreferencesControllerProvider);
     final refreshing = useState(false);
+    final pinning = useState(false);
+
+    Future<void> requestPin() async {
+      if (pinning.value) {
+        return;
+      }
+
+      pinning.value = true;
+      try {
+        final gateway = ref.read(homeWidgetGatewayProvider);
+        final accepted = await gateway.requestPin();
+        if (!context.mounted) {
+          return;
+        }
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              accepted
+                  ? l10n.widgetThemePinSuccess
+                  : l10n.widgetThemePinManualHint,
+            ),
+          ),
+        );
+      } catch (_) {
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(l10n.widgetThemePinFailure)),
+          );
+        }
+      } finally {
+        pinning.value = false;
+      }
+    }
 
     Future<void> refreshSnapshot() async {
       if (refreshing.value) {
@@ -65,23 +95,10 @@ class WidgetThemePage extends HookConsumerWidget {
         child: snapshotAsync.when(
           data: (snapshot) => _WidgetThemeBody(
             snapshot: snapshot,
-            themePreference: preferences.themePreference,
+            pinning: pinning.value,
             refreshing: refreshing.value,
+            onPin: requestPin,
             onRefresh: refreshSnapshot,
-            onThemeSelected: (preference) async {
-              if (preference == preferences.themePreference) {
-                return;
-              }
-              final succeeded = await ref
-                  .read(appPreferencesControllerProvider.notifier)
-                  .updateTheme(preference);
-              if (!context.mounted || succeeded) {
-                return;
-              }
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(l10n.profilePreferencesSaveFailed)),
-              );
-            },
           ),
           loading: () => const Center(child: CircularProgressIndicator()),
           error: (error, stackTrace) => Center(
@@ -101,26 +118,26 @@ class _WidgetThemeBody extends StatelessWidget {
   /// 创建页面主体。
   const _WidgetThemeBody({
     required this.snapshot,
-    required this.themePreference,
+    required this.pinning,
     required this.refreshing,
+    required this.onPin,
     required this.onRefresh,
-    required this.onThemeSelected,
   });
 
   /// 当前页面预览快照。
   final WidgetSnapshot snapshot;
 
-  /// 当前主题偏好。
-  final AppThemePreference themePreference;
+  /// 是否正在请求添加到桌面。
+  final bool pinning;
 
   /// 是否正在刷新小组件。
   final bool refreshing;
 
+  /// 添加到桌面动作。
+  final Future<void> Function() onPin;
+
   /// 刷新动作。
   final Future<void> Function() onRefresh;
-
-  /// 主题切换动作。
-  final ValueChanged<AppThemePreference> onThemeSelected;
 
   @override
   Widget build(BuildContext context) {
@@ -149,39 +166,49 @@ class _WidgetThemeBody extends StatelessWidget {
                   _WidgetPreviewCard(snapshot: snapshot),
                   const SizedBox(height: 12),
                   _WidgetStateCard(snapshot: snapshot),
-                  const SizedBox(height: 12),
-                  _ThemeSelectorCard(
-                    selectedPreference: themePreference,
-                    onSelected: onThemeSelected,
-                  ),
                 ],
               ),
             ),
           ),
           const SizedBox(height: 12),
           FilledButton(
-            key: const Key('widget-theme-refresh-button'),
-            onPressed: refreshing ? null : onRefresh,
+            key: const Key('widget-theme-pin-button'),
+            onPressed: pinning ? null : onPin,
             style: FilledButton.styleFrom(
               minimumSize: const Size.fromHeight(52),
             ),
             child: Text(
-              refreshing
-                  ? l10n.widgetThemeRefreshingButton
-                  : l10n.widgetThemeRefreshButton,
+              pinning
+                  ? l10n.widgetThemePinningButton
+                  : l10n.widgetThemePinButton,
             ),
           ),
           const SizedBox(height: 12),
-          Row(
+          Wrap(
+            spacing: 12,
+            runSpacing: 12,
             children: [
-              Expanded(
+              SizedBox(
+                width: (MediaQuery.sizeOf(context).width - 52) / 2,
+                child: OutlinedButton(
+                  key: const Key('widget-theme-refresh-button'),
+                  onPressed: refreshing ? null : onRefresh,
+                  child: Text(
+                    refreshing
+                        ? l10n.widgetThemeRefreshingButton
+                        : l10n.widgetThemeRefreshButton,
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: (MediaQuery.sizeOf(context).width - 52) / 2,
                 child: OutlinedButton(
                   onPressed: () => context.go(RhythmTab.today.path),
                   child: Text(l10n.widgetThemeOpenTodayButton),
                 ),
               ),
-              const SizedBox(width: 12),
-              Expanded(
+              SizedBox(
+                width: double.infinity,
                 child: FilledButton.tonal(
                   onPressed: () => context.go(bedtimeModePath),
                   child: Text(l10n.widgetThemeOpenBedtimeButton),
@@ -438,126 +465,6 @@ class _WidgetStateCard extends StatelessWidget {
       case WidgetSnapshotState.ready:
         break;
     }
-  }
-}
-
-/// 主题选择卡，直接复用全局主题偏好能力，避免页面继续停留在视觉占位。
-class _ThemeSelectorCard extends StatelessWidget {
-  /// 创建主题选择卡。
-  const _ThemeSelectorCard({
-    required this.selectedPreference,
-    required this.onSelected,
-  });
-
-  /// 当前选中的主题偏好。
-  final AppThemePreference selectedPreference;
-
-  /// 主题切换动作。
-  final ValueChanged<AppThemePreference> onSelected;
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
-    final options = <({AppThemePreference preference, String label, Key key})>[
-      (
-        preference: AppThemePreference.system,
-        label: l10n.profilePreferencesFollowSystem,
-        key: const Key('widget-theme-option-system'),
-      ),
-      (
-        preference: AppThemePreference.light,
-        label: l10n.profilePreferencesLight,
-        key: const Key('widget-theme-option-light'),
-      ),
-      (
-        preference: AppThemePreference.dark,
-        label: l10n.profilePreferencesDark,
-        key: const Key('widget-theme-option-dark'),
-      ),
-    ];
-
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: const [
-          BoxShadow(
-            color: Color(0x0F000000),
-            blurRadius: 18,
-            offset: Offset(0, 6),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            l10n.profilePreferencesThemeTitle,
-            style: Theme.of(
-              context,
-            ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700),
-          ),
-          const SizedBox(height: 10),
-          Wrap(
-            spacing: 8,
-            runSpacing: 8,
-            children: [
-              for (final option in options)
-                _ThemeChip(
-                  key: option.key,
-                  text: option.label,
-                  selected: selectedPreference == option.preference,
-                  onTap: () => onSelected(option.preference),
-                ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-/// 主题选项标签，保持当前页面切换操作轻量直接。
-class _ThemeChip extends StatelessWidget {
-  /// 创建主题标签。
-  const _ThemeChip({
-    super.key,
-    required this.text,
-    required this.selected,
-    required this.onTap,
-  });
-
-  /// 标签文案。
-  final String text;
-
-  /// 是否为当前选中项。
-  final bool selected;
-
-  /// 点击动作。
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(9999),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
-        decoration: BoxDecoration(
-          color: selected ? const Color(0xFF1B3A28) : const Color(0xFFD7E7DA),
-          borderRadius: BorderRadius.circular(9999),
-        ),
-        child: Text(
-          text,
-          style: Theme.of(context).textTheme.labelLarge?.copyWith(
-            color: selected ? Colors.white : const Color(0xFF1B3A28),
-            fontWeight: selected ? FontWeight.w700 : FontWeight.w600,
-          ),
-        ),
-      ),
-    );
   }
 }
 
