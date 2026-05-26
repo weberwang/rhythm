@@ -1,5 +1,4 @@
 import 'package:home_widget/home_widget.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../domain/widget_snapshot.dart';

@@ -110,7 +110,15 @@ void main() {
 /// 提供测试用小组件网关，避免页面依赖真实插件实现。
 class _FakeHomeWidgetGateway implements HomeWidgetGateway {
   @override
+  Future<HomeWidgetInstallationState> getInstallationState() async {
+    return HomeWidgetInstallationState.available;
+  }
+
+  @override
   Future<Uri?> readInitialEntry() async => null;
+
+  @override
+  Future<void> clearSnapshot() async {}
 
   @override
   Future<void> refresh() async {}
