@@ -1,15 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:rhythm/app/router/app_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rhythm/core/presentation/widgets/secondary_page_header.dart';
+import 'package:rhythm/features/calendar/application/calendar_controller.dart';
+import 'package:rhythm/features/goal_schedule/application/goal_schedule_providers.dart';
+import 'package:rhythm/features/insights/application/insights_controller.dart';
+import 'package:rhythm/features/profile/application/local_data_clear_service.dart';
+import 'package:rhythm/features/sleep_records/application/effective_sleep_record_provider.dart';
+import 'package:rhythm/features/today/application/today_controller.dart';
+import 'package:rhythm/features/widget_bridge/application/widget_snapshot_service.dart';
 import 'package:rhythm/l10n/app_localizations.dart';
 
+const String _profileFallbackLocation = '/profile';
+
 /// 展示阶段八的隐私与数据页，统一承接协议、导出、删除和清空本地数据入口。
-class PrivacyDataPage extends StatelessWidget {
+class PrivacyDataPage extends HookConsumerWidget {
   /// 创建隐私与数据页。
   const PrivacyDataPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
     final l10n = AppLocalizations.of(context);
@@ -24,7 +33,7 @@ class PrivacyDataPage extends StatelessWidget {
               children: [
                 SecondaryPageHeader(
                   title: l10n.privacyDataPageTitle,
-                  fallbackLocation: RhythmTab.profile.path,
+                  fallbackLocation: _profileFallbackLocation,
                   titleStyle: textTheme.headlineSmall?.copyWith(
                     fontFamily: 'Funnel Sans',
                     fontWeight: FontWeight.w700,
@@ -71,8 +80,9 @@ class PrivacyDataPage extends StatelessWidget {
                     _PrivacyAction(
                       title: l10n.privacyDataClearLocalTitle,
                       description: l10n.privacyDataClearLocalDescription,
-                      onTap: () => _showInfoDialog(
+                      onTap: () => _showConfirmDialog(
                         context,
+                        ref: ref,
                         title: l10n.privacyDataClearLocalDialogTitle,
                         message: l10n.privacyDataClearLocalDialogMessage,
                       ),
@@ -108,6 +118,59 @@ class PrivacyDataPage extends StatelessWidget {
             ),
             FilledButton(
               onPressed: () => Navigator.of(context).pop(),
+              child: Text(l10n.commonConfirmButton),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  /// “清空本地数据”会影响多个页面缓存，这里集中失效相关 Provider，确保回到页面后读到新状态。
+  Future<void> _clearBusinessLocalData(
+    BuildContext context,
+    WidgetRef ref,
+  ) async {
+    await ref.read(localDataClearServiceProvider).clearBusinessLocalData();
+    ref.invalidate(savedGoalScheduleSettingsProvider);
+    ref.invalidate(recentSevenDayEffectiveSleepRecordsProvider);
+    ref.invalidate(recentThirtyDayEffectiveSleepRecordsProvider);
+    ref.invalidate(recentEffectiveSleepRecordsProvider);
+    ref.invalidate(calendarControllerProvider);
+    ref.invalidate(insightsControllerProvider);
+    ref.invalidate(todayControllerProvider);
+    ref.invalidate(widgetThemeSnapshotProvider);
+
+    if (!context.mounted) {
+      return;
+    }
+  }
+
+  /// 清空操作只删除业务本地数据，不影响语言、主题和登录态，因此需要单独确认说明。
+  Future<void> _showConfirmDialog(
+    BuildContext context, {
+    required WidgetRef ref,
+    required String title,
+    required String message,
+  }) {
+    final l10n = AppLocalizations.of(context);
+
+    return showDialog<void>(
+      context: context,
+      builder: (dialogContext) {
+        return AlertDialog(
+          title: Text(title),
+          content: Text(message),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(dialogContext).pop(),
+              child: Text(l10n.commonCancelButton),
+            ),
+            FilledButton(
+              onPressed: () async {
+                Navigator.of(dialogContext).pop();
+                await _clearBusinessLocalData(context, ref);
+              },
               child: Text(l10n.commonConfirmButton),
             ),
           ],
