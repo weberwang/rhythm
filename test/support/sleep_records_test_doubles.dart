@@ -19,6 +19,9 @@ class TestHealthPermissionGateway extends HealthPermissionGateway {
   /// 模拟点击授权后的返回状态；未设置时沿用初始平台状态。
   final HealthPlatformState? requestAccessResult;
 
+  /// 模拟页面重新读取时看到的最新平台状态，便于覆盖授权成功后的刷新场景。
+  late HealthPlatformState _currentPlatformState = platformState;
+
   /// 记录是否触发过安装引导。
   bool installOpened = false;
 
@@ -26,12 +29,14 @@ class TestHealthPermissionGateway extends HealthPermissionGateway {
   bool accessRequested = false;
 
   @override
-  Future<HealthPlatformState> getCurrentPlatformState() async => platformState;
+  Future<HealthPlatformState> getCurrentPlatformState() async =>
+      _currentPlatformState;
 
   @override
   Future<HealthPlatformState> requestAccess() async {
     accessRequested = true;
-    return requestAccessResult ?? platformState;
+    _currentPlatformState = requestAccessResult ?? platformState;
+    return _currentPlatformState;
   }
 
   @override

@@ -75,10 +75,14 @@ class DataAccessPage extends HookConsumerWidget {
                           );
                           if (platformState?.canInstallProvider ?? false) {
                             await gateway.openHealthProviderInstallation();
+                            // 安装或跳转系统授权页会暂时离开当前页面，返回后需要主动失效旧状态才能重读最新权限结果。
+                            ref.invalidate(healthPlatformStateProvider);
                             return;
                           }
                           if (platformState?.canRequestAccess ?? false) {
                             await gateway.requestAccess();
+                            // 重新授权成功后需要刷新平台状态，否则页面会继续停留在授权前的摘要文案。
+                            ref.invalidate(healthPlatformStateProvider);
                           }
                         },
                         child: Text(l10n.dataAccessReauthorizeButton),
