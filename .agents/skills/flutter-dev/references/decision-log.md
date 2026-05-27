@@ -13,4 +13,5 @@
 
 ## Change Records
 
+- 2026-05-27: 为多端启动图标生成引入 `flutter_launcher_icons` 作为开发期工具，唯一职责是从 `assets/icons/app_icon.png` 生成 Android 与 iOS 图标资源；业务代码不直接依赖该包。验证影响：需要执行 `flutter pub get`、`dart run flutter_launcher_icons -f flutter_launcher_icons.yaml`，并检查 `android/app/src/main/res/mipmap-*` 与 `ios/Runner/Assets.xcassets/AppIcon.appiconset/` 产物是否更新。
 - 若后续引入独立 HTTP API、正式发行包名、多 Flavor 配置或 `features/*` 到 `modules/*` 的迁移，请在本文件追加决策记录，而不是只在实现里隐式变化

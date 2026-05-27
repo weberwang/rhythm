@@ -1,0 +1,7 @@
+flutter_launcher_icons:
+  android: true
+  ios: true
+  # iOS 和 Android 都会按平台规范裁切图标，源图使用满幅方形可避免双圆角和黑边。
+  image_path: assets/icons/app_icon.png
+  min_sdk_android: 21
+  remove_alpha_ios: true
