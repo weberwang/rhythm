@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rhythm/shared/presentation/theme/rhythm_theme_extensions.dart';
 
 /// 首次引导页面骨架，统一顶部状态、标题说明和底部动作区的节奏。
 class OnboardingStepScaffold extends StatelessWidget {
@@ -37,17 +38,18 @@ class OnboardingStepScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-    final textTheme = Theme.of(context).textTheme;
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final textTheme = theme.textTheme;
 
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(18, 0, 20, 24),
+          padding: const EdgeInsets.fromLTRB(20, 12, 20, 24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 62),
+              const SizedBox(height: 40),
               Expanded(
                 child: SingleChildScrollView(
                   child: Column(
@@ -58,8 +60,7 @@ class OnboardingStepScaffold extends StatelessWidget {
                       Text(
                         title,
                         style: textTheme.headlineMedium?.copyWith(
-                          fontFamily: 'Funnel Sans',
-                          fontWeight: FontWeight.w700,
+                          fontWeight: FontWeight.w600,
                           height: 1.08,
                           color: colorScheme.onSurface,
                         ),
@@ -68,21 +69,17 @@ class OnboardingStepScaffold extends StatelessWidget {
                       Text(
                         description,
                         style: textTheme.bodyLarge?.copyWith(
-                          fontFamily: 'Geist',
                           color: colorScheme.onSurfaceVariant,
-                          height: 1.4,
+                          height: 1.45,
                         ),
                       ),
-                      const SizedBox(height: 18),
+                      const SizedBox(height: 24),
                       content,
                     ],
                   ),
                 ),
               ),
-              if (footer != null) ...[
-                const SizedBox(height: 12),
-                footer!,
-              ],
+              if (footer != null) ...[const SizedBox(height: 12), footer!],
               if (secondaryAction != null) ...[
                 const SizedBox(height: 12),
                 secondaryAction!,
@@ -107,20 +104,25 @@ class _Pill extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-    final textTheme = Theme.of(context).textTheme;
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final chipTokens = theme.extension<RhythmChipThemeExtension>();
+    final textTheme = theme.textTheme;
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
       decoration: BoxDecoration(
-        color: colorScheme.primaryContainer,
+        color:
+            chipTokens?.selectedBackgroundColor ?? colorScheme.primaryContainer,
         borderRadius: BorderRadius.circular(9999),
+        border: Border.all(
+          color: chipTokens?.selectedBorderColor ?? colorScheme.outlineVariant,
+        ),
       ),
       child: Text(
         text,
         style: textTheme.labelLarge?.copyWith(
-          color: colorScheme.primary,
-          fontFamily: 'Geist',
+          color: chipTokens?.selectedForegroundColor ?? colorScheme.primary,
           fontWeight: FontWeight.w600,
         ),
       ),

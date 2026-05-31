@@ -5,8 +5,11 @@ class AppThemeTokens {
   const AppThemeTokens({
     required this.brightness,
     required this.seed,
+    required this.fontHeading,
+    required this.fontBody,
     required this.background,
     required this.surface,
+    required this.surfaceSoft,
     required this.surfaceElevated,
     required this.surfaceInverse,
     required this.primary,
@@ -16,12 +19,18 @@ class AppThemeTokens {
     required this.textMuted,
     required this.textInverse,
     required this.divider,
+    required this.borderSoft,
+    required this.heroTop,
+    required this.heroBottom,
+    required this.overlayScrim,
     required this.warning,
     required this.warningSurface,
     required this.danger,
     required this.dangerSurface,
     required this.success,
     required this.successSurface,
+    required this.info,
+    required this.infoSurface,
     required this.moodCalmPaper,
     required this.moodRestlessPaper,
     required this.moodDrainedPaper,
@@ -34,11 +43,20 @@ class AppThemeTokens {
   /// 品牌种子色，给 Material 组件派生基础色盘。
   final Color seed;
 
+  /// 重点标题字体，承接 Pencil 里的衬线标题气质。
+  final String fontHeading;
+
+  /// 正文字体，负责按钮、说明文案和表单信息。
+  final String fontBody;
+
   /// 页面主背景色。
   final Color background;
 
   /// 常规容器背景色。
   final Color surface;
+
+  /// 轻雾层背景色，用于次级卡片和浮层。
+  final Color surfaceSoft;
 
   /// 浮起层级卡片背景色。
   final Color surfaceElevated;
@@ -67,6 +85,18 @@ class AppThemeTokens {
   /// 分割线和描边颜色。
   final Color divider;
 
+  /// Hero 和浮层常用的柔和描边色。
+  final Color borderSoft;
+
+  /// Hero 渐变顶部颜色。
+  final Color heroTop;
+
+  /// Hero 渐变底部颜色。
+  final Color heroBottom;
+
+  /// 通用遮罩层颜色。
+  final Color overlayScrim;
+
   /// 提醒语义色。
   final Color warning;
 
@@ -85,6 +115,12 @@ class AppThemeTokens {
   /// 成功容器底色。
   final Color successSurface;
 
+  /// 信息语义色。
+  final Color info;
+
+  /// 信息容器底色。
+  final Color infoSurface;
+
   /// 平静情绪纸片雾层色。
   final Color moodCalmPaper;
 
@@ -100,54 +136,72 @@ class AppThemeTokens {
   /// 基于 Pencil 亮色稿整理出的主题语义 token。
   static const AppThemeTokens light = AppThemeTokens(
     brightness: Brightness.light,
-    seed: Color(0xFF2D5E3A),
-    background: Color(0xFFF5F3EE),
-    surface: Color(0xFFF9FBF6),
+    seed: Color(0xFF4A567F),
+    fontHeading: 'Newsreader',
+    fontBody: 'Inter',
+    background: Color(0xFFEDF1F8),
     surfaceElevated: Color(0xFFFFFFFF),
-    surfaceInverse: Color(0xFF1B3A28),
-    primary: Color(0xFF2D5E3A),
-    primaryMuted: Color(0xFF5F8768),
-    textPrimary: Color(0xFF1B3A28),
-    textSecondary: Color(0xFF4A6B52),
-    textMuted: Color(0xFF7A9A80),
+    surface: Color(0xFFFFFFFF),
+    surfaceSoft: Color(0xCCFFFFFF),
+    surfaceInverse: Color(0xFF1E2742),
+    primary: Color(0xFF3D4673),
+    primaryMuted: Color(0xFFD7DDF0),
+    textPrimary: Color(0xFF182033),
+    textSecondary: Color(0xFF6F7891),
+    textMuted: Color(0xFF8D97AE),
     textInverse: Color(0xFFFFFFFF),
-    divider: Color(0xFFD5DFCE),
-    warning: Color(0xFFC8913C),
-    warningSurface: Color(0xFFF4E8CF),
-    danger: Color(0xFFC97D68),
-    dangerSurface: Color(0xFFF4DED7),
-    success: Color(0xFF4F7B5A),
-    successSurface: Color(0xFFD7E7DA),
-    moodCalmPaper: Color(0xFFC9E5C8),
-    moodRestlessPaper: Color(0xFFF0D18F),
-    moodDrainedPaper: Color(0xFFD7CBBE),
-    moodExcitedPaper: Color(0xFFF2B8A6),
+    divider: Color(0xFFDCE3F0),
+    borderSoft: Color(0x4DFFFFFF),
+    heroTop: Color(0xFF3D4673),
+    heroBottom: Color(0xFF7C88C9),
+    overlayScrim: Color(0x40182033),
+    warning: Color(0xFFD59A48),
+    warningSurface: Color(0xFFF7E8CD),
+    danger: Color(0xFFD7847B),
+    dangerSurface: Color(0xFFF8E2DF),
+    success: Color(0xFF5C8D83),
+    successSurface: Color(0xFFE2F1EC),
+    info: Color(0xFF6773BA),
+    infoSurface: Color(0xFFE5E9FB),
+    moodCalmPaper: Color(0xFFC5E3DB),
+    moodRestlessPaper: Color(0xFFF1C98A),
+    moodDrainedPaper: Color(0xFFD7DEEE),
+    moodExcitedPaper: Color(0xFFF0B6A7),
   );
 
   /// 基于 Pencil 深色睡前页语义反推出的暗色 token，避免简单反色导致压迫感过强。
   static const AppThemeTokens dark = AppThemeTokens(
     brightness: Brightness.dark,
-    seed: Color(0xFF5F8768),
-    background: Color(0xFF102419),
-    surface: Color(0xFF173324),
-    surfaceElevated: Color(0xFF1E3D2B),
-    surfaceInverse: Color(0xFFE8F0E1),
-    primary: Color(0xFF7FA286),
-    primaryMuted: Color(0xFF5F8768),
-    textPrimary: Color(0xFFEAF2E4),
-    textSecondary: Color(0xFFD7E7DA),
-    textMuted: Color(0xFF9DB3A2),
-    textInverse: Color(0xFF102419),
-    divider: Color(0xFF295140),
-    warning: Color(0xFFD9B066),
-    warningSurface: Color(0xFF3B3422),
-    danger: Color(0xFFD79A89),
-    dangerSurface: Color(0xFF3D2A28),
-    success: Color(0xFF8AB295),
-    successSurface: Color(0xFF223A2D),
-    moodCalmPaper: Color(0xFF5E8A61),
-    moodRestlessPaper: Color(0xFF8F6A28),
-    moodDrainedPaper: Color(0xFF7B6C61),
-    moodExcitedPaper: Color(0xFF956255),
+    seed: Color(0xFF7C88C9),
+    fontHeading: 'Newsreader',
+    fontBody: 'Inter',
+    background: Color(0xFF12182A),
+    surface: Color(0xFF1B2238),
+    surfaceSoft: Color(0xE6232B45),
+    surfaceElevated: Color(0xFF252E4B),
+    surfaceInverse: Color(0xFFE7EBF7),
+    primary: Color(0xFFC4CCF3),
+    primaryMuted: Color(0xFF313A5E),
+    textPrimary: Color(0xFFF2F4FF),
+    textSecondary: Color(0xFFBCC4DC),
+    textMuted: Color(0xFF8E98B4),
+    textInverse: Color(0xFF141B30),
+    divider: Color(0xFF313A58),
+    borderSoft: Color(0x4DFFFFFF),
+    heroTop: Color(0xFF28304F),
+    heroBottom: Color(0xFF5665A1),
+    overlayScrim: Color(0x80121828),
+    warning: Color(0xFFF0CA7A),
+    warningSurface: Color(0xFF453922),
+    danger: Color(0xFFE2A198),
+    dangerSurface: Color(0xFF452B31),
+    success: Color(0xFFA8D3C8),
+    successSurface: Color(0xFF223B3F),
+    info: Color(0xFFC7D0FF),
+    infoSurface: Color(0xFF293350),
+    moodCalmPaper: Color(0xFF476C6C),
+    moodRestlessPaper: Color(0xFF7B6332),
+    moodDrainedPaper: Color(0xFF57617D),
+    moodExcitedPaper: Color(0xFF7C4E54),
   );
 }
