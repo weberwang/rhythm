@@ -49,7 +49,7 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.text('添加标签'));
     await tester.pumpAndSettle();
-    await tester.tap(find.text('刷手机'));
+    await tester.tap(find.text('刷手机').last);
     await tester.pumpAndSettle();
     await tester.tap(find.text('保存标签'));
     await tester.pumpAndSettle();

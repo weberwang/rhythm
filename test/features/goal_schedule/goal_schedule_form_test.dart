@@ -57,29 +57,37 @@ void main() {
     await pumpRhythmApp(tester, onboardingCompleted: false);
     await tester.pumpAndSettle();
 
+    await tester.ensureVisible(find.text('开始设置'));
     await tester.tap(find.text('开始设置'));
     await tester.pumpAndSettle();
-    await tester.tap(find.text('匿名进入'));
+    await tester.ensureVisible(find.text('使用匿名继续'));
+    await tester.tap(find.text('使用匿名继续'));
     await tester.pumpAndSettle();
-    await tester.tap(find.text('先用手动模式'));
+    await tester.ensureVisible(find.text('先手动记录'));
+    await tester.tap(find.text('先手动记录'));
     await tester.pumpAndSettle();
-    await tester.tap(find.text('保存目标，继续下一步'));
+    await tester.ensureVisible(find.text('这样开始'));
+    await tester.tap(find.text('这样开始'));
     await tester.pumpAndSettle();
 
-    expect(find.text('把提醒调到刚刚好'), findsOneWidget);
+    expect(find.text('提醒我在夜晚轻一点停下来'), findsOneWidget);
   });
 
   testWidgets('目标作息页保存后会持久化目标配置', (tester) async {
     await pumpRhythmApp(tester, onboardingCompleted: false);
     await tester.pumpAndSettle();
 
+    await tester.ensureVisible(find.text('开始设置'));
     await tester.tap(find.text('开始设置'));
     await tester.pumpAndSettle();
-    await tester.tap(find.text('匿名进入'));
+    await tester.ensureVisible(find.text('使用匿名继续'));
+    await tester.tap(find.text('使用匿名继续'));
     await tester.pumpAndSettle();
-    await tester.tap(find.text('先用手动模式'));
+    await tester.ensureVisible(find.text('先手动记录'));
+    await tester.tap(find.text('先手动记录'));
     await tester.pumpAndSettle();
-    await tester.tap(find.text('保存目标，继续下一步'));
+    await tester.ensureVisible(find.text('这样开始'));
+    await tester.tap(find.text('这样开始'));
     await tester.pumpAndSettle();
 
     final preferences = await SharedPreferences.getInstance();

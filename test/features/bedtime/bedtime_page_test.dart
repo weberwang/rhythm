@@ -33,14 +33,14 @@ void main() {
     await tester.pumpAndSettle();
   }
 
-  testWidgets('ready 状态显示当前时间、倒计时和三种状态', (tester) async {
+  testWidgets('ready 状态显示倒计时 hero 和三种状态', (tester) async {
     await pumpPage(tester, state: _readyState());
 
-    expect(find.text('睡前模式'), findsOneWidget);
     expect(find.text('距离目标入睡还有 45 分钟'), findsOneWidget);
+    expect(find.text('现在还来得及。你不需要一次做很多，只要先让今晚少拖一点点。'), findsOneWidget);
     expect(find.text('准备睡觉'), findsOneWidget);
     expect(find.text('还想拖一会儿'), findsOneWidget);
-    expect(find.text('今晚大概率会晚睡'), findsOneWidget);
+    expect(find.text('今晚大概率会晚睡'), findsNothing);
   });
 
   testWidgets('ready 状态显示当前建议动作', (tester) async {
@@ -72,7 +72,7 @@ void main() {
       matching: find.byType(Card),
     );
 
-    expect(tester.getSize(card).width, closeTo(342, 0.1));
+    expect(tester.getSize(card).width, closeTo(350, 0.1));
   });
 
   testWidgets('goalMissing 状态显示去设置目标空态', (tester) async {
@@ -85,14 +85,38 @@ void main() {
     expect(find.text('去设置目标作息'), findsOneWidget);
   });
 
-  testWidgets('英文环境下倒计时卡使用英文标签', (tester) async {
+  testWidgets('likelyLate 状态改为警示条而不是第三个同级选项', (tester) async {
+    await pumpPage(
+      tester,
+      state: _readyState(
+        selectedStatus: BedtimeStatus.likelyLate,
+        actions: const <BedtimeAction>[
+          BedtimeAction(
+            type: BedtimeActionType.planRecoveryTomorrow,
+            analyticsName: 'plan_recovery_tomorrow',
+            priority: 0,
+          ),
+        ],
+      ),
+    );
+
+    expect(find.text('准备睡觉'), findsOneWidget);
+    expect(find.text('还想拖一会儿'), findsOneWidget);
+    expect(find.text('今晚大概率会晚睡'), findsOneWidget);
+    expect(find.text('给明早留一个轻恢复动作'), findsOneWidget);
+  });
+
+  testWidgets('英文环境下 hero 和趋势卡使用英文文案', (tester) async {
     await pumpPage(tester, locale: const Locale('en'), state: _readyState());
 
-    expect(find.text('Bedtime mode'), findsOneWidget);
-    expect(find.text('Tonight target'), findsOneWidget);
-    expect(find.text('Now'), findsOneWidget);
-    expect(find.text('Target'), findsOneWidget);
     expect(find.text('45 minutes until your target bedtime'), findsOneWidget);
+    expect(
+      find.text(
+        'There is still time tonight. You do not need to do a lot at once, only make tonight drag a little less.',
+      ),
+      findsOneWidget,
+    );
+    expect(find.text('Last 7 days'), findsOneWidget);
     expect(find.text('现在'), findsNothing);
   });
 }

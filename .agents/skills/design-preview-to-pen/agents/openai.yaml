@@ -1,0 +1,4 @@
+interface:
+  display_name: "Design Preview To Pen"
+  short_description: "Turn approved preview comps into gated Pencil rebuilds"
+  default_prompt: "Use $design-preview-to-pen to run a gated workflow that clarifies preview requirements, generates candidate preview images, waits for approval, extracts approved assets, and rebuilds the chosen direction in Pencil."

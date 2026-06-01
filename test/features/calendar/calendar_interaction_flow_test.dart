@@ -63,9 +63,9 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('补一个晚睡原因'), findsOneWidget);
-    expect(find.text('刷手机'), findsOneWidget);
+    expect(find.text('刷手机'), findsNWidgets(2));
 
-    await tester.tap(find.text('刷手机'));
+    await tester.tap(find.text('刷手机').last);
     await tester.pumpAndSettle();
     await tester.tap(find.text('保存标签'));
     await tester.pumpAndSettle();
@@ -117,7 +117,7 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.text('添加标签'));
     await tester.pumpAndSettle();
-    await tester.tap(find.text('刷手机'));
+    await tester.tap(find.text('刷手机').last);
     await tester.pumpAndSettle();
     await tester.tap(find.text('保存标签'));
     await tester.pumpAndSettle();
@@ -168,13 +168,13 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.text('添加标签'));
     await tester.pumpAndSettle();
-    await tester.tap(find.text('刷手机'));
+    await tester.tap(find.text('刷手机').last);
     await tester.pumpAndSettle();
     await tester.tap(find.text('保存标签'));
     await tester.pump();
 
     expect(find.byType(CircularProgressIndicator), findsNothing);
-    expect(find.text('颜色不是坏消息，而是你与目标时间的距离。'), findsOneWidget);
+    expect(find.text('颜色越深，越接近你的目标入睡时间。'), findsOneWidget);
   });
 
   testWidgets('自定义标签输入无效时在真实交互链路里展示错误', (tester) async {

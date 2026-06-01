@@ -19,13 +19,16 @@ void main() {
 
     expect(find.text('偏好设置'), findsOneWidget);
     expect(find.text('语言'), findsOneWidget);
-    expect(find.text('主题'), findsOneWidget);
+    expect(find.text('主题'), findsWidgets);
     expect(find.text('跟随系统'), findsWidgets);
   });
 
   testWidgets('切换为 English 后当前页立即刷新英文文案', (tester) async {
     await _pumpProfilePreferencesPage(tester);
 
+    await tester.ensureVisible(
+      find.byKey(const Key('profile-preferences-locale-english')),
+    );
     await tester.tap(
       find.byKey(const Key('profile-preferences-locale-english')),
     );
@@ -40,6 +43,9 @@ void main() {
   testWidgets('英文界面的语言选项使用短系统标签并保留中文语言名', (tester) async {
     await _pumpProfilePreferencesPage(tester);
 
+    await tester.ensureVisible(
+      find.byKey(const Key('profile-preferences-locale-english')),
+    );
     await tester.tap(
       find.byKey(const Key('profile-preferences-locale-english')),
     );
@@ -79,6 +85,9 @@ void main() {
   testWidgets('切换为深色后当前壳会立即刷新主题模式', (tester) async {
     await _pumpProfilePreferencesPage(tester);
 
+    await tester.ensureVisible(
+      find.byKey(const Key('profile-preferences-theme-dark')),
+    );
     await tester.tap(find.byKey(const Key('profile-preferences-theme-dark')));
     await tester.pumpAndSettle();
 

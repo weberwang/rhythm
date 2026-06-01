@@ -24,9 +24,19 @@ void main() {
     expect(find.text('Today'), findsWidgets);
     expect(find.text('Calendar'), findsOneWidget);
     expect(find.text('There is no record from last night yet'), findsOneWidget);
-    await tester.tap(find.text('Bedtime'));
+    await tester.tap(
+      find.descendant(
+        of: find.byType(NavigationBar),
+        matching: find.byIcon(Icons.bedtime_outlined),
+      ),
+    );
     await tester.pumpAndSettle();
-    expect(find.text('Bedtime mode'), findsOneWidget);
+    expect(
+      find.text(
+        'There is still time tonight. You do not need to do a lot at once, only make tonight drag a little less.',
+      ),
+      findsOneWidget,
+    );
   });
 
   testWidgets('应用同时挂载亮色和暗色主题并跟随系统', (tester) async {
@@ -75,16 +85,26 @@ void main() {
     );
     await tester.pumpAndSettle();
 
-    await tester.tap(find.text('日历'));
+    await tester.tap(
+      find.descendant(
+        of: find.byType(NavigationBar),
+        matching: find.byIcon(Icons.calendar_month_outlined),
+      ),
+    );
     await tester.pumpAndSettle();
 
-    expect(find.text('颜色不是坏消息，而是你与目标时间的距离。'), findsOneWidget);
-    expect(find.text('本月还没有可用节律样本。先记录几天，再回来看走势。'), findsOneWidget);
+    expect(find.text('颜色越深，越接近你的目标入睡时间。'), findsOneWidget);
+    expect(find.text('0%'), findsOneWidget);
 
-    await tester.tap(find.text('睡前'));
+    await tester.tap(
+      find.descendant(
+        of: find.byType(NavigationBar),
+        matching: find.byIcon(Icons.bedtime_outlined),
+      ),
+    );
     await tester.pumpAndSettle();
 
-    expect(find.text('睡前模式'), findsOneWidget);
+    expect(find.text('今晚现在更像哪种状态？'), findsOneWidget);
   });
 
   testWidgets('点击我的后能进入阶段八的我的页', (tester) async {

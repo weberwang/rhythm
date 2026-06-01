@@ -11,31 +11,35 @@ void main() {
 
     expect(find.text('欢迎使用 Rhythm'), findsOneWidget);
 
+    await tester.ensureVisible(find.text('开始设置'));
     await tester.tap(find.text('开始设置'));
     await tester.pumpAndSettle();
 
-    expect(find.text('先把节奏跑起来，登录只在需要同步时再做。'), findsOneWidget);
+    expect(find.text('今晚开始，慢慢早一点睡'), findsOneWidget);
+    expect(find.text('使用邮箱继续'), findsOneWidget);
 
-    await tester.tap(find.text('匿名进入'));
+    await tester.ensureVisible(find.text('使用匿名继续'));
+    await tester.tap(find.text('使用匿名继续'));
     await tester.pumpAndSettle();
 
-    expect(find.text('读取睡眠数据'), findsOneWidget);
+    expect(find.text('让系统帮你记录昨晚的睡眠'), findsOneWidget);
 
-    await tester.tap(find.text('先用手动模式'));
+    await tester.ensureVisible(find.text('先手动记录'));
+    await tester.tap(find.text('先手动记录'));
     await tester.pumpAndSettle();
 
-    // 目标设置页会同时在页头和主标题区复用同一文案，这里显式校验双处渲染。
-    expect(find.text('目标是节律的参考线，不是每天必须完美做到的红线。'), findsNWidgets(2));
+    expect(find.text('先定一个你想靠近的作息'), findsWidgets);
   });
 
   testWidgets('点击开始后立即切换到登录步骤', (tester) async {
     await pumpRhythmApp(tester, onboardingCompleted: false);
     await tester.pumpAndSettle();
 
+    await tester.ensureVisible(find.text('开始设置'));
     await tester.tap(find.text('开始设置'));
     await tester.pump();
 
-    expect(find.text('先把节奏跑起来，登录只在需要同步时再做。'), findsOneWidget);
+    expect(find.text('今晚开始，慢慢早一点睡'), findsOneWidget);
   });
 
   testWidgets('英文环境下首次引导不会混入中文文案', (tester) async {
@@ -47,35 +51,30 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('Welcome to Rhythm'), findsOneWidget);
-    expect(find.text('先把节奏跑起来'), findsNothing);
+    expect(find.text('今晚开始，慢慢早一点睡'), findsNothing);
 
+    await tester.ensureVisible(find.text('Start setup'));
     await tester.tap(find.text('Start setup'));
     await tester.pumpAndSettle();
 
     expect(
-      find.text(
-        'Get the rhythm moving first; sign in only when sync is needed.',
-      ),
+      find.text('Starting tonight, shift a little earlier'),
       findsOneWidget,
     );
-    expect(find.text('Continue anonymously'), findsOneWidget);
+    expect(find.text('Continue with email'), findsOneWidget);
+    expect(find.text('Continue as guest'), findsOneWidget);
 
-    await tester.tap(find.text('Continue anonymously'));
+    await tester.ensureVisible(find.text('Continue as guest'));
+    await tester.tap(find.text('Continue as guest'));
     await tester.pumpAndSettle();
 
-    expect(find.text('Read sleep data'), findsOneWidget);
-    expect(find.text('Use manual mode first'), findsOneWidget);
+    expect(find.text('Let Rhythm log last night for you'), findsOneWidget);
+    expect(find.text('Log manually first'), findsOneWidget);
 
-    await tester.tap(find.text('Use manual mode first'));
+    await tester.ensureVisible(find.text('Log manually first'));
+    await tester.tap(find.text('Log manually first'));
     await tester.pumpAndSettle();
 
-    expect(
-      find.text(
-        'The target is a reference line, not a perfect daily red line.',
-      ),
-      // 英文目标设置页同样会在页头和主标题区复用标题文案。
-      findsNWidgets(2),
-    );
-    expect(find.text('Workday rule'), findsOneWidget);
+    expect(find.text('Set the rhythm you want to move toward'), findsWidgets);
   });
 }

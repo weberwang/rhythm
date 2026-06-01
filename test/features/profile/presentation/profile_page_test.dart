@@ -105,6 +105,46 @@ void main() {
     expect(find.text('匿名用户'), findsOneWidget);
     expect(find.text('桌面存在感'), findsOneWidget);
   });
+
+  testWidgets('主题入口点击后会滚动到偏好设置卡片', (tester) async {
+    SharedPreferences.setMockInitialValues(<String, Object>{});
+    final preferences = await SharedPreferences.getInstance();
+    final router = GoRouter(
+      initialLocation: '/profile',
+      routes: [
+        GoRoute(
+          path: '/profile',
+          builder: (context, state) => const ProfilePage(),
+        ),
+      ],
+    );
+
+    await tester.binding.setSurfaceSize(const Size(390, 520));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [sharedPreferencesProvider.overrideWithValue(preferences)],
+        child: MaterialApp.router(
+          locale: const Locale('zh'),
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          routerConfig: router,
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    await tester.scrollUntilVisible(find.text('主题').first, 200);
+    await tester.tap(find.text('主题').first);
+    await tester.pumpAndSettle();
+
+    final preferencesRect = tester.getRect(
+      find.byKey(const Key('profile-preferences-card')),
+    );
+    expect(preferencesRect.top, greaterThanOrEqualTo(0));
+    expect(preferencesRect.top, lessThan(200));
+  });
 }
 
 /// 提供测试用小组件网关，避免页面依赖真实插件实现。

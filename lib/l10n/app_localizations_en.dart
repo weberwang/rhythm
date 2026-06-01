@@ -34,11 +34,11 @@ class AppLocalizationsEn extends AppLocalizations {
       'Goal setup will be implemented in Task 3. This page currently only receives the onboarding flow.';
 
   @override
-  String get calendarTitle => 'Calendar';
+  String get calendarTitle => 'Rhythm calendar';
 
   @override
   String get calendarDescription =>
-      'Use a heatmap to understand your recent routine rhythm.';
+      'The deeper the color, the closer it is to your target bedtime.';
 
   @override
   String get calendarHeroEyebrow => 'May still has rhythm';
@@ -63,10 +63,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get calendarFilterLate => 'Late drift';
 
   @override
-  String get calendarFilterDataSource => 'Late count';
+  String get calendarFilterDataSource => 'View late nights';
 
   @override
-  String get calendarFilterAllDays => 'All days';
+  String get calendarFilterAllDays => 'View sleep time';
 
   @override
   String get calendarFilterOpen => 'Filter';
@@ -88,7 +88,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get calendarFilterLateOnly => 'Only show late days';
 
   @override
-  String get calendarFilterSummaryRecorded => 'Recorded only';
+  String get calendarFilterSummaryRecorded => 'View stability';
 
   @override
   String get calendarFilterSummaryLateOnly => 'Late only';
@@ -877,7 +877,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get manualSleepRecordEditTimeButton => 'Edit time';
 
   @override
-  String get onboardingStepOneEyebrow => 'Step 1 / 3';
+  String get onboardingStepOneEyebrow => 'STEP 1 · WELCOME';
 
   @override
   String get onboardingWelcomeTitle => 'Welcome to Rhythm';
@@ -915,15 +915,51 @@ class AppLocalizationsEn extends AppLocalizations {
   String get onboardingWelcomePrimaryButton => 'Start setup';
 
   @override
+  String get onboardingWelcomeQuickDuration => 'Usually takes about 3 minutes';
+
+  @override
+  String get onboardingWelcomeHeroTileLocalTitle => 'Local first';
+
+  @override
+  String get onboardingWelcomeHeroTileLocalSubtitle => 'Start as guest';
+
+  @override
+  String get onboardingWelcomeHeroTileFeedbackTitle => 'Rhythm feedback';
+
+  @override
+  String get onboardingWelcomeHeroTileFeedbackSubtitle =>
+      'Logging with reminders';
+
+  @override
+  String get onboardingWelcomeHeroTileFlowTitle => 'Three quick steps';
+
+  @override
+  String get onboardingWelcomeHeroTileFlowSubtitle => 'Straight into the flow';
+
+  @override
+  String get onboardingWelcomeFooterNote =>
+      'You can go back and adjust every later step, so nothing asks for too much all at once.';
+
+  @override
   String get onboardingStepTwoEyebrow => 'Step 2 / 3';
 
   @override
-  String get onboardingAuthTitle =>
-      'Get the rhythm moving first; sign in only when sync is needed.';
+  String get onboardingAuthEyebrow => 'Starting tonight, ease into the rhythm';
+
+  @override
+  String get onboardingAuthTitle => 'Starting tonight, shift a little earlier';
 
   @override
   String get onboardingAuthDescription =>
-      'Anonymous entry lowers first-run friction. Sign in is for device transfer and membership sync.';
+      'Try logging, reminders, and bedtime mode first. Bind an account only after the flow feels useful.';
+
+  @override
+  String get onboardingAuthOptionsTitle =>
+      'Pick the way that feels easiest to enter';
+
+  @override
+  String get onboardingAuthOptionsDescription =>
+      'Accounts are for syncing your record, but guest mode can still take you through the core flow.';
 
   @override
   String get onboardingAuthAppleLabel => 'Local first';
@@ -939,23 +975,30 @@ class AppLocalizationsEn extends AppLocalizations {
       'You can still connect an account later';
 
   @override
-  String get onboardingAuthAnonymousButton => 'Continue anonymously';
+  String get onboardingAuthAnonymousButton => 'Continue as guest';
 
   @override
-  String get onboardingAuthLaterButton => 'Use Apple';
+  String get onboardingAuthLaterButton => 'Continue with Apple';
 
   @override
-  String get onboardingAuthGoogleButton => 'Use Google';
+  String get onboardingAuthGoogleButton => 'Continue with Google';
+
+  @override
+  String get onboardingAuthEmailButton => 'Continue with email';
+
+  @override
+  String get onboardingAuthFooterNote =>
+      'Continuing means you agree to the terms and privacy policy, and you can change the sign-in method later in settings.';
 
   @override
   String get onboardingStepThreeEyebrow => 'Step 3 / 3';
 
   @override
-  String get onboardingHealthTitle => 'Read sleep data';
+  String get onboardingHealthTitle => 'Let Rhythm log last night for you';
 
   @override
   String get onboardingHealthDescription =>
-      'We only read sleep records and do not use them for medical judgment or ads.';
+      'With access, Home can show last night’s result, trend, and recovery suggestions automatically. Without it, you can still log manually first.';
 
   @override
   String get onboardingHealthAppleSummary => 'Auto-sync sleep records';
@@ -963,6 +1006,10 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get onboardingHealthGoogleSummary =>
       'The last 30 days will be written into the local rhythm timeline';
+
+  @override
+  String get onboardingHealthEmailSummary =>
+      'Email sign-in keeps recovery and binding paths open while the first run still stays local-first';
 
   @override
   String get onboardingHealthAnonymousSummary =>
@@ -973,11 +1020,42 @@ class AppLocalizationsEn extends AppLocalizations {
       'Without permission, you can still manually log and generate weekly reports';
 
   @override
-  String get onboardingHealthBenefitTitle => 'Why enable it';
+  String get onboardingHealthBenefitTitle => 'What we read';
 
   @override
   String get onboardingHealthBenefitDescription =>
-      'Later health data access reduces manual logging and improves trend review continuity.';
+      'Bedtime, wake time, sleep duration, and source status, so we can build last night’s feedback and your rhythm trend.';
+
+  @override
+  String get onboardingHealthReadTitle => 'What we read';
+
+  @override
+  String get onboardingHealthReadDescription =>
+      'We read last night’s sleep and wake info automatically to reduce manual input.';
+
+  @override
+  String get onboardingHealthProtectTitle => 'What we will not do';
+
+  @override
+  String get onboardingHealthProtectDescription =>
+      'We do not share it publicly, use it for medical diagnosis, or block your own manual edits.';
+
+  @override
+  String get onboardingHealthOutcomeTitle => 'What you get';
+
+  @override
+  String get onboardingHealthOutcomeDescription =>
+      'Earlier access to last night’s result, stability changes, and lighter recovery suggestions.';
+
+  @override
+  String get onboardingHealthUnderstandFirstButton => 'Understand it first';
+
+  @override
+  String get onboardingHealthLaterButton => 'Maybe later';
+
+  @override
+  String get onboardingHealthFooterNote =>
+      'You can turn this off later in system settings; we only use it to build your rhythm feedback.';
 
   @override
   String get onboardingHealthCurrentStageTitle => 'Stage notes';
@@ -987,7 +1065,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'This task only completes the explanation flow and does not trigger a real system permission request.';
 
   @override
-  String get onboardingHealthSkipButton => 'Use manual mode first';
+  String get onboardingHealthSkipButton => 'Log manually first';
 
   @override
   String get onboardingHealthAuthorizeButton => 'Authorize sleep data';
@@ -996,15 +1074,43 @@ class AppLocalizationsEn extends AppLocalizations {
   String get goalSetupEyebrow => 'Set a doable target';
 
   @override
-  String get goalSetupPageTitle =>
-      'The target is a reference line, not a perfect daily red line.';
+  String get goalSetupPageTitle => 'Set the rhythm you want to move toward';
 
   @override
   String get goalSetupPageDescription =>
-      'Start with a basic target, then adjust later anytime.';
+      'Start with bedtime and wake time first. Thresholds and finer details can come later.';
 
   @override
-  String get goalSetupContinueButton => 'Save goal and continue';
+  String get goalSetupCardTitle => 'Start with the two key times';
+
+  @override
+  String get goalSetupCardDescription =>
+      'Tap each time card to adjust it with the wheel. We begin with a common default schedule that you can refine later.';
+
+  @override
+  String get goalSetupBedtimeHint =>
+      'We use this time as the main reference for deciding whether you stayed up late.';
+
+  @override
+  String get goalSetupWakeHint =>
+      'This anchors your rhythm and helps place the reminder window.';
+
+  @override
+  String get goalSetupFooterHint =>
+      'If you are not sure yet, start with this default pair and fine-tune it later from Profile.';
+
+  @override
+  String get goalSetupContinueButton => 'Start with this';
+
+  @override
+  String get goalSetupSecondaryButton => 'Fine-tune later';
+
+  @override
+  String get goalSetupBottomNote =>
+      'The next step adds your late threshold and reminder strategy without asking for everything at once.';
+
+  @override
+  String get goalSetupPickerConfirm => 'Confirm time';
 
   @override
   String get goalSetupWorkdayTitle => 'Workday rule';
@@ -1056,12 +1162,49 @@ class AppLocalizationsEn extends AppLocalizations {
   String get reminderSetupEyebrow => 'Set reminders just right';
 
   @override
-  String get reminderSetupPageTitle =>
-      'Default to soft reminders and avoid nonstop interruption.';
+  String get reminderSetupPageTitle => 'Nudge me to slow down at night';
 
   @override
   String get reminderSetupPageDescription =>
-      'You can start light and decide later whether you need stronger on-time reminders.';
+      'Choose the gentlest reminder style first. You can always adjust it later in settings.';
+
+  @override
+  String get reminderSetupPanelTitle => 'How would you like to be reminded?';
+
+  @override
+  String get reminderSetupPanelDescription =>
+      'Soft reminders are the default recommendation. During onboarding we keep interruption low, then let you tune it later.';
+
+  @override
+  String get reminderSetupSoftTitle => 'Soft reminder';
+
+  @override
+  String get reminderSetupSoftDescription =>
+      'One light nudge before bedtime, with no pressure beyond starting your wind-down.';
+
+  @override
+  String get reminderSetupStandardTitle => 'Standard reminder';
+
+  @override
+  String get reminderSetupStandardDescription =>
+      'One reminder near target time, then a softer follow-up right at the point you should wrap up.';
+
+  @override
+  String get reminderSetupOffTitle => 'No reminders yet';
+
+  @override
+  String get reminderSetupOffDescription =>
+      'Feel the rhythm on your own first, then switch reminders on when you are ready.';
+
+  @override
+  String get reminderSetupContinueButton => 'Continue with this';
+
+  @override
+  String get reminderSetupSecondaryButton => 'Set it later';
+
+  @override
+  String get reminderSetupBottomNote =>
+      'Reminder style is not locked in. Later you can make it lighter or more explicit.';
 
   @override
   String get reminderSetupCompleteButton => 'Finish setup and open Today';
@@ -1133,6 +1276,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String get bedtimeStatusTitle => 'How is tonight feeling?';
 
   @override
+  String get bedtimeHeroSubtitle =>
+      'There is still time tonight. You do not need to do a lot at once, only make tonight drag a little less.';
+
+  @override
+  String get bedtimeStatusDescription =>
+      'Pick the state that feels closest right now, and the suggestion card will follow it.';
+
+  @override
   String get bedtimeStatusReady => 'Ready to sleep';
 
   @override
@@ -1143,6 +1294,18 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get bedtimeActionTitle => 'A lighter next step';
+
+  @override
+  String get bedtimeActionDescriptionReady =>
+      'Lower the stimulation first so your body gets a clearer signal that tonight is ending.';
+
+  @override
+  String get bedtimeActionDescriptionMoreTime =>
+      'Stop the one thing most likely to drag you on, then leave tomorrow a short note for the morning.';
+
+  @override
+  String get bedtimeActionDescriptionLikelyLate =>
+      'Accept that tonight may drift late, then leave tomorrow the lightest possible recovery step.';
 
   @override
   String get bedtimeActionDimLights => 'Dim the lights a bit first';
@@ -1160,6 +1323,14 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get bedtimeActionPlanRecoveryTomorrow =>
       'Plan a lighter recovery step for tomorrow morning';
+
+  @override
+  String get bedtimeOptionalTagsTitle =>
+      'If you want, you can note one reason too';
+
+  @override
+  String get bedtimeTrendDescription =>
+      'You have already gone to sleep 18 minutes earlier than last week on average.';
 
   @override
   String get bedtimeGoalMissingTitle => 'Set tonight’s target first';
@@ -1277,11 +1448,21 @@ class AppLocalizationsEn extends AppLocalizations {
   String get profileHeroBadgeLabel => 'Free plan';
 
   @override
+  String get profileHeroSummaryTitle => 'Your rhythm is starting to take shape';
+
+  @override
+  String get profileHeroSummarySubtitle =>
+      'Account, sync, reminders, goals, and widgets are managed here. Fine-tune them when you need to, not all at once.';
+
+  @override
   String get profileMembershipEntryTitle => 'Membership center';
 
   @override
   String get profileMembershipEntrySubtitle =>
       'Unlock recovery plan details, long-term history, and monthly reports';
+
+  @override
+  String get profileMembershipSyncCardTitle => 'Account and membership';
 
   @override
   String get profileGoalScheduleEntryTitle => 'Goal schedule settings';
@@ -1296,6 +1477,9 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get profileGoalScheduleEntryError =>
       'Goal schedule is temporarily unavailable';
+
+  @override
+  String get profileGoalReminderCardTitle => 'Goals and reminders';
 
   @override
   String get profileNotificationEntryTitle => 'Reminder settings';
@@ -1318,6 +1502,9 @@ class AppLocalizationsEn extends AppLocalizations {
       'Access status is temporarily unavailable';
 
   @override
+  String get profileDisplayDeviceCardTitle => 'Display and devices';
+
+  @override
   String get profileTimezoneModeEntryTitle => 'Timezone and special modes';
 
   @override
@@ -1330,6 +1517,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get profilePrivacyEntrySubtitle => 'Export, delete, and agreements';
+
+  @override
+  String get profilePrivacyExportCardTitle => 'Privacy and export';
 
   @override
   String get profilePreferencesCardTitle => 'Preferences';
@@ -1376,12 +1566,45 @@ class AppLocalizationsEn extends AppLocalizations {
   String get widgetGuideEyebrow => 'Put tonight\'s target on your home screen';
 
   @override
-  String get widgetGuideTitle =>
-      'Keep bedtime one step closer instead of opening the app every time.';
+  String get widgetGuideTitle => 'Put tonight\'s target on your home screen';
 
   @override
   String get widgetGuideDescription =>
-      'The widget only shows what matters: tonights target, the remaining time, and last nights status.';
+      'You do not need to open the app every time. Once it is on the home screen, tonight\'s remaining time and target rhythm stay in sight.';
+
+  @override
+  String get widgetGuidePreviewPanelTitle =>
+      'After adding it, you\'ll see this first';
+
+  @override
+  String get widgetGuidePreviewPanelDescription =>
+      'The first release ships one essential widget: tonight\'s target, remaining time, and your recent state. Finer styles can come later.';
+
+  @override
+  String get widgetGuidePrimaryCardLabel => 'Tonight target 23:30';
+
+  @override
+  String get widgetGuidePrimaryCardValue => '01:42';
+
+  @override
+  String get widgetGuidePrimaryCardDescription =>
+      'There is still a little time before sleep prep. Use it to start winding down.';
+
+  @override
+  String get widgetGuidePrimaryCardBadge => '3 days in a row';
+
+  @override
+  String get widgetGuideSecondaryCardLabel => 'Wake tomorrow 07:30';
+
+  @override
+  String get widgetGuideSecondaryCardValue => '1h 42m until bedtime prep';
+
+  @override
+  String get widgetGuideSecondaryCardStatus => 'Steady tonight';
+
+  @override
+  String get widgetGuidePreviewPanelNote =>
+      'After adding it, the target is easier to notice before sleep without opening the app first.';
 
   @override
   String get widgetGuidePreviewTitle => 'Rhythm widget';
@@ -1406,7 +1629,14 @@ class AppLocalizationsEn extends AppLocalizations {
       '• Put it where you usually see it at night';
 
   @override
-  String get widgetGuidePrimaryButton => 'Got it, I\'ll add it later';
+  String get widgetGuidePrimaryButton => 'Add the widget';
+
+  @override
+  String get widgetGuideSecondaryButton => 'Later';
+
+  @override
+  String get widgetGuideBottomNote =>
+      'Widget adding steps vary a bit by system, and we will take the shortest path next.';
 
   @override
   String get widgetThemePageTitle => 'Widget and theme';

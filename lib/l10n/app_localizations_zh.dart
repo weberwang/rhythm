@@ -33,10 +33,10 @@ class AppLocalizationsZh extends AppLocalizations {
   String get goalSetupDescription => '目标设置将在 Task 3 中实现，这里仅承接首次引导的下一步路由。';
 
   @override
-  String get calendarTitle => '日历';
+  String get calendarTitle => '作息日历';
 
   @override
-  String get calendarDescription => '用热力图看清最近的作息节奏。';
+  String get calendarDescription => '颜色越深，越接近你的目标入睡时间。';
 
   @override
   String get calendarHeroEyebrow => '五月仍有节律感';
@@ -59,10 +59,10 @@ class AppLocalizationsZh extends AppLocalizations {
   String get calendarFilterLate => '晚起波动';
 
   @override
-  String get calendarFilterDataSource => '晚睡次数';
+  String get calendarFilterDataSource => '看晚睡次数';
 
   @override
-  String get calendarFilterAllDays => '全部日期';
+  String get calendarFilterAllDays => '看入睡时间';
 
   @override
   String get calendarFilterOpen => '筛选';
@@ -83,7 +83,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get calendarFilterLateOnly => '只看晚睡日期';
 
   @override
-  String get calendarFilterSummaryRecorded => '仅记录';
+  String get calendarFilterSummaryRecorded => '看稳定度';
 
   @override
   String get calendarFilterSummaryLateOnly => '仅晚睡';
@@ -828,7 +828,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get manualSleepRecordEditTimeButton => '修改时间';
 
   @override
-  String get onboardingStepOneEyebrow => '第 1 步 / 3';
+  String get onboardingStepOneEyebrow => 'STEP 1 · 欢迎进入';
 
   @override
   String get onboardingWelcomeTitle => '欢迎使用 Rhythm';
@@ -863,13 +863,46 @@ class AppLocalizationsZh extends AppLocalizations {
   String get onboardingWelcomePrimaryButton => '开始设置';
 
   @override
+  String get onboardingWelcomeQuickDuration => '通常只需要 3 分钟';
+
+  @override
+  String get onboardingWelcomeHeroTileLocalTitle => '本地优先';
+
+  @override
+  String get onboardingWelcomeHeroTileLocalSubtitle => '可先匿名体验';
+
+  @override
+  String get onboardingWelcomeHeroTileFeedbackTitle => '节律反馈';
+
+  @override
+  String get onboardingWelcomeHeroTileFeedbackSubtitle => '记录与提醒并行';
+
+  @override
+  String get onboardingWelcomeHeroTileFlowTitle => '三步完成';
+
+  @override
+  String get onboardingWelcomeHeroTileFlowSubtitle => '直接进入主线';
+
+  @override
+  String get onboardingWelcomeFooterNote => '后续每一步都可以返回调整，不会一次要求你填很多内容。';
+
+  @override
   String get onboardingStepTwoEyebrow => '第 2 步 / 3';
 
   @override
-  String get onboardingAuthTitle => '先把节奏跑起来，登录只在需要同步时再做。';
+  String get onboardingAuthEyebrow => '从今晚开始，先轻一点进入状态';
 
   @override
-  String get onboardingAuthDescription => '匿名进入降低首启压力，登录用于换机恢复和会员状态同步。';
+  String get onboardingAuthTitle => '今晚开始，慢慢早一点睡';
+
+  @override
+  String get onboardingAuthDescription => '先体验记录、提醒和睡前模式。等你觉得有用，再决定要不要绑定账号。';
+
+  @override
+  String get onboardingAuthOptionsTitle => '先选一个你舒服的进入方式';
+
+  @override
+  String get onboardingAuthOptionsDescription => '账号用于同步你的记录，游客模式也可以先体验主要流程。';
 
   @override
   String get onboardingAuthAppleLabel => '本地优先';
@@ -884,7 +917,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get onboardingAuthGoogleDescription => '之后再连账号也不会丢';
 
   @override
-  String get onboardingAuthAnonymousButton => '匿名进入';
+  String get onboardingAuthAnonymousButton => '使用匿名继续';
 
   @override
   String get onboardingAuthLaterButton => '使用 Apple 继续';
@@ -893,13 +926,20 @@ class AppLocalizationsZh extends AppLocalizations {
   String get onboardingAuthGoogleButton => '使用 Google 继续';
 
   @override
+  String get onboardingAuthEmailButton => '使用邮箱继续';
+
+  @override
+  String get onboardingAuthFooterNote => '继续即表示你同意服务协议与隐私政策，后续可在设置中修改登录方式。';
+
+  @override
   String get onboardingStepThreeEyebrow => '第 3 步 / 3';
 
   @override
-  String get onboardingHealthTitle => '读取睡眠数据';
+  String get onboardingHealthTitle => '让系统帮你记录昨晚的睡眠';
 
   @override
-  String get onboardingHealthDescription => '我们只读取睡眠记录，不会把数据用于医疗判断或广告。';
+  String get onboardingHealthDescription =>
+      '授权后，首页会自动显示昨晚结果、趋势和恢复建议；不授权也能先手动记录。';
 
   @override
   String get onboardingHealthAppleSummary => '自动同步睡眠记录';
@@ -908,17 +948,48 @@ class AppLocalizationsZh extends AppLocalizations {
   String get onboardingHealthGoogleSummary => '近 30 天数据会写入本地节律时间线';
 
   @override
+  String get onboardingHealthEmailSummary => '邮箱登录会保留后续绑定和找回路径，但当前仍以本地体验为主';
+
+  @override
   String get onboardingHealthAnonymousSummary => '授权失败可降级';
 
   @override
   String get onboardingHealthDefaultSummary => '没有权限时仍能手动补录并生成周报';
 
   @override
-  String get onboardingHealthBenefitTitle => '为什么建议开启';
+  String get onboardingHealthBenefitTitle => '我们会读取什么';
 
   @override
   String get onboardingHealthBenefitDescription =>
-      '后续接入健康数据后，可减少手动补录并提升趋势回顾完整度。';
+      '入睡时间、起床时间、睡眠时长和来源状态，用来生成昨晚反馈与作息趋势。';
+
+  @override
+  String get onboardingHealthReadTitle => '会读取什么';
+
+  @override
+  String get onboardingHealthReadDescription => '自动读取昨晚的入睡和起床信息，尽量减少你手动输入。';
+
+  @override
+  String get onboardingHealthProtectTitle => '不会做什么';
+
+  @override
+  String get onboardingHealthProtectDescription =>
+      '不会公开分享，不会用于医疗诊断，也不会影响你手动修改记录。';
+
+  @override
+  String get onboardingHealthOutcomeTitle => '你会得到什么';
+
+  @override
+  String get onboardingHealthOutcomeDescription => '更早看到昨晚结果、稳定度变化和更轻的恢复建议。';
+
+  @override
+  String get onboardingHealthUnderstandFirstButton => '我先了解一下';
+
+  @override
+  String get onboardingHealthLaterButton => '稍后再说';
+
+  @override
+  String get onboardingHealthFooterNote => '授权可随时在系统设置中关闭；我们只用来生成你的作息反馈。';
 
   @override
   String get onboardingHealthCurrentStageTitle => '当前阶段说明';
@@ -928,7 +999,7 @@ class AppLocalizationsZh extends AppLocalizations {
       '本任务只完成说明流程，不触发真实系统权限请求。';
 
   @override
-  String get onboardingHealthSkipButton => '先用手动模式';
+  String get onboardingHealthSkipButton => '先手动记录';
 
   @override
   String get onboardingHealthAuthorizeButton => '授权读取睡眠数据';
@@ -937,13 +1008,37 @@ class AppLocalizationsZh extends AppLocalizations {
   String get goalSetupEyebrow => '设置一个能做到的目标';
 
   @override
-  String get goalSetupPageTitle => '目标是节律的参考线，不是每天必须完美做到的红线。';
+  String get goalSetupPageTitle => '先定一个你想靠近的作息';
 
   @override
-  String get goalSetupPageDescription => '先给出一版基础目标，后面随时可以调整。';
+  String get goalSetupPageDescription => '先设置入睡和起床时间，后面的阈值和细节可以再慢慢补。';
 
   @override
-  String get goalSetupContinueButton => '保存目标，继续下一步';
+  String get goalSetupCardTitle => '先决定两个关键时间';
+
+  @override
+  String get goalSetupCardDescription => '点开时间卡后可进入滚轮调整。默认先给你一组常见作息，后面随时能改。';
+
+  @override
+  String get goalSetupBedtimeHint => '我们会围绕这个时间判断你是否晚睡。';
+
+  @override
+  String get goalSetupWakeHint => '用于计算你的节奏，并安排提醒窗口。';
+
+  @override
+  String get goalSetupFooterHint => '如果你现在还不确定，也可以先用这组默认值开始，后面在“我的”里再微调。';
+
+  @override
+  String get goalSetupContinueButton => '这样开始';
+
+  @override
+  String get goalSetupSecondaryButton => '稍后再细调';
+
+  @override
+  String get goalSetupBottomNote => '下一步会继续补充熬夜阈值和提醒方式，不会一次让你填很多。';
+
+  @override
+  String get goalSetupPickerConfirm => '确认时间';
 
   @override
   String get goalSetupWorkdayTitle => '工作日规则';
@@ -990,10 +1085,44 @@ class AppLocalizationsZh extends AppLocalizations {
   String get reminderSetupEyebrow => '把提醒调到刚刚好';
 
   @override
-  String get reminderSetupPageTitle => '默认只开柔性提醒，不做连续轰炸式打断。';
+  String get reminderSetupPageTitle => '提醒我在夜晚轻一点停下来';
 
   @override
-  String get reminderSetupPageDescription => '你可以先开轻提醒，后续再决定是否需要到点提醒。';
+  String get reminderSetupPageDescription => '先选一种不打扰的提醒方式；后面随时都能在设置里改。';
+
+  @override
+  String get reminderSetupPanelTitle => '你希望我怎么提醒你';
+
+  @override
+  String get reminderSetupPanelDescription =>
+      '默认推荐柔和提醒。首启阶段先帮你把打扰感压低，等你熟悉后再精调频率。';
+
+  @override
+  String get reminderSetupSoftTitle => '柔和提醒';
+
+  @override
+  String get reminderSetupSoftDescription => '在目标入睡前轻提醒一次，不催促，只提醒你开始收尾。';
+
+  @override
+  String get reminderSetupStandardTitle => '标准提醒';
+
+  @override
+  String get reminderSetupStandardDescription => '临近目标时间提醒一次，到点后再轻轻补一句，更稳一点。';
+
+  @override
+  String get reminderSetupOffTitle => '先不开提醒';
+
+  @override
+  String get reminderSetupOffDescription => '先靠自己感受节奏，等你准备好了再把提醒打开。';
+
+  @override
+  String get reminderSetupContinueButton => '按这个继续';
+
+  @override
+  String get reminderSetupSecondaryButton => '之后再设置';
+
+  @override
+  String get reminderSetupBottomNote => '提醒方式不会固定锁死；后面你可以改成更轻或更明确的节奏。';
 
   @override
   String get reminderSetupCompleteButton => '完成设置，进入今日页';
@@ -1062,6 +1191,12 @@ class AppLocalizationsZh extends AppLocalizations {
   String get bedtimeStatusTitle => '今晚现在更像哪种状态？';
 
   @override
+  String get bedtimeHeroSubtitle => '现在还来得及。你不需要一次做很多，只要先让今晚少拖一点点。';
+
+  @override
+  String get bedtimeStatusDescription => '先选一个最接近你的状态，后面动作建议会跟着变。';
+
+  @override
   String get bedtimeStatusReady => '准备睡觉';
 
   @override
@@ -1072,6 +1207,16 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get bedtimeActionTitle => '下一步先轻一点';
+
+  @override
+  String get bedtimeActionDescriptionReady => '先把刺激降下来，让身体更快收到今晚已经结束的信号。';
+
+  @override
+  String get bedtimeActionDescriptionMoreTime =>
+      '先停掉最容易拖住你的那件事，再把明早要处理的事情写给明天的自己。';
+
+  @override
+  String get bedtimeActionDescriptionLikelyLate => '先接受今晚可能会偏晚，再给明早留一个最轻的恢复动作。';
 
   @override
   String get bedtimeActionDimLights => '先把灯光收暗一点';
@@ -1087,6 +1232,12 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get bedtimeActionPlanRecoveryTomorrow => '给明早留一个轻恢复动作';
+
+  @override
+  String get bedtimeOptionalTagsTitle => '如果需要，也可以顺手记一下';
+
+  @override
+  String get bedtimeTrendDescription => '你已经比上周平均早睡了 18 分钟。';
 
   @override
   String get bedtimeGoalMissingTitle => '还没有设置今晚目标';
@@ -1191,10 +1342,20 @@ class AppLocalizationsZh extends AppLocalizations {
   String get profileHeroBadgeLabel => '免费版';
 
   @override
+  String get profileHeroSummaryTitle => '你的节奏已经开始成形';
+
+  @override
+  String get profileHeroSummarySubtitle =>
+      '账户、同步、提醒、目标和小组件都在这里管理。需要的时候再进来细调，不用一次弄完。';
+
+  @override
   String get profileMembershipEntryTitle => '会员中心';
 
   @override
   String get profileMembershipEntrySubtitle => '解锁恢复计划详情、长期历史和月报入口';
+
+  @override
+  String get profileMembershipSyncCardTitle => '账户与会员';
 
   @override
   String get profileGoalScheduleEntryTitle => '目标作息设置';
@@ -1207,6 +1368,9 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get profileGoalScheduleEntryError => '目标作息暂时不可用';
+
+  @override
+  String get profileGoalReminderCardTitle => '目标与提醒';
 
   @override
   String get profileNotificationEntryTitle => '提醒设置';
@@ -1227,6 +1391,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String get profileDataAccessEntryError => '接入状态暂时不可用';
 
   @override
+  String get profileDisplayDeviceCardTitle => '显示与设备';
+
+  @override
   String get profileTimezoneModeEntryTitle => '时区与特殊模式';
 
   @override
@@ -1239,6 +1406,9 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get profilePrivacyEntrySubtitle => '导出、删除、协议';
+
+  @override
+  String get profilePrivacyExportCardTitle => '隐私与导出';
 
   @override
   String get profilePreferencesCardTitle => '偏好设置';
@@ -1284,10 +1454,43 @@ class AppLocalizationsZh extends AppLocalizations {
   String get widgetGuideEyebrow => '把今晚的目标放到桌面上';
 
   @override
-  String get widgetGuideTitle => '让睡前入口更近一点，不用每次都先打开 App。';
+  String get widgetGuideTitle => '把今晚的目标放到桌面上';
 
   @override
-  String get widgetGuideDescription => '小组件只展示必要信息：今晚目标、剩余时间和昨晚状态。';
+  String get widgetGuideDescription =>
+      '你不用每次都打开 App。把它放到桌面后，今晚剩余时间和目标作息会一直在眼前。';
+
+  @override
+  String get widgetGuidePreviewPanelTitle => '添加后，你会先看到这些';
+
+  @override
+  String get widgetGuidePreviewPanelDescription =>
+      '首发先提供一个基础小组件：看今晚目标、剩余时间和最近状态。后面还可以换更细的样式。';
+
+  @override
+  String get widgetGuidePrimaryCardLabel => '今晚目标 23:30';
+
+  @override
+  String get widgetGuidePrimaryCardValue => '01:42';
+
+  @override
+  String get widgetGuidePrimaryCardDescription => '距离准备睡觉还剩一点时间，记得开始收尾。';
+
+  @override
+  String get widgetGuidePrimaryCardBadge => '已连续 3 天';
+
+  @override
+  String get widgetGuideSecondaryCardLabel => '明早起床 07:30';
+
+  @override
+  String get widgetGuideSecondaryCardValue => '睡前剩余 1 小时 42 分';
+
+  @override
+  String get widgetGuideSecondaryCardStatus => '今晚偏稳';
+
+  @override
+  String get widgetGuidePreviewPanelNote =>
+      '添加后，你会更容易在锁屏前想起今晚的目标；不需要主动打开 App 才看得到。';
 
   @override
   String get widgetGuidePreviewTitle => 'Rhythm 小组件';
@@ -1308,7 +1511,13 @@ class AppLocalizationsZh extends AppLocalizations {
   String get widgetGuideStepPlace => '• 把它放在晚上最容易看见的位置';
 
   @override
-  String get widgetGuidePrimaryButton => '知道了，稍后我自己加';
+  String get widgetGuidePrimaryButton => '去添加小组件';
+
+  @override
+  String get widgetGuideSecondaryButton => '以后再说';
+
+  @override
+  String get widgetGuideBottomNote => '不同系统的添加方式会略有区别；我们下一步会用最短路径带你完成。';
 
   @override
   String get widgetThemePageTitle => '小组件与主题';

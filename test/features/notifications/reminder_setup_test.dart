@@ -36,51 +36,54 @@ void main() {
     );
     await tester.pumpAndSettle();
 
+    await tester.ensureVisible(find.text('开始设置'));
     await tester.tap(find.text('开始设置'));
     await tester.pumpAndSettle();
-    await tester.tap(find.text('匿名进入'));
+    await tester.ensureVisible(find.text('使用匿名继续'));
+    await tester.tap(find.text('使用匿名继续'));
     await tester.pumpAndSettle();
-    await tester.tap(find.text('先用手动模式'));
+    await tester.ensureVisible(find.text('先手动记录'));
+    await tester.tap(find.text('先手动记录'));
     await tester.pumpAndSettle();
-    await tester.tap(find.text('保存目标，继续下一步'));
+    await tester.ensureVisible(find.text('这样开始'));
+    await tester.tap(find.text('这样开始'));
     await tester.pumpAndSettle();
-    await tester.tap(find.text('完成设置，进入今日页'));
+    await tester.ensureVisible(find.text('按这个继续'));
+    await tester.tap(find.text('按这个继续'));
     await tester.pumpAndSettle();
 
-    expect(find.text('让睡前入口更近一点，不用每次都先打开 App。'), findsOneWidget);
+    expect(find.text('把今晚的目标放到桌面上'), findsOneWidget);
     expect(notificationGateway.requestPermissionCalled, isTrue);
 
-    await tester.tap(find.text('知道了，稍后我自己加'));
+    await tester.ensureVisible(find.text('以后再说'));
+    await tester.tap(find.text('以后再说'));
     await tester.pumpAndSettle();
 
     expect(find.text('今日'), findsWidgets);
     expect(scheduler.scheduleCalled, isTrue);
   });
 
-  testWidgets('提醒策略页支持切换开关和修改提前量', (tester) async {
+  testWidgets('提醒策略页支持切换提醒方式', (tester) async {
     await pumpRhythmApp(tester, onboardingCompleted: false);
     await tester.pumpAndSettle();
 
+    await tester.ensureVisible(find.text('开始设置'));
     await tester.tap(find.text('开始设置'));
     await tester.pumpAndSettle();
-    await tester.tap(find.text('匿名进入'));
+    await tester.ensureVisible(find.text('使用匿名继续'));
+    await tester.tap(find.text('使用匿名继续'));
     await tester.pumpAndSettle();
-    await tester.tap(find.text('先用手动模式'));
+    await tester.ensureVisible(find.text('先手动记录'));
+    await tester.tap(find.text('先手动记录'));
     await tester.pumpAndSettle();
-    await tester.tap(find.text('保存目标，继续下一步'));
-    await tester.pumpAndSettle();
-
-    await tester.tap(find.byKey(const Key('target-reminder-switch')));
-    await tester.pumpAndSettle();
-
-    await tester.ensureVisible(find.byKey(const Key('lead-minutes-dropdown')));
-    await tester.tap(find.byKey(const Key('lead-minutes-dropdown')));
-    await tester.pumpAndSettle();
-    await tester.ensureVisible(find.text('60').last);
-    await tester.tap(find.text('60').last, warnIfMissed: false);
+    await tester.ensureVisible(find.text('这样开始'));
+    await tester.tap(find.text('这样开始'));
     await tester.pumpAndSettle();
 
-    expect(find.text('在目标入睡前 60 分钟提醒'), findsOneWidget);
+    await tester.tap(find.byKey(const Key('reminder-mode-standard')));
+    await tester.pumpAndSettle();
+
+    expect(find.text('标准提醒'), findsWidgets);
   });
 }
 

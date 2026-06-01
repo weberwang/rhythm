@@ -40,9 +40,9 @@ void main() {
   testWidgets('ready 状态显示标题、筛选和摘要卡', (tester) async {
     await pumpPage(tester, state: _readyState());
 
-    expect(find.text('颜色不是坏消息，而是你与目标时间的距离。'), findsOneWidget);
+    expect(find.text('5 月作息日历'), findsOneWidget);
     expect(find.text('本月已有 3 天在轨道里，更多 2 天有偏航。'), findsOneWidget);
-    expect(find.text('全部日期'), findsOneWidget);
+    expect(find.text('看入睡时间'), findsOneWidget);
     expect(find.text('达标率'), findsOneWidget);
     expect(find.text('最晚一晚'), findsOneWidget);
   });
@@ -60,15 +60,15 @@ void main() {
     expect(find.text('本月还没有可用节律样本。先记录几天，再回来看走势。'), findsOneWidget);
   });
 
-  testWidgets('顶部筛选栏默认显示条件摘要、统计摘要和唯一操作入口', (tester) async {
+  testWidgets('顶部筛选区默认显示三段模式 pill', (tester) async {
     await pumpPage(tester, state: _readyState());
 
-    expect(find.text('全部日期'), findsOneWidget);
-    expect(find.text('晚睡 1 天'), findsOneWidget);
-    expect(find.widgetWithText(OutlinedButton, '筛选'), findsOneWidget);
+    expect(find.text('看入睡时间'), findsOneWidget);
+    expect(find.text('看稳定度'), findsOneWidget);
+    expect(find.text('看晚睡次数'), findsOneWidget);
   });
 
-  testWidgets('仅记录筛选生效时显示短摘要', (tester) async {
+  testWidgets('仅记录筛选生效时默认落到稳定度模式', (tester) async {
     await pumpPage(
       tester,
       state: _readyState(
@@ -76,11 +76,11 @@ void main() {
       ),
     );
 
-    expect(find.text('仅记录'), findsOneWidget);
-    expect(find.text('全部日期'), findsNothing);
+    expect(find.text('看稳定度'), findsOneWidget);
+    expect(find.text('看入睡时间'), findsOneWidget);
   });
 
-  testWidgets('双筛选生效时汇总显示已筛选 2 项', (tester) async {
+  testWidgets('晚睡筛选生效时默认落到晚睡次数模式', (tester) async {
     await pumpPage(
       tester,
       state: _readyState(
@@ -91,16 +91,15 @@ void main() {
       ),
     );
 
-    expect(find.text('已筛选 2 项'), findsOneWidget);
-    expect(find.text('只看有记录日期'), findsNothing);
-    expect(find.text('只看晚睡日期'), findsNothing);
-    expect(find.text('全部日期'), findsNothing);
+    expect(find.text('看晚睡次数'), findsOneWidget);
+    expect(find.text('看稳定度'), findsOneWidget);
+    expect(find.text('看入睡时间'), findsOneWidget);
   });
 
-  testWidgets('点击筛选按钮会打开筛选弹层', (tester) async {
+  testWidgets('点击顶部模式 pill 会打开筛选弹层', (tester) async {
     await pumpPage(tester, state: _readyState());
 
-    await tester.tap(find.widgetWithText(OutlinedButton, '筛选'));
+    await tester.tap(find.text('看入睡时间'));
     await tester.pumpAndSettle();
 
     expect(find.text('筛选日历反馈'), findsOneWidget);
@@ -113,7 +112,7 @@ void main() {
     await pumpPage(tester, state: _readyState());
 
     expect(tester.takeException(), isNull);
-    expect(find.widgetWithText(OutlinedButton, '筛选'), findsOneWidget);
+    expect(find.text('看晚睡次数'), findsOneWidget);
   });
 
   testWidgets('不同热力等级日期格使用不同颜色语义', (tester) async {
@@ -220,7 +219,7 @@ CalendarViewState _readyStateWithFilter(CalendarFilter activeFilter) {
       days: days,
       onTargetDays: 16,
       recordedDays: 25,
-      latestLateDay: days[23],
+      latestLateDay: days[2],
     ),
     availableTags: SleepDelayTagRules.defaultTags,
     activeFilter: activeFilter,
@@ -232,7 +231,7 @@ CalendarViewState _readyState({
   CalendarFilter activeFilter = const CalendarFilter(),
   int onTargetDays = 3,
   int recordedDays = 5,
-  int? latestLateDayIndex = 23,
+  int? latestLateDayIndex = 2,
 }) {
   final baseState = _readyStateWithFilter(activeFilter);
   final monthSummary = baseState.monthSummary!;

@@ -149,13 +149,13 @@ abstract class AppLocalizations {
   /// Calendar module placeholder title.
   ///
   /// In en, this message translates to:
-  /// **'Calendar'**
+  /// **'Rhythm calendar'**
   String get calendarTitle;
 
   /// Calendar module placeholder description.
   ///
   /// In en, this message translates to:
-  /// **'Use a heatmap to understand your recent routine rhythm.'**
+  /// **'The deeper the color, the closer it is to your target bedtime.'**
   String get calendarDescription;
 
   /// No description provided for @calendarHeroEyebrow.
@@ -197,13 +197,13 @@ abstract class AppLocalizations {
   /// No description provided for @calendarFilterDataSource.
   ///
   /// In en, this message translates to:
-  /// **'Late count'**
+  /// **'View late nights'**
   String get calendarFilterDataSource;
 
   /// No description provided for @calendarFilterAllDays.
   ///
   /// In en, this message translates to:
-  /// **'All days'**
+  /// **'View sleep time'**
   String get calendarFilterAllDays;
 
   /// No description provided for @calendarFilterOpen.
@@ -245,7 +245,7 @@ abstract class AppLocalizations {
   /// No description provided for @calendarFilterSummaryRecorded.
   ///
   /// In en, this message translates to:
-  /// **'Recorded only'**
+  /// **'View stability'**
   String get calendarFilterSummaryRecorded;
 
   /// No description provided for @calendarFilterSummaryLateOnly.
@@ -1625,7 +1625,7 @@ abstract class AppLocalizations {
   /// No description provided for @onboardingStepOneEyebrow.
   ///
   /// In en, this message translates to:
-  /// **'Step 1 / 3'**
+  /// **'STEP 1 · WELCOME'**
   String get onboardingStepOneEyebrow;
 
   /// No description provided for @onboardingWelcomeTitle.
@@ -1688,23 +1688,89 @@ abstract class AppLocalizations {
   /// **'Start setup'**
   String get onboardingWelcomePrimaryButton;
 
+  /// No description provided for @onboardingWelcomeQuickDuration.
+  ///
+  /// In en, this message translates to:
+  /// **'Usually takes about 3 minutes'**
+  String get onboardingWelcomeQuickDuration;
+
+  /// No description provided for @onboardingWelcomeHeroTileLocalTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Local first'**
+  String get onboardingWelcomeHeroTileLocalTitle;
+
+  /// No description provided for @onboardingWelcomeHeroTileLocalSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Start as guest'**
+  String get onboardingWelcomeHeroTileLocalSubtitle;
+
+  /// No description provided for @onboardingWelcomeHeroTileFeedbackTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Rhythm feedback'**
+  String get onboardingWelcomeHeroTileFeedbackTitle;
+
+  /// No description provided for @onboardingWelcomeHeroTileFeedbackSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Logging with reminders'**
+  String get onboardingWelcomeHeroTileFeedbackSubtitle;
+
+  /// No description provided for @onboardingWelcomeHeroTileFlowTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Three quick steps'**
+  String get onboardingWelcomeHeroTileFlowTitle;
+
+  /// No description provided for @onboardingWelcomeHeroTileFlowSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Straight into the flow'**
+  String get onboardingWelcomeHeroTileFlowSubtitle;
+
+  /// No description provided for @onboardingWelcomeFooterNote.
+  ///
+  /// In en, this message translates to:
+  /// **'You can go back and adjust every later step, so nothing asks for too much all at once.'**
+  String get onboardingWelcomeFooterNote;
+
   /// No description provided for @onboardingStepTwoEyebrow.
   ///
   /// In en, this message translates to:
   /// **'Step 2 / 3'**
   String get onboardingStepTwoEyebrow;
 
+  /// No description provided for @onboardingAuthEyebrow.
+  ///
+  /// In en, this message translates to:
+  /// **'Starting tonight, ease into the rhythm'**
+  String get onboardingAuthEyebrow;
+
   /// No description provided for @onboardingAuthTitle.
   ///
   /// In en, this message translates to:
-  /// **'Get the rhythm moving first; sign in only when sync is needed.'**
+  /// **'Starting tonight, shift a little earlier'**
   String get onboardingAuthTitle;
 
   /// No description provided for @onboardingAuthDescription.
   ///
   /// In en, this message translates to:
-  /// **'Anonymous entry lowers first-run friction. Sign in is for device transfer and membership sync.'**
+  /// **'Try logging, reminders, and bedtime mode first. Bind an account only after the flow feels useful.'**
   String get onboardingAuthDescription;
+
+  /// No description provided for @onboardingAuthOptionsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick the way that feels easiest to enter'**
+  String get onboardingAuthOptionsTitle;
+
+  /// No description provided for @onboardingAuthOptionsDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Accounts are for syncing your record, but guest mode can still take you through the core flow.'**
+  String get onboardingAuthOptionsDescription;
 
   /// No description provided for @onboardingAuthAppleLabel.
   ///
@@ -1733,20 +1799,32 @@ abstract class AppLocalizations {
   /// No description provided for @onboardingAuthAnonymousButton.
   ///
   /// In en, this message translates to:
-  /// **'Continue anonymously'**
+  /// **'Continue as guest'**
   String get onboardingAuthAnonymousButton;
 
   /// No description provided for @onboardingAuthLaterButton.
   ///
   /// In en, this message translates to:
-  /// **'Use Apple'**
+  /// **'Continue with Apple'**
   String get onboardingAuthLaterButton;
 
   /// No description provided for @onboardingAuthGoogleButton.
   ///
   /// In en, this message translates to:
-  /// **'Use Google'**
+  /// **'Continue with Google'**
   String get onboardingAuthGoogleButton;
+
+  /// No description provided for @onboardingAuthEmailButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue with email'**
+  String get onboardingAuthEmailButton;
+
+  /// No description provided for @onboardingAuthFooterNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Continuing means you agree to the terms and privacy policy, and you can change the sign-in method later in settings.'**
+  String get onboardingAuthFooterNote;
 
   /// No description provided for @onboardingStepThreeEyebrow.
   ///
@@ -1757,13 +1835,13 @@ abstract class AppLocalizations {
   /// No description provided for @onboardingHealthTitle.
   ///
   /// In en, this message translates to:
-  /// **'Read sleep data'**
+  /// **'Let Rhythm log last night for you'**
   String get onboardingHealthTitle;
 
   /// No description provided for @onboardingHealthDescription.
   ///
   /// In en, this message translates to:
-  /// **'We only read sleep records and do not use them for medical judgment or ads.'**
+  /// **'With access, Home can show last night’s result, trend, and recovery suggestions automatically. Without it, you can still log manually first.'**
   String get onboardingHealthDescription;
 
   /// No description provided for @onboardingHealthAppleSummary.
@@ -1777,6 +1855,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The last 30 days will be written into the local rhythm timeline'**
   String get onboardingHealthGoogleSummary;
+
+  /// No description provided for @onboardingHealthEmailSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'Email sign-in keeps recovery and binding paths open while the first run still stays local-first'**
+  String get onboardingHealthEmailSummary;
 
   /// No description provided for @onboardingHealthAnonymousSummary.
   ///
@@ -1793,14 +1877,68 @@ abstract class AppLocalizations {
   /// No description provided for @onboardingHealthBenefitTitle.
   ///
   /// In en, this message translates to:
-  /// **'Why enable it'**
+  /// **'What we read'**
   String get onboardingHealthBenefitTitle;
 
   /// No description provided for @onboardingHealthBenefitDescription.
   ///
   /// In en, this message translates to:
-  /// **'Later health data access reduces manual logging and improves trend review continuity.'**
+  /// **'Bedtime, wake time, sleep duration, and source status, so we can build last night’s feedback and your rhythm trend.'**
   String get onboardingHealthBenefitDescription;
+
+  /// No description provided for @onboardingHealthReadTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'What we read'**
+  String get onboardingHealthReadTitle;
+
+  /// No description provided for @onboardingHealthReadDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'We read last night’s sleep and wake info automatically to reduce manual input.'**
+  String get onboardingHealthReadDescription;
+
+  /// No description provided for @onboardingHealthProtectTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'What we will not do'**
+  String get onboardingHealthProtectTitle;
+
+  /// No description provided for @onboardingHealthProtectDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'We do not share it publicly, use it for medical diagnosis, or block your own manual edits.'**
+  String get onboardingHealthProtectDescription;
+
+  /// No description provided for @onboardingHealthOutcomeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'What you get'**
+  String get onboardingHealthOutcomeTitle;
+
+  /// No description provided for @onboardingHealthOutcomeDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Earlier access to last night’s result, stability changes, and lighter recovery suggestions.'**
+  String get onboardingHealthOutcomeDescription;
+
+  /// No description provided for @onboardingHealthUnderstandFirstButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Understand it first'**
+  String get onboardingHealthUnderstandFirstButton;
+
+  /// No description provided for @onboardingHealthLaterButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Maybe later'**
+  String get onboardingHealthLaterButton;
+
+  /// No description provided for @onboardingHealthFooterNote.
+  ///
+  /// In en, this message translates to:
+  /// **'You can turn this off later in system settings; we only use it to build your rhythm feedback.'**
+  String get onboardingHealthFooterNote;
 
   /// No description provided for @onboardingHealthCurrentStageTitle.
   ///
@@ -1817,7 +1955,7 @@ abstract class AppLocalizations {
   /// No description provided for @onboardingHealthSkipButton.
   ///
   /// In en, this message translates to:
-  /// **'Use manual mode first'**
+  /// **'Log manually first'**
   String get onboardingHealthSkipButton;
 
   /// No description provided for @onboardingHealthAuthorizeButton.
@@ -1835,20 +1973,68 @@ abstract class AppLocalizations {
   /// No description provided for @goalSetupPageTitle.
   ///
   /// In en, this message translates to:
-  /// **'The target is a reference line, not a perfect daily red line.'**
+  /// **'Set the rhythm you want to move toward'**
   String get goalSetupPageTitle;
 
   /// No description provided for @goalSetupPageDescription.
   ///
   /// In en, this message translates to:
-  /// **'Start with a basic target, then adjust later anytime.'**
+  /// **'Start with bedtime and wake time first. Thresholds and finer details can come later.'**
   String get goalSetupPageDescription;
+
+  /// No description provided for @goalSetupCardTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Start with the two key times'**
+  String get goalSetupCardTitle;
+
+  /// No description provided for @goalSetupCardDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap each time card to adjust it with the wheel. We begin with a common default schedule that you can refine later.'**
+  String get goalSetupCardDescription;
+
+  /// No description provided for @goalSetupBedtimeHint.
+  ///
+  /// In en, this message translates to:
+  /// **'We use this time as the main reference for deciding whether you stayed up late.'**
+  String get goalSetupBedtimeHint;
+
+  /// No description provided for @goalSetupWakeHint.
+  ///
+  /// In en, this message translates to:
+  /// **'This anchors your rhythm and helps place the reminder window.'**
+  String get goalSetupWakeHint;
+
+  /// No description provided for @goalSetupFooterHint.
+  ///
+  /// In en, this message translates to:
+  /// **'If you are not sure yet, start with this default pair and fine-tune it later from Profile.'**
+  String get goalSetupFooterHint;
 
   /// No description provided for @goalSetupContinueButton.
   ///
   /// In en, this message translates to:
-  /// **'Save goal and continue'**
+  /// **'Start with this'**
   String get goalSetupContinueButton;
+
+  /// No description provided for @goalSetupSecondaryButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Fine-tune later'**
+  String get goalSetupSecondaryButton;
+
+  /// No description provided for @goalSetupBottomNote.
+  ///
+  /// In en, this message translates to:
+  /// **'The next step adds your late threshold and reminder strategy without asking for everything at once.'**
+  String get goalSetupBottomNote;
+
+  /// No description provided for @goalSetupPickerConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm time'**
+  String get goalSetupPickerConfirm;
 
   /// No description provided for @goalSetupWorkdayTitle.
   ///
@@ -1937,14 +2123,80 @@ abstract class AppLocalizations {
   /// No description provided for @reminderSetupPageTitle.
   ///
   /// In en, this message translates to:
-  /// **'Default to soft reminders and avoid nonstop interruption.'**
+  /// **'Nudge me to slow down at night'**
   String get reminderSetupPageTitle;
 
   /// No description provided for @reminderSetupPageDescription.
   ///
   /// In en, this message translates to:
-  /// **'You can start light and decide later whether you need stronger on-time reminders.'**
+  /// **'Choose the gentlest reminder style first. You can always adjust it later in settings.'**
   String get reminderSetupPageDescription;
+
+  /// No description provided for @reminderSetupPanelTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'How would you like to be reminded?'**
+  String get reminderSetupPanelTitle;
+
+  /// No description provided for @reminderSetupPanelDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Soft reminders are the default recommendation. During onboarding we keep interruption low, then let you tune it later.'**
+  String get reminderSetupPanelDescription;
+
+  /// No description provided for @reminderSetupSoftTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Soft reminder'**
+  String get reminderSetupSoftTitle;
+
+  /// No description provided for @reminderSetupSoftDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'One light nudge before bedtime, with no pressure beyond starting your wind-down.'**
+  String get reminderSetupSoftDescription;
+
+  /// No description provided for @reminderSetupStandardTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Standard reminder'**
+  String get reminderSetupStandardTitle;
+
+  /// No description provided for @reminderSetupStandardDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'One reminder near target time, then a softer follow-up right at the point you should wrap up.'**
+  String get reminderSetupStandardDescription;
+
+  /// No description provided for @reminderSetupOffTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No reminders yet'**
+  String get reminderSetupOffTitle;
+
+  /// No description provided for @reminderSetupOffDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Feel the rhythm on your own first, then switch reminders on when you are ready.'**
+  String get reminderSetupOffDescription;
+
+  /// No description provided for @reminderSetupContinueButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue with this'**
+  String get reminderSetupContinueButton;
+
+  /// No description provided for @reminderSetupSecondaryButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Set it later'**
+  String get reminderSetupSecondaryButton;
+
+  /// No description provided for @reminderSetupBottomNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminder style is not locked in. Later you can make it lighter or more explicit.'**
+  String get reminderSetupBottomNote;
 
   /// No description provided for @reminderSetupCompleteButton.
   ///
@@ -2066,6 +2318,18 @@ abstract class AppLocalizations {
   /// **'How is tonight feeling?'**
   String get bedtimeStatusTitle;
 
+  /// No description provided for @bedtimeHeroSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'There is still time tonight. You do not need to do a lot at once, only make tonight drag a little less.'**
+  String get bedtimeHeroSubtitle;
+
+  /// No description provided for @bedtimeStatusDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick the state that feels closest right now, and the suggestion card will follow it.'**
+  String get bedtimeStatusDescription;
+
   /// No description provided for @bedtimeStatusReady.
   ///
   /// In en, this message translates to:
@@ -2089,6 +2353,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'A lighter next step'**
   String get bedtimeActionTitle;
+
+  /// No description provided for @bedtimeActionDescriptionReady.
+  ///
+  /// In en, this message translates to:
+  /// **'Lower the stimulation first so your body gets a clearer signal that tonight is ending.'**
+  String get bedtimeActionDescriptionReady;
+
+  /// No description provided for @bedtimeActionDescriptionMoreTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop the one thing most likely to drag you on, then leave tomorrow a short note for the morning.'**
+  String get bedtimeActionDescriptionMoreTime;
+
+  /// No description provided for @bedtimeActionDescriptionLikelyLate.
+  ///
+  /// In en, this message translates to:
+  /// **'Accept that tonight may drift late, then leave tomorrow the lightest possible recovery step.'**
+  String get bedtimeActionDescriptionLikelyLate;
 
   /// No description provided for @bedtimeActionDimLights.
   ///
@@ -2119,6 +2401,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Plan a lighter recovery step for tomorrow morning'**
   String get bedtimeActionPlanRecoveryTomorrow;
+
+  /// No description provided for @bedtimeOptionalTagsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'If you want, you can note one reason too'**
+  String get bedtimeOptionalTagsTitle;
+
+  /// No description provided for @bedtimeTrendDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'You have already gone to sleep 18 minutes earlier than last week on average.'**
+  String get bedtimeTrendDescription;
 
   /// No description provided for @bedtimeGoalMissingTitle.
   ///
@@ -2318,6 +2612,18 @@ abstract class AppLocalizations {
   /// **'Free plan'**
   String get profileHeroBadgeLabel;
 
+  /// No description provided for @profileHeroSummaryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your rhythm is starting to take shape'**
+  String get profileHeroSummaryTitle;
+
+  /// No description provided for @profileHeroSummarySubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Account, sync, reminders, goals, and widgets are managed here. Fine-tune them when you need to, not all at once.'**
+  String get profileHeroSummarySubtitle;
+
   /// No description provided for @profileMembershipEntryTitle.
   ///
   /// In en, this message translates to:
@@ -2329,6 +2635,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Unlock recovery plan details, long-term history, and monthly reports'**
   String get profileMembershipEntrySubtitle;
+
+  /// No description provided for @profileMembershipSyncCardTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Account and membership'**
+  String get profileMembershipSyncCardTitle;
 
   /// No description provided for @profileGoalScheduleEntryTitle.
   ///
@@ -2353,6 +2665,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Goal schedule is temporarily unavailable'**
   String get profileGoalScheduleEntryError;
+
+  /// No description provided for @profileGoalReminderCardTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Goals and reminders'**
+  String get profileGoalReminderCardTitle;
 
   /// No description provided for @profileNotificationEntryTitle.
   ///
@@ -2390,6 +2708,12 @@ abstract class AppLocalizations {
   /// **'Access status is temporarily unavailable'**
   String get profileDataAccessEntryError;
 
+  /// No description provided for @profileDisplayDeviceCardTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Display and devices'**
+  String get profileDisplayDeviceCardTitle;
+
   /// No description provided for @profileTimezoneModeEntryTitle.
   ///
   /// In en, this message translates to:
@@ -2413,6 +2737,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Export, delete, and agreements'**
   String get profilePrivacyEntrySubtitle;
+
+  /// No description provided for @profilePrivacyExportCardTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy and export'**
+  String get profilePrivacyExportCardTitle;
 
   /// No description provided for @profilePreferencesCardTitle.
   ///
@@ -2501,14 +2831,74 @@ abstract class AppLocalizations {
   /// No description provided for @widgetGuideTitle.
   ///
   /// In en, this message translates to:
-  /// **'Keep bedtime one step closer instead of opening the app every time.'**
+  /// **'Put tonight\'\'s target on your home screen'**
   String get widgetGuideTitle;
 
   /// No description provided for @widgetGuideDescription.
   ///
   /// In en, this message translates to:
-  /// **'The widget only shows what matters: tonight\'s target, the remaining time, and last night\'s status.'**
+  /// **'You do not need to open the app every time. Once it is on the home screen, tonight\'\'s remaining time and target rhythm stay in sight.'**
   String get widgetGuideDescription;
+
+  /// No description provided for @widgetGuidePreviewPanelTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'After adding it, you\'\'ll see this first'**
+  String get widgetGuidePreviewPanelTitle;
+
+  /// No description provided for @widgetGuidePreviewPanelDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'The first release ships one essential widget: tonight\'\'s target, remaining time, and your recent state. Finer styles can come later.'**
+  String get widgetGuidePreviewPanelDescription;
+
+  /// No description provided for @widgetGuidePrimaryCardLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Tonight target 23:30'**
+  String get widgetGuidePrimaryCardLabel;
+
+  /// No description provided for @widgetGuidePrimaryCardValue.
+  ///
+  /// In en, this message translates to:
+  /// **'01:42'**
+  String get widgetGuidePrimaryCardValue;
+
+  /// No description provided for @widgetGuidePrimaryCardDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'There is still a little time before sleep prep. Use it to start winding down.'**
+  String get widgetGuidePrimaryCardDescription;
+
+  /// No description provided for @widgetGuidePrimaryCardBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'3 days in a row'**
+  String get widgetGuidePrimaryCardBadge;
+
+  /// No description provided for @widgetGuideSecondaryCardLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Wake tomorrow 07:30'**
+  String get widgetGuideSecondaryCardLabel;
+
+  /// No description provided for @widgetGuideSecondaryCardValue.
+  ///
+  /// In en, this message translates to:
+  /// **'1h 42m until bedtime prep'**
+  String get widgetGuideSecondaryCardValue;
+
+  /// No description provided for @widgetGuideSecondaryCardStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Steady tonight'**
+  String get widgetGuideSecondaryCardStatus;
+
+  /// No description provided for @widgetGuidePreviewPanelNote.
+  ///
+  /// In en, this message translates to:
+  /// **'After adding it, the target is easier to notice before sleep without opening the app first.'**
+  String get widgetGuidePreviewPanelNote;
 
   /// No description provided for @widgetGuidePreviewTitle.
   ///
@@ -2549,8 +2939,20 @@ abstract class AppLocalizations {
   /// No description provided for @widgetGuidePrimaryButton.
   ///
   /// In en, this message translates to:
-  /// **'Got it, I\'\'ll add it later'**
+  /// **'Add the widget'**
   String get widgetGuidePrimaryButton;
+
+  /// No description provided for @widgetGuideSecondaryButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Later'**
+  String get widgetGuideSecondaryButton;
+
+  /// No description provided for @widgetGuideBottomNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Widget adding steps vary a bit by system, and we will take the shortest path next.'**
+  String get widgetGuideBottomNote;
 
   /// No description provided for @widgetThemePageTitle.
   ///

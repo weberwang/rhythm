@@ -51,7 +51,7 @@ void main() {
     expect(find.text('最近 7 天'), findsOneWidget);
   });
 
-  testWidgets('ready 状态将昨晚结果与今晚行动合并到同一张主卡', (tester) async {
+  testWidgets('ready 状态将昨晚结果与今晚行动拆成上下两张卡', (tester) async {
     await pumpPage(
       tester,
       state: TodayViewState(
@@ -74,7 +74,7 @@ void main() {
     expect(actionCard, findsOneWidget);
     expect(
       statusCard.evaluate().single.widget,
-      same(actionCard.evaluate().single.widget),
+      isNot(same(actionCard.evaluate().single.widget)),
     );
   });
 
@@ -93,7 +93,7 @@ void main() {
       matching: find.byType(Card),
     );
 
-    expect(tester.getSize(statusCard).width, moreOrLessEquals(382, epsilon: 1));
+    expect(tester.getSize(statusCard).width, moreOrLessEquals(390, epsilon: 1));
   });
 
   testWidgets('empty 状态显示手动补录空态', (tester) async {

@@ -13,6 +13,9 @@ enum OnboardingAuthOption {
   /// 仅记录 Google 登录入口点击，不接入真实登录。
   google,
 
+  /// 记录邮箱登录入口点击，为后续接真实邮箱链路预留设计稿入口。
+  email,
+
   /// 允许用户先匿名进入主链路。
   anonymous,
 }

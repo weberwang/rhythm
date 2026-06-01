@@ -68,6 +68,9 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('匿名用户'), findsOneWidget);
 
+    await tester.ensureVisible(
+      find.byKey(const Key('profile-preferences-locale-english')),
+    );
     await tester.tap(find.byKey(const Key('profile-preferences-locale-english')));
     await tester.pumpAndSettle();
 
