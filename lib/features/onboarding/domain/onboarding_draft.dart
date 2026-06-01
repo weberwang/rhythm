@@ -2,7 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'onboarding_draft.freezed.dart';
 
-/// 定义引导阶段可选的登录方式，后续接真实 SDK 时只需补齐对应分支。
+/// 保留旧版登录方式枚举，避免开发阶段因热重载移除字段导致结构不兼容。
 enum OnboardingAuthOption {
   /// 尚未选择登录方式。
   none,
@@ -13,7 +13,7 @@ enum OnboardingAuthOption {
   /// 仅记录 Google 登录入口点击，不接入真实登录。
   google,
 
-  /// 记录邮箱登录入口点击，为后续接真实邮箱链路预留设计稿入口。
+  /// 记录邮箱登录入口点击，为后续接真实邮箱链路预留入口。
   email,
 
   /// 允许用户先匿名进入主链路。

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="rhythm_widget_title">Tonight</string>
+    <string name="rhythm_widget_status_ready">Last night</string>
+    <string name="rhythm_widget_status_goal_missing">Goal setup needed</string>
+    <string name="rhythm_widget_status_no_data">No sleep record yet</string>
+    <string name="rhythm_widget_status_permission_required">Health access needed</string>
+    <string name="rhythm_widget_body_goal_missing">Open Rhythm to finish your bedtime goal.</string>
+    <string name="rhythm_widget_body_no_data">Add a sleep record to fill the widget summary.</string>
+    <string name="rhythm_widget_body_permission_required">Grant health access so the widget can read your sleep summary.</string>
+    <string name="rhythm_widget_delta_ahead">%1$d min before target</string>
+    <string name="rhythm_widget_delta_late">%1$d min late</string>
+</resources>

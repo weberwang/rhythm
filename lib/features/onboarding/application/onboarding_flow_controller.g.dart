@@ -8,15 +8,15 @@ part of 'onboarding_flow_controller.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
-/// 管理首次引导三步状态推进和草稿收集。
+/// 管理首次引导精简链路的步骤推进和草稿收集。
 
 @ProviderFor(OnboardingFlowController)
 const onboardingFlowControllerProvider = OnboardingFlowControllerProvider._();
 
-/// 管理首次引导三步状态推进和草稿收集。
+/// 管理首次引导精简链路的步骤推进和草稿收集。
 final class OnboardingFlowControllerProvider
     extends $NotifierProvider<OnboardingFlowController, OnboardingFlowState> {
-  /// 管理首次引导三步状态推进和草稿收集。
+  /// 管理首次引导精简链路的步骤推进和草稿收集。
   const OnboardingFlowControllerProvider._()
     : super(
         from: null,
@@ -45,9 +45,9 @@ final class OnboardingFlowControllerProvider
 }
 
 String _$onboardingFlowControllerHash() =>
-    r'aacf89fece06ffb39d5e79b0b87bb4cd52af55ed';
+    r'c1ed8f21f8ceacf588aa8f1b0ad219c321125410';
 
-/// 管理首次引导三步状态推进和草稿收集。
+/// 管理首次引导精简链路的步骤推进和草稿收集。
 
 abstract class _$OnboardingFlowController
     extends $Notifier<OnboardingFlowState> {

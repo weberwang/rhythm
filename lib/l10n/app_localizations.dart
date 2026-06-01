@@ -1631,55 +1631,55 @@ abstract class AppLocalizations {
   /// No description provided for @onboardingWelcomeTitle.
   ///
   /// In en, this message translates to:
-  /// **'Welcome to Rhythm'**
+  /// **'Starting tonight, bring your routine back toward the rhythm you want'**
   String get onboardingWelcomeTitle;
 
   /// No description provided for @onboardingWelcomeDescription.
   ///
   /// In en, this message translates to:
-  /// **'Starting tonight, build a steadier routine in a gentler way by finishing these 3 quick setup steps.'**
+  /// **'You only need to set one target time first. Permissions, reminders, and the home-screen entry can be filled in later without pressure.'**
   String get onboardingWelcomeDescription;
 
   /// No description provided for @onboardingWelcomeChecklistTitle.
   ///
   /// In en, this message translates to:
-  /// **'You’ll complete'**
+  /// **'Next, just three things'**
   String get onboardingWelcomeChecklistTitle;
 
   /// No description provided for @onboardingWelcomeBulletAuthTitle.
   ///
   /// In en, this message translates to:
-  /// **'Choose how to enter'**
+  /// **'Set target times'**
   String get onboardingWelcomeBulletAuthTitle;
 
   /// No description provided for @onboardingWelcomeBulletAuthDescription.
   ///
   /// In en, this message translates to:
-  /// **'Anonymous mode is available now, and Apple / Google entry points stay ready for later integration.'**
+  /// **'Pick your bedtime and wake time to form tonight’s baseline.'**
   String get onboardingWelcomeBulletAuthDescription;
 
   /// No description provided for @onboardingWelcomeBulletHealthTitle.
   ///
   /// In en, this message translates to:
-  /// **'Understand health data value'**
+  /// **'Add support conditions'**
   String get onboardingWelcomeBulletHealthTitle;
 
   /// No description provided for @onboardingWelcomeBulletHealthDescription.
   ///
   /// In en, this message translates to:
-  /// **'We explain the value first and keep real system permission requests out of this task.'**
+  /// **'Permissions and reminders come with recommended defaults and can be skipped for now.'**
   String get onboardingWelcomeBulletHealthDescription;
 
   /// No description provided for @onboardingWelcomeBulletGoalTitle.
   ///
   /// In en, this message translates to:
-  /// **'Set your target schedule'**
+  /// **'Reach Today quickly'**
   String get onboardingWelcomeBulletGoalTitle;
 
   /// No description provided for @onboardingWelcomeBulletGoalDescription.
   ///
   /// In en, this message translates to:
-  /// **'This implementation now carries the flow into real goal and reminder setup instead of stopping at a placeholder.'**
+  /// **'See tonight’s target and last night’s feedback without extra explanation screens in the way.'**
   String get onboardingWelcomeBulletGoalDescription;
 
   /// No description provided for @onboardingWelcomePrimaryButton.
@@ -1691,7 +1691,7 @@ abstract class AppLocalizations {
   /// No description provided for @onboardingWelcomeQuickDuration.
   ///
   /// In en, this message translates to:
-  /// **'Usually takes about 3 minutes'**
+  /// **'About 1 minute for first-night setup'**
   String get onboardingWelcomeQuickDuration;
 
   /// No description provided for @onboardingWelcomeHeroTileLocalTitle.
@@ -1733,7 +1733,7 @@ abstract class AppLocalizations {
   /// No description provided for @onboardingWelcomeFooterNote.
   ///
   /// In en, this message translates to:
-  /// **'You can go back and adjust every later step, so nothing asks for too much all at once.'**
+  /// **'Sign-in, widgets, and finer reminder tuning are all postponed so you can prepare what matters tonight first.'**
   String get onboardingWelcomeFooterNote;
 
   /// No description provided for @onboardingStepTwoEyebrow.
@@ -1757,20 +1757,26 @@ abstract class AppLocalizations {
   /// No description provided for @onboardingAuthDescription.
   ///
   /// In en, this message translates to:
-  /// **'Try logging, reminders, and bedtime mode first. Bind an account only after the flow feels useful.'**
+  /// **'Take a quick look at how Rhythm will help you log, unwind, and stay on track before moving on.'**
   String get onboardingAuthDescription;
 
   /// No description provided for @onboardingAuthOptionsTitle.
   ///
   /// In en, this message translates to:
-  /// **'Pick the way that feels easiest to enter'**
+  /// **'Here is what you will see next'**
   String get onboardingAuthOptionsTitle;
 
   /// No description provided for @onboardingAuthOptionsDescription.
   ///
   /// In en, this message translates to:
-  /// **'Accounts are for syncing your record, but guest mode can still take you through the core flow.'**
+  /// **'This step no longer asks you to sign in. It just previews the product rhythm and nighttime experience.'**
   String get onboardingAuthOptionsDescription;
+
+  /// No description provided for @onboardingAuthContinueButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get onboardingAuthContinueButton;
 
   /// No description provided for @onboardingAuthAppleLabel.
   ///
@@ -1823,7 +1829,7 @@ abstract class AppLocalizations {
   /// No description provided for @onboardingAuthFooterNote.
   ///
   /// In en, this message translates to:
-  /// **'Continuing means you agree to the terms and privacy policy, and you can change the sign-in method later in settings.'**
+  /// **'Continuing means you agree to the terms and privacy policy. Account linking can wait for a later step.'**
   String get onboardingAuthFooterNote;
 
   /// No description provided for @onboardingStepThreeEyebrow.
@@ -1835,13 +1841,13 @@ abstract class AppLocalizations {
   /// No description provided for @onboardingHealthTitle.
   ///
   /// In en, this message translates to:
-  /// **'Let Rhythm log last night for you'**
+  /// **'Add automatic feedback and night reminders'**
   String get onboardingHealthTitle;
 
   /// No description provided for @onboardingHealthDescription.
   ///
   /// In en, this message translates to:
-  /// **'With access, Home can show last night’s result, trend, and recovery suggestions automatically. Without it, you can still log manually first.'**
+  /// **'This step only decides two things: whether Rhythm can read last night’s sleep result and whether to start with the recommended reminder mode. Both can be skipped and changed later.'**
   String get onboardingHealthDescription;
 
   /// No description provided for @onboardingHealthAppleSummary.
@@ -1877,55 +1883,55 @@ abstract class AppLocalizations {
   /// No description provided for @onboardingHealthBenefitTitle.
   ///
   /// In en, this message translates to:
-  /// **'What we read'**
+  /// **'Fill in the recommended support first'**
   String get onboardingHealthBenefitTitle;
 
   /// No description provided for @onboardingHealthBenefitDescription.
   ///
   /// In en, this message translates to:
-  /// **'Bedtime, wake time, sleep duration, and source status, so we can build last night’s feedback and your rhythm trend.'**
+  /// **'With permission, Today can pull in last night’s result automatically. Reminder mode starts soft by default so the first week feels lighter.'**
   String get onboardingHealthBenefitDescription;
 
   /// No description provided for @onboardingHealthReadTitle.
   ///
   /// In en, this message translates to:
-  /// **'What we read'**
+  /// **'What you get after permission'**
   String get onboardingHealthReadTitle;
 
   /// No description provided for @onboardingHealthReadDescription.
   ///
   /// In en, this message translates to:
-  /// **'We read last night’s sleep and wake info automatically to reduce manual input.'**
+  /// **'Today shows last night’s result, trend, and recovery suggestions right away.'**
   String get onboardingHealthReadDescription;
 
   /// No description provided for @onboardingHealthProtectTitle.
   ///
   /// In en, this message translates to:
-  /// **'What we will not do'**
+  /// **'Start with soft reminders'**
   String get onboardingHealthProtectTitle;
 
   /// No description provided for @onboardingHealthProtectDescription.
   ///
   /// In en, this message translates to:
-  /// **'We do not share it publicly, use it for medical diagnosis, or block your own manual edits.'**
+  /// **'During the first week, lower interruption and use a single gentle nudge near bedtime.'**
   String get onboardingHealthProtectDescription;
 
   /// No description provided for @onboardingHealthOutcomeTitle.
   ///
   /// In en, this message translates to:
-  /// **'What you get'**
+  /// **'You can still log manually'**
   String get onboardingHealthOutcomeTitle;
 
   /// No description provided for @onboardingHealthOutcomeDescription.
   ///
   /// In en, this message translates to:
-  /// **'Earlier access to last night’s result, stability changes, and lighter recovery suggestions.'**
+  /// **'If you do not want permission or reminders yet, you can still enter Today without being blocked.'**
   String get onboardingHealthOutcomeDescription;
 
   /// No description provided for @onboardingHealthUnderstandFirstButton.
   ///
   /// In en, this message translates to:
-  /// **'Understand it first'**
+  /// **'Continue with recommendations'**
   String get onboardingHealthUnderstandFirstButton;
 
   /// No description provided for @onboardingHealthLaterButton.
@@ -1937,7 +1943,7 @@ abstract class AppLocalizations {
   /// No description provided for @onboardingHealthFooterNote.
   ///
   /// In en, this message translates to:
-  /// **'You can turn this off later in system settings; we only use it to build your rhythm feedback.'**
+  /// **'The widget prompt moves to after Today, so it no longer blocks the first-run core path.'**
   String get onboardingHealthFooterNote;
 
   /// No description provided for @onboardingHealthCurrentStageTitle.
@@ -2123,25 +2129,25 @@ abstract class AppLocalizations {
   /// No description provided for @reminderSetupPageTitle.
   ///
   /// In en, this message translates to:
-  /// **'Nudge me to slow down at night'**
+  /// **'Add automatic feedback and night reminders'**
   String get reminderSetupPageTitle;
 
   /// No description provided for @reminderSetupPageDescription.
   ///
   /// In en, this message translates to:
-  /// **'Choose the gentlest reminder style first. You can always adjust it later in settings.'**
+  /// **'This step only decides two things: whether Rhythm can read last night’s sleep result and whether to start with the recommended reminder mode. Both can be skipped and changed later.'**
   String get reminderSetupPageDescription;
 
   /// No description provided for @reminderSetupPanelTitle.
   ///
   /// In en, this message translates to:
-  /// **'How would you like to be reminded?'**
+  /// **'Fill in the recommended support first'**
   String get reminderSetupPanelTitle;
 
   /// No description provided for @reminderSetupPanelDescription.
   ///
   /// In en, this message translates to:
-  /// **'Soft reminders are the default recommendation. During onboarding we keep interruption low, then let you tune it later.'**
+  /// **'With permission, Today can pull in last night’s result automatically. Reminder mode starts soft by default so the first week feels lighter.'**
   String get reminderSetupPanelDescription;
 
   /// No description provided for @reminderSetupSoftTitle.
@@ -2153,31 +2159,31 @@ abstract class AppLocalizations {
   /// No description provided for @reminderSetupSoftDescription.
   ///
   /// In en, this message translates to:
-  /// **'One light nudge before bedtime, with no pressure beyond starting your wind-down.'**
+  /// **'During the first week, lower interruption and use a single gentle nudge near bedtime.'**
   String get reminderSetupSoftDescription;
 
   /// No description provided for @reminderSetupStandardTitle.
   ///
   /// In en, this message translates to:
-  /// **'Standard reminder'**
+  /// **'What you get after permission'**
   String get reminderSetupStandardTitle;
 
   /// No description provided for @reminderSetupStandardDescription.
   ///
   /// In en, this message translates to:
-  /// **'One reminder near target time, then a softer follow-up right at the point you should wrap up.'**
+  /// **'Today shows last night’s result, trend, and recovery suggestions right away.'**
   String get reminderSetupStandardDescription;
 
   /// No description provided for @reminderSetupOffTitle.
   ///
   /// In en, this message translates to:
-  /// **'No reminders yet'**
+  /// **'Log manually first'**
   String get reminderSetupOffTitle;
 
   /// No description provided for @reminderSetupOffDescription.
   ///
   /// In en, this message translates to:
-  /// **'Feel the rhythm on your own first, then switch reminders on when you are ready.'**
+  /// **'If you do not want permission or reminders yet, you can still enter Today without being blocked.'**
   String get reminderSetupOffDescription;
 
   /// No description provided for @reminderSetupContinueButton.
@@ -2189,13 +2195,13 @@ abstract class AppLocalizations {
   /// No description provided for @reminderSetupSecondaryButton.
   ///
   /// In en, this message translates to:
-  /// **'Set it later'**
+  /// **'Log manually first'**
   String get reminderSetupSecondaryButton;
 
   /// No description provided for @reminderSetupBottomNote.
   ///
   /// In en, this message translates to:
-  /// **'Reminder style is not locked in. Later you can make it lighter or more explicit.'**
+  /// **'The widget prompt moves to after Today, so it no longer blocks the first-run core path.'**
   String get reminderSetupBottomNote;
 
   /// No description provided for @reminderSetupCompleteButton.

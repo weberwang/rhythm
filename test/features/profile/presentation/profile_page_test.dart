@@ -4,6 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rhythm/app/bootstrap/launch_state_provider.dart';
 import 'package:rhythm/app/router/app_router.dart';
+import 'package:rhythm/app/theme/app_theme.dart';
 import 'package:rhythm/features/profile/presentation/profile_page.dart';
 import 'package:rhythm/features/widget_bridge/application/widget_snapshot_service.dart';
 import 'package:rhythm/features/widget_bridge/data/home_widget_gateway.dart';
@@ -144,6 +145,88 @@ void main() {
     );
     expect(preferencesRect.top, greaterThanOrEqualTo(0));
     expect(preferencesRect.top, lessThan(200));
+  });
+
+  testWidgets('暗色主题下我的页会员卡使用主题化容器底色', (tester) async {
+    SharedPreferences.setMockInitialValues(<String, Object>{});
+    final preferences = await SharedPreferences.getInstance();
+    final router = GoRouter(
+      initialLocation: '/profile',
+      routes: [
+        GoRoute(
+          path: '/profile',
+          builder: (context, state) => const ProfilePage(),
+        ),
+      ],
+    );
+
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [sharedPreferencesProvider.overrideWithValue(preferences)],
+        child: MaterialApp.router(
+          theme: AppTheme.light(),
+          darkTheme: AppTheme.dark(),
+          themeMode: ThemeMode.dark,
+          locale: const Locale('zh'),
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          routerConfig: router,
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    final membershipCard = tester.widget<Card>(
+      find.descendant(
+        of: find.byKey(const Key('profile-membership-card')),
+        matching: find.byType(Card),
+      ),
+    );
+    expect(
+      membershipCard.color,
+      AppTheme.dark().colorScheme.surface.withValues(alpha: 0.9),
+    );
+  });
+
+  testWidgets('暗色主题下我的页顶部摘要卡退回低对比表层而不是品牌渐变', (tester) async {
+    SharedPreferences.setMockInitialValues(<String, Object>{});
+    final preferences = await SharedPreferences.getInstance();
+    final router = GoRouter(
+      initialLocation: '/profile',
+      routes: [
+        GoRoute(
+          path: '/profile',
+          builder: (context, state) => const ProfilePage(),
+        ),
+      ],
+    );
+
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [sharedPreferencesProvider.overrideWithValue(preferences)],
+        child: MaterialApp.router(
+          theme: AppTheme.light(),
+          darkTheme: AppTheme.dark(),
+          themeMode: ThemeMode.dark,
+          locale: const Locale('zh'),
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          routerConfig: router,
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    final heroContainer = tester.widget<Container>(
+      find.byKey(const Key('profile-summary-hero-card')),
+    );
+    final decoration = heroContainer.decoration! as BoxDecoration;
+
+    expect(
+      decoration.color,
+      AppTheme.dark().colorScheme.surfaceContainerHighest,
+    );
+    expect(decoration.gradient, isNull);
   });
 }
 

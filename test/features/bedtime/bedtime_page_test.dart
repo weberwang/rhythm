@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:rhythm/app/theme/app_theme.dart';
 import 'package:rhythm/features/bedtime/application/bedtime_controller.dart';
 import 'package:rhythm/features/bedtime/application/bedtime_view_state.dart';
 import 'package:rhythm/features/bedtime/domain/bedtime_action.dart';
 import 'package:rhythm/features/bedtime/domain/bedtime_status.dart';
 import 'package:rhythm/features/bedtime/presentation/bedtime_page.dart';
 import 'package:rhythm/l10n/app_localizations.dart';
+import 'package:rhythm/shared/presentation/theme/rhythm_theme_extensions.dart';
 
 /// 验证睡前页根据控制器状态渲染倒计时、状态选择和动作建议。
 void main() {
@@ -118,6 +120,80 @@ void main() {
     );
     expect(find.text('Last 7 days'), findsOneWidget);
     expect(find.text('现在'), findsNothing);
+  });
+
+  testWidgets('暗色主题下睡前页状态卡和选中胶囊使用主题色', (tester) async {
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          bedtimeControllerProvider.overrideWith(
+            () => _FakeBedtimeController(_readyState()),
+          ),
+        ],
+        child: MaterialApp(
+          theme: AppTheme.light(),
+          darkTheme: AppTheme.dark(),
+          themeMode: ThemeMode.dark,
+          locale: const Locale('zh'),
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: const Scaffold(body: BedtimePage()),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    final statusCard = tester.widget<Card>(
+      find.byKey(const Key('bedtime-status-card')),
+    );
+    expect(
+      statusCard.color,
+      AppTheme.dark().colorScheme.surface.withValues(alpha: 0.9),
+    );
+
+    final selectedPill = tester.widget<Ink>(
+      find.byKey(const Key('bedtime-status-pill-readyToSleep')),
+    );
+    final selectedDecoration = selectedPill.decoration! as BoxDecoration;
+    expect(
+      selectedDecoration.color,
+      AppTheme.dark()
+          .extension<RhythmChipThemeExtension>()!
+          .selectedBackgroundColor,
+    );
+  });
+
+  testWidgets('暗色主题下睡前 hero 退回低对比表层而不是品牌渐变', (tester) async {
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          bedtimeControllerProvider.overrideWith(
+            () => _FakeBedtimeController(_readyState()),
+          ),
+        ],
+        child: MaterialApp(
+          theme: AppTheme.light(),
+          darkTheme: AppTheme.dark(),
+          themeMode: ThemeMode.dark,
+          locale: const Locale('zh'),
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: const Scaffold(body: BedtimePage()),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    final heroContainer = tester.widget<Container>(
+      find.byKey(const Key('bedtime-hero-card')),
+    );
+    final decoration = heroContainer.decoration! as BoxDecoration;
+
+    expect(
+      decoration.color,
+      AppTheme.dark().colorScheme.surfaceContainerHighest,
+    );
+    expect(decoration.gradient, isNull);
   });
 }
 

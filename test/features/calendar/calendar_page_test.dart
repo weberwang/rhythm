@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:rhythm/app/theme/app_theme.dart';
 import 'package:rhythm/features/calendar/application/calendar_controller.dart';
 import 'package:rhythm/features/calendar/application/calendar_view_state.dart';
 import 'package:rhythm/features/calendar/domain/calendar_day_mood.dart';
@@ -152,6 +153,83 @@ void main() {
     );
 
     expect(find.text('还没有设置作息目标'), findsOneWidget);
+  });
+
+  testWidgets('暗色主题下日历主卡与详情卡使用主题化容器底色', (tester) async {
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          calendarControllerProvider.overrideWith(
+            () => _FakeCalendarController(_readyState()),
+          ),
+        ],
+        child: MaterialApp(
+          theme: AppTheme.light(),
+          darkTheme: AppTheme.dark(),
+          themeMode: ThemeMode.dark,
+          locale: const Locale('zh'),
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: const Scaffold(body: CalendarPage()),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    final mainCard = tester.widget<Card>(
+      find.byKey(const Key('calendar-main-card')),
+    );
+    expect(
+      mainCard.color,
+      AppTheme.dark().colorScheme.surface.withValues(alpha: 0.9),
+    );
+
+    final detailCard = tester.widget<Card>(
+      find.byKey(const Key('calendar-selected-day-card')),
+    );
+    expect(
+      detailCard.color,
+      AppTheme.dark().colorScheme.surface.withValues(alpha: 0.9),
+    );
+  });
+
+  testWidgets('暗色空态下顶部摘要卡退回低对比表层而不是品牌渐变 hero', (tester) async {
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          calendarControllerProvider.overrideWith(
+            () => _FakeCalendarController(
+              _readyState(
+                onTargetDays: 0,
+                recordedDays: 0,
+                latestLateDayIndex: null,
+              ),
+            ),
+          ),
+        ],
+        child: MaterialApp(
+          theme: AppTheme.light(),
+          darkTheme: AppTheme.dark(),
+          themeMode: ThemeMode.dark,
+          locale: const Locale('zh'),
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: const Scaffold(body: CalendarPage()),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    final heroContainer = tester.widget<Container>(
+      find.byKey(const Key('calendar-hero-card')),
+    );
+    final decoration = heroContainer.decoration! as BoxDecoration;
+
+    expect(
+      decoration.color,
+      AppTheme.dark().colorScheme.surfaceContainerHighest,
+    );
+    expect(decoration.gradient, isNull);
   });
 }
 

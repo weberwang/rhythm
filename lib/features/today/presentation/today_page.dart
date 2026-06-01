@@ -14,6 +14,10 @@ import '../application/today_controller.dart';
 import '../application/today_view_state.dart';
 import '../domain/today_primary_action.dart';
 
+/// 今日页无权限状态插图资产路径，集中维护避免错误态和业务态引用不一致。
+const _todayPermissionEmptyIllustrationAsset =
+    'assets/images/today_permission_empty_illustration_v3.png';
+
 /// 今日页入口，按 Pencil 稿重组为主结果卡、行动卡、恢复卡、快捷记录卡和趋势卡。
 class TodayPage extends HookConsumerWidget {
   /// 创建今日页。
@@ -41,9 +45,11 @@ class TodayPage extends HookConsumerWidget {
           data: (state) => _TodayPageBody(
             state: state,
             l10n: l10n,
-            onOpenGoalSetup: () => context.pushSecondary(onboardingGoalSetupPath),
+            onOpenGoalSetup: () =>
+                context.pushSecondary(onboardingGoalSetupPath),
             onOpenPermissionHelp: () => context.go(sleepRecordsHubPath),
-            onManualRecord: () => context.go(manualSleepRecordPath),
+            // 今日页进入手动补录属于二级流转，必须保留来源页返回栈。
+            onManualRecord: () => context.pushSecondary(manualSleepRecordPath),
             onOpenBedtime: () => context.go(RhythmTab.bedtime.path),
             onOpenRecovery: () => context.go(RhythmTab.insights.path),
             onOpenRecordsHub: () => context.go(sleepRecordsHubPath),
@@ -63,7 +69,10 @@ class TodayPage extends HookConsumerWidget {
             child: _TodayEmptyCard(
               icon: Icons.health_and_safety_outlined,
               title: l10n.todayPermissionFailedTitle,
+              description:
+                  l10n.sleepRecordsHubStatusPermissionRequiredDescription,
               buttonLabel: l10n.todayPermissionFailedPrimaryAction,
+              illustrationAsset: _todayPermissionEmptyIllustrationAsset,
               onPressed: () => context.go(sleepRecordsHubPath),
             ),
           ),
@@ -116,6 +125,7 @@ class _TodayPageBody extends StatelessWidget {
           child: _TodayEmptyCard(
             icon: Icons.schedule_outlined,
             title: l10n.todayGoalMissingTitle,
+            description: l10n.todayCardDescription,
             buttonLabel: l10n.todayGoalMissingPrimaryAction,
             onPressed: onOpenGoalSetup,
           ),
@@ -125,7 +135,10 @@ class _TodayPageBody extends StatelessWidget {
           child: _TodayEmptyCard(
             icon: Icons.health_and_safety_outlined,
             title: l10n.todayPermissionFailedTitle,
+            description:
+                l10n.sleepRecordsHubStatusPermissionRequiredDescription,
             buttonLabel: l10n.todayPermissionFailedPrimaryAction,
+            illustrationAsset: _todayPermissionEmptyIllustrationAsset,
             onPressed: onOpenPermissionHelp,
           ),
         );
@@ -134,6 +147,7 @@ class _TodayPageBody extends StatelessWidget {
           child: _TodayEmptyCard(
             icon: Icons.bedtime_outlined,
             title: l10n.todayEmptyTitle,
+            description: l10n.todayCardDescription,
             buttonLabel: l10n.todayEmptyPrimaryAction,
             onPressed: onManualRecord,
           ),
@@ -237,11 +251,19 @@ class _TodayPageViewport extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.only(bottom: 12),
-        child: child,
-      ),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return SingleChildScrollView(
+          child: ConstrainedBox(
+            // 空态内容本身不长时也要吃满可用高度，避免卡片下方露出大块页面背景。
+            constraints: BoxConstraints(minHeight: constraints.maxHeight),
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 12),
+              child: child,
+            ),
+          ),
+        );
+      },
     );
   }
 }
@@ -249,10 +271,7 @@ class _TodayPageViewport extends StatelessWidget {
 /// 顶部结果主卡，承接昨晚状态、趋势方向与品牌氛围。
 class _TodayHeroCard extends StatelessWidget {
   /// 创建顶部结果主卡。
-  const _TodayHeroCard({
-    required this.summary,
-    required this.l10n,
-  });
+  const _TodayHeroCard({required this.summary, required this.l10n});
 
   final TodaySummary summary;
   final AppLocalizations l10n;
@@ -277,8 +296,7 @@ class _TodayHeroCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(32),
           border: Border.all(
             color:
-                heroTokens?.borderColor ??
-                Colors.white.withValues(alpha: 0.28),
+                heroTokens?.borderColor ?? Colors.white.withValues(alpha: 0.28),
           ),
           boxShadow: [
             BoxShadow(
@@ -309,9 +327,7 @@ class _TodayHeroCard extends StatelessWidget {
                   ),
                 ),
                 if (summary.isUserConfirmedRecord)
-                  _TodayHeroTag(
-                    label: l10n.todayStatusUserConfirmed,
-                  ),
+                  _TodayHeroTag(label: l10n.todayStatusUserConfirmed),
               ],
             ),
             const SizedBox(height: 16),
@@ -487,26 +503,67 @@ class _TodayEmptyCard extends StatelessWidget {
   const _TodayEmptyCard({
     required this.icon,
     required this.title,
+    required this.description,
     required this.buttonLabel,
     required this.onPressed,
+    this.illustrationAsset,
   });
 
   final IconData icon;
   final String title;
+  final String description;
   final String buttonLabel;
   final VoidCallback onPressed;
 
+  /// 仅在需要增强空态视觉密度时传入，默认保持其他空态的紧凑结构。
+  final String? illustrationAsset;
+
+  /// 构建今日页空态卡片，按状态决定是否展示装饰插图。
   @override
   Widget build(BuildContext context) {
     return _TodayStatusCard(
       icon: icon,
       title: title,
-      description: AppLocalizations.of(context).todayCardDescription,
-      child: Padding(
-        padding: const EdgeInsets.only(top: 4),
-        child: RhythmPrimaryButton(
-          label: buttonLabel,
-          onPressed: onPressed,
+      description: description,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          if (illustrationAsset != null) ...[
+            _TodayPermissionEmptyIllustration(assetPath: illustrationAsset!),
+            const SizedBox(height: 18),
+          ],
+          RhythmPrimaryButton(label: buttonLabel, onPressed: onPressed),
+        ],
+      ),
+    );
+  }
+}
+
+/// 今日页健康权限缺失状态的装饰插图，负责填充卡片空白但不承载额外文案。
+class _TodayPermissionEmptyIllustration extends StatelessWidget {
+  /// 创建权限缺失空态插图。
+  const _TodayPermissionEmptyIllustration({required this.assetPath});
+
+  /// 项目内图片资产路径。
+  final String assetPath;
+
+  /// 渲染装饰图片，排除语义树以避免与空态标题和按钮重复表达。
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 320),
+        child: AspectRatio(
+          // 生成图是 1024x1536 竖幅，按真实比例承载可避免顶部权限符号被过度裁切。
+          aspectRatio: 2 / 3,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(24),
+            child: Image.asset(
+              assetPath,
+              fit: BoxFit.cover,
+              excludeFromSemantics: true,
+            ),
+          ),
         ),
       ),
     );
@@ -565,11 +622,7 @@ class _TodayStatusCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(17),
                   ),
                   alignment: Alignment.center,
-                  child: Icon(
-                    icon,
-                    size: 18,
-                    color: const Color(0xFF4F5E9A),
-                  ),
+                  child: Icon(icon, size: 18, color: const Color(0xFF4F5E9A)),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
@@ -684,9 +737,15 @@ String _statusDescription(TodaySummary summary, AppLocalizations l10n) {
   if (summary.sleepOffsetMinutes > 0) {
     final detail = l10n.todayStatusLateDetail(lateMinutes);
     if (summary.showRecoveryCard) {
-      return _joinStatusSentences(l10n, [detail, l10n.todayRecoveryDescription]);
+      return _joinStatusSentences(l10n, [
+        detail,
+        l10n.todayRecoveryDescription,
+      ]);
     }
-    return _joinStatusSentences(l10n, [detail, l10n.todayStatusWithinThreshold]);
+    return _joinStatusSentences(l10n, [
+      detail,
+      l10n.todayStatusWithinThreshold,
+    ]);
   }
   if (summary.sleepOffsetMinutes < 0) {
     return _joinStatusSentences(l10n, [

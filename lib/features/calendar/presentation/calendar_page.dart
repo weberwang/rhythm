@@ -99,7 +99,11 @@ class CalendarPage extends HookConsumerWidget {
             monthSummary.latestLateDay?.sleepOffsetMinutes == null
             ? '--:--'
             : _formatOffset(monthSummary.latestLateDay!.sleepOffsetMinutes!);
-        final heroTitle = _buildCalendarHeroTitle(context, monthSummary.month, l10n);
+        final heroTitle = _buildCalendarHeroTitle(
+          context,
+          monthSummary.month,
+          l10n,
+        );
         final heatmapTitle = _buildCalendarHeatmapTitle(
           context,
           monthSummary.month,
@@ -125,12 +129,16 @@ class CalendarPage extends HookConsumerWidget {
                 title: heroTitle,
                 subtitle: heroSubtitle,
                 eyebrow: l10n.calendarHeroEyebrow,
+                isEmptyState: monthSummary.recordedDays == 0,
               ),
               const SizedBox(height: 18),
               Card(
+                key: const Key('calendar-main-card'),
                 margin: EdgeInsets.zero,
                 elevation: 0,
-                color: Colors.white.withValues(alpha: 0.84),
+                color: theme.colorScheme.surface.withValues(
+                  alpha: theme.brightness == Brightness.light ? 0.84 : 0.9,
+                ),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(28),
                 ),
@@ -191,9 +199,12 @@ class CalendarPage extends HookConsumerWidget {
                       Container(
                         padding: const EdgeInsets.fromLTRB(14, 14, 14, 16),
                         decoration: BoxDecoration(
-                          color: const Color(0xFFF8FAFF),
+                          color: theme.colorScheme.surfaceContainerHighest
+                              .withValues(alpha: 0.68),
                           borderRadius: BorderRadius.circular(20),
-                          border: Border.all(color: const Color(0xFFEEF2FA)),
+                          border: Border.all(
+                            color: theme.colorScheme.outlineVariant,
+                          ),
                         ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -208,7 +219,9 @@ class CalendarPage extends HookConsumerWidget {
                                 selectedDay.value = summary;
                                 await ref
                                     .read(calendarAnalyticsProvider)
-                                    .trackDayDetailViewed(recordDate: summary.date);
+                                    .trackDayDetailViewed(
+                                      recordDate: summary.date,
+                                    );
                               },
                             ),
                           ],
@@ -299,34 +312,60 @@ class _CalendarHeroCard extends StatelessWidget {
     required this.title,
     required this.subtitle,
     required this.eyebrow,
+    required this.isEmptyState,
   });
 
   final String title;
   final String subtitle;
   final String eyebrow;
+  final bool isEmptyState;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final heroTokens = theme.extension<RhythmHeroThemeExtension>();
     final textTheme = theme.textTheme;
+    final heroForeground = heroTokens?.textColor ?? theme.colorScheme.onPrimary;
+    final heroForegroundSoft = heroForeground.withValues(alpha: 0.86);
+    final useSurfaceHero = isEmptyState && theme.brightness == Brightness.dark;
+    final titleColor = useSurfaceHero
+        ? theme.colorScheme.onSurface
+        : heroForeground;
+    final subtitleColor = useSurfaceHero
+        ? theme.colorScheme.onSurfaceVariant
+        : heroForegroundSoft;
+    final eyebrowColor = useSurfaceHero
+        ? theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.92)
+        : heroForeground.withValues(alpha: 0.92);
 
     return Container(
+      key: const Key('calendar-hero-card'),
+      // 顶部 hero 需要始终吃满父级可用宽度，避免在滚动容器里按内容宽度收缩。
+      width: double.infinity,
       padding: const EdgeInsets.fromLTRB(20, 18, 20, 20),
       decoration: BoxDecoration(
-        gradient: heroTokens?.gradient ??
-            LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                theme.colorScheme.primary.withValues(alpha: 0.92),
-                theme.colorScheme.primaryContainer.withValues(alpha: 0.88),
-              ],
-            ),
+        gradient: useSurfaceHero
+            ? null
+            : heroTokens?.gradient ??
+                  LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      theme.colorScheme.primary.withValues(alpha: 0.92),
+                      theme.colorScheme.primaryContainer.withValues(
+                        alpha: 0.88,
+                      ),
+                    ],
+                  ),
+        color: useSurfaceHero
+            ? theme.colorScheme.surfaceContainerHighest
+            : null,
         borderRadius: BorderRadius.circular(32),
         border: Border.all(
-          color:
-              heroTokens?.borderColor ?? Colors.white.withValues(alpha: 0.32),
+          color: useSurfaceHero
+              ? theme.colorScheme.outlineVariant
+              : heroTokens?.borderColor ??
+                    heroForeground.withValues(alpha: 0.32),
         ),
         boxShadow: [
           BoxShadow(
@@ -342,7 +381,7 @@ class _CalendarHeroCard extends StatelessWidget {
           Text(
             eyebrow,
             style: textTheme.labelMedium?.copyWith(
-              color: Colors.white.withValues(alpha: 0.92),
+              color: eyebrowColor,
               fontWeight: FontWeight.w700,
             ),
           ),
@@ -350,7 +389,7 @@ class _CalendarHeroCard extends StatelessWidget {
           Text(
             title,
             style: textTheme.headlineSmall?.copyWith(
-              color: Colors.white,
+              color: titleColor,
               fontWeight: FontWeight.w600,
               height: 1.08,
             ),
@@ -359,7 +398,7 @@ class _CalendarHeroCard extends StatelessWidget {
           Text(
             subtitle,
             style: textTheme.bodyMedium?.copyWith(
-              color: const Color(0xFFF0F3FF),
+              color: subtitleColor,
               height: 1.45,
             ),
           ),
@@ -371,10 +410,7 @@ class _CalendarHeroCard extends StatelessWidget {
 
 /// 月切换按钮先按设计稿保留位置，当前月切换能力后续由 controller 补齐。
 class _CalendarMonthNavButton extends StatelessWidget {
-  const _CalendarMonthNavButton({
-    required this.icon,
-    required this.onPressed,
-  });
+  const _CalendarMonthNavButton({required this.icon, required this.onPressed});
 
   final IconData icon;
   final VoidCallback? onPressed;
@@ -388,7 +424,7 @@ class _CalendarMonthNavButton extends StatelessWidget {
         onPressed: onPressed,
         style: OutlinedButton.styleFrom(
           padding: EdgeInsets.zero,
-          side: const BorderSide(color: Color(0xFFE5EBF6)),
+          side: BorderSide(color: Theme.of(context).colorScheme.outlineVariant),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(17),
           ),
@@ -408,7 +444,7 @@ class _CalendarWeekdayHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textStyle = Theme.of(context).textTheme.labelSmall?.copyWith(
-      color: const Color(0xFF8D97AE),
+      color: Theme.of(context).colorScheme.onSurfaceVariant,
       fontWeight: FontWeight.w500,
     );
 
@@ -416,9 +452,7 @@ class _CalendarWeekdayHeader extends StatelessWidget {
       children: [
         for (final label in labels) ...[
           Expanded(
-            child: Center(
-              child: Text(label, style: textStyle),
-            ),
+            child: Center(child: Text(label, style: textStyle)),
           ),
         ],
       ],
@@ -463,9 +497,9 @@ class _CalendarMetricCard extends StatelessWidget {
             fit: BoxFit.scaleDown,
             child: Text(
               value,
-              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                fontWeight: FontWeight.w800,
-              ),
+              style: Theme.of(
+                context,
+              ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w800),
             ),
           ),
         ],
@@ -503,9 +537,12 @@ class _CalendarSelectedDayCard extends StatelessWidget {
     );
 
     return Card(
+      key: const Key('calendar-selected-day-card'),
       margin: EdgeInsets.zero,
       elevation: 0,
-      color: Colors.white.withValues(alpha: 0.82),
+      color: Theme.of(context).colorScheme.surface.withValues(
+        alpha: Theme.of(context).brightness == Brightness.light ? 0.82 : 0.9,
+      ),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28)),
       child: Padding(
         padding: const EdgeInsets.all(20),
@@ -526,7 +563,7 @@ class _CalendarSelectedDayCard extends StatelessWidget {
                 Text(
                   detailText,
                   style: textTheme.bodySmall?.copyWith(
-                    color: const Color(0xFF6F7891),
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
                     height: 1.45,
                   ),
                 ),
@@ -542,7 +579,10 @@ class _CalendarSelectedDayCard extends StatelessWidget {
                               : DateFormat(
                                   'HH:mm',
                                 ).format(summary.record!.fellAsleepAt),
-                          backgroundColor: const Color(0xFFF8FAFF),
+                          backgroundColor: Theme.of(context)
+                              .colorScheme
+                              .primaryContainer
+                              .withValues(alpha: 0.44),
                         ),
                       ),
                       const SizedBox(width: 10),
@@ -550,7 +590,10 @@ class _CalendarSelectedDayCard extends StatelessWidget {
                         child: _CalendarMetricCard(
                           title: l10n.calendarMetricOnTrack,
                           value: '$onTrackRate%',
-                          backgroundColor: const Color(0xFFFCFBF8),
+                          backgroundColor: Theme.of(context)
+                              .colorScheme
+                              .tertiaryContainer
+                              .withValues(alpha: 0.42),
                         ),
                       ),
                     ],
@@ -559,7 +602,9 @@ class _CalendarSelectedDayCard extends StatelessWidget {
                   _CalendarMetricCard(
                     title: l10n.calendarMetricLatestLate,
                     value: latestLateText,
-                    backgroundColor: const Color(0xFFF8F7FB),
+                    backgroundColor: Theme.of(
+                      context,
+                    ).colorScheme.secondaryContainer.withValues(alpha: 0.42),
                   ),
                 ] else
                   Row(
@@ -572,7 +617,10 @@ class _CalendarSelectedDayCard extends StatelessWidget {
                               : DateFormat(
                                   'HH:mm',
                                 ).format(summary.record!.fellAsleepAt),
-                          backgroundColor: const Color(0xFFF8FAFF),
+                          backgroundColor: Theme.of(context)
+                              .colorScheme
+                              .primaryContainer
+                              .withValues(alpha: 0.44),
                         ),
                       ),
                       const SizedBox(width: 10),
@@ -580,7 +628,10 @@ class _CalendarSelectedDayCard extends StatelessWidget {
                         child: _CalendarMetricCard(
                           title: l10n.calendarMetricOnTrack,
                           value: '$onTrackRate%',
-                          backgroundColor: const Color(0xFFFCFBF8),
+                          backgroundColor: Theme.of(context)
+                              .colorScheme
+                              .tertiaryContainer
+                              .withValues(alpha: 0.42),
                         ),
                       ),
                       const SizedBox(width: 10),
@@ -588,7 +639,10 @@ class _CalendarSelectedDayCard extends StatelessWidget {
                         child: _CalendarMetricCard(
                           title: l10n.calendarMetricLatestLate,
                           value: latestLateText,
-                          backgroundColor: const Color(0xFFF8F7FB),
+                          backgroundColor: Theme.of(context)
+                              .colorScheme
+                              .secondaryContainer
+                              .withValues(alpha: 0.42),
                         ),
                       ),
                     ],

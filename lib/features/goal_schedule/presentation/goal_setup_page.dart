@@ -40,6 +40,7 @@ class GoalSetupPage extends HookConsumerWidget {
             ),
           );
       if (context.mounted) {
+        // 首启主链路先补齐增强体验设置，再进入今日页。
         context.go(onboardingReminderSetupPath);
       }
     }
@@ -433,78 +434,108 @@ class _GoalTimePickerSheetState extends State<_GoalTimePickerSheet> {
       top: false,
       child: Padding(
         padding: const EdgeInsets.fromLTRB(20, 16, 20, 24),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Text(
-              widget.title,
-              textAlign: TextAlign.center,
-              style: textTheme.titleMedium?.copyWith(
-                fontWeight: FontWeight.w700,
+        child: Container(
+          padding: const EdgeInsets.fromLTRB(16, 16, 16, 20),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(28),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.08),
+                blurRadius: 24,
+                offset: const Offset(0, 12),
               ),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              _formatTime(selectedHour, selectedMinute),
-              textAlign: TextAlign.center,
-              style: textTheme.headlineSmall?.copyWith(
-                fontWeight: FontWeight.w600,
+            ],
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text(
+                widget.title,
+                textAlign: TextAlign.center,
+                style: textTheme.titleMedium?.copyWith(
+                  fontWeight: FontWeight.w700,
+                ),
               ),
-            ),
-            const SizedBox(height: 12),
-            SizedBox(
-              height: 180,
-              child: Row(
-                children: [
-                  Expanded(
-                    child: CupertinoPicker(
-                      itemExtent: 40,
-                      scrollController: FixedExtentScrollController(
-                        initialItem: selectedHour,
-                      ),
-                      onSelectedItemChanged: (index) {
-                        setState(() {
-                          selectedHour = index;
-                        });
-                      },
-                      children: List.generate(
-                        24,
-                        (index) => Center(
-                          child: Text(index.toString().padLeft(2, '0')),
-                        ),
+              const SizedBox(height: 6),
+              Text(
+                _formatTime(selectedHour, selectedMinute),
+                textAlign: TextAlign.center,
+                style: textTheme.headlineSmall?.copyWith(
+                  fontWeight: FontWeight.w600,
+                  color: const Color(0xFF182033),
+                ),
+              ),
+              const SizedBox(height: 14),
+              SizedBox(
+                height: 180,
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Container(
+                      height: 40,
+                      margin: const EdgeInsets.symmetric(horizontal: 8),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFF0F1F7),
+                        borderRadius: BorderRadius.circular(12),
                       ),
                     ),
-                  ),
-                  Expanded(
-                    child: CupertinoPicker(
-                      itemExtent: 40,
-                      scrollController: FixedExtentScrollController(
-                        initialItem: selectedMinute == 30 ? 1 : 0,
-                      ),
-                      onSelectedItemChanged: (index) {
-                        setState(() {
-                          selectedMinute = index == 0 ? 0 : 30;
-                        });
-                      },
-                      children: const [
-                        Center(child: Text('00')),
-                        Center(child: Text('30')),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: CupertinoPicker(
+                            backgroundColor: Colors.white,
+                            itemExtent: 40,
+                            scrollController: FixedExtentScrollController(
+                              initialItem: selectedHour,
+                            ),
+                            onSelectedItemChanged: (index) {
+                              setState(() {
+                                selectedHour = index;
+                              });
+                            },
+                            children: List.generate(
+                              24,
+                              (index) => Center(
+                                child: Text(index.toString().padLeft(2, '0')),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: CupertinoPicker(
+                            backgroundColor: Colors.white,
+                            itemExtent: 40,
+                            scrollController: FixedExtentScrollController(
+                              initialItem: selectedMinute == 30 ? 1 : 0,
+                            ),
+                            onSelectedItemChanged: (index) {
+                              setState(() {
+                                selectedMinute = index == 0 ? 0 : 30;
+                              });
+                            },
+                            children: const [
+                              Center(child: Text('00')),
+                              Center(child: Text('30')),
+                            ],
+                          ),
+                        ),
                       ],
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(height: 16),
-            FilledButton(
-              onPressed: () {
-                widget.onConfirm(selectedHour, selectedMinute);
-                Navigator.of(context).pop();
-              },
-              child: Text(AppLocalizations.of(context).goalSetupPickerConfirm),
-            ),
-          ],
+              const SizedBox(height: 16),
+              FilledButton(
+                onPressed: () {
+                  widget.onConfirm(selectedHour, selectedMinute);
+                  Navigator.of(context).pop();
+                },
+                child: Text(AppLocalizations.of(context).goalSetupPickerConfirm),
+              ),
+            ],
+          ),
         ),
       ),
     );

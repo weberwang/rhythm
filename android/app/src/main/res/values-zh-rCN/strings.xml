@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="rhythm_widget_title">今晚</string>
+    <string name="rhythm_widget_status_ready">昨晚睡眠</string>
+    <string name="rhythm_widget_status_goal_missing">需要先设置目标</string>
+    <string name="rhythm_widget_status_no_data">还没有睡眠记录</string>
+    <string name="rhythm_widget_status_permission_required">需要健康数据权限</string>
+    <string name="rhythm_widget_body_goal_missing">打开 Rhythm 完成你的睡眠目标设置。</string>
+    <string name="rhythm_widget_body_no_data">补一条睡眠记录后，这里会显示昨晚摘要。</string>
+    <string name="rhythm_widget_body_permission_required">请先授权健康数据读取，小组件才能展示睡眠摘要。</string>
+    <string name="rhythm_widget_delta_ahead">距离目标还有 %1$d 分钟</string>
+    <string name="rhythm_widget_delta_late">已晚于目标 %1$d 分钟</string>
+</resources>

@@ -21,6 +21,13 @@ class ReminderSetupPage extends HookConsumerWidget {
   /// 首启状态仓储。
   final LaunchStateRepository launchStateRepository;
 
+  Future<void> _skipEnhancement(BuildContext context) async {
+    await launchStateRepository.markOnboardingCompleted();
+    if (context.mounted) {
+      context.go(RhythmTab.today.path);
+    }
+  }
+
   Future<void> _completeOnboarding(BuildContext context, WidgetRef ref) async {
     final notificationGateway = ref.read(localNotificationGatewayProvider);
     final hasPermission = await notificationGateway.isPermissionGranted();
@@ -42,7 +49,8 @@ class ReminderSetupPage extends HookConsumerWidget {
         );
     await launchStateRepository.markOnboardingCompleted();
     if (context.mounted) {
-      context.go(onboardingWidgetGuidePath);
+      // V2 引导完成后直接进入今日页，小组件入口后置到首页之后。
+      context.go(RhythmTab.today.path);
     }
   }
 
@@ -90,7 +98,7 @@ class ReminderSetupPage extends HookConsumerWidget {
                   primaryLabel: l10n.reminderSetupContinueButton,
                   secondaryLabel: l10n.reminderSetupSecondaryButton,
                   onPrimary: () => _completeOnboarding(context, ref),
-                  onSecondary: () => _completeOnboarding(context, ref),
+                  onSecondary: () => _skipEnhancement(context),
                 ),
                 const SizedBox(height: 16),
                 Text(
@@ -124,6 +132,8 @@ class _ReminderHeroCard extends StatelessWidget {
     final theme = Theme.of(context);
     final heroTokens = theme.extension<RhythmHeroThemeExtension>();
     final textTheme = theme.textTheme;
+    final heroForeground = heroTokens?.textColor ?? theme.colorScheme.onPrimary;
+    final heroForegroundSoft = heroForeground.withValues(alpha: 0.86);
 
     return Container(
       width: double.infinity,
@@ -154,17 +164,17 @@ class _ReminderHeroCard extends StatelessWidget {
                 width: 34,
                 height: 34,
                 decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: 0.14),
+                  color: heroForeground.withValues(alpha: 0.14),
                   borderRadius: BorderRadius.circular(17),
                   border: Border.all(
-                    color: Colors.white.withValues(alpha: 0.18),
+                    color: heroForeground.withValues(alpha: 0.18),
                   ),
                 ),
                 alignment: Alignment.center,
-                child: const Icon(
+                child: Icon(
                   Icons.nightlight_round,
                   size: 18,
-                  color: Colors.white,
+                  color: heroForeground,
                 ),
               ),
               const SizedBox(width: 14),
@@ -172,7 +182,7 @@ class _ReminderHeroCard extends StatelessWidget {
                 child: Text(
                   title,
                   style: textTheme.headlineSmall?.copyWith(
-                    color: Colors.white,
+                    color: heroForeground,
                     fontWeight: FontWeight.w500,
                     height: 1.08,
                   ),
@@ -184,7 +194,7 @@ class _ReminderHeroCard extends StatelessWidget {
           Text(
             description,
             style: textTheme.bodyMedium?.copyWith(
-              color: const Color(0xFFEEF2FF),
+              color: heroForegroundSoft,
               height: 1.45,
             ),
           ),
@@ -250,15 +260,17 @@ class _ReminderChoicePanel extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
+    final colorScheme = theme.colorScheme;
     final options = <_ReminderOptionData>[
       _ReminderOptionData(
         mode: _ReminderMode.soft,
         title: AppLocalizations.of(context).reminderSetupSoftTitle,
         description: AppLocalizations.of(context).reminderSetupSoftDescription,
-        backgroundColor: const Color(0xFFEEF3FF),
-        borderColor: const Color(0xFFCCD9F3),
+        backgroundColor: colorScheme.primaryContainer.withValues(alpha: 0.44),
+        borderColor: colorScheme.primary.withValues(alpha: 0.2),
         icon: Icons.notifications_none_rounded,
-        key: const Key('reminder-mode-soft'),
+        tapKey: const Key('reminder-mode-soft'),
+        cardKey: const Key('reminder-option-card-soft'),
       ),
       _ReminderOptionData(
         mode: _ReminderMode.standard,
@@ -266,28 +278,39 @@ class _ReminderChoicePanel extends StatelessWidget {
         description: AppLocalizations.of(
           context,
         ).reminderSetupStandardDescription,
-        backgroundColor: const Color(0xFFFBFCFD),
-        borderColor: const Color(0xFFE0E7F2),
+        backgroundColor: colorScheme.surfaceContainerHighest.withValues(
+          alpha: 0.68,
+        ),
+        borderColor: colorScheme.outlineVariant,
         icon: Icons.notifications_active_outlined,
-        key: const Key('reminder-mode-standard'),
+        tapKey: const Key('reminder-mode-standard'),
+        cardKey: const Key('reminder-option-card-standard'),
       ),
       _ReminderOptionData(
         mode: _ReminderMode.off,
         title: AppLocalizations.of(context).reminderSetupOffTitle,
         description: AppLocalizations.of(context).reminderSetupOffDescription,
-        backgroundColor: const Color(0xFFF8F7FB),
-        borderColor: const Color(0xFFF0ECF7),
+        backgroundColor: colorScheme.tertiaryContainer.withValues(alpha: 0.42),
+        borderColor: colorScheme.tertiary.withValues(alpha: 0.2),
         icon: Icons.notifications_off_outlined,
-        key: const Key('reminder-mode-off'),
+        tapKey: const Key('reminder-mode-off'),
+        cardKey: const Key('reminder-option-card-off'),
       ),
     ];
+    final panelColor = colorScheme.surface.withValues(
+      alpha: theme.brightness == Brightness.light ? 0.84 : 0.9,
+    );
+    final panelBorderColor = colorScheme.outlineVariant.withValues(
+      alpha: theme.brightness == Brightness.light ? 0.2 : 0.72,
+    );
 
     return Container(
+      key: const Key('reminder-choice-panel'),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.84),
+        color: panelColor,
         borderRadius: BorderRadius.circular(28),
-        border: Border.all(color: const Color(0x80FFFFFF)),
+        border: Border.all(color: panelBorderColor),
         boxShadow: [
           BoxShadow(
             color: theme.colorScheme.shadow.withValues(alpha: 0.07),
@@ -343,16 +366,19 @@ class _ReminderOptionCard extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     return InkWell(
-      key: data.key,
+      key: data.tapKey,
       onTap: onTap,
       borderRadius: BorderRadius.circular(18),
       child: Container(
+        key: data.cardKey,
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
         decoration: BoxDecoration(
           color: data.backgroundColor,
           borderRadius: BorderRadius.circular(18),
           border: Border.all(
-            color: selected ? const Color(0xFF8FA2D8) : data.borderColor,
+            color: selected
+                ? Theme.of(context).colorScheme.primary
+                : data.borderColor,
             width: selected ? 1.4 : 1,
           ),
         ),
@@ -363,11 +389,15 @@ class _ReminderOptionCard extends StatelessWidget {
               width: 36,
               height: 36,
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: Theme.of(context).colorScheme.surface,
                 borderRadius: BorderRadius.circular(18),
               ),
               alignment: Alignment.center,
-              child: Icon(data.icon, size: 18, color: const Color(0xFF182033)),
+              child: Icon(
+                data.icon,
+                size: 18,
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
             ),
             const SizedBox(width: 12),
             Expanded(
@@ -377,7 +407,7 @@ class _ReminderOptionCard extends StatelessWidget {
                   Text(
                     data.title,
                     style: textTheme.labelLarge?.copyWith(
-                      color: const Color(0xFF182033),
+                      color: Theme.of(context).colorScheme.onSurface,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -385,7 +415,7 @@ class _ReminderOptionCard extends StatelessWidget {
                   Text(
                     data.description,
                     style: textTheme.bodySmall?.copyWith(
-                      color: const Color(0xFF6F7891),
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
                       height: 1.35,
                     ),
                   ),
@@ -407,7 +437,8 @@ class _ReminderOptionData {
     required this.backgroundColor,
     required this.borderColor,
     required this.icon,
-    required this.key,
+    required this.tapKey,
+    required this.cardKey,
   });
 
   final _ReminderMode mode;
@@ -416,5 +447,6 @@ class _ReminderOptionData {
   final Color backgroundColor;
   final Color borderColor;
   final IconData icon;
-  final Key key;
+  final Key tapKey;
+  final Key cardKey;
 }

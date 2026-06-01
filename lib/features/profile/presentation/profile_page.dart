@@ -11,6 +11,7 @@ import 'package:rhythm/features/preferences/domain/app_locale_preference.dart';
 import 'package:rhythm/features/preferences/domain/app_theme_preference.dart';
 import 'package:rhythm/features/sleep_records/application/sleep_record_providers.dart';
 import 'package:rhythm/features/sleep_records/domain/health_platform_state.dart';
+import 'package:rhythm/features/profile/presentation/widgets/profile_visual_blocks.dart';
 import 'package:rhythm/l10n/app_localizations.dart';
 import 'package:rhythm/shared/presentation/theme/rhythm_theme_extensions.dart';
 
@@ -33,7 +34,7 @@ class ProfilePage extends HookConsumerWidget {
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
-            const Color(0xFFF6F8FC),
+            Theme.of(context).colorScheme.surface.withValues(alpha: 0.98),
             Theme.of(context).scaffoldBackgroundColor,
           ],
         ),
@@ -47,7 +48,8 @@ class ProfilePage extends HookConsumerWidget {
             children: [
               _ProfileSummaryHeroCard(l10n: l10n),
               const SizedBox(height: 18),
-              _ProfileGlassCard(
+              ProfileGlassCard(
+                key: const Key('profile-membership-card'),
                 title: l10n.profileMembershipSyncCardTitle,
                 description: l10n.profileMembershipEntrySubtitle,
                 child: Column(
@@ -57,17 +59,27 @@ class ProfilePage extends HookConsumerWidget {
                       spacing: 12,
                       runSpacing: 12,
                       children: [
-                        _ProfileStatusChip(
+                        ProfileStatusChip(
                           icon: Icons.auto_awesome_rounded,
                           label: l10n.profileHeroBadgeLabel,
-                          backgroundColor: const Color(0xFFEEF3FF),
-                          foregroundColor: const Color(0xFF4F5E9A),
+                          backgroundColor: Theme.of(context)
+                              .colorScheme
+                              .primaryContainer
+                              .withValues(alpha: 0.44),
+                          foregroundColor: Theme.of(
+                            context,
+                          ).colorScheme.primary,
                         ),
-                        _ProfileStatusChip(
+                        ProfileStatusChip(
                           icon: Icons.cloud_outlined,
                           label: l10n.accountSyncCloudIdentityPendingTitle,
-                          backgroundColor: const Color(0xFFFCFBF8),
-                          foregroundColor: const Color(0xFF7C6A3F),
+                          backgroundColor: Theme.of(context)
+                              .colorScheme
+                              .tertiaryContainer
+                              .withValues(alpha: 0.42),
+                          foregroundColor: Theme.of(
+                            context,
+                          ).colorScheme.onTertiaryContainer,
                         ),
                       ],
                     ),
@@ -76,16 +88,19 @@ class ProfilePage extends HookConsumerWidget {
                       spacing: 12,
                       runSpacing: 12,
                       children: [
-                        _ProfileRoutePill(
+                        ProfileRoutePill(
                           label: l10n.profileMembershipEntryTitle,
                           onTap: () =>
                               context.pushSecondary(membershipCenterPath),
                         ),
-                        _ProfileRoutePill(
+                        ProfileRoutePill(
                           label: l10n.accountSyncViewAccountButton,
                           onTap: () =>
                               context.pushSecondary(profileAccountSyncPath),
-                          backgroundColor: const Color(0xFFFCFBF8),
+                          backgroundColor: Theme.of(context)
+                              .colorScheme
+                              .tertiaryContainer
+                              .withValues(alpha: 0.42),
                         ),
                       ],
                     ),
@@ -93,30 +108,32 @@ class ProfilePage extends HookConsumerWidget {
                 ),
               ),
               const SizedBox(height: 18),
-              _ProfileGlassCard(
+              ProfileGlassCard(
                 title: l10n.profileGoalReminderCardTitle,
                 description: _goalReminderDescription(l10n, goalSettingsAsync),
                 child: Wrap(
                   spacing: 12,
                   runSpacing: 12,
                   children: [
-                    _ProfileRoutePill(
+                    ProfileRoutePill(
                       label: l10n.profileGoalScheduleEntryTitle,
                       onTap: () =>
                           context.pushSecondary(profileGoalSchedulePath),
                     ),
-                    _ProfileRoutePill(
+                    ProfileRoutePill(
                       label: l10n.profileNotificationEntryTitle,
                       onTap: () => context.pushSecondary(
                         profileNotificationSettingsPath,
                       ),
-                      backgroundColor: const Color(0xFFFCFBF8),
+                      backgroundColor: Theme.of(
+                        context,
+                      ).colorScheme.tertiaryContainer.withValues(alpha: 0.42),
                     ),
                   ],
                 ),
               ),
               const SizedBox(height: 18),
-              _ProfileGlassCard(
+              ProfileGlassCard(
                 title: l10n.profileDisplayDeviceCardTitle,
                 description: l10n.profileDesktopPresenceDescription,
                 child: Column(
@@ -126,12 +143,12 @@ class ProfilePage extends HookConsumerWidget {
                       spacing: 12,
                       runSpacing: 12,
                       children: [
-                        _ProfileRoutePill(
+                        ProfileRoutePill(
                           label: l10n.profileDesktopPresenceTitle,
                           onTap: () =>
                               context.pushSecondary(profileWidgetThemePath),
                         ),
-                        _ProfileRoutePill(
+                        ProfileRoutePill(
                           label: l10n.profilePreferencesThemeTitle,
                           onTap: () {
                             final targetContext =
@@ -146,18 +163,24 @@ class ProfilePage extends HookConsumerWidget {
                               alignment: 0.08,
                             );
                           },
-                          backgroundColor: const Color(0xFFF8F7FB),
+                          backgroundColor: Theme.of(context)
+                              .colorScheme
+                              .secondaryContainer
+                              .withValues(alpha: 0.42),
                         ),
-                        _ProfileRoutePill(
+                        ProfileRoutePill(
                           label: l10n.profileDataAccessEntryTitle,
                           onTap: () =>
                               context.pushSecondary(profileDataAccessPath),
-                          backgroundColor: const Color(0xFFEEF3FF),
+                          backgroundColor: Theme.of(context)
+                              .colorScheme
+                              .primaryContainer
+                              .withValues(alpha: 0.44),
                         ),
                       ],
                     ),
                     const SizedBox(height: 12),
-                    _ProfileRoutePill(
+                    ProfileRoutePill(
                       label: l10n.profileTimezoneModeEntryTitle,
                       onTap: () =>
                           context.pushSecondary(profileTimezoneModePath),
@@ -167,7 +190,7 @@ class ProfilePage extends HookConsumerWidget {
                     Text(
                       _healthSummary(l10n, healthStateAsync),
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: const Color(0xFF6F7891),
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
                         height: 1.4,
                       ),
                     ),
@@ -175,7 +198,9 @@ class ProfilePage extends HookConsumerWidget {
                     Text(
                       l10n.profileTimezoneModeEntrySubtitle(timezoneName),
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: const Color(0xFF8D97AE),
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.onSurfaceVariant.withValues(alpha: 0.82),
                         height: 1.4,
                       ),
                     ),
@@ -185,10 +210,10 @@ class ProfilePage extends HookConsumerWidget {
               const SizedBox(height: 18),
               _ProfilePreferencesCard(key: preferencesCardKey),
               const SizedBox(height: 18),
-              _ProfileGlassCard(
+              ProfileGlassCard(
                 title: l10n.profilePrivacyExportCardTitle,
                 description: l10n.profilePrivacyEntrySubtitle,
-                child: _ProfileRoutePill(
+                child: ProfileRoutePill(
                   label: l10n.profilePrivacyEntryTitle,
                   onTap: () => context.pushSecondary(profilePrivacyDataPath),
                   width: double.infinity,
@@ -271,6 +296,15 @@ class _ProfileSummaryHeroCard extends StatelessWidget {
     final theme = Theme.of(context);
     final heroTokens = theme.extension<RhythmHeroThemeExtension>();
     final textTheme = theme.textTheme;
+    final heroForeground = heroTokens?.textColor ?? theme.colorScheme.onPrimary;
+    final heroForegroundSoft = heroForeground.withValues(alpha: 0.88);
+    final useSurfaceHero = theme.brightness == Brightness.dark;
+    final titleColor = useSurfaceHero
+        ? theme.colorScheme.onSurface
+        : heroForeground;
+    final subtitleColor = useSurfaceHero
+        ? theme.colorScheme.onSurfaceVariant
+        : heroForegroundSoft;
 
     return Card(
       margin: EdgeInsets.zero,
@@ -279,14 +313,19 @@ class _ProfileSummaryHeroCard extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32)),
       clipBehavior: Clip.antiAlias,
       child: Container(
+        key: const Key('profile-summary-hero-card'),
         padding: const EdgeInsets.fromLTRB(20, 18, 20, 20),
         decoration: BoxDecoration(
-          gradient: heroTokens?.gradient,
-          color: theme.colorScheme.primary,
+          gradient: useSurfaceHero ? null : heroTokens?.gradient,
+          color: useSurfaceHero
+              ? theme.colorScheme.surfaceContainerHighest
+              : theme.colorScheme.primary,
           borderRadius: BorderRadius.circular(32),
           border: Border.all(
-            color:
-                heroTokens?.borderColor ?? Colors.white.withValues(alpha: 0.32),
+            color: useSurfaceHero
+                ? theme.colorScheme.outlineVariant
+                : heroTokens?.borderColor ??
+                      heroForeground.withValues(alpha: 0.32),
           ),
           boxShadow: [
             BoxShadow(
@@ -301,13 +340,13 @@ class _ProfileSummaryHeroCard extends StatelessWidget {
           children: [
             Row(
               children: [
-                _ProfileHeroBadge(icon: Icons.nightlight_round),
+                const ProfileHeroBadge(icon: Icons.nightlight_round),
                 const SizedBox(width: 14),
                 Expanded(
                   child: Text(
                     l10n.profileHeroSummaryTitle,
                     style: textTheme.headlineSmall?.copyWith(
-                      color: Colors.white,
+                      color: titleColor,
                       fontWeight: FontWeight.w500,
                       height: 1.08,
                     ),
@@ -319,7 +358,7 @@ class _ProfileSummaryHeroCard extends StatelessWidget {
             Text(
               l10n.profileHeroSummarySubtitle,
               style: textTheme.bodyMedium?.copyWith(
-                color: const Color(0xFFF0F3FF),
+                color: subtitleColor,
                 height: 1.45,
               ),
             ),
@@ -328,219 +367,11 @@ class _ProfileSummaryHeroCard extends StatelessWidget {
               spacing: 10,
               runSpacing: 10,
               children: [
-                _ProfileHeroChip(label: l10n.profileHeroAnonymousTitle),
-                _ProfileHeroChip(label: l10n.profileHeroBadgeLabel),
+                ProfileHeroChip(label: l10n.profileHeroAnonymousTitle),
+                ProfileHeroChip(label: l10n.profileHeroBadgeLabel),
               ],
             ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-/// 通用玻璃卡容器，统一“我的”页各块的层级和留白。
-class _ProfileGlassCard extends StatelessWidget {
-  /// 创建玻璃卡。
-  const _ProfileGlassCard({
-    required this.title,
-    required this.description,
-    required this.child,
-  });
-
-  final String title;
-  final String description;
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    return Card(
-      margin: EdgeInsets.zero,
-      elevation: 0,
-      color: Colors.white.withValues(alpha: 0.82),
-      shadowColor: theme.colorScheme.shadow.withValues(alpha: 0.08),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28)),
-      child: Container(
-        padding: const EdgeInsets.all(20),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(28),
-          border: Border.all(color: Colors.white.withValues(alpha: 0.86)),
-          boxShadow: [
-            BoxShadow(
-              color: theme.colorScheme.shadow.withValues(alpha: 0.06),
-              blurRadius: 24,
-              offset: const Offset(0, 12),
-            ),
-          ],
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              title,
-              style: theme.textTheme.titleMedium?.copyWith(
-                color: const Color(0xFF182033),
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              description,
-              style: theme.textTheme.bodySmall?.copyWith(
-                color: const Color(0xFF6F7891),
-                height: 1.45,
-              ),
-            ),
-            const SizedBox(height: 16),
-            child,
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-/// 卡片里的主入口胶囊，统一成设计稿式的轻量入口。
-class _ProfileRoutePill extends StatelessWidget {
-  /// 创建入口胶囊。
-  const _ProfileRoutePill({
-    required this.label,
-    required this.onTap,
-    this.backgroundColor = const Color(0xFFF8FAFF),
-    this.width,
-  });
-
-  final String label;
-  final VoidCallback onTap;
-  final Color backgroundColor;
-  final double? width;
-
-  @override
-  Widget build(BuildContext context) {
-    final child = Material(
-      color: Colors.transparent,
-      child: InkWell(
-        borderRadius: BorderRadius.circular(19),
-        onTap: onTap,
-        child: Ink(
-          height: 38,
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          decoration: BoxDecoration(
-            color: backgroundColor,
-            borderRadius: BorderRadius.circular(19),
-            border: Border.all(color: const Color(0xFFE7ECF6)),
-          ),
-          child: Center(
-            child: Text(
-              label,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                color: const Color(0xFF4E5977),
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-
-    if (width == null) {
-      return child;
-    }
-
-    return SizedBox(width: width, child: child);
-  }
-}
-
-/// 状态胶囊，用于会员和同步状态的轻量展示。
-class _ProfileStatusChip extends StatelessWidget {
-  /// 创建状态胶囊。
-  const _ProfileStatusChip({
-    required this.icon,
-    required this.label,
-    required this.backgroundColor,
-    required this.foregroundColor,
-  });
-
-  final IconData icon;
-  final String label;
-  final Color backgroundColor;
-  final Color foregroundColor;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-      decoration: BoxDecoration(
-        color: backgroundColor,
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: backgroundColor.withValues(alpha: 0.85)),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icon, size: 16, color: foregroundColor),
-          const SizedBox(width: 10),
-          Text(
-            label,
-            style: Theme.of(context).textTheme.labelMedium?.copyWith(
-              color: foregroundColor,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-/// Hero 左上的图标徽记。
-class _ProfileHeroBadge extends StatelessWidget {
-  /// 创建徽记。
-  const _ProfileHeroBadge({required this.icon});
-
-  final IconData icon;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 34,
-      height: 34,
-      decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.14),
-        borderRadius: BorderRadius.circular(17),
-        border: Border.all(color: Colors.white.withValues(alpha: 0.18)),
-      ),
-      alignment: Alignment.center,
-      child: Icon(icon, size: 18, color: Colors.white),
-    );
-  }
-}
-
-/// Hero 底部身份胶囊。
-class _ProfileHeroChip extends StatelessWidget {
-  /// 创建 hero 胶囊。
-  const _ProfileHeroChip({required this.label});
-
-  final String label;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
-      decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.14),
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: Colors.white.withValues(alpha: 0.18)),
-      ),
-      child: Text(
-        label,
-        style: Theme.of(context).textTheme.labelMedium?.copyWith(
-          color: Colors.white,
-          fontWeight: FontWeight.w600,
         ),
       ),
     );
@@ -566,7 +397,7 @@ class _ProfilePreferencesCard extends HookConsumerWidget {
       decoration: BoxDecoration(
         color: theme.brightness == Brightness.dark
             ? colorScheme.surfaceContainerHighest
-            : const Color(0xFFF1F6EE),
+            : colorScheme.secondaryContainer.withValues(alpha: 0.44),
         borderRadius: BorderRadius.circular(16),
         boxShadow: const [
           BoxShadow(

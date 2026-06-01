@@ -60,8 +60,8 @@ void main() {
     await tester.ensureVisible(find.text('开始设置'));
     await tester.tap(find.text('开始设置'));
     await tester.pumpAndSettle();
-    await tester.ensureVisible(find.text('使用匿名继续'));
-    await tester.tap(find.text('使用匿名继续'));
+    await tester.ensureVisible(find.text('继续'));
+    await tester.tap(find.text('继续'));
     await tester.pumpAndSettle();
     await tester.ensureVisible(find.text('先手动记录'));
     await tester.tap(find.text('先手动记录'));
@@ -80,8 +80,8 @@ void main() {
     await tester.ensureVisible(find.text('开始设置'));
     await tester.tap(find.text('开始设置'));
     await tester.pumpAndSettle();
-    await tester.ensureVisible(find.text('使用匿名继续'));
-    await tester.tap(find.text('使用匿名继续'));
+    await tester.ensureVisible(find.text('继续'));
+    await tester.tap(find.text('继续'));
     await tester.pumpAndSettle();
     await tester.ensureVisible(find.text('先手动记录'));
     await tester.tap(find.text('先手动记录'));

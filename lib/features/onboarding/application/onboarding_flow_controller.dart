@@ -11,11 +11,8 @@ enum OnboardingFlowStep {
   /// 欢迎用户进入产品价值说明。
   welcome,
 
-  /// 选择登录方式。
-  authEntry,
-
   /// 说明健康权限价值。
-  healthPermission,
+  enhancement,
 }
 
 /// 承载首次引导的步骤与草稿快照，保持流程状态具备值语义。
@@ -28,7 +25,7 @@ abstract class OnboardingFlowState with _$OnboardingFlowState {
   }) = _OnboardingFlowState;
 }
 
-/// 管理首次引导三步状态推进和草稿收集。
+/// 管理首次引导精简链路的步骤推进和草稿收集。
 @riverpod
 class OnboardingFlowController extends _$OnboardingFlowController {
   /// 初始化首次引导流程状态。
@@ -37,16 +34,10 @@ class OnboardingFlowController extends _$OnboardingFlowController {
     return const OnboardingFlowState();
   }
 
-  /// 从欢迎页推进到登录选择页。
+  /// 从欢迎页直接推进到后续目标设置页。
   void continueFromWelcome() {
-    state = state.copyWith(step: OnboardingFlowStep.authEntry);
-  }
-
-  /// 记录登录选择并推进到健康权限说明页。
-  void selectAuthOption(OnboardingAuthOption option) {
     state = state.copyWith(
-      step: OnboardingFlowStep.healthPermission,
-      draft: state.draft.copyWith(authOption: option),
+      step: OnboardingFlowStep.enhancement,
     );
   }
 

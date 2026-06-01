@@ -24,6 +24,7 @@ class InsightsPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
     final stateAsync = ref.watch(insightsControllerProvider);
+    final theme = Theme.of(context);
 
     return DecoratedBox(
       decoration: BoxDecoration(
@@ -31,8 +32,8 @@ class InsightsPage extends HookConsumerWidget {
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
-            const Color(0xFFF6F8FC),
-            Theme.of(context).scaffoldBackgroundColor,
+            theme.colorScheme.surface.withValues(alpha: 0.98),
+            theme.scaffoldBackgroundColor,
           ],
         ),
       ),
@@ -144,9 +145,9 @@ class _InsightsBody extends StatelessWidget {
     if (score == null) {
       return;
     }
-    final access = await ref.read(membershipServiceProvider).evaluateAccess(
-      entryContext: PaywallEntryContext.stabilityExplainer,
-    );
+    final access = await ref
+        .read(membershipServiceProvider)
+        .evaluateAccess(entryContext: PaywallEntryContext.stabilityExplainer);
     if (!context.mounted) {
       return;
     }
@@ -167,9 +168,9 @@ class _InsightsBody extends StatelessWidget {
     if (plan == null) {
       return;
     }
-    final access = await ref.read(membershipServiceProvider).evaluateAccess(
-      entryContext: PaywallEntryContext.recoveryPlanDetail,
-    );
+    final access = await ref
+        .read(membershipServiceProvider)
+        .evaluateAccess(entryContext: PaywallEntryContext.recoveryPlanDetail);
     if (!context.mounted) {
       return;
     }
@@ -209,10 +210,7 @@ class _InsightsBody extends StatelessWidget {
 /// 顶部周度摘要卡，承接当前一周的结论语气。
 class _InsightsHeroCard extends StatelessWidget {
   /// 创建周度摘要卡。
-  const _InsightsHeroCard({
-    required this.title,
-    required this.subtitle,
-  });
+  const _InsightsHeroCard({required this.title, required this.subtitle});
 
   final String title;
   final String subtitle;
@@ -222,6 +220,8 @@ class _InsightsHeroCard extends StatelessWidget {
     final theme = Theme.of(context);
     final heroTokens = theme.extension<RhythmHeroThemeExtension>();
     final textTheme = theme.textTheme;
+    final heroForeground = heroTokens?.textColor ?? theme.colorScheme.onPrimary;
+    final heroForegroundSoft = heroForeground.withValues(alpha: 0.86);
 
     return Card(
       margin: EdgeInsets.zero,
@@ -238,7 +238,7 @@ class _InsightsHeroCard extends StatelessWidget {
           border: Border.all(
             color:
                 heroTokens?.borderColor ??
-                Colors.white.withValues(alpha: 0.32),
+                heroForeground.withValues(alpha: 0.32),
           ),
           boxShadow: [
             BoxShadow(
@@ -259,7 +259,7 @@ class _InsightsHeroCard extends StatelessWidget {
                   child: Text(
                     title,
                     style: textTheme.headlineSmall?.copyWith(
-                      color: Colors.white,
+                      color: heroForeground,
                       fontWeight: FontWeight.w500,
                       height: 1.08,
                     ),
@@ -271,7 +271,7 @@ class _InsightsHeroCard extends StatelessWidget {
             Text(
               subtitle,
               style: textTheme.bodyMedium?.copyWith(
-                color: const Color(0xFFF0F3FF),
+                color: heroForegroundSoft,
                 height: 1.45,
               ),
             ),
@@ -297,7 +297,10 @@ class _InsightsOverviewCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return _InsightsGlassCard(
+      cardKey: const Key('insights-overview-card'),
       title: l10n.insightsWeeklyReportPageTitle,
       description: l10n.insightsWeeklyDescription(
         report.summary.primaryReasonLabel ?? l10n.insightsNoReasonTags,
@@ -311,7 +314,9 @@ class _InsightsOverviewCard extends StatelessWidget {
                 child: _InsightsMetricTile(
                   title: l10n.insightsOnTrackRateLabel,
                   value: '${report.summary.onTrackRate}%',
-                  backgroundColor: const Color(0xFFF8FAFF),
+                  backgroundColor: colorScheme.primaryContainer.withValues(
+                    alpha: 0.44,
+                  ),
                 ),
               ),
               const SizedBox(width: 10),
@@ -319,7 +324,9 @@ class _InsightsOverviewCard extends StatelessWidget {
                 child: _InsightsMetricTile(
                   title: l10n.insightsStabilityLabel,
                   value: '${report.summary.stabilityScore}',
-                  backgroundColor: const Color(0xFFFCFBF8),
+                  backgroundColor: colorScheme.tertiaryContainer.withValues(
+                    alpha: 0.42,
+                  ),
                 ),
               ),
               const SizedBox(width: 10),
@@ -329,7 +336,9 @@ class _InsightsOverviewCard extends StatelessWidget {
                   value: l10n.todayStatusLateBy(
                     report.summary.latestLateOffsetMinutes,
                   ),
-                  backgroundColor: const Color(0xFFF8F7FB),
+                  backgroundColor: colorScheme.secondaryContainer.withValues(
+                    alpha: 0.42,
+                  ),
                 ),
               ),
             ],
@@ -346,7 +355,6 @@ class _InsightsOverviewCard extends StatelessWidget {
       ),
     );
   }
-
 }
 
 /// 晚睡原因分布卡，用条形轨道还原设计稿的可比性。
@@ -403,6 +411,7 @@ class _InsightsRecoveryCard extends StatelessWidget {
     final description = plan == null
         ? l10n.insightsRecoveryNoPlan
         : l10n.insightsRecoveryPlanSummary(plan!.horizonDays);
+    final colorScheme = Theme.of(context).colorScheme;
 
     return _InsightsGlassCard(
       title: l10n.insightsRecoveryEffectTitle,
@@ -415,16 +424,18 @@ class _InsightsRecoveryCard extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
             decoration: BoxDecoration(
-              color: const Color(0xFFEEF3FF),
+              color: colorScheme.primaryContainer.withValues(alpha: 0.44),
               borderRadius: BorderRadius.circular(13),
-              border: Border.all(color: const Color(0xFFDCE7F8)),
+              border: Border.all(
+                color: colorScheme.primary.withValues(alpha: 0.2),
+              ),
             ),
             child: Text(
               plan == null
                   ? l10n.insightsRecoveryNoPlan
                   : l10n.insightsRecoveryPlanTitle(plan!.horizonDays),
               style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                color: const Color(0xFF4F5E9A),
+                color: colorScheme.primary,
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -469,7 +480,7 @@ class _InsightsTrendCard extends StatelessWidget {
             child: Text(
               _trendDescription(),
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: const Color(0xFF6F7891),
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
                 height: 1.35,
               ),
             ),
@@ -509,11 +520,13 @@ class _InsightsTrendCard extends StatelessWidget {
 class _InsightsGlassCard extends StatelessWidget {
   /// 创建玻璃卡。
   const _InsightsGlassCard({
+    this.cardKey,
     required this.title,
     required this.description,
     required this.child,
   });
 
+  final Key? cardKey;
   final String title;
   final String description;
   final Widget child;
@@ -521,18 +534,25 @@ class _InsightsGlassCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final panelColor = theme.colorScheme.surface.withValues(
+      alpha: theme.brightness == Brightness.light ? 0.82 : 0.9,
+    );
+    final panelBorderColor = theme.colorScheme.outlineVariant.withValues(
+      alpha: theme.brightness == Brightness.light ? 0.18 : 0.72,
+    );
 
     return Card(
+      key: cardKey,
       margin: EdgeInsets.zero,
       elevation: 0,
-      color: Colors.white.withValues(alpha: 0.82),
+      color: panelColor,
       shadowColor: theme.colorScheme.shadow.withValues(alpha: 0.08),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28)),
       child: Container(
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(28),
-          border: Border.all(color: Colors.white.withValues(alpha: 0.86)),
+          border: Border.all(color: panelBorderColor),
           boxShadow: [
             BoxShadow(
               color: theme.colorScheme.shadow.withValues(alpha: 0.06),
@@ -547,7 +567,7 @@ class _InsightsGlassCard extends StatelessWidget {
             Text(
               title,
               style: theme.textTheme.titleMedium?.copyWith(
-                color: const Color(0xFF182033),
+                color: theme.colorScheme.onSurface,
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -555,7 +575,7 @@ class _InsightsGlassCard extends StatelessWidget {
             Text(
               description,
               style: theme.textTheme.bodySmall?.copyWith(
-                color: const Color(0xFF6F7891),
+                color: theme.colorScheme.onSurfaceVariant,
                 height: 1.45,
               ),
             ),
@@ -583,12 +603,14 @@ class _InsightsMetricTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: backgroundColor,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: const Color(0xFFE7ECF6)),
+        border: Border.all(color: colorScheme.outlineVariant),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -596,7 +618,7 @@ class _InsightsMetricTile extends StatelessWidget {
           Text(
             title,
             style: Theme.of(context).textTheme.labelSmall?.copyWith(
-              color: const Color(0xFF8D97AE),
+              color: colorScheme.onSurfaceVariant,
               fontWeight: FontWeight.w500,
             ),
           ),
@@ -604,7 +626,7 @@ class _InsightsMetricTile extends StatelessWidget {
           Text(
             value,
             style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-              color: const Color(0xFF182033),
+              color: colorScheme.onSurface,
               fontWeight: FontWeight.w500,
             ),
           ),
@@ -624,6 +646,7 @@ class _InsightsReasonBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final percentage = (item.ratio * 100).round();
+    final colorScheme = Theme.of(context).colorScheme;
 
     return Row(
       children: [
@@ -632,7 +655,7 @@ class _InsightsReasonBar extends StatelessWidget {
           child: Text(
             item.label,
             style: Theme.of(context).textTheme.labelSmall?.copyWith(
-              color: const Color(0xFF6F7891),
+              color: colorScheme.onSurfaceVariant,
               fontWeight: FontWeight.w500,
             ),
           ),
@@ -642,7 +665,7 @@ class _InsightsReasonBar extends StatelessWidget {
           child: Container(
             height: 8,
             decoration: BoxDecoration(
-              color: const Color(0xFFE9EEF8),
+              color: colorScheme.outlineVariant,
               borderRadius: BorderRadius.circular(4),
             ),
             alignment: Alignment.centerLeft,
@@ -651,10 +674,10 @@ class _InsightsReasonBar extends StatelessWidget {
               child: Container(
                 decoration: BoxDecoration(
                   color: percentage >= 40
-                      ? const Color(0xFF7E8CCE)
+                      ? colorScheme.primary
                       : percentage >= 25
-                          ? const Color(0xFFAAB7DF)
-                          : const Color(0xFFC8D1EA),
+                      ? colorScheme.primary.withValues(alpha: 0.72)
+                      : colorScheme.primaryContainer,
                   borderRadius: BorderRadius.circular(4),
                 ),
               ),
@@ -666,8 +689,8 @@ class _InsightsReasonBar extends StatelessWidget {
           '$percentage%',
           style: Theme.of(context).textTheme.labelSmall?.copyWith(
             color: percentage >= 40
-                ? const Color(0xFF4F5E9A)
-                : const Color(0xFF6F7891),
+                ? colorScheme.primary
+                : colorScheme.onSurfaceVariant,
             fontWeight: FontWeight.w500,
           ),
         ),
@@ -685,16 +708,20 @@ class _InsightsHeroBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final heroTokens = theme.extension<RhythmHeroThemeExtension>();
+    final heroForeground = heroTokens?.textColor ?? theme.colorScheme.onPrimary;
+
     return Container(
       width: 34,
       height: 34,
       decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.14),
+        color: heroForeground.withValues(alpha: 0.14),
         borderRadius: BorderRadius.circular(17),
-        border: Border.all(color: Colors.white.withValues(alpha: 0.18)),
+        border: Border.all(color: heroForeground.withValues(alpha: 0.18)),
       ),
       alignment: Alignment.center,
-      child: Icon(icon, size: 18, color: Colors.white),
+      child: Icon(icon, size: 18, color: heroForeground),
     );
   }
 }
@@ -712,6 +739,7 @@ class _InsightsTrendBars extends StatelessWidget {
         .take(5)
         .map((day) => _resolveBarHeight(day.sleepOffsetMinutes))
         .toList(growable: false);
+    final colorScheme = Theme.of(context).colorScheme;
 
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
@@ -722,8 +750,8 @@ class _InsightsTrendBars extends StatelessWidget {
             height: bars[index],
             decoration: BoxDecoration(
               color: index == bars.length - 1
-                  ? const Color(0xFFF1C98A)
-                  : const Color(0xFFBFC8E9),
+                  ? colorScheme.tertiary
+                  : colorScheme.primaryContainer,
               borderRadius: BorderRadius.circular(6),
             ),
           ),

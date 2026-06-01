@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:rhythm/app/theme/app_theme.dart';
 import 'package:rhythm/features/insights/application/insights_controller.dart';
 import 'package:rhythm/features/insights/application/insights_view_state.dart';
 import 'package:rhythm/features/insights/domain/recovery_plan.dart';
@@ -69,6 +70,36 @@ void main() {
     expect(find.text('Recovery effect'), findsOneWidget);
     expect(find.text('View full weekly report'), findsOneWidget);
     expect(find.text('主要晚睡原因'), findsNothing);
+  });
+
+  testWidgets('暗色主题下洞察页概览卡使用主题化容器底色', (tester) async {
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          insightsControllerProvider.overrideWith(
+            () => _FakeInsightsController(_readyInsightsState()),
+          ),
+        ],
+        child: MaterialApp(
+          theme: AppTheme.light(),
+          darkTheme: AppTheme.dark(),
+          themeMode: ThemeMode.dark,
+          locale: const Locale('zh'),
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: const Scaffold(body: InsightsPage()),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    final overviewCard = tester.widget<Card>(
+      find.byKey(const Key('insights-overview-card')),
+    );
+    expect(
+      overviewCard.color,
+      AppTheme.dark().colorScheme.surface.withValues(alpha: 0.9),
+    );
   });
 }
 

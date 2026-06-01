@@ -44980,6 +44980,1785 @@
           ]
         }
       ]
+    },
+    {
+      "type": "frame",
+      "id": "ZJ3OR",
+      "x": 29660,
+      "y": 0,
+      "name": "引导欢迎页 V2",
+      "clip": true,
+      "width": 390,
+      "height": 844,
+      "fill": {
+        "type": "gradient",
+        "gradientType": "linear",
+        "enabled": true,
+        "rotation": 180,
+        "size": {
+          "height": 1
+        },
+        "colors": [
+          {
+            "color": "#F6F8FC",
+            "position": 0
+          },
+          {
+            "color": "#E9EEF8",
+            "position": 1
+          }
+        ]
+      },
+      "layout": "none",
+      "children": [
+        {
+          "type": "frame",
+          "id": "DlDRw",
+          "x": 0,
+          "y": 0,
+          "name": "状态栏",
+          "width": 390,
+          "height": 62,
+          "padding": [
+            0,
+            20
+          ],
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "u3zpg",
+              "name": "时间",
+              "fill": "$color-text-primary",
+              "content": "9:41",
+              "fontFamily": "$font-body",
+              "fontSize": 14,
+              "fontWeight": "$font-weight-semibold"
+            },
+            {
+              "type": "frame",
+              "id": "c6Clk",
+              "name": "状态图标组",
+              "gap": 6,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon",
+                  "id": "r0pIK",
+                  "name": "信号",
+                  "width": 15,
+                  "height": 15,
+                  "icon": "signal",
+                  "library": "lucide",
+                  "fill": "$color-text-primary"
+                },
+                {
+                  "type": "icon",
+                  "id": "kmdLo",
+                  "name": "无线",
+                  "width": 15,
+                  "height": 15,
+                  "icon": "wifi",
+                  "library": "lucide",
+                  "fill": "$color-text-primary"
+                },
+                {
+                  "type": "frame",
+                  "id": "hn4Hc",
+                  "name": "电池",
+                  "width": 24,
+                  "height": 12,
+                  "layout": "none",
+                  "children": [
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": 3,
+                      "id": "pDU0m",
+                      "x": 0,
+                      "y": 0,
+                      "name": "电池边框",
+                      "width": 20,
+                      "height": 12,
+                      "stroke": "$color-text-primary",
+                      "strokeWidth": 1
+                    },
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": 2,
+                      "id": "e39jS",
+                      "x": 2,
+                      "y": 2,
+                      "name": "电池电量",
+                      "fill": "$color-text-primary",
+                      "width": 13,
+                      "height": 8
+                    },
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": 2,
+                      "id": "G4h94L",
+                      "x": 21,
+                      "y": 3,
+                      "name": "电池头",
+                      "fill": "$color-text-primary",
+                      "width": 3,
+                      "height": 6
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "kGxtY",
+          "x": 0,
+          "y": 62,
+          "name": "内容容器",
+          "width": 390,
+          "layout": "vertical",
+          "gap": 24,
+          "padding": [
+            0,
+            20,
+            28,
+            20
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "Q10he2",
+              "name": "欢迎英雄区",
+              "clip": true,
+              "width": 350,
+              "height": 220,
+              "fill": {
+                "type": "gradient",
+                "gradientType": "linear",
+                "enabled": true,
+                "rotation": 180,
+                "size": {
+                  "height": 1
+                },
+                "colors": [
+                  {
+                    "color": "#4B578F",
+                    "position": 0
+                  },
+                  {
+                    "color": "#8896D4",
+                    "position": 1
+                  }
+                ]
+              },
+              "cornerRadius": 32,
+              "stroke": "#FFFFFF4D",
+              "strokeWidth": 1,
+              "effect": [
+                {
+                  "type": "shadow",
+                  "shadowType": "outer",
+                  "color": "#22315420",
+                  "offset": {
+                    "x": 0,
+                    "y": 24
+                  },
+                  "blur": 42
+                },
+                {
+                  "type": "shadow",
+                  "shadowType": "outer",
+                  "color": "#22315418",
+                  "offset": {
+                    "x": 0,
+                    "y": 8
+                  },
+                  "blur": 18
+                }
+              ],
+              "layout": "none",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "lKZ6M",
+                  "x": 20,
+                  "y": 20,
+                  "name": "月夜徽记",
+                  "width": 34,
+                  "height": 34,
+                  "fill": "#FFFFFF24",
+                  "cornerRadius": 17,
+                  "stroke": "#FFFFFF2E",
+                  "strokeWidth": 1,
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon",
+                      "id": "EeWCV",
+                      "name": "月亮图标",
+                      "width": 18,
+                      "height": 18,
+                      "icon": "moon-star",
+                      "library": "lucide",
+                      "fill": "#FFFFFF"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "hkdSE",
+                  "x": 66,
+                  "y": 28,
+                  "name": "眉标",
+                  "fill": "#F4F6FF",
+                  "content": "RHYTHM · FIRST NIGHT",
+                  "fontFamily": "Inter",
+                  "fontSize": 12,
+                  "fontWeight": "600"
+                },
+                {
+                  "type": "text",
+                  "id": "UUGm4",
+                  "x": 20,
+                  "y": 72,
+                  "name": "标题",
+                  "fill": "#FFFFFF",
+                  "textGrowth": "fixed-width",
+                  "width": 292,
+                  "content": "今晚开始，把作息慢慢拉回你想要的节奏",
+                  "lineHeight": 1.04,
+                  "fontFamily": "Newsreader",
+                  "fontSize": 31,
+                  "fontWeight": "500"
+                },
+                {
+                  "type": "text",
+                  "id": "T0UeFf",
+                  "x": 20,
+                  "y": 146,
+                  "name": "说明",
+                  "fill": "#EEF2FF",
+                  "textGrowth": "fixed-width",
+                  "width": 310,
+                  "content": "你只需要先定一个目标时间。权限、提醒和桌面入口，我们会在不打扰的前提下慢慢补齐。",
+                  "lineHeight": 1.45,
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "uXNz2",
+                  "x": 20,
+                  "y": 186,
+                  "name": "时长提示",
+                  "width": 184,
+                  "height": 34,
+                  "fill": "#FFFFFF1A",
+                  "cornerRadius": 17,
+                  "stroke": "#FFFFFF1F",
+                  "strokeWidth": 1,
+                  "gap": 8,
+                  "padding": [
+                    8,
+                    12
+                  ],
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon",
+                      "id": "ww4a3",
+                      "name": "时钟图标",
+                      "width": 14,
+                      "height": 14,
+                      "icon": "clock-3",
+                      "library": "lucide",
+                      "fill": "#FFFFFF"
+                    },
+                    {
+                      "type": "text",
+                      "id": "T4XPW",
+                      "name": "时长提示文案",
+                      "fill": "#FFFFFF",
+                      "content": "预计 1 分钟完成首日设置",
+                      "fontFamily": "Inter",
+                      "fontSize": 12,
+                      "fontWeight": "500"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "jqVUD",
+          "x": 20,
+          "y": 332,
+          "name": "流程说明卡",
+          "width": 350,
+          "height": 286,
+          "fill": "#FFFFFFD8",
+          "cornerRadius": 28,
+          "stroke": "#FFFFFF80",
+          "strokeWidth": 1,
+          "effect": [
+            {
+              "type": "background_blur",
+              "radius": 18
+            },
+            {
+              "type": "shadow",
+              "shadowType": "outer",
+              "color": "#22315412",
+              "offset": {
+                "x": 0,
+                "y": 16
+              },
+              "blur": 32
+            }
+          ],
+          "layout": "none",
+          "children": [
+            {
+              "type": "text",
+              "id": "e5OiF",
+              "x": 20,
+              "y": 18,
+              "name": "卡片标题",
+              "fill": "#182033",
+              "content": "接下来只做三件事",
+              "fontFamily": "Inter",
+              "fontSize": 17,
+              "fontWeight": "600"
+            },
+            {
+              "type": "text",
+              "id": "oYXr1",
+              "x": 20,
+              "y": 46,
+              "name": "卡片说明",
+              "fill": "#6F7891",
+              "textGrowth": "fixed-width",
+              "width": 310,
+              "content": "每一步都只保留会影响今晚体验的内容，不会一开始就让你做很多选择。",
+              "lineHeight": 1.45,
+              "fontFamily": "Inter",
+              "fontSize": 13,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "frame",
+              "id": "has1Q",
+              "x": 20,
+              "y": 96,
+              "name": "步骤 1 卡",
+              "width": 310,
+              "height": 50,
+              "fill": "#F8FAFF",
+              "cornerRadius": 18,
+              "stroke": "#E7ECF6",
+              "strokeWidth": 1,
+              "layout": "none",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "WIjoH",
+                  "x": 14,
+                  "y": 8,
+                  "name": "步骤 1 编号",
+                  "width": 34,
+                  "height": 34,
+                  "fill": "#FFFFFFB0",
+                  "cornerRadius": 17,
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "X860HD",
+                      "name": "步骤 1 编号文案",
+                      "fill": "#5868A8",
+                      "content": "1",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "600"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "PVGuX",
+                  "x": 60,
+                  "y": 10,
+                  "name": "步骤 1 标题",
+                  "fill": "#182033",
+                  "content": "定目标时间",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "600"
+                },
+                {
+                  "type": "text",
+                  "id": "tY4Ks",
+                  "x": 60,
+                  "y": 28,
+                  "name": "步骤 1 说明",
+                  "fill": "#6F7891",
+                  "textGrowth": "fixed-width",
+                  "width": 226,
+                  "content": "先决定几点睡、几点起，形成今晚基线。",
+                  "lineHeight": 1.35,
+                  "fontFamily": "Inter",
+                  "fontSize": 11,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "DxyHQ",
+              "x": 20,
+              "y": 156,
+              "name": "步骤 2 卡",
+              "width": 310,
+              "height": 50,
+              "fill": "#FCFBF8",
+              "cornerRadius": 18,
+              "stroke": "#EEE7D8",
+              "strokeWidth": 1,
+              "layout": "none",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "rakIy",
+                  "x": 14,
+                  "y": 8,
+                  "name": "步骤 2 编号",
+                  "width": 34,
+                  "height": 34,
+                  "fill": "#FFFFFFB0",
+                  "cornerRadius": 17,
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "S23eVL",
+                      "name": "步骤 2 编号文案",
+                      "fill": "#7C6946",
+                      "content": "2",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "600"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "K88Ih",
+                  "x": 60,
+                  "y": 10,
+                  "name": "步骤 2 标题",
+                  "fill": "#182033",
+                  "content": "补强体验条件",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "600"
+                },
+                {
+                  "type": "text",
+                  "id": "fPPwt",
+                  "x": 60,
+                  "y": 28,
+                  "name": "步骤 2 说明",
+                  "fill": "#6F7891",
+                  "textGrowth": "fixed-width",
+                  "width": 226,
+                  "content": "权限和提醒先给推荐值，你可以跳过。",
+                  "lineHeight": 1.35,
+                  "fontFamily": "Inter",
+                  "fontSize": 11,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "mt5Hv",
+              "x": 20,
+              "y": 216,
+              "name": "步骤 3 卡",
+              "width": 310,
+              "height": 50,
+              "fill": "#F8F7FB",
+              "cornerRadius": 18,
+              "stroke": "#ECE8F4",
+              "strokeWidth": 1,
+              "layout": "none",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "jB2xM",
+                  "x": 14,
+                  "y": 8,
+                  "name": "步骤 3 编号",
+                  "width": 34,
+                  "height": 34,
+                  "fill": "#FFFFFFB0",
+                  "cornerRadius": 17,
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "qJbQk",
+                      "name": "步骤 3 编号文案",
+                      "fill": "#6D5F95",
+                      "content": "3",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "600"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "KhTF1",
+                  "x": 60,
+                  "y": 10,
+                  "name": "步骤 3 标题",
+                  "fill": "#182033",
+                  "content": "尽快看到今日页",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "600"
+                },
+                {
+                  "type": "text",
+                  "id": "hfD7O",
+                  "x": 60,
+                  "y": 28,
+                  "name": "步骤 3 说明",
+                  "fill": "#6F7891",
+                  "textGrowth": "fixed-width",
+                  "width": 226,
+                  "content": "第一时间看到今晚目标和昨晚反馈。",
+                  "lineHeight": 1.35,
+                  "fontFamily": "Inter",
+                  "fontSize": 11,
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "NHsJx",
+          "x": 20,
+          "y": 640,
+          "name": "开始按钮",
+          "width": 350,
+          "height": 52,
+          "fill": "#E8EEF9",
+          "cornerRadius": 20,
+          "stroke": "#D7E0F0",
+          "strokeWidth": 1,
+          "effect": {
+            "type": "shadow",
+            "shadowType": "outer",
+            "color": "#2231540F",
+            "offset": {
+              "x": 0,
+              "y": 8
+            },
+            "blur": 18
+          },
+          "justifyContent": "center",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "cnzqc",
+              "name": "开始按钮文案",
+              "fill": "#182033",
+              "content": "先定今晚目标",
+              "fontFamily": "Inter",
+              "fontSize": 15,
+              "fontWeight": "600"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "r0E15s",
+          "x": 46,
+          "y": 706,
+          "name": "协议文案-固定",
+          "fill": "$color-text-muted",
+          "textGrowth": "fixed-width",
+          "width": 298,
+          "content": "登录、小组件和更细的提醒都后置处理，先把今晚真正会用到的东西准备好。",
+          "lineHeight": 1.45,
+          "textAlign": "center",
+          "fontFamily": "$font-body",
+          "fontSize": 11,
+          "fontWeight": "$font-weight-regular"
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "OPX0w",
+      "x": 30170,
+      "y": 0,
+      "name": "目标作息设置页 V2",
+      "clip": true,
+      "width": 390,
+      "height": 844,
+      "fill": {
+        "type": "gradient",
+        "gradientType": "linear",
+        "enabled": true,
+        "rotation": 180,
+        "size": {
+          "height": 1
+        },
+        "colors": [
+          {
+            "color": "#F6F8FC",
+            "position": 0
+          },
+          {
+            "color": "#E9EEF8",
+            "position": 1
+          }
+        ]
+      },
+      "layout": "none",
+      "children": [
+        {
+          "type": "text",
+          "id": "o0t0Mm",
+          "x": 20,
+          "y": 18,
+          "name": "时间",
+          "fill": "$color-text-primary",
+          "content": "9:41",
+          "fontFamily": "$font-body",
+          "fontSize": 14,
+          "fontWeight": "$font-weight-semibold"
+        },
+        {
+          "type": "icon",
+          "id": "CIUIr",
+          "x": 320,
+          "y": 19,
+          "name": "信号",
+          "width": 15,
+          "height": 15,
+          "icon": "signal",
+          "library": "lucide",
+          "fill": "$color-text-primary"
+        },
+        {
+          "type": "icon",
+          "id": "d79N0",
+          "x": 341,
+          "y": 19,
+          "name": "无线",
+          "width": 15,
+          "height": 15,
+          "icon": "wifi",
+          "library": "lucide",
+          "fill": "$color-text-primary"
+        },
+        {
+          "type": "frame",
+          "id": "KRtm4",
+          "x": 362,
+          "y": 21,
+          "name": "电池",
+          "width": 24,
+          "height": 12,
+          "layout": "none",
+          "children": [
+            {
+              "type": "rectangle",
+              "cornerRadius": 3,
+              "id": "S0X5qY",
+              "x": 0,
+              "y": 0,
+              "name": "电池边框",
+              "width": 20,
+              "height": 12,
+              "stroke": "#182033",
+              "strokeWidth": 1
+            },
+            {
+              "type": "rectangle",
+              "cornerRadius": 2,
+              "id": "DEyy1",
+              "x": 2,
+              "y": 2,
+              "name": "电池电量",
+              "fill": "#182033",
+              "width": 13,
+              "height": 8
+            },
+            {
+              "type": "rectangle",
+              "cornerRadius": 2,
+              "id": "s9SObJ",
+              "x": 21,
+              "y": 3,
+              "name": "电池头",
+              "fill": "#182033",
+              "width": 3,
+              "height": 6
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "hc8hG",
+          "x": 20,
+          "y": 62,
+          "name": "目标英雄区",
+          "clip": true,
+          "width": 350,
+          "height": 152,
+          "fill": {
+            "type": "gradient",
+            "gradientType": "linear",
+            "enabled": true,
+            "rotation": 180,
+            "size": {
+              "height": 1
+            },
+            "colors": [
+              {
+                "color": "#4B578F",
+                "position": 0
+              },
+              {
+                "color": "#8896D4",
+                "position": 1
+              }
+            ]
+          },
+          "cornerRadius": 32,
+          "stroke": "#FFFFFF4D",
+          "strokeWidth": 1,
+          "effect": [
+            {
+              "type": "shadow",
+              "shadowType": "outer",
+              "color": "#22315420",
+              "offset": {
+                "x": 0,
+                "y": 24
+              },
+              "blur": 42
+            },
+            {
+              "type": "shadow",
+              "shadowType": "outer",
+              "color": "#22315418",
+              "offset": {
+                "x": 0,
+                "y": 8
+              },
+              "blur": 18
+            }
+          ],
+          "layout": "none",
+          "children": [
+            {
+              "type": "frame",
+              "id": "TvGMv",
+              "x": 20,
+              "y": 18,
+              "name": "月夜徽记",
+              "width": 34,
+              "height": 34,
+              "fill": "#FFFFFF24",
+              "cornerRadius": 17,
+              "stroke": "#FFFFFF2E",
+              "strokeWidth": 1,
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon",
+                  "id": "NCDt0",
+                  "name": "月亮图标",
+                  "width": 18,
+                  "height": 18,
+                  "icon": "moon-star",
+                  "library": "lucide",
+                  "fill": "#FFFFFF"
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "id": "FdO26",
+              "x": 68,
+              "y": 18,
+              "name": "标题",
+              "fill": "#FFFFFF",
+              "textGrowth": "fixed-width",
+              "width": 248,
+              "content": "先定一个你今晚想靠近的作息",
+              "lineHeight": 1.08,
+              "fontFamily": "Newsreader",
+              "fontSize": 28,
+              "fontWeight": "500"
+            },
+            {
+              "type": "text",
+              "id": "EiNfL",
+              "x": 20,
+              "y": 82,
+              "name": "副标题",
+              "fill": "#EEF2FF",
+              "textGrowth": "fixed-width",
+              "width": 310,
+              "content": "这一页只保留两个关键时间。熬夜阈值和更细的规则，后面再补。",
+              "lineHeight": 1.45,
+              "fontFamily": "Inter",
+              "fontSize": 14,
+              "fontWeight": "normal"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "vCDWh",
+          "x": 20,
+          "y": 238,
+          "name": "时间设置主卡",
+          "width": 350,
+          "height": 432,
+          "fill": "#FFFFFFD8",
+          "cornerRadius": 28,
+          "stroke": "#FFFFFF80",
+          "strokeWidth": 1,
+          "effect": [
+            {
+              "type": "background_blur",
+              "radius": 18
+            },
+            {
+              "type": "shadow",
+              "shadowType": "outer",
+              "color": "#22315412",
+              "offset": {
+                "x": 0,
+                "y": 12
+              },
+              "blur": 28
+            }
+          ],
+          "layout": "none",
+          "children": [
+            {
+              "type": "text",
+              "id": "gafQs",
+              "x": 20,
+              "y": 20,
+              "name": "卡片标题",
+              "fill": "#182033",
+              "content": "先决定两个关键时间",
+              "fontFamily": "Inter",
+              "fontSize": 17,
+              "fontWeight": "600"
+            },
+            {
+              "type": "text",
+              "id": "bjZLc",
+              "x": 20,
+              "y": 48,
+              "name": "卡片说明",
+              "fill": "#6F7891",
+              "textGrowth": "fixed-width",
+              "width": 310,
+              "content": "首启阶段先把判断基线定下来。默认值可以直接开始，之后随时回到设置里调整。",
+              "lineHeight": 1.5,
+              "fontFamily": "Inter",
+              "fontSize": 13,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "frame",
+              "id": "Q1V8e",
+              "x": 20,
+              "y": 106,
+              "name": "目标入睡时间卡",
+              "width": 310,
+              "height": 122,
+              "fill": "#F8FAFF",
+              "cornerRadius": 24,
+              "stroke": "#E7ECF6",
+              "strokeWidth": 1,
+              "layout": "none",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "x3yzQ",
+                  "x": 18,
+                  "y": 18,
+                  "name": "入睡标签",
+                  "fill": "#5868A8",
+                  "content": "目标入睡时间",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "600"
+                },
+                {
+                  "type": "text",
+                  "id": "DpXqu",
+                  "x": 18,
+                  "y": 44,
+                  "name": "入睡时间值",
+                  "fill": "#182033",
+                  "content": "23:30",
+                  "fontFamily": "Newsreader",
+                  "fontSize": 42,
+                  "fontWeight": "500"
+                },
+                {
+                  "type": "text",
+                  "id": "aeR2I",
+                  "x": 18,
+                  "y": 92,
+                  "name": "入睡说明",
+                  "fill": "#6F7891",
+                  "textGrowth": "fixed-width",
+                  "width": 220,
+                  "content": "从你最常晚睡的时间点往前拉一点，更容易开始。",
+                  "lineHeight": 1.35,
+                  "fontFamily": "Inter",
+                  "fontSize": 11,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "h4joDw",
+                  "x": 236,
+                  "y": 80,
+                  "name": "入睡调整按钮",
+                  "width": 56,
+                  "height": 28,
+                  "fill": "#FFFFFFB8",
+                  "cornerRadius": 14,
+                  "stroke": "#E7ECF6",
+                  "strokeWidth": 1,
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "HyTat",
+                      "name": "入睡调整文案",
+                      "fill": "#182033",
+                      "content": "调整",
+                      "fontFamily": "Inter",
+                      "fontSize": 11,
+                      "fontWeight": "600"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "tQ9C5",
+              "x": 20,
+              "y": 246,
+              "name": "目标起床时间卡",
+              "width": 310,
+              "height": 122,
+              "fill": "#FCFBF8",
+              "cornerRadius": 24,
+              "stroke": "#EEE7D8",
+              "strokeWidth": 1,
+              "layout": "none",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "m978k",
+                  "x": 18,
+                  "y": 18,
+                  "name": "起床标签",
+                  "fill": "#7C6946",
+                  "content": "目标起床时间",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "600"
+                },
+                {
+                  "type": "text",
+                  "id": "Mvocw",
+                  "x": 18,
+                  "y": 44,
+                  "name": "起床时间值",
+                  "fill": "#182033",
+                  "content": "07:30",
+                  "fontFamily": "Newsreader",
+                  "fontSize": 42,
+                  "fontWeight": "500"
+                },
+                {
+                  "type": "text",
+                  "id": "WsrI7",
+                  "x": 18,
+                  "y": 92,
+                  "name": "起床说明",
+                  "fill": "#6F7891",
+                  "textGrowth": "fixed-width",
+                  "width": 220,
+                  "content": "先有一个稳定起点，后续趋势和提醒才有真实参考。",
+                  "lineHeight": 1.35,
+                  "fontFamily": "Inter",
+                  "fontSize": 11,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "wHezr",
+                  "x": 236,
+                  "y": 80,
+                  "name": "起床调整按钮",
+                  "width": 56,
+                  "height": 28,
+                  "fill": "#FFFFFFB8",
+                  "cornerRadius": 14,
+                  "stroke": "#EEE7D8",
+                  "strokeWidth": 1,
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "rSbfb",
+                      "name": "起床调整文案",
+                      "fill": "#182033",
+                      "content": "调整",
+                      "fontFamily": "Inter",
+                      "fontSize": 11,
+                      "fontWeight": "600"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "id": "WvC3p",
+              "x": 20,
+              "y": 390,
+              "name": "底部提示",
+              "fill": "#8D97AE",
+              "textGrowth": "fixed-width",
+              "width": 310,
+              "content": "如果你现在还不确定，也可以先用这组默认值开始。进入今日页后再回头微调，成本更低。",
+              "lineHeight": 1.4,
+              "fontFamily": "Inter",
+              "fontSize": 12,
+              "fontWeight": "normal"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "GdQbx",
+          "x": 20,
+          "y": 690,
+          "name": "继续动作区",
+          "width": 350,
+          "height": 108,
+          "fill": "#FFFFFFCC",
+          "cornerRadius": 28,
+          "stroke": "#FFFFFF80",
+          "strokeWidth": 1,
+          "effect": {
+            "type": "shadow",
+            "shadowType": "outer",
+            "color": "#22315410",
+            "offset": {
+              "x": 0,
+              "y": 12
+            },
+            "blur": 24
+          },
+          "layout": "none",
+          "children": [
+            {
+              "type": "frame",
+              "id": "B201HZ",
+              "x": 20,
+              "y": 18,
+              "name": "主按钮",
+              "width": 310,
+              "height": 48,
+              "fill": "#E8EEF9",
+              "cornerRadius": 18,
+              "stroke": "#D7E0F0",
+              "strokeWidth": 1,
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "lvLT6",
+                  "name": "主按钮文案",
+                  "fill": "#182033",
+                  "content": "按这个开始",
+                  "fontFamily": "Inter",
+                  "fontSize": 15,
+                  "fontWeight": "600"
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "id": "Brpis",
+              "x": 20,
+              "y": 78,
+              "name": "次说明",
+              "fill": "#6F7891",
+              "textGrowth": "fixed-width",
+              "width": 310,
+              "content": "这一步没有额外岔路，先把基线定下来再继续。",
+              "textAlign": "center",
+              "fontFamily": "Inter",
+              "fontSize": 12,
+              "fontWeight": "500"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "IZywY",
+          "x": 46,
+          "y": 806,
+          "name": "底部说明",
+          "fill": "#8D97AE",
+          "textGrowth": "fixed-width",
+          "width": 298,
+          "content": "下一步只补权限和提醒推荐，不会马上跳出更多设置项。",
+          "lineHeight": 1.45,
+          "textAlign": "center",
+          "fontFamily": "$font-body",
+          "fontSize": 11,
+          "fontWeight": "$font-weight-regular"
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "COktz",
+      "x": 30680,
+      "y": 0,
+      "name": "权限与提醒合并页 V2",
+      "clip": true,
+      "width": 390,
+      "height": 844,
+      "fill": {
+        "type": "gradient",
+        "gradientType": "linear",
+        "enabled": true,
+        "rotation": 180,
+        "size": {
+          "height": 1
+        },
+        "colors": [
+          {
+            "color": "#F6F8FC",
+            "position": 0
+          },
+          {
+            "color": "#E9EEF8",
+            "position": 1
+          }
+        ]
+      },
+      "layout": "none",
+      "children": [
+        {
+          "type": "text",
+          "id": "EmmlW",
+          "x": 20,
+          "y": 18,
+          "name": "时间",
+          "fill": "$color-text-primary",
+          "content": "9:41",
+          "fontFamily": "$font-body",
+          "fontSize": 14,
+          "fontWeight": "$font-weight-semibold"
+        },
+        {
+          "type": "icon",
+          "id": "rnUL5",
+          "x": 320,
+          "y": 19,
+          "name": "信号",
+          "width": 15,
+          "height": 15,
+          "icon": "signal",
+          "library": "lucide",
+          "fill": "$color-text-primary"
+        },
+        {
+          "type": "icon",
+          "id": "JvocN",
+          "x": 341,
+          "y": 19,
+          "name": "无线",
+          "width": 15,
+          "height": 15,
+          "icon": "wifi",
+          "library": "lucide",
+          "fill": "$color-text-primary"
+        },
+        {
+          "type": "frame",
+          "id": "Wl0PO",
+          "x": 362,
+          "y": 21,
+          "name": "电池",
+          "width": 24,
+          "height": 12,
+          "layout": "none",
+          "children": [
+            {
+              "type": "rectangle",
+              "cornerRadius": 3,
+              "id": "Lm7aN",
+              "x": 0,
+              "y": 0,
+              "name": "电池边框",
+              "width": 20,
+              "height": 12,
+              "stroke": "#182033",
+              "strokeWidth": 1
+            },
+            {
+              "type": "rectangle",
+              "cornerRadius": 2,
+              "id": "GYQwE",
+              "x": 2,
+              "y": 2,
+              "name": "电池电量",
+              "fill": "#182033",
+              "width": 13,
+              "height": 8
+            },
+            {
+              "type": "rectangle",
+              "cornerRadius": 2,
+              "id": "H3apD",
+              "x": 21,
+              "y": 3,
+              "name": "电池头",
+              "fill": "#182033",
+              "width": 3,
+              "height": 6
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "BLIjL",
+          "x": 20,
+          "y": 62,
+          "name": "说明英雄区",
+          "clip": true,
+          "width": 350,
+          "height": 168,
+          "fill": {
+            "type": "gradient",
+            "gradientType": "linear",
+            "enabled": true,
+            "rotation": 180,
+            "size": {
+              "height": 1
+            },
+            "colors": [
+              {
+                "color": "#5663A3",
+                "position": 0
+              },
+              {
+                "color": "#8A96D8",
+                "position": 1
+              }
+            ]
+          },
+          "cornerRadius": 32,
+          "stroke": "#FFFFFF4D",
+          "strokeWidth": 1,
+          "effect": {
+            "type": "shadow",
+            "shadowType": "outer",
+            "color": "#22315418",
+            "offset": {
+              "x": 0,
+              "y": 12
+            },
+            "blur": 26
+          },
+          "layout": "none",
+          "children": [
+            {
+              "type": "frame",
+              "id": "WcDxa",
+              "x": 20,
+              "y": 18,
+              "name": "月夜徽记",
+              "width": 34,
+              "height": 34,
+              "fill": "#FFFFFF24",
+              "cornerRadius": 17,
+              "stroke": "#FFFFFF2E",
+              "strokeWidth": 1,
+              "justifyContent": "center",
+              "alignItems": "center"
+            },
+            {
+              "type": "icon",
+              "id": "Vl9eh",
+              "x": 28,
+              "y": 26,
+              "name": "月亮图标",
+              "width": 18,
+              "height": 18,
+              "icon": "moon-star",
+              "library": "lucide",
+              "fill": "#FFFFFF"
+            },
+            {
+              "type": "text",
+              "id": "kQoHS",
+              "x": 68,
+              "y": 22,
+              "name": "标题",
+              "fill": "#FFFFFF",
+              "textGrowth": "fixed-width",
+              "width": 258,
+              "content": "把自动反馈和夜晚提醒补齐",
+              "lineHeight": 1.08,
+              "fontFamily": "$font-heading",
+              "fontSize": 28,
+              "fontWeight": "$font-weight-medium"
+            },
+            {
+              "type": "text",
+              "id": "m7MAYQ",
+              "x": 20,
+              "y": 78,
+              "name": "副标题",
+              "fill": "#EEF2FF",
+              "textGrowth": "fixed-width",
+              "width": 310,
+              "content": "这一步只决定两件事：是否允许读取睡眠结果，以及是否先采用推荐提醒。都可以跳过，也都能以后再改。",
+              "lineHeight": 1.45,
+              "fontFamily": "$font-body",
+              "fontSize": 14,
+              "fontWeight": "$font-weight-regular"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "NC54S",
+          "x": 20,
+          "y": 252,
+          "name": "权限说明卡",
+          "width": 350,
+          "height": 342,
+          "fill": "#FFFFFFD8",
+          "cornerRadius": 28,
+          "stroke": "#FFFFFF80",
+          "strokeWidth": 1,
+          "effect": [
+            {
+              "type": "background_blur",
+              "radius": 18
+            },
+            {
+              "type": "shadow",
+              "shadowType": "outer",
+              "color": "#22315412",
+              "offset": {
+                "x": 0,
+                "y": 12
+              },
+              "blur": 28
+            }
+          ],
+          "layout": "none",
+          "children": [
+            {
+              "type": "text",
+              "id": "DCysN",
+              "x": 20,
+              "y": 20,
+              "name": "卡片标题",
+              "fill": "#182033",
+              "textGrowth": "fixed-width",
+              "width": 310,
+              "content": "先按推荐值补齐体验",
+              "fontFamily": "$font-body",
+              "fontSize": 17,
+              "fontWeight": "$font-weight-semibold"
+            },
+            {
+              "type": "text",
+              "id": "pxFQk",
+              "x": 20,
+              "y": 48,
+              "name": "卡片说明",
+              "fill": "#6F7891",
+              "textGrowth": "fixed-width",
+              "width": 310,
+              "content": "授权后，今日页会自动带出昨晚结果；提醒默认先给柔和模式，避免首周打扰感过强。",
+              "lineHeight": 1.5,
+              "fontFamily": "$font-body",
+              "fontSize": 13,
+              "fontWeight": "$font-weight-regular"
+            },
+            {
+              "type": "frame",
+              "id": "c4MkBO",
+              "x": 20,
+              "y": 96,
+              "name": "会读取什么",
+              "width": 310,
+              "height": 60,
+              "fill": "#EEF3FF",
+              "cornerRadius": 18,
+              "stroke": "#CCD9F3",
+              "strokeWidth": 1,
+              "layout": "none",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "J12M9",
+                  "x": 12,
+                  "y": 10,
+                  "name": "会读取什么 图标底",
+                  "width": 36,
+                  "height": 36,
+                  "fill": "#FFFFFF",
+                  "cornerRadius": 18,
+                  "justifyContent": "center",
+                  "alignItems": "center"
+                },
+                {
+                  "type": "icon",
+                  "id": "Hg9SW",
+                  "x": 21,
+                  "y": 19,
+                  "name": "会读取什么 图标",
+                  "width": 18,
+                  "height": 18,
+                  "icon": "bell",
+                  "library": "lucide",
+                  "fill": "#182033"
+                },
+                {
+                  "type": "text",
+                  "id": "bfnFR",
+                  "x": 60,
+                  "y": 10,
+                  "name": "会读取什么 标题",
+                  "fill": "#182033",
+                  "textGrowth": "fixed-width",
+                  "width": 230,
+                  "content": "授权后你会得到什么",
+                  "fontFamily": "$font-body",
+                  "fontSize": 14,
+                  "fontWeight": "$font-weight-semibold"
+                },
+                {
+                  "type": "text",
+                  "id": "WPqPD",
+                  "x": 60,
+                  "y": 28,
+                  "name": "会读取什么 描述",
+                  "fill": "#6F7891",
+                  "textGrowth": "fixed-width",
+                  "width": 230,
+                  "content": "今日页会直接出现昨晚结果、趋势和恢复建议。",
+                  "lineHeight": 1.35,
+                  "fontFamily": "$font-body",
+                  "fontSize": 12,
+                  "fontWeight": "$font-weight-regular"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "rH7ov",
+              "x": 20,
+              "y": 158,
+              "name": "不会做什么",
+              "width": 310,
+              "height": 60,
+              "fill": "#FBFCFD",
+              "cornerRadius": 18,
+              "stroke": "#FFFFFFCC",
+              "strokeWidth": 1,
+              "layout": "none",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "nXG2v",
+                  "x": 12,
+                  "y": 10,
+                  "name": "不会做什么 图标底",
+                  "width": 36,
+                  "height": 36,
+                  "fill": "#FFFFFF",
+                  "cornerRadius": 18,
+                  "justifyContent": "center",
+                  "alignItems": "center"
+                },
+                {
+                  "type": "icon",
+                  "id": "X0IDB",
+                  "x": 21,
+                  "y": 19,
+                  "name": "不会做什么 图标",
+                  "width": 18,
+                  "height": 18,
+                  "icon": "bell-ring",
+                  "library": "lucide",
+                  "fill": "#182033"
+                },
+                {
+                  "type": "text",
+                  "id": "EqirB",
+                  "x": 60,
+                  "y": 10,
+                  "name": "不会做什么 标题",
+                  "fill": "#182033",
+                  "textGrowth": "fixed-width",
+                  "width": 230,
+                  "content": "推荐先用柔和提醒",
+                  "fontFamily": "$font-body",
+                  "fontSize": 14,
+                  "fontWeight": "$font-weight-semibold"
+                },
+                {
+                  "type": "text",
+                  "id": "hzeA0",
+                  "x": 60,
+                  "y": 28,
+                  "name": "不会做什么 描述",
+                  "fill": "#6F7891",
+                  "textGrowth": "fixed-width",
+                  "width": 230,
+                  "content": "第一周优先降低打扰感，只在接近目标时间前轻提醒一次。",
+                  "lineHeight": 1.35,
+                  "fontFamily": "$font-body",
+                  "fontSize": 12,
+                  "fontWeight": "$font-weight-regular"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "Md2KP",
+              "x": 20,
+              "y": 220,
+              "name": "你会得到什么",
+              "width": 310,
+              "height": 60,
+              "fill": "#F8F7FB",
+              "cornerRadius": 18,
+              "stroke": "#F0ECF7",
+              "strokeWidth": 1,
+              "layout": "none",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "JeMOk",
+                  "x": 12,
+                  "y": 10,
+                  "name": "你会得到什么 图标底",
+                  "width": 36,
+                  "height": 36,
+                  "fill": "#FFFFFF",
+                  "cornerRadius": 18,
+                  "justifyContent": "center",
+                  "alignItems": "center"
+                },
+                {
+                  "type": "icon",
+                  "id": "w7JpM",
+                  "x": 21,
+                  "y": 19,
+                  "name": "你会得到什么 图标",
+                  "width": 18,
+                  "height": 18,
+                  "icon": "bell-off",
+                  "library": "lucide",
+                  "fill": "#182033"
+                },
+                {
+                  "type": "text",
+                  "id": "bLacm",
+                  "x": 60,
+                  "y": 10,
+                  "name": "你会得到什么 标题",
+                  "fill": "#182033",
+                  "textGrowth": "fixed-width",
+                  "width": 230,
+                  "content": "也可以先手动记录",
+                  "fontFamily": "$font-body",
+                  "fontSize": 14,
+                  "fontWeight": "$font-weight-semibold"
+                },
+                {
+                  "type": "text",
+                  "id": "DzH1O",
+                  "x": 60,
+                  "y": 28,
+                  "name": "你会得到什么 描述",
+                  "fill": "#6F7891",
+                  "textGrowth": "fixed-width",
+                  "width": 230,
+                  "content": "如果你还不想授权或提醒，先进入今日页也不会被阻断。",
+                  "lineHeight": 1.35,
+                  "fontFamily": "$font-body",
+                  "fontSize": 12,
+                  "fontWeight": "$font-weight-regular"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "L1xf2",
+          "x": 20,
+          "y": 604,
+          "name": "操作区",
+          "width": 350,
+          "height": 166,
+          "fill": "#FFFFFFCC",
+          "cornerRadius": 28,
+          "stroke": "#FFFFFF80",
+          "strokeWidth": 1,
+          "effect": {
+            "type": "shadow",
+            "shadowType": "outer",
+            "color": "#22315410",
+            "offset": {
+              "x": 0,
+              "y": 12
+            },
+            "blur": 24
+          },
+          "layout": "none",
+          "children": [
+            {
+              "type": "frame",
+              "id": "j5w1n",
+              "x": 20,
+              "y": 18,
+              "name": "主按钮",
+              "width": 310,
+              "height": 48,
+              "fill": "#E8EEF9",
+              "cornerRadius": 18,
+              "stroke": "#D7E0F0",
+              "strokeWidth": 1,
+              "justifyContent": "center",
+              "alignItems": "center"
+            },
+            {
+              "type": "text",
+              "id": "C8xiO",
+              "x": 20,
+              "y": 30,
+              "name": "主按钮文案",
+              "fill": "#182033",
+              "textGrowth": "fixed-width",
+              "width": 310,
+              "content": "按推荐继续",
+              "textAlign": "center",
+              "fontFamily": "$font-body",
+              "fontSize": 15,
+              "fontWeight": "$font-weight-semibold"
+            },
+            {
+              "type": "text",
+              "id": "pmQMd",
+              "x": 78,
+              "y": 78,
+              "name": "次按钮1",
+              "fill": "#6F7891",
+              "content": "先手动记录",
+              "fontFamily": "$font-body",
+              "fontSize": 14,
+              "fontWeight": "$font-weight-medium"
+            },
+            {
+              "type": "text",
+              "id": "j3pqDU",
+              "x": 176,
+              "y": 78,
+              "name": "次按钮分隔",
+              "enabled": false,
+              "fill": "#C5CCD9",
+              "content": "·",
+              "fontFamily": "$font-body",
+              "fontSize": 14,
+              "fontWeight": "$font-weight-regular"
+            },
+            {
+              "type": "text",
+              "id": "A23bE",
+              "x": 192,
+              "y": 78,
+              "name": "次按钮2",
+              "enabled": false,
+              "fill": "#6F7891",
+              "content": "之后再改",
+              "fontFamily": "$font-body",
+              "fontSize": 14,
+              "fontWeight": "$font-weight-medium"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "Jw0ZT",
+          "x": 46,
+          "y": 790,
+          "name": "底部说明",
+          "fill": "#8D97AE",
+          "textGrowth": "fixed-width",
+          "width": 298,
+          "content": "小组件会后置到今日页之后再提示，不再挡在首启主链路前。",
+          "lineHeight": 1.45,
+          "textAlign": "center",
+          "fontFamily": "$font-body",
+          "fontSize": 11,
+          "fontWeight": "$font-weight-regular"
+        }
+      ]
     }
   ],
   "variables": {

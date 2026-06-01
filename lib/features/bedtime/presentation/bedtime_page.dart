@@ -19,6 +19,7 @@ class BedtimePage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
     final stateAsync = ref.watch(bedtimeControllerProvider);
 
     return DecoratedBox(
@@ -27,8 +28,8 @@ class BedtimePage extends HookConsumerWidget {
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
-            const Color(0xFFF6F8FC),
-            Theme.of(context).scaffoldBackgroundColor,
+            theme.colorScheme.surface.withValues(alpha: 0.98),
+            theme.scaffoldBackgroundColor,
           ],
         ),
       ),
@@ -153,6 +154,15 @@ class _BedtimeHeroCard extends StatelessWidget {
     final theme = Theme.of(context);
     final heroTokens = theme.extension<RhythmHeroThemeExtension>();
     final textTheme = theme.textTheme;
+    final heroForeground = heroTokens?.textColor ?? theme.colorScheme.onPrimary;
+    final heroForegroundSoft = heroForeground.withValues(alpha: 0.86);
+    final useSurfaceHero = theme.brightness == Brightness.dark;
+    final titleColor = useSurfaceHero
+        ? theme.colorScheme.onSurface
+        : heroForeground;
+    final subtitleColor = useSurfaceHero
+        ? theme.colorScheme.onSurfaceVariant
+        : heroForegroundSoft;
 
     return Card(
       margin: EdgeInsets.zero,
@@ -161,14 +171,19 @@ class _BedtimeHeroCard extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32)),
       clipBehavior: Clip.antiAlias,
       child: Container(
+        key: const Key('bedtime-hero-card'),
         padding: const EdgeInsets.fromLTRB(20, 18, 20, 20),
         decoration: BoxDecoration(
-          gradient: heroTokens?.gradient,
-          color: theme.colorScheme.primary,
+          gradient: useSurfaceHero ? null : heroTokens?.gradient,
+          color: useSurfaceHero
+              ? theme.colorScheme.surfaceContainerHighest
+              : theme.colorScheme.primary,
           borderRadius: BorderRadius.circular(32),
           border: Border.all(
-            color:
-                heroTokens?.borderColor ?? Colors.white.withValues(alpha: 0.3),
+            color: useSurfaceHero
+                ? theme.colorScheme.outlineVariant
+                : heroTokens?.borderColor ??
+                      heroForeground.withValues(alpha: 0.3),
           ),
           boxShadow: [
             BoxShadow(
@@ -189,7 +204,7 @@ class _BedtimeHeroCard extends StatelessWidget {
                   child: Text(
                     _heroTitle(l10n),
                     style: textTheme.headlineSmall?.copyWith(
-                      color: Colors.white,
+                      color: titleColor,
                       fontWeight: FontWeight.w500,
                       height: 1.08,
                     ),
@@ -201,7 +216,7 @@ class _BedtimeHeroCard extends StatelessWidget {
             Text(
               l10n.bedtimeHeroSubtitle,
               style: textTheme.bodyMedium?.copyWith(
-                color: const Color(0xFFF0F3FF),
+                color: subtitleColor,
                 height: 1.45,
               ),
             ),
@@ -238,17 +253,20 @@ class _BedtimeStatusCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return _BedtimeGlassCard(
+      cardKey: const Key('bedtime-status-card'),
       title: l10n.bedtimeStatusTitle,
       description: l10n.bedtimeStatusDescription,
       child: Column(
         children: [
           _BedtimeStatusPill(
+            statusKey: 'wantsMoreTime',
             label: l10n.bedtimeStatusMoreTime,
             selected: selectedStatus == BedtimeStatus.wantsMoreTime,
             onTap: () => onSelected(BedtimeStatus.wantsMoreTime),
           ),
           const SizedBox(height: 10),
           _BedtimeStatusPill(
+            statusKey: 'readyToSleep',
             label: l10n.bedtimeStatusReady,
             selected: selectedStatus == BedtimeStatus.readyToSleep,
             onTap: () => onSelected(BedtimeStatus.readyToSleep),
@@ -391,7 +409,7 @@ class _BedtimeTrendCard extends StatelessWidget {
             child: Text(
               l10n.bedtimeTrendDescription,
               style: textTheme.bodySmall?.copyWith(
-                color: const Color(0xFF6F7891),
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
                 height: 1.35,
               ),
             ),
@@ -428,11 +446,13 @@ class _BedtimeGoalMissingCard extends StatelessWidget {
 class _BedtimeGlassCard extends StatelessWidget {
   /// 创建玻璃卡。
   const _BedtimeGlassCard({
+    this.cardKey,
     required this.title,
     required this.description,
     required this.child,
   });
 
+  final Key? cardKey;
   final String title;
   final String description;
   final Widget child;
@@ -441,18 +461,25 @@ class _BedtimeGlassCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
+    final panelColor = theme.colorScheme.surface.withValues(
+      alpha: theme.brightness == Brightness.light ? 0.82 : 0.9,
+    );
+    final panelBorderColor = theme.colorScheme.outlineVariant.withValues(
+      alpha: theme.brightness == Brightness.light ? 0.18 : 0.72,
+    );
 
     return Card(
+      key: cardKey,
       margin: EdgeInsets.zero,
       elevation: 0,
-      color: Colors.white.withValues(alpha: 0.82),
+      color: panelColor,
       shadowColor: theme.colorScheme.shadow.withValues(alpha: 0.08),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28)),
       child: Container(
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(28),
-          border: Border.all(color: Colors.white.withValues(alpha: 0.86)),
+          border: Border.all(color: panelBorderColor),
           boxShadow: [
             BoxShadow(
               color: theme.colorScheme.shadow.withValues(alpha: 0.06),
@@ -467,7 +494,7 @@ class _BedtimeGlassCard extends StatelessWidget {
             Text(
               title,
               style: textTheme.titleMedium?.copyWith(
-                color: const Color(0xFF182033),
+                color: theme.colorScheme.onSurface,
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -475,7 +502,7 @@ class _BedtimeGlassCard extends StatelessWidget {
             Text(
               description,
               style: textTheme.bodySmall?.copyWith(
-                color: const Color(0xFF6F7891),
+                color: theme.colorScheme.onSurfaceVariant,
                 height: 1.45,
               ),
             ),
@@ -497,16 +524,20 @@ class _BedtimeHeroBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final heroTokens = theme.extension<RhythmHeroThemeExtension>();
+    final heroForeground = heroTokens?.textColor ?? theme.colorScheme.onPrimary;
+
     return Container(
       width: 34,
       height: 34,
       decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.14),
+        color: heroForeground.withValues(alpha: 0.14),
         borderRadius: BorderRadius.circular(17),
-        border: Border.all(color: Colors.white.withValues(alpha: 0.18)),
+        border: Border.all(color: heroForeground.withValues(alpha: 0.18)),
       ),
       alignment: Alignment.center,
-      child: Icon(icon, size: 18, color: Colors.white),
+      child: Icon(icon, size: 18, color: heroForeground),
     );
   }
 }
@@ -515,18 +546,25 @@ class _BedtimeHeroBadge extends StatelessWidget {
 class _BedtimeStatusPill extends StatelessWidget {
   /// 创建状态胶囊。
   const _BedtimeStatusPill({
+    required this.statusKey,
     required this.label,
     required this.selected,
     required this.onTap,
   });
 
+  final String statusKey;
   final String label;
   final bool selected;
   final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
-    final color = selected ? const Color(0xFF4F5E9A) : const Color(0xFF6F7891);
+    final theme = Theme.of(context);
+    final chipTokens = theme.extension<RhythmChipThemeExtension>();
+    final colorScheme = theme.colorScheme;
+    final foregroundColor = selected
+        ? chipTokens?.selectedForegroundColor ?? colorScheme.primary
+        : chipTokens?.foregroundColor ?? colorScheme.onSurfaceVariant;
 
     return Material(
       color: Colors.transparent,
@@ -534,15 +572,19 @@ class _BedtimeStatusPill extends StatelessWidget {
         borderRadius: BorderRadius.circular(17),
         onTap: onTap,
         child: Ink(
+          key: Key('bedtime-status-pill-$statusKey'),
           height: 34,
           padding: const EdgeInsets.symmetric(horizontal: 12),
           decoration: BoxDecoration(
-            color: selected ? const Color(0xFFEEF3FF) : Colors.white,
+            color: selected
+                ? chipTokens?.selectedBackgroundColor ??
+                      colorScheme.primaryContainer
+                : chipTokens?.backgroundColor ?? colorScheme.surface,
             borderRadius: BorderRadius.circular(17),
             border: Border.all(
               color: selected
-                  ? const Color(0xFFDCE7F8)
-                  : const Color(0xFFE7ECF6),
+                  ? chipTokens?.selectedBorderColor ?? colorScheme.primary
+                  : chipTokens?.borderColor ?? colorScheme.outlineVariant,
             ),
           ),
           child: Row(
@@ -551,12 +593,12 @@ class _BedtimeStatusPill extends StatelessWidget {
                 width: 16,
                 height: 16,
                 decoration: BoxDecoration(
-                  color: selected ? const Color(0xFF4F5E9A) : Colors.white,
+                  color: selected ? foregroundColor : colorScheme.surface,
                   borderRadius: BorderRadius.circular(8),
                   border: Border.all(
                     color: selected
-                        ? const Color(0xFF4F5E9A)
-                        : const Color(0xFFC8D1EA),
+                        ? foregroundColor
+                        : colorScheme.outlineVariant,
                   ),
                 ),
               ),
@@ -565,7 +607,7 @@ class _BedtimeStatusPill extends StatelessWidget {
                 child: Text(
                   label,
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: color,
+                    color: foregroundColor,
                     fontWeight: selected ? FontWeight.w600 : FontWeight.w500,
                   ),
                 ),
@@ -587,17 +629,19 @@ class _BedtimeSoftTag extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
       decoration: BoxDecoration(
-        color: const Color(0xFFF8FAFF),
+        color: colorScheme.primaryContainer.withValues(alpha: 0.44),
         borderRadius: BorderRadius.circular(17),
-        border: Border.all(color: const Color(0xFFE7ECF6)),
+        border: Border.all(color: colorScheme.primary.withValues(alpha: 0.18)),
       ),
       child: Text(
         label,
         style: Theme.of(context).textTheme.labelSmall?.copyWith(
-          color: const Color(0xFF6F7891),
+          color: colorScheme.primary,
           fontWeight: FontWeight.w500,
         ),
       ),
@@ -619,13 +663,14 @@ class _BedtimeLikelyLateBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+    final colorScheme = Theme.of(context).colorScheme;
 
     return Container(
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
-        color: const Color(0xFFFCFBF8),
+        color: colorScheme.tertiaryContainer.withValues(alpha: 0.42),
         borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: const Color(0xFFEDE4D7)),
+        border: Border.all(color: colorScheme.tertiary.withValues(alpha: 0.2)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -634,14 +679,14 @@ class _BedtimeLikelyLateBanner extends StatelessWidget {
             width: 30,
             height: 30,
             decoration: BoxDecoration(
-              color: const Color(0xFFF7EFD7),
+              color: colorScheme.tertiaryContainer.withValues(alpha: 0.78),
               borderRadius: BorderRadius.circular(15),
             ),
             alignment: Alignment.center,
-            child: const Icon(
+            child: Icon(
               Icons.wb_twilight_outlined,
               size: 16,
-              color: Color(0xFF7C6946),
+              color: colorScheme.onTertiaryContainer,
             ),
           ),
           const SizedBox(width: 10),
@@ -652,7 +697,7 @@ class _BedtimeLikelyLateBanner extends StatelessWidget {
                 Text(
                   title,
                   style: textTheme.labelLarge?.copyWith(
-                    color: const Color(0xFF182033),
+                    color: colorScheme.onSurface,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -660,7 +705,7 @@ class _BedtimeLikelyLateBanner extends StatelessWidget {
                 Text(
                   description,
                   style: textTheme.bodySmall?.copyWith(
-                    color: const Color(0xFF6F7891),
+                    color: colorScheme.onSurfaceVariant,
                     height: 1.35,
                   ),
                 ),
@@ -680,6 +725,7 @@ class _BedtimeTrendBars extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const bars = <double>[18, 26, 24, 32, 38];
+    final colorScheme = Theme.of(context).colorScheme;
 
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
@@ -690,8 +736,8 @@ class _BedtimeTrendBars extends StatelessWidget {
             height: bars[index],
             decoration: BoxDecoration(
               color: index == bars.length - 1
-                  ? const Color(0xFFF1C98A)
-                  : const Color(0xFFBFC8E9),
+                  ? colorScheme.tertiary
+                  : colorScheme.primaryContainer,
               borderRadius: BorderRadius.circular(6),
             ),
           ),

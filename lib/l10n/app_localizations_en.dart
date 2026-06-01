@@ -880,42 +880,43 @@ class AppLocalizationsEn extends AppLocalizations {
   String get onboardingStepOneEyebrow => 'STEP 1 · WELCOME';
 
   @override
-  String get onboardingWelcomeTitle => 'Welcome to Rhythm';
+  String get onboardingWelcomeTitle =>
+      'Starting tonight, bring your routine back toward the rhythm you want';
 
   @override
   String get onboardingWelcomeDescription =>
-      'Starting tonight, build a steadier routine in a gentler way by finishing these 3 quick setup steps.';
+      'You only need to set one target time first. Permissions, reminders, and the home-screen entry can be filled in later without pressure.';
 
   @override
-  String get onboardingWelcomeChecklistTitle => 'You’ll complete';
+  String get onboardingWelcomeChecklistTitle => 'Next, just three things';
 
   @override
-  String get onboardingWelcomeBulletAuthTitle => 'Choose how to enter';
+  String get onboardingWelcomeBulletAuthTitle => 'Set target times';
 
   @override
   String get onboardingWelcomeBulletAuthDescription =>
-      'Anonymous mode is available now, and Apple / Google entry points stay ready for later integration.';
+      'Pick your bedtime and wake time to form tonight’s baseline.';
 
   @override
-  String get onboardingWelcomeBulletHealthTitle =>
-      'Understand health data value';
+  String get onboardingWelcomeBulletHealthTitle => 'Add support conditions';
 
   @override
   String get onboardingWelcomeBulletHealthDescription =>
-      'We explain the value first and keep real system permission requests out of this task.';
+      'Permissions and reminders come with recommended defaults and can be skipped for now.';
 
   @override
-  String get onboardingWelcomeBulletGoalTitle => 'Set your target schedule';
+  String get onboardingWelcomeBulletGoalTitle => 'Reach Today quickly';
 
   @override
   String get onboardingWelcomeBulletGoalDescription =>
-      'This implementation now carries the flow into real goal and reminder setup instead of stopping at a placeholder.';
+      'See tonight’s target and last night’s feedback without extra explanation screens in the way.';
 
   @override
   String get onboardingWelcomePrimaryButton => 'Start setup';
 
   @override
-  String get onboardingWelcomeQuickDuration => 'Usually takes about 3 minutes';
+  String get onboardingWelcomeQuickDuration =>
+      'About 1 minute for first-night setup';
 
   @override
   String get onboardingWelcomeHeroTileLocalTitle => 'Local first';
@@ -938,7 +939,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get onboardingWelcomeFooterNote =>
-      'You can go back and adjust every later step, so nothing asks for too much all at once.';
+      'Sign-in, widgets, and finer reminder tuning are all postponed so you can prepare what matters tonight first.';
 
   @override
   String get onboardingStepTwoEyebrow => 'Step 2 / 3';
@@ -951,15 +952,17 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get onboardingAuthDescription =>
-      'Try logging, reminders, and bedtime mode first. Bind an account only after the flow feels useful.';
+      'Take a quick look at how Rhythm will help you log, unwind, and stay on track before moving on.';
 
   @override
-  String get onboardingAuthOptionsTitle =>
-      'Pick the way that feels easiest to enter';
+  String get onboardingAuthOptionsTitle => 'Here is what you will see next';
 
   @override
   String get onboardingAuthOptionsDescription =>
-      'Accounts are for syncing your record, but guest mode can still take you through the core flow.';
+      'This step no longer asks you to sign in. It just previews the product rhythm and nighttime experience.';
+
+  @override
+  String get onboardingAuthContinueButton => 'Continue';
 
   @override
   String get onboardingAuthAppleLabel => 'Local first';
@@ -988,17 +991,18 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get onboardingAuthFooterNote =>
-      'Continuing means you agree to the terms and privacy policy, and you can change the sign-in method later in settings.';
+      'Continuing means you agree to the terms and privacy policy. Account linking can wait for a later step.';
 
   @override
   String get onboardingStepThreeEyebrow => 'Step 3 / 3';
 
   @override
-  String get onboardingHealthTitle => 'Let Rhythm log last night for you';
+  String get onboardingHealthTitle =>
+      'Add automatic feedback and night reminders';
 
   @override
   String get onboardingHealthDescription =>
-      'With access, Home can show last night’s result, trend, and recovery suggestions automatically. Without it, you can still log manually first.';
+      'This step only decides two things: whether Rhythm can read last night’s sleep result and whether to start with the recommended reminder mode. Both can be skipped and changed later.';
 
   @override
   String get onboardingHealthAppleSummary => 'Auto-sync sleep records';
@@ -1020,42 +1024,44 @@ class AppLocalizationsEn extends AppLocalizations {
       'Without permission, you can still manually log and generate weekly reports';
 
   @override
-  String get onboardingHealthBenefitTitle => 'What we read';
+  String get onboardingHealthBenefitTitle =>
+      'Fill in the recommended support first';
 
   @override
   String get onboardingHealthBenefitDescription =>
-      'Bedtime, wake time, sleep duration, and source status, so we can build last night’s feedback and your rhythm trend.';
+      'With permission, Today can pull in last night’s result automatically. Reminder mode starts soft by default so the first week feels lighter.';
 
   @override
-  String get onboardingHealthReadTitle => 'What we read';
+  String get onboardingHealthReadTitle => 'What you get after permission';
 
   @override
   String get onboardingHealthReadDescription =>
-      'We read last night’s sleep and wake info automatically to reduce manual input.';
+      'Today shows last night’s result, trend, and recovery suggestions right away.';
 
   @override
-  String get onboardingHealthProtectTitle => 'What we will not do';
+  String get onboardingHealthProtectTitle => 'Start with soft reminders';
 
   @override
   String get onboardingHealthProtectDescription =>
-      'We do not share it publicly, use it for medical diagnosis, or block your own manual edits.';
+      'During the first week, lower interruption and use a single gentle nudge near bedtime.';
 
   @override
-  String get onboardingHealthOutcomeTitle => 'What you get';
+  String get onboardingHealthOutcomeTitle => 'You can still log manually';
 
   @override
   String get onboardingHealthOutcomeDescription =>
-      'Earlier access to last night’s result, stability changes, and lighter recovery suggestions.';
+      'If you do not want permission or reminders yet, you can still enter Today without being blocked.';
 
   @override
-  String get onboardingHealthUnderstandFirstButton => 'Understand it first';
+  String get onboardingHealthUnderstandFirstButton =>
+      'Continue with recommendations';
 
   @override
   String get onboardingHealthLaterButton => 'Maybe later';
 
   @override
   String get onboardingHealthFooterNote =>
-      'You can turn this off later in system settings; we only use it to build your rhythm feedback.';
+      'The widget prompt moves to after Today, so it no longer blocks the first-run core path.';
 
   @override
   String get onboardingHealthCurrentStageTitle => 'Stage notes';
@@ -1162,49 +1168,50 @@ class AppLocalizationsEn extends AppLocalizations {
   String get reminderSetupEyebrow => 'Set reminders just right';
 
   @override
-  String get reminderSetupPageTitle => 'Nudge me to slow down at night';
+  String get reminderSetupPageTitle =>
+      'Add automatic feedback and night reminders';
 
   @override
   String get reminderSetupPageDescription =>
-      'Choose the gentlest reminder style first. You can always adjust it later in settings.';
+      'This step only decides two things: whether Rhythm can read last night’s sleep result and whether to start with the recommended reminder mode. Both can be skipped and changed later.';
 
   @override
-  String get reminderSetupPanelTitle => 'How would you like to be reminded?';
+  String get reminderSetupPanelTitle => 'Fill in the recommended support first';
 
   @override
   String get reminderSetupPanelDescription =>
-      'Soft reminders are the default recommendation. During onboarding we keep interruption low, then let you tune it later.';
+      'With permission, Today can pull in last night’s result automatically. Reminder mode starts soft by default so the first week feels lighter.';
 
   @override
   String get reminderSetupSoftTitle => 'Soft reminder';
 
   @override
   String get reminderSetupSoftDescription =>
-      'One light nudge before bedtime, with no pressure beyond starting your wind-down.';
+      'During the first week, lower interruption and use a single gentle nudge near bedtime.';
 
   @override
-  String get reminderSetupStandardTitle => 'Standard reminder';
+  String get reminderSetupStandardTitle => 'What you get after permission';
 
   @override
   String get reminderSetupStandardDescription =>
-      'One reminder near target time, then a softer follow-up right at the point you should wrap up.';
+      'Today shows last night’s result, trend, and recovery suggestions right away.';
 
   @override
-  String get reminderSetupOffTitle => 'No reminders yet';
+  String get reminderSetupOffTitle => 'Log manually first';
 
   @override
   String get reminderSetupOffDescription =>
-      'Feel the rhythm on your own first, then switch reminders on when you are ready.';
+      'If you do not want permission or reminders yet, you can still enter Today without being blocked.';
 
   @override
   String get reminderSetupContinueButton => 'Continue with this';
 
   @override
-  String get reminderSetupSecondaryButton => 'Set it later';
+  String get reminderSetupSecondaryButton => 'Log manually first';
 
   @override
   String get reminderSetupBottomNote =>
-      'Reminder style is not locked in. Later you can make it lighter or more explicit.';
+      'The widget prompt moves to after Today, so it no longer blocks the first-run core path.';
 
   @override
   String get reminderSetupCompleteButton => 'Finish setup and open Today';

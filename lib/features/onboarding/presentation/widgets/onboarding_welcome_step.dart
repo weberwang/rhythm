@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rhythm/l10n/app_localizations.dart';
 import 'package:rhythm/shared/presentation/theme/rhythm_theme_extensions.dart';
 
-/// 欢迎价值页，按 Pencil 的首屏结构展示品牌语义、三步说明和单一主入口。
+/// 欢迎价值页，按 V2 稿展示品牌语义、三步说明和单一主入口。
 class OnboardingWelcomeStep extends StatelessWidget {
   /// 创建欢迎页。
   const OnboardingWelcomeStep({super.key, required this.onContinue});
@@ -15,6 +15,7 @@ class OnboardingWelcomeStep extends StatelessWidget {
     final l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
+    final colorScheme = theme.colorScheme;
 
     return Scaffold(
       body: Container(
@@ -51,52 +52,42 @@ class OnboardingWelcomeStep extends StatelessWidget {
                       index: '1',
                       title: l10n.onboardingWelcomeBulletAuthTitle,
                       description: l10n.onboardingWelcomeBulletAuthDescription,
-                      backgroundColor: const Color(0xFFF8FAFF),
-                      badgeColor: const Color(0xFFEEF3FF),
-                      badgeForeground: const Color(0xFF5868A8),
-                      borderColor: const Color(0xFFE7ECF6),
+                      backgroundColor: colorScheme.primaryContainer.withValues(
+                        alpha: 0.44,
+                      ),
+                      badgeColor: colorScheme.primaryContainer.withValues(
+                        alpha: 0.82,
+                      ),
+                      badgeForeground: colorScheme.primary,
+                      borderColor: colorScheme.primary.withValues(alpha: 0.2),
                     ),
                     _WelcomeStepData(
                       index: '2',
                       title: l10n.onboardingWelcomeBulletHealthTitle,
                       description:
                           l10n.onboardingWelcomeBulletHealthDescription,
-                      backgroundColor: const Color(0xFFFCFBF8),
-                      badgeColor: const Color(0xFFF7EFD7),
-                      badgeForeground: const Color(0xFF7C6946),
-                      borderColor: const Color(0xFFEEE7D8),
+                      backgroundColor: colorScheme.tertiaryContainer.withValues(
+                        alpha: 0.42,
+                      ),
+                      badgeColor: colorScheme.tertiaryContainer.withValues(
+                        alpha: 0.78,
+                      ),
+                      badgeForeground: colorScheme.onTertiaryContainer,
+                      borderColor: colorScheme.tertiary.withValues(alpha: 0.22),
                     ),
                     _WelcomeStepData(
                       index: '3',
                       title: l10n.onboardingWelcomeBulletGoalTitle,
                       description: l10n.onboardingWelcomeBulletGoalDescription,
-                      backgroundColor: const Color(0xFFF8F7FB),
-                      badgeColor: const Color(0xFFF0ECFA),
-                      badgeForeground: const Color(0xFF6D5F95),
-                      borderColor: const Color(0xFFECE8F4),
+                      backgroundColor: colorScheme.secondaryContainer
+                          .withValues(alpha: 0.42),
+                      badgeColor: colorScheme.secondaryContainer.withValues(
+                        alpha: 0.78,
+                      ),
+                      badgeForeground: colorScheme.secondary,
+                      borderColor: colorScheme.secondary.withValues(alpha: 0.2),
                     ),
                   ],
-                ),
-                const SizedBox(height: 8),
-                Align(
-                  alignment: Alignment.center,
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 7,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Colors.white.withValues(alpha: 0.4),
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    child: Text(
-                      l10n.onboardingAuthAnonymousButton,
-                      style: textTheme.bodySmall?.copyWith(
-                        color: theme.colorScheme.onSurfaceVariant,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
                 ),
                 const SizedBox(height: 8),
                 Text(
@@ -137,6 +128,9 @@ class _WelcomeHeroCard extends StatelessWidget {
     final theme = Theme.of(context);
     final heroTokens = theme.extension<RhythmHeroThemeExtension>();
     final textTheme = theme.textTheme;
+    final heroForeground = heroTokens?.textColor ?? theme.colorScheme.onPrimary;
+    final heroForegroundMuted = heroForeground.withValues(alpha: 0.92);
+    final heroForegroundSoft = heroForeground.withValues(alpha: 0.86);
 
     return Container(
       width: double.infinity,
@@ -172,17 +166,17 @@ class _WelcomeHeroCard extends StatelessWidget {
                 width: 34,
                 height: 34,
                 decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: 0.14),
+                  color: heroForeground.withValues(alpha: 0.14),
                   borderRadius: BorderRadius.circular(17),
                   border: Border.all(
-                    color: Colors.white.withValues(alpha: 0.18),
+                    color: heroForeground.withValues(alpha: 0.18),
                   ),
                 ),
                 alignment: Alignment.center,
-                child: const Icon(
+                child: Icon(
                   Icons.nightlight_round,
                   size: 18,
-                  color: Colors.white,
+                  color: heroForeground,
                 ),
               ),
               const SizedBox(width: 10),
@@ -190,7 +184,7 @@ class _WelcomeHeroCard extends StatelessWidget {
                 child: Text(
                   eyebrow,
                   style: textTheme.labelSmall?.copyWith(
-                    color: const Color(0xFFF4F6FF),
+                    color: heroForegroundMuted,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
@@ -201,7 +195,7 @@ class _WelcomeHeroCard extends StatelessWidget {
           Text(
             title,
             style: textTheme.displaySmall?.copyWith(
-              color: Colors.white,
+              color: heroForeground,
               fontWeight: FontWeight.w500,
               height: 1.04,
             ),
@@ -210,7 +204,7 @@ class _WelcomeHeroCard extends StatelessWidget {
           Text(
             description,
             style: textTheme.bodyMedium?.copyWith(
-              color: const Color(0xFFEEF2FF),
+              color: heroForegroundSoft,
               height: 1.45,
             ),
           ),
@@ -218,23 +212,19 @@ class _WelcomeHeroCard extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             decoration: BoxDecoration(
-              color: Colors.white.withValues(alpha: 0.08),
+              color: heroForeground.withValues(alpha: 0.08),
               borderRadius: BorderRadius.circular(15),
-              border: Border.all(color: Colors.white.withValues(alpha: 0.15)),
+              border: Border.all(color: heroForeground.withValues(alpha: 0.15)),
             ),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Icon(
-                  Icons.schedule_rounded,
-                  size: 14,
-                  color: Colors.white,
-                ),
+                Icon(Icons.schedule_rounded, size: 14, color: heroForeground),
                 const SizedBox(width: 8),
                 Text(
                   durationHint,
                   style: textTheme.labelSmall?.copyWith(
-                    color: Colors.white,
+                    color: heroForeground,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -249,21 +239,24 @@ class _WelcomeHeroCard extends StatelessWidget {
   }
 }
 
-/// Hero 底部改成单一插画底卡，避免把欢迎首屏拆成偏营销式的三栏卡片。
+/// Hero 底部使用轻量示意卡，表达“节律目标 + 夜间反馈”的产品语义。
 class _WelcomeIllustrationCard extends StatelessWidget {
   const _WelcomeIllustrationCard();
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
+    final theme = Theme.of(context);
+    final textTheme = theme.textTheme;
+    final heroTokens = theme.extension<RhythmHeroThemeExtension>();
+    final heroForeground = heroTokens?.textColor ?? theme.colorScheme.onPrimary;
 
     return Container(
       width: double.infinity,
       height: 130,
       decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.08),
+        color: heroForeground.withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(26),
-        border: Border.all(color: Colors.white.withValues(alpha: 0.14)),
+        border: Border.all(color: heroForeground.withValues(alpha: 0.14)),
       ),
       child: Stack(
         children: [
@@ -273,14 +266,16 @@ class _WelcomeIllustrationCard extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
               decoration: BoxDecoration(
-                color: Colors.white.withValues(alpha: 0.14),
+                color: heroForeground.withValues(alpha: 0.14),
                 borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: Colors.white.withValues(alpha: 0.18)),
+                border: Border.all(
+                  color: heroForeground.withValues(alpha: 0.18),
+                ),
               ),
               child: Text(
                 '23:30',
                 style: textTheme.labelLarge?.copyWith(
-                  color: Colors.white,
+                  color: heroForeground,
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -293,15 +288,17 @@ class _WelcomeIllustrationCard extends StatelessWidget {
               width: 34,
               height: 34,
               decoration: BoxDecoration(
-                color: Colors.white.withValues(alpha: 0.14),
+                color: heroForeground.withValues(alpha: 0.14),
                 borderRadius: BorderRadius.circular(17),
-                border: Border.all(color: Colors.white.withValues(alpha: 0.18)),
+                border: Border.all(
+                  color: heroForeground.withValues(alpha: 0.18),
+                ),
               ),
               alignment: Alignment.center,
-              child: const Icon(
+              child: Icon(
                 Icons.nightlight_round,
                 size: 18,
-                color: Colors.white,
+                color: heroForeground,
               ),
             ),
           ),
@@ -310,18 +307,18 @@ class _WelcomeIllustrationCard extends StatelessWidget {
             right: 18,
             bottom: 18,
             child: Row(
-              children: const [
+              children: [
                 Expanded(
                   child: _IllustrationMetricCard(
                     icon: Icons.nightlight_round,
-                    tint: Color(0x22EEF3FF),
+                    tint: heroForeground.withValues(alpha: 0.12),
                   ),
                 ),
                 SizedBox(width: 12),
                 Expanded(
                   child: _IllustrationMetricCard(
                     icon: Icons.auto_awesome_rounded,
-                    tint: Color(0x22FFFFFF),
+                    tint: heroForeground.withValues(alpha: 0.08),
                   ),
                 ),
               ],
@@ -342,25 +339,29 @@ class _IllustrationMetricCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final heroTokens = theme.extension<RhythmHeroThemeExtension>();
+    final heroForeground = heroTokens?.textColor ?? theme.colorScheme.onPrimary;
+
     return Container(
       height: 54,
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
       decoration: BoxDecoration(
         color: tint,
         borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: Colors.white.withValues(alpha: 0.14)),
+        border: Border.all(color: heroForeground.withValues(alpha: 0.14)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(icon, size: 16, color: Colors.white.withValues(alpha: 0.92)),
+          Icon(icon, size: 16, color: heroForeground.withValues(alpha: 0.92)),
           const Spacer(),
           Container(
             width: 44,
             height: 6,
             decoration: BoxDecoration(
-              color: Colors.white.withValues(alpha: 0.84),
+              color: heroForeground.withValues(alpha: 0.84),
               borderRadius: BorderRadius.circular(3),
             ),
           ),
@@ -369,7 +370,7 @@ class _IllustrationMetricCard extends StatelessWidget {
             width: 72,
             height: 6,
             decoration: BoxDecoration(
-              color: Colors.white.withValues(alpha: 0.5),
+              color: heroForeground.withValues(alpha: 0.5),
               borderRadius: BorderRadius.circular(3),
             ),
           ),
@@ -379,7 +380,7 @@ class _IllustrationMetricCard extends StatelessWidget {
   }
 }
 
-/// 欢迎页内容卡，统一承接三个步骤说明和唯一主按钮。
+/// 欢迎页内容卡，统一承接 V2 的三步说明和唯一主按钮。
 class _WelcomeChecklistCard extends StatelessWidget {
   const _WelcomeChecklistCard({
     required this.title,
@@ -397,13 +398,20 @@ class _WelcomeChecklistCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
+    final panelColor = theme.colorScheme.surface.withValues(
+      alpha: theme.brightness == Brightness.light ? 0.84 : 0.9,
+    );
+    final panelBorderColor = theme.colorScheme.outlineVariant.withValues(
+      alpha: theme.brightness == Brightness.light ? 0.2 : 0.72,
+    );
 
     return Container(
+      key: const Key('onboarding-welcome-checklist-card'),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.84),
+        color: panelColor,
         borderRadius: BorderRadius.circular(28),
-        border: Border.all(color: const Color(0x80FFFFFF)),
+        border: Border.all(color: panelBorderColor),
         boxShadow: [
           BoxShadow(
             color: theme.colorScheme.shadow.withValues(alpha: 0.07),
@@ -440,9 +448,11 @@ class _WelcomeStepCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
+    final theme = Theme.of(context);
+    final textTheme = theme.textTheme;
 
     return Container(
+      key: Key('onboarding-welcome-step-card-${data.index}'),
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
       decoration: BoxDecoration(
         color: data.backgroundColor,
@@ -476,7 +486,7 @@ class _WelcomeStepCard extends StatelessWidget {
                 Text(
                   data.title,
                   style: textTheme.labelLarge?.copyWith(
-                    color: const Color(0xFF182033),
+                    color: theme.colorScheme.onSurface,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
@@ -484,7 +494,7 @@ class _WelcomeStepCard extends StatelessWidget {
                 Text(
                   data.description,
                   style: textTheme.bodySmall?.copyWith(
-                    color: const Color(0xFF6F7891),
+                    color: theme.colorScheme.onSurfaceVariant,
                     height: 1.35,
                   ),
                 ),

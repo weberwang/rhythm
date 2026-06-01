@@ -1,22 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:rhythm/features/onboarding/domain/onboarding_draft.dart';
 import 'package:rhythm/l10n/app_localizations.dart';
 import 'package:rhythm/shared/presentation/widgets/composites/rhythm_glass_panel.dart';
 import 'package:rhythm/shared/presentation/widgets/composites/rhythm_onboarding_action_card.dart';
 import 'package:rhythm/shared/presentation/theme/rhythm_theme_extensions.dart';
 
-/// 健康权限说明页，只负责说明价值和分流，不接真实系统权限。
+/// 增强设置页，承接权限与提醒推荐的低压说明和分流。
 class HealthPermissionStep extends StatelessWidget {
   /// 创建权限说明页。
   const HealthPermissionStep({
     super.key,
-    required this.selectedAuthOption,
     required this.onAuthorize,
     required this.onSkip,
   });
-
-  /// 登录方式。
-  final OnboardingAuthOption selectedAuthOption;
 
   /// 授权动作。
   final VoidCallback onAuthorize;
@@ -106,7 +101,7 @@ class HealthPermissionStep extends StatelessWidget {
   }
 }
 
-/// 授权页顶部 Hero，更贴近 Pencil 中“徽记 + 标题 + 说明”的结构。
+/// 增强页顶部 Hero，更贴近 V2 稿中的“徽记 + 标题 + 说明”结构。
 class _PermissionHeroCard extends StatelessWidget {
   /// 创建权限 Hero。
   const _PermissionHeroCard({required this.title, required this.description});
@@ -193,7 +188,7 @@ class _PermissionHeroCard extends StatelessWidget {
   }
 }
 
-/// 承载授权说明卡大面板，统一“标题 + 说明 + 条目列表 + 当前模式提示”的节奏。
+/// 承载增强设置主卡，统一“标题 + 说明 + 条目列表”的节奏。
 class _PermissionInfoPanel extends StatelessWidget {
   /// 创建说明面板。
   const _PermissionInfoPanel({
@@ -242,7 +237,7 @@ class _PermissionInfoPanel extends StatelessWidget {
   }
 }
 
-/// 权限页的信息条目。
+/// 增强页的信息条目。
 class _InfoRow extends StatelessWidget {
   /// 创建信息条目。
   const _InfoRow({

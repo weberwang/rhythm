@@ -831,39 +831,40 @@ class AppLocalizationsZh extends AppLocalizations {
   String get onboardingStepOneEyebrow => 'STEP 1 · 欢迎进入';
 
   @override
-  String get onboardingWelcomeTitle => '欢迎使用 Rhythm';
+  String get onboardingWelcomeTitle => '今晚开始，把作息慢慢拉回你想要的节奏';
 
   @override
-  String get onboardingWelcomeDescription => '从今晚开始，用更温和的方式建立稳定作息，先完成 3 步基础设置。';
+  String get onboardingWelcomeDescription =>
+      '你只需要先定一个目标时间。权限、提醒和桌面入口，我们会在不打扰的前提下慢慢补齐。';
 
   @override
-  String get onboardingWelcomeChecklistTitle => '你将会完成';
+  String get onboardingWelcomeChecklistTitle => '接下来只做三件事';
 
   @override
-  String get onboardingWelcomeBulletAuthTitle => '选择进入方式';
+  String get onboardingWelcomeBulletAuthTitle => '定目标时间';
 
   @override
-  String get onboardingWelcomeBulletAuthDescription =>
-      '支持匿名体验，也为后续接入 Apple / Google 登录预留入口。';
+  String get onboardingWelcomeBulletAuthDescription => '先决定几点睡、几点起，形成今晚基线。';
 
   @override
-  String get onboardingWelcomeBulletHealthTitle => '了解健康数据价值';
+  String get onboardingWelcomeBulletHealthTitle => '补强体验条件';
 
   @override
-  String get onboardingWelcomeBulletHealthDescription => '先说明记录价值，暂不请求真实系统权限。';
+  String get onboardingWelcomeBulletHealthDescription =>
+      '权限和提醒先给推荐值，你可以跳过，之后再细调。';
 
   @override
-  String get onboardingWelcomeBulletGoalTitle => '设置目标作息';
+  String get onboardingWelcomeBulletGoalTitle => '尽快看到今日页';
 
   @override
   String get onboardingWelcomeBulletGoalDescription =>
-      '本次实现会把流程继续推进到真实目标设置和提醒策略，而不是停在占位页。';
+      '第一时间看到今晚目标和昨晚反馈，不再被额外说明打断。';
 
   @override
   String get onboardingWelcomePrimaryButton => '开始设置';
 
   @override
-  String get onboardingWelcomeQuickDuration => '通常只需要 3 分钟';
+  String get onboardingWelcomeQuickDuration => '预计 1 分钟完成首日设置';
 
   @override
   String get onboardingWelcomeHeroTileLocalTitle => '本地优先';
@@ -884,7 +885,8 @@ class AppLocalizationsZh extends AppLocalizations {
   String get onboardingWelcomeHeroTileFlowSubtitle => '直接进入主线';
 
   @override
-  String get onboardingWelcomeFooterNote => '后续每一步都可以返回调整，不会一次要求你填很多内容。';
+  String get onboardingWelcomeFooterNote =>
+      '登录、小组件和更细的提醒都后置处理，先把今晚真正会用到的东西准备好。';
 
   @override
   String get onboardingStepTwoEyebrow => '第 2 步 / 3';
@@ -896,13 +898,17 @@ class AppLocalizationsZh extends AppLocalizations {
   String get onboardingAuthTitle => '今晚开始，慢慢早一点睡';
 
   @override
-  String get onboardingAuthDescription => '先体验记录、提醒和睡前模式。等你觉得有用，再决定要不要绑定账号。';
+  String get onboardingAuthDescription =>
+      '先看一眼 Rhythm 会怎样陪你记录、提醒和收尾，准备好后再继续下一步。';
 
   @override
-  String get onboardingAuthOptionsTitle => '先选一个你舒服的进入方式';
+  String get onboardingAuthOptionsTitle => '你接下来会先看到这些';
 
   @override
-  String get onboardingAuthOptionsDescription => '账号用于同步你的记录，游客模式也可以先体验主要流程。';
+  String get onboardingAuthOptionsDescription => '这一段先不要求登录，只让你快速确认产品节奏和夜间体验。';
+
+  @override
+  String get onboardingAuthContinueButton => '继续';
 
   @override
   String get onboardingAuthAppleLabel => '本地优先';
@@ -929,17 +935,17 @@ class AppLocalizationsZh extends AppLocalizations {
   String get onboardingAuthEmailButton => '使用邮箱继续';
 
   @override
-  String get onboardingAuthFooterNote => '继续即表示你同意服务协议与隐私政策，后续可在设置中修改登录方式。';
+  String get onboardingAuthFooterNote => '继续即表示你同意服务协议与隐私政策；账号绑定会放到后续更合适的节点里。';
 
   @override
   String get onboardingStepThreeEyebrow => '第 3 步 / 3';
 
   @override
-  String get onboardingHealthTitle => '让系统帮你记录昨晚的睡眠';
+  String get onboardingHealthTitle => '把自动反馈和夜晚提醒补齐';
 
   @override
   String get onboardingHealthDescription =>
-      '授权后，首页会自动显示昨晚结果、趋势和恢复建议；不授权也能先手动记录。';
+      '这一步只决定两件事：是否允许读取睡眠结果，以及是否先采用推荐提醒。都可以跳过，也都能以后再改。';
 
   @override
   String get onboardingHealthAppleSummary => '自动同步睡眠记录';
@@ -957,39 +963,38 @@ class AppLocalizationsZh extends AppLocalizations {
   String get onboardingHealthDefaultSummary => '没有权限时仍能手动补录并生成周报';
 
   @override
-  String get onboardingHealthBenefitTitle => '我们会读取什么';
+  String get onboardingHealthBenefitTitle => '先按推荐值补齐体验';
 
   @override
   String get onboardingHealthBenefitDescription =>
-      '入睡时间、起床时间、睡眠时长和来源状态，用来生成昨晚反馈与作息趋势。';
+      '授权后，今日页会自动带出昨晚结果；提醒默认先给柔和模式，避免首周打扰感过强。';
 
   @override
-  String get onboardingHealthReadTitle => '会读取什么';
+  String get onboardingHealthReadTitle => '授权后你会得到什么';
 
   @override
-  String get onboardingHealthReadDescription => '自动读取昨晚的入睡和起床信息，尽量减少你手动输入。';
+  String get onboardingHealthReadDescription => '今日页会直接出现昨晚结果、趋势和恢复建议。';
 
   @override
-  String get onboardingHealthProtectTitle => '不会做什么';
+  String get onboardingHealthProtectTitle => '推荐先用柔和提醒';
 
   @override
-  String get onboardingHealthProtectDescription =>
-      '不会公开分享，不会用于医疗诊断，也不会影响你手动修改记录。';
+  String get onboardingHealthProtectDescription => '第一周优先降低打扰感，只在接近目标时间前轻提醒一次。';
 
   @override
-  String get onboardingHealthOutcomeTitle => '你会得到什么';
+  String get onboardingHealthOutcomeTitle => '也可以先手动记录';
 
   @override
-  String get onboardingHealthOutcomeDescription => '更早看到昨晚结果、稳定度变化和更轻的恢复建议。';
+  String get onboardingHealthOutcomeDescription => '如果你还不想授权或提醒，先进入今日页也不会被阻断。';
 
   @override
-  String get onboardingHealthUnderstandFirstButton => '我先了解一下';
+  String get onboardingHealthUnderstandFirstButton => '按推荐继续';
 
   @override
   String get onboardingHealthLaterButton => '稍后再说';
 
   @override
-  String get onboardingHealthFooterNote => '授权可随时在系统设置中关闭；我们只用来生成你的作息反馈。';
+  String get onboardingHealthFooterNote => '小组件会后置到今日页之后再提示，不再挡在首启主链路前。';
 
   @override
   String get onboardingHealthCurrentStageTitle => '当前阶段说明';
@@ -1085,44 +1090,45 @@ class AppLocalizationsZh extends AppLocalizations {
   String get reminderSetupEyebrow => '把提醒调到刚刚好';
 
   @override
-  String get reminderSetupPageTitle => '提醒我在夜晚轻一点停下来';
+  String get reminderSetupPageTitle => '把自动反馈和夜晚提醒补齐';
 
   @override
-  String get reminderSetupPageDescription => '先选一种不打扰的提醒方式；后面随时都能在设置里改。';
+  String get reminderSetupPageDescription =>
+      '这一步只决定两件事：是否允许读取睡眠结果，以及是否先采用推荐提醒。都可以跳过，也都能以后再改。';
 
   @override
-  String get reminderSetupPanelTitle => '你希望我怎么提醒你';
+  String get reminderSetupPanelTitle => '先按推荐值补齐体验';
 
   @override
   String get reminderSetupPanelDescription =>
-      '默认推荐柔和提醒。首启阶段先帮你把打扰感压低，等你熟悉后再精调频率。';
+      '授权后，今日页会自动带出昨晚结果；提醒默认先给柔和模式，避免首周打扰感过强。';
 
   @override
   String get reminderSetupSoftTitle => '柔和提醒';
 
   @override
-  String get reminderSetupSoftDescription => '在目标入睡前轻提醒一次，不催促，只提醒你开始收尾。';
+  String get reminderSetupSoftDescription => '第一周优先降低打扰感，只在接近目标时间前轻提醒一次。';
 
   @override
-  String get reminderSetupStandardTitle => '标准提醒';
+  String get reminderSetupStandardTitle => '授权后你会得到什么';
 
   @override
-  String get reminderSetupStandardDescription => '临近目标时间提醒一次，到点后再轻轻补一句，更稳一点。';
+  String get reminderSetupStandardDescription => '今日页会直接出现昨晚结果、趋势和恢复建议。';
 
   @override
-  String get reminderSetupOffTitle => '先不开提醒';
+  String get reminderSetupOffTitle => '先手动记录';
 
   @override
-  String get reminderSetupOffDescription => '先靠自己感受节奏，等你准备好了再把提醒打开。';
+  String get reminderSetupOffDescription => '如果你还不想授权或提醒，先进入今日页也不会被阻断。';
 
   @override
   String get reminderSetupContinueButton => '按这个继续';
 
   @override
-  String get reminderSetupSecondaryButton => '之后再设置';
+  String get reminderSetupSecondaryButton => '先手动记录';
 
   @override
-  String get reminderSetupBottomNote => '提醒方式不会固定锁死；后面你可以改成更轻或更明确的节奏。';
+  String get reminderSetupBottomNote => '小组件会后置到今日页之后再提示，不再挡在首启主链路前。';
 
   @override
   String get reminderSetupCompleteButton => '完成设置，进入今日页';
