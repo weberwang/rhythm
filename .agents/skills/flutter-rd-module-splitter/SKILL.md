@@ -37,7 +37,7 @@ Do not create a module only because a screen exists. Small screens that share on
 4. Identify missing information that changes module boundaries and list it under `open_questions`.
 5. If global package or architecture decisions are missing, block splitting and route to `flutter-prd-rd-writer`.
 6. Build a module map with module name, responsibility, pages, data owner, package or architecture constraints, upstream dependencies, downstream dependencies, and release value.
-7. For each module, write a module detail card covering user job, page/state scope, domain responsibility, application state, infrastructure/API boundary, analytics, tests, and release value.
+7. For each module, write a module detail card covering user job, page/state scope, non-page-level component scope, domain responsibility, application state, infrastructure/API boundary, analytics, tests, and release value.
 8. Assign document paths:
    - `docs/rd/modules/<module>/<module>.ui-ux.md`
    - `docs/rd/modules/<module>/<module>.impl.md`
@@ -52,9 +52,11 @@ Each `<module>.ui-ux.md` must include:
 - Module goal and target user.
 - Page scope and navigation entry.
 - Core user path.
+- Module-level non-page component design skeleton covering repeated controls, cards, bars, list items, dialogs, chips, or other shared building blocks that belong to the module.
+- For each important module-level component, document at least intended usage scope, expected states or variants, reuse boundaries, and whether the component is expected to be frozen later in Pencil.
 - State matrix: ideal, empty, loading, error, permission, partial data, disabled, success, locked or premium when relevant.
 - Design source section with future Pencil path and future `global-design-guidelines.md`, `light-theme-freeze.yaml`, and `dark-theme-freeze.yaml` references when approved static previews exist.
-- Design freeze card section reserved for later approval.
+- Design freeze card section reserved for later approval, including reserved fields for module-level component freeze decisions.
 - Acceptance gates for UI/UX and Pencil handoff.
 
 ## Implementation RD Contract
@@ -66,6 +68,7 @@ Each `<module>.impl.md` must include:
 - Business capability and bounded context.
 - Inherited global package stack and module-specific usage notes.
 - Domain model, application state, infrastructure dependencies, presentation boundary.
+- Module-level component implementation notes that reference the paired UI/UX RD component skeleton instead of inventing reusable components from scratch later.
 - API, repository, storage, permission, and backend collaboration notes.
 - Data, security, analytics, monitoring, rollout, and test scope.
 - Module-specific implementation constraints that do not override global decisions.
@@ -84,6 +87,7 @@ Each `<module>.impl.md` must include:
 - Do not output module names only. Each module needs enough detail for its paired UI/UX and implementation RD documents.
 - Do not merge UI/UX RD and implementation RD into one document.
 - Do not let implementation RD exist without a reference to the paired UI/UX RD.
+- Do not leave module-level reusable components completely undefined in UI/UX RD when the module clearly contains repeated non-page building blocks.
 
 ## Output Contract
 
@@ -103,5 +107,6 @@ Return:
 - A PRD lists ten screens but one user job: group by workflow, not by screen count.
 - A raw PRD has no package or architecture decision: route to `flutter-prd-rd-writer` before creating implementation module docs.
 - A split contains only module names: fail the output and add module detail cards.
+- A module UI/UX RD only lists pages and states but omits obvious shared module components: fail the output and add a component design skeleton.
 - A module has backend-heavy logic but no UI: still create paired docs; UI/UX RD can declare no visible page and explain state surfaces.
 - User asks for a new global package or architecture decision during splitting: stop and route to `flutter-prd-rd-writer`.

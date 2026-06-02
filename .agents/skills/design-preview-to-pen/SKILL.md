@@ -7,11 +7,11 @@ description: Use when preview comps, approved visual directions, image assets, o
 
 ## Overview
 
-Run a strict designer production workflow: clarify the brief, explore preview directions, critique and freeze one approved direction, plan reusable assets, rebuild the design structurally in Pencil, and verify visual parity. Bias toward maintainable Pencil structure and reusable assets, not a one-off flattened mockup.
+Run a strict designer production workflow: clarify the brief, explore preview directions, critique and freeze one approved direction, plan reusable assets, rebuild the design structurally in Pencil, complete non-page-level reusable component design, and verify visual parity. Bias toward maintainable Pencil structure and reusable assets, not a one-off flattened mockup.
 
 ## Designer Role
 
-Act like a production designer moving an approved art direction into an editable design file. Preserve intent, hierarchy, and system decisions while allowing small engineering cleanup that improves maintainability.
+Act like a production designer moving an approved art direction into an editable design file. Preserve intent, hierarchy, and system decisions while allowing small engineering cleanup that improves maintainability. Treat a completed design draft as both finished page compositions and finished non-page-level reusable component design.
 
 ## Quick Start
 
@@ -35,8 +35,10 @@ Act like a production designer moving an approved art direction into an editable
 7. Wait for explicit user approval and record the design freeze card.
 8. Build an asset and system plan before touching Pencil.
 9. Extract, regenerate, or redraw assets by type instead of blindly slicing everything.
-10. Rebuild the approved direction in Pencil with variables first and sections second.
-11. Compare the Pencil result against the approved preview, freeze card, and any frozen global guidance artifacts, then close remaining gaps.
+10. Rebuild the approved direction in Pencil with variables first, reusable component design second, and sections third.
+11. Complete non-page-level component design for repeated controls, cards, bars, list items, dialogs, chips, and other shared building blocks, including names, states, and variant boundaries.
+12. When a page scrolls beyond the fixed viewport, decide whether the scroll structure is clear enough from one frame; if not, provide continuous frames or an equivalent structured scroll specification before claiming the design draft is complete.
+13. Compare the Pencil result against the approved preview, freeze card, any frozen global guidance artifacts, the required component set, and the scroll-structure expression, then close remaining gaps.
 
 ## Phase Rules
 
@@ -60,7 +62,7 @@ Act like a production designer moving an approved art direction into an editable
 
 - Do not continue on implied approval. Wait for an explicit user decision.
 - If `global-design-guidelines.md` exists, link the freeze card to that contract and do not restate or mutate global theme role definitions locally.
-- Convert the chosen direction into a design freeze card with immutable items, allowed engineering adjustments, icon and illustration handling, state scope, and acceptance criteria.
+- Convert the chosen direction into a design freeze card with immutable items, allowed engineering adjustments, icon and illustration handling, module-level component freeze decisions, state scope, and acceptance criteria.
 - If the user wants a hybrid of multiple previews, freeze that hybrid explicitly before asset work.
 
 ### 4. Asset Extraction
@@ -87,12 +89,36 @@ Act like a production designer moving an approved art direction into an editable
   6. decorative details
 - Prefer `set_variables` before large `batch_design` passes so spacing, color, and typography stay maintainable.
 - Add redline notes or named variables for decisions Flutter must preserve.
+- Do not treat page-level completion as design-draft completion until the non-page-level reusable components are also designed in Pencil.
+- Complete reusable component design for shared UI building blocks, including at least naming, structural boundaries, reusable variables, and key state or variant differences when the approved direction implies them.
+- Use a fixed viewport frame as the default page shell, and treat long content as scroll structure instead of unconstrained page-height drift.
 
-### 6. Visual Parity Review
+### 6. Component Design Completion
+
+- Identify which non-page-level building blocks are shared across screens or sections, instead of leaving them embedded only inside page frames.
+- Extract or rebuild those building blocks as maintainable reusable component structures in Pencil.
+- Cover the component states or variants that downstream Flutter work would otherwise have to guess, such as primary versus secondary emphasis, selected versus default, enabled versus disabled, filled versus outline, or inline versus elevated posture.
+- Freeze the module-level component decisions explicitly: which components are reusable, which states and variants are frozen now, which parts are immutable, and which engineering adjustments remain allowed.
+- Ensure the component set is consistent with frozen global guidance artifacts when those artifacts exist.
+- If a repeated building block is intentionally kept local, document why it is not promoted into a reusable component.
+
+### 7. Scroll Expression Completion
+
+- Continuous frames are not mandatory by default, but the scroll structure must be explicit enough that Flutter restoration does not depend on guesswork.
+- If a single fixed-viewport frame cannot clearly express below-the-fold ordering, fixed versus scrolling regions, sticky behavior, or key scroll transitions, provide continuous frames.
+- If continuous frames are not used, provide an equivalent structured scroll specification that names at least:
+  - viewport shell
+  - scrolling content regions
+  - fixed top or bottom regions
+  - sticky or pinned regions
+  - the order of below-the-fold sections
+- Use continuous frames or equivalent structured scroll specification whenever the page includes long-form content, multiple folds, sticky regions, nested scrolling, tab-linked scrolling, or other behavior that Flutter would otherwise have to infer.
+
+### 8. Visual Parity Review
 
 - Read `references/acceptance-checklist.md`.
 - Use `snapshot_layout` for structure checks and `get_screenshot` only after a meaningful section or full page is ready.
-- Review parity against the approved preview, freeze card, and any frozen global guidance artifacts, not against an older draft.
+- Review parity against the approved preview, freeze card, any frozen global guidance artifacts, the completed reusable component set, and the chosen scroll expression, not against an older draft.
 - Close gaps in a controlled order: layout first, typography second, color and materials third, asset fit last.
 
 ## Hard Rules
@@ -105,6 +131,11 @@ Act like a production designer moving an approved art direction into an editable
 - Do not let a pretty preview override the approved brief, art direction, state scope, or freeze card.
 - Do not recalculate global theme roles or localize palette semantics when frozen theme files already exist.
 - Do not skip designer critique between preview generation and approval.
+- Do not treat page frames alone as a completed design draft; non-page-level reusable component design must also be finished.
+- Do not leave shared controls or repeated building blocks only inside page compositions when downstream Flutter implementation needs explicit reusable component design.
+- Do not treat module-level reusable components as frozen implicitly; record their frozen scope, states, and allowed adjustments in the freeze artifacts.
+- Do not assume a long page is self-explanatory just because the frame is taller; if Flutter could misread the scroll structure, add continuous frames or an equivalent structured scroll specification.
+- Do not require continuous frames for every page when a single fixed viewport plus explicit scroll specification already makes the Flutter mapping unambiguous.
 - Do not break HIG-baseline safe areas, tap targets, navigation, destructive actions, permission flows, readability, feedback, or accessibility.
 - Do not call Pencil tools other than `get_editor_state(include_schema: true)` before the schema is loaded.
 - Do not hide the Pencil connection blocker; surface it immediately when the app is unavailable.
@@ -120,9 +151,12 @@ Every substantial result should leave these artifacts in the conversation:
 - `preview_options_summary`
 - `design_critique`
 - `freeze_card`
+- `module_component_freeze`
 - `consumed_global_freeze_artifacts`
 - `asset_manifest`
 - `pencil_rebuild_progress`
+- `component_design_progress`
+- `scroll_expression`
 - `parity_gap_list`
 
 ## References
