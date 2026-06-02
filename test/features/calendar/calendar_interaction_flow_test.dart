@@ -63,7 +63,7 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('补一个晚睡原因'), findsOneWidget);
-    expect(find.text('刷手机'), findsNWidgets(2));
+    expect(find.text('刷手机'), findsOneWidget);
 
     await tester.tap(find.text('刷手机').last);
     await tester.pumpAndSettle();
@@ -75,7 +75,7 @@ void main() {
     ]);
   });
 
-  testWidgets('保存标签后日历页会立即刷新情绪纸片', (tester) async {
+  testWidgets('保存标签后日历页仍保持 pen 的纯日期格显示', (tester) async {
     final repository = InMemorySleepDelayTagRepository();
     await tester.pumpWidget(
       ProviderScope(
@@ -125,7 +125,7 @@ void main() {
     expect(await repository.readTags(recordDate: DateTime.utc(2026, 5, 24)), [
       '刷手机',
     ]);
-    expect(find.byKey(const Key('calendar-mood-paper-24')), findsOneWidget);
+    expect(find.byKey(const Key('calendar-mood-paper-24')), findsNothing);
   });
 
   testWidgets('保存标签后不会回到整页加载态', (tester) async {
@@ -174,7 +174,7 @@ void main() {
     await tester.pump();
 
     expect(find.byType(CircularProgressIndicator), findsNothing);
-    expect(find.text('颜色越深，越接近你的目标入睡时间。'), findsOneWidget);
+    expect(find.text('颜色不是坏消息，而是你与目标时间的距离。'), findsOneWidget);
   });
 
   testWidgets('自定义标签输入无效时在真实交互链路里展示错误', (tester) async {

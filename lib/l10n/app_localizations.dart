@@ -161,8 +161,14 @@ abstract class AppLocalizations {
   /// No description provided for @calendarHeroEyebrow.
   ///
   /// In en, this message translates to:
-  /// **'May still has rhythm'**
+  /// **'May'**
   String get calendarHeroEyebrow;
+
+  /// No description provided for @calendarHeroEyebrowSuffix.
+  ///
+  /// In en, this message translates to:
+  /// **'rhythm map'**
+  String get calendarHeroEyebrowSuffix;
 
   /// No description provided for @calendarHeroTitle.
   ///
@@ -289,6 +295,58 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Latest late night'**
   String get calendarMetricLatestLate;
+
+  /// No description provided for @calendarMonthOnTrackBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} on-track days'**
+  String calendarMonthOnTrackBadge(int count);
+
+  /// No description provided for @calendarPreviewSuffix.
+  ///
+  /// In en, this message translates to:
+  /// **'preview'**
+  String get calendarPreviewSuffix;
+
+  /// No description provided for @calendarPreviewTapHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to open the detail sheet'**
+  String get calendarPreviewTapHint;
+
+  /// No description provided for @calendarPreviewSummaryWithTags.
+  ///
+  /// In en, this message translates to:
+  /// **'Slept at {sleepTime} | {offset} | Tags: {tags}'**
+  String calendarPreviewSummaryWithTags(
+    String sleepTime,
+    String offset,
+    String tags,
+  );
+
+  /// No description provided for @calendarPreviewSummaryNoTags.
+  ///
+  /// In en, this message translates to:
+  /// **'Slept at {sleepTime} | {offset}'**
+  String calendarPreviewSummaryNoTags(String sleepTime, String offset);
+
+  /// No description provided for @calendarPreviewOffsetLate.
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes} minutes later than target'**
+  String calendarPreviewOffsetLate(int minutes);
+
+  /// No description provided for @calendarPreviewOffsetEarly.
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes} minutes earlier than target'**
+  String calendarPreviewOffsetEarly(int minutes);
+
+  /// No description provided for @calendarPreviewOffsetOnTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'Inside the target threshold'**
+  String get calendarPreviewOffsetOnTarget;
 
   /// No description provided for @calendarDetailSleepTime.
   ///
@@ -1622,6 +1680,36 @@ abstract class AppLocalizations {
   /// **'Edit time'**
   String get manualSleepRecordEditTimeButton;
 
+  /// No description provided for @launchGateEyebrow.
+  ///
+  /// In en, this message translates to:
+  /// **'Launching'**
+  String get launchGateEyebrow;
+
+  /// No description provided for @launchGateTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Getting tonight\'\'s rhythm ready'**
+  String get launchGateTitle;
+
+  /// No description provided for @launchGateDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading your schedule target, reminder strategy, and entry state.'**
+  String get launchGateDescription;
+
+  /// No description provided for @launchGateStatusTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Preparing Rhythm'**
+  String get launchGateStatusTitle;
+
+  /// No description provided for @launchGateStatusDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'If this is your first launch, we will guide you through the shortest setup path first.'**
+  String get launchGateStatusDescription;
+
   /// No description provided for @onboardingStepOneEyebrow.
   ///
   /// In en, this message translates to:
@@ -1655,7 +1743,7 @@ abstract class AppLocalizations {
   /// No description provided for @onboardingWelcomeBulletAuthDescription.
   ///
   /// In en, this message translates to:
-  /// **'Pick your bedtime and wake time to form tonight’s baseline.'**
+  /// **'Pick your bedtime and wake time to form tonight\'\'s baseline.'**
   String get onboardingWelcomeBulletAuthDescription;
 
   /// No description provided for @onboardingWelcomeBulletHealthTitle.
@@ -1679,7 +1767,7 @@ abstract class AppLocalizations {
   /// No description provided for @onboardingWelcomeBulletGoalDescription.
   ///
   /// In en, this message translates to:
-  /// **'See tonight’s target and last night’s feedback without extra explanation screens in the way.'**
+  /// **'See tonight\'\'s target and last night\'\'s feedback without extra explanation screens in the way.'**
   String get onboardingWelcomeBulletGoalDescription;
 
   /// No description provided for @onboardingWelcomePrimaryButton.
@@ -2825,7 +2913,7 @@ abstract class AppLocalizations {
   /// No description provided for @profileDesktopPresenceDescription.
   ///
   /// In en, this message translates to:
-  /// **'If you place the widget on your home screen, tonight\'s goal and last night\'s status stay visible in your everyday view.'**
+  /// **'If you place the widget on your home screen, tonight\'\'s goal and last night\'\'s status stay visible in your everyday view.'**
   String get profileDesktopPresenceDescription;
 
   /// No description provided for @widgetGuideEyebrow.
@@ -3023,7 +3111,7 @@ abstract class AppLocalizations {
   /// No description provided for @widgetThemeStateNoDataDescription.
   ///
   /// In en, this message translates to:
-  /// **'The widget can still keep tonight\'s target visible, then fill in last night\'s status after you sync or add it.'**
+  /// **'The widget can still keep tonight\'\'s target visible, then fill in last night\'\'s status after you sync or add it.'**
   String get widgetThemeStateNoDataDescription;
 
   /// No description provided for @widgetThemeStateNoDataAction.
@@ -3053,7 +3141,7 @@ abstract class AppLocalizations {
   /// No description provided for @widgetThemeStateReadyDescription.
   ///
   /// In en, this message translates to:
-  /// **'The current home screen snapshot can already show tonight\'s target and last night\'s status.'**
+  /// **'The current home screen snapshot can already show tonight\'\'s target and last night\'\'s status.'**
   String get widgetThemeStateReadyDescription;
 
   /// No description provided for @widgetThemePinButton.

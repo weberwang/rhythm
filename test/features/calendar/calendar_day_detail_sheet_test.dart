@@ -14,27 +14,7 @@ import 'package:rhythm/l10n/app_localizations.dart';
 /// 验证单日详情弹层会解释记录偏差、来源和标签。
 void main() {
   testWidgets('详情弹层展示睡眠信息和标签入口', (tester) async {
-    await tester.pumpWidget(
-      MaterialApp(
-        locale: const Locale('zh'),
-        localizationsDelegates: AppLocalizations.localizationsDelegates,
-        supportedLocales: AppLocalizations.supportedLocales,
-        home: Scaffold(
-          body: CalendarDayDetailSheet(
-            summary: CalendarDaySummary(
-              date: DateTime.utc(2026, 5, 24),
-              record: _buildRecord(),
-              sleepOffsetMinutes: 50,
-              heatLevel: CalendarHeatLevel.late,
-              tags: const <String>['刷手机'],
-              primaryMood: CalendarDayMood.drained,
-              hasSecondaryMood: false,
-            ),
-            onAddTag: () {},
-          ),
-        ),
-      ),
-    );
+    await tester.pumpWidget(_buildSheetApp(const Locale('zh'), _sheet()));
     await tester.pumpAndSettle();
 
     expect(find.text('5 月 24 日'), findsOneWidget);
@@ -44,25 +24,20 @@ void main() {
     expect(find.text('添加标签'), findsOneWidget);
   });
 
+  testWidgets('详情弹层提供来源说明入口', (tester) async {
+    await tester.pumpWidget(_buildSheetApp(const Locale('zh'), _sheet()));
+    await tester.pumpAndSettle();
+
+    expect(find.text('数据来源说明'), findsOneWidget);
+  });
+
   testWidgets('英文环境下详情弹层使用本地化日期与偏差文案', (tester) async {
     await tester.pumpWidget(
-      MaterialApp(
-        locale: const Locale('en'),
-        localizationsDelegates: AppLocalizations.localizationsDelegates,
-        supportedLocales: AppLocalizations.supportedLocales,
-        home: Scaffold(
-          body: CalendarDayDetailSheet(
-            summary: CalendarDaySummary(
-              date: DateTime.utc(2026, 5, 24),
-              record: _buildRecord(),
-              sleepOffsetMinutes: 50,
-              heatLevel: CalendarHeatLevel.late,
-              tags: const <String>['Phone scrolling'],
-              primaryMood: null,
-              hasSecondaryMood: false,
-            ),
-            onAddTag: () {},
-          ),
+      _buildSheetApp(
+        const Locale('en'),
+        _sheet(
+          tags: const <String>['Phone scrolling'],
+          primaryMood: null,
         ),
       ),
     );
@@ -75,27 +50,7 @@ void main() {
   });
 
   testWidgets('详情弹层会复用主情绪导条', (tester) async {
-    await tester.pumpWidget(
-      MaterialApp(
-        locale: const Locale('zh'),
-        localizationsDelegates: AppLocalizations.localizationsDelegates,
-        supportedLocales: AppLocalizations.supportedLocales,
-        home: Scaffold(
-          body: CalendarDayDetailSheet(
-            summary: CalendarDaySummary(
-              date: DateTime.utc(2026, 5, 24),
-              record: _buildRecord(),
-              sleepOffsetMinutes: 50,
-              heatLevel: CalendarHeatLevel.late,
-              tags: const <String>['刷手机'],
-              primaryMood: CalendarDayMood.drained,
-              hasSecondaryMood: false,
-            ),
-            onAddTag: () {},
-          ),
-        ),
-      ),
-    );
+    await tester.pumpWidget(_buildSheetApp(const Locale('zh'), _sheet()));
     await tester.pumpAndSettle();
 
     expect(find.byKey(const Key('calendar-day-mood-accent')), findsOneWidget);
@@ -103,24 +58,9 @@ void main() {
 
   testWidgets('详情弹层在无主情绪时不显示情绪导条', (tester) async {
     await tester.pumpWidget(
-      MaterialApp(
-        locale: const Locale('zh'),
-        localizationsDelegates: AppLocalizations.localizationsDelegates,
-        supportedLocales: AppLocalizations.supportedLocales,
-        home: Scaffold(
-          body: CalendarDayDetailSheet(
-            summary: CalendarDaySummary(
-              date: DateTime.utc(2026, 5, 24),
-              record: _buildRecord(),
-              sleepOffsetMinutes: 50,
-              heatLevel: CalendarHeatLevel.late,
-              tags: const <String>[],
-              primaryMood: null,
-              hasSecondaryMood: false,
-            ),
-            onAddTag: () {},
-          ),
-        ),
+      _buildSheetApp(
+        const Locale('zh'),
+        _sheet(tags: const <String>[], primaryMood: null),
       ),
     );
     await tester.pumpAndSettle();
@@ -135,18 +75,7 @@ void main() {
         GoRoute(
           path: '/',
           builder: (context, state) => Scaffold(
-            body: CalendarDayDetailSheet(
-              summary: CalendarDaySummary(
-                date: DateTime.utc(2026, 5, 24),
-                record: _buildRecord(),
-                sleepOffsetMinutes: 50,
-                heatLevel: CalendarHeatLevel.late,
-                tags: const <String>[],
-                primaryMood: null,
-                hasSecondaryMood: false,
-              ),
-              onAddTag: () {},
-            ),
+            body: _sheet(),
           ),
         ),
         GoRoute(
@@ -168,6 +97,36 @@ void main() {
 
     expect(find.text('编辑昨晚记录'), findsOneWidget);
   });
+}
+
+/// 构造统一的详情弹层装配，避免每个测试重复声明来源说明回调。
+Widget _buildSheetApp(Locale locale, Widget child) {
+  return MaterialApp(
+    locale: locale,
+    localizationsDelegates: AppLocalizations.localizationsDelegates,
+    supportedLocales: AppLocalizations.supportedLocales,
+    home: Scaffold(body: child),
+  );
+}
+
+/// 统一构造详情卡测试实例，保持测试聚焦在显示层断言。
+Widget _sheet({
+  List<String> tags = const <String>['刷手机'],
+  CalendarDayMood? primaryMood = CalendarDayMood.drained,
+}) {
+  return CalendarDayDetailSheet(
+    summary: CalendarDaySummary(
+      date: DateTime.utc(2026, 5, 24),
+      record: _buildRecord(),
+      sleepOffsetMinutes: 50,
+      heatLevel: CalendarHeatLevel.late,
+      tags: tags,
+      primaryMood: primaryMood,
+      hasSecondaryMood: false,
+    ),
+    onAddTag: () {},
+    onExplainSource: () {},
+  );
 }
 
 /// 构造详情弹层测试用记录。

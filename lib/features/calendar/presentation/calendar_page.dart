@@ -1,24 +1,24 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:rhythm/app/router/app_router.dart';
-import 'package:rhythm/app/theme/app_theme_tokens.dart';
 import 'package:rhythm/features/calendar/application/calendar_analytics.dart';
 import 'package:rhythm/features/calendar/application/calendar_controller.dart';
 import 'package:rhythm/features/calendar/application/calendar_view_state.dart';
 import 'package:rhythm/features/calendar/domain/calendar_day_summary.dart';
-import 'package:rhythm/features/calendar/domain/calendar_filter.dart';
-import 'package:rhythm/features/calendar/presentation/widgets/calendar_filter_bar.dart';
+import 'package:rhythm/features/calendar/domain/calendar_month_summary.dart';
 import 'package:rhythm/features/calendar/presentation/widgets/calendar_heatmap.dart';
-import 'package:rhythm/features/calendar/presentation/widgets/sheets/calendar_filter_sheet.dart';
+import 'package:rhythm/features/calendar/presentation/widgets/sheets/calendar_day_detail_sheet.dart';
 import 'package:rhythm/features/sleep_records/application/sleep_delay_tag_controller.dart';
+import 'package:rhythm/features/sleep_records/presentation/widgets/sheets/record_source_explainer_sheet.dart';
 import 'package:rhythm/features/sleep_records/presentation/widgets/sheets/sleep_delay_tag_picker_sheet.dart';
 import 'package:rhythm/l10n/app_localizations.dart';
-import 'package:rhythm/shared/presentation/theme/rhythm_theme_extensions.dart';
 
-/// 阶段六日历页入口，先按 Pencil 已确认的首屏结构交付真实页面。
+/// 日历页按 Pencil 设计稿重组首屏，只改显示层结构，不改控制器聚合契约。
 class CalendarPage extends HookConsumerWidget {
   /// 创建日历页实例。
   const CalendarPage({super.key});
@@ -27,12 +27,8 @@ class CalendarPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
-    final tokens = theme.brightness == Brightness.dark
-        ? AppThemeTokens.dark
-        : AppThemeTokens.light;
     final stateAsync = ref.watch(calendarControllerProvider);
     final trackedMonths = useRef<Set<String>>(<String>{});
-    final selectedDay = useState<CalendarDaySummary?>(null);
 
     useEffect(() {
       stateAsync.whenData((state) {
@@ -51,32 +47,6 @@ class CalendarPage extends HookConsumerWidget {
       return null;
     }, [stateAsync, ref]);
 
-    useEffect(() {
-      stateAsync.whenData((state) {
-        final days = state.monthSummary?.days ?? const <CalendarDaySummary>[];
-        if (days.isEmpty) {
-          selectedDay.value = null;
-          return;
-        }
-        final current = selectedDay.value;
-        if (current != null) {
-          final matched = _firstWhereOrNull(
-            days,
-            (day) => day.date == current.date,
-          );
-          if (matched != null) {
-            selectedDay.value = matched;
-            return;
-          }
-        }
-        selectedDay.value =
-            state.monthSummary?.latestLateDay ??
-            _firstWhereOrNull(days, (day) => day.hasRecord) ??
-            days.first;
-      });
-      return null;
-    }, [stateAsync]);
-
     return stateAsync.when(
       data: (state) {
         if (state.status == CalendarViewStatus.goalMissing) {
@@ -90,162 +60,94 @@ class CalendarPage extends HookConsumerWidget {
         }
 
         final monthSummary = state.monthSummary!;
-        final driftDays = monthSummary.recordedDays - monthSummary.onTargetDays;
+        final heroSubtitle = _buildHeroSubtitle(
+          l10n,
+          onTrackDays: monthSummary.onTargetDays,
+          driftDays: monthSummary.recordedDays - monthSummary.onTargetDays,
+          recordedDays: monthSummary.recordedDays,
+        );
         final onTrackRate = monthSummary.recordedDays == 0
             ? 0
             : ((monthSummary.onTargetDays / monthSummary.recordedDays) * 100)
                   .round();
-        final latestLateText =
-            monthSummary.latestLateDay?.sleepOffsetMinutes == null
-            ? '--:--'
-            : _formatOffset(monthSummary.latestLateDay!.sleepOffsetMinutes!);
-        final heroTitle = _buildCalendarHeroTitle(
-          context,
-          monthSummary.month,
-          l10n,
-        );
-        final heatmapTitle = _buildCalendarHeatmapTitle(
-          context,
-          monthSummary.month,
-        );
-        final heroSubtitle = _buildHeroSubtitle(
-          l10n,
-          onTrackDays: monthSummary.onTargetDays,
-          driftDays: driftDays,
-          recordedDays: monthSummary.recordedDays,
-        );
-        final activeDay =
-            selectedDay.value ??
-            monthSummary.latestLateDay ??
-            _firstWhereOrNull(monthSummary.days, (day) => day.hasRecord) ??
-            monthSummary.days.first;
 
         return SingleChildScrollView(
           padding: const EdgeInsets.fromLTRB(20, 18, 20, 24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _CalendarHeroCard(
-                title: heroTitle,
-                subtitle: heroSubtitle,
-                eyebrow: l10n.calendarHeroEyebrow,
-                isEmptyState: monthSummary.recordedDays == 0,
+              _CalendarChip(
+                label: l10n.calendarHeroEyebrow,
+                backgroundColor: Color(0xFFE3EEE0),
+                foregroundColor: Color(0xFF4A6B52),
+              ),
+              const SizedBox(height: 10),
+              Text(
+                l10n.calendarHeroTitle,
+                style: theme.textTheme.headlineMedium?.copyWith(
+                  fontFamily: 'Funnel Sans',
+                  color: const Color(0xFF1B3A28),
+                  fontWeight: FontWeight.w700,
+                  height: 1.08,
+                ),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                heroSubtitle,
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  fontFamily: 'Geist',
+                  color: const Color(0xFF4A6B52),
+                  fontWeight: FontWeight.w500,
+                  height: 1.4,
+                ),
               ),
               const SizedBox(height: 18),
-              Card(
-                key: const Key('calendar-main-card'),
-                margin: EdgeInsets.zero,
-                elevation: 0,
-                color: theme.colorScheme.surface.withValues(
-                  alpha: theme.brightness == Brightness.light ? 0.84 : 0.9,
+              _CalendarMonthCard(
+                monthLabel: _formatMonthLabel(context, monthSummary.month),
+                onTrackLabel: _buildOnTrackLabel(l10n, monthSummary),
+                child: CalendarHeatmap(
+                  days: monthSummary.days,
+                  onTapDay: (summary) =>
+                      _showDayDetail(context, ref, state, summary),
                 ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(28),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  heatmapTitle,
-                                  style: theme.textTheme.titleMedium?.copyWith(
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-                                const SizedBox(height: 8),
-                                Text(
-                                  l10n.calendarDescription,
-                                  style: theme.textTheme.bodySmall?.copyWith(
-                                    color: tokens.textSecondary,
-                                    height: 1.45,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(width: 12),
-                          _CalendarMonthNavButton(
-                            icon: Icons.chevron_left_rounded,
-                            onPressed: null,
-                          ),
-                          const SizedBox(width: 8),
-                          _CalendarMonthNavButton(
-                            icon: Icons.chevron_right_rounded,
-                            onPressed: null,
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 16),
-                      CalendarFilterBar(
-                        l10n: l10n,
-                        tokens: tokens,
-                        activeFilter: state.activeFilter,
-                        onOpenFilter: () => _showFilterSheetWithState(
-                          context,
-                          state.activeFilter.onlyRecordedDays,
-                          state.activeFilter.lateOnly,
-                          ref,
-                        ),
-                      ),
-                      const SizedBox(height: 18),
-                      Container(
-                        padding: const EdgeInsets.fromLTRB(14, 14, 14, 16),
-                        decoration: BoxDecoration(
-                          color: theme.colorScheme.surfaceContainerHighest
-                              .withValues(alpha: 0.68),
-                          borderRadius: BorderRadius.circular(20),
-                          border: Border.all(
-                            color: theme.colorScheme.outlineVariant,
-                          ),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            _CalendarWeekdayHeader(
-                              labels: _weekdayLabels(context),
-                            ),
-                            const SizedBox(height: 10),
-                            CalendarHeatmap(
-                              days: monthSummary.days,
-                              onTapDay: (summary) async {
-                                selectedDay.value = summary;
-                                await ref
-                                    .read(calendarAnalyticsProvider)
-                                    .trackDayDetailViewed(
-                                      recordDate: summary.date,
-                                    );
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
+              ),
+              const SizedBox(height: 12),
+              Row(
+                children: [
+                  Expanded(
+                    child: _CalendarMetricCard(
+                      title: l10n.calendarMetricOnTrack,
+                      value: '$onTrackRate%',
+                    ),
                   ),
-                ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: _CalendarMetricCard(
+                      title: l10n.calendarMetricLatestLate,
+                      value: _buildLatestLateText(monthSummary.latestLateDay),
+                    ),
+                  ),
+                ],
               ),
-              const SizedBox(height: 18),
-              _CalendarSelectedDayCard(
-                summary: activeDay,
-                onTrackRate: onTrackRate,
-                latestLateText: latestLateText,
-                onAddTag: () => _showTagPickerFromInlineCard(
+              const SizedBox(height: 12),
+              _CalendarPreviewCard(
+                title: _buildPreviewTitle(
                   context,
-                  ref,
-                  state,
-                  activeDay,
+                  l10n,
+                  monthSummary.latestLateDay,
                 ),
-                onEditRecord: activeDay.record == null
+                summary: _buildPreviewSummary(
+                  context,
+                  l10n,
+                  monthSummary.latestLateDay,
+                ),
+                onTap: monthSummary.latestLateDay == null
                     ? null
-                    : () => context.go(
-                        manualSleepRecordEditPath(activeDay.record!.recordId),
+                    : () => _showDayDetail(
+                        context,
+                        ref,
+                        state,
+                        monthSummary.latestLateDay!,
                       ),
               ),
             ],
@@ -263,243 +165,39 @@ class CalendarPage extends HookConsumerWidget {
   }
 }
 
-Future<void> _showFilterSheetWithState(
-  BuildContext context,
-  bool onlyRecordedDays,
-  bool lateOnly,
-  WidgetRef? ref,
-) {
-  return showModalBottomSheet<void>(
-    context: context,
-    isScrollControlled: true,
-    builder: (context) {
-      return CalendarFilterSheet(
-        onlyRecordedDays: onlyRecordedDays,
-        lateOnly: lateOnly,
-        onApply: (value) async {
-          if (ref != null) {
-            await ref
-                .read(calendarControllerProvider.notifier)
-                .updateFilter(
-                  CalendarFilter(
-                    onlyRecordedDays: value.onlyRecordedDays,
-                    lateOnly: value.lateOnly,
-                  ),
-                );
-          }
-          if (context.mounted) {
-            Navigator.of(context).pop();
-          }
-        },
-        onReset: () async {
-          if (ref != null) {
-            await ref
-                .read(calendarControllerProvider.notifier)
-                .updateFilter(const CalendarFilter());
-          }
-          if (context.mounted) {
-            Navigator.of(context).pop();
-          }
-        },
-      );
-    },
-  );
-}
-
-/// 顶部月度摘要卡，承接页面品牌语气与当月结论。
-class _CalendarHeroCard extends StatelessWidget {
-  const _CalendarHeroCard({
-    required this.title,
-    required this.subtitle,
-    required this.eyebrow,
-    required this.isEmptyState,
-  });
-
-  final String title;
-  final String subtitle;
-  final String eyebrow;
-  final bool isEmptyState;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final heroTokens = theme.extension<RhythmHeroThemeExtension>();
-    final textTheme = theme.textTheme;
-    final heroForeground = heroTokens?.textColor ?? theme.colorScheme.onPrimary;
-    final heroForegroundSoft = heroForeground.withValues(alpha: 0.86);
-    final useSurfaceHero = isEmptyState && theme.brightness == Brightness.dark;
-    final titleColor = useSurfaceHero
-        ? theme.colorScheme.onSurface
-        : heroForeground;
-    final subtitleColor = useSurfaceHero
-        ? theme.colorScheme.onSurfaceVariant
-        : heroForegroundSoft;
-    final eyebrowColor = useSurfaceHero
-        ? theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.92)
-        : heroForeground.withValues(alpha: 0.92);
-
-    return Container(
-      key: const Key('calendar-hero-card'),
-      // 顶部 hero 需要始终吃满父级可用宽度，避免在滚动容器里按内容宽度收缩。
-      width: double.infinity,
-      padding: const EdgeInsets.fromLTRB(20, 18, 20, 20),
-      decoration: BoxDecoration(
-        gradient: useSurfaceHero
-            ? null
-            : heroTokens?.gradient ??
-                  LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: [
-                      theme.colorScheme.primary.withValues(alpha: 0.92),
-                      theme.colorScheme.primaryContainer.withValues(
-                        alpha: 0.88,
-                      ),
-                    ],
-                  ),
-        color: useSurfaceHero
-            ? theme.colorScheme.surfaceContainerHighest
-            : null,
-        borderRadius: BorderRadius.circular(32),
-        border: Border.all(
-          color: useSurfaceHero
-              ? theme.colorScheme.outlineVariant
-              : heroTokens?.borderColor ??
-                    heroForeground.withValues(alpha: 0.32),
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: theme.colorScheme.shadow.withValues(alpha: 0.1),
-            blurRadius: 26,
-            offset: const Offset(0, 12),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            eyebrow,
-            style: textTheme.labelMedium?.copyWith(
-              color: eyebrowColor,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-          const SizedBox(height: 12),
-          Text(
-            title,
-            style: textTheme.headlineSmall?.copyWith(
-              color: titleColor,
-              fontWeight: FontWeight.w600,
-              height: 1.08,
-            ),
-          ),
-          const SizedBox(height: 10),
-          Text(
-            subtitle,
-            style: textTheme.bodyMedium?.copyWith(
-              color: subtitleColor,
-              height: 1.45,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-/// 月切换按钮先按设计稿保留位置，当前月切换能力后续由 controller 补齐。
-class _CalendarMonthNavButton extends StatelessWidget {
-  const _CalendarMonthNavButton({required this.icon, required this.onPressed});
-
-  final IconData icon;
-  final VoidCallback? onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: 34,
-      height: 34,
-      child: OutlinedButton(
-        onPressed: onPressed,
-        style: OutlinedButton.styleFrom(
-          padding: EdgeInsets.zero,
-          side: BorderSide(color: Theme.of(context).colorScheme.outlineVariant),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(17),
-          ),
-        ),
-        child: Icon(icon, size: 18),
-      ),
-    );
-  }
-}
-
-/// 星期标题固定放在热力图上方，匹配 Pencil 的阅读顺序。
-class _CalendarWeekdayHeader extends StatelessWidget {
-  const _CalendarWeekdayHeader({required this.labels});
-
-  final List<String> labels;
-
-  @override
-  Widget build(BuildContext context) {
-    final textStyle = Theme.of(context).textTheme.labelSmall?.copyWith(
-      color: Theme.of(context).colorScheme.onSurfaceVariant,
-      fontWeight: FontWeight.w500,
-    );
-
-    return Row(
-      children: [
-        for (final label in labels) ...[
-          Expanded(
-            child: Center(child: Text(label, style: textStyle)),
-          ),
-        ],
-      ],
-    );
-  }
-}
-
-/// 详情卡内的紧凑指标块。
+/// 承接首屏底部两个摘要卡，保持 Pencil 的浅色信息卡视觉。
 class _CalendarMetricCard extends StatelessWidget {
-  const _CalendarMetricCard({
-    required this.title,
-    required this.value,
-    required this.backgroundColor,
-  });
+  const _CalendarMetricCard({required this.title, required this.value});
 
   final String title;
   final String value;
-  final Color backgroundColor;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: backgroundColor,
-        borderRadius: BorderRadius.circular(16),
+        color: const Color(0xFFEEF4EA),
+        borderRadius: BorderRadius.circular(20),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             title,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: Theme.of(
-              context,
-            ).textTheme.labelMedium?.copyWith(fontWeight: FontWeight.w600),
+            style: Theme.of(context).textTheme.labelMedium?.copyWith(
+              fontFamily: 'Geist',
+              color: const Color(0xFF4A6B52),
+              fontWeight: FontWeight.w600,
+            ),
           ),
-          const SizedBox(height: 10),
-          FittedBox(
-            alignment: Alignment.centerLeft,
-            fit: BoxFit.scaleDown,
-            child: Text(
-              value,
-              style: Theme.of(
-                context,
-              ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w800),
+          const SizedBox(height: 8),
+          Text(
+            value,
+            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+              fontFamily: 'IBM Plex Mono',
+              color: const Color(0xFF1B3A28),
+              fontWeight: FontWeight.w700,
             ),
           ),
         ],
@@ -508,189 +206,164 @@ class _CalendarMetricCard extends StatelessWidget {
   }
 }
 
-/// 页内单日详情卡，替代旧的打开后即读的底部详情主链路。
-class _CalendarSelectedDayCard extends StatelessWidget {
-  const _CalendarSelectedDayCard({
-    required this.summary,
-    required this.onTrackRate,
-    required this.latestLateText,
-    required this.onAddTag,
-    required this.onEditRecord,
+/// 统一渲染页面里的胶囊提示，避免页面层散落重复样式。
+class _CalendarChip extends StatelessWidget {
+  const _CalendarChip({
+    required this.label,
+    required this.backgroundColor,
+    required this.foregroundColor,
   });
 
-  final CalendarDaySummary summary;
-  final int onTrackRate;
-  final String latestLateText;
-  final VoidCallback onAddTag;
-  final VoidCallback? onEditRecord;
+  final String label;
+  final Color backgroundColor;
+  final Color foregroundColor;
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
-    final textTheme = Theme.of(context).textTheme;
-    final offset = summary.sleepOffsetMinutes;
-    final detailText = _buildSelectedDayDescription(
-      context,
-      l10n,
-      summary: summary,
-      offset: offset,
-    );
-
-    return Card(
-      key: const Key('calendar-selected-day-card'),
-      margin: EdgeInsets.zero,
-      elevation: 0,
-      color: Theme.of(context).colorScheme.surface.withValues(
-        alpha: Theme.of(context).brightness == Brightness.light ? 0.82 : 0.9,
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: backgroundColor,
+        borderRadius: BorderRadius.circular(999),
       ),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28)),
       child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            final compact = constraints.maxWidth < 260;
-
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  _formatDateLabel(context, summary.date),
-                  style: textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  detailText,
-                  style: textTheme.bodySmall?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurfaceVariant,
-                    height: 1.45,
-                  ),
-                ),
-                const SizedBox(height: 16),
-                if (compact) ...[
-                  Row(
-                    children: [
-                      Expanded(
-                        child: _CalendarMetricCard(
-                          title: l10n.calendarDetailSleepTime,
-                          value: summary.record == null
-                              ? '--:--'
-                              : DateFormat(
-                                  'HH:mm',
-                                ).format(summary.record!.fellAsleepAt),
-                          backgroundColor: Theme.of(context)
-                              .colorScheme
-                              .primaryContainer
-                              .withValues(alpha: 0.44),
-                        ),
-                      ),
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: _CalendarMetricCard(
-                          title: l10n.calendarMetricOnTrack,
-                          value: '$onTrackRate%',
-                          backgroundColor: Theme.of(context)
-                              .colorScheme
-                              .tertiaryContainer
-                              .withValues(alpha: 0.42),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 10),
-                  _CalendarMetricCard(
-                    title: l10n.calendarMetricLatestLate,
-                    value: latestLateText,
-                    backgroundColor: Theme.of(
-                      context,
-                    ).colorScheme.secondaryContainer.withValues(alpha: 0.42),
-                  ),
-                ] else
-                  Row(
-                    children: [
-                      Expanded(
-                        child: _CalendarMetricCard(
-                          title: l10n.calendarDetailSleepTime,
-                          value: summary.record == null
-                              ? '--:--'
-                              : DateFormat(
-                                  'HH:mm',
-                                ).format(summary.record!.fellAsleepAt),
-                          backgroundColor: Theme.of(context)
-                              .colorScheme
-                              .primaryContainer
-                              .withValues(alpha: 0.44),
-                        ),
-                      ),
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: _CalendarMetricCard(
-                          title: l10n.calendarMetricOnTrack,
-                          value: '$onTrackRate%',
-                          backgroundColor: Theme.of(context)
-                              .colorScheme
-                              .tertiaryContainer
-                              .withValues(alpha: 0.42),
-                        ),
-                      ),
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: _CalendarMetricCard(
-                          title: l10n.calendarMetricLatestLate,
-                          value: latestLateText,
-                          backgroundColor: Theme.of(context)
-                              .colorScheme
-                              .secondaryContainer
-                              .withValues(alpha: 0.42),
-                        ),
-                      ),
-                    ],
-                  ),
-                if (summary.tags.isNotEmpty) ...[
-                  const SizedBox(height: 14),
-                  Wrap(
-                    spacing: 8,
-                    runSpacing: 8,
-                    children: [
-                      for (final tag in summary.tags)
-                        Chip(
-                          label: Text(tag),
-                          visualDensity: VisualDensity.compact,
-                        ),
-                    ],
-                  ),
-                ],
-                const SizedBox(height: 14),
-                Wrap(
-                  spacing: 12,
-                  runSpacing: 12,
-                  children: [
-                    FilledButton.tonal(
-                      onPressed: onAddTag,
-                      child: Text(l10n.calendarDetailAddTag),
-                    ),
-                    OutlinedButton(
-                      onPressed: onEditRecord,
-                      child: Text(l10n.calendarDetailEditRecord),
-                    ),
-                  ],
-                ),
-              ],
-            );
-          },
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
+        child: Text(
+          label,
+          style: Theme.of(context).textTheme.labelMedium?.copyWith(
+            fontFamily: 'Geist',
+            color: foregroundColor,
+            fontWeight: FontWeight.w600,
+          ),
         ),
       ),
     );
   }
 }
 
-/// 将偏差分钟数转成摘要卡可读时间。
-String _formatOffset(int minutes) {
-  final safeMinutes = minutes.abs();
-  final hours = safeMinutes ~/ 60;
-  final remainingMinutes = safeMinutes % 60;
-  return '${hours.toString().padLeft(2, '0')}:${remainingMinutes.toString().padLeft(2, '0')}';
+/// 月份卡统一承接月标题、达标胶囊和热力图内容。
+class _CalendarMonthCard extends StatelessWidget {
+  const _CalendarMonthCard({
+    required this.monthLabel,
+    required this.onTrackLabel,
+    required this.child,
+  });
+
+  final String monthLabel;
+  final String onTrackLabel;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: const Color(0xFFF9FBF6),
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: const [
+          BoxShadow(
+            color: Color(0x0F000000),
+            blurRadius: 18,
+            offset: Offset(0, 6),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  monthLabel,
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    fontFamily: 'Geist',
+                    color: const Color(0xFF1B3A28),
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
+              _CalendarChip(
+                label: onTrackLabel,
+                backgroundColor: const Color(0xFFD7E7DA),
+                foregroundColor: const Color(0xFF4F7B5A),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          child,
+        ],
+      ),
+    );
+  }
+}
+
+/// 预览卡承接最近一条样本摘要，并作为打开详情半屏卡的明确入口。
+class _CalendarPreviewCard extends StatelessWidget {
+  const _CalendarPreviewCard({
+    required this.title,
+    required this.summary,
+    required this.onTap,
+  });
+
+  final String title;
+  final String summary;
+  final VoidCallback? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final content = Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: const Color(0xFFF9FBF6),
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: const [
+          BoxShadow(
+            color: Color(0x0F000000),
+            blurRadius: 18,
+            offset: Offset(0, 6),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+              fontFamily: 'Geist',
+              color: const Color(0xFF1B3A28),
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            summary,
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              fontFamily: 'Geist',
+              color: const Color(0xFF4A6B52),
+              fontWeight: FontWeight.w500,
+              height: 1.4,
+            ),
+          ),
+          const SizedBox(height: 10),
+          _CalendarChip(
+            label: AppLocalizations.of(context).calendarPreviewTapHint,
+            backgroundColor: Color(0xFFE3EEE0),
+            foregroundColor: Color(0xFF4A6B52),
+          ),
+        ],
+      ),
+    );
+    if (onTap == null) {
+      return content;
+    }
+    return InkWell(
+      borderRadius: BorderRadius.circular(20),
+      onTap: onTap,
+      child: content,
+    );
+  }
 }
 
 /// 根据当月统计生成顶部摘要，确保首屏文案反映真实记录结果。
@@ -706,126 +379,155 @@ String _buildHeroSubtitle(
   return l10n.calendarHeroSubtitle(onTrackDays, driftDays);
 }
 
-/// 顶部 hero 标题使用月份 + 产品语义，贴近 Pencil 的月度语气。
-String _buildCalendarHeroTitle(
-  BuildContext context,
-  DateTime month,
+/// 中文保留设计稿格式，英文沿用本地化月份表达。
+String _formatMonthLabel(BuildContext context, DateTime month) {
+  final locale = Localizations.localeOf(context).toLanguageTag();
+  if (locale.startsWith('zh')) {
+    return DateFormat('yyyy 年 M 月').format(month);
+  }
+  return DateFormat.yMMMM(locale).format(month);
+}
+
+/// 月份卡右上角的达标胶囊按当前月份统计输出。
+String _buildOnTrackLabel(
   AppLocalizations l10n,
+  CalendarMonthSummary monthSummary,
+) {
+  return l10n.calendarMonthOnTrackBadge(monthSummary.onTargetDays);
+}
+
+/// 最新晚睡卡直接展示真实入睡时间，保持 Pencil 的数据观感。
+String _buildLatestLateText(CalendarDaySummary? summary) {
+  final record = summary?.record;
+  if (record == null) {
+    return '--:--';
+  }
+  return DateFormat('HH:mm').format(record.fellAsleepAt);
+}
+
+/// 预览卡标题优先展示样本日期，无样本时回退到模块描述。
+String _buildPreviewTitle(
+  BuildContext context,
+  AppLocalizations l10n,
+  CalendarDaySummary? summary,
 ) {
   final locale = Localizations.localeOf(context).toLanguageTag();
-  if (locale.startsWith('zh')) {
-    return '${DateFormat('M 月').format(month)}${l10n.calendarTitle}';
+  if (summary == null) {
+    return locale.startsWith('zh')
+        ? '${l10n.calendarTitle}${l10n.calendarPreviewSuffix}'
+        : '${l10n.calendarTitle} ${l10n.calendarPreviewSuffix}';
   }
-  return '${DateFormat.MMMM(locale).format(month)} ${l10n.calendarTitle}';
+  if (locale.startsWith('zh')) {
+    return '${DateFormat('M 月 d 日').format(summary.date)}${l10n.calendarPreviewSuffix}';
+  }
+  return '${DateFormat.MMMd(locale).format(summary.date)} ${l10n.calendarPreviewSuffix}';
 }
 
-/// 热力图主卡标题保留月份感，但比 hero 更明确指向“热力图”。
-String _buildCalendarHeatmapTitle(BuildContext context, DateTime month) {
+/// 预览卡文案直接消费已聚合样本，避免页面层重算业务规则。
+String _buildPreviewSummary(
+  BuildContext context,
+  AppLocalizations l10n,
+  CalendarDaySummary? summary,
+) {
+  if (summary?.record == null) {
+    return l10n.calendarHeroSubtitleEmpty;
+  }
+  final record = summary!.record!;
+  final offset = summary.sleepOffsetMinutes ?? 0;
+  final offsetLabel = switch (offset) {
+    < 0 => l10n.calendarPreviewOffsetEarly(offset.abs()),
+    > 0 => l10n.calendarPreviewOffsetLate(offset),
+    _ => l10n.calendarPreviewOffsetOnTarget,
+  };
   final locale = Localizations.localeOf(context).toLanguageTag();
-  if (locale.startsWith('zh')) {
-    return '${DateFormat('M 月').format(month)}热力图';
+  final tags = summary.tags.join(locale.startsWith('zh') ? '、' : ', ');
+  final sleepTime = DateFormat('HH:mm').format(record.fellAsleepAt);
+  if (tags.isEmpty) {
+    return l10n.calendarPreviewSummaryNoTags(sleepTime, offsetLabel);
   }
-  return '${DateFormat.MMMM(locale).format(month)} heatmap';
+  return l10n.calendarPreviewSummaryWithTags(sleepTime, offsetLabel, tags);
 }
 
-/// 页内详情卡仍复用现有标签弹层链路，避免为对齐设计而重写标签保存流程。
-Future<void> _showTagPickerFromInlineCard(
+/// 打开单日详情，并在详情内继续承接补标签和来源说明动作。
+Future<void> _showDayDetail(
   BuildContext context,
   WidgetRef ref,
   CalendarViewState state,
   CalendarDaySummary summary,
 ) async {
+  unawaited(
+    ref
+        .read(calendarAnalyticsProvider)
+        .trackDayDetailViewed(recordDate: summary.date),
+  );
   await showModalBottomSheet<void>(
     context: context,
     isScrollControlled: true,
     builder: (context) {
-      return SleepDelayTagPickerSheet(
-        tags: state.availableTags,
-        selectedTags: summary.tags,
-        onSave: (tags) async {
-          await ref
-              .read(sleepDelayTagControllerProvider)
-              .saveTags(recordDate: summary.date, tags: tags);
-          await ref
-              .read(calendarControllerProvider.notifier)
-              .refreshDayTags(summary.date);
-          await ref
-              .read(calendarAnalyticsProvider)
-              .trackDelayTagAdded(recordDate: summary.date, tag: tags.first);
-          if (context.mounted) {
-            Navigator.of(context).pop();
-          }
+      return CalendarDayDetailSheet(
+        summary: summary,
+        onExplainSource: () async {
+          await showModalBottomSheet<void>(
+            context: context,
+            isScrollControlled: true,
+            builder: (context) => const RecordSourceExplainerSheet(),
+          );
         },
-        onCustomTag: (value) async {
-          final normalized = value.trim();
-          await ref
-              .read(sleepDelayTagControllerProvider)
-              .saveCustomTag(recordDate: summary.date, input: value);
-          await ref
-              .read(calendarControllerProvider.notifier)
-              .refreshDayTags(summary.date);
-          await ref
-              .read(calendarAnalyticsProvider)
-              .trackDelayTagAdded(recordDate: summary.date, tag: normalized);
-          if (context.mounted) {
-            Navigator.of(context).pop();
-          }
+        onAddTag: () async {
+          Navigator.of(context).pop();
+          await showModalBottomSheet<void>(
+            context: context,
+            isScrollControlled: true,
+            builder: (context) {
+              return SleepDelayTagPickerSheet(
+                tags: state.availableTags,
+                selectedTags: summary.tags,
+                onSave: (tags) async {
+                  await ref
+                      .read(sleepDelayTagControllerProvider)
+                      .saveTags(recordDate: summary.date, tags: tags);
+                  await ref
+                      .read(calendarControllerProvider.notifier)
+                      .refreshDayTags(summary.date);
+                  await ref
+                      .read(calendarAnalyticsProvider)
+                      .trackDelayTagAdded(
+                        recordDate: summary.date,
+                        tag: tags.first,
+                      );
+                  if (context.mounted) {
+                    Navigator.of(context).pop();
+                  }
+                },
+                onCustomTag: (value) async {
+                  final normalized = value.trim();
+                  await ref
+                      .read(sleepDelayTagControllerProvider)
+                      .saveCustomTag(recordDate: summary.date, input: value);
+                  await ref
+                      .read(calendarControllerProvider.notifier)
+                      .refreshDayTags(summary.date);
+                  await ref
+                      .read(calendarAnalyticsProvider)
+                      .trackDelayTagAdded(
+                        recordDate: summary.date,
+                        tag: normalized,
+                      );
+                  if (context.mounted) {
+                    Navigator.of(context).pop();
+                  }
+                },
+              );
+            },
+          );
         },
+        onEditRecord: summary.record == null
+            ? null
+            : () {
+                Navigator.of(context).pop();
+                context.go(manualSleepRecordEditPath(summary.record!.recordId));
+              },
       );
     },
   );
-}
-
-/// 单日标题沿用现有月日格式，供页内详情卡与旧弹层共用。
-String _formatDateLabel(BuildContext context, DateTime date) {
-  final locale = Localizations.localeOf(context).toLanguageTag();
-  if (locale.startsWith('zh')) {
-    return DateFormat('M 月 d 日').format(date);
-  }
-  return DateFormat.MMMd(locale).format(date);
-}
-
-/// 详情卡说明按语言环境拼句，避免英文环境混入中文标点。
-String _buildSelectedDayDescription(
-  BuildContext context,
-  AppLocalizations l10n, {
-  required CalendarDaySummary summary,
-  required int? offset,
-}) {
-  if (summary.record == null) {
-    return l10n.calendarDetailNoRecord;
-  }
-  final locale = Localizations.localeOf(context).toLanguageTag();
-  final pieces = [
-    '${l10n.calendarDetailSleepTime} ${DateFormat('HH:mm').format(summary.record!.fellAsleepAt)}',
-    '${l10n.calendarDetailWakeTime} ${DateFormat('HH:mm').format(summary.record!.wokeUpAt)}',
-    l10n.calendarDetailOffsetValue(offset?.abs() ?? 0),
-  ];
-  final separator = locale.startsWith('zh') ? '，' : ', ';
-  final suffix = locale.startsWith('zh') ? '。' : '.';
-  return '${pieces.join(separator)}$suffix';
-}
-
-/// 根据当前语言环境输出紧凑星期标题，避免把中文缩写写死进页面。
-List<String> _weekdayLabels(BuildContext context) {
-  final locale = Localizations.localeOf(context).toLanguageTag();
-  final formatter = DateFormat.E(locale);
-  final monday = DateTime.utc(2026, 6, 1);
-  return List<String>.generate(7, (index) {
-    final raw = formatter.format(monday.add(Duration(days: index)));
-    if (!locale.startsWith('zh')) {
-      return raw;
-    }
-    return raw.substring(raw.length - 1);
-  });
-}
-
-/// 避免依赖 SDK 版本差异，统一在页面内提供首个匹配项查找。
-T? _firstWhereOrNull<T>(Iterable<T> items, bool Function(T item) test) {
-  for (final item in items) {
-    if (test(item)) {
-      return item;
-    }
-  }
-  return null;
 }

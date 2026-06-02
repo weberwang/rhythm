@@ -1,72 +1,76 @@
 ---
 name: design-preview-to-pen
-description: Use when a user wants a gated design workflow that first discusses preview-image requirements, then generates one or more preview comps, waits for explicit approval, extracts approved illustrations or icons, and finally rebuilds the chosen direction in Pencil `.pen` with MCP. Trigger on requests such as "先出预览图再复刻到 Pencil", preview-to-Pencil workflows, asset slicing after approval, or pixel-accurate Pencil restoration from an approved mockup.
+description: Use when preview comps, approved visual directions, image assets, or Pencil `.pen` rebuilds need a gated designer workflow; when a user wants preview-first design exploration, explicit approval, asset planning, visual parity review, or structured Pencil handoff.
 ---
 
 # Design Preview To Pen
 
 ## Overview
 
-Run a strict stage-gated workflow for design production: clarify the brief, generate preview directions, freeze one approved direction, split reusable assets, and only then rebuild the design in Pencil. Bias toward maintainable Pencil structure and reusable assets, not a one-off flattened mockup.
+Run a strict designer production workflow: clarify the brief, explore preview directions, critique and freeze one approved direction, plan reusable assets, rebuild the design structurally in Pencil, and verify visual parity. Bias toward maintainable Pencil structure and reusable assets, not a one-off flattened mockup.
+
+## Designer Role
+
+Act like a production designer moving an approved art direction into an editable design file. Preserve intent, hierarchy, and system decisions while allowing small engineering cleanup that improves maintainability.
 
 ## Quick Start
 
 - If the user only wants visual exploration, stop after preview generation and do not enter Pencil.
-- If the user already has an approved preview, skip discovery loops and start from the freeze record plus asset plan.
+- If the user already has an approved preview, skip discovery loops and start from the design freeze card plus asset plan.
 - If the user wants direct Pencil editing without preview exploration, use a Pencil-focused skill instead of this one.
+- If the user provides `global-design-guidelines.md`, `light-theme-freeze.yaml`, or `dark-theme-freeze.yaml`, treat them as frozen upstream design-source artifacts and preserve them during rebuild.
+- If the user provides a `mobile-ui-design-coach` packet or design freeze card, treat it as the upstream source of truth.
+- If no platform rule is specified, use HIG as the default mobile behavior baseline.
+- Preview comps must be generated with `gpt-image-2` through `$gpt-image-2-generator`; if that skill, its required environment, or the active image-generation surface cannot use or confirm `gpt-image-2`, stop before preview generation and report the blocker.
 - If the Pencil desktop app is not connected, complete the pre-Pencil phases and stop before any MCP read or write call.
 
 ## Workflow
 
-1. Clarify the preview brief and freeze success criteria.
-2. Generate preview candidates with a controlled prompt set.
-3. Wait for explicit user approval and record the frozen direction.
-4. Build an asset extraction plan before touching Pencil.
-5. Extract, regenerate, or redraw assets by type instead of blindly slicing everything.
-6. Rebuild the approved direction in Pencil with variables first and sections second.
-7. Compare the Pencil result against the approved preview and close remaining gaps.
+1. Clarify the design brief and acceptance gates.
+2. Lock the platform baseline, defaulting to HIG behavior rules unless the user explicitly chooses another baseline.
+3. Lock the art direction inputs: layout posture, density, palette, material language, type personality, icon posture, illustration posture, and motion role.
+4. If `design-preview-to-global-guidelines` artifacts exist, consume them as the global source contract before generating or rebuilding anything.
+5. Generate preview candidates by delegating every image-generation call to `$gpt-image-2-generator`, using `gpt-image-2`, a controlled prompt set, and one major variable per round.
+6. Critique the previews against the brief, not only visual taste.
+7. Wait for explicit user approval and record the design freeze card.
+8. Build an asset and system plan before touching Pencil.
+9. Extract, regenerate, or redraw assets by type instead of blindly slicing everything.
+10. Rebuild the approved direction in Pencil with variables first and sections second.
+11. Compare the Pencil result against the approved preview, freeze card, and any frozen global guidance artifacts, then close remaining gaps.
 
 ## Phase Rules
 
 ### 1. Brief And Gates
 
 - Read `references/brief-and-gates.md`.
-- Lock the page type, audience, platform, visual direction, illustration posture, icon posture, and fidelity target.
-- Produce a concise brief pack before generating any preview:
-  - `目标`
-  - `页面范围`
-  - `风格关键词`
-  - `禁止项`
-  - `验收标准`
+- Lock the page type, audience, platform, commercial goal, art direction, state scope, illustration posture, icon posture, and fidelity target.
+- Produce a concise brief pack before generating any preview.
 - Ask for approval when the brief still contains multiple plausible directions.
 
 ### 2. Preview Generation
 
 - Read `references/preview-generation.md`.
-- Use `image_gen` for preview comps and keep the prompt set stable across iterations.
+- Route every preview-generation request through `$gpt-image-2-generator`, and keep the prompt set stable across iterations.
+- Treat the preview model as a production constraint: do not substitute another image model for convenience.
 - Generate one to three directions at a time. Change one major variable per round: layout, palette, illustration language, or density.
 - Treat preview comps as communication artifacts, not as final production assets.
-- After each round, summarize the deltas between options and ask the user to choose, merge, or revise.
+- After each round, summarize the deltas, critique each option against the brief, recommend one, and ask the user to choose, merge, or revise.
 
 ### 3. Approval Freeze
 
 - Do not continue on implied approval. Wait for an explicit user decision.
-- Convert the chosen direction into a freeze record:
-  - `采用版本`
-  - `必须一致项`
-  - `允许工程化调整项`
-  - `是否允许图标重绘`
-  - `是否允许插图重生成透明素材`
+- If `global-design-guidelines.md` exists, link the freeze card to that contract and do not restate or mutate global theme role definitions locally.
+- Convert the chosen direction into a design freeze card with immutable items, allowed engineering adjustments, icon and illustration handling, state scope, and acceptance criteria.
 - If the user wants a hybrid of multiple previews, freeze that hybrid explicitly before asset work.
 
 ### 4. Asset Extraction
 
 - Read `references/asset-extraction.md`.
 - Classify every visual element before extraction:
-  - `文本与布局`: rebuild in Pencil, never flatten into a slice
-  - `图标`: prefer vector redraw or clean re-generation, not bitmap crop
-  - `插图`: generate or extract as isolated transparent assets when needed
-  - `纹理/背景`: export as raster only when Pencil structure cannot express them cleanly
+  - text and layout: rebuild in Pencil, never flatten into a slice
+  - icons: prefer vector redraw or clean re-generation, not bitmap crop
+  - illustration: generate or extract as isolated transparent assets when needed
+  - texture and background: export as raster only when Pencil structure cannot express them cleanly
 - Keep an asset manifest with final filenames, source, replacement strategy, and where each asset will be placed in Pencil.
 
 ### 5. Pencil Rebuild
@@ -82,34 +86,44 @@ Run a strict stage-gated workflow for design production: clarify the brief, gene
   5. illustrations and icons
   6. decorative details
 - Prefer `set_variables` before large `batch_design` passes so spacing, color, and typography stay maintainable.
+- Add redline notes or named variables for decisions Flutter must preserve.
 
 ### 6. Visual Parity Review
 
 - Read `references/acceptance-checklist.md`.
 - Use `snapshot_layout` for structure checks and `get_screenshot` only after a meaningful section or full page is ready.
-- Review parity against the approved preview, not against an older draft.
+- Review parity against the approved preview, freeze card, and any frozen global guidance artifacts, not against an older draft.
 - Close gaps in a controlled order: layout first, typography second, color and materials third, asset fit last.
 
 ## Hard Rules
 
 - Do not extract assets or write to Pencil before explicit user approval of a preview direction.
+- Do not generate preview comps outside `$gpt-image-2-generator`, and do not use any model other than `gpt-image-2`; if `gpt-image-2` is unavailable or cannot be confirmed, stop and surface the blocker.
 - Do not treat a flattened preview as the final production artifact.
 - Do not crop bitmap icons from a preview when a redraw or vector-safe replacement is practical.
 - Do not rebuild an entire page as one image unless the user explicitly accepts a non-editable result.
+- Do not let a pretty preview override the approved brief, art direction, state scope, or freeze card.
+- Do not recalculate global theme roles or localize palette semantics when frozen theme files already exist.
+- Do not skip designer critique between preview generation and approval.
+- Do not break HIG-baseline safe areas, tap targets, navigation, destructive actions, permission flows, readability, feedback, or accessibility.
 - Do not call Pencil tools other than `get_editor_state(include_schema: true)` before the schema is loaded.
 - Do not hide the Pencil connection blocker; surface it immediately when the app is unavailable.
-- Do not claim parity without comparing against the approved preview.
+- Do not claim parity without comparing against the approved preview and frozen source artifacts.
 
 ## Deliverables
 
 Every substantial result should leave these artifacts in the conversation:
 
-- `需求摘要`
-- `预览图方案说明`
-- `确认冻结单`
-- `素材清单`
-- `Pencil 复刻进度`
-- `差异与修正清单`
+- `request_summary`
+- `design_brief`
+- `platform_baseline`
+- `preview_options_summary`
+- `design_critique`
+- `freeze_card`
+- `consumed_global_freeze_artifacts`
+- `asset_manifest`
+- `pencil_rebuild_progress`
+- `parity_gap_list`
 
 ## References
 

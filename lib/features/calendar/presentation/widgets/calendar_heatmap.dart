@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:rhythm/app/theme/app_theme_tokens.dart';
 import 'package:rhythm/features/calendar/domain/calendar_day_summary.dart';
 import 'package:rhythm/features/calendar/domain/calendar_heat_level.dart';
-import 'package:rhythm/features/calendar/presentation/widgets/calendar_mood_paper.dart';
 
-/// 渲染日历页热力网格，按日摘要真实映射颜色和日期。
+/// 渲染日历页热力网格，按 Pencil 的竖向圆角日期卡映射颜色和日期。
 class CalendarHeatmap extends StatelessWidget {
   /// 创建热力图组件。
   const CalendarHeatmap({
@@ -29,28 +28,36 @@ class CalendarHeatmap extends StatelessWidget {
         crossAxisCount: 7,
         crossAxisSpacing: 8,
         mainAxisSpacing: 8,
-        childAspectRatio: 1,
+        childAspectRatio: 0.88,
       ),
       itemBuilder: (context, index) {
         final day = days[index];
-        return Container(
+        return DecoratedBox(
           decoration: BoxDecoration(
             color: _resolveCellColor(context, day.heatLevel),
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(14),
           ),
           child: InkWell(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(14),
             onTap: () => onTapDay(day),
-            child: Stack(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                if (day.primaryMood != null) CalendarMoodPaper(day: day),
-                Align(
-                  alignment: const Alignment(0, -0.12),
-                  child: Text(
-                    '${day.date.day}',
-                    style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                      fontWeight: FontWeight.w700,
-                    ),
+                Text(
+                  '${day.date.day}',
+                  style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                    fontFamily: 'IBM Plex Mono',
+                    color: const Color(0xFF1B3A28),
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                const SizedBox(height: 6),
+                Container(
+                  width: 10,
+                  height: 10,
+                  decoration: BoxDecoration(
+                    color: _resolveDotColor(context, day.heatLevel),
+                    borderRadius: BorderRadius.circular(999),
                   ),
                 ),
               ],
@@ -69,11 +76,29 @@ class CalendarHeatmap extends StatelessWidget {
       case CalendarHeatLevel.noRecord:
         return tokens.surface;
       case CalendarHeatLevel.onTarget:
-        return tokens.successSurface;
+        return const Color(0xFFE3EEE0);
       case CalendarHeatLevel.slightlyLate:
-        return tokens.warningSurface;
+        return tokens.successSurface;
       case CalendarHeatLevel.late:
+        return tokens.warningSurface;
+      case CalendarHeatLevel.severelyLate:
         return tokens.dangerSurface;
+    }
+  }
+
+  Color _resolveDotColor(BuildContext context, CalendarHeatLevel heatLevel) {
+    final tokens = Theme.of(context).brightness == Brightness.dark
+        ? AppThemeTokens.dark
+        : AppThemeTokens.light;
+    switch (heatLevel) {
+      case CalendarHeatLevel.noRecord:
+        return const Color(0x00000000);
+      case CalendarHeatLevel.onTarget:
+        return tokens.primary;
+      case CalendarHeatLevel.slightlyLate:
+        return tokens.success;
+      case CalendarHeatLevel.late:
+        return tokens.warning;
       case CalendarHeatLevel.severelyLate:
         return tokens.danger;
     }

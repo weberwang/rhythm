@@ -40,7 +40,8 @@
   "@calendarDescription": {
     "description": "Calendar module placeholder description."
   },
-  "calendarHeroEyebrow": "May still has rhythm",
+  "calendarHeroEyebrow": "May",
+  "calendarHeroEyebrowSuffix": "rhythm map",
   "calendarHeroTitle": "Color is not bad news. It is the distance between you and your target bedtime.",
   "calendarHeroSubtitle": "You stayed on track for {onTrackDays} days this month, and drifted on {driftDays} more.",
   "@calendarHeroSubtitle": {
@@ -86,6 +87,58 @@
   "calendarFilterApply": "Apply filters",
   "calendarMetricOnTrack": "On-track rate",
   "calendarMetricLatestLate": "Latest late night",
+  "calendarMonthOnTrackBadge": "{count} on-track days",
+  "@calendarMonthOnTrackBadge": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "calendarPreviewSuffix": "preview",
+  "calendarPreviewTapHint": "Tap to open the detail sheet",
+  "calendarPreviewSummaryWithTags": "Slept at {sleepTime} | {offset} | Tags: {tags}",
+  "@calendarPreviewSummaryWithTags": {
+    "placeholders": {
+      "sleepTime": {
+        "type": "String"
+      },
+      "offset": {
+        "type": "String"
+      },
+      "tags": {
+        "type": "String"
+      }
+    }
+  },
+  "calendarPreviewSummaryNoTags": "Slept at {sleepTime} | {offset}",
+  "@calendarPreviewSummaryNoTags": {
+    "placeholders": {
+      "sleepTime": {
+        "type": "String"
+      },
+      "offset": {
+        "type": "String"
+      }
+    }
+  },
+  "calendarPreviewOffsetLate": "{minutes} minutes later than target",
+  "@calendarPreviewOffsetLate": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "calendarPreviewOffsetEarly": "{minutes} minutes earlier than target",
+  "@calendarPreviewOffsetEarly": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "calendarPreviewOffsetOnTarget": "Inside the target threshold",
   "calendarDetailSleepTime": "Actual sleep time",
   "calendarDetailWakeTime": "Actual wake time",
   "calendarDetailOffset": "Offset",
@@ -506,16 +559,21 @@
   "manualSleepRecordHelperDescription": "The raw system record stays intact. What you save becomes the confirmed result shown first in Today and Calendar.",
   "manualSleepRecordValidationSameTime": "Sleep time and wake time cannot be the same.",
   "manualSleepRecordEditTimeButton": "Edit time",
+  "launchGateEyebrow": "Launching",
+  "launchGateTitle": "Getting tonight''s rhythm ready",
+  "launchGateDescription": "Loading your schedule target, reminder strategy, and entry state.",
+  "launchGateStatusTitle": "Preparing Rhythm",
+  "launchGateStatusDescription": "If this is your first launch, we will guide you through the shortest setup path first.",
   "onboardingStepOneEyebrow": "STEP 1 · WELCOME",
   "onboardingWelcomeTitle": "Starting tonight, bring your routine back toward the rhythm you want",
   "onboardingWelcomeDescription": "You only need to set one target time first. Permissions, reminders, and the home-screen entry can be filled in later without pressure.",
   "onboardingWelcomeChecklistTitle": "Next, just three things",
   "onboardingWelcomeBulletAuthTitle": "Set target times",
-  "onboardingWelcomeBulletAuthDescription": "Pick your bedtime and wake time to form tonight’s baseline.",
+  "onboardingWelcomeBulletAuthDescription": "Pick your bedtime and wake time to form tonight''s baseline.",
   "onboardingWelcomeBulletHealthTitle": "Add support conditions",
   "onboardingWelcomeBulletHealthDescription": "Permissions and reminders come with recommended defaults and can be skipped for now.",
   "onboardingWelcomeBulletGoalTitle": "Reach Today quickly",
-  "onboardingWelcomeBulletGoalDescription": "See tonight’s target and last night’s feedback without extra explanation screens in the way.",
+  "onboardingWelcomeBulletGoalDescription": "See tonight''s target and last night''s feedback without extra explanation screens in the way.",
   "onboardingWelcomePrimaryButton": "Start setup",
   "onboardingWelcomeQuickDuration": "About 1 minute for first-night setup",
   "onboardingWelcomeHeroTileLocalTitle": "Local first",
@@ -743,7 +801,7 @@
   "profilePreferencesDark": "Dark",
   "profilePreferencesSaveFailed": "Preferences could not be saved. Please try again later.",
   "profileDesktopPresenceTitle": "Desktop presence",
-  "profileDesktopPresenceDescription": "If you place the widget on your home screen, tonight's goal and last night's status stay visible in your everyday view.",
+  "profileDesktopPresenceDescription": "If you place the widget on your home screen, tonight''s goal and last night''s status stay visible in your everyday view.",
   "widgetGuideEyebrow": "Put tonight''s target on your home screen",
   "widgetGuideTitle": "Put tonight''s target on your home screen",
   "widgetGuideDescription": "You do not need to open the app every time. Once it is on the home screen, tonight''s remaining time and target rhythm stay in sight.",
@@ -790,12 +848,12 @@
   "widgetThemeStateGoalMissingDescription": "Set a goal schedule first so the widget knows which bedtime reference to keep visible tonight.",
   "widgetThemeStateGoalMissingAction": "Set your schedule goal",
   "widgetThemeStateNoDataTitle": "There is no record from last night yet",
-  "widgetThemeStateNoDataDescription": "The widget can still keep tonight's target visible, then fill in last night's status after you sync or add it.",
+  "widgetThemeStateNoDataDescription": "The widget can still keep tonight''s target visible, then fill in last night''s status after you sync or add it.",
   "widgetThemeStateNoDataAction": "Manually log last night",
   "widgetThemeStatePermissionTitle": "Sleep data permission is still needed",
   "widgetThemeStatePermissionDescription": "The widget only shows essential information and never expands raw sleep details.",
   "widgetThemeStatePermissionAction": "Review data access",
-  "widgetThemeStateReadyDescription": "The current home screen snapshot can already show tonight's target and last night's status.",
+  "widgetThemeStateReadyDescription": "The current home screen snapshot can already show tonight''s target and last night''s status.",
   "widgetThemePinButton": "Add to home screen",
   "widgetThemePinningButton": "Opening the system add panel",
   "widgetThemePinSuccess": "The system add panel is open",

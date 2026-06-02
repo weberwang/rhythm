@@ -35,7 +35,14 @@ migrate_working_dir/
 /node_modules/
 /.npm-cache/
 
-# Codex / 本地技能副本
+# Generated image outputs
+/output/imagegen/*.png
+!/output/imagegen/today_permission_empty_illustration_v3.png
+/output/imagegen/*/
+/ig_*.png
+/pen/images/generated-*.png
+
+# Codex local skill copies
 /.agents/skills/flutter-init/
 /.agents/skills/flutter-pen-to-architecture/
 /.agents/skills/flutter-prd-rd-writer/

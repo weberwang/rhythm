@@ -41,7 +41,10 @@ class AppLocalizationsEn extends AppLocalizations {
       'The deeper the color, the closer it is to your target bedtime.';
 
   @override
-  String get calendarHeroEyebrow => 'May still has rhythm';
+  String get calendarHeroEyebrow => 'May';
+
+  @override
+  String get calendarHeroEyebrowSuffix => 'rhythm map';
 
   @override
   String get calendarHeroTitle =>
@@ -114,6 +117,44 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get calendarMetricLatestLate => 'Latest late night';
+
+  @override
+  String calendarMonthOnTrackBadge(int count) {
+    return '$count on-track days';
+  }
+
+  @override
+  String get calendarPreviewSuffix => 'preview';
+
+  @override
+  String get calendarPreviewTapHint => 'Tap to open the detail sheet';
+
+  @override
+  String calendarPreviewSummaryWithTags(
+    String sleepTime,
+    String offset,
+    String tags,
+  ) {
+    return 'Slept at $sleepTime | $offset | Tags: $tags';
+  }
+
+  @override
+  String calendarPreviewSummaryNoTags(String sleepTime, String offset) {
+    return 'Slept at $sleepTime | $offset';
+  }
+
+  @override
+  String calendarPreviewOffsetLate(int minutes) {
+    return '$minutes minutes later than target';
+  }
+
+  @override
+  String calendarPreviewOffsetEarly(int minutes) {
+    return '$minutes minutes earlier than target';
+  }
+
+  @override
+  String get calendarPreviewOffsetOnTarget => 'Inside the target threshold';
 
   @override
   String get calendarDetailSleepTime => 'Actual sleep time';
@@ -877,6 +918,23 @@ class AppLocalizationsEn extends AppLocalizations {
   String get manualSleepRecordEditTimeButton => 'Edit time';
 
   @override
+  String get launchGateEyebrow => 'Launching';
+
+  @override
+  String get launchGateTitle => 'Getting tonight\'s rhythm ready';
+
+  @override
+  String get launchGateDescription =>
+      'Loading your schedule target, reminder strategy, and entry state.';
+
+  @override
+  String get launchGateStatusTitle => 'Preparing Rhythm';
+
+  @override
+  String get launchGateStatusDescription =>
+      'If this is your first launch, we will guide you through the shortest setup path first.';
+
+  @override
   String get onboardingStepOneEyebrow => 'STEP 1 · WELCOME';
 
   @override
@@ -895,7 +953,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get onboardingWelcomeBulletAuthDescription =>
-      'Pick your bedtime and wake time to form tonight’s baseline.';
+      'Pick your bedtime and wake time to form tonight\'s baseline.';
 
   @override
   String get onboardingWelcomeBulletHealthTitle => 'Add support conditions';
@@ -909,7 +967,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get onboardingWelcomeBulletGoalDescription =>
-      'See tonight’s target and last night’s feedback without extra explanation screens in the way.';
+      'See tonight\'s target and last night\'s feedback without extra explanation screens in the way.';
 
   @override
   String get onboardingWelcomePrimaryButton => 'Start setup';
@@ -1567,7 +1625,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get profileDesktopPresenceDescription =>
-      'If you place the widget on your home screen, tonights goal and last nights status stay visible in your everyday view.';
+      'If you place the widget on your home screen, tonight\'s goal and last night\'s status stay visible in your everyday view.';
 
   @override
   String get widgetGuideEyebrow => 'Put tonight\'s target on your home screen';
@@ -1684,7 +1742,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get widgetThemeStateNoDataDescription =>
-      'The widget can still keep tonights target visible, then fill in last nights status after you sync or add it.';
+      'The widget can still keep tonight\'s target visible, then fill in last night\'s status after you sync or add it.';
 
   @override
   String get widgetThemeStateNoDataAction => 'Manually log last night';
@@ -1702,7 +1760,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get widgetThemeStateReadyDescription =>
-      'The current home screen snapshot can already show tonights target and last nights status.';
+      'The current home screen snapshot can already show tonight\'s target and last night\'s status.';
 
   @override
   String get widgetThemePinButton => 'Add to home screen';

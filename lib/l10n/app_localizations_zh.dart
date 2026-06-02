@@ -39,7 +39,10 @@ class AppLocalizationsZh extends AppLocalizations {
   String get calendarDescription => '颜色越深，越接近你的目标入睡时间。';
 
   @override
-  String get calendarHeroEyebrow => '五月仍有节律感';
+  String get calendarHeroEyebrow => '五月的节律分布';
+
+  @override
+  String get calendarHeroEyebrowSuffix => '的节律分布';
 
   @override
   String get calendarHeroTitle => '颜色不是坏消息，而是你与目标时间的距离。';
@@ -109,6 +112,44 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get calendarMetricLatestLate => '最晚一晚';
+
+  @override
+  String calendarMonthOnTrackBadge(int count) {
+    return '达标 $count 天';
+  }
+
+  @override
+  String get calendarPreviewSuffix => '预览';
+
+  @override
+  String get calendarPreviewTapHint => '点击展开详情弹层';
+
+  @override
+  String calendarPreviewSummaryWithTags(
+    String sleepTime,
+    String offset,
+    String tags,
+  ) {
+    return '$sleepTime 入睡｜$offset｜标签：$tags';
+  }
+
+  @override
+  String calendarPreviewSummaryNoTags(String sleepTime, String offset) {
+    return '$sleepTime 入睡｜$offset';
+  }
+
+  @override
+  String calendarPreviewOffsetLate(int minutes) {
+    return '比目标晚 $minutes 分钟';
+  }
+
+  @override
+  String calendarPreviewOffsetEarly(int minutes) {
+    return '比目标早 $minutes 分钟';
+  }
+
+  @override
+  String get calendarPreviewOffsetOnTarget => '在目标阈值内';
 
   @override
   String get calendarDetailSleepTime => '实际入睡';
@@ -826,6 +867,21 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get manualSleepRecordEditTimeButton => '修改时间';
+
+  @override
+  String get launchGateEyebrow => '启动中';
+
+  @override
+  String get launchGateTitle => '先把今晚的节律准备好';
+
+  @override
+  String get launchGateDescription => '正在读取你的作息目标、提醒策略和入口状态。';
+
+  @override
+  String get launchGateStatusTitle => '准备进入 Rhythm';
+
+  @override
+  String get launchGateStatusDescription => '如果你是首次进入，我们会先带你走完最短的一条设置链路。';
 
   @override
   String get onboardingStepOneEyebrow => 'STEP 1 · 欢迎进入';

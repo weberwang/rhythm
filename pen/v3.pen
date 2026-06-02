@@ -1,0 +1,1722 @@
+{
+  "version": "2.13",
+  "children": [
+    {
+      "type": "frame",
+      "id": "KWo83",
+      "x": 0,
+      "y": 0,
+      "name": "App Foundation / Components",
+      "width": 1280,
+      "fill": "$color-background",
+      "layout": "vertical",
+      "gap": "$spacing-24",
+      "padding": [
+        24,
+        24,
+        32,
+        24
+      ],
+      "children": [
+        {
+          "type": "text",
+          "id": "il3cF",
+          "name": "Components Title",
+          "fill": "$color-text-primary",
+          "content": "App Foundation Components",
+          "fontFamily": "$font-heading",
+          "fontSize": 32,
+          "fontWeight": "600"
+        },
+        {
+          "type": "text",
+          "id": "d3h7Yo",
+          "name": "Components Description",
+          "fill": "$color-text-secondary",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "Shared shells, actions, surfaces, and feedback primitives that every Rhythm module inherits.",
+          "lineHeight": 1.45,
+          "fontFamily": "$font-body",
+          "fontSize": 14,
+          "fontWeight": "500"
+        },
+        {
+          "type": "frame",
+          "id": "xeTzi",
+          "name": "Components Row",
+          "width": "fill_container",
+          "gap": "$spacing-24",
+          "children": [
+            {
+              "type": "frame",
+              "id": "TqzPx",
+              "name": "Components Column Left",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": "$spacing-20",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "xGWyy",
+                  "name": "Component / Page Hero",
+                  "reusable": true,
+                  "width": "fill_container",
+                  "fill": {
+                    "type": "gradient",
+                    "gradientType": "linear",
+                    "enabled": true,
+                    "rotation": 180,
+                    "size": {
+                      "height": 1
+                    },
+                    "colors": [
+                      {
+                        "color": "$color-hero-top",
+                        "position": 0
+                      },
+                      {
+                        "color": "$color-hero-bottom",
+                        "position": 1
+                      }
+                    ]
+                  },
+                  "cornerRadius": "$radius-sheet",
+                  "stroke": "$color-border-soft",
+                  "layout": "vertical",
+                  "gap": "$spacing-12",
+                  "padding": 20,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "hsOVx",
+                      "name": "Hero Eyebrow",
+                      "fill": "#FFFFFF1F",
+                      "cornerRadius": "$radius-pill",
+                      "gap": "$spacing-8",
+                      "padding": [
+                        7,
+                        12
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "Jna51",
+                          "name": "Hero Eyebrow Text",
+                          "fill": "$color-text-inverse",
+                          "content": "Tonight",
+                          "fontFamily": "$font-body",
+                          "fontSize": 12,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "SCqIW",
+                      "name": "Hero Title",
+                      "fill": "$color-text-inverse",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "See your rhythm clearly before the day runs away.",
+                      "lineHeight": 1.08,
+                      "fontFamily": "$font-heading",
+                      "fontSize": 30,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "aI5CN",
+                      "name": "Hero Description",
+                      "fill": "#FFFFFFE6",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "This shared hero introduces the page, frames the task, and keeps the first move obvious.",
+                      "lineHeight": 1.45,
+                      "fontFamily": "$font-body",
+                      "fontSize": 15,
+                      "fontWeight": "500"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "qRLs9",
+                      "name": "Hero Rhythm Rail",
+                      "width": "fill_container",
+                      "gap": 6,
+                      "children": [
+                        {
+                          "type": "rectangle",
+                          "cornerRadius": 999,
+                          "id": "nqj7j",
+                          "name": "Band A",
+                          "fill": "#A8D3C8",
+                          "width": 108,
+                          "height": 6
+                        },
+                        {
+                          "type": "rectangle",
+                          "cornerRadius": 999,
+                          "id": "HyEKp",
+                          "name": "Band B",
+                          "fill": "#F0CA7A",
+                          "width": 76,
+                          "height": 6
+                        },
+                        {
+                          "type": "rectangle",
+                          "cornerRadius": 999,
+                          "id": "rtufu",
+                          "name": "Band C",
+                          "fill": "#E2A198",
+                          "width": 52,
+                          "height": 6
+                        },
+                        {
+                          "type": "rectangle",
+                          "cornerRadius": 999,
+                          "id": "k56p60",
+                          "name": "Band D",
+                          "fill": "#FFFFFF33",
+                          "width": 84,
+                          "height": 6
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "icC9i",
+                  "name": "Component / Primary Button",
+                  "reusable": true,
+                  "width": "fill_container",
+                  "fill": "$color-primary",
+                  "cornerRadius": "$radius-button",
+                  "padding": [
+                    16,
+                    20
+                  ],
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "kmB7s",
+                      "name": "Primary Button Label",
+                      "fill": "$color-text-inverse",
+                      "content": "Continue",
+                      "fontFamily": "$font-body",
+                      "fontSize": 16,
+                      "fontWeight": "700"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "Af9Ch",
+                  "name": "Component / Secondary Button",
+                  "reusable": true,
+                  "width": "fill_container",
+                  "fill": "$color-surface-soft",
+                  "cornerRadius": "$radius-button",
+                  "stroke": "$color-divider",
+                  "padding": [
+                    16,
+                    20
+                  ],
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "z6jR7",
+                      "name": "Secondary Button Label",
+                      "fill": "$color-text-primary",
+                      "content": "Later",
+                      "fontFamily": "$font-body",
+                      "fontSize": 16,
+                      "fontWeight": "700"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "VDLWs",
+                  "name": "Component / Secondary Header",
+                  "reusable": true,
+                  "width": "fill_container",
+                  "padding": [
+                    12,
+                    0
+                  ],
+                  "justifyContent": "space_between",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "X3lO7",
+                      "name": "Secondary Header Left",
+                      "gap": "$spacing-12",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "CCLrB",
+                          "name": "Secondary Back Pill",
+                          "width": 40,
+                          "height": 40,
+                          "fill": "$color-surface-soft",
+                          "cornerRadius": "$radius-pill",
+                          "stroke": "$color-divider",
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "icon",
+                              "id": "g9OvP",
+                              "name": "Secondary Back Icon",
+                              "width": 18,
+                              "height": 18,
+                              "icon": "arrow-left",
+                              "library": "lucide",
+                              "fill": "$color-text-primary"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "id": "XDUfk",
+                          "name": "Secondary Header Title",
+                          "fill": "$color-text-primary",
+                          "content": "Profile & data",
+                          "fontFamily": "$font-heading",
+                          "fontSize": 24,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "aVVj8",
+                      "name": "Secondary Header Meta",
+                      "fill": "$color-text-muted",
+                      "content": "Review",
+                      "fontFamily": "$font-body",
+                      "fontSize": 12,
+                      "fontWeight": "600"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "briB8",
+              "name": "Components Column Right",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": "$spacing-20",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "NWf5J",
+                  "name": "Component / Surface Card",
+                  "reusable": true,
+                  "width": "fill_container",
+                  "fill": "$color-surface",
+                  "cornerRadius": "$radius-card",
+                  "stroke": "$color-divider",
+                  "layout": "vertical",
+                  "gap": 14,
+                  "padding": 16,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "v9J9Bw",
+                      "name": "Surface Card Title",
+                      "fill": "$color-text-primary",
+                      "content": "Card title",
+                      "fontFamily": "$font-body",
+                      "fontSize": 15,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "cBa0L",
+                      "name": "Surface Card Description",
+                      "fill": "$color-text-secondary",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Use this surface for section summaries, explanations, and low-pressure actions.",
+                      "lineHeight": 1.45,
+                      "fontFamily": "$font-body",
+                      "fontSize": 14,
+                      "fontWeight": "500"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "RI5sJ",
+                      "name": "Surface Card Accent Row",
+                      "width": "fill_container",
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "rectangle",
+                          "cornerRadius": 999,
+                          "id": "wS9Ml",
+                          "name": "Accent Band",
+                          "fill": "$color-warning",
+                          "width": 96,
+                          "height": 6
+                        },
+                        {
+                          "type": "text",
+                          "id": "vM9yP",
+                          "name": "Accent Text",
+                          "fill": "$color-text-muted",
+                          "content": "Aligned to target",
+                          "fontFamily": "$font-body",
+                          "fontSize": 11,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "j4NWP2",
+                  "name": "Component / Feedback Banner",
+                  "reusable": true,
+                  "width": "fill_container",
+                  "fill": "$color-info-surface",
+                  "cornerRadius": "$radius-card",
+                  "stroke": "$color-divider",
+                  "gap": "$spacing-12",
+                  "padding": [
+                    14,
+                    16
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "ellipse",
+                      "id": "ovGQy",
+                      "name": "Feedback Banner Dot",
+                      "fill": "$color-info",
+                      "width": 10,
+                      "height": 10
+                    },
+                    {
+                      "type": "text",
+                      "id": "mBnMj",
+                      "name": "Feedback Banner Text",
+                      "fill": "$color-text-primary",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Your schedule is saved. Tonight's reminder is ready.",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$font-body",
+                      "fontSize": 14,
+                      "fontWeight": "500"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "V8kVo",
+                  "name": "Component / Sheet Header",
+                  "reusable": true,
+                  "width": "fill_container",
+                  "fill": "$color-surface-soft",
+                  "cornerRadius": "$radius-sheet",
+                  "stroke": "$color-divider",
+                  "layout": "vertical",
+                  "gap": "$spacing-12",
+                  "padding": 18,
+                  "children": [
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": "$radius-pill",
+                      "id": "g1TxzR",
+                      "name": "Sheet Handle",
+                      "fill": "#8D97AE4D",
+                      "width": 44,
+                      "height": 4
+                    },
+                    {
+                      "type": "text",
+                      "id": "TlwFm",
+                      "name": "Sheet Header Title",
+                      "fill": "$color-text-primary",
+                      "content": "Recovery plan",
+                      "fontFamily": "$font-heading",
+                      "fontSize": 24,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "ovJYj",
+                      "name": "Sheet Header Description",
+                      "fill": "$color-text-secondary",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Explain the context, then guide the next action without flooding the sheet with chrome.",
+                      "lineHeight": 1.45,
+                      "fontFamily": "$font-body",
+                      "fontSize": 14,
+                      "fontWeight": "500"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "J5jFD",
+                  "name": "Component / Tab Bar",
+                  "reusable": true,
+                  "width": "fill_container",
+                  "fill": "#FFFFFFB8",
+                  "cornerRadius": "$radius-pill",
+                  "stroke": "#FFFFFF66",
+                  "gap": "$spacing-8",
+                  "padding": 6,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "jvH4r",
+                      "name": "Tab Item / Today",
+                      "width": "fill_container",
+                      "fill": "#FFFFFF",
+                      "cornerRadius": "$radius-pill",
+                      "stroke": "#D7DDF0",
+                      "layout": "vertical",
+                      "gap": 2,
+                      "padding": [
+                        8,
+                        10
+                      ],
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "OaSgE",
+                          "name": "Tab Icon / Today",
+                          "width": 20,
+                          "height": 20,
+                          "icon": "moon-star",
+                          "library": "lucide",
+                          "fill": "$color-primary"
+                        },
+                        {
+                          "type": "text",
+                          "id": "c5vlo",
+                          "name": "Tab Label / Today",
+                          "fill": "$color-primary",
+                          "content": "Today",
+                          "fontFamily": "$font-body",
+                          "fontSize": 10,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "E2Ppwh",
+                      "name": "Tab Item / Calendar",
+                      "width": "fill_container",
+                      "fill": "#00000000",
+                      "cornerRadius": "$radius-pill",
+                      "layout": "vertical",
+                      "gap": 2,
+                      "padding": [
+                        8,
+                        10
+                      ],
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "o7wLlb",
+                          "name": "Tab Icon / Calendar",
+                          "width": 20,
+                          "height": 20,
+                          "icon": "calendar-range",
+                          "library": "lucide",
+                          "fill": "$color-text-muted"
+                        },
+                        {
+                          "type": "text",
+                          "id": "HxVqi",
+                          "name": "Tab Label / Calendar",
+                          "fill": "$color-text-muted",
+                          "content": "Calendar",
+                          "fontFamily": "$font-body",
+                          "fontSize": 10,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "uhZGj",
+                      "name": "Tab Item / Bedtime",
+                      "width": "fill_container",
+                      "fill": "#00000000",
+                      "cornerRadius": "$radius-pill",
+                      "layout": "vertical",
+                      "gap": 2,
+                      "padding": [
+                        8,
+                        10
+                      ],
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "MIgYa",
+                          "name": "Tab Icon / Bedtime",
+                          "width": 20,
+                          "height": 20,
+                          "icon": "bed",
+                          "library": "lucide",
+                          "fill": "$color-text-muted"
+                        },
+                        {
+                          "type": "text",
+                          "id": "gCbcI",
+                          "name": "Tab Label / Bedtime",
+                          "fill": "$color-text-muted",
+                          "content": "Bedtime",
+                          "fontFamily": "$font-body",
+                          "fontSize": 10,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "m97nn",
+                      "name": "Tab Item / Insights",
+                      "width": "fill_container",
+                      "fill": "#00000000",
+                      "cornerRadius": "$radius-pill",
+                      "layout": "vertical",
+                      "gap": 2,
+                      "padding": [
+                        8,
+                        10
+                      ],
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "OxbQw",
+                          "name": "Tab Icon / Insights",
+                          "width": 20,
+                          "height": 20,
+                          "icon": "chart-column",
+                          "library": "lucide",
+                          "fill": "$color-text-muted"
+                        },
+                        {
+                          "type": "text",
+                          "id": "BwdtZ",
+                          "name": "Tab Label / Insights",
+                          "fill": "$color-text-muted",
+                          "content": "Insights",
+                          "fontFamily": "$font-body",
+                          "fontSize": 10,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "AUvYD",
+                      "name": "Tab Item / Profile",
+                      "width": "fill_container",
+                      "fill": "#00000000",
+                      "cornerRadius": "$radius-pill",
+                      "layout": "vertical",
+                      "gap": 2,
+                      "padding": [
+                        8,
+                        10
+                      ],
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "s2JNjK",
+                          "name": "Tab Icon / Profile",
+                          "width": 20,
+                          "height": 20,
+                          "icon": "user-round",
+                          "library": "lucide",
+                          "fill": "$color-text-muted"
+                        },
+                        {
+                          "type": "text",
+                          "id": "C6KqE",
+                          "name": "Tab Label / Profile",
+                          "fill": "$color-text-muted",
+                          "content": "Profile",
+                          "fontFamily": "$font-body",
+                          "fontSize": 10,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "DaYN6",
+                  "name": "Component / Dialog Shell",
+                  "reusable": true,
+                  "width": "fill_container",
+                  "fill": "$color-surface",
+                  "cornerRadius": "$radius-dialog",
+                  "stroke": "$color-divider",
+                  "layout": "vertical",
+                  "gap": "$spacing-16",
+                  "padding": 20,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "l21qVB",
+                      "name": "Dialog Title",
+                      "fill": "$color-text-primary",
+                      "content": "Delete local data?",
+                      "fontFamily": "$font-heading",
+                      "fontSize": 24,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "oIwiw",
+                      "name": "Dialog Description",
+                      "fill": "$color-text-secondary",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "This removes local copies from this device but keeps your cloud account intact.",
+                      "lineHeight": 1.45,
+                      "fontFamily": "$font-body",
+                      "fontSize": 14,
+                      "fontWeight": "500"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "UdfgF",
+                      "name": "Dialog Action Row",
+                      "width": "fill_container",
+                      "gap": "$spacing-12",
+                      "children": [
+                        {
+                          "id": "GmtNh",
+                          "type": "ref",
+                          "ref": "Af9Ch",
+                          "name": "Dialog Secondary Action",
+                          "width": "fill_container"
+                        },
+                        {
+                          "id": "TTzGv",
+                          "type": "ref",
+                          "ref": "icC9i",
+                          "name": "Dialog Primary Action",
+                          "width": "fill_container",
+                          "descendants": {
+                            "kmB7s": {
+                              "content": "Delete"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "Rtb8m",
+      "x": 0,
+      "y": 843,
+      "name": "App Foundation / Launch Shell",
+      "clip": true,
+      "width": 390,
+      "fill": "$color-background",
+      "layout": "vertical",
+      "children": [
+        {
+          "type": "frame",
+          "id": "E33Niw",
+          "name": "Status Bar",
+          "width": "fill_container",
+          "padding": [
+            0,
+            20
+          ],
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "vlwhS",
+              "name": "Status Time",
+              "fill": "$color-text-primary",
+              "content": "9:41",
+              "fontFamily": "$font-body",
+              "fontSize": 14,
+              "fontWeight": "600"
+            },
+            {
+              "type": "frame",
+              "id": "obZmt",
+              "name": "Status Meta",
+              "gap": "$spacing-8",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "Trcgp",
+                  "name": "Status Network",
+                  "fill": "$color-text-secondary",
+                  "content": "5G",
+                  "fontFamily": "$font-body",
+                  "fontSize": 12,
+                  "fontWeight": "600"
+                },
+                {
+                  "type": "text",
+                  "id": "i7XxyR",
+                  "name": "Status Battery",
+                  "fill": "$color-text-secondary",
+                  "content": "100%",
+                  "fontFamily": "$font-body",
+                  "fontSize": 12,
+                  "fontWeight": "600"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "w5Dov",
+          "name": "Launch Content Wrapper",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": "$spacing-24",
+          "padding": [
+            8,
+            20,
+            24,
+            20
+          ],
+          "children": [
+            {
+              "id": "g8pzI",
+              "type": "ref",
+              "ref": "xGWyy",
+              "name": "Launch Hero",
+              "descendants": {
+                "Jna51": {
+                  "content": "Launch"
+                },
+                "SCqIW": {
+                  "content": "Finding your rhythm before the day starts."
+                },
+                "aI5CN": {
+                  "content": "The launch shell carries a branded wait state instead of a blank scaffold."
+                }
+              }
+            },
+            {
+              "id": "g4MV54",
+              "type": "ref",
+              "ref": "NWf5J",
+              "name": "Launch Status Card",
+              "descendants": {
+                "v9J9Bw": {
+                  "content": "Preparing your space"
+                },
+                "cBa0L": {
+                  "content": "Checking onboarding state, restoring preferences, and routing you to the right first screen."
+                }
+              }
+            },
+            {
+              "id": "VAc45",
+              "type": "ref",
+              "ref": "j4NWP2",
+              "name": "Launch Status Banner",
+              "descendants": {
+                "mBnMj": {
+                  "content": "Launch feedback stays inside the page instead of appearing as a naked spinner."
+                }
+              }
+            },
+            {
+              "id": "fadqh",
+              "type": "ref",
+              "ref": "icC9i",
+              "name": "Launch Primary Action",
+              "descendants": {
+                "kmB7s": {
+                  "content": "Continue"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "zyqXu",
+      "x": 470,
+      "y": 843,
+      "name": "App Foundation / Primary Shell",
+      "clip": true,
+      "width": 390,
+      "fill": "$color-background",
+      "layout": "vertical",
+      "padding": [
+        0,
+        0,
+        12,
+        0
+      ],
+      "children": [
+        {
+          "type": "frame",
+          "id": "eRQnh",
+          "name": "Status Bar",
+          "width": "fill_container",
+          "padding": [
+            0,
+            20
+          ],
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "W1h2zl",
+              "name": "Status Time",
+              "fill": "$color-text-primary",
+              "content": "9:41",
+              "fontFamily": "$font-body",
+              "fontSize": 14,
+              "fontWeight": "600"
+            },
+            {
+              "type": "frame",
+              "id": "Tkmlu",
+              "name": "Status Meta",
+              "gap": "$spacing-8",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "lfAj9",
+                  "name": "Status Network",
+                  "fill": "$color-text-secondary",
+                  "content": "5G",
+                  "fontFamily": "$font-body",
+                  "fontSize": 12,
+                  "fontWeight": "600"
+                },
+                {
+                  "type": "text",
+                  "id": "W2pJe",
+                  "name": "Status Battery",
+                  "fill": "$color-text-secondary",
+                  "content": "100%",
+                  "fontFamily": "$font-body",
+                  "fontSize": 12,
+                  "fontWeight": "600"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "NvTP2",
+          "name": "Primary Content Wrapper",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": "$spacing-24",
+          "padding": [
+            8,
+            20,
+            12,
+            20
+          ],
+          "children": [
+            {
+              "id": "dqk8O",
+              "type": "ref",
+              "ref": "xGWyy",
+              "name": "Primary Hero",
+              "descendants": {
+                "Jna51": {
+                  "content": "Today"
+                },
+                "SCqIW": {
+                  "content": "Last night landed 24 minutes late."
+                },
+                "aI5CN": {
+                  "content": "One dominant zone explains where you are, what changed, and the next move."
+                }
+              }
+            },
+            {
+              "id": "P8CYJ1",
+              "type": "ref",
+              "ref": "NWf5J",
+              "name": "Primary Summary Card",
+              "descendants": {
+                "v9J9Bw": {
+                  "content": "Tonight's target"
+                },
+                "cBa0L": {
+                  "content": "Aim for lights out by 11:30 PM. Use the lower half of the screen for the next action, not more reading."
+                }
+              }
+            },
+            {
+              "id": "PoAdy",
+              "type": "ref",
+              "ref": "j4NWP2",
+              "name": "Primary Banner",
+              "descendants": {
+                "mBnMj": {
+                  "content": "Feedback stays gentle and readable, never louder than the primary task."
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "m14JZ",
+          "type": "ref",
+          "ref": "J5jFD",
+          "name": "Primary Tab Bar"
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "T0dyW",
+      "x": 940,
+      "y": 843,
+      "name": "App Foundation / Secondary Shell",
+      "clip": true,
+      "width": 390,
+      "fill": "$color-background",
+      "layout": "vertical",
+      "children": [
+        {
+          "type": "frame",
+          "id": "a9lNg2",
+          "name": "Status Bar",
+          "width": "fill_container",
+          "padding": [
+            0,
+            20
+          ],
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "Pg3KL",
+              "name": "Status Time",
+              "fill": "$color-text-primary",
+              "content": "9:41",
+              "fontFamily": "$font-body",
+              "fontSize": 14,
+              "fontWeight": "600"
+            },
+            {
+              "type": "frame",
+              "id": "E4aXb",
+              "name": "Status Meta",
+              "gap": "$spacing-8",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "u3U2J",
+                  "name": "Status Network",
+                  "fill": "$color-text-secondary",
+                  "content": "5G",
+                  "fontFamily": "$font-body",
+                  "fontSize": 12,
+                  "fontWeight": "600"
+                },
+                {
+                  "type": "text",
+                  "id": "P3iGNW",
+                  "name": "Status Battery",
+                  "fill": "$color-text-secondary",
+                  "content": "100%",
+                  "fontFamily": "$font-body",
+                  "fontSize": 12,
+                  "fontWeight": "600"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "qv0Tl",
+          "name": "Secondary Content Wrapper",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": "$spacing-24",
+          "padding": [
+            8,
+            20,
+            24,
+            20
+          ],
+          "children": [
+            {
+              "id": "qP3Hx",
+              "type": "ref",
+              "ref": "VDLWs",
+              "name": "Secondary Header",
+              "descendants": {
+                "XDUfk": {
+                  "content": "Profile & data"
+                },
+                "aVVj8": {
+                  "content": "Review"
+                }
+              }
+            },
+            {
+              "id": "ep8L7",
+              "type": "ref",
+              "ref": "NWf5J",
+              "name": "Secondary Card",
+              "descendants": {
+                "v9J9Bw": {
+                  "content": "Data access"
+                },
+                "cBa0L": {
+                  "content": "Permissions, privacy, export, and sync belong to one calm secondary structure instead of isolated settings rows."
+                }
+              }
+            },
+            {
+              "id": "K4n55r",
+              "type": "ref",
+              "ref": "j4NWP2",
+              "name": "Secondary Banner",
+              "descendants": {
+                "mBnMj": {
+                  "content": "Secondary pages still inherit the same feedback language and spacing rhythm."
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "aq6xh",
+      "x": 1410,
+      "y": 843,
+      "name": "App Foundation / Sheet Shell",
+      "clip": true,
+      "width": 390,
+      "height": 844,
+      "fill": "#18203340",
+      "layout": "vertical",
+      "justifyContent": "end",
+      "children": [
+        {
+          "type": "frame",
+          "id": "N3KkOh",
+          "name": "Sheet Demo Wrapper",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": "$spacing-16",
+          "padding": [
+            12,
+            20,
+            20,
+            20
+          ],
+          "children": [
+            {
+              "id": "olvkk",
+              "type": "ref",
+              "ref": "V8kVo",
+              "name": "Sheet Header Demo",
+              "descendants": {
+                "TlwFm": {
+                  "content": "Recovery plan"
+                },
+                "ovJYj": {
+                  "content": "Sheets open like a continuation of the current page, not a different visual language."
+                }
+              }
+            },
+            {
+              "id": "nHYao",
+              "type": "ref",
+              "ref": "NWf5J",
+              "name": "Sheet Surface Demo",
+              "descendants": {
+                "v9J9Bw": {
+                  "content": "Tomorrow morning"
+                },
+                "cBa0L": {
+                  "content": "Push the first meeting prep to after breakfast and protect the wake-up window instead of over-correcting bedtime."
+                }
+              }
+            },
+            {
+              "id": "HjbaL",
+              "type": "ref",
+              "ref": "icC9i",
+              "name": "Sheet Action",
+              "descendants": {
+                "kmB7s": {
+                  "content": "Use this plan"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "T7LLc6",
+      "x": 1880,
+      "y": 843,
+      "name": "App Foundation / Dialog Shell",
+      "clip": true,
+      "width": 390,
+      "height": 844,
+      "fill": "#18203333",
+      "layout": "vertical",
+      "padding": 20,
+      "justifyContent": "center",
+      "alignItems": "center",
+      "children": [
+        {
+          "id": "aoF36",
+          "type": "ref",
+          "ref": "DaYN6",
+          "name": "Dialog Demo",
+          "width": "fill_container",
+          "descendants": {
+            "l21qVB": {
+              "content": "Delete local data?"
+            },
+            "oIwiw": {
+              "content": "Danger actions stay explicit, centered, and contained. They never masquerade as routine confirmation."
+            },
+            "GmtNh/z6jR7": {
+              "content": "Cancel"
+            },
+            "TTzGv/kmB7s": {
+              "content": "Delete"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "themes": {
+    "mode": [
+      "light",
+      "dark"
+    ]
+  },
+  "variables": {
+    "color-background": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#EDF1F8",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#12182A",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "color-border-soft": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#FFFFFF4D",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#FFFFFF4D",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "color-danger": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#D7847B",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#E2A198",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "color-danger-surface": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#F8E2DF",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#452B31",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "color-divider": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#DCE3F0",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#313A58",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "color-hero-bottom": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#7C88C9",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#5665A1",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "color-hero-top": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#3D4673",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#28304F",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "color-info": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#6773BA",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#C7D0FF",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "color-info-surface": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#E5E9FB",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#293350",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "color-primary": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#3D4673",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#C4CCF3",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "color-primary-muted": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#D7DDF0",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#313A5E",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "color-success": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#5C8D83",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#A8D3C8",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "color-success-surface": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#E2F1EC",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#223B3F",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "color-surface": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#FFFFFF",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#1B2238",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "color-surface-elevated": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#FFFFFF",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#252E4B",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "color-surface-inverse": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#1E2742",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#E7EBF7",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "color-surface-soft": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#FFFFFFCC",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#232B45E6",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "color-text-inverse": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#FFFFFF",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#141B30",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "color-text-muted": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#8D97AE",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#8E98B4",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "color-text-primary": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#182033",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#F2F4FF",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "color-text-secondary": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#6F7891",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#BCC4DC",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "color-warning": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#D59A48",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#F0CA7A",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "color-warning-surface": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#F7E8CD",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#453922",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "font-body": {
+      "type": "string",
+      "value": "Inter"
+    },
+    "font-heading": {
+      "type": "string",
+      "value": "Newsreader"
+    },
+    "radius-button": {
+      "type": "number",
+      "value": 20
+    },
+    "radius-card": {
+      "type": "number",
+      "value": 24
+    },
+    "radius-dialog": {
+      "type": "number",
+      "value": 28
+    },
+    "radius-pill": {
+      "type": "number",
+      "value": 999
+    },
+    "radius-sheet": {
+      "type": "number",
+      "value": 32
+    },
+    "screen-padding": {
+      "type": "number",
+      "value": 20
+    },
+    "screen-width": {
+      "type": "number",
+      "value": 390
+    },
+    "spacing-12": {
+      "type": "number",
+      "value": 12
+    },
+    "spacing-16": {
+      "type": "number",
+      "value": 16
+    },
+    "spacing-20": {
+      "type": "number",
+      "value": 20
+    },
+    "spacing-24": {
+      "type": "number",
+      "value": 24
+    },
+    "spacing-32": {
+      "type": "number",
+      "value": 32
+    },
+    "spacing-4": {
+      "type": "number",
+      "value": 4
+    },
+    "spacing-8": {
+      "type": "number",
+      "value": 8
+    },
+    "status-bar-height": {
+      "type": "number",
+      "value": 62
+    },
+    "tab-bar-height": {
+      "type": "number",
+      "value": 56
+    }
+  }
+}

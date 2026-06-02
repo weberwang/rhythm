@@ -10,7 +10,8 @@
   "goalSetupDescription": "目标设置将在 Task 3 中实现，这里仅承接首次引导的下一步路由。",
   "calendarTitle": "作息日历",
   "calendarDescription": "颜色越深，越接近你的目标入睡时间。",
-  "calendarHeroEyebrow": "五月仍有节律感",
+  "calendarHeroEyebrow": "五月的节律分布",
+  "calendarHeroEyebrowSuffix": "的节律分布",
   "calendarHeroTitle": "颜色不是坏消息，而是你与目标时间的距离。",
   "calendarHeroSubtitle": "本月已有 {onTrackDays} 天在轨道里，更多 {driftDays} 天有偏航。",
   "@calendarHeroSubtitle": {
@@ -56,6 +57,58 @@
   "calendarFilterApply": "应用筛选",
   "calendarMetricOnTrack": "达标率",
   "calendarMetricLatestLate": "最晚一晚",
+  "calendarMonthOnTrackBadge": "达标 {count} 天",
+  "@calendarMonthOnTrackBadge": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "calendarPreviewSuffix": "预览",
+  "calendarPreviewTapHint": "点击展开详情弹层",
+  "calendarPreviewSummaryWithTags": "{sleepTime} 入睡｜{offset}｜标签：{tags}",
+  "@calendarPreviewSummaryWithTags": {
+    "placeholders": {
+      "sleepTime": {
+        "type": "String"
+      },
+      "offset": {
+        "type": "String"
+      },
+      "tags": {
+        "type": "String"
+      }
+    }
+  },
+  "calendarPreviewSummaryNoTags": "{sleepTime} 入睡｜{offset}",
+  "@calendarPreviewSummaryNoTags": {
+    "placeholders": {
+      "sleepTime": {
+        "type": "String"
+      },
+      "offset": {
+        "type": "String"
+      }
+    }
+  },
+  "calendarPreviewOffsetLate": "比目标晚 {minutes} 分钟",
+  "@calendarPreviewOffsetLate": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "calendarPreviewOffsetEarly": "比目标早 {minutes} 分钟",
+  "@calendarPreviewOffsetEarly": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "calendarPreviewOffsetOnTarget": "在目标阈值内",
   "calendarDetailSleepTime": "实际入睡",
   "calendarDetailWakeTime": "实际起床",
   "calendarDetailOffset": "偏差",
@@ -404,6 +457,11 @@
   "manualSleepRecordHelperDescription": "系统原始记录会保留，你保存的是“用户确认结果”，今日页和日历都会优先展示它。",
   "manualSleepRecordValidationSameTime": "入睡时间和起床时间不能相同。",
   "manualSleepRecordEditTimeButton": "修改时间",
+  "launchGateEyebrow": "启动中",
+  "launchGateTitle": "先把今晚的节律准备好",
+  "launchGateDescription": "正在读取你的作息目标、提醒策略和入口状态。",
+  "launchGateStatusTitle": "准备进入 Rhythm",
+  "launchGateStatusDescription": "如果你是首次进入，我们会先带你走完最短的一条设置链路。",
   "onboardingStepOneEyebrow": "STEP 1 · 欢迎进入",
   "onboardingWelcomeTitle": "今晚开始，把作息慢慢拉回你想要的节奏",
   "onboardingWelcomeDescription": "你只需要先定一个目标时间。权限、提醒和桌面入口，我们会在不打扰的前提下慢慢补齐。",
