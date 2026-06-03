@@ -26,16 +26,15 @@ Use these exact section ids and keep this exact order:
 5. `information_hierarchy_principles`
 6. `layout_and_page_structure_principles`
 7. `component_system_principles`
-8. `global_public_component_freeze`
-9. `interaction_behavior_principles`
-10. `state_and_feedback_principles`
-11. `content_and_copy_principles`
-12. `visual_system_rules`
-13. `light_theme_rationale`
-14. `dark_theme_rationale`
-15. `design_prohibitions`
-16. `engineering_guardrails`
-17. `downstream_reference_index`
+8. `interaction_behavior_principles`
+9. `state_and_feedback_principles`
+10. `content_and_copy_principles`
+11. `visual_system_rules`
+12. `light_theme_rationale`
+13. `dark_theme_rationale`
+14. `design_prohibitions`
+15. `engineering_guardrails`
+16. `downstream_reference_index`
 
 ## Section Expectations
 
@@ -57,7 +56,7 @@ List global interaction principles that should remain true across screens.
 
 ### `information_hierarchy_principles`
 
-Describe how information prominence, scanning order, and focus management work globally.
+Describe how information prominence, scanning order, focus management, typography hierarchy, and CTA dominance work globally.
 
 ### `layout_and_page_structure_principles`
 
@@ -67,19 +66,9 @@ Describe recurring page skeletons, regions, spacing logic, and when to use eleva
 
 Describe component families, reuse expectations, and which variants are globally allowed.
 
-### `global_public_component_freeze`
-
-Record the frozen global public component set, including:
-
-- which component families belong to the shared global system
-- which states or variants are globally allowed
-- which parts are immutable for downstream Pencil and Flutter work
-- which engineering adjustments remain allowed without design rollback
-- which components are explicitly not part of the global shared layer
-
 ### `interaction_behavior_principles`
 
-Describe action emphasis, gestures, toggles, navigation cues, and destructive-action behavior.
+Describe action emphasis, primary CTA posture, secondary-action restraint, gestures, toggles, navigation cues, and destructive-action behavior.
 
 ### `state_and_feedback_principles`
 
@@ -91,7 +80,7 @@ Describe writing tone, label economy, helper text strategy, and alert/empty-stat
 
 ### `visual_system_rules`
 
-Describe the global rules for typography, spacing, surface depth, icon posture, illustration posture, motion role, and decorative limits.
+Describe the global rules for typography ladder, reading contrast, CTA contrast posture, spacing, surface depth, icon posture, illustration posture, motion role, and decorative limits.
 
 ### `light_theme_rationale`
 
@@ -103,11 +92,11 @@ Explain why the frozen dark theme values differ from light mode and how readabil
 
 ### `design_prohibitions`
 
-List what downstream skills may not reinterpret or override.
+List what downstream skills may not reinterpret or override, especially typography hierarchy, CTA priority, and contrast intent.
 
 ### `engineering_guardrails`
 
-List what implementation may simplify, what must stay faithful, and what requires design rollback.
+List what implementation may simplify, what must stay faithful, and what requires design rollback, including any non-negotiable typography, contrast, and CTA decisions.
 
 ### `downstream_reference_index`
 

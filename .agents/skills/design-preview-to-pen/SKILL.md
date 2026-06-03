@@ -7,7 +7,7 @@ description: Use when preview comps, approved visual directions, image assets, o
 
 ## Overview
 
-Run a strict designer production workflow: clarify the brief, explore preview directions, critique and freeze one approved direction, plan reusable assets, rebuild the design structurally in Pencil, complete non-page-level reusable component design, and verify visual parity. Bias toward maintainable Pencil structure and reusable assets, not a one-off flattened mockup.
+Run a strict designer production workflow: clarify the brief, explore preview directions, critique and freeze one approved direction, plan reusable assets, rebuild the design structurally in Pencil, complete non-page-level reusable component design, and verify visual parity. Bias toward maintainable Pencil structure, reusable assets, and commercially strong typography hierarchy, contrast, and CTA clarity rather than a one-off flattened mockup.
 
 ## Designer Role
 
@@ -16,7 +16,7 @@ Act like a production designer moving an approved art direction into an editable
 ## Quick Start
 
 - If the user only wants visual exploration, stop after preview generation and do not enter Pencil.
-- If the user already has an approved preview, skip discovery loops and start from the design freeze card plus asset plan.
+- If the user already has an approved preview, skip discovery loops and start from the design freeze card plus asset plan, unless the latest `visual-design-reviewer` score is below `90`, still requires changes, or the current draft is only the single allowed post-review revision that still cannot be treated as a passed review.
 - If the user wants direct Pencil editing without preview exploration, use a Pencil-focused skill instead of this one.
 - If the user provides `global-design-guidelines.md`, `light-theme-freeze.yaml`, or `dark-theme-freeze.yaml`, treat them as frozen upstream design-source artifacts and preserve them during rebuild.
 - If the user provides a `mobile-ui-design-coach` packet or design freeze card, treat it as the upstream source of truth.
@@ -38,7 +38,10 @@ Act like a production designer moving an approved art direction into an editable
 10. Rebuild the approved direction in Pencil with variables first, reusable component design second, and sections third.
 11. Complete non-page-level component design for repeated controls, cards, bars, list items, dialogs, chips, and other shared building blocks, including names, states, and variant boundaries.
 12. When a page scrolls beyond the fixed viewport, decide whether the scroll structure is clear enough from one frame; if not, provide continuous frames or an equivalent structured scroll specification before claiming the design draft is complete.
-13. Compare the Pencil result against the approved preview, freeze card, any frozen global guidance artifacts, the required component set, and the scroll-structure expression, then close remaining gaps.
+13. Compare the Pencil result against the approved preview, freeze card, any frozen global guidance artifacts, the required component set, and the scroll-structure expression.
+14. When the design draft is complete enough to judge visually, dispatch `visual-design-reviewer` in a fresh subagent unless the current draft is only the single allowed post-review revision from the latest failed module review.
+15. If the review score is below `90` or the review still requires changes during module implementation preparation, update the active module `ui/ux` doc to reflect the revised design intent and modify the current module design draft in Pen exactly once. After that single revision pass, stop the current review cycle and do not run `visual-design-reviewer` again unless the user explicitly restarts a new design cycle.
+16. Only drafts that already hold a freeze-ready `visual-design-reviewer` result with score `>= 90` may continue freeze-facing handoff. A post-failure single revision without a new user-directed cycle does not count as a reviewed pass.
 
 ## Phase Rules
 
@@ -126,12 +129,16 @@ Act like a production designer moving an approved art direction into an editable
 - Do not extract assets or write to Pencil before explicit user approval of a preview direction.
 - Do not generate preview comps outside `$gpt-image-2-generator`, and do not use any model other than `gpt-image-2`; if `gpt-image-2` is unavailable or cannot be confirmed, stop and surface the blocker.
 - Do not treat a flattened preview as the final production artifact.
+- Do not proceed toward freeze or handoff with a freeze-facing review score below `90`.
+- Do not send a post-failure single-revision draft back into `visual-design-reviewer` automatically within the same correction cycle.
+- Do not respond to a module-stage design review failure by restarting module splitting.
 - Do not crop bitmap icons from a preview when a redraw or vector-safe replacement is practical.
 - Do not rebuild an entire page as one image unless the user explicitly accepts a non-editable result.
 - Do not let a pretty preview override the approved brief, art direction, state scope, or freeze card.
 - Do not recalculate global theme roles or localize palette semantics when frozen theme files already exist.
 - Do not skip designer critique between preview generation and approval.
 - Do not treat page frames alone as a completed design draft; non-page-level reusable component design must also be finished.
+- Do not claim a complete design draft is handoff-ready until `visual-design-reviewer` has checked the visual result in a fresh subagent and returned a score of at least `90`.
 - Do not leave shared controls or repeated building blocks only inside page compositions when downstream Flutter implementation needs explicit reusable component design.
 - Do not treat module-level reusable components as frozen implicitly; record their frozen scope, states, and allowed adjustments in the freeze artifacts.
 - Do not assume a long page is self-explanatory just because the frame is taller; if Flutter could misread the scroll structure, add continuous frames or an equivalent structured scroll specification.
@@ -157,6 +164,7 @@ Every substantial result should leave these artifacts in the conversation:
 - `pencil_rebuild_progress`
 - `component_design_progress`
 - `scroll_expression`
+- `visual_design_review`
 - `parity_gap_list`
 
 ## References

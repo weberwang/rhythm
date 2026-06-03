@@ -1,91 +1,99 @@
 ---
 artifact_type: flutter_workflow_record
 workflow_status: active
-current_stage: pen_ready
+current_stage: design_freeze_ready
 current_module: not_selected
 confirmation_status: pending_confirmation
 next_skill: none
-pending_next_stage: pen_frozen
-pending_next_skill: flutter-pen-to-architecture
+pending_next_stage: modules_split
+pending_next_skill: none
+pending_status_updates: none
 ---
 
 # workflow_summary
 
-- Pencil MCP 连接已恢复，当前活动文件为 `pen/v3.pen`。
-- 已将全局主题变量写入 `.pen`，并完成 9 个模块对应屏幕的结构化重建：`Bedtime`、`Calendar`、`Insights`、`Today`、`Activation Entry` 4 屏、`Schedule`、`Sleep Records`、`You`、`Widget`。
-- `Activation Entry` 批次曾出现黑屏/裁切异常，现已通过重建根骨架与子树替换完成修复。
-- 已按更新后的 `design-preview-to-pen` 技能契约补齐非页面级可复用组件区，当前 `.pen` 已新增 `Design System / Components`，覆盖状态栏、主次按钮、badge、chip、信息卡、表单行、tab bar、小组件卡等共享构件。
-- 已补齐 `module_component_freeze` 层，当前 `.pen` 已新增 `Design System / Module Freeze`，显式记录 9 个模块的可复用复合组件、局部结构、冻结状态与允许工程调整项。
-- 已新增 `Design System / Scroll Specs`，明确 onboarding、任务页、tab 长页、设置/工具页的 viewport shell、滚动区域、固定区域和 below-the-fold 顺序。
-- 已将 `Bedtime`、`Welcome`、`Login`、`Health Permission`、`Ready Tonight`、`Sleep Records`、`You` 等短页统一为固定 `844` 高度 viewport shell；`Today`、`Calendar`、`Insights`、`Schedule`、`Widget` 保留连续审阅稿并由 scroll spec 约束 Flutter 还原方式。
-- 已对 `Welcome`、`Login`、`Health Permission`、`Ready Tonight` 的 fixed-shell 内部节奏做二次回修，避免“只加高页面不重排内容”造成的失衡。
-- 当前回修已完成，重新进入 `pen_ready` 的确认闸门，等待用户确认是否冻结 `.pen` 并进入 `flutter-pen-to-architecture`。
+- 当前流程已确认 `style-01r` 共享冻结候选，并正式推进到 `design_freeze_ready`。
+- 当前轮次的共享设计来源为更新后的 `docs/rd/global-design-guidelines.md`、`docs/rd/light-theme-freeze.yaml`、`docs/rd/dark-theme-freeze.yaml`，并绑定 3 张 `style-01r` 预览图为唯一已确认共享基线。
+- 现有模块 RD、`pen/v3.pen` 与 Flutter 代码仅保留为历史参考，不作为当前轮次已确认产物，不得直接推进下游流程。
+- 已重跑模块拆分协调索引 `docs/rd/00-module-index.md`，当前待确认的是“共享冻结重跑后的模块拆分结果”，确认后回到 `modules_split`。
 
 # current_stage_detail
 
-- 当前阶段记录为 `pen_ready`，因为当前 `.pen` 已完成回修并具备新的冻结候选资格，但 `pen_frozen` 仍需用户显式确认。
-- 本轮已完成全局组件、模块组件冻结、scroll spec 补齐与短页 viewport 统一，解决了“只有 screen 没有组件设计”“模块组件未显式冻结”和“页面高度无约束漂移”的关键缺口。
-- 当前不直接切换到 `flutter-pen-to-architecture`；需先由用户确认 `pen_frozen`，再进入下游架构转换。
+- 用户已通过“下一步 / 继续”确认本轮 `style-01r` 共享冻结候选，因此当前确认阶段从 `global_guidelines_frozen` 提升为 `design_freeze_ready`。
+- 原先围绕旧 `style-01` 评审阻塞的共享冻结问题已关闭；当前共享冻结源以 `style-01r` 为准。
+- 已按新的共享冻结基线重跑模块拆分协调索引，补齐 `depends_on`、`unblocks`、`parallel_group`、`recommended_stage` 和并行波次说明。
+- 当前不直接切换到 `modules_split`；按工作流规则，需先由用户确认这一轮重跑后的模块拆分结果。
+- 现有模块文档保留为历史 `split_draft` 参考；一旦共享冻结重新获批，应重新执行模块拆分或精修，而不是直接恢复旧的模块、Pencil 或代码状态。
 
 # current_module_detail
 
 - 当前活动模块：`not_selected`
-- 说明：当前以批次方式完成全局 `.pen` 重建与校验，已覆盖全部模块级代表屏幕。
+- 当前尚未选择任何实施模块。
+- 所有模块当前按“历史拆分草案存在，但未在本轮重新确认”为准：`uiux_status=split_draft`、`impl_status=split_draft`、`pen_status=not_started`、`code_status=not_started`。
+- 本轮模块拆分判断以 `docs/rd/00-module-index.md` 为准；当前待确认的是基于新共享冻结基线重跑后的模块拆分索引，而不是旧的 `2026-06-02` 版本。
 
 # next_action
 
 - 下一技能：`none`
-- 原因：本轮回修已经完成，当前等待用户确认是否将新的 `.pen` 冻结为下游架构输入源。
+- 原因：共享冻结已确认，模块拆分索引也已按新基线重跑；当前等待用户确认新的模块拆分结果，再进入 `modules_split`。
 - 最小输入：
-  - 用户确认当前 `.pen` 可冻结为 `pen_frozen`
-  - 确认后进入 `flutter-pen-to-architecture`
+  - `docs/rd/00-module-index.md`
+  - `docs/rd/modules/`
+  - `docs/rd/global-design-guidelines.md`
+  - `docs/rd/light-theme-freeze.yaml`
+  - `docs/rd/dark-theme-freeze.yaml`
+  - 确认目标：若用户确认本轮模块拆分结果，则进入 `modules_split`。
 
 # confirmation_gate
 
 - `confirmation_status`：`pending_confirmation`
-- 原因：基于更新后的 skill 已完成回修，新的 Pencil 冻结候选需要用户显式确认后才能进入下游。
-- `pending_next_stage`：`pen_frozen`
-- `pending_next_skill`：`flutter-pen-to-architecture`
-- 当前确认目标：确认将包含组件库与 scroll spec 的 `pen/v3.pen` 作为冻结设计源进入架构转换。
+- 原因：共享冻结已确认，新的模块拆分索引已经重跑完成，但按工作流规则仍需用户显式确认后，才能把项目从当前确认阶段切到 `modules_split`。
+- `pending_next_stage`：`modules_split`
+- `pending_next_skill`：`none`
+- `pending_status_updates`：`none`
+- 当前确认目标：重跑后的模块拆分结果
 
 # blockers
 
 - `waiting_for_user_confirmation`
-- 如用户要求继续调整组件层、scroll spec 或连续稿结构，应先在当前 `pen_ready` 阶段内回修，不直接进入下游。
+- `historical_module_pen_code_outputs_must_not_be_treated_as_confirmed`
 
 # global_artifact_index
 
 | artifact | path | status |
 | --- | --- | --- |
-| PRD | `docs/rhythm-sleep-routine-management-prd-commercial-2026-06-02.md` | 已存在 |
+| PRD | `docs/rhythm-sleep-routine-management-prd-commercial-2026-06-02.md` | 已确认 |
 | global technical baseline | `docs/rd/01-global-technical-baseline.md` | 已确认 |
-| module index | `docs/rd/00-module-index.md` | 已确认 |
-| global-design-guidelines.md | `docs/rd/global-design-guidelines.md` | 已确认 |
-| light-theme-freeze.yaml | `docs/rd/light-theme-freeze.yaml` | 已确认 |
-| dark-theme-freeze.yaml | `docs/rd/dark-theme-freeze.yaml` | 已确认 |
-| design source | `pen/v3.pen` | 已连接并开始重建 |
-| preview source pack | `output/imagegen/` | 已确认基线来源 |
-| rebuilt screens batch 1 | `pen/v3.pen` | 已完成 `Bedtime`、`Calendar`、`Insights`、`Today` |
-| rebuilt screens batch 2 | `pen/v3.pen` | 已完成 `Activation Entry` 4 屏并修复黑屏异常 |
-| rebuilt screens batch 3 | `pen/v3.pen` | 已完成 `Schedule`、`Sleep Records`、`You`、`Widget` |
-| reusable components pack | `pen/v3.pen` | 已完成 `Design System / Components` |
-| module component freeze | `pen/v3.pen` | 已完成 `Design System / Module Freeze` |
-| scroll specification pack | `pen/v3.pen` | 已完成 `Design System / Scroll Specs` |
-| module docs root | `docs/rd/modules/` | 已确认 |
+| module index | `docs/rd/00-module-index.md` | 历史拆分索引保留，待后续按新冻结结果重跑 |
+| global-design-guidelines.md | `docs/rd/global-design-guidelines.md` | 已更新为 `style-01r` 共享冻结基线 |
+| light-theme-freeze.yaml | `docs/rd/light-theme-freeze.yaml` | 已更新为 `style-01r` 语义色值 |
+| dark-theme-freeze.yaml | `docs/rd/dark-theme-freeze.yaml` | 已更新为 `style-01r` 语义色值 |
+| preview source pack | `output/imagegen/rhythm-style1-review-fixes-2026-06-03/` | 当前已确认共享冻结基线 |
+| preview evidence 01 | `output/imagegen/rhythm-style1-review-fixes-2026-06-03/style-01r-bedtime-preview.png` | 已绑定到本轮共享冻结 |
+| preview evidence 02 | `output/imagegen/rhythm-style1-review-fixes-2026-06-03/style-01r-calendar-preview.png` | 已绑定到本轮共享冻结 |
+| preview evidence 03 | `output/imagegen/rhythm-style1-review-fixes-2026-06-03/style-01r-insights-preview.png` | 已绑定到本轮共享冻结 |
+| superseded shared visual review report | `docs/rd/reviews/shared-visual-review-style-01-2026-06-03.md` | 历史回修依据，已被 `style-01r` 冻结候选取代 |
+| shared freeze assessment report | `docs/rd/reviews/shared-freeze-assessment-style-01r-2026-06-03.md` | 当前轮次共享冻结评估结论，已用于确认推进到 `design_freeze_ready` |
+| module index | `docs/rd/00-module-index.md` | 已按 `style-01r` 共享冻结基线重跑，等待确认 |
+| historical pen source | `pen/v3.pen` | 历史参考，当前轮次禁止直接作为冻结或架构输入 |
+| architecture summary | `not_provided` | 回退后需在 `flutter-pen-to-architecture` 阶段重新产出 |
+| Flutter project root | `E:/Projects/flutter/rhythm` | 工程已存在，但当前轮次代码不视为已落地产物 |
+| project-local flutter-dev skill | `.agents/skills/flutter-dev/SKILL.md` | 已存在，待重新走到 `implementing` 阶段再使用 |
+| module docs root | `docs/rd/modules/` | 历史模块文档保留，待后续按新冻结结果重跑 |
 
 # module_status_table
 
-| module | current_state | confirmation_status | next_skill | pending_next_stage | pending_next_skill | uiux_rd | impl_rd | global_guidelines | light_theme | dark_theme | pen_file | init_status | blockers |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| activation-entry | pen_ready | pending_confirmation | none | pen_frozen | flutter-pen-to-architecture | `docs/rd/modules/activation-entry/activation-entry.ui-ux.md` | `docs/rd/modules/activation-entry/activation-entry.impl.md` | `docs/rd/global-design-guidelines.md` | `docs/rd/light-theme-freeze.yaml` | `docs/rd/dark-theme-freeze.yaml` | `pen/v3.pen` | initialized | 已完成组件层依赖与固定 viewport 对齐，等待冻结确认 |
-| schedule-reminders | pen_ready | pending_confirmation | none | pen_frozen | flutter-pen-to-architecture | `docs/rd/modules/schedule-reminders/schedule-reminders.ui-ux.md` | `docs/rd/modules/schedule-reminders/schedule-reminders.impl.md` | `docs/rd/global-design-guidelines.md` | `docs/rd/light-theme-freeze.yaml` | `docs/rd/dark-theme-freeze.yaml` | `pen/v3.pen` | initialized | 已完成组件层依赖与 scroll spec 对齐，等待冻结确认 |
-| sleep-records | pen_ready | pending_confirmation | none | pen_frozen | flutter-pen-to-architecture | `docs/rd/modules/sleep-records/sleep-records.ui-ux.md` | `docs/rd/modules/sleep-records/sleep-records.impl.md` | `docs/rd/global-design-guidelines.md` | `docs/rd/light-theme-freeze.yaml` | `docs/rd/dark-theme-freeze.yaml` | `pen/v3.pen` | initialized | 已完成组件层依赖与固定 viewport 对齐，等待冻结确认 |
-| bedtime-session | pen_ready | pending_confirmation | none | pen_frozen | flutter-pen-to-architecture | `docs/rd/modules/bedtime-session/bedtime-session.ui-ux.md` | `docs/rd/modules/bedtime-session/bedtime-session.impl.md` | `docs/rd/global-design-guidelines.md` | `docs/rd/light-theme-freeze.yaml` | `docs/rd/dark-theme-freeze.yaml` | `pen/v3.pen` | initialized | 已完成组件层依赖与固定 viewport 对齐，等待冻结确认 |
-| today-feedback | pen_ready | pending_confirmation | none | pen_frozen | flutter-pen-to-architecture | `docs/rd/modules/today-feedback/today-feedback.ui-ux.md` | `docs/rd/modules/today-feedback/today-feedback.impl.md` | `docs/rd/global-design-guidelines.md` | `docs/rd/light-theme-freeze.yaml` | `docs/rd/dark-theme-freeze.yaml` | `pen/v3.pen` | initialized | 已完成组件层依赖与 scroll spec 对齐，等待冻结确认 |
-| calendar-history | pen_ready | pending_confirmation | none | pen_frozen | flutter-pen-to-architecture | `docs/rd/modules/calendar-history/calendar-history.ui-ux.md` | `docs/rd/modules/calendar-history/calendar-history.impl.md` | `docs/rd/global-design-guidelines.md` | `docs/rd/light-theme-freeze.yaml` | `docs/rd/dark-theme-freeze.yaml` | `pen/v3.pen` | initialized | 已完成组件层依赖与 scroll spec 对齐，等待冻结确认 |
-| insights-recovery | pen_ready | pending_confirmation | none | pen_frozen | flutter-pen-to-architecture | `docs/rd/modules/insights-recovery/insights-recovery.ui-ux.md` | `docs/rd/modules/insights-recovery/insights-recovery.impl.md` | `docs/rd/global-design-guidelines.md` | `docs/rd/light-theme-freeze.yaml` | `docs/rd/dark-theme-freeze.yaml` | `pen/v3.pen` | initialized | 已完成组件层依赖与 scroll spec 对齐，等待冻结确认 |
-| account-sync-membership | pen_ready | pending_confirmation | none | pen_frozen | flutter-pen-to-architecture | `docs/rd/modules/account-sync-membership/account-sync-membership.ui-ux.md` | `docs/rd/modules/account-sync-membership/account-sync-membership.impl.md` | `docs/rd/global-design-guidelines.md` | `docs/rd/light-theme-freeze.yaml` | `docs/rd/dark-theme-freeze.yaml` | `pen/v3.pen` | initialized | 已完成组件层依赖与固定 viewport 对齐，等待冻结确认 |
-| widget-bridge | pen_ready | pending_confirmation | none | pen_frozen | flutter-pen-to-architecture | `docs/rd/modules/widget-bridge/widget-bridge.ui-ux.md` | `docs/rd/modules/widget-bridge/widget-bridge.impl.md` | `docs/rd/global-design-guidelines.md` | `docs/rd/light-theme-freeze.yaml` | `docs/rd/dark-theme-freeze.yaml` | `pen/v3.pen` | initialized | 已完成组件层依赖与 scroll spec 对齐，等待冻结确认 |
+| module | current_state | confirmation_status | next_skill | pending_next_stage | pending_next_skill | pending_status_updates | uiux_rd | uiux_status | impl_rd | impl_status | global_guidelines | light_theme | dark_theme | visual_review | pen_file | pen_status | code_status | init_status | blockers |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| activation-entry | design_freeze_ready | pending_confirmation | none | modules_split | none | none | `docs/rd/modules/activation-entry/activation-entry.ui-ux.md` | split_draft | `docs/rd/modules/activation-entry/activation-entry.impl.md` | split_draft | `docs/rd/global-design-guidelines.md` | `docs/rd/light-theme-freeze.yaml` | `docs/rd/dark-theme-freeze.yaml` | `docs/rd/00-module-index.md` | `pen/v3.pen` | not_started | not_started | initialized | 等待用户确认重跑后的模块拆分结果；历史模块、Pencil 与代码状态仍未重新确认 |
+| schedule-reminders | design_freeze_ready | pending_confirmation | none | modules_split | none | none | `docs/rd/modules/schedule-reminders/schedule-reminders.ui-ux.md` | split_draft | `docs/rd/modules/schedule-reminders/schedule-reminders.impl.md` | split_draft | `docs/rd/global-design-guidelines.md` | `docs/rd/light-theme-freeze.yaml` | `docs/rd/dark-theme-freeze.yaml` | `docs/rd/00-module-index.md` | `pen/v3.pen` | not_started | not_started | initialized | 等待用户确认重跑后的模块拆分结果；共享冻结已确认，尚未进入活动模块精修 |
+| sleep-records | design_freeze_ready | pending_confirmation | none | modules_split | none | none | `docs/rd/modules/sleep-records/sleep-records.ui-ux.md` | split_draft | `docs/rd/modules/sleep-records/sleep-records.impl.md` | split_draft | `docs/rd/global-design-guidelines.md` | `docs/rd/light-theme-freeze.yaml` | `docs/rd/dark-theme-freeze.yaml` | `docs/rd/00-module-index.md` | `pen/v3.pen` | not_started | not_started | initialized | 等待用户确认重跑后的模块拆分结果；共享冻结已确认，尚未进入活动模块精修 |
+| bedtime-session | design_freeze_ready | pending_confirmation | none | modules_split | none | none | `docs/rd/modules/bedtime-session/bedtime-session.ui-ux.md` | split_draft | `docs/rd/modules/bedtime-session/bedtime-session.impl.md` | split_draft | `docs/rd/global-design-guidelines.md` | `docs/rd/light-theme-freeze.yaml` | `docs/rd/dark-theme-freeze.yaml` | `docs/rd/00-module-index.md` | `pen/v3.pen` | not_started | not_started | initialized | 等待用户确认重跑后的模块拆分结果；共享冻结已确认，尚未进入活动模块精修 |
+| today-feedback | design_freeze_ready | pending_confirmation | none | modules_split | none | none | `docs/rd/modules/today-feedback/today-feedback.ui-ux.md` | split_draft | `docs/rd/modules/today-feedback/today-feedback.impl.md` | split_draft | `docs/rd/global-design-guidelines.md` | `docs/rd/light-theme-freeze.yaml` | `docs/rd/dark-theme-freeze.yaml` | `docs/rd/00-module-index.md` | `pen/v3.pen` | not_started | not_started | initialized | 等待用户确认重跑后的模块拆分结果；共享冻结已确认，尚未进入活动模块精修 |
+| calendar-history | design_freeze_ready | pending_confirmation | none | modules_split | none | none | `docs/rd/modules/calendar-history/calendar-history.ui-ux.md` | split_draft | `docs/rd/modules/calendar-history/calendar-history.impl.md` | split_draft | `docs/rd/global-design-guidelines.md` | `docs/rd/light-theme-freeze.yaml` | `docs/rd/dark-theme-freeze.yaml` | `docs/rd/00-module-index.md` | `pen/v3.pen` | not_started | not_started | initialized | 等待用户确认重跑后的模块拆分结果；共享冻结已确认，尚未进入活动模块精修 |
+| insights-recovery | design_freeze_ready | pending_confirmation | none | modules_split | none | none | `docs/rd/modules/insights-recovery/insights-recovery.ui-ux.md` | split_draft | `docs/rd/modules/insights-recovery/insights-recovery.impl.md` | split_draft | `docs/rd/global-design-guidelines.md` | `docs/rd/light-theme-freeze.yaml` | `docs/rd/dark-theme-freeze.yaml` | `docs/rd/00-module-index.md` | `pen/v3.pen` | not_started | not_started | initialized | 等待用户确认重跑后的模块拆分结果；共享冻结已确认，尚未进入活动模块精修 |
+| account-sync-membership | design_freeze_ready | pending_confirmation | none | modules_split | none | none | `docs/rd/modules/account-sync-membership/account-sync-membership.ui-ux.md` | split_draft | `docs/rd/modules/account-sync-membership/account-sync-membership.impl.md` | split_draft | `docs/rd/global-design-guidelines.md` | `docs/rd/light-theme-freeze.yaml` | `docs/rd/dark-theme-freeze.yaml` | `docs/rd/00-module-index.md` | `pen/v3.pen` | not_started | not_started | initialized | 等待用户确认重跑后的模块拆分结果；共享冻结已确认，尚未进入活动模块精修 |
+| widget-bridge | design_freeze_ready | pending_confirmation | none | modules_split | none | none | `docs/rd/modules/widget-bridge/widget-bridge.ui-ux.md` | split_draft | `docs/rd/modules/widget-bridge/widget-bridge.impl.md` | split_draft | `docs/rd/global-design-guidelines.md` | `docs/rd/light-theme-freeze.yaml` | `docs/rd/dark-theme-freeze.yaml` | `docs/rd/00-module-index.md` | `pen/v3.pen` | not_started | not_started | initialized | 等待用户确认重跑后的模块拆分结果；共享冻结已确认，尚未进入活动模块精修 |
 
 # decision_log
 
@@ -109,3 +117,11 @@ pending_next_skill: flutter-pen-to-architecture
 - 2026-06-02: 已新增 `Design System / Components`、`Design System / Module Freeze` 与 `Design System / Scroll Specs` 三个顶层设计系统区，并完成短页 root 的 `844` viewport shell 统一；长页以连续审阅稿保留，并通过 scroll spec 明确 Flutter 还原语义。
 - 2026-06-02: 回修完成后，当前 `.pen` 重新具备冻结候选资格。按确认闸门规则，阶段保持 `pen_ready`，重新挂起 `pen_frozen -> flutter-pen-to-architecture`，等待用户确认。
 - 2026-06-02: 用户指出“页面高度只是增加了，但是布局不合理”后，已对 `Welcome`、`Login`、`Health Permission`、`Ready Tonight` 做 fixed-shell 内部重排，并通过截图与结构检查复核。
+- 2026-06-03: 用户基于 `style-01-bedtime-preview.png`、`style-01-calendar-preview.png` 与 `style-01-insights-preview.png` 明确要求将当前流程回退到全局设计冻结阶段，并重新再走后续链路。
+- 2026-06-03: 已清空 `pen_frozen -> flutter-pen-to-architecture` 挂起状态，将当前确认阶段回退为 `global_guidelines_frozen`；现有模块 RD、`pen/v3.pen` 与 Flutter 代码改为历史参考，下一技能调整为 `visual-design-reviewer`，用于补齐本轮 fresh-subagent 共享视觉评审。
+- 2026-06-03: 已通过 fresh-subagent 完成共享视觉评审，报告为 `docs/rd/reviews/shared-visual-review-style-01-2026-06-03.md`；结论为 `needs_revision`、分数 `77/100`，因此下一技能从 `visual-design-reviewer` 调整为 `design-preview-to-pen`，暂不进入 `flutter-design-freeze-gate`。
+- 2026-06-03: 基于 `style-01r` 修订预览图，已重写 `docs/rd/global-design-guidelines.md`、`docs/rd/light-theme-freeze.yaml` 与 `docs/rd/dark-theme-freeze.yaml`，共享冻结基线从旧 `style-01` 预览包切换为 `output/imagegen/rhythm-style1-review-fixes-2026-06-03/`。
+- 2026-06-03: 额外共享评审等待在中断后跳过；已落地 `docs/rd/reviews/shared-freeze-assessment-style-01r-2026-06-03.md` 作为本轮共享冻结评估与闸门结论，当前结果为 `needs_user_approval`。
+- 2026-06-03: 工作流已更新为 `pending_confirmation`；保持当前确认阶段为 `global_guidelines_frozen`，挂起 `design_freeze_ready -> flutter-rd-module-splitter`，等待用户确认新的 `style-01r` 共享冻结候选包。
+- 2026-06-03: 用户通过“下一步 / 继续”确认 `style-01r` 共享冻结候选；当前确认阶段提升为 `design_freeze_ready`。
+- 2026-06-03: 已按 `style-01r` 共享冻结基线重跑 `docs/rd/00-module-index.md`，补齐结构化依赖表、并行波次与推荐实施阶段；当前挂起 `modules_split`，等待用户确认新的模块拆分结果。

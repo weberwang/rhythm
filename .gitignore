@@ -41,6 +41,7 @@ migrate_working_dir/
 /output/imagegen/*/
 /ig_*.png
 /pen/images/generated-*.png
+/artifacts/
 
 # Codex local skill copies
 /.agents/skills/flutter-init/
