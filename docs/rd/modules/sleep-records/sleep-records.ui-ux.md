@@ -3,7 +3,7 @@
 ## 模块冻结定位
 
 - 模块定位：`Sleep Records` 是 Rhythm 的记录可信度中心，负责承接自动同步、手动补录、结果修正与晚睡原因标注。
-- 冻结状态：`needs_user_approval`
+- 冻结状态：`frozen_for_architecture`
 - 设计源继承：
   - 强制继承 [docs/rd/global-design-guidelines.md](D:/Projects/Flutter/rhythm/docs/rd/global-design-guidelines.md) 的 `product_personality`、`information_hierarchy_principles`、`component_system_principles`、`state_and_feedback_principles`、`engineering_guardrails`。
   - 强制继承 [docs/rd/light-theme-freeze.yaml](D:/Projects/Flutter/rhythm/docs/rd/light-theme-freeze.yaml) 与 [docs/rd/dark-theme-freeze.yaml](D:/Projects/Flutter/rhythm/docs/rd/dark-theme-freeze.yaml) 的输入框、按钮、卡片和状态语义。
@@ -99,6 +99,25 @@
 | 成功 | 修正成功后必须保留“已修正”标记和原始来源痕迹 |
 | 锁定/会员 | 基础记录查看、补录、修正、标签都不得作为会员能力锁定 |
 
+## 模块级组件冻结骨架
+
+- `record_result_summary_card`
+  - 用途：承载当前记录结果、时间区间和相对目标偏移。
+  - 状态：`default`、`partial_data`、`corrected`、`empty`。
+  - 冻结约束：结果、来源和偏移必须保持同一阅读组，不得被拆成分离面板。
+- `source_trust_badge_row`
+  - 用途：承载原始来源、修正来源和可信度状态点。
+  - 状态：`default`、`warning`、`error`、`disabled`。
+  - 冻结约束：来源标记只能做轻量解释，不得膨胀成技术型诊断清单。
+- `manual_record_form_sheet`
+  - 用途：承载手动补录与修正表单。
+  - 状态：`default`、`editing`、`saving`、`save_error`。
+  - 冻结约束：字段数量维持最小闭环，禁止让标签或高级字段压过时间输入主任务。
+- `late_reason_chip_group`
+  - 用途：承载晚睡原因标签选择与补充说明。
+  - 状态：`default`、`selected`、`multi_selected`、`custom_input`。
+  - 冻结约束：标签是轻量补充动作，不得升级成长问卷或必填流程。
+
 ## 设计源与模块继承合同
 
 - Pencil 来源：当前冻结先以全局设计源为准；后续如果引入 Pencil 页面，必须验证其是否保留来源可信度层级、补录动作节奏和非后台化视觉基调。
@@ -112,7 +131,7 @@
 
 ## 设计冻结卡
 
-- 当前状态：`needs_user_approval`
+- 当前状态：`frozen_for_architecture`
 - 必须一致项：
   - 原始来源、修正来源、可信度必须分层表达，不能混成一段模糊状态文案。
   - 当前记录结果必须先于补录/修正表单出现，先帮助用户理解现状，再进入编辑。

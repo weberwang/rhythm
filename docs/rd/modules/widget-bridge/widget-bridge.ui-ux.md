@@ -63,6 +63,25 @@
 | 成功 | 添加完成后给出下一步使用方式 |
 | 锁定/会员 | 高级小组件样式可预留为高级权益，但基础入口不可锁 |
 
+## 模块级组件冻结骨架
+
+- `widget_value_preview_card`
+  - 用途：承载基础小组件预览与核心收益说明。
+  - 状态：`default`、`empty_data`、`refresh_failed`、`dark_preview`。
+  - 冻结约束：组件预览只能保留单一主收益，不得堆叠趋势、历史和营销信息。
+- `add_widget_step_group`
+  - 用途：承载平台差异化添加步骤与成功后使用说明。
+  - 状态：`default`、`platform_variant`、`unsupported`。
+  - 冻结约束：步骤数量控制在 `2-3` 个，每步只承载一个动作。
+- `widget_context_badge`
+  - 用途：承载从桌面回流后的来源提示与上下文恢复标记。
+  - 状态：`default`、`home_entry`、`bedtime_entry`、`disabled`。
+  - 冻结约束：只能做轻量来源提示，不得演变成整页欢迎返回状态。
+- `widget_upgrade_preview_card`
+  - 用途：承载高级样式或更深信息密度的次级示例。
+  - 状态：`default`、`locked`、`premium_active`。
+  - 冻结约束：只能作为次焦点示例，基础组件价值必须完整保留。
+
 ## 设计源
 
 - 未来 Pencil 路径：`pen/v3.pen` 中小组件引导与桌面入口相关区域，待后续补充。
@@ -78,7 +97,7 @@
 
 ## 设计冻结卡
 
-- 当前状态：`needs_user_approval`
+- 当前状态：`frozen_for_architecture`
 - 必须一致项：
   - 小组件价值必须围绕“快速查看今晚目标 / 进入关键动作”。
   - 基础组件不可成为纯付费入口。

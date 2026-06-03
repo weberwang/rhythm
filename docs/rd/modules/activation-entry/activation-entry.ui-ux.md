@@ -67,6 +67,25 @@
 | 成功 | 激活完成页只强调“已准备好今晚目标”，不做庆祝式打扰 |
 | 锁定/会员 | 本模块不出现付费锁定 |
 
+## 模块级组件冻结骨架
+
+- `onboarding_value_hero_card`
+  - 用途：承载单句价值承诺与进入下一步的主上下文。
+  - 状态：`default`、`loading`、`error_hint`。
+  - 冻结约束：同屏只能有一个主价值卡，禁止叠加第二张营销卡竞争主焦点。
+- `sign_in_method_stack`
+  - 用途：承载 Apple、Google、匿名继续等继续方式。
+  - 状态：`default`、`loading`、`disabled`、`error`。
+  - 冻结约束：登录与匿名路径必须同层可见，但主登录动作的强调带宽高于匿名次动作。
+- `permission_benefit_card`
+  - 用途：解释健康权限收益、读取范围与拒绝后的降级路径。
+  - 状态：`default`、`permission_denied`、`platform_unavailable`。
+  - 冻结约束：先讲收益再讲范围，不得把权限技术说明放到价值承诺之前。
+- `activation_handoff_note`
+  - 用途：承载激活完成后的轻确认与进入主应用前的最后说明。
+  - 状态：`default`、`success`、`partial_ready`。
+  - 冻结约束：只做轻确认，不得升级为庆祝页或额外分流页。
+
 ## 设计源
 
 - 未来 Pencil 路径：`pen/v3.pen` 中的引导与启动分发页面区域，待后续冻结后补充精确节点路径。
@@ -82,7 +101,7 @@
 
 ## 设计冻结卡
 
-- 当前状态：`needs_user_approval`
+- 当前状态：`frozen_for_architecture`
 - 必须一致项：
   - 每页只能有一个主动作，不允许双 CTA 同权重竞争。
   - 登录与匿名路径必须同层可见，但视觉优先级主次分明。

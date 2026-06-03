@@ -20,12 +20,13 @@ Must verify:
 - metadata block exists in `global-design-guidelines.md`
 - required sections exist in the correct order
 - light and dark theme files contain concrete values
+- the frozen guidance is detailed enough to preserve typography hierarchy, contrast intent, and CTA priority
 
 If any condition fails, return `blocked` and route to `design-preview-to-global-guidelines`.
 
-### `design-preview-to-pen`
+### Optional external design adapters
 
-Must treat these as the upstream source of truth:
+Any optional Pen, Pencil, Figma, or other external design adapter must treat these as the upstream source of truth:
 
 - `layout_and_page_structure_principles`
 - `component_system_principles`
@@ -35,9 +36,9 @@ Must treat these as the upstream source of truth:
 - `light-theme-freeze.yaml`
 - `dark-theme-freeze.yaml`
 
-It may rebuild structure and assets, but it may not redesign global theme roles.
+It may rebuild structure and assets, but it may not redesign global theme roles. These adapters are not default gates for Flutter implementation.
 
-### `flutter-pen-to-architecture`
+### `flutter-uiux-to-architecture`
 
 Must preserve frozen role names and values when mapping into Flutter theme layers. It may explain the mapping, but it may not recalculate the global design system.
 
@@ -48,3 +49,7 @@ Must add the three artifacts to the frozen source priority and route any change 
 ### `flutter-design-parity-reviewer`
 
 Must compare implementation evidence against both the frozen theme files and the relevant guideline sections, not against memory or informal taste.
+
+### `flutter-design-freeze-gate`
+
+When frozen shared artifacts already exist, it must use them to judge whether typography hierarchy, contrast, CTA emphasis, and global component rules are being preserved instead of re-inventing the design direction.

@@ -57,6 +57,25 @@
 | 成功 | 选择动作后给出克制确认，不要求打卡完成感 |
 | 锁定/会员 | 本模块不承载核心付费锁定 |
 
+## 模块级组件冻结骨架
+
+- `bedtime_countdown_hero_card`
+  - 用途：承载距离目标入睡的时间差和当前夜间主语境。
+  - 状态：`default`、`warning_offset`、`outside_window`、`no_goal`。
+  - 冻结约束：必须是首屏唯一 dominant zone，不允许第二张高强调卡并列。
+- `tonight_state_choice_strip`
+  - 用途：承载今晚状态选择和轻量情境切换。
+  - 状态：`default`、`selected`、`disabled`。
+  - 冻结约束：选项数量上限 `3`，避免演变成复杂标签面板。
+- `bedtime_action_card`
+  - 用途：承载当前唯一收尾动作与轻解释说明。
+  - 状态：`default`、`completed`、`unavailable`。
+  - 冻结约束：动作建议必须轻、短、可立即执行，不扩张成任务清单。
+- `bedtime_exit_confirm_sheet`
+  - 用途：承载中断睡前路径时的确认与保留草稿说明。
+  - 状态：`default`、`confirm_required`。
+  - 冻结约束：只在离开关键动作时出现，不打断正常夜间浏览节奏。
+
 ## 设计源
 
 - 未来 Pencil 路径：`pen/v3.pen` 中睡前模式页面区域，待后续补充。
@@ -66,7 +85,7 @@
 
 ## 设计冻结卡
 
-- 当前状态：`approved_preview_baseline`
+- 当前状态：`frozen_for_architecture`
 - 必须一致项：
   - 大倒计时始终是首屏唯一主焦点。
   - 状态选择卡与动作建议卡必须保持轻、克制、不带监督压迫感。

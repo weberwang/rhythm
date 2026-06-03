@@ -47,3 +47,23 @@
 - 不允许把首轮激活页变成会员承接页。
 - 不允许在本模块内固化长期作息或同步策略。
 - 实现阶段在设计冻结后不得擅自改变入口层级与激活顺序。
+
+## 9. 页面级状态与路由合同
+
+- 路由入口：
+  - `/launch` 负责启动分发与回流判断。
+  - `activation-entry` 页面族只承载欢迎、登录、权限与完成交接，不承载主应用长期导航。
+- 页面状态所有权：
+  - 欢迎页拥有价值承诺展示态与继续动作。
+  - 登录页拥有登录方式选择、失败恢复和匿名继续提示态。
+  - 权限页拥有授权解释、拒绝降级和继续进入主链路的状态。
+  - 完成交接页拥有首轮草稿摘要与进入首页前的轻确认。
+- 返回行为：
+  - 启动分发阶段禁止回到空白页；只能回到上一步激活节点或退出应用流程。
+  - 激活完成后进入首页时必须携带匿名/登录身份、权限结果和首轮草稿摘要。
+
+## 10. 设计源消费与实现边界
+
+- 实现必须直接消费 [activation-entry.ui-ux.md](D:/Projects/Flutter/rhythm/docs/rd/modules/activation-entry/activation-entry.ui-ux.md) 中定义的 `onboarding_value_hero_card`、`sign_in_method_stack`、`permission_benefit_card`、`activation_handoff_note` 组件边界，不得在页面实现阶段重新发明第二套首启骨架。
+- 首启显示层必须继承 [global-design-guidelines.md](D:/Projects/Flutter/rhythm/docs/rd/global-design-guidelines.md)、[light-theme-freeze.yaml](D:/Projects/Flutter/rhythm/docs/rd/light-theme-freeze.yaml)、[dark-theme-freeze.yaml](D:/Projects/Flutter/rhythm/docs/rd/dark-theme-freeze.yaml) 的单主焦点、按钮主次、权限语气和卡片边界规则。
+- `google_sign_in`、`sign_in_with_apple`、健康权限桥接与匿名绑定只允许在 `data` 与网关边界落地；显示层只消费可解释的业务状态，不直接持有三方 SDK 类型或权限返回对象。

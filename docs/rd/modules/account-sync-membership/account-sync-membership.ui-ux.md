@@ -3,7 +3,7 @@
 ## 模块冻结定位
 
 - 模块定位：`Account Sync Membership` 是 Rhythm 的个人控制中心，负责承接账号、同步、恢复购买、会员价值与隐私数据管理。
-- 冻结状态：`needs_user_approval`
+- 冻结状态：`frozen_for_architecture`
 - 设计源继承：
   - 强制继承 [docs/rd/global-design-guidelines.md](D:/Projects/Flutter/rhythm/docs/rd/global-design-guidelines.md) 的 `design_position`、`global_experience_principles`、`content_and_copy_principles`、`visual_system_rules`、`design_prohibitions`。
   - 强制继承 [docs/rd/light-theme-freeze.yaml](D:/Projects/Flutter/rhythm/docs/rd/light-theme-freeze.yaml) 与 [docs/rd/dark-theme-freeze.yaml](D:/Projects/Flutter/rhythm/docs/rd/dark-theme-freeze.yaml) 的卡片、按钮、状态色和边框规则。
@@ -99,6 +99,25 @@
 | 成功 | 登录、恢复购买、同步完成后给轻量确认，不弹庆祝式成功页 |
 | 锁定/会员 | 会员权益说明强调长期改善价值，而不是功能清单堆砌 |
 
+## 模块级组件冻结骨架
+
+- `account_status_summary_card`
+  - 用途：承载当前身份、登录入口和匿名本地状态说明。
+  - 状态：`default`、`anonymous`、`signed_in`、`error`。
+  - 冻结约束：账号身份和下一步主动作必须在同一卡内闭环，不能拆成分散列表项。
+- `sync_status_detail_card`
+  - 用途：承载本地/云端同步状态、失败解释和恢复动作。
+  - 状态：`default`、`syncing`、`failed`、`degraded_local_only`。
+  - 冻结约束：必须同时说明“现在怎样”和“接下来怎么恢复”，不能只报错不指路。
+- `membership_value_card`
+  - 用途：承载会员状态、升级价值摘要和恢复购买入口。
+  - 状态：`default`、`active`、`lapsed`、`upsell`。
+  - 冻结约束：只能作为次焦点层，不得压过账号与同步主信息。
+- `privacy_action_group`
+  - 用途：承载导出、删除、退出登录、隐私说明等高风险管理动作。
+  - 状态：`default`、`confirm_required`、`processing`、`disabled`。
+  - 冻结约束：破坏性操作必须显式分组并进入确认层，不能伪装成普通列表行。
+
 ## 设计源与模块继承合同
 
 - Pencil 来源：当前冻结以全局设计源为唯一基准；若后续 Pencil 设计稿出现更强营销导向或更重设置页样式，应视为偏离冻结，需要重新评审。
@@ -112,7 +131,7 @@
 
 ## 设计冻结卡
 
-- 当前状态：`needs_user_approval`
+- 当前状态：`frozen_for_architecture`
 - 必须一致项：
   - 账号/同步信任入口始终优先于会员营销入口。
   - 匿名用户不可被羞辱式驱赶登录，必须保留“本地仍可使用”的稳定叙事。

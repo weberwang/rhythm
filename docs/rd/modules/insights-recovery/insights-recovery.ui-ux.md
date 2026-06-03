@@ -57,6 +57,25 @@
 | 成功 | 明显晚睡时优先展示恢复建议而非惩罚反馈 |
 | 锁定/会员 | 恢复计划详情、稳定度解释、历史报告可作为高级边界 |
 
+## 模块级组件冻结骨架
+
+- `weekly_insight_hero_card`
+  - 用途：承载本周达标率、稳定度摘要和单句核心结论。
+  - 状态：`default`、`low_data`、`warning`、`loading`。
+  - 冻结约束：必须先给可理解结果，再展示更深入口，不得让商业触点先占首焦点。
+- `stability_explainer_panel`
+  - 用途：承载稳定度解释、趋势摘要和轻量下一步。
+  - 状态：`default`、`partial_data`、`locked_detail`。
+  - 冻结约束：每块解释旁必须有一句行动型说明，不能只剩抽象数字。
+- `cause_distribution_card`
+  - 用途：承载主要原因分布与相应解释。
+  - 状态：`default`、`empty`、`partial_data`。
+  - 冻结约束：图表只是辅助解释，不得做成复杂数据仪表盘。
+- `recovery_plan_card`
+  - 用途：承载恢复建议摘要、详情入口和高级承接。
+  - 状态：`default`、`high_priority`、`locked`。
+  - 冻结约束：恢复建议优先于付费卡呈现，付费只做次级收尾承接。
+
 ## 设计源
 
 - 未来 Pencil 路径：`pen/v3.pen` 中洞察、周报和恢复详情区域，待后续补充。
@@ -66,7 +85,7 @@
 
 ## 设计冻结卡
 
-- 当前状态：`approved_preview_baseline`
+- 当前状态：`frozen_for_architecture`
 - 必须一致项：
   - 洞察页必须先给“已可理解的结果”，再给升级入口。
   - 高级洞察入口只能作为次级暖色强调块，不可压过主摘要。

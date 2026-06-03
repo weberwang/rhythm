@@ -18,7 +18,7 @@ Use this reference when the input is a screenshot, preview comp, effect mockup, 
 - A single decorative hero shot with no usable UI structure
 - Low-fidelity sketch content when the user expects frozen theme values
 
-Route those cases to `mobile-ui-design-coach` or `design-preview-to-pen` before using this skill. If the target is global design freezing, return `blocked` directly, ask the user whether to fall back, and do not produce freeze artifacts.
+Route those cases to `flutter-taste-router` before using this skill. If the target is global design freezing, return `blocked` directly, ask the user whether to fall back, and do not produce freeze artifacts.
 
 ## Minimum Evidence Checklist
 
@@ -26,6 +26,8 @@ Before freezing, confirm as much of this as the input allows:
 
 - Primary screen or page family is visible
 - Main call to action is visible
+- Typography hierarchy is readable enough to judge first, second, and third reading levels
+- Primary CTA and nearby secondary actions can be distinguished
 - Surface hierarchy can be distinguished
 - Typography or information density is readable
 - Repeated components exist, or the absence of reuse is itself obvious
@@ -47,6 +49,7 @@ Before freezing, confirm as much of this as the input allows:
 Infer when the screen strongly implies a stable rule, such as:
 
 - text contrast hierarchy
+- CTA contrast and primary-action prominence
 - primary versus secondary action treatment
 - spacing rhythm
 - radius family

@@ -57,6 +57,25 @@
 | 成功 | 单日详情能解释结论，不只展示数字 |
 | 锁定/会员 | 30 天以前历史或高级筛选可作为付费边界 |
 
+## 模块级组件冻结骨架
+
+- `monthly_heatmap_panel`
+  - 用途：承载月度热力图与颜色图例。
+  - 状态：`default`、`loading`、`empty`、`locked_history_tail`。
+  - 冻结约束：热力单元必须围绕相对目标偏移表达，不得退化成厚重统计色块。
+- `history_filter_chip_bar`
+  - 用途：承载筛选维度切换与当前视角说明。
+  - 状态：`default`、`selected`、`disabled`。
+  - 冻结约束：筛选只是解释方式，不得压过月历主焦点。
+- `day_detail_summary_card`
+  - 用途：承载单日偏移、来源、原因和回看说明。
+  - 状态：`default`、`partial_data`、`missing_record`、`locked`。
+  - 冻结约束：详情卡是月历的次级解释层，不能升级成第二个首页式主英雄卡。
+- `history_lock_note_card`
+  - 用途：承载免费/高级历史边界与升级说明。
+  - 状态：`default`、`locked`、`upsell`。
+  - 冻结约束：锁定说明必须明显晚于免费可用内容出现，不覆盖主月历可读性。
+
 ## 设计源
 
 - 未来 Pencil 路径：`pen/v3.pen` 中日历与单日详情区域，待后续补充。
@@ -66,7 +85,7 @@
 
 ## 设计冻结卡
 
-- 当前状态：`approved_preview_baseline`
+- 当前状态：`frozen_for_architecture`
 - 必须一致项：
   - 热力圆点颜色必须相对目标时间偏移，而不是绝对睡觉时钟。
   - 日历本体是主焦点，月摘要和单日详情必须退居二级。

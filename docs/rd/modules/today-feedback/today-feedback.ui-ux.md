@@ -3,7 +3,7 @@
 ## 模块冻结定位
 
 - 模块定位：`Today Feedback` 是 Rhythm 的日回访首页主入口，用最短阅读路径告诉用户“昨晚结果如何、今晚目标是什么、现在下一步做什么”。
-- 冻结状态：`needs_user_approval`
+- 冻结状态：`frozen_for_architecture`
 - 设计源继承：
   - 强制继承 [docs/rd/global-design-guidelines.md](D:/Projects/Flutter/rhythm/docs/rd/global-design-guidelines.md) 的 `design_position`、`global_experience_principles`、`information_hierarchy_principles`、`layout_and_page_structure_principles`、`state_and_feedback_principles`、`design_prohibitions`。
   - 强制继承 [docs/rd/light-theme-freeze.yaml](D:/Projects/Flutter/rhythm/docs/rd/light-theme-freeze.yaml) 与 [docs/rd/dark-theme-freeze.yaml](D:/Projects/Flutter/rhythm/docs/rd/dark-theme-freeze.yaml) 的全部语义色角色，不允许模块局部另起主题。
@@ -99,6 +99,25 @@
 | 成功 | 达标反馈克制，不做庆祝式游戏化奖励 |
 | 锁定/会员 | 会员触点必须出现在已读懂主结果之后，不能抢占主卡位置 |
 
+## 模块级组件冻结骨架
+
+- `last_night_result_card`
+  - 用途：承载昨晚结果、相对目标偏移和主解释文案。
+  - 状态：`default`、`late_offset`、`on_target`、`partial_data`。
+  - 冻结约束：首屏只能有这一张主结果卡承担 dominant zone，不得与趋势卡并列争主。
+- `tonight_plan_card`
+  - 用途：承载今晚目标和当前唯一主动作。
+  - 状态：`default`、`action_ready`、`action_unavailable`、`needs_setup`。
+  - 冻结约束：必须紧跟主结果卡出现，不得被趋势、营销或设置入口隔开。
+- `recovery_summary_card`
+  - 用途：承载恢复建议摘要和当日重点解释。
+  - 状态：`default`、`high_recovery_need`、`light_hint`、`locked_detail`。
+  - 冻结约束：只在高恢复需要时前置，正常日不能制造额外压力。
+- `quick_action_strip`
+  - 用途：承载补录、查看详情、进入睡前模式等快捷动作。
+  - 状态：`default`、`partial_available`、`disabled`。
+  - 冻结约束：总数上限 `3`，不得扩张成多入口宫格。
+
 ## 设计源与模块继承合同
 
 - Pencil 来源：当前模块 UI/UX 冻结先以前述全局冻结文件为唯一设计源；如后续接入 Pencil，必须以 Pencil 与全局冻结一致的页面结构为准，不得反向稀释冻结约束。
@@ -112,7 +131,7 @@
 
 ## 设计冻结卡
 
-- 当前状态：`needs_user_approval`
+- 当前状态：`frozen_for_architecture`
 - 必须一致项：
   - 首屏只能有一个主结果焦点，不得把趋势、会员、营销入口提升为并列主角。
   - 昨晚结果必须和“相对目标偏移”绑定出现，不能只给一个孤立分数或标签。

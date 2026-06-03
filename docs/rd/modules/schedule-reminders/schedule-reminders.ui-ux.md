@@ -1,5 +1,14 @@
 # Schedule Reminders UI/UX RD
 
+## 模块冻结定位
+
+- 模块定位：`Schedule Reminders` 是 Rhythm 的全局时间语义源，负责冻结目标作息、晚睡阈值、提醒策略和时区适配的唯一显示层表达。
+- 冻结状态：`frozen_for_architecture`
+- 设计源继承：
+  - 强制继承 [docs/rd/global-design-guidelines.md](D:/Projects/Flutter/rhythm/docs/rd/global-design-guidelines.md) 的 `global_experience_principles`、`information_hierarchy_principles`、`component_system_principles`、`state_and_feedback_principles`、`engineering_guardrails`。
+  - 强制继承 [docs/rd/light-theme-freeze.yaml](D:/Projects/Flutter/rhythm/docs/rd/light-theme-freeze.yaml) 与 [docs/rd/dark-theme-freeze.yaml](D:/Projects/Flutter/rhythm/docs/rd/dark-theme-freeze.yaml) 的按钮、表单、卡片、状态色与对比度语义。
+  - 本模块不得退化成系统设置中心或效率参数面板；它必须保持 `warm calm`、单主焦点、细边框卡片和低刺激节奏。
+
 ## 模块目标与目标用户
 
 - 模块目标：让用户建立目标作息基准，并配置柔性但有效的提醒策略。
@@ -50,6 +59,21 @@
 3. 用户选择柔性提醒策略。
 4. 系统保存并更新后续判断与通知调度。
 
+## 页面级结构与交互节奏
+
+- 目标设置页：
+  - 首屏只呈现 `bedtime goal + wake goal` 主卡组。
+  - 次级区域承载预计睡眠时长与推荐说明，不允许和主时间卡抢主次。
+  - 主 CTA 固定为保存或继续，次动作只保留轻量跳过。
+- 提醒策略页：
+  - 先展示当前推荐策略，再展示 2-3 个替代策略。
+  - 权限说明只能在策略选择之后出现，作为解释和补充，而不是首屏主任务。
+  - 高级策略预留只能作为次级说明卡，不允许插入营销型付费墙。
+- 时区模式页：
+  - 先回答“当前跟随哪套时区”，再回答“切换后会发生什么”。
+  - 设备时区、家乡时区、自定义时区必须保持同一选择器语义，不允许混用卡片和弹层造成层级混乱。
+  - 保存动作必须与当前模式说明保持同屏可见，避免用户失去上下文。
+
 ## 状态矩阵
 
 | 状态 | 表现要求 |
@@ -64,12 +88,38 @@
 | 成功 | 保存后给出轻量确认，不弹侵入式成功页 |
 | 锁定/会员 | 双目标、轮班、时差高级模式可作为高级能力预留 |
 
+## 模块级组件冻结骨架
+
+- `goal_time_pair_card`
+  - 用途：承载目标入睡时间、目标起床时间和预计睡眠时长。
+  - 状态：`default`、`editing`、`saved`、`disabled`。
+  - 冻结约束：必须保持双时间同组表达；预计睡眠时长只能作为支撑信息，不能升级成并列主焦点。
+- `reminder_strategy_option_card`
+  - 用途：承载自适应提醒、固定时刻提醒、事件锚定提醒等策略选项。
+  - 状态：`default`、`selected`、`disabled`、`locked`。
+  - 冻结约束：每个选项只允许一个主语义标题和一行解释，不允许膨胀成多段技术说明。
+- `timezone_explainer_card`
+  - 用途：解释当前时区模式、切换影响和降级说明。
+  - 状态：`default`、`warning`、`permission_note`、`disabled`。
+  - 冻结约束：先解释影响，再给调整动作；不得用高饱和警示条替代结构化说明卡。
+- `schedule_support_note`
+  - 用途：承载推荐值说明、权限收益说明、保存成功轻确认。
+  - 状态：`default`、`success`、`error`。
+  - 冻结约束：必须是轻说明层，不得挤占主时间卡和主保存动作的视觉权重。
+
 ## 设计源
 
-- 未来 Pencil 路径：`pen/v3.pen` 中目标作息与提醒配置页区域，待后续补充。
+- 共享 taste 方向：[02-shared-taste-direction.md](D:/Projects/Flutter/rhythm/docs/rd/02-shared-taste-direction.md)
 - 全局设计准则：`docs/rd/global-design-guidelines.md`
 - `light-theme-freeze.yaml`：`docs/rd/light-theme-freeze.yaml`
 - `dark-theme-freeze.yaml`：`docs/rd/dark-theme-freeze.yaml`
+- 模块视觉证据：
+  - [schedule-reminders-overview.png](D:/Projects/Flutter/rhythm/output/imagegen/schedule-reminders-overview.png)
+  - [schedule-reminders-goal-detail.png](D:/Projects/Flutter/rhythm/output/imagegen/schedule-reminders-goal-detail.png)
+  - [schedule-reminders-reminder-dark.png](D:/Projects/Flutter/rhythm/output/imagegen/schedule-reminders-reminder-dark.png)
+- 当前模块冻结输入：
+  - 以上 3 张静态预览图作为本模块 `module_impl_prep` 冻结评审的唯一视觉证据。
+  - 运行时允许省略静态静物背景，但不得改变主卡层级、按钮主次、深浅主题对比与单列节奏。
 
 ## 全局冻结继承声明
 
@@ -79,7 +129,7 @@
 
 ## 设计冻结卡
 
-- 当前状态：`needs_user_approval`
+- 当前状态：`frozen_for_architecture`
 - 必须一致项：
   - 时间设置必须比传统设置页更轻，视觉焦点明确落在目标本身。
   - 提醒文案强调帮助回到节奏，不使用强监督语言。
@@ -125,7 +175,7 @@
 - 可承接的商业化触点仅限高级作息模式、高级提醒策略或跨时区深度适配等高意图能力。
 - 商业化入口必须出现在主配置完成之后，且以“更深入优化节奏”为叙事，不得以“不开会员就无法设置提醒”施压。
 
-## UI/UX 与 Pencil 交接验收
+## UI/UX 与实现交接验收
 
 - 时间选择不能像复杂设置中心，必须围绕“建立今晚目标”表达。
 - 提醒策略页不使用强监督或羞辱式文案。

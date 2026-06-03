@@ -45,3 +45,22 @@
 - 不允许为了商业化破坏匿名本地可用性前提。
 - 不允许把同步错误包装成“数据已丢失”。
 - 实现阶段在设计冻结后不得擅自改变付费墙触发语义与隐私入口层级。
+
+## 9. 页面级状态与路由合同
+
+- 路由入口：
+  - 主导航“我的”进入账号与同步摘要页。
+  - 今日页、洞察页和激活链路可深链到登录、付费墙或恢复购买入口。
+- 页面状态所有权：
+  - 我的页拥有账号/同步摘要与高优先恢复动作。
+  - 会员页与付费墙拥有权益摘要、套餐选择与恢复购买状态。
+  - 隐私页拥有导出、删除、退出登录等高风险操作确认状态。
+- 返回行为：
+  - 登录、恢复购买或同步修复完成后必须返回触发入口，并刷新账号/同步摘要。
+  - 删除数据、退出登录等破坏性操作完成后必须给出显式结果确认并回到安全入口页。
+
+## 10. 设计源消费与实现边界
+
+- 实现必须直接消费 [account-sync-membership.ui-ux.md](D:/Projects/Flutter/rhythm/docs/rd/modules/account-sync-membership/account-sync-membership.ui-ux.md) 中定义的 `account_status_summary_card`、`sync_status_detail_card`、`membership_value_card`、`privacy_action_group` 组件边界。
+- 账号与同步主信息必须优先映射全局冻结的 dominant/secondary/support 层级，会员价值卡只能作为次焦点承接，不能在实现中升格为首屏主英雄。
+- `supabase_flutter`、`purchases_flutter`、`flutter_secure_storage` 的真实接入集中在仓储、网关与 bootstrap 层；显示层只读取账户摘要、同步摘要和权益快照，不直接处理 SDK 错误码。
