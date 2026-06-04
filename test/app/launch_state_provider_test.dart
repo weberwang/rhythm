@@ -23,6 +23,20 @@ class _FakeGoalScheduleRepository implements GoalScheduleRepository {
   }
 }
 
+/// 用抛错仓储模拟启动恢复失败，验证启动链会降级到本地引导而不是停在错误页。
+class _ThrowingGoalScheduleRepository implements GoalScheduleRepository {
+  /// 创建用于测试的异常仓储。
+  const _ThrowingGoalScheduleRepository();
+
+  @override
+  Future<GoalSchedule?> readActiveSchedule() {
+    throw StateError('database unavailable');
+  }
+
+  @override
+  Future<void> saveActiveSchedule(GoalSchedule schedule) async {}
+}
+
 /// 覆盖启动期 provider，保证根分发在进入实现后仍遵守 Stage 1 guard 规则。
 void main() {
   test('launchState enters onboarding when schedule is missing', () async {
@@ -66,6 +80,26 @@ void main() {
       final snapshot = await container.read(launchStateProvider.future);
 
       expect(snapshot.destination, LaunchDestination.shell);
+    },
+  );
+
+  test(
+    'launchState falls back to onboarding when schedule restore fails',
+    () async {
+      SharedPreferences.setMockInitialValues({'onboarding_completed': true});
+      final container = ProviderContainer(
+        overrides: [
+          goalScheduleRepositoryProvider.overrideWithValue(
+            const _ThrowingGoalScheduleRepository(),
+          ),
+        ],
+      );
+
+      addTearDown(container.dispose);
+
+      final snapshot = await container.read(launchStateProvider.future);
+
+      expect(snapshot.destination, LaunchDestination.onboarding);
     },
   );
 }

@@ -1,5 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../core/logging/app_logger.dart';
 import '../../core/storage/shared_preferences_provider.dart';
 import '../../features/app_shell/application/providers/current_entry_intent_provider.dart';
 import '../../features/sleep_data_core/application/providers/goal_schedule_repository_provider.dart';
@@ -9,23 +10,35 @@ import 'launch_state.dart';
 part 'launch_state_provider.g.dart';
 
 const _onboardingCompletedKey = 'onboarding_completed';
+final _logger = AppLogger();
 
 /// 读取启动期最小上下文，并输出根级跳转决策。
 @riverpod
 Future<LaunchSnapshot> launchState(Ref ref) async {
-  final preferences = await ref.watch(sharedPreferencesProvider.future);
-  final repository = ref.watch(goalScheduleRepositoryProvider);
-  final activeSchedule = await repository.readActiveSchedule();
   final entryIntent = ref.watch(currentEntryIntentProvider);
-  final onboardingCompleted =
-      preferences.getBool(_onboardingCompletedKey) ?? false;
 
-  return LaunchSnapshot(
-    destination: onboardingCompleted && activeSchedule != null
-        ? LaunchDestination.shell
-        : LaunchDestination.onboarding,
-    entryIntent: entryIntent,
-  );
+  try {
+    final preferences = await ref.watch(sharedPreferencesProvider.future);
+    final repository = ref.watch(goalScheduleRepositoryProvider);
+    final activeSchedule = await repository.readActiveSchedule();
+    final onboardingCompleted =
+        preferences.getBool(_onboardingCompletedKey) ?? false;
+
+    return LaunchSnapshot(
+      destination: onboardingCompleted && activeSchedule != null
+          ? LaunchDestination.shell
+          : LaunchDestination.onboarding,
+      entryIntent: entryIntent,
+    );
+  } catch (error, stackTrace) {
+    // 启动恢复失败时先降级到本地引导，避免用户被卡死在“启动基线需要修复”错误页。
+    _logger.error('Launch restore failed, fallback to onboarding.', error, stackTrace);
+
+    return LaunchSnapshot(
+      destination: LaunchDestination.onboarding,
+      entryIntent: entryIntent,
+    );
+  }
 }
 
 /// 标记引导已经完成，让后续启动直接进入主壳。

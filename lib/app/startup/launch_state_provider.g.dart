@@ -50,7 +50,7 @@ final class LaunchStateProvider
   }
 }
 
-String _$launchStateHash() => r'8ec6d01d8379959c64caa0dda3339d0c5266e7bf';
+String _$launchStateHash() => r'fb647810622ca12d57f09569dc26a7b7f6985c2b';
 
 /// 标记引导已经完成，让后续启动直接进入主壳。
 
@@ -89,4 +89,4 @@ final class CompleteOnboardingProvider
 }
 
 String _$completeOnboardingHash() =>
-    r'1f4d0a4cf536db591c3b05031255cd253758e635';
+    r'ed237da08cf0e2d07603021a511fed167c99a262';

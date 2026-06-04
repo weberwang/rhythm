@@ -36,6 +36,161 @@ class AppLocalizationsZh extends AppLocalizations {
   String get onboardingContinue => '进入主壳';
 
   @override
+  String onboardingStepCounter(int current, int total) {
+    return '第 $current 步 / $total';
+  }
+
+  @override
+  String get onboardingWelcomeTitle => '欢迎使用 Rhythm';
+
+  @override
+  String get onboardingWelcomeBody => '从今晚开始，用更温和的方式建立稳定作息，先完成一轮简短的引导设置。';
+
+  @override
+  String get onboardingEntryTitle => '选择进入方式';
+
+  @override
+  String get onboardingEntryBody => '先完成本地激活，后续再决定是否连接账号与同步能力。';
+
+  @override
+  String get onboardingPermissionTitle => '先理解价值，再决定是否授权';
+
+  @override
+  String get onboardingPermissionBody => '这一页先说明健康权限会带来什么，不会立即请求真实系统权限。';
+
+  @override
+  String get onboardingGoalTitle => '设置目标作息';
+
+  @override
+  String get onboardingGoalBody => '先给今晚一个清晰目标。后续提醒、睡前模式和今日页都会基于这组时间继续工作。';
+
+  @override
+  String get onboardingReminderTitle => '提醒怎么开始更合适';
+
+  @override
+  String get onboardingReminderBody => '先选一个今晚就愿意接受的提醒姿态，后续仍可在设置中精调。';
+
+  @override
+  String get onboardingCompletionTitle => '今晚已经可以开始';
+
+  @override
+  String get onboardingCompletionBody =>
+      'Rhythm 已经拿到开始第一晚所需的最小信息，接下来会把你自然带入主壳。';
+
+  @override
+  String get onboardingStartSetup => '开始设置';
+
+  @override
+  String get onboardingContinueSetup => '继续设置';
+
+  @override
+  String get onboardingFinishSetup => '完成并进入今日页';
+
+  @override
+  String get onboardingBack => '返回';
+
+  @override
+  String get onboardingBenefitReminderTitle => '轻提醒，不打断';
+
+  @override
+  String get onboardingBenefitReminderBody => '先建立节奏，再决定是否打开更完整的提醒策略。';
+
+  @override
+  String get onboardingBenefitRoutineTitle => '更容易坚持的睡前节奏';
+
+  @override
+  String get onboardingBenefitRoutineBody => '把复杂设置拆成可执行的小步骤，先让今晚可用。';
+
+  @override
+  String get onboardingBenefitTrackingTitle => '先用起来，再慢慢完善';
+
+  @override
+  String get onboardingBenefitTrackingBody => '先完成基础作息目标，后续再接健康数据、同步和洞察。';
+
+  @override
+  String get onboardingEntryLocalTitle => '先本地开始';
+
+  @override
+  String get onboardingEntryLocalBody => '直接进入本地优先体验，今晚就可以设置目标作息和提醒策略。';
+
+  @override
+  String get onboardingEntrySyncLaterTitle => '稍后再接同步';
+
+  @override
+  String get onboardingEntrySyncLaterBody =>
+      '先完成基础设置，等你准备好时再接 Apple / Google 登录和云同步。';
+
+  @override
+  String get onboardingHealthValueTitle => '先理解价值，再决定是否授权';
+
+  @override
+  String get onboardingHealthValueBody =>
+      '当前步骤只说明健康数据能带来什么，不会立刻请求系统权限；即使之后拒绝，也仍然可以继续使用手动路径。';
+
+  @override
+  String get onboardingPermissionBenefitTitle => '健康数据能补全什么';
+
+  @override
+  String get onboardingPermissionBenefitBody =>
+      '当你之后愿意连接时，它可以帮助补全睡眠记录、可信度标记和后续洞察。';
+
+  @override
+  String get onboardingPermissionPrivacyTitle => '当前不会默认读取什么';
+
+  @override
+  String get onboardingPermissionPrivacyBody =>
+      '本轮激活不会请求真实权限，也不会因为未授权而阻断本地优先使用。';
+
+  @override
+  String get onboardingPermissionFallbackTitle => '即使不授权也能继续';
+
+  @override
+  String get onboardingPermissionFallbackBody =>
+      '后续如果你仍选择跳过健康权限，Rhythm 也会继续围绕手动作息目标与晚间行动工作。';
+
+  @override
+  String get onboardingBedtimeLabel => '目标入睡时间';
+
+  @override
+  String get onboardingWakeTimeLabel => '目标起床时间';
+
+  @override
+  String get onboardingGoalHint => '不需要一次就设得很完美。先给自己一个愿意尝试的节奏，后续仍可以在设置页调整。';
+
+  @override
+  String get onboardingReminderGentleTitle => '先用轻提醒';
+
+  @override
+  String get onboardingReminderGentleBody => '给自己一个更柔和的睡前提示，优先降低打扰感和心理压力。';
+
+  @override
+  String get onboardingReminderNoneTitle => '先不主动提醒';
+
+  @override
+  String get onboardingReminderNoneBody => '先完成激活并观察你的自然节奏，之后再到设置页补提醒时机。';
+
+  @override
+  String get onboardingCompletionSummaryTitle => '你的首晚准备已就绪';
+
+  @override
+  String get onboardingCompletionSummaryBody =>
+      '本轮激活会把这组起始节奏带进应用，你之后仍可以继续细化同步、提醒和权限设置。';
+
+  @override
+  String get onboardingCompletionScheduleLabel => '目标作息';
+
+  @override
+  String onboardingCompletionScheduleValue(Object bedtime, Object wakeTime) {
+    return '$bedtime 到 $wakeTime';
+  }
+
+  @override
+  String get onboardingCompletionEntryLabel => '进入方式';
+
+  @override
+  String get onboardingCompletionReminderLabel => '提醒策略';
+
+  @override
   String get tabToday => '今日';
 
   @override
@@ -82,4 +237,20 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get profileBody => '账户、会员、同步、提醒与隐私设置会在初始化完成后继续实现。';
+
+  @override
+  String get globalFeedbackDismiss => '稍后处理';
+
+  @override
+  String get globalFeedbackSyncFailedTitle => '同步已切回本地暂存';
+
+  @override
+  String get globalFeedbackSyncFailedBody => '你最近的更新仍安全保存在当前设备中，可以稍后再检查同步设置。';
+
+  @override
+  String get globalFeedbackTimezoneShiftTitle => '需要确认当前时区';
+
+  @override
+  String get globalFeedbackTimezoneShiftBody =>
+      'Rhythm 会先暂停按普通规则解释睡眠结果，直到你确认当前时区上下文。';
 }

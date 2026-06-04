@@ -9,6 +9,70 @@
   "onboardingTitle": "Onboarding activation",
   "onboardingBody": "Initialization keeps the onboarding route ready, but the full activation flow will be implemented in the next stage.",
   "onboardingContinue": "Enter app shell",
+  "onboardingStepCounter": "Step {current} / {total}",
+  "@onboardingStepCounter": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "onboardingWelcomeTitle": "Welcome to Rhythm",
+  "onboardingWelcomeBody": "Starting tonight, we will help you rebuild a steadier sleep rhythm through a short guided setup.",
+  "onboardingEntryTitle": "Choose how to begin",
+  "onboardingEntryBody": "Finish the local-first setup first, then decide when to connect sign-in and health permissions.",
+  "onboardingPermissionTitle": "Understand the value first",
+  "onboardingPermissionBody": "We will explain what health access can unlock before asking for any real system permission.",
+  "onboardingGoalTitle": "Set your target schedule",
+  "onboardingGoalBody": "Pick the bedtime and wake-up target you want Rhythm to guide you toward first.",
+  "onboardingReminderTitle": "Choose your reminder posture",
+  "onboardingReminderBody": "Start with the gentlest reminder strategy that still feels realistic for tonight.",
+  "onboardingCompletionTitle": "You are ready for tonight",
+  "onboardingCompletionBody": "Rhythm has enough context to start the first night without forcing extra setup right now.",
+  "onboardingStartSetup": "Start setup",
+  "onboardingContinueSetup": "Continue",
+  "onboardingFinishSetup": "Finish setup",
+  "onboardingBack": "Back",
+  "onboardingBenefitReminderTitle": "Gentle bedtime reminders",
+  "onboardingBenefitReminderBody": "Build a calmer transition into night without turning reminders into pressure.",
+  "onboardingBenefitRoutineTitle": "Wind-down routines that stick",
+  "onboardingBenefitRoutineBody": "Keep the setup lightweight so your routine feels repeatable, not overwhelming.",
+  "onboardingBenefitTrackingTitle": "Track sleep without the stress",
+  "onboardingBenefitTrackingBody": "Start with clear goals first, then connect richer data when you are ready.",
+  "onboardingEntryLocalTitle": "Start in local-first mode",
+  "onboardingEntryLocalBody": "Use Rhythm right away on this device and keep the activation flow simple tonight.",
+  "onboardingEntrySyncLaterTitle": "Set up now, sync later",
+  "onboardingEntrySyncLaterBody": "Finish the same setup first, then come back for Apple / Google sign-in when needed.",
+  "onboardingHealthValueTitle": "Health access stays optional for now",
+  "onboardingHealthValueBody": "This step explains what health data can unlock, but it will not request real system permission yet.",
+  "onboardingPermissionBenefitTitle": "What health access can unlock",
+  "onboardingPermissionBenefitBody": "It can improve sleep history, confidence labels, and future insights when you decide to connect it.",
+  "onboardingPermissionPrivacyTitle": "What Rhythm does not read by default",
+  "onboardingPermissionPrivacyBody": "This activation pass does not request real permission yet, and it does not block local-first setup.",
+  "onboardingPermissionFallbackTitle": "You can still start manually",
+  "onboardingPermissionFallbackBody": "If you skip health access later, Rhythm will keep working with your manual bedtime goal and follow-up actions.",
+  "onboardingBedtimeLabel": "Target bedtime",
+  "onboardingWakeTimeLabel": "Target wake-up time",
+  "onboardingGoalHint": "You can refine this later in settings. The goal here is to leave onboarding with one realistic starting rhythm.",
+  "onboardingReminderGentleTitle": "Gentle bedtime nudge",
+  "onboardingReminderGentleBody": "Start with a softer reminder posture that encourages action without adding pressure.",
+  "onboardingReminderNoneTitle": "No active reminder yet",
+  "onboardingReminderNoneBody": "Finish activation first and decide on reminder timing later in settings.",
+  "onboardingCompletionSummaryTitle": "Your first-night setup is ready",
+  "onboardingCompletionSummaryBody": "We will carry this starting rhythm into the app shell, and you can refine the rest after onboarding.",
+  "onboardingCompletionScheduleLabel": "Target schedule",
+  "onboardingCompletionScheduleValue": "{bedtime} to {wakeTime}",
+  "@onboardingCompletionScheduleValue": {
+    "placeholders": {
+      "bedtime": {},
+      "wakeTime": {}
+    }
+  },
+  "onboardingCompletionEntryLabel": "Entry mode",
+  "onboardingCompletionReminderLabel": "Reminder strategy",
   "tabToday": "Today",
   "tabBedtime": "Bedtime",
   "tabCalendar": "Calendar",
@@ -24,5 +88,10 @@
   "insightsTitle": "Insights",
   "insightsBody": "Weekly reports and premium insight widgets are reserved but not implemented yet.",
   "profileTitle": "Profile",
-  "profileBody": "Account, membership, sync, reminder, and privacy settings will be implemented after initialization."
+  "profileBody": "Account, membership, sync, reminder, and privacy settings will be implemented after initialization.",
+  "globalFeedbackDismiss": "Dismiss",
+  "globalFeedbackSyncFailedTitle": "Sync paused locally",
+  "globalFeedbackSyncFailedBody": "Your recent updates are still stored on this device. Review sync settings when you are ready.",
+  "globalFeedbackTimezoneShiftTitle": "Timezone confirmation needed",
+  "globalFeedbackTimezoneShiftBody": "Rhythm will pause sleep interpretation until you confirm the current timezone context."
 }

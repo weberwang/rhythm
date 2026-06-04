@@ -59,4 +59,4 @@ final class GoalScheduleRepositoryProvider
 }
 
 String _$goalScheduleRepositoryHash() =>
-    r'e022d3d30c50938773b603afd02137bcf64563e5';
+    r'833237d610f708d11ea77057f9695d6b9c75e0fb';
