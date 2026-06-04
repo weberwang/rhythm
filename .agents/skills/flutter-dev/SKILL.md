@@ -14,6 +14,7 @@ Operate on the initialized Rhythm Flutter app using the project decisions captur
 - This skill only constrains code implementation work inside the initialized project.
 - Do not use this skill to handle project initialization, plugin setup, plugin reconfiguration, or `--force` flows.
 - Initialization and plugin handling stay in `flutter-init`.
+- In the default Flutter workflow, do not invoke this skill as a standalone replacement for `@superpowers`. Module refinement and module implementation must still be explicitly triggered through `@superpowers`, with this skill serving only as project-local implementation context.
 
 ## Required Base Policy
 
@@ -23,11 +24,11 @@ Operate on the initialized Rhythm Flutter app using the project decisions captur
 ## Project Snapshot
 
 - Project name: `Rhythm`
-- Package id: `rhythm`
-- Platforms: `iOS, Android, Web, macOS, Windows, Linux`
-- Environments: `local, staging, production`
-- Primary features: `app-shell, sleep-data-core, onboarding-activation, today, bedtime, calendar, insights, profile-settings`
-- Core integrations: `Supabase, HealthKit/Health Connect, local notifications, timezone, secure storage, shared preferences, home widget, purchases`
+- Package id: `com.example.rhythm`
+- Platforms: `android, ios, web, macos, windows, linux`
+- Environments: `default local-first baseline`
+- Primary features: `app-shell, sleep-data-core, onboarding-activation, today, bedtime, calendar, profile-settings, insights`
+- Core integrations: `Riverpod, GoRouter, Drift, SharedPreferences, FlutterSecureStorage, Supabase, Health, Local Notifications, Home Widget, Purchases`
 
 ## Workflow
 
@@ -46,15 +47,16 @@ Operate on the initialized Rhythm Flutter app using the project decisions captur
 - If `@riverpod`, `@freezed`, `@JsonSerializable`, or `@RestApi` can express the current contract, do not ship a hand-written equivalent implementation.
 - Do not create cross-feature dependencies without updating the feature map and rationale.
 - Do not take over initialization, plugin setup, or force-based reconfiguration responsibilities.
+- Do not use this skill as a standalone path that bypasses explicit `@superpowers` invocation for module refinement or module implementation.
 - If this project uses `flutter_hooks` or `hooks_riverpod`, do not write new applicable UI logic as `StatefulWidget` or manual lifecycle glue where hooks can express it directly.
 
 ## Project Conventions
 
-- Route strategy: `launch -> onboarding | tab-shell，通过 go_router 的启动页与五标签主壳层收敛入口`
-- Networking strategy: `local-first，账号与同步基线走 supabase_flutter；没有明确 RD 需求前不新增独立 REST API 主链`
-- Storage strategy: `drift 负责结构化业务数据，flutter_secure_storage 负责敏感数据，shared_preferences 负责轻量偏好`
-- Test commands: `flutter test`
-- Build commands: `flutter pub get && dart run build_runner build --delete-conflicting-outputs && flutter gen-l10n && flutter analyze`
+- Route strategy: `launch gate -> onboarding -> five-tab shell, all managed by GoRouter`
+- Networking strategy: `single Dio host plus Retrofit baseline; do not invent business endpoints before contracts freeze`
+- Storage strategy: `Drift for structured local data, SharedPreferences for lightweight flags, FlutterSecureStorage for sensitive data`
+- Test commands: `flutter analyze && flutter test`
+- Build commands: `flutter pub get && flutter gen-l10n && dart run build_runner build --delete-conflicting-outputs`
 
 ## References
 

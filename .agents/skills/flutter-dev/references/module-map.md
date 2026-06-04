@@ -2,10 +2,10 @@
 
 ## Primary Modules
 
-- `foundation-shell`: `app-shell，优先为全局路由、root redirect、tab shell 和全局 overlay 打底`
-- `foundation-data`: `sleep-data-core，优先为 Drift、本地优先数据契约、同步队列和共享状态定义基线`
-- `activation`: `onboarding-activation，承接首轮授权与目标设置，为后续页面提供上下文`
-- `daily-experience`: `today、bedtime、calendar、profile-settings，可在共享壳层与数据基线稳定后并行推进`
+- `foundation-shell`: `app-shell，优先为全局路由、启动分发、tab shell 与全局 overlay 预留宿主`
+- `foundation-data`: `sleep-data-core，优先为 Drift、本地优先数据契约、同步队列与共享状态提供基线`
+- `activation`: `onboarding-activation，承接匿名/登录、健康授权、目标设置与提醒策略入口`
+- `daily-experience`: `today、bedtime、calendar、profile-settings，可在共享壳层与共享数据契约稳定后并行推进`
 - `history-review`: `insights，依赖历史数据沉淀与恢复计划结果，适合在核心闭环稳定后接入`
 
 ## Ownership Rules

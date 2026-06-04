@@ -2,10 +2,10 @@
 artifact_type: flutter_workflow_record
 workflow_status: active
 execution_mode: auto
-current_stage: architecture_ready
-current_module: not_selected
+current_stage: implementing
+current_module: app-shell
 confirmation_status: not_required
-next_skill: flutter-init
+next_skill: flutter-dev
 pending_next_stage: none
 pending_next_skill: none
 pending_status_updates: none
@@ -16,29 +16,31 @@ pending_status_updates: none
 - 本次记录已按严格的 `flutter-workflow-orchestrator --auto` 语义回补，明确区分“模块拆分产物”和“`@superpowers` 逐模块 refinement 产物”。
 - `--auto` 在 `modules_split` 之后按依赖安全顺序推进：`app-shell -> sleep-data-core -> onboarding-activation -> today -> bedtime -> calendar -> profile-settings -> insights`。
 - 上述 8 个模块都已完成：`split_draft -> implementation_final -> design_source frozen -> uiux/impl landed -> architecture_ready` 的预实现闭环。
-- 当前没有待继续细化的 `current_module`；auto loop 已在预实现边界正常收束，下一步是确定性的 `flutter-init`。
+- `flutter-init` 已执行完成，项目骨架、初始化装配与项目级 `flutter-dev` 已落地；当前进入 `project_initialized`，尚未开始功能实现。
+- 用户已显式要求按模块优先级进入实现，当前已启动 Stage 1 实施波次：`app-shell + sleep-data-core`。
+- 本轮已落地：主壳标签顺序修正、启动 guard 接入目标作息、onboarding 完成即补齐默认作息、`GoalScheduleRepository` 接入真实 Drift 持久化。
 
 # current_stage_detail
 
-- 当前确认阶段为 `architecture_ready`，原因是共享技术基线、共享设计冻结包、模块配对文档、以及实现前架构摘要均已形成，并且这些模块文档已被重新归类为 `@superpowers` 模块细化阶段的结果。
+- 当前确认阶段为 `implementing`，原因是用户已显式越过 `implementation_ready_waiting` 边界，并开始按模块优先级落地 Stage 1 基线代码。
 - `flutter-taste-router` 所要求的文本归一化已通过 `docs/rd/02-shared-design-packet.md` 完成。
 - 共享与模块静态图片目录检查已完成，并在 `IMAGE_BASE_URL` 与 `IMAGE_API_KEY` 可用的前提下生成了轻色模式预览图。
 - 模块细化不再被解释为“一次性批量产出”；严格轨迹见 `docs/rd/04-superpowers-module-refinement-log.md`。
-- 在该阶段之后，工作流已经满足“所有模块在实现边界前成熟”的 auto stop condition。
-- `bootstrap_critical_baseline_ready: true`，说明 `flutter-init` 的输入条件已经满足；当前不是设计阶段阻塞，而是等待进入初始化执行。
+- `flutter-init` 产物已被真实消费，启动分发与本地目标作息不再停留在占位实现。
+- 当前实现仍聚焦基础模块，不得把 `today`、`calendar`、`insights` 的业务数据接线提前越过 `sleep-data-core` 的共享契约边界。
 
 # current_module_detail
 
-- `current_module`: `not_selected`
-- 当前没有活跃细化模块，因为 auto loop 已完成全部目标模块的 refinement、freeze 与 architecture 输出。
-- 最近一次模块级推进是 `insights` 完成 `architecture_ready`，随后 auto loop 重新评估剩余模块并确认全部已到预实现边界。
+- `current_module`: `app-shell`
+- 当前活跃实施波次是 Stage 1 基础模块：`app-shell` 与 `sleep-data-core`。
+- 本轮先以 `app-shell` 作为工作流锚点，同时并行落地 `sleep-data-core` 的最小共享数据契约。
 - 所有模块的 paired docs 都应理解为：对应 `module_uiux_refinement` 阶段，由 `@superpowers` 按模块细化契约收敛到实现前粒度后的定稿输入。
-- 当前不再存在模块层阻塞；剩余工作是进入全局初始化阶段。
+- 当前不再存在模块层阻塞；后续需要继续完成 Stage 1 模块的 code landing，然后再放行 Stage 2/3 模块接线。
 
 # next_action
 
-- `next_skill`: `flutter-init`
-- 原因：`--auto` 已完成所有模块的预实现推进；根据 orchestrator 规则，下一步必须由 `flutter-init` 落地共享 public baseline，而不是继续伪造模块层进展。
+- `next_skill`: `flutter-dev`
+- 原因：已进入真实实现阶段，后续代码落地必须继续通过 `flutter-dev + flutter-project-guardrails` 执行。
 - `flutter_init_scope`:
   - `app-shell`
   - `sleep-data-core`
@@ -52,18 +54,18 @@ pending_status_updates: none
   - `docs/rd/modules/*/*.ui-ux.md`
   - `docs/rd/modules/*/*.impl.md`
 - 目标：
-  - 建立 `lib/app` / `lib/core` / `lib/features`
-  - 生成项目级 `flutter-dev` 技能
-  - 落地 app bootstrap、router host、storage baseline、error/logging baseline
+  - 继续完成 `app-shell` 的 root guard / shell host / global feedback host
+  - 继续扩展 `sleep-data-core` 的共享实体、仓储与状态暴露
+  - 在 Stage 1 稳定后再放行 `onboarding-activation`
 
 # confirmation_gate
 
 - `confirmation_status`: `not_required`
-- 原因：本次是 `--auto` 纠偏后的预实现边界记录，不存在新的待用户确认状态升级。
+- 原因：`flutter-init` 已完成，当前只是阶段前移到 `project_initialized`，不存在新的待确认升级。
 - `pending_next_stage`: `none`
 - `pending_next_skill`: `none`
 - `pending_status_updates`: `none`
-- 当前不是确认门阻塞，也不是设计阶段 blocker；它只是工作流在实现前边界的正常交接点。
+- 当前不是确认门阻塞，也不是设计阶段 blocker；它是用户已显式开启实现后的正常执行态。
 
 # blockers
 
@@ -90,24 +92,24 @@ pending_status_updates: none
   - `docs/rd/modules/calendar/calendar-heatmap.png`
   - `docs/rd/modules/insights/insights-weekly-report.png`
   - `docs/rd/modules/profile-settings/profile-settings.png`
-- Flutter project root: `E:\Projects\flutter\rhythm`
+- Flutter project root: `D:\Projects\Flutter\rhythm`
 - bootstrap_critical_baseline_ready: `true`
-- flutter-init summary: `not_provided`
-- project-local flutter-dev: `not_provided`
+- flutter-init summary: `completed; scaffold, bootstrap, router, storage, logging, theme, localization, and project-local flutter-dev are present`
+- project-local flutter-dev: `D:\Projects\Flutter\rhythm\.agents\skills\flutter-dev`
 - approved generated bitmap assets: `none`
 
 # module_status_table
 
 | module | current_state | confirmation_status | next_skill | pending_next_stage | pending_next_skill | pending_status_updates | uiux_rd | uiux_status | impl_rd | impl_status | global_guidelines | light_theme | dark_theme | taste_direction | visual_evidence | design_source_status | code_status | init_status | blockers |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| app-shell | architecture_ready | not_required | flutter-init | none | none | none | docs/rd/modules/app-shell/app-shell.ui-ux.md | landed | docs/rd/modules/app-shell/app-shell.impl.md | landed | docs/rd/global-design-guidelines.md | docs/rd/light-theme-freeze.yaml | docs/rd/dark-theme-freeze.yaml | docs/rd/02-shared-design-packet.md | not_provided | frozen | not_started | blocked_by_global_init | none |
-| sleep-data-core | architecture_ready | not_required | flutter-init | none | none | none | docs/rd/modules/sleep-data-core/sleep-data-core.ui-ux.md | landed | docs/rd/modules/sleep-data-core/sleep-data-core.impl.md | landed | docs/rd/global-design-guidelines.md | docs/rd/light-theme-freeze.yaml | docs/rd/dark-theme-freeze.yaml | docs/rd/02-shared-design-packet.md | not_provided | frozen | not_started | blocked_by_global_init | none |
-| onboarding-activation | architecture_ready | not_required | flutter-init | none | none | none | docs/rd/modules/onboarding-activation/onboarding-activation.ui-ux.md | landed | docs/rd/modules/onboarding-activation/onboarding-activation.impl.md | landed | docs/rd/global-design-guidelines.md | docs/rd/light-theme-freeze.yaml | docs/rd/dark-theme-freeze.yaml | docs/rd/02-shared-design-packet.md | docs/rd/modules/onboarding-activation/onboarding-welcome.png | frozen | not_started | blocked_by_global_init | none |
-| today | architecture_ready | not_required | flutter-init | none | none | none | docs/rd/modules/today/today.ui-ux.md | landed | docs/rd/modules/today/today.impl.md | landed | docs/rd/global-design-guidelines.md | docs/rd/light-theme-freeze.yaml | docs/rd/dark-theme-freeze.yaml | docs/rd/02-shared-design-packet.md | docs/rd/modules/today/today-dashboard.png | frozen | not_started | blocked_by_global_init | none |
-| bedtime | architecture_ready | not_required | flutter-init | none | none | none | docs/rd/modules/bedtime/bedtime.ui-ux.md | landed | docs/rd/modules/bedtime/bedtime.impl.md | landed | docs/rd/global-design-guidelines.md | docs/rd/light-theme-freeze.yaml | docs/rd/dark-theme-freeze.yaml | docs/rd/02-shared-design-packet.md | docs/rd/modules/bedtime/bedtime-mode.png | frozen | not_started | blocked_by_global_init | none |
-| calendar | architecture_ready | not_required | flutter-init | none | none | none | docs/rd/modules/calendar/calendar.ui-ux.md | landed | docs/rd/modules/calendar/calendar.impl.md | landed | docs/rd/global-design-guidelines.md | docs/rd/light-theme-freeze.yaml | docs/rd/dark-theme-freeze.yaml | docs/rd/02-shared-design-packet.md | docs/rd/modules/calendar/calendar-heatmap.png | frozen | not_started | blocked_by_global_init | none |
-| profile-settings | architecture_ready | not_required | flutter-init | none | none | none | docs/rd/modules/profile-settings/profile-settings.ui-ux.md | landed | docs/rd/modules/profile-settings/profile-settings.impl.md | landed | docs/rd/global-design-guidelines.md | docs/rd/light-theme-freeze.yaml | docs/rd/dark-theme-freeze.yaml | docs/rd/02-shared-design-packet.md | docs/rd/modules/profile-settings/profile-settings.png | frozen | not_started | blocked_by_global_init | none |
-| insights | architecture_ready | not_required | flutter-init | none | none | none | docs/rd/modules/insights/insights.ui-ux.md | landed | docs/rd/modules/insights/insights.impl.md | landed | docs/rd/global-design-guidelines.md | docs/rd/light-theme-freeze.yaml | docs/rd/dark-theme-freeze.yaml | docs/rd/02-shared-design-packet.md | docs/rd/modules/insights/insights-weekly-report.png | frozen | not_started | blocked_by_global_init | none |
+| app-shell | implementing | not_required | flutter-dev | none | none | none | docs/rd/modules/app-shell/app-shell.ui-ux.md | landed | docs/rd/modules/app-shell/app-shell.impl.md | landed | docs/rd/global-design-guidelines.md | docs/rd/light-theme-freeze.yaml | docs/rd/dark-theme-freeze.yaml | docs/rd/02-shared-design-packet.md | not_provided | frozen | in_progress | landed | none |
+| sleep-data-core | implementing | not_required | flutter-dev | none | none | none | docs/rd/modules/sleep-data-core/sleep-data-core.ui-ux.md | landed | docs/rd/modules/sleep-data-core/sleep-data-core.impl.md | landed | docs/rd/global-design-guidelines.md | docs/rd/light-theme-freeze.yaml | docs/rd/dark-theme-freeze.yaml | docs/rd/02-shared-design-packet.md | not_provided | frozen | in_progress | landed | none |
+| onboarding-activation | architecture_ready | not_required | none | none | none | none | docs/rd/modules/onboarding-activation/onboarding-activation.ui-ux.md | landed | docs/rd/modules/onboarding-activation/onboarding-activation.impl.md | landed | docs/rd/global-design-guidelines.md | docs/rd/light-theme-freeze.yaml | docs/rd/dark-theme-freeze.yaml | docs/rd/02-shared-design-packet.md | docs/rd/modules/onboarding-activation/onboarding-welcome.png | frozen | not_started | landed | waiting_for_stage1_foundation |
+| today | architecture_ready | not_required | none | none | none | none | docs/rd/modules/today/today.ui-ux.md | landed | docs/rd/modules/today/today.impl.md | landed | docs/rd/global-design-guidelines.md | docs/rd/light-theme-freeze.yaml | docs/rd/dark-theme-freeze.yaml | docs/rd/02-shared-design-packet.md | docs/rd/modules/today/today-dashboard.png | frozen | not_started | landed | waiting_for_stage1_foundation |
+| bedtime | architecture_ready | not_required | none | none | none | none | docs/rd/modules/bedtime/bedtime.ui-ux.md | landed | docs/rd/modules/bedtime/bedtime.impl.md | landed | docs/rd/global-design-guidelines.md | docs/rd/light-theme-freeze.yaml | docs/rd/dark-theme-freeze.yaml | docs/rd/02-shared-design-packet.md | docs/rd/modules/bedtime/bedtime-mode.png | frozen | not_started | landed | waiting_for_stage1_foundation |
+| calendar | architecture_ready | not_required | none | none | none | none | docs/rd/modules/calendar/calendar.ui-ux.md | landed | docs/rd/modules/calendar/calendar.impl.md | landed | docs/rd/global-design-guidelines.md | docs/rd/light-theme-freeze.yaml | docs/rd/dark-theme-freeze.yaml | docs/rd/02-shared-design-packet.md | docs/rd/modules/calendar/calendar-heatmap.png | frozen | not_started | landed | waiting_for_stage1_foundation |
+| profile-settings | architecture_ready | not_required | none | none | none | none | docs/rd/modules/profile-settings/profile-settings.ui-ux.md | landed | docs/rd/modules/profile-settings/profile-settings.impl.md | landed | docs/rd/global-design-guidelines.md | docs/rd/light-theme-freeze.yaml | docs/rd/dark-theme-freeze.yaml | docs/rd/02-shared-design-packet.md | docs/rd/modules/profile-settings/profile-settings.png | frozen | not_started | landed | waiting_for_stage1_foundation |
+| insights | architecture_ready | not_required | none | none | none | none | docs/rd/modules/insights/insights.ui-ux.md | landed | docs/rd/modules/insights/insights.impl.md | landed | docs/rd/global-design-guidelines.md | docs/rd/light-theme-freeze.yaml | docs/rd/dark-theme-freeze.yaml | docs/rd/02-shared-design-packet.md | docs/rd/modules/insights/insights-weekly-report.png | frozen | not_started | landed | waiting_for_stage1_foundation |
 
 # decision_log
 
@@ -128,3 +130,7 @@ pending_status_updates: none
 - 2026-06-04: auto loop 重新评估剩余模块，确认全部目标模块已满足预实现边界 stop condition。
 - 2026-06-04: auto loop 到达预实现边界，确认 `bootstrap_critical_baseline_ready=true`，下一步应进入 `flutter-init`。
 - 2026-06-04: 严格纠偏后将 `workflow_status` 从误判的 `blocked` 改回 `active`；`lib/` 为空与 `flutter-dev` 缺失被重新归类为 `flutter-init` 的执行目标，而不是设计阶段 blocker。
+- 2026-06-04: `flutter-init` 已完成，项目骨架、路由、主题、本地化、日志、存储和项目级 `flutter-dev` 已落地，工作流从 `architecture_ready` 前移到 `project_initialized`。
+- 2026-06-04: 复跑 `flutter-workflow-orchestrator --auto`，确认全部模块已满足实现边界 stop condition；工作流现处于 `implementation_ready_waiting`，自动流程停止在代码实现之前。
+- 2026-06-04: 用户显式要求“按照模块优先级进入实现”，因此工作流从 `implementation_ready_waiting` 进入 `implementing`，首先启动 `app-shell + sleep-data-core`。
+- 2026-06-04: Stage 1 首轮代码落地完成：修正五标签顺序，启动 guard 接入 `GoalScheduleRepository` 与 `EntryIntent`，onboarding 完成时补齐默认作息，并让 `GoalScheduleRepository` 改为真实 Drift 持久化。
