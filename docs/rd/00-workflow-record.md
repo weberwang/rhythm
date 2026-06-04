@@ -5,7 +5,7 @@ execution_mode: auto
 current_stage: architecture_ready
 current_module: not_selected
 confirmation_status: not_required
-next_skill: flutter-dev
+next_skill: flutter-init
 pending_next_stage: none
 pending_next_skill: none
 pending_status_updates: none
@@ -13,50 +13,57 @@ pending_status_updates: none
 
 # workflow_summary
 
-- `--auto` 已按依赖顺序完成共享冻结、模块级精炼、模块冻结与架构交接，不再停留在单模块局部里程碑。
-- 9 个目标模块当前都已达到 `uiux_status=landed`、`impl_status=landed`、`design_source_status=frozen`，并已写入统一架构交接总表。
-- 当前没有活动模块，自动流程已在实现边界前合法停止，项目状态为 `implementation_ready_waiting`。
-- 后续仅剩按波次进入 `flutter-dev` 代码实现；`--auto` 本轮不再跨入 `implementing`。
+- 本次记录已按严格的 `flutter-workflow-orchestrator --auto` 语义回补，明确区分“模块拆分产物”和“`@superpowers` 逐模块 refinement 产物”。
+- `--auto` 在 `modules_split` 之后按依赖安全顺序推进：`app-shell -> sleep-data-core -> onboarding-activation -> today -> bedtime -> calendar -> profile-settings -> insights`。
+- 上述 8 个模块都已完成：`split_draft -> implementation_final -> design_source frozen -> uiux/impl landed -> architecture_ready` 的预实现闭环。
+- 当前没有待继续细化的 `current_module`；auto loop 已在预实现边界正常收束，下一步是确定性的 `flutter-init`。
 
 # current_stage_detail
 
-- 当前阶段记录为 `architecture_ready`，因为 `--auto` 已把共享冻结合同转换为全模块可消费的实现前输入，而不再只停在 `schedule-reminders` 的局部 `impl_rd_ready`。
-- 已确认的共享静态预览图：
-  - [rhythm-onboarding-welcome-light.png](D:/Projects/Flutter/rhythm/output/imagegen/rhythm-onboarding-welcome-light.png)
-  - [rhythm-today-home-light.png](D:/Projects/Flutter/rhythm/output/imagegen/rhythm-today-home-light.png)
-  - [rhythm-bedtime-focus-dark.png](D:/Projects/Flutter/rhythm/output/imagegen/rhythm-bedtime-focus-dark.png)
-- 已完成共享冻结合同落账：[global-design-guidelines.md](D:/Projects/Flutter/rhythm/docs/rd/global-design-guidelines.md)、[light-theme-freeze.yaml](D:/Projects/Flutter/rhythm/docs/rd/light-theme-freeze.yaml)、[dark-theme-freeze.yaml](D:/Projects/Flutter/rhythm/docs/rd/dark-theme-freeze.yaml) 现作为所有模块的唯一共享设计源。
-- 已完成统一架构交接总表：[03-module-architecture-handoff.md](D:/Projects/Flutter/rhythm/docs/rd/03-module-architecture-handoff.md)，包含 token 映射、组件分解、屏幕骨架、状态边界与插件落点。
-- 当前阶段前进的必要条件均已满足；若要继续，只能进入代码实现，而不是再次回退到模块精炼或冻结评审。
+- 当前确认阶段为 `architecture_ready`，原因是共享技术基线、共享设计冻结包、模块配对文档、以及实现前架构摘要均已形成，并且这些模块文档已被重新归类为 `@superpowers` 模块细化阶段的结果。
+- `flutter-taste-router` 所要求的文本归一化已通过 `docs/rd/02-shared-design-packet.md` 完成。
+- 共享与模块静态图片目录检查已完成，并在 `IMAGE_BASE_URL` 与 `IMAGE_API_KEY` 可用的前提下生成了轻色模式预览图。
+- 模块细化不再被解释为“一次性批量产出”；严格轨迹见 `docs/rd/04-superpowers-module-refinement-log.md`。
+- 在该阶段之后，工作流已经满足“所有模块在实现边界前成熟”的 auto stop condition。
+- `bootstrap_critical_baseline_ready: true`，说明 `flutter-init` 的输入条件已经满足；当前不是设计阶段阻塞，而是等待进入初始化执行。
 
 # current_module_detail
 
-- 当前活动模块：`not_selected`
-- 聚合状态：
-  - 9 个模块均已达到 `uiux_status=landed`
-  - 9 个模块均已达到 `impl_status=landed`
-  - 9 个模块均已达到 `design_source_status=frozen`
-  - 9 个模块当前均保持 `code_status=not_started`
-- 说明：当前并非缺少活动模块，而是 `--auto` 已完成所有目标模块的实现前推进，因此没有单个模块继续占据 `current_module`。
+- `current_module`: `not_selected`
+- 当前没有活跃细化模块，因为 auto loop 已完成全部目标模块的 refinement、freeze 与 architecture 输出。
+- 最近一次模块级推进是 `insights` 完成 `architecture_ready`，随后 auto loop 重新评估剩余模块并确认全部已到预实现边界。
+- 所有模块的 paired docs 都应理解为：对应 `module_uiux_refinement` 阶段，由 `@superpowers` 按模块细化契约收敛到实现前粒度后的定稿输入。
+- 当前不再存在模块层阻塞；剩余工作是进入全局初始化阶段。
 
 # next_action
 
-- 下一技能：`flutter-dev`
-- 原因：共享冻结、模块冻结与架构交接已全部完成，下一步只剩按依赖波次进入真实代码实现。
+- `next_skill`: `flutter-init`
+- 原因：`--auto` 已完成所有模块的预实现推进；根据 orchestrator 规则，下一步必须由 `flutter-init` 落地共享 public baseline，而不是继续伪造模块层进展。
+- `flutter_init_scope`:
+  - `app-shell`
+  - `sleep-data-core`
+  - shared bootstrap / router / storage / logging / theme baseline
+- `flutter_init_blockers`: `none`
 - 最小输入：
-  - [03-module-architecture-handoff.md](D:/Projects/Flutter/rhythm/docs/rd/03-module-architecture-handoff.md)
-  - [00-module-index.md](D:/Projects/Flutter/rhythm/docs/rd/00-module-index.md)
-  - 各模块已冻结的 UI/UX RD 与 Implementation RD
-  - 已确认的共享冻结合同与主题冻结文件
+  - `docs/rd/01-global-technical-baseline.md`
+  - `docs/rd/03-implementation-architecture.md`
+  - `docs/rd/04-superpowers-module-refinement-log.md`
+  - `docs/rd/00-module-index.md`
+  - `docs/rd/modules/*/*.ui-ux.md`
+  - `docs/rd/modules/*/*.impl.md`
+- 目标：
+  - 建立 `lib/app` / `lib/core` / `lib/features`
+  - 生成项目级 `flutter-dev` 技能
+  - 落地 app bootstrap、router host、storage baseline、error/logging baseline
 
 # confirmation_gate
 
-- `confirmation_status`：`not_required`
-- 原因：当前运行模式为 `--auto`，并且所有可确定的实现前状态都已自动应用；当前没有新的待确认状态升级。
-- `pending_next_stage`：`none`
-- `pending_next_skill`：`none`
-- `pending_status_updates`：`none`
-- 当前确认目标：`none`
+- `confirmation_status`: `not_required`
+- 原因：本次是 `--auto` 纠偏后的预实现边界记录，不存在新的待用户确认状态升级。
+- `pending_next_stage`: `none`
+- `pending_next_skill`: `none`
+- `pending_status_updates`: `none`
+- 当前不是确认门阻塞，也不是设计阶段 blocker；它只是工作流在实现前边界的正常交接点。
 
 # blockers
 
@@ -64,71 +71,60 @@ pending_status_updates: none
 
 # global_artifact_index
 
-| artifact | path | status | note |
-| --- | --- | --- | --- |
-| PRD | [rhythm-sleep-routine-management-prd-commercial-2026-06-02.md](D:/Projects/Flutter/rhythm/docs/rhythm-sleep-routine-management-prd-commercial-2026-06-02.md) | 当前有效输入 | 作为本轮流程起点依据 |
-| global technical baseline | [01-global-technical-baseline.md](D:/Projects/Flutter/rhythm/docs/rd/01-global-technical-baseline.md) | 已确认 | 当前作为 `technical_baseline_ready` 的依据 |
-| module index | [00-module-index.md](D:/Projects/Flutter/rhythm/docs/rd/00-module-index.md) | 已确认 | 当前作为 `modules_split` 的依据 |
-| taste direction packet | [02-shared-taste-direction.md](D:/Projects/Flutter/rhythm/docs/rd/02-shared-taste-direction.md) | 已确认 | 当前作为 `shared_taste_direction` 的依据 |
-| global-design-guidelines.md | [global-design-guidelines.md](D:/Projects/Flutter/rhythm/docs/rd/global-design-guidelines.md) | 已确认 | 当前作为共享冻结合同的唯一设计准则 |
-| light-theme-freeze.yaml | [light-theme-freeze.yaml](D:/Projects/Flutter/rhythm/docs/rd/light-theme-freeze.yaml) | 已确认 | 当前作为 light 主题冻结值来源 |
-| dark-theme-freeze.yaml | [dark-theme-freeze.yaml](D:/Projects/Flutter/rhythm/docs/rd/dark-theme-freeze.yaml) | 已确认 | 当前作为 dark 主题冻结值来源 |
-| shared freeze evidence | [output/imagegen](D:/Projects/Flutter/rhythm/output/imagegen) | 已存在 | 当前共享冻结依据为三张新生成预览图 |
-| architecture summary | [03-module-architecture-handoff.md](D:/Projects/Flutter/rhythm/docs/rd/03-module-architecture-handoff.md) | 已确认 | 当前作为全部模块进入实现前的统一架构交接输入 |
-| Flutter project root | `D:/Projects/Flutter/rhythm` | 已存在 | 当前工程已存在，后续无需再走 `flutter-init` 初始化 |
-| flutter-init summary | `not_required_existing_project` | 已确认 | 当前仓库视为已初始化的现有 Flutter 工程 |
-| project-local skills/flutter-dev/ | [.agents/skills/flutter-dev/SKILL.md](D:/Projects/Flutter/rhythm/.agents/skills/flutter-dev/SKILL.md) | 已存在 | 后续代码实现应直接路由到项目本地 `flutter-dev` |
-| module docs root | [modules](D:/Projects/Flutter/rhythm/docs/rd/modules) | 已确认 | 9 个模块的 UI/UX RD 与 Implementation RD 均已达到 `landed` |
+- PRD: `docs/rhythm-sleep-routine-management-prd-commercial-2026-06-02.md`
+- 工作流记录: `docs/rd/00-workflow-record.md`
+- 模块索引: `docs/rd/00-module-index.md`
+- 全局技术基线: `docs/rd/01-global-technical-baseline.md`
+- 共享设计包: `docs/rd/02-shared-design-packet.md`
+- 实现前架构摘要: `docs/rd/03-implementation-architecture.md`
+- `@superpowers` 细化执行痕迹: `docs/rd/04-superpowers-module-refinement-log.md`
+- 全局设计冻结文档: `docs/rd/global-design-guidelines.md`
+- Light theme freeze: `docs/rd/light-theme-freeze.yaml`
+- Dark theme freeze: `docs/rd/dark-theme-freeze.yaml`
+- 共享全局预览图: `docs/rd/today-dashboard.png`
+- 共享预览模式: `light_mode`
+- 全局参考图来源模块副本: `docs/rd/modules/today/today-dashboard.png`
+- 模块预览图:
+  - `docs/rd/modules/onboarding-activation/onboarding-welcome.png`
+  - `docs/rd/modules/bedtime/bedtime-mode.png`
+  - `docs/rd/modules/calendar/calendar-heatmap.png`
+  - `docs/rd/modules/insights/insights-weekly-report.png`
+  - `docs/rd/modules/profile-settings/profile-settings.png`
+- Flutter project root: `E:\Projects\flutter\rhythm`
+- bootstrap_critical_baseline_ready: `true`
+- flutter-init summary: `not_provided`
+- project-local flutter-dev: `not_provided`
+- approved generated bitmap assets: `none`
 
 # module_status_table
 
 | module | current_state | confirmation_status | next_skill | pending_next_stage | pending_next_skill | pending_status_updates | uiux_rd | uiux_status | impl_rd | impl_status | global_guidelines | light_theme | dark_theme | taste_direction | visual_evidence | design_source_status | code_status | init_status | blockers |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| activation-entry | architecture_ready | not_required | flutter-dev | none | none | none | [activation-entry.ui-ux.md](D:/Projects/Flutter/rhythm/docs/rd/modules/activation-entry/activation-entry.ui-ux.md) | landed | [activation-entry.impl.md](D:/Projects/Flutter/rhythm/docs/rd/modules/activation-entry/activation-entry.impl.md) | landed | [global-design-guidelines.md](D:/Projects/Flutter/rhythm/docs/rd/global-design-guidelines.md) | [light-theme-freeze.yaml](D:/Projects/Flutter/rhythm/docs/rd/light-theme-freeze.yaml) | [dark-theme-freeze.yaml](D:/Projects/Flutter/rhythm/docs/rd/dark-theme-freeze.yaml) | [02-shared-taste-direction.md](D:/Projects/Flutter/rhythm/docs/rd/02-shared-taste-direction.md) | [rhythm-onboarding-welcome-light.png](D:/Projects/Flutter/rhythm/output/imagegen/rhythm-onboarding-welcome-light.png) | frozen | not_started | existing_project | none |
-| schedule-reminders | architecture_ready | not_required | flutter-dev | none | none | none | [schedule-reminders.ui-ux.md](D:/Projects/Flutter/rhythm/docs/rd/modules/schedule-reminders/schedule-reminders.ui-ux.md) | landed | [schedule-reminders.impl.md](D:/Projects/Flutter/rhythm/docs/rd/modules/schedule-reminders/schedule-reminders.impl.md) | landed | [global-design-guidelines.md](D:/Projects/Flutter/rhythm/docs/rd/global-design-guidelines.md) | [light-theme-freeze.yaml](D:/Projects/Flutter/rhythm/docs/rd/light-theme-freeze.yaml) | [dark-theme-freeze.yaml](D:/Projects/Flutter/rhythm/docs/rd/dark-theme-freeze.yaml) | [02-shared-taste-direction.md](D:/Projects/Flutter/rhythm/docs/rd/02-shared-taste-direction.md) | [schedule-reminders-overview.png](D:/Projects/Flutter/rhythm/output/imagegen/schedule-reminders-overview.png) | frozen | not_started | existing_project | none |
-| sleep-records | architecture_ready | not_required | flutter-dev | none | none | none | [sleep-records.ui-ux.md](D:/Projects/Flutter/rhythm/docs/rd/modules/sleep-records/sleep-records.ui-ux.md) | landed | [sleep-records.impl.md](D:/Projects/Flutter/rhythm/docs/rd/modules/sleep-records/sleep-records.impl.md) | landed | [global-design-guidelines.md](D:/Projects/Flutter/rhythm/docs/rd/global-design-guidelines.md) | [light-theme-freeze.yaml](D:/Projects/Flutter/rhythm/docs/rd/light-theme-freeze.yaml) | [dark-theme-freeze.yaml](D:/Projects/Flutter/rhythm/docs/rd/dark-theme-freeze.yaml) | [02-shared-taste-direction.md](D:/Projects/Flutter/rhythm/docs/rd/02-shared-taste-direction.md) | [output/imagegen](D:/Projects/Flutter/rhythm/output/imagegen) | frozen | not_started | existing_project | none |
-| bedtime-session | architecture_ready | not_required | flutter-dev | none | none | none | [bedtime-session.ui-ux.md](D:/Projects/Flutter/rhythm/docs/rd/modules/bedtime-session/bedtime-session.ui-ux.md) | landed | [bedtime-session.impl.md](D:/Projects/Flutter/rhythm/docs/rd/modules/bedtime-session/bedtime-session.impl.md) | landed | [global-design-guidelines.md](D:/Projects/Flutter/rhythm/docs/rd/global-design-guidelines.md) | [light-theme-freeze.yaml](D:/Projects/Flutter/rhythm/docs/rd/light-theme-freeze.yaml) | [dark-theme-freeze.yaml](D:/Projects/Flutter/rhythm/docs/rd/dark-theme-freeze.yaml) | [02-shared-taste-direction.md](D:/Projects/Flutter/rhythm/docs/rd/02-shared-taste-direction.md) | [rhythm-bedtime-focus-dark.png](D:/Projects/Flutter/rhythm/output/imagegen/rhythm-bedtime-focus-dark.png) | frozen | not_started | existing_project | none |
-| today-feedback | architecture_ready | not_required | flutter-dev | none | none | none | [today-feedback.ui-ux.md](D:/Projects/Flutter/rhythm/docs/rd/modules/today-feedback/today-feedback.ui-ux.md) | landed | [today-feedback.impl.md](D:/Projects/Flutter/rhythm/docs/rd/modules/today-feedback/today-feedback.impl.md) | landed | [global-design-guidelines.md](D:/Projects/Flutter/rhythm/docs/rd/global-design-guidelines.md) | [light-theme-freeze.yaml](D:/Projects/Flutter/rhythm/docs/rd/light-theme-freeze.yaml) | [dark-theme-freeze.yaml](D:/Projects/Flutter/rhythm/docs/rd/dark-theme-freeze.yaml) | [02-shared-taste-direction.md](D:/Projects/Flutter/rhythm/docs/rd/02-shared-taste-direction.md) | [rhythm-today-home-light.png](D:/Projects/Flutter/rhythm/output/imagegen/rhythm-today-home-light.png) | frozen | not_started | existing_project | none |
-| calendar-history | architecture_ready | not_required | flutter-dev | none | none | none | [calendar-history.ui-ux.md](D:/Projects/Flutter/rhythm/docs/rd/modules/calendar-history/calendar-history.ui-ux.md) | landed | [calendar-history.impl.md](D:/Projects/Flutter/rhythm/docs/rd/modules/calendar-history/calendar-history.impl.md) | landed | [global-design-guidelines.md](D:/Projects/Flutter/rhythm/docs/rd/global-design-guidelines.md) | [light-theme-freeze.yaml](D:/Projects/Flutter/rhythm/docs/rd/light-theme-freeze.yaml) | [dark-theme-freeze.yaml](D:/Projects/Flutter/rhythm/docs/rd/dark-theme-freeze.yaml) | [02-shared-taste-direction.md](D:/Projects/Flutter/rhythm/docs/rd/02-shared-taste-direction.md) | [output/imagegen](D:/Projects/Flutter/rhythm/output/imagegen) | frozen | not_started | existing_project | none |
-| insights-recovery | architecture_ready | not_required | flutter-dev | none | none | none | [insights-recovery.ui-ux.md](D:/Projects/Flutter/rhythm/docs/rd/modules/insights-recovery/insights-recovery.ui-ux.md) | landed | [insights-recovery.impl.md](D:/Projects/Flutter/rhythm/docs/rd/modules/insights-recovery/insights-recovery.impl.md) | landed | [global-design-guidelines.md](D:/Projects/Flutter/rhythm/docs/rd/global-design-guidelines.md) | [light-theme-freeze.yaml](D:/Projects/Flutter/rhythm/docs/rd/light-theme-freeze.yaml) | [dark-theme-freeze.yaml](D:/Projects/Flutter/rhythm/docs/rd/dark-theme-freeze.yaml) | [02-shared-taste-direction.md](D:/Projects/Flutter/rhythm/docs/rd/02-shared-taste-direction.md) | [output/imagegen](D:/Projects/Flutter/rhythm/output/imagegen) | frozen | not_started | existing_project | none |
-| account-sync-membership | architecture_ready | not_required | flutter-dev | none | none | none | [account-sync-membership.ui-ux.md](D:/Projects/Flutter/rhythm/docs/rd/modules/account-sync-membership/account-sync-membership.ui-ux.md) | landed | [account-sync-membership.impl.md](D:/Projects/Flutter/rhythm/docs/rd/modules/account-sync-membership/account-sync-membership.impl.md) | landed | [global-design-guidelines.md](D:/Projects/Flutter/rhythm/docs/rd/global-design-guidelines.md) | [light-theme-freeze.yaml](D:/Projects/Flutter/rhythm/docs/rd/light-theme-freeze.yaml) | [dark-theme-freeze.yaml](D:/Projects/Flutter/rhythm/docs/rd/dark-theme-freeze.yaml) | [02-shared-taste-direction.md](D:/Projects/Flutter/rhythm/docs/rd/02-shared-taste-direction.md) | [output/imagegen](D:/Projects/Flutter/rhythm/output/imagegen) | frozen | not_started | existing_project | none |
-| widget-bridge | architecture_ready | not_required | flutter-dev | none | none | none | [widget-bridge.ui-ux.md](D:/Projects/Flutter/rhythm/docs/rd/modules/widget-bridge/widget-bridge.ui-ux.md) | landed | [widget-bridge.impl.md](D:/Projects/Flutter/rhythm/docs/rd/modules/widget-bridge/widget-bridge.impl.md) | landed | [global-design-guidelines.md](D:/Projects/Flutter/rhythm/docs/rd/global-design-guidelines.md) | [light-theme-freeze.yaml](D:/Projects/Flutter/rhythm/docs/rd/light-theme-freeze.yaml) | [dark-theme-freeze.yaml](D:/Projects/Flutter/rhythm/docs/rd/dark-theme-freeze.yaml) | [02-shared-taste-direction.md](D:/Projects/Flutter/rhythm/docs/rd/02-shared-taste-direction.md) | [output/imagegen](D:/Projects/Flutter/rhythm/output/imagegen) | frozen | not_started | existing_project | none |
+| app-shell | architecture_ready | not_required | flutter-init | none | none | none | docs/rd/modules/app-shell/app-shell.ui-ux.md | landed | docs/rd/modules/app-shell/app-shell.impl.md | landed | docs/rd/global-design-guidelines.md | docs/rd/light-theme-freeze.yaml | docs/rd/dark-theme-freeze.yaml | docs/rd/02-shared-design-packet.md | not_provided | frozen | not_started | blocked_by_global_init | none |
+| sleep-data-core | architecture_ready | not_required | flutter-init | none | none | none | docs/rd/modules/sleep-data-core/sleep-data-core.ui-ux.md | landed | docs/rd/modules/sleep-data-core/sleep-data-core.impl.md | landed | docs/rd/global-design-guidelines.md | docs/rd/light-theme-freeze.yaml | docs/rd/dark-theme-freeze.yaml | docs/rd/02-shared-design-packet.md | not_provided | frozen | not_started | blocked_by_global_init | none |
+| onboarding-activation | architecture_ready | not_required | flutter-init | none | none | none | docs/rd/modules/onboarding-activation/onboarding-activation.ui-ux.md | landed | docs/rd/modules/onboarding-activation/onboarding-activation.impl.md | landed | docs/rd/global-design-guidelines.md | docs/rd/light-theme-freeze.yaml | docs/rd/dark-theme-freeze.yaml | docs/rd/02-shared-design-packet.md | docs/rd/modules/onboarding-activation/onboarding-welcome.png | frozen | not_started | blocked_by_global_init | none |
+| today | architecture_ready | not_required | flutter-init | none | none | none | docs/rd/modules/today/today.ui-ux.md | landed | docs/rd/modules/today/today.impl.md | landed | docs/rd/global-design-guidelines.md | docs/rd/light-theme-freeze.yaml | docs/rd/dark-theme-freeze.yaml | docs/rd/02-shared-design-packet.md | docs/rd/modules/today/today-dashboard.png | frozen | not_started | blocked_by_global_init | none |
+| bedtime | architecture_ready | not_required | flutter-init | none | none | none | docs/rd/modules/bedtime/bedtime.ui-ux.md | landed | docs/rd/modules/bedtime/bedtime.impl.md | landed | docs/rd/global-design-guidelines.md | docs/rd/light-theme-freeze.yaml | docs/rd/dark-theme-freeze.yaml | docs/rd/02-shared-design-packet.md | docs/rd/modules/bedtime/bedtime-mode.png | frozen | not_started | blocked_by_global_init | none |
+| calendar | architecture_ready | not_required | flutter-init | none | none | none | docs/rd/modules/calendar/calendar.ui-ux.md | landed | docs/rd/modules/calendar/calendar.impl.md | landed | docs/rd/global-design-guidelines.md | docs/rd/light-theme-freeze.yaml | docs/rd/dark-theme-freeze.yaml | docs/rd/02-shared-design-packet.md | docs/rd/modules/calendar/calendar-heatmap.png | frozen | not_started | blocked_by_global_init | none |
+| profile-settings | architecture_ready | not_required | flutter-init | none | none | none | docs/rd/modules/profile-settings/profile-settings.ui-ux.md | landed | docs/rd/modules/profile-settings/profile-settings.impl.md | landed | docs/rd/global-design-guidelines.md | docs/rd/light-theme-freeze.yaml | docs/rd/dark-theme-freeze.yaml | docs/rd/02-shared-design-packet.md | docs/rd/modules/profile-settings/profile-settings.png | frozen | not_started | blocked_by_global_init | none |
+| insights | architecture_ready | not_required | flutter-init | none | none | none | docs/rd/modules/insights/insights.ui-ux.md | landed | docs/rd/modules/insights/insights.impl.md | landed | docs/rd/global-design-guidelines.md | docs/rd/light-theme-freeze.yaml | docs/rd/dark-theme-freeze.yaml | docs/rd/02-shared-design-packet.md | docs/rd/modules/insights/insights-weekly-report.png | frozen | not_started | blocked_by_global_init | none |
 
 # decision_log
 
-- 2026-06-02: 初始化 `docs/rd/00-workflow-record.md`。基于现有 Flutter 工程、项目本地 `flutter-dev` 技能、`pen/v3.pen` 与已落地业务代码，将项目级阶段记录为 `implementing`，当前模块保持 `not_selected`，下一技能设为 `flutter-dev`。
-- 2026-06-02: 根据用户澄清，确认当前项目已完成初始化，后续不再走 `flutter-init/assets/flutter-dev-template` 流程；在未指定具体任务前，将 `next_skill` 调整为 `none`。
-- 2026-06-02: 根据用户进一步澄清，确认后续具体流程仍应先经过 `flutter-workflow-orchestrator` 自行推断；因此将 `next_skill` 调整为 `flutter-workflow-orchestrator`，而不是静态写死为 `none` 或某个执行技能。
-- 2026-06-02: 用户提供正式 PRD 文件 `docs/rhythm-sleep-routine-management-prd-commercial-2026-06-02.md`。经检查，`docs/rd/` 下除工作流记录外尚无全局技术基线文档，因此将项目级流程状态调整为 `prd_ready`，下一技能路由为 `flutter-prd-rd-writer`。
-- 2026-06-02: 因 `flutter-workflow-orchestrator` 技能契约更新，重新初始化工作流记录结构，补充 `confirmation_status`、`pending_next_stage`、`pending_next_skill` 和 `confirmation_gate`，并保持当前有效路由仍为 `prd_ready -> flutter-prd-rd-writer`。
-- 2026-06-02: 已执行 `flutter-prd-rd-writer`，生成全局技术基线文档 `docs/rd/01-global-technical-baseline.md`。按确认闸门规则，当前阶段保持 `prd_ready`，并将 `technical_baseline_ready -> flutter-rd-module-splitter` 挂起，等待用户确认。
-- 2026-06-02: 用户确认全局技术基线，项目已确认阶段提升为 `technical_baseline_ready`，并开始执行 `flutter-rd-module-splitter`。
-- 2026-06-02: 已生成模块拆分索引 `docs/rd/00-module-index.md` 与 9 个模块的 UI/UX RD、Implementation RD 配对文档。按确认闸门规则，当前阶段保持 `technical_baseline_ready`，并将 `modules_split -> mobile-ui-design-coach` 挂起，等待用户确认。
-- 2026-06-02: 用户确认模块拆分结果，项目已确认阶段提升为 `modules_split`，下一技能切换为 `mobile-ui-design-coach`。
-- 2026-06-02: 用户指定先做全局设计冻结，并确认 `output/imagegen/` 下的 `style-01-*` 预览图为唯一批准基线。已生成 `docs/rd/global-design-guidelines.md`、`docs/rd/light-theme-freeze.yaml` 与 `docs/rd/dark-theme-freeze.yaml`。
-- 2026-06-02: 用户确认全局设计冻结结果，项目已确认阶段提升为 `global_guidelines_frozen`。
-- 2026-06-02: 通过子代理并行 + 本地补强，已为 9 个模块补齐模块级设计冻结包。
-- 2026-06-02: 用户确认模块级设计包；经 `flutter-design-freeze-gate` 校验，本轮结论为 `frozen_for_pen`。
-- 2026-06-02: 用户确认进入 Pencil。Pencil MCP 连接恢复后，已将全局变量写入 `pen/v3.pen`，并完成 `Bedtime`、`Calendar`、`Insights` 三屏首版结构化重建与布局修复。
-- 2026-06-02: 已补齐 `Today`、`Activation Entry` 4 屏、`Schedule`、`Sleep Records`、`You`、`Widget` 共 8 个补充屏幕；其中 `Activation Entry` 与首次新建的 `Sleep Records` 曾出现根骨架异常，现已通过替换稳定母版与重建子树修复。
-- 2026-06-02: 当前 `.pen` 已完成 9 个模块代表屏幕重建并通过结构快照与截图检查。按确认闸门规则，阶段保持 `pen_ready`，挂起 `pen_frozen -> flutter-pen-to-architecture`，等待用户确认。
-- 2026-06-02: `design-preview-to-pen` 与 `flutter-workflow-orchestrator` skill 更新后，新增“非页面级组件设计完成”与“固定 viewport shell + 明确滚动表达”硬要求。用户据此拒绝当前冻结候选，工作流回退到 `pen_ready` 持续回修。
-- 2026-06-02: 已新增 `Design System / Components`、`Design System / Module Freeze` 与 `Design System / Scroll Specs` 三个顶层设计系统区，并完成短页 root 的 `844` viewport shell 统一；长页以连续审阅稿保留，并通过 scroll spec 明确 Flutter 还原语义。
-- 2026-06-02: 回修完成后，当前 `.pen` 重新具备冻结候选资格。按确认闸门规则，阶段保持 `pen_ready`，重新挂起 `pen_frozen -> flutter-pen-to-architecture`，等待用户确认。
-- 2026-06-02: 用户指出“页面高度只是增加了，但是布局不合理”后，已对 `Welcome`、`Login`、`Health Permission`、`Ready Tonight` 做 fixed-shell 内部重排，并通过截图与结构检查复核。
-- 2026-06-03: 按用户要求先将工作流记录重置到默认 Flutter 流程的重新初始化基线，阶段临时回到 `modules_split`，并清空旧 `Pen/Pencil` 主线的活动确认链。
-- 2026-06-03: 按用户进一步要求将工作流记录继续回退到真正的初始入口状态 `prd_ready`。当前仅保留 PRD 作为有效起点输入，其余下游 RD、设计冻结与 `Pen/Pencil` 资产改记为历史资产，不再作为本轮已确认阶段依据。
-- 2026-06-03: 已重新执行 `flutter-prd-rd-writer`，刷新 [01-global-technical-baseline.md](D:/Projects/Flutter/rhythm/docs/rd/01-global-technical-baseline.md) 并清理旧默认主线中的 `Pencil` 依赖表述。按确认闸门规则，当前阶段保持 `prd_ready`，挂起 `technical_baseline_ready -> flutter-rd-module-splitter`，等待用户确认。
-- 2026-06-03: 用户确认采纳本轮全局技术基线，工作流已正式提升为 `technical_baseline_ready`。
-- 2026-06-03: 已重新执行 `flutter-rd-module-splitter`，刷新 [00-module-index.md](D:/Projects/Flutter/rhythm/docs/rd/00-module-index.md) 的模块总表、依赖图和并行实施计划，并复用现有 9 个模块配对 RD 作为 `split_draft` 候选。按确认闸门规则，当前阶段保持 `technical_baseline_ready`，挂起 `modules_split -> mobile-ui-design-coach`，等待用户确认。
-- 2026-06-03: 用户确认采纳本轮模块拆分结果，工作流已正式提升为 `modules_split`。
-- 2026-06-03: 已执行 `mobile-ui-design-coach`，新增共享设计方向文档 [02-shared-taste-direction.md](D:/Projects/Flutter/rhythm/docs/rd/02-shared-taste-direction.md)，固定了设计简报、四轴方向、共享视觉系统与共享设计冻结卡。按确认闸门规则，当前阶段保持 `modules_split`，挂起 `shared_taste_direction -> design-preview-to-global-guidelines`，等待用户确认。
-- 2026-06-03: 用户确认采纳共享设计方向，工作流已正式提升为 `shared_taste_direction`。
-- 2026-06-03: 已使用 `$gpt-image-2-generator` 生成三张共享静态预览图，覆盖引导首页、今日页和夜间睡前页，作为本轮共享冻结的视觉证据。
-- 2026-06-03: 已重新执行 `design-preview-to-global-guidelines`，基于新的共享预览图刷新 [global-design-guidelines.md](D:/Projects/Flutter/rhythm/docs/rd/global-design-guidelines.md)、[light-theme-freeze.yaml](D:/Projects/Flutter/rhythm/docs/rd/light-theme-freeze.yaml) 与 [dark-theme-freeze.yaml](D:/Projects/Flutter/rhythm/docs/rd/dark-theme-freeze.yaml)。按确认闸门规则，当前阶段保持 `shared_taste_direction`，挂起 `global_guidelines_frozen -> flutter-design-freeze-gate`，等待用户确认。
-- 2026-06-03: `flutter-workflow-orchestrator --auto` 已自动采纳共享冻结合同，正式切换为 `execution_mode=auto`，并将项目级最后确认阶段推进到共享冻结已生效的模块准备态。
-- 2026-06-03: 已选择 `schedule-reminders` 作为依赖顺序上的首个活动模块，生成 [schedule-reminders-overview.png](D:/Projects/Flutter/rhythm/output/imagegen/schedule-reminders-overview.png)、[schedule-reminders-goal-detail.png](D:/Projects/Flutter/rhythm/output/imagegen/schedule-reminders-goal-detail.png)、[schedule-reminders-reminder-dark.png](D:/Projects/Flutter/rhythm/output/imagegen/schedule-reminders-reminder-dark.png)，并将配对 RD 提升到 `implementation_final`，下一步路由为 `flutter-design-freeze-gate`。
-- 2026-06-03: 经模块级冻结复核，`schedule-reminders` 当前设计源包满足 `module_impl_prep` 冻结条件，已将其状态提升为 `impl_rd_ready`，下一步路由为 `flutter-uiux-to-architecture`。
-- 2026-06-03: 已补齐其余 8 个模块的模块级组件冻结骨架、页面级状态与路由合同、设计源消费边界，并将全部模块的 UI/UX RD 与 Implementation RD 提升为 `landed`，设计源状态统一提升为 `frozen`。
-- 2026-06-03: 已新增 [03-module-architecture-handoff.md](D:/Projects/Flutter/rhythm/docs/rd/03-module-architecture-handoff.md)，统一写入 9 个模块的 token 映射、组件分解、屏幕骨架、状态边界与插件落点。
-- 2026-06-03: `flutter-workflow-orchestrator --auto` 已纠正此前“停在单模块局部里程碑”的错误停点，当前 9 个模块都处于 `architecture_ready`，工作流合法停在 `implementation_ready_waiting` 边界，下一技能切换为项目本地 `flutter-dev`。
+- 2026-06-04: 初始化 `docs/rd/00-workflow-record.md`，执行模式设为 `auto`。
+- 2026-06-04: 基于商业级 PRD 生成全局技术基线 `docs/rd/01-global-technical-baseline.md`，确认产品采用 `local-first + optional cloud sync` 的 Flutter 路线。
+- 2026-06-04: 完成共享设计文本归一化 `docs/rd/02-shared-design-packet.md`。
+- 2026-06-04: 检查共享/模块静态视觉目录未发现现成证据，检测到图像凭据可用，因此自动生成轻色模式页面预览图。
+- 2026-06-04: 基于共享设计包与页面预览图冻结 `global-design-guidelines.md`、`light-theme-freeze.yaml`、`dark-theme-freeze.yaml`。
+- 2026-06-04: 完成模块拆分，形成 `docs/rd/00-module-index.md`，各模块 paired docs 初始状态为 `split_draft`。
+- 2026-06-04: `current_module=app-shell`，通过 `@superpowers` 执行 `module_uiux_refinement`，随后完成模块冻结与 architecture 输出。
+- 2026-06-04: `current_module=sleep-data-core`，通过 `@superpowers` 执行 `module_uiux_refinement`，随后完成模块冻结与 architecture 输出。
+- 2026-06-04: `current_module=onboarding-activation`，通过 `@superpowers` 执行 `module_uiux_refinement`，随后完成模块冻结与 architecture 输出。
+- 2026-06-04: `current_module=today`，通过 `@superpowers` 执行 `module_uiux_refinement`，随后完成模块冻结与 architecture 输出。
+- 2026-06-04: `current_module=bedtime`，通过 `@superpowers` 执行 `module_uiux_refinement`，随后完成模块冻结与 architecture 输出。
+- 2026-06-04: `current_module=calendar`，通过 `@superpowers` 执行 `module_uiux_refinement`，随后完成模块冻结与 architecture 输出。
+- 2026-06-04: `current_module=profile-settings`，通过 `@superpowers` 执行 `module_uiux_refinement`，随后完成模块冻结与 architecture 输出。
+- 2026-06-04: `current_module=insights`，通过 `@superpowers` 执行 `module_uiux_refinement`，随后完成模块冻结与 architecture 输出。
+- 2026-06-04: auto loop 重新评估剩余模块，确认全部目标模块已满足预实现边界 stop condition。
+- 2026-06-04: auto loop 到达预实现边界，确认 `bootstrap_critical_baseline_ready=true`，下一步应进入 `flutter-init`。
+- 2026-06-04: 严格纠偏后将 `workflow_status` 从误判的 `blocked` 改回 `active`；`lib/` 为空与 `flutter-dev` 缺失被重新归类为 `flutter-init` 的执行目标，而不是设计阶段 blocker。
