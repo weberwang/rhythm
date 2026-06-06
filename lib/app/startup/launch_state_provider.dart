@@ -46,7 +46,9 @@ Future<LaunchSnapshot> launchState(Ref ref) async {
 }
 
 /// 标记引导已经完成，让后续启动直接进入主壳。
-@riverpod
+/// 这里显式 keepAlive，避免真机慢 IO 时 provider 在异步间隙被 autoDispose，
+/// 导致完成标记虽然已经写入，但 launchStateProvider 来不及失效刷新。
+@Riverpod(keepAlive: true)
 Future<void> completeOnboarding(Ref ref) async {
   final preferencesFuture = ref.read(sharedPreferencesProvider.future);
   final repository = ref.read(goalScheduleRepositoryProvider);

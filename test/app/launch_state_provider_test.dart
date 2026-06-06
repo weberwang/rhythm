@@ -53,6 +53,36 @@ class _DelayedGoalScheduleRepository implements GoalScheduleRepository {
   Future<void> saveActiveSchedule(GoalSchedule schedule) async {}
 }
 
+/// 用顺序可控的仓储模拟慢 IO 场景，验证完成引导后仍会刷新已缓存的启动决策。
+class _SequencedGoalScheduleRepository implements GoalScheduleRepository {
+  /// 创建带顺序阻塞能力的假仓储。
+  _SequencedGoalScheduleRepository({
+    GoalSchedule? initialSchedule,
+    required this.blockedReadNumber,
+    required this.readBlocker,
+  }) : _schedule = initialSchedule;
+
+  GoalSchedule? _schedule;
+  final int blockedReadNumber;
+  final Completer<void> readBlocker;
+  int _readCount = 0;
+
+  @override
+  Future<GoalSchedule?> readActiveSchedule() async {
+    _readCount += 1;
+    if (_readCount == blockedReadNumber) {
+      // 用受控阻塞放大真实设备上的异步窗口，稳定复现 autoDispose 竞态。
+      await readBlocker.future;
+    }
+    return _schedule;
+  }
+
+  @override
+  Future<void> saveActiveSchedule(GoalSchedule schedule) async {
+    _schedule = schedule;
+  }
+}
+
 /// 覆盖启动期 provider，保证根分发在进入实现后仍遵守 Stage 1 guard 规则。
 void main() {
   test('launchState enters onboarding when schedule is missing', () async {
@@ -137,6 +167,48 @@ void main() {
       readCompleter.complete(null);
 
       await expectLater(future.timeout(const Duration(seconds: 1)), completes);
+    },
+  );
+
+  test(
+    'completeOnboarding refreshes cached launch state after slow async gap',
+    () async {
+      SharedPreferences.setMockInitialValues({});
+      final readCompleter = Completer<void>();
+      final repository = _SequencedGoalScheduleRepository(
+        blockedReadNumber: 2,
+        readBlocker: readCompleter,
+      );
+      final container = ProviderContainer(
+        overrides: [
+          goalScheduleRepositoryProvider.overrideWithValue(repository),
+        ],
+      );
+      addTearDown(container.dispose);
+
+      final subscription = container.listen<AsyncValue<LaunchSnapshot>>(
+        launchStateProvider,
+        (_, _) {},
+        fireImmediately: true,
+      );
+      addTearDown(subscription.close);
+
+      final initialSnapshot = await container.read(launchStateProvider.future);
+      expect(initialSnapshot.destination, LaunchDestination.onboarding);
+
+      final completionFuture = container.read(completeOnboardingProvider.future);
+      await Future<void>.delayed(Duration.zero);
+      readCompleter.complete();
+
+      await completionFuture;
+      await Future<void>.delayed(Duration.zero);
+
+      final refreshedSnapshot = subscription.read();
+      expect(refreshedSnapshot.hasValue, isTrue);
+      expect(
+        refreshedSnapshot.requireValue.destination,
+        LaunchDestination.shell,
+      );
     },
   );
 }
