@@ -55,6 +55,14 @@ class _FakeSleepRecordRepository implements SleepRecordRepository {
   }
 
   @override
+  Future<List<SleepRecord>> readRecordsInRange({
+    required DateTime startDate,
+    required DateTime endDate,
+  }) async {
+    return const <SleepRecord>[];
+  }
+
+  @override
   Future<void> saveManualRecord(SleepRecord record) async {}
 }
 
@@ -72,10 +80,13 @@ class _FakeBedtimeSessionRepository implements BedtimeSessionRepository {
 /// 用假的健康权限网关稳定复现 onboarding 权限步骤，不依赖真实插件环境。
 class _FakeOnboardingHealthPermissionGateway
     implements OnboardingHealthPermissionGateway {
-  const _FakeOnboardingHealthPermissionGateway();
+  _FakeOnboardingHealthPermissionGateway();
+
+  int requestCount = 0;
 
   @override
   Future<OnboardingHealthPermissionStatus> requestSleepPermission() async {
+    requestCount += 1;
     return OnboardingHealthPermissionStatus.denied;
   }
 }
@@ -206,6 +217,7 @@ void main() {
     SharedPreferences.setMockInitialValues({'onboarding_completed': false});
     final repository = _FakeGoalScheduleRepository(null);
     final accountSessionRepository = _FakeAccountSessionRepository();
+    final healthPermissionGateway = _FakeOnboardingHealthPermissionGateway();
     final container = ProviderContainer(
       overrides: [
         goalScheduleRepositoryProvider.overrideWithValue(repository),
@@ -220,7 +232,7 @@ void main() {
         ),
         currentAccountSessionProvider.overrideWith((ref) async => null),
         onboardingHealthPermissionGatewayProvider.overrideWithValue(
-          const _FakeOnboardingHealthPermissionGateway(),
+          healthPermissionGateway,
         ),
         onboardingWidgetGuideGatewayProvider.overrideWithValue(
           const _FakeOnboardingWidgetGuideGateway(),
@@ -257,6 +269,7 @@ void main() {
 
     expect(find.byType(TodayPage), findsOneWidget);
     expect(find.byType(OnboardingFlowPage), findsNothing);
+    expect(healthPermissionGateway.requestCount, 0);
   });
 
   testWidgets(
@@ -270,6 +283,7 @@ void main() {
       SharedPreferences.setMockInitialValues({'onboarding_completed': false});
       final repository = _FakeGoalScheduleRepository(null);
       final accountSessionRepository = _FakeAccountSessionRepository();
+      final healthPermissionGateway = _FakeOnboardingHealthPermissionGateway();
       final container = ProviderContainer(
         overrides: [
           goalScheduleRepositoryProvider.overrideWithValue(repository),
@@ -284,7 +298,7 @@ void main() {
           ),
           currentAccountSessionProvider.overrideWith((ref) async => null),
           onboardingHealthPermissionGatewayProvider.overrideWithValue(
-            const _FakeOnboardingHealthPermissionGateway(),
+            healthPermissionGateway,
           ),
           onboardingWidgetGuideGatewayProvider.overrideWithValue(
             const _FakeOnboardingWidgetGuideGateway(),
@@ -327,6 +341,48 @@ void main() {
 
       expect(find.byType(TodayPage), findsOneWidget);
       expect(find.byType(BedtimePage), findsNothing);
+      expect(healthPermissionGateway.requestCount, 0);
     },
   );
+
+  testWidgets('skip onboarding from welcome enters today page', (tester) async {
+    SharedPreferences.setMockInitialValues({'onboarding_completed': false});
+    final repository = _FakeGoalScheduleRepository(null);
+    final accountSessionRepository = _FakeAccountSessionRepository();
+    final container = ProviderContainer(
+      overrides: [
+        goalScheduleRepositoryProvider.overrideWithValue(repository),
+        bedtimeSessionRepositoryProvider.overrideWithValue(
+          _FakeBedtimeSessionRepository(),
+        ),
+        sleepRecordRepositoryProvider.overrideWithValue(
+          _FakeSleepRecordRepository(),
+        ),
+        accountSessionRepositoryProvider.overrideWithValue(
+          accountSessionRepository,
+        ),
+        currentAccountSessionProvider.overrideWith((ref) async => null),
+        onboardingHealthPermissionGatewayProvider.overrideWithValue(
+          _FakeOnboardingHealthPermissionGateway(),
+        ),
+        onboardingWidgetGuideGatewayProvider.overrideWithValue(
+          const _FakeOnboardingWidgetGuideGateway(),
+        ),
+      ],
+    );
+    addTearDown(container.dispose);
+
+    await tester.pumpWidget(
+      UncontrolledProviderScope(container: container, child: const RhythmApp()),
+    );
+    await tester.pumpAndSettle();
+
+    expect(find.byType(OnboardingFlowPage), findsOneWidget);
+
+    await tester.tap(find.text('Skip onboarding'));
+    await tester.pumpAndSettle();
+
+    expect(find.byType(TodayPage), findsOneWidget);
+    expect(find.byType(OnboardingFlowPage), findsNothing);
+  });
 }

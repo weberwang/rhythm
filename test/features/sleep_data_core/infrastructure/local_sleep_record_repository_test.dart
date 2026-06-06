@@ -52,4 +52,57 @@ void main() {
       expect(recent.last.id, first.id);
     },
   );
+
+  test('LocalSleepRecordRepository reads records inside a date range', () async {
+    final database = RhythmDatabase.forTesting(NativeDatabase.memory());
+    final repository = LocalSleepRecordRepository(database);
+    addTearDown(database.close);
+
+    await repository.saveManualRecord(
+      SleepRecord(
+        id: 'record-1',
+        sleepDate: DateTime(2026, 5, 30),
+        bedtimeMinutes: 23 * 60 + 40,
+        wakeTimeMinutes: 7 * 60 + 20,
+        source: SleepRecordSource.manual,
+        confidence: SleepRecordConfidence.trusted,
+        isManuallyAdjusted: false,
+        note: null,
+        createdAt: DateTime(2026, 5, 31, 7, 30),
+      ),
+    );
+    await repository.saveManualRecord(
+      SleepRecord(
+        id: 'record-2',
+        sleepDate: DateTime(2026, 6, 2),
+        bedtimeMinutes: 23 * 60 + 10,
+        wakeTimeMinutes: 7 * 60,
+        source: SleepRecordSource.health,
+        confidence: SleepRecordConfidence.trusted,
+        isManuallyAdjusted: false,
+        note: null,
+        createdAt: DateTime(2026, 6, 3, 7, 30),
+      ),
+    );
+    await repository.saveManualRecord(
+      SleepRecord(
+        id: 'record-3',
+        sleepDate: DateTime(2026, 6, 8),
+        bedtimeMinutes: 0 * 60 + 25,
+        wakeTimeMinutes: 7 * 60 + 15,
+        source: SleepRecordSource.manual,
+        confidence: SleepRecordConfidence.partial,
+        isManuallyAdjusted: true,
+        note: '手动修正',
+        createdAt: DateTime(2026, 6, 9, 7, 30),
+      ),
+    );
+
+    final juneRecords = await repository.readRecordsInRange(
+      startDate: DateTime(2026, 6, 1),
+      endDate: DateTime(2026, 6, 30),
+    );
+
+    expect(juneRecords.map((record) => record.id), ['record-3', 'record-2']);
+  });
 }

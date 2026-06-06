@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$BedtimeSessionDraft {
 
- BedtimeSessionState get currentState; String get targetBedtimeLabel; String get wakeTimeLabel; int get minutesToTarget; BedtimeEntrySource get entrySource; BedtimeStatusChoice? get selectedChoice; BedtimeActionKind get actionKind; bool get reminderEnabled;
+ BedtimeSessionState get currentState; String get targetBedtimeLabel; String get wakeTimeLabel; int get minutesToTarget; BedtimeEntrySource get entrySource; BedtimeStatusChoice? get selectedChoice; BedtimeActionKind get actionKind; BedtimeReminderState get reminderState; bool get isSessionRestored;
 /// Create a copy of BedtimeSessionDraft
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $BedtimeSessionDraftCopyWith<BedtimeSessionDraft> get copyWith => _$BedtimeSessi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is BedtimeSessionDraft&&(identical(other.currentState, currentState) || other.currentState == currentState)&&(identical(other.targetBedtimeLabel, targetBedtimeLabel) || other.targetBedtimeLabel == targetBedtimeLabel)&&(identical(other.wakeTimeLabel, wakeTimeLabel) || other.wakeTimeLabel == wakeTimeLabel)&&(identical(other.minutesToTarget, minutesToTarget) || other.minutesToTarget == minutesToTarget)&&(identical(other.entrySource, entrySource) || other.entrySource == entrySource)&&(identical(other.selectedChoice, selectedChoice) || other.selectedChoice == selectedChoice)&&(identical(other.actionKind, actionKind) || other.actionKind == actionKind)&&(identical(other.reminderEnabled, reminderEnabled) || other.reminderEnabled == reminderEnabled));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is BedtimeSessionDraft&&(identical(other.currentState, currentState) || other.currentState == currentState)&&(identical(other.targetBedtimeLabel, targetBedtimeLabel) || other.targetBedtimeLabel == targetBedtimeLabel)&&(identical(other.wakeTimeLabel, wakeTimeLabel) || other.wakeTimeLabel == wakeTimeLabel)&&(identical(other.minutesToTarget, minutesToTarget) || other.minutesToTarget == minutesToTarget)&&(identical(other.entrySource, entrySource) || other.entrySource == entrySource)&&(identical(other.selectedChoice, selectedChoice) || other.selectedChoice == selectedChoice)&&(identical(other.actionKind, actionKind) || other.actionKind == actionKind)&&(identical(other.reminderState, reminderState) || other.reminderState == reminderState)&&(identical(other.isSessionRestored, isSessionRestored) || other.isSessionRestored == isSessionRestored));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,currentState,targetBedtimeLabel,wakeTimeLabel,minutesToTarget,entrySource,selectedChoice,actionKind,reminderEnabled);
+int get hashCode => Object.hash(runtimeType,currentState,targetBedtimeLabel,wakeTimeLabel,minutesToTarget,entrySource,selectedChoice,actionKind,reminderState,isSessionRestored);
 
 @override
 String toString() {
-  return 'BedtimeSessionDraft(currentState: $currentState, targetBedtimeLabel: $targetBedtimeLabel, wakeTimeLabel: $wakeTimeLabel, minutesToTarget: $minutesToTarget, entrySource: $entrySource, selectedChoice: $selectedChoice, actionKind: $actionKind, reminderEnabled: $reminderEnabled)';
+  return 'BedtimeSessionDraft(currentState: $currentState, targetBedtimeLabel: $targetBedtimeLabel, wakeTimeLabel: $wakeTimeLabel, minutesToTarget: $minutesToTarget, entrySource: $entrySource, selectedChoice: $selectedChoice, actionKind: $actionKind, reminderState: $reminderState, isSessionRestored: $isSessionRestored)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $BedtimeSessionDraftCopyWith<$Res>  {
   factory $BedtimeSessionDraftCopyWith(BedtimeSessionDraft value, $Res Function(BedtimeSessionDraft) _then) = _$BedtimeSessionDraftCopyWithImpl;
 @useResult
 $Res call({
- BedtimeSessionState currentState, String targetBedtimeLabel, String wakeTimeLabel, int minutesToTarget, BedtimeEntrySource entrySource, BedtimeStatusChoice? selectedChoice, BedtimeActionKind actionKind, bool reminderEnabled
+ BedtimeSessionState currentState, String targetBedtimeLabel, String wakeTimeLabel, int minutesToTarget, BedtimeEntrySource entrySource, BedtimeStatusChoice? selectedChoice, BedtimeActionKind actionKind, BedtimeReminderState reminderState, bool isSessionRestored
 });
 
 
@@ -62,7 +62,7 @@ class _$BedtimeSessionDraftCopyWithImpl<$Res>
 
 /// Create a copy of BedtimeSessionDraft
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? currentState = null,Object? targetBedtimeLabel = null,Object? wakeTimeLabel = null,Object? minutesToTarget = null,Object? entrySource = null,Object? selectedChoice = freezed,Object? actionKind = null,Object? reminderEnabled = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? currentState = null,Object? targetBedtimeLabel = null,Object? wakeTimeLabel = null,Object? minutesToTarget = null,Object? entrySource = null,Object? selectedChoice = freezed,Object? actionKind = null,Object? reminderState = null,Object? isSessionRestored = null,}) {
   return _then(_self.copyWith(
 currentState: null == currentState ? _self.currentState : currentState // ignore: cast_nullable_to_non_nullable
 as BedtimeSessionState,targetBedtimeLabel: null == targetBedtimeLabel ? _self.targetBedtimeLabel : targetBedtimeLabel // ignore: cast_nullable_to_non_nullable
@@ -71,7 +71,8 @@ as String,minutesToTarget: null == minutesToTarget ? _self.minutesToTarget : min
 as int,entrySource: null == entrySource ? _self.entrySource : entrySource // ignore: cast_nullable_to_non_nullable
 as BedtimeEntrySource,selectedChoice: freezed == selectedChoice ? _self.selectedChoice : selectedChoice // ignore: cast_nullable_to_non_nullable
 as BedtimeStatusChoice?,actionKind: null == actionKind ? _self.actionKind : actionKind // ignore: cast_nullable_to_non_nullable
-as BedtimeActionKind,reminderEnabled: null == reminderEnabled ? _self.reminderEnabled : reminderEnabled // ignore: cast_nullable_to_non_nullable
+as BedtimeActionKind,reminderState: null == reminderState ? _self.reminderState : reminderState // ignore: cast_nullable_to_non_nullable
+as BedtimeReminderState,isSessionRestored: null == isSessionRestored ? _self.isSessionRestored : isSessionRestored // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
 }
@@ -157,10 +158,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( BedtimeSessionState currentState,  String targetBedtimeLabel,  String wakeTimeLabel,  int minutesToTarget,  BedtimeEntrySource entrySource,  BedtimeStatusChoice? selectedChoice,  BedtimeActionKind actionKind,  bool reminderEnabled)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( BedtimeSessionState currentState,  String targetBedtimeLabel,  String wakeTimeLabel,  int minutesToTarget,  BedtimeEntrySource entrySource,  BedtimeStatusChoice? selectedChoice,  BedtimeActionKind actionKind,  BedtimeReminderState reminderState,  bool isSessionRestored)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _BedtimeSessionDraft() when $default != null:
-return $default(_that.currentState,_that.targetBedtimeLabel,_that.wakeTimeLabel,_that.minutesToTarget,_that.entrySource,_that.selectedChoice,_that.actionKind,_that.reminderEnabled);case _:
+return $default(_that.currentState,_that.targetBedtimeLabel,_that.wakeTimeLabel,_that.minutesToTarget,_that.entrySource,_that.selectedChoice,_that.actionKind,_that.reminderState,_that.isSessionRestored);case _:
   return orElse();
 
 }
@@ -178,10 +179,10 @@ return $default(_that.currentState,_that.targetBedtimeLabel,_that.wakeTimeLabel,
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( BedtimeSessionState currentState,  String targetBedtimeLabel,  String wakeTimeLabel,  int minutesToTarget,  BedtimeEntrySource entrySource,  BedtimeStatusChoice? selectedChoice,  BedtimeActionKind actionKind,  bool reminderEnabled)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( BedtimeSessionState currentState,  String targetBedtimeLabel,  String wakeTimeLabel,  int minutesToTarget,  BedtimeEntrySource entrySource,  BedtimeStatusChoice? selectedChoice,  BedtimeActionKind actionKind,  BedtimeReminderState reminderState,  bool isSessionRestored)  $default,) {final _that = this;
 switch (_that) {
 case _BedtimeSessionDraft():
-return $default(_that.currentState,_that.targetBedtimeLabel,_that.wakeTimeLabel,_that.minutesToTarget,_that.entrySource,_that.selectedChoice,_that.actionKind,_that.reminderEnabled);case _:
+return $default(_that.currentState,_that.targetBedtimeLabel,_that.wakeTimeLabel,_that.minutesToTarget,_that.entrySource,_that.selectedChoice,_that.actionKind,_that.reminderState,_that.isSessionRestored);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -198,10 +199,10 @@ return $default(_that.currentState,_that.targetBedtimeLabel,_that.wakeTimeLabel,
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( BedtimeSessionState currentState,  String targetBedtimeLabel,  String wakeTimeLabel,  int minutesToTarget,  BedtimeEntrySource entrySource,  BedtimeStatusChoice? selectedChoice,  BedtimeActionKind actionKind,  bool reminderEnabled)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( BedtimeSessionState currentState,  String targetBedtimeLabel,  String wakeTimeLabel,  int minutesToTarget,  BedtimeEntrySource entrySource,  BedtimeStatusChoice? selectedChoice,  BedtimeActionKind actionKind,  BedtimeReminderState reminderState,  bool isSessionRestored)?  $default,) {final _that = this;
 switch (_that) {
 case _BedtimeSessionDraft() when $default != null:
-return $default(_that.currentState,_that.targetBedtimeLabel,_that.wakeTimeLabel,_that.minutesToTarget,_that.entrySource,_that.selectedChoice,_that.actionKind,_that.reminderEnabled);case _:
+return $default(_that.currentState,_that.targetBedtimeLabel,_that.wakeTimeLabel,_that.minutesToTarget,_that.entrySource,_that.selectedChoice,_that.actionKind,_that.reminderState,_that.isSessionRestored);case _:
   return null;
 
 }
@@ -213,7 +214,7 @@ return $default(_that.currentState,_that.targetBedtimeLabel,_that.wakeTimeLabel,
 
 
 class _BedtimeSessionDraft implements BedtimeSessionDraft {
-  const _BedtimeSessionDraft({required this.currentState, required this.targetBedtimeLabel, required this.wakeTimeLabel, required this.minutesToTarget, required this.entrySource, required this.selectedChoice, required this.actionKind, required this.reminderEnabled});
+  const _BedtimeSessionDraft({required this.currentState, required this.targetBedtimeLabel, required this.wakeTimeLabel, required this.minutesToTarget, required this.entrySource, required this.selectedChoice, required this.actionKind, required this.reminderState, this.isSessionRestored = false});
   
 
 @override final  BedtimeSessionState currentState;
@@ -223,7 +224,8 @@ class _BedtimeSessionDraft implements BedtimeSessionDraft {
 @override final  BedtimeEntrySource entrySource;
 @override final  BedtimeStatusChoice? selectedChoice;
 @override final  BedtimeActionKind actionKind;
-@override final  bool reminderEnabled;
+@override final  BedtimeReminderState reminderState;
+@override@JsonKey() final  bool isSessionRestored;
 
 /// Create a copy of BedtimeSessionDraft
 /// with the given fields replaced by the non-null parameter values.
@@ -235,16 +237,16 @@ _$BedtimeSessionDraftCopyWith<_BedtimeSessionDraft> get copyWith => __$BedtimeSe
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _BedtimeSessionDraft&&(identical(other.currentState, currentState) || other.currentState == currentState)&&(identical(other.targetBedtimeLabel, targetBedtimeLabel) || other.targetBedtimeLabel == targetBedtimeLabel)&&(identical(other.wakeTimeLabel, wakeTimeLabel) || other.wakeTimeLabel == wakeTimeLabel)&&(identical(other.minutesToTarget, minutesToTarget) || other.minutesToTarget == minutesToTarget)&&(identical(other.entrySource, entrySource) || other.entrySource == entrySource)&&(identical(other.selectedChoice, selectedChoice) || other.selectedChoice == selectedChoice)&&(identical(other.actionKind, actionKind) || other.actionKind == actionKind)&&(identical(other.reminderEnabled, reminderEnabled) || other.reminderEnabled == reminderEnabled));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _BedtimeSessionDraft&&(identical(other.currentState, currentState) || other.currentState == currentState)&&(identical(other.targetBedtimeLabel, targetBedtimeLabel) || other.targetBedtimeLabel == targetBedtimeLabel)&&(identical(other.wakeTimeLabel, wakeTimeLabel) || other.wakeTimeLabel == wakeTimeLabel)&&(identical(other.minutesToTarget, minutesToTarget) || other.minutesToTarget == minutesToTarget)&&(identical(other.entrySource, entrySource) || other.entrySource == entrySource)&&(identical(other.selectedChoice, selectedChoice) || other.selectedChoice == selectedChoice)&&(identical(other.actionKind, actionKind) || other.actionKind == actionKind)&&(identical(other.reminderState, reminderState) || other.reminderState == reminderState)&&(identical(other.isSessionRestored, isSessionRestored) || other.isSessionRestored == isSessionRestored));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,currentState,targetBedtimeLabel,wakeTimeLabel,minutesToTarget,entrySource,selectedChoice,actionKind,reminderEnabled);
+int get hashCode => Object.hash(runtimeType,currentState,targetBedtimeLabel,wakeTimeLabel,minutesToTarget,entrySource,selectedChoice,actionKind,reminderState,isSessionRestored);
 
 @override
 String toString() {
-  return 'BedtimeSessionDraft(currentState: $currentState, targetBedtimeLabel: $targetBedtimeLabel, wakeTimeLabel: $wakeTimeLabel, minutesToTarget: $minutesToTarget, entrySource: $entrySource, selectedChoice: $selectedChoice, actionKind: $actionKind, reminderEnabled: $reminderEnabled)';
+  return 'BedtimeSessionDraft(currentState: $currentState, targetBedtimeLabel: $targetBedtimeLabel, wakeTimeLabel: $wakeTimeLabel, minutesToTarget: $minutesToTarget, entrySource: $entrySource, selectedChoice: $selectedChoice, actionKind: $actionKind, reminderState: $reminderState, isSessionRestored: $isSessionRestored)';
 }
 
 
@@ -255,7 +257,7 @@ abstract mixin class _$BedtimeSessionDraftCopyWith<$Res> implements $BedtimeSess
   factory _$BedtimeSessionDraftCopyWith(_BedtimeSessionDraft value, $Res Function(_BedtimeSessionDraft) _then) = __$BedtimeSessionDraftCopyWithImpl;
 @override @useResult
 $Res call({
- BedtimeSessionState currentState, String targetBedtimeLabel, String wakeTimeLabel, int minutesToTarget, BedtimeEntrySource entrySource, BedtimeStatusChoice? selectedChoice, BedtimeActionKind actionKind, bool reminderEnabled
+ BedtimeSessionState currentState, String targetBedtimeLabel, String wakeTimeLabel, int minutesToTarget, BedtimeEntrySource entrySource, BedtimeStatusChoice? selectedChoice, BedtimeActionKind actionKind, BedtimeReminderState reminderState, bool isSessionRestored
 });
 
 
@@ -272,7 +274,7 @@ class __$BedtimeSessionDraftCopyWithImpl<$Res>
 
 /// Create a copy of BedtimeSessionDraft
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? currentState = null,Object? targetBedtimeLabel = null,Object? wakeTimeLabel = null,Object? minutesToTarget = null,Object? entrySource = null,Object? selectedChoice = freezed,Object? actionKind = null,Object? reminderEnabled = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? currentState = null,Object? targetBedtimeLabel = null,Object? wakeTimeLabel = null,Object? minutesToTarget = null,Object? entrySource = null,Object? selectedChoice = freezed,Object? actionKind = null,Object? reminderState = null,Object? isSessionRestored = null,}) {
   return _then(_BedtimeSessionDraft(
 currentState: null == currentState ? _self.currentState : currentState // ignore: cast_nullable_to_non_nullable
 as BedtimeSessionState,targetBedtimeLabel: null == targetBedtimeLabel ? _self.targetBedtimeLabel : targetBedtimeLabel // ignore: cast_nullable_to_non_nullable
@@ -281,7 +283,8 @@ as String,minutesToTarget: null == minutesToTarget ? _self.minutesToTarget : min
 as int,entrySource: null == entrySource ? _self.entrySource : entrySource // ignore: cast_nullable_to_non_nullable
 as BedtimeEntrySource,selectedChoice: freezed == selectedChoice ? _self.selectedChoice : selectedChoice // ignore: cast_nullable_to_non_nullable
 as BedtimeStatusChoice?,actionKind: null == actionKind ? _self.actionKind : actionKind // ignore: cast_nullable_to_non_nullable
-as BedtimeActionKind,reminderEnabled: null == reminderEnabled ? _self.reminderEnabled : reminderEnabled // ignore: cast_nullable_to_non_nullable
+as BedtimeActionKind,reminderState: null == reminderState ? _self.reminderState : reminderState // ignore: cast_nullable_to_non_nullable
+as BedtimeReminderState,isSessionRestored: null == isSessionRestored ? _self.isSessionRestored : isSessionRestored // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
 }

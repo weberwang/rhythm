@@ -8,8 +8,11 @@ import 'package:rhythm/features/bedtime/domain/entities/bedtime_session_draft.da
 import 'package:rhythm/features/bedtime/domain/entities/bedtime_session_record.dart';
 import 'package:rhythm/features/bedtime/domain/repositories/bedtime_session_repository.dart';
 import 'package:rhythm/features/sleep_data_core/application/providers/goal_schedule_repository_provider.dart';
+import 'package:rhythm/features/sleep_data_core/application/providers/reminder_preference_repository_provider.dart';
 import 'package:rhythm/features/sleep_data_core/domain/entities/goal_schedule.dart';
+import 'package:rhythm/features/sleep_data_core/domain/entities/reminder_preference.dart';
 import 'package:rhythm/features/sleep_data_core/domain/repositories/goal_schedule_repository.dart';
+import 'package:rhythm/features/sleep_data_core/domain/repositories/reminder_preference_repository.dart';
 
 /// 用内存作息仓储稳定 bedtime 倒计时输入，避免测试依赖真实本地库。
 class _FakeGoalScheduleRepository implements GoalScheduleRepository {
@@ -35,7 +38,11 @@ class _FakeBedtimeSessionRepository implements BedtimeSessionRepository {
     if (stored == null) {
       return null;
     }
-    final normalized = DateTime(sessionDate.year, sessionDate.month, sessionDate.day);
+    final normalized = DateTime(
+      sessionDate.year,
+      sessionDate.month,
+      sessionDate.day,
+    );
     if (stored!.sessionDate != normalized) {
       return null;
     }
@@ -45,6 +52,22 @@ class _FakeBedtimeSessionRepository implements BedtimeSessionRepository {
   @override
   Future<void> saveSession(BedtimeSessionRecord record) async {
     stored = record;
+  }
+}
+
+/// 用内存提醒偏好仓储锁定 bedtime 对“提醒已开/未开”的读取结果。
+class _FakeReminderPreferenceRepository
+    implements ReminderPreferenceRepository {
+  _FakeReminderPreferenceRepository(this.value);
+
+  ReminderPreference? value;
+
+  @override
+  Future<ReminderPreference?> readReminderPreference() async => value;
+
+  @override
+  Future<void> saveReminderPreference(ReminderPreference preference) async {
+    value = preference;
   }
 }
 
@@ -67,6 +90,9 @@ void main() {
             ),
           ),
           bedtimeSessionRepositoryProvider.overrideWithValue(sessionRepository),
+          reminderPreferenceRepositoryProvider.overrideWithValue(
+            _FakeReminderPreferenceRepository(ReminderPreference.gentle),
+          ),
           bedtimeNowProvider.overrideWithValue(DateTime(2026, 6, 6, 23, 35)),
         ],
       );
@@ -92,53 +118,67 @@ void main() {
       expect(updated.selectedChoice, BedtimeStatusChoice.likelyDelay);
       expect(updated.actionKind, BedtimeActionKind.protectWakeUp);
       expect(updated.entrySource, BedtimeEntrySource.notification);
+      expect(updated.reminderState, BedtimeReminderState.enabled);
       expect(sessionRepository.stored, isNotNull);
-      expect(sessionRepository.stored!.selectedChoice, BedtimeStatusChoice.likelyDelay);
+      expect(
+        sessionRepository.stored!.selectedChoice,
+        BedtimeStatusChoice.likelyDelay,
+      );
       expect(sessionRepository.stored!.isCompleted, isFalse);
     },
   );
 
-  test('bedtime session controller restores stored draft and writes completion',
-      () async {
-    final sessionRepository = _FakeBedtimeSessionRepository()
-      ..stored = BedtimeSessionRecord(
-        sessionDate: DateTime(2026, 6, 6),
-        selectedChoice: BedtimeStatusChoice.needWindDown,
-        entrySource: BedtimeEntrySource.homeWidget,
-        isCompleted: false,
-        updatedAt: DateTime(2026, 6, 6, 22, 10),
-      );
-    final container = ProviderContainer(
-      overrides: [
-        goalScheduleRepositoryProvider.overrideWithValue(
-          _FakeGoalScheduleRepository(
-            GoalSchedule(
-              id: 'fixture',
-              bedtimeMinutes: 23 * 60,
-              wakeTimeMinutes: 7 * 60,
-              createdAt: DateTime(2026, 6, 6),
+  test(
+    'bedtime session controller restores stored draft and writes completion',
+    () async {
+      final sessionRepository = _FakeBedtimeSessionRepository()
+        ..stored = BedtimeSessionRecord(
+          sessionDate: DateTime(2026, 6, 6),
+          selectedChoice: BedtimeStatusChoice.needWindDown,
+          entrySource: BedtimeEntrySource.homeWidget,
+          isCompleted: false,
+          updatedAt: DateTime(2026, 6, 6, 22, 10),
+        );
+      final container = ProviderContainer(
+        overrides: [
+          goalScheduleRepositoryProvider.overrideWithValue(
+            _FakeGoalScheduleRepository(
+              GoalSchedule(
+                id: 'fixture',
+                bedtimeMinutes: 23 * 60,
+                wakeTimeMinutes: 7 * 60,
+                createdAt: DateTime(2026, 6, 6),
+              ),
             ),
           ),
-        ),
-        bedtimeSessionRepositoryProvider.overrideWithValue(sessionRepository),
-        bedtimeNowProvider.overrideWithValue(DateTime(2026, 6, 6, 22, 20)),
-      ],
-    );
-    addTearDown(container.dispose);
+          bedtimeSessionRepositoryProvider.overrideWithValue(sessionRepository),
+          reminderPreferenceRepositoryProvider.overrideWithValue(
+            _FakeReminderPreferenceRepository(ReminderPreference.disabled),
+          ),
+          bedtimeNowProvider.overrideWithValue(DateTime(2026, 6, 6, 22, 20)),
+        ],
+      );
+      addTearDown(container.dispose);
 
-    final restored = await container.read(bedtimeSessionControllerProvider.future);
-    expect(restored.selectedChoice, BedtimeStatusChoice.needWindDown);
-    expect(restored.entrySource, BedtimeEntrySource.homeWidget);
+      final restored = await container.read(
+        bedtimeSessionControllerProvider.future,
+      );
+      expect(restored.selectedChoice, BedtimeStatusChoice.needWindDown);
+      expect(restored.entrySource, BedtimeEntrySource.homeWidget);
+      expect(restored.reminderState, BedtimeReminderState.disabled);
+      expect(restored.isSessionRestored, isTrue);
 
-    await container
-        .read(bedtimeSessionControllerProvider.notifier)
-        .completePrimaryAction();
+      await container
+          .read(bedtimeSessionControllerProvider.notifier)
+          .completePrimaryAction();
 
-    final completed = container
-        .read(bedtimeSessionControllerProvider)
-        .requireValue;
-    expect(completed.currentState, BedtimeSessionState.sessionCompleted);
-    expect(sessionRepository.stored, isNotNull);
-    expect(sessionRepository.stored!.isCompleted, isTrue);
-  });
+      final completed = container
+          .read(bedtimeSessionControllerProvider)
+          .requireValue;
+      expect(completed.currentState, BedtimeSessionState.sessionCompleted);
+      expect(completed.isSessionRestored, isFalse);
+      expect(sessionRepository.stored, isNotNull);
+      expect(sessionRepository.stored!.isCompleted, isTrue);
+    },
+  );
 }

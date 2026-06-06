@@ -8,6 +8,7 @@ class OnboardingHeaderSection extends StatelessWidget {
     required this.stepLabel,
     required this.title,
     required this.body,
+    this.trailingAction,
   });
 
   /// 步骤文案。
@@ -19,19 +20,35 @@ class OnboardingHeaderSection extends StatelessWidget {
   /// 说明文案。
   final String body;
 
+  /// 标题区右上角操作，当前用于在引导起始页暴露跳过入口。
+  final Widget? trailingAction;
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
+    final headerRowChildren = <Widget>[
+      Expanded(
+        child: Text(
           stepLabel,
           style: theme.textTheme.titleMedium?.copyWith(
             color: const Color(0xFF2F6A43),
             fontWeight: FontWeight.w700,
           ),
+        ),
+      ),
+    ];
+
+    if (trailingAction != null) {
+      headerRowChildren.add(const SizedBox(width: 12));
+      headerRowChildren.add(trailingAction!);
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: headerRowChildren,
         ),
         const SizedBox(height: 28),
         Text(

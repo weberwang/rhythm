@@ -4,6 +4,8 @@ import 'package:rhythm/l10n/app_localizations.dart';
 
 import '../../application/providers/bedtime_session_controller.dart';
 import '../../domain/entities/bedtime_session_draft.dart';
+import '../widgets/bedtime_page_sections.dart';
+import '../widgets/bedtime_page_style.dart';
 
 /// 睡前页负责承接“今晚判断 -> 选择 -> 执行”的单任务焦点。
 class BedtimePage extends HookConsumerWidget {
@@ -19,26 +21,46 @@ class BedtimePage extends HookConsumerWidget {
     final sessionAsync = ref.watch(bedtimeSessionControllerProvider);
 
     return Scaffold(
-      appBar: AppBar(title: Text(localization.bedtimeTitle)),
-      body: SafeArea(
-        child: sessionAsync.when(
-          data: (draft) => _BedtimeContent(draft: draft),
-          loading: () => const Center(child: CircularProgressIndicator()),
-          error: (_, _) => Center(child: Text(localization.bedtimeBody)),
-        ),
+      backgroundColor: BedtimePageStyle.pageBackground,
+      appBar: AppBar(
+        toolbarHeight: 8,
+        automaticallyImplyLeading: false,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        scrolledUnderElevation: 0,
+      ),
+      body: Stack(
+        children: [
+          const BedtimeDecorativeBackground(),
+          SafeArea(
+            child: sessionAsync.when(
+              data: (draft) => _BedtimeScrollContent(draft: draft),
+              loading: () => const Center(child: CircularProgressIndicator()),
+              error: (_, _) =>
+                  _BedtimeErrorState(body: localization.bedtimeBody),
+            ),
+          ),
+        ],
       ),
       bottomNavigationBar: sessionAsync.maybeWhen(
         data: (draft) => SafeArea(
           top: false,
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(20, 12, 20, 20),
+            padding: const EdgeInsets.fromLTRB(20, 12, 20, 22),
             child: FilledButton(
+              key: const Key('bedtime-primary-action'),
               onPressed:
                   draft.currentState == BedtimeSessionState.sessionCompleted
                   ? null
                   : () => ref
                         .read(bedtimeSessionControllerProvider.notifier)
                         .completePrimaryAction(),
+              style: FilledButton.styleFrom(
+                minimumSize: const Size.fromHeight(58),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(22),
+                ),
+              ),
               child: Text(
                 draft.currentState == BedtimeSessionState.sessionCompleted
                     ? localization.bedtimePrimaryActionCompleted
@@ -53,10 +75,10 @@ class BedtimePage extends HookConsumerWidget {
   }
 }
 
-/// 睡前页主内容严格围绕单一决策路径，不扩展成复杂追踪仪表盘。
-class _BedtimeContent extends StatelessWidget {
-  /// 创建主内容。
-  const _BedtimeContent({required this.draft});
+/// 页面滚动主体只负责按冻结信息层级拼装区块，不处理业务推导。
+class _BedtimeScrollContent extends StatelessWidget {
+  /// 创建滚动主体。
+  const _BedtimeScrollContent({required this.draft});
 
   /// 当前会话草稿。
   final BedtimeSessionDraft draft;
@@ -64,166 +86,98 @@ class _BedtimeContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final localization = AppLocalizations.of(context);
-    final theme = Theme.of(context);
+    final reminderEnabled = draft.reminderState == BedtimeReminderState.enabled;
+    final compactLayout = MediaQuery.sizeOf(context).height < 980;
 
-    return ListView(
-      padding: const EdgeInsets.fromLTRB(20, 20, 20, 8),
-      children: [
-        Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(28),
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                theme.colorScheme.primary.withValues(alpha: 0.12),
-                theme.colorScheme.surface,
-              ],
-            ),
-            border: Border.all(color: theme.colorScheme.outlineVariant),
+    return SingleChildScrollView(
+      key: const Key('bedtime-scroll-view'),
+      padding: EdgeInsets.fromLTRB(20, compactLayout ? 8 : 12, 20, 96),
+      child: Column(
+        children: [
+          BedtimeHeroCard(
+            title: localization.bedtimeTitle,
+            subtitle: _heroSubtitle(localization, draft),
+            countdownLabel: _countdownLabel(localization, draft),
+            countdownValue: _countdownValue(localization, draft),
+            caption: _supportingText(localization, draft),
+            progress: _countdownProgress(draft),
+            completed:
+                draft.currentState == BedtimeSessionState.sessionCompleted,
+            compact: compactLayout,
           ),
-          padding: const EdgeInsets.fromLTRB(22, 22, 22, 22),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                _entrySourceLabel(localization, draft.entrySource),
-                style: theme.textTheme.labelLarge?.copyWith(
-                  color: theme.colorScheme.primary,
-                ),
+          SizedBox(height: compactLayout ? 14 : 22),
+          BedtimeTargetCard(
+            bedtimeLabel: draft.targetBedtimeLabel,
+            wakeTimeLabel: draft.wakeTimeLabel,
+            targetLabel: localization.bedtimeTargetBedtimeLabel,
+            wakeLabel: localization.bedtimeTargetWakeLabel,
+            compact: compactLayout,
+          ),
+          SizedBox(height: compactLayout ? 14 : 22),
+          if (draft.isSessionRestored || !reminderEnabled) ...[
+            if (draft.isSessionRestored) ...[
+              BedtimeInfoBanner(
+                bannerKey: const Key('bedtime-restored-banner'),
+                icon: Icons.history_toggle_off_rounded,
+                body: localization.bedtimeRestoredSessionBody,
+                tint: const Color(0xFFE9F4F1),
+                foreground: BedtimePageStyle.accent,
               ),
-              const SizedBox(height: 14),
-              Text(
-                _headlineText(localization, draft),
-                style: theme.textTheme.headlineMedium,
-              ),
-              const SizedBox(height: 10),
-              Text(
-                _supportingText(localization, draft),
-                style: theme.textTheme.bodyLarge,
-              ),
-              const SizedBox(height: 18),
-              Row(
-                children: [
-                  Expanded(
-                    child: _InfoTile(
-                      label: localization.bedtimeTargetBedtimeLabel,
-                      value: draft.targetBedtimeLabel,
-                    ),
-                  ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: _InfoTile(
-                      label: localization.bedtimeTargetWakeLabel,
-                      value: draft.wakeTimeLabel,
-                    ),
-                  ),
-                ],
-              ),
+              SizedBox(height: compactLayout ? 10 : 14),
             ],
-          ),
-        ),
-        const SizedBox(height: 20),
-        Text(
-          localization.bedtimeChoiceSectionTitle,
-          style: theme.textTheme.titleLarge,
-        ),
-        const SizedBox(height: 12),
-        _ChoiceCard(
-          label: localization.bedtimeChoiceReadyTitle,
-          body: localization.bedtimeChoiceReadyBody,
-          selected: draft.selectedChoice == BedtimeStatusChoice.readyToSleep,
-          onTap: () => _selectChoice(context, BedtimeStatusChoice.readyToSleep),
-        ),
-        const SizedBox(height: 12),
-        _ChoiceCard(
-          label: localization.bedtimeChoiceWindDownTitle,
-          body: localization.bedtimeChoiceWindDownBody,
-          selected: draft.selectedChoice == BedtimeStatusChoice.needWindDown,
-          onTap: () => _selectChoice(context, BedtimeStatusChoice.needWindDown),
-        ),
-        const SizedBox(height: 12),
-        _ChoiceCard(
-          label: localization.bedtimeChoiceDelayTitle,
-          body: localization.bedtimeChoiceDelayBody,
-          selected: draft.selectedChoice == BedtimeStatusChoice.likelyDelay,
-          onTap: () => _selectChoice(context, BedtimeStatusChoice.likelyDelay),
-        ),
-        const SizedBox(height: 20),
-        Text(
-          localization.bedtimeActionSectionTitle,
-          style: theme.textTheme.titleLarge,
-        ),
-        const SizedBox(height: 12),
-        Container(
-          decoration: BoxDecoration(
-            color: theme.colorScheme.surfaceContainerLowest,
-            borderRadius: BorderRadius.circular(24),
-            border: Border.all(color: theme.colorScheme.outlineVariant),
-          ),
-          padding: const EdgeInsets.fromLTRB(18, 18, 18, 18),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              CircleAvatar(
-                backgroundColor: theme.colorScheme.primary.withValues(
-                  alpha: 0.12,
-                ),
-                foregroundColor: theme.colorScheme.primary,
-                child: Icon(
-                  draft.currentState == BedtimeSessionState.sessionCompleted
-                      ? Icons.check_rounded
-                      : Icons.nightlight_round,
-                ),
-              ),
-              const SizedBox(width: 14),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      _actionTitle(localization, draft.actionKind),
-                      style: theme.textTheme.titleMedium,
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      _actionBody(localization, draft.actionKind),
-                      style: theme.textTheme.bodyMedium,
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 16),
-        if (draft.reminderEnabled)
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-            decoration: BoxDecoration(
-              color: theme.colorScheme.primary.withValues(alpha: 0.08),
-              borderRadius: BorderRadius.circular(18),
-            ),
-            child: Row(
-              children: [
-                Icon(
-                  Icons.notifications_active_outlined,
-                  size: 18,
-                  color: theme.colorScheme.primary,
-                ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: Text(
-                    localization.bedtimeReminderEnabledBody(
+            BedtimeInfoBanner(
+              bannerKey: const Key('bedtime-reminder-chip'),
+              icon: reminderEnabled
+                  ? Icons.notifications_active_outlined
+                  : Icons.notifications_off_outlined,
+              body: reminderEnabled
+                  ? localization.bedtimeReminderEnabledBody(
                       draft.targetBedtimeLabel,
-                    ),
-                    style: theme.textTheme.bodyMedium,
-                  ),
-                ),
-              ],
+                    )
+                  : localization.bedtimeReminderDisabledBody,
+              tint: reminderEnabled
+                  ? const Color(0xFFF0FAFA)
+                  : const Color(0xFFF4F7F8),
+              foreground: reminderEnabled
+                  ? BedtimePageStyle.accent
+                  : BedtimePageStyle.body,
             ),
+            SizedBox(height: compactLayout ? 12 : 18),
+          ],
+          BedtimeChoiceGrid(
+            sectionTitle: localization.bedtimeChoiceSectionTitle,
+            selectedChoice: draft.selectedChoice,
+            onSelect: (choice) => _selectChoice(context, choice),
+            readyTitle: localization.bedtimeChoiceReadyTitle,
+            windDownTitle: localization.bedtimeChoiceWindDownTitle,
+            delayTitle: localization.bedtimeChoiceDelayTitle,
+            compact: compactLayout,
           ),
-      ],
+          SizedBox(height: compactLayout ? 16 : 22),
+          BedtimeActionCard(
+            sectionTitle: localization.bedtimeActionSectionTitle,
+            title: _actionTitle(localization, draft.actionKind),
+            body: _actionBody(localization, draft.actionKind),
+            icon: _actionIcon(draft.actionKind),
+            accentColor: _actionAccent(draft.actionKind),
+            completed:
+                draft.currentState == BedtimeSessionState.sessionCompleted,
+            compact: compactLayout,
+          ),
+          if (!draft.isSessionRestored && reminderEnabled) ...[
+            SizedBox(height: compactLayout ? 12 : 16),
+            BedtimeInfoBanner(
+              bannerKey: const Key('bedtime-reminder-chip'),
+              icon: Icons.notifications_active_outlined,
+              body: localization.bedtimeReminderEnabledBody(
+                draft.targetBedtimeLabel,
+              ),
+              tint: const Color(0xFFF0FAFA),
+              foreground: BedtimePageStyle.accent,
+            ),
+          ],
+        ],
+      ),
     );
   }
 
@@ -236,29 +190,86 @@ class _BedtimeContent extends StatelessWidget {
   }
 }
 
-/// 把入口来源映射成显示层文案，避免应用层携带最终展示字符串。
-String _entrySourceLabel(
-  AppLocalizations localization,
-  BedtimeEntrySource source,
-) {
-  return switch (source) {
-    BedtimeEntrySource.appOpen => localization.bedtimeEntryFromToday,
-    BedtimeEntrySource.notification =>
-      localization.bedtimeEntryFromNotification,
-    BedtimeEntrySource.homeWidget => localization.bedtimeEntryFromWidget,
-  };
+/// 错误态维持单任务页面的克制反馈，不回退到实现占位文案。
+class _BedtimeErrorState extends StatelessWidget {
+  /// 创建错误态。
+  const _BedtimeErrorState({required this.body});
+
+  /// 说明文案。
+  final String body;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 28),
+        child: Text(
+          body,
+          textAlign: TextAlign.center,
+          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+            color: BedtimePageStyle.body,
+            height: 1.5,
+          ),
+        ),
+      ),
+    );
+  }
 }
 
-/// 睡前页 headline 只负责回答“距离目标还有多久”。
-String _headlineText(AppLocalizations localization, BedtimeSessionDraft draft) {
+/// 计算 hero 顶部的短副标题，避免让正文承担页面结构锚点。
+String _heroSubtitle(AppLocalizations localization, BedtimeSessionDraft draft) {
   return switch (draft.currentState) {
-    BedtimeSessionState.sessionCompleted =>
-      localization.bedtimeCompletedHeadline,
+    BedtimeSessionState.beforeTarget => localization.bedtimeBeforeTargetBody(
+      draft.targetBedtimeLabel,
+    ),
     BedtimeSessionState.likelyDelay => localization.bedtimeAfterTargetHeadline(
       draft.minutesToTarget.abs(),
     ),
-    BedtimeSessionState.beforeTarget =>
-      localization.bedtimeBeforeTargetHeadline(draft.minutesToTarget),
+    BedtimeSessionState.sessionCompleted => localization.bedtimeCompletedBody(
+      draft.wakeTimeLabel,
+    ),
+  };
+}
+
+/// 倒计时环上方短标签只表达当下状态，不重复大段说明。
+String _countdownLabel(
+  AppLocalizations localization,
+  BedtimeSessionDraft draft,
+) {
+  return switch (draft.currentState) {
+    BedtimeSessionState.beforeTarget => localization.bedtimeTargetBedtimeLabel,
+    BedtimeSessionState.likelyDelay => localization.bedtimeChoiceDelayTitle,
+    BedtimeSessionState.sessionCompleted =>
+      localization.bedtimePrimaryActionCompleted,
+  };
+}
+
+/// 将分钟差映射成固定宽度时间，保证首屏主数值稳定对齐。
+String _countdownValue(
+  AppLocalizations localization,
+  BedtimeSessionDraft draft,
+) {
+  if (draft.currentState == BedtimeSessionState.sessionCompleted) {
+    return localization.bedtimeCountdownCompletedValue;
+  }
+
+  final minutes = draft.minutesToTarget.abs();
+  final hours = minutes ~/ 60;
+  final remainingMinutes = minutes % 60;
+  final sign = draft.currentState == BedtimeSessionState.likelyDelay ? '+' : '';
+  return '$sign${hours.toString().padLeft(2, '0')}:${remainingMinutes.toString().padLeft(2, '0')}';
+}
+
+/// 用一个受控比例近似冻结稿圆环，不把业务状态直接暴露成复杂进度规则。
+double _countdownProgress(BedtimeSessionDraft draft) {
+  return switch (draft.currentState) {
+    BedtimeSessionState.sessionCompleted => 1,
+    BedtimeSessionState.beforeTarget => (draft.minutesToTarget / 180).clamp(
+      0.22,
+      0.92,
+    ),
+    BedtimeSessionState.likelyDelay =>
+      ((draft.minutesToTarget.abs() + 45) / 180).clamp(0.38, 0.95),
   };
 }
 
@@ -268,15 +279,13 @@ String _supportingText(
   BedtimeSessionDraft draft,
 ) {
   return switch (draft.currentState) {
-    BedtimeSessionState.sessionCompleted => localization.bedtimeCompletedBody(
-      draft.wakeTimeLabel,
-    ),
+    BedtimeSessionState.sessionCompleted =>
+      localization.bedtimeCompletedHeadline,
     BedtimeSessionState.likelyDelay => localization.bedtimeDelayBody(
       draft.wakeTimeLabel,
     ),
-    BedtimeSessionState.beforeTarget => localization.bedtimeBeforeTargetBody(
-      draft.targetBedtimeLabel,
-    ),
+    BedtimeSessionState.beforeTarget =>
+      localization.bedtimeBeforeTargetHeadline(draft.minutesToTarget),
   };
 }
 
@@ -312,106 +321,22 @@ String _actionBody(
   };
 }
 
-/// 两个目标时间共用的紧凑信息卡，避免主卡再塞入更多说明结构。
-class _InfoTile extends StatelessWidget {
-  /// 创建信息卡。
-  const _InfoTile({required this.label, required this.value});
-
-  /// 标题。
-  final String label;
-
-  /// 值。
-  final String value;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    return Container(
-      decoration: BoxDecoration(
-        color: theme.colorScheme.surfaceContainerLowest,
-        borderRadius: BorderRadius.circular(20),
-      ),
-      padding: const EdgeInsets.fromLTRB(14, 14, 14, 14),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(label, style: theme.textTheme.labelLarge),
-          const SizedBox(height: 6),
-          Text(value, style: theme.textTheme.titleLarge),
-        ],
-      ),
-    );
-  }
+/// 不同行动类型映射成稳定图标，避免动作卡每次都重新发明视觉语言。
+IconData _actionIcon(BedtimeActionKind actionKind) {
+  return switch (actionKind) {
+    BedtimeActionKind.startWindDown => Icons.self_improvement_rounded,
+    BedtimeActionKind.putPhoneAway => Icons.phone_iphone_rounded,
+    BedtimeActionKind.protectWakeUp => Icons.alarm_rounded,
+    BedtimeActionKind.completed => Icons.check_circle_rounded,
+  };
 }
 
-/// 统一三态选择卡片，确保睡前页不会长成复杂多步骤表单。
-class _ChoiceCard extends StatelessWidget {
-  /// 创建选择卡。
-  const _ChoiceCard({
-    required this.label,
-    required this.body,
-    required this.selected,
-    required this.onTap,
-  });
-
-  /// 选项标题。
-  final String label;
-
-  /// 选项说明。
-  final String body;
-
-  /// 是否已选中。
-  final bool selected;
-
-  /// 点击动作。
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    return InkWell(
-      borderRadius: BorderRadius.circular(24),
-      onTap: onTap,
-      child: Ink(
-        decoration: BoxDecoration(
-          color: selected
-              ? theme.colorScheme.primary.withValues(alpha: 0.10)
-              : theme.colorScheme.surfaceContainerLowest,
-          borderRadius: BorderRadius.circular(24),
-          border: Border.all(
-            color: selected
-                ? theme.colorScheme.primary
-                : theme.colorScheme.outlineVariant,
-          ),
-        ),
-        padding: const EdgeInsets.fromLTRB(18, 18, 18, 18),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Icon(
-              selected
-                  ? Icons.radio_button_checked_rounded
-                  : Icons.radio_button_off_rounded,
-              color: selected
-                  ? theme.colorScheme.primary
-                  : theme.colorScheme.outline,
-            ),
-            const SizedBox(width: 14),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(label, style: theme.textTheme.titleMedium),
-                  const SizedBox(height: 8),
-                  Text(body, style: theme.textTheme.bodyMedium),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+/// 动作卡强调色随动作语义切换，但仍维持同一视觉系统。
+Color _actionAccent(BedtimeActionKind actionKind) {
+  return switch (actionKind) {
+    BedtimeActionKind.startWindDown => BedtimePageStyle.accent,
+    BedtimeActionKind.putPhoneAway => const Color(0xFFFF8C72),
+    BedtimeActionKind.protectWakeUp => const Color(0xFF5E7F92),
+    BedtimeActionKind.completed => BedtimePageStyle.accent,
+  };
 }

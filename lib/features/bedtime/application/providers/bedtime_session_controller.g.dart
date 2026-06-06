@@ -84,7 +84,7 @@ final class BedtimeSessionControllerProvider
 }
 
 String _$bedtimeSessionControllerHash() =>
-    r'd96350246931fc446eb0f95ae9740345831f446d';
+    r'e6cf2cb46328fe47c74843fc6280bcf73049ea6b';
 
 /// 睡前会话控制器负责收敛倒计时、状态选择和单一动作建议。
 

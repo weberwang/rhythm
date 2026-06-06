@@ -6,7 +6,9 @@ import '../../../app_shell/application/providers/current_account_session_provide
 import '../../../app_shell/domain/entities/account_session.dart';
 import '../../../app_shell/application/providers/current_entry_intent_provider.dart';
 import '../../../sleep_data_core/application/providers/goal_schedule_repository_provider.dart';
+import '../../../sleep_data_core/application/providers/reminder_preference_repository_provider.dart';
 import '../../../sleep_data_core/domain/entities/goal_schedule.dart';
+import '../../../sleep_data_core/domain/entities/reminder_preference.dart';
 import '../../domain/entities/onboarding_account_connection_result.dart';
 import 'onboarding_capability_gateways.dart';
 import '../../domain/entities/onboarding_draft.dart';
@@ -67,7 +69,9 @@ class OnboardingFlowController extends _$OnboardingFlowController {
       OnboardingStep.widgetGuide => state.copyWith(
         step: OnboardingStep.reminderStrategy,
       ),
-      OnboardingStep.completion => state.copyWith(step: OnboardingStep.widgetGuide),
+      OnboardingStep.completion => state.copyWith(
+        step: OnboardingStep.widgetGuide,
+      ),
     };
   }
 
@@ -104,13 +108,10 @@ class OnboardingFlowController extends _$OnboardingFlowController {
     state = state.copyWith(reminderStrategy: strategy);
   }
 
-  /// 触发最小健康权限请求，并在失败或不可用时自动降级到本地优先路径。
-  Future<void> requestHealthPermissionAndContinue() async {
-    final gateway = ref.read(onboardingHealthPermissionGatewayProvider);
-    final permissionStatus = await gateway.requestSleepPermission();
-
+  /// 在引导阶段只记录“稍后决定”，避免首启过程中打断用户去处理系统健康授权。
+  void deferHealthPermissionAndContinue() {
     state = state.copyWith(
-      permissionStatus: permissionStatus,
+      permissionStatus: OnboardingHealthPermissionStatus.notRequested,
       step: OnboardingStep.goalSchedule,
     );
   }
@@ -135,6 +136,9 @@ class OnboardingFlowController extends _$OnboardingFlowController {
   Future<void> complete() async {
     final repository = ref.read(goalScheduleRepositoryProvider);
     final accountSessionRepository = ref.read(accountSessionRepositoryProvider);
+    final reminderPreferenceRepository = ref.read(
+      reminderPreferenceRepositoryProvider,
+    );
     await repository.saveActiveSchedule(
       GoalSchedule(
         id: DateTime.now().microsecondsSinceEpoch.toString(),
@@ -144,6 +148,9 @@ class OnboardingFlowController extends _$OnboardingFlowController {
       ),
     );
     await accountSessionRepository.save(_buildAccountSessionSnapshot());
+    await reminderPreferenceRepository.saveReminderPreference(
+      _buildReminderPreference(),
+    );
     ref.invalidate(currentAccountSessionProvider);
 
     // onboarding 完成后首个正式落地页应回到 today，不再继承首启前的一次性通知/小组件目标。
@@ -169,6 +176,14 @@ class OnboardingFlowController extends _$OnboardingFlowController {
       mode: AppAccountSessionMode.anonymous,
       updatedAt: DateTime.now(),
     );
+  }
+
+  /// 把 onboarding 的提醒策略收敛成共享偏好，避免 bedtime 直接依赖引导草稿枚举。
+  ReminderPreference _buildReminderPreference() {
+    return switch (state.reminderStrategy) {
+      OnboardingReminderStrategy.none => ReminderPreference.disabled,
+      OnboardingReminderStrategy.gentle || null => ReminderPreference.gentle,
+    };
   }
 
   /// 统一转换账号来源枚举，避免 app-shell 依赖 onboarding 内部实现细节。

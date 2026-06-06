@@ -78,7 +78,9 @@ void main() {
     final container = ProviderContainer();
     addTearDown(container.dispose);
 
-    final controller = container.read(onboardingFlowControllerProvider.notifier);
+    final controller = container.read(
+      onboardingFlowControllerProvider.notifier,
+    );
 
     expect(
       container.read(onboardingFlowControllerProvider).step,
@@ -124,63 +126,74 @@ void main() {
     );
   });
 
-  test('permission request stores denied result and still advances locally',
-      () async {
-    final container = ProviderContainer(
-      overrides: [
-        onboardingHealthPermissionGatewayProvider.overrideWithValue(
-          _FakeOnboardingHealthPermissionGateway(
-            OnboardingHealthPermissionStatus.denied,
-          ),
-        ),
-      ],
-    );
-    addTearDown(container.dispose);
-
-    final controller = container.read(onboardingFlowControllerProvider.notifier);
-    controller.goToNextStep();
-    controller.selectEntryMode(OnboardingEntryMode.localFirst);
-    controller.goToNextStep();
-
-    await controller.requestHealthPermissionAndContinue();
-
-    final draft = container.read(onboardingFlowControllerProvider);
-    expect(draft.permissionStatus, OnboardingHealthPermissionStatus.denied);
-    expect(draft.step, OnboardingStep.goalSchedule);
-  });
-
-  test('account sign-in success advances from entry step to permission step',
-      () async {
-    final container = ProviderContainer(
-      overrides: [
-        onboardingAccountGatewayProvider.overrideWithValue(
-          _FakeOnboardingAccountGateway(
-            const OnboardingAccountConnectionResult(
-              provider: OnboardingAccountProvider.google,
-              status: OnboardingAccountConnectionStatus.success,
-              displayName: 'Jamie',
-              email: 'jamie@example.com',
+  test(
+    'permission step defers system authorization and still advances locally',
+    () async {
+      final container = ProviderContainer(
+        overrides: [
+          onboardingHealthPermissionGatewayProvider.overrideWithValue(
+            _FakeOnboardingHealthPermissionGateway(
+              OnboardingHealthPermissionStatus.denied,
             ),
           ),
-        ),
-      ],
-    );
-    addTearDown(container.dispose);
+        ],
+      );
+      addTearDown(container.dispose);
 
-    final controller = container.read(onboardingFlowControllerProvider.notifier);
-    controller.goToNextStep();
-    controller.selectAccountProvider(OnboardingAccountProvider.google);
+      final controller = container.read(
+        onboardingFlowControllerProvider.notifier,
+      );
+      controller.goToNextStep();
+      controller.selectEntryMode(OnboardingEntryMode.localFirst);
+      controller.goToNextStep();
 
-    await controller.authenticateSelectedAccountAndContinue();
+      controller.deferHealthPermissionAndContinue();
 
-    final draft = container.read(onboardingFlowControllerProvider);
-    expect(draft.step, OnboardingStep.permissionValue);
-    expect(
-      draft.accountConnection?.status,
-      OnboardingAccountConnectionStatus.success,
-    );
-    expect(draft.accountConnection?.displayName, 'Jamie');
-  });
+      final draft = container.read(onboardingFlowControllerProvider);
+      expect(
+        draft.permissionStatus,
+        OnboardingHealthPermissionStatus.notRequested,
+      );
+      expect(draft.step, OnboardingStep.goalSchedule);
+    },
+  );
+
+  test(
+    'account sign-in success advances from entry step to permission step',
+    () async {
+      final container = ProviderContainer(
+        overrides: [
+          onboardingAccountGatewayProvider.overrideWithValue(
+            _FakeOnboardingAccountGateway(
+              const OnboardingAccountConnectionResult(
+                provider: OnboardingAccountProvider.google,
+                status: OnboardingAccountConnectionStatus.success,
+                displayName: 'Jamie',
+                email: 'jamie@example.com',
+              ),
+            ),
+          ),
+        ],
+      );
+      addTearDown(container.dispose);
+
+      final controller = container.read(
+        onboardingFlowControllerProvider.notifier,
+      );
+      controller.goToNextStep();
+      controller.selectAccountProvider(OnboardingAccountProvider.google);
+
+      await controller.authenticateSelectedAccountAndContinue();
+
+      final draft = container.read(onboardingFlowControllerProvider);
+      expect(draft.step, OnboardingStep.permissionValue);
+      expect(
+        draft.accountConnection?.status,
+        OnboardingAccountConnectionStatus.success,
+      );
+      expect(draft.accountConnection?.displayName, 'Jamie');
+    },
+  );
 
   test('account sign-in failure keeps onboarding on entry step', () async {
     final container = ProviderContainer(
@@ -197,7 +210,9 @@ void main() {
     );
     addTearDown(container.dispose);
 
-    final controller = container.read(onboardingFlowControllerProvider.notifier);
+    final controller = container.read(
+      onboardingFlowControllerProvider.notifier,
+    );
     controller.goToNextStep();
     controller.selectAccountProvider(OnboardingAccountProvider.apple);
 
@@ -211,90 +226,99 @@ void main() {
     );
   });
 
-  test('local-first onboarding completion persists anonymous account session',
-      () async {
-    SharedPreferences.setMockInitialValues({});
-    final repository = _FakeGoalScheduleRepository();
-    final accountSessionRepository = _FakeAccountSessionRepository();
-    final container = ProviderContainer(
-      overrides: [
-        goalScheduleRepositoryProvider.overrideWithValue(repository),
-        accountSessionRepositoryProvider.overrideWithValue(
-          accountSessionRepository,
-        ),
-      ],
-    );
-    addTearDown(container.dispose);
+  test(
+    'local-first onboarding completion persists anonymous account session',
+    () async {
+      SharedPreferences.setMockInitialValues({});
+      final repository = _FakeGoalScheduleRepository();
+      final accountSessionRepository = _FakeAccountSessionRepository();
+      final container = ProviderContainer(
+        overrides: [
+          goalScheduleRepositoryProvider.overrideWithValue(repository),
+          accountSessionRepositoryProvider.overrideWithValue(
+            accountSessionRepository,
+          ),
+        ],
+      );
+      addTearDown(container.dispose);
 
-    final controller = container.read(onboardingFlowControllerProvider.notifier);
-    controller.selectEntryMode(OnboardingEntryMode.localFirst);
-    controller.updateBedtimeMinutes(22 * 60 + 30);
-    controller.updateWakeTimeMinutes(6 * 60 + 45);
-    controller.selectReminderStrategy(OnboardingReminderStrategy.gentle);
-    controller.goToNextStep();
-    controller.goToNextStep();
-    controller.goToNextStep();
-    controller.goToNextStep();
+      final controller = container.read(
+        onboardingFlowControllerProvider.notifier,
+      );
+      controller.selectEntryMode(OnboardingEntryMode.localFirst);
+      controller.updateBedtimeMinutes(22 * 60 + 30);
+      controller.updateWakeTimeMinutes(6 * 60 + 45);
+      controller.selectReminderStrategy(OnboardingReminderStrategy.gentle);
+      controller.goToNextStep();
+      controller.goToNextStep();
+      controller.goToNextStep();
+      controller.goToNextStep();
 
-    await controller.complete();
+      await controller.complete();
 
-    expect(repository.savedSchedule, isNotNull);
-    expect(repository.savedSchedule!.bedtimeMinutes, 22 * 60 + 30);
-    expect(repository.savedSchedule!.wakeTimeMinutes, 6 * 60 + 45);
-    expect(accountSessionRepository.savedSession, isNotNull);
-    expect(
-      accountSessionRepository.savedSession!.mode,
-      AppAccountSessionMode.anonymous,
-    );
-    expect(
-      container.read(onboardingFlowControllerProvider).reminderStrategy,
-      OnboardingReminderStrategy.gentle,
-    );
-    final preferences = await SharedPreferences.getInstance();
-    expect(preferences.getBool('onboarding_completed'), isTrue);
-  });
+      expect(repository.savedSchedule, isNotNull);
+      expect(repository.savedSchedule!.bedtimeMinutes, 22 * 60 + 30);
+      expect(repository.savedSchedule!.wakeTimeMinutes, 6 * 60 + 45);
+      expect(accountSessionRepository.savedSession, isNotNull);
+      expect(
+        accountSessionRepository.savedSession!.mode,
+        AppAccountSessionMode.anonymous,
+      );
+      expect(
+        container.read(onboardingFlowControllerProvider).reminderStrategy,
+        OnboardingReminderStrategy.gentle,
+      );
+      final preferences = await SharedPreferences.getInstance();
+      expect(preferences.getBool('onboarding_completed'), isTrue);
+      expect(preferences.getString('reminder_preference'), 'gentle');
+    },
+  );
 
-  test('connected onboarding completion persists authenticated account session',
-      () async {
-    SharedPreferences.setMockInitialValues({});
-    final repository = _FakeGoalScheduleRepository();
-    final accountSessionRepository = _FakeAccountSessionRepository();
-    final container = ProviderContainer(
-      overrides: [
-        goalScheduleRepositoryProvider.overrideWithValue(repository),
-        accountSessionRepositoryProvider.overrideWithValue(
-          accountSessionRepository,
-        ),
-        onboardingAccountGatewayProvider.overrideWithValue(
-          _FakeOnboardingAccountGateway(
-            const OnboardingAccountConnectionResult(
-              provider: OnboardingAccountProvider.google,
-              status: OnboardingAccountConnectionStatus.success,
-              displayName: 'Jamie',
-              email: 'jamie@example.com',
+  test(
+    'connected onboarding completion persists authenticated account session',
+    () async {
+      SharedPreferences.setMockInitialValues({});
+      final repository = _FakeGoalScheduleRepository();
+      final accountSessionRepository = _FakeAccountSessionRepository();
+      final container = ProviderContainer(
+        overrides: [
+          goalScheduleRepositoryProvider.overrideWithValue(repository),
+          accountSessionRepositoryProvider.overrideWithValue(
+            accountSessionRepository,
+          ),
+          onboardingAccountGatewayProvider.overrideWithValue(
+            _FakeOnboardingAccountGateway(
+              const OnboardingAccountConnectionResult(
+                provider: OnboardingAccountProvider.google,
+                status: OnboardingAccountConnectionStatus.success,
+                displayName: 'Jamie',
+                email: 'jamie@example.com',
+              ),
             ),
           ),
-        ),
-      ],
-    );
-    addTearDown(container.dispose);
+        ],
+      );
+      addTearDown(container.dispose);
 
-    final controller = container.read(onboardingFlowControllerProvider.notifier);
-    controller.goToNextStep();
-    controller.selectAccountProvider(OnboardingAccountProvider.google);
-    await controller.authenticateSelectedAccountAndContinue();
+      final controller = container.read(
+        onboardingFlowControllerProvider.notifier,
+      );
+      controller.goToNextStep();
+      controller.selectAccountProvider(OnboardingAccountProvider.google);
+      await controller.authenticateSelectedAccountAndContinue();
 
-    await controller.complete();
+      await controller.complete();
 
-    expect(accountSessionRepository.savedSession, isNotNull);
-    expect(
-      accountSessionRepository.savedSession!.mode,
-      AppAccountSessionMode.connected,
-    );
-    expect(accountSessionRepository.savedSession!.email, 'jamie@example.com');
-    expect(
-      accountSessionRepository.savedSession!.provider,
-      AppAccountProvider.google,
-    );
-  });
+      expect(accountSessionRepository.savedSession, isNotNull);
+      expect(
+        accountSessionRepository.savedSession!.mode,
+        AppAccountSessionMode.connected,
+      );
+      expect(accountSessionRepository.savedSession!.email, 'jamie@example.com');
+      expect(
+        accountSessionRepository.savedSession!.provider,
+        AppAccountProvider.google,
+      );
+    },
+  );
 }

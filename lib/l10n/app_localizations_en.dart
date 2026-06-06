@@ -293,6 +293,9 @@ class AppLocalizationsEn extends AppLocalizations {
       'Unsupported on this device';
 
   @override
+  String get onboardingSkip => 'Skip onboarding';
+
+  @override
   String get tabToday => 'Today';
 
   @override
@@ -607,9 +610,20 @@ class AppLocalizationsEn extends AppLocalizations {
       'When you come back tomorrow morning, Rhythm will use last night\'s result to continue the explanation.';
 
   @override
+  String get bedtimeRestoredSessionBody =>
+      'We restored the unfinished choice from tonight.';
+
+  @override
   String bedtimeReminderEnabledBody(Object bedtime) {
     return 'Reminders are on, and tonight will keep nudging you around the $bedtime target.';
   }
+
+  @override
+  String get bedtimeReminderDisabledBody =>
+      'Reminders are currently off. Follow tonight\'s action here first, then enable them later in settings if you want.';
+
+  @override
+  String get bedtimeCountdownCompletedValue => 'Done';
 
   @override
   String get bedtimePrimaryActionLabel => 'Do this step';
@@ -622,7 +636,138 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get calendarBody =>
-      'Calendar heatmap and day detail experiences will be connected after the data contracts land.';
+      'Review monthly offsets, adjustments, and day details against your goal.';
+
+  @override
+  String get calendarSummarySubtitle =>
+      'Read this month through goal offsets before deciding what to correct or revisit.';
+
+  @override
+  String calendarRecordedNightsLabel(int count) {
+    return '$count nights recorded this month';
+  }
+
+  @override
+  String calendarOnTargetLabel(int count) {
+    return '$count nights on target';
+  }
+
+  @override
+  String calendarDelayedLabel(int count) {
+    return '$count nights delayed';
+  }
+
+  @override
+  String calendarAdjustedLabel(int count) {
+    return '$count nights adjusted';
+  }
+
+  @override
+  String calendarPartialLabel(int count) {
+    return '$count partial nights';
+  }
+
+  @override
+  String get calendarFilterAll => 'All records';
+
+  @override
+  String get calendarFilterDelayed => 'Delayed';
+
+  @override
+  String get calendarFilterAdjusted => 'Adjusted';
+
+  @override
+  String get calendarFilterLockedInsights => 'Insights';
+
+  @override
+  String get calendarNoDataTitle => 'No sleep records yet this month';
+
+  @override
+  String get calendarNoDataMessage =>
+      'Keep the monthly view in place and add your first night to start reading offsets against your goal.';
+
+  @override
+  String get calendarLockedTitle =>
+      'Earlier history and cause breakdown unlock in Insights';
+
+  @override
+  String get calendarLockedMessage =>
+      'This month\'s heatmap stays here. Jump to Insights when you want deeper history and premium explanations.';
+
+  @override
+  String get calendarOpenInsightsCta => 'Open Insights';
+
+  @override
+  String get calendarHeatmapLegendOnTarget => 'On target';
+
+  @override
+  String get calendarHeatmapLegendDelayed => 'Delayed';
+
+  @override
+  String get calendarHeatmapLegendPartial => 'Partial';
+
+  @override
+  String get calendarHeatmapLegendEmpty => 'No data';
+
+  @override
+  String get calendarDayDetailSourceLabel => 'Source';
+
+  @override
+  String get calendarDayDetailAdjustmentLabel => 'Adjustment';
+
+  @override
+  String get calendarDayDetailOffsetLabel => 'Vs target';
+
+  @override
+  String get calendarDayDetailDurationLabel => 'Total sleep';
+
+  @override
+  String get calendarDayDetailConfidenceLabel => 'Confidence';
+
+  @override
+  String get calendarDayDetailNoteLabel => 'Note';
+
+  @override
+  String get calendarDayDetailNoNote => 'No additional note';
+
+  @override
+  String get calendarRecordSourceManual => 'Manual entry';
+
+  @override
+  String get calendarRecordSourceHealth => 'Health sync';
+
+  @override
+  String get calendarAdjustmentAdjusted => 'Adjusted manually';
+
+  @override
+  String get calendarAdjustmentOriginal => 'Original record';
+
+  @override
+  String get calendarConfidenceTrusted => 'Complete sample';
+
+  @override
+  String get calendarConfidencePartial => 'Partial sample';
+
+  @override
+  String get calendarOffsetOnTarget => 'On target';
+
+  @override
+  String calendarOffsetEarly(int minutes) {
+    return '$minutes minutes early';
+  }
+
+  @override
+  String calendarOffsetLate(int minutes) {
+    return '$minutes minutes late';
+  }
+
+  @override
+  String calendarDurationLabel(int hours, int minutes) {
+    return '${hours}h ${minutes}m';
+  }
+
+  @override
+  String get calendarSleepWindowLabel => 'Bedtime / wake time';
 
   @override
   String get insightsTitle => 'Insights';

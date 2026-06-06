@@ -41,6 +41,15 @@ enum BedtimeActionKind {
   completed,
 }
 
+/// 描述当前提醒是否已开启，避免页面继续消费硬编码布尔值。
+enum BedtimeReminderState {
+  /// 当前提醒已开启，页面可以给出稳定的收尾提示。
+  enabled,
+
+  /// 当前提醒未开启，页面只给出轻量补充，不伪装成已开启状态。
+  disabled,
+}
+
 /// 描述当前入口来源，供页面展示轻量上下文。
 enum BedtimeEntrySource {
   /// 从 today 常规进入。
@@ -65,6 +74,7 @@ abstract class BedtimeSessionDraft with _$BedtimeSessionDraft {
     required BedtimeEntrySource entrySource,
     required BedtimeStatusChoice? selectedChoice,
     required BedtimeActionKind actionKind,
-    required bool reminderEnabled,
+    required BedtimeReminderState reminderState,
+    @Default(false) bool isSessionRestored,
   }) = _BedtimeSessionDraft;
 }

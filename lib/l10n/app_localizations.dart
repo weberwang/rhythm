@@ -572,6 +572,12 @@ abstract class AppLocalizations {
   /// **'Unsupported on this device'**
   String get onboardingPermissionStatusUnavailable;
 
+  /// No description provided for @onboardingSkip.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip onboarding'**
+  String get onboardingSkip;
+
   /// No description provided for @tabToday.
   ///
   /// In en, this message translates to:
@@ -1088,11 +1094,29 @@ abstract class AppLocalizations {
   /// **'When you come back tomorrow morning, Rhythm will use last night\'\'s result to continue the explanation.'**
   String get bedtimeActionCompletedBody;
 
+  /// No description provided for @bedtimeRestoredSessionBody.
+  ///
+  /// In en, this message translates to:
+  /// **'We restored the unfinished choice from tonight.'**
+  String get bedtimeRestoredSessionBody;
+
   /// No description provided for @bedtimeReminderEnabledBody.
   ///
   /// In en, this message translates to:
   /// **'Reminders are on, and tonight will keep nudging you around the {bedtime} target.'**
   String bedtimeReminderEnabledBody(Object bedtime);
+
+  /// No description provided for @bedtimeReminderDisabledBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminders are currently off. Follow tonight\'\'s action here first, then enable them later in settings if you want.'**
+  String get bedtimeReminderDisabledBody;
+
+  /// No description provided for @bedtimeCountdownCompletedValue.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get bedtimeCountdownCompletedValue;
 
   /// No description provided for @bedtimePrimaryActionLabel.
   ///
@@ -1115,8 +1139,230 @@ abstract class AppLocalizations {
   /// No description provided for @calendarBody.
   ///
   /// In en, this message translates to:
-  /// **'Calendar heatmap and day detail experiences will be connected after the data contracts land.'**
+  /// **'Review monthly offsets, adjustments, and day details against your goal.'**
   String get calendarBody;
+
+  /// No description provided for @calendarSummarySubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Read this month through goal offsets before deciding what to correct or revisit.'**
+  String get calendarSummarySubtitle;
+
+  /// No description provided for @calendarRecordedNightsLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} nights recorded this month'**
+  String calendarRecordedNightsLabel(int count);
+
+  /// No description provided for @calendarOnTargetLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} nights on target'**
+  String calendarOnTargetLabel(int count);
+
+  /// No description provided for @calendarDelayedLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} nights delayed'**
+  String calendarDelayedLabel(int count);
+
+  /// No description provided for @calendarAdjustedLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} nights adjusted'**
+  String calendarAdjustedLabel(int count);
+
+  /// No description provided for @calendarPartialLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} partial nights'**
+  String calendarPartialLabel(int count);
+
+  /// No description provided for @calendarFilterAll.
+  ///
+  /// In en, this message translates to:
+  /// **'All records'**
+  String get calendarFilterAll;
+
+  /// No description provided for @calendarFilterDelayed.
+  ///
+  /// In en, this message translates to:
+  /// **'Delayed'**
+  String get calendarFilterDelayed;
+
+  /// No description provided for @calendarFilterAdjusted.
+  ///
+  /// In en, this message translates to:
+  /// **'Adjusted'**
+  String get calendarFilterAdjusted;
+
+  /// No description provided for @calendarFilterLockedInsights.
+  ///
+  /// In en, this message translates to:
+  /// **'Insights'**
+  String get calendarFilterLockedInsights;
+
+  /// No description provided for @calendarNoDataTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No sleep records yet this month'**
+  String get calendarNoDataTitle;
+
+  /// No description provided for @calendarNoDataMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep the monthly view in place and add your first night to start reading offsets against your goal.'**
+  String get calendarNoDataMessage;
+
+  /// No description provided for @calendarLockedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Earlier history and cause breakdown unlock in Insights'**
+  String get calendarLockedTitle;
+
+  /// No description provided for @calendarLockedMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'This month\'\'s heatmap stays here. Jump to Insights when you want deeper history and premium explanations.'**
+  String get calendarLockedMessage;
+
+  /// No description provided for @calendarOpenInsightsCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Insights'**
+  String get calendarOpenInsightsCta;
+
+  /// No description provided for @calendarHeatmapLegendOnTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'On target'**
+  String get calendarHeatmapLegendOnTarget;
+
+  /// No description provided for @calendarHeatmapLegendDelayed.
+  ///
+  /// In en, this message translates to:
+  /// **'Delayed'**
+  String get calendarHeatmapLegendDelayed;
+
+  /// No description provided for @calendarHeatmapLegendPartial.
+  ///
+  /// In en, this message translates to:
+  /// **'Partial'**
+  String get calendarHeatmapLegendPartial;
+
+  /// No description provided for @calendarHeatmapLegendEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No data'**
+  String get calendarHeatmapLegendEmpty;
+
+  /// No description provided for @calendarDayDetailSourceLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Source'**
+  String get calendarDayDetailSourceLabel;
+
+  /// No description provided for @calendarDayDetailAdjustmentLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Adjustment'**
+  String get calendarDayDetailAdjustmentLabel;
+
+  /// No description provided for @calendarDayDetailOffsetLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Vs target'**
+  String get calendarDayDetailOffsetLabel;
+
+  /// No description provided for @calendarDayDetailDurationLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Total sleep'**
+  String get calendarDayDetailDurationLabel;
+
+  /// No description provided for @calendarDayDetailConfidenceLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Confidence'**
+  String get calendarDayDetailConfidenceLabel;
+
+  /// No description provided for @calendarDayDetailNoteLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Note'**
+  String get calendarDayDetailNoteLabel;
+
+  /// No description provided for @calendarDayDetailNoNote.
+  ///
+  /// In en, this message translates to:
+  /// **'No additional note'**
+  String get calendarDayDetailNoNote;
+
+  /// No description provided for @calendarRecordSourceManual.
+  ///
+  /// In en, this message translates to:
+  /// **'Manual entry'**
+  String get calendarRecordSourceManual;
+
+  /// No description provided for @calendarRecordSourceHealth.
+  ///
+  /// In en, this message translates to:
+  /// **'Health sync'**
+  String get calendarRecordSourceHealth;
+
+  /// No description provided for @calendarAdjustmentAdjusted.
+  ///
+  /// In en, this message translates to:
+  /// **'Adjusted manually'**
+  String get calendarAdjustmentAdjusted;
+
+  /// No description provided for @calendarAdjustmentOriginal.
+  ///
+  /// In en, this message translates to:
+  /// **'Original record'**
+  String get calendarAdjustmentOriginal;
+
+  /// No description provided for @calendarConfidenceTrusted.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete sample'**
+  String get calendarConfidenceTrusted;
+
+  /// No description provided for @calendarConfidencePartial.
+  ///
+  /// In en, this message translates to:
+  /// **'Partial sample'**
+  String get calendarConfidencePartial;
+
+  /// No description provided for @calendarOffsetOnTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'On target'**
+  String get calendarOffsetOnTarget;
+
+  /// No description provided for @calendarOffsetEarly.
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes} minutes early'**
+  String calendarOffsetEarly(int minutes);
+
+  /// No description provided for @calendarOffsetLate.
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes} minutes late'**
+  String calendarOffsetLate(int minutes);
+
+  /// No description provided for @calendarDurationLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'{hours}h {minutes}m'**
+  String calendarDurationLabel(int hours, int minutes);
+
+  /// No description provided for @calendarSleepWindowLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Bedtime / wake time'**
+  String get calendarSleepWindowLabel;
 
   /// No description provided for @insightsTitle.
   ///

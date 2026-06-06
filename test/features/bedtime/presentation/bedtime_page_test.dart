@@ -5,12 +5,16 @@ import 'package:rhythm/features/app_shell/application/providers/current_entry_in
 import 'package:rhythm/features/app_shell/domain/entities/entry_intent.dart';
 import 'package:rhythm/features/bedtime/application/providers/bedtime_session_repository_provider.dart';
 import 'package:rhythm/features/bedtime/application/providers/bedtime_session_controller.dart';
+import 'package:rhythm/features/bedtime/domain/entities/bedtime_session_draft.dart';
 import 'package:rhythm/features/bedtime/domain/entities/bedtime_session_record.dart';
 import 'package:rhythm/features/bedtime/domain/repositories/bedtime_session_repository.dart';
 import 'package:rhythm/features/bedtime/presentation/pages/bedtime_page.dart';
 import 'package:rhythm/features/sleep_data_core/application/providers/goal_schedule_repository_provider.dart';
+import 'package:rhythm/features/sleep_data_core/application/providers/reminder_preference_repository_provider.dart';
 import 'package:rhythm/features/sleep_data_core/domain/entities/goal_schedule.dart';
+import 'package:rhythm/features/sleep_data_core/domain/entities/reminder_preference.dart';
 import 'package:rhythm/features/sleep_data_core/domain/repositories/goal_schedule_repository.dart';
+import 'package:rhythm/features/sleep_data_core/domain/repositories/reminder_preference_repository.dart';
 import 'package:rhythm/l10n/app_localizations.dart';
 
 /// 用内存作息仓储隔离 bedtime 页面测试，确保只验证显示层和交互。
@@ -30,17 +34,70 @@ class _FakeGoalScheduleRepository implements GoalScheduleRepository {
 
 /// 用内存 session 仓储隔离 bedtime 页面测试，避免 widget 测试等待真实本地库。
 class _FakeBedtimeSessionRepository implements BedtimeSessionRepository {
+  _FakeBedtimeSessionRepository({this.stored});
+
+  BedtimeSessionRecord? stored;
+
   @override
   Future<BedtimeSessionRecord?> readSessionForDate(DateTime sessionDate) async {
-    return null;
+    if (stored == null) {
+      return null;
+    }
+
+    final normalized = DateTime(
+      sessionDate.year,
+      sessionDate.month,
+      sessionDate.day,
+    );
+    if (stored!.sessionDate != normalized) {
+      return null;
+    }
+
+    return stored;
   }
 
   @override
-  Future<void> saveSession(BedtimeSessionRecord record) async {}
+  Future<void> saveSession(BedtimeSessionRecord record) async {
+    stored = record;
+  }
+}
+
+/// 用内存提醒偏好仓储驱动 bedtime 页面文案，避免 widget 测试依赖真实偏好存储。
+class _FakeReminderPreferenceRepository
+    implements ReminderPreferenceRepository {
+  _FakeReminderPreferenceRepository(this.value);
+
+  ReminderPreference? value;
+
+  @override
+  Future<ReminderPreference?> readReminderPreference() async => value;
+
+  @override
+  Future<void> saveReminderPreference(ReminderPreference preference) async {
+    value = preference;
+  }
 }
 
 /// 验证 bedtime 已从占位页进入真实单任务执行页。
 void main() {
+  Future<void> pumpBedtimePage(
+    WidgetTester tester, {
+    required ProviderContainer container,
+  }) async {
+    await tester.pumpWidget(
+      UncontrolledProviderScope(
+        container: container,
+        child: MaterialApp(
+          locale: const Locale('zh'),
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: const BedtimePage(),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+  }
+
   testWidgets('bedtime page shows countdown choices and one primary action', (
     tester,
   ) async {
@@ -59,6 +116,9 @@ void main() {
         bedtimeSessionRepositoryProvider.overrideWithValue(
           _FakeBedtimeSessionRepository(),
         ),
+        reminderPreferenceRepositoryProvider.overrideWithValue(
+          _FakeReminderPreferenceRepository(ReminderPreference.gentle),
+        ),
         bedtimeNowProvider.overrideWithValue(DateTime(2026, 6, 6, 22, 20)),
       ],
     );
@@ -67,18 +127,7 @@ void main() {
         .read(currentEntryIntentProvider.notifier)
         .setIntent(const EntryIntent.homeWidget(target: 'bedtime'));
 
-    await tester.pumpWidget(
-      UncontrolledProviderScope(
-        container: container,
-        child: MaterialApp(
-          locale: const Locale('zh'),
-          localizationsDelegates: AppLocalizations.localizationsDelegates,
-          supportedLocales: AppLocalizations.supportedLocales,
-          home: const BedtimePage(),
-        ),
-      ),
-    );
-    await tester.pumpAndSettle();
+    await pumpBedtimePage(tester, container: container);
 
     expect(find.text('睡前'), findsAtLeastNWidgets(1));
     expect(find.text('距离目标还有 40 分钟'), findsOneWidget);
@@ -94,11 +143,261 @@ void main() {
     await tester.scrollUntilVisible(find.text('开始 10 分钟收尾'), 120);
     await tester.pumpAndSettle();
     expect(find.text('开始 10 分钟收尾'), findsOneWidget);
+    expect(find.text('提醒已开启，今晚目标会继续围绕 11:00 PM 提醒你收尾。'), findsOneWidget);
 
     await tester.tap(find.text('今晚大概率会晚睡'));
     await tester.pumpAndSettle();
 
     expect(find.text('先保住明早起床时间'), findsOneWidget);
     expect(find.text('执行这一步'), findsOneWidget);
+  });
+
+  testWidgets(
+    'bedtime page shows restored session hint and disabled reminder copy',
+    (tester) async {
+      final container = ProviderContainer(
+        overrides: [
+          goalScheduleRepositoryProvider.overrideWithValue(
+            _FakeGoalScheduleRepository(
+              GoalSchedule(
+                id: 'fixture',
+                bedtimeMinutes: 23 * 60,
+                wakeTimeMinutes: 7 * 60,
+                createdAt: DateTime(2026, 6, 6),
+              ),
+            ),
+          ),
+          bedtimeSessionRepositoryProvider.overrideWithValue(
+            _FakeBedtimeSessionRepository(
+              stored: BedtimeSessionRecord(
+                sessionDate: DateTime(2026, 6, 6),
+                selectedChoice: BedtimeStatusChoice.needWindDown,
+                entrySource: BedtimeEntrySource.homeWidget,
+                isCompleted: false,
+                updatedAt: DateTime(2026, 6, 6, 22, 10),
+              ),
+            ),
+          ),
+          reminderPreferenceRepositoryProvider.overrideWithValue(
+            _FakeReminderPreferenceRepository(ReminderPreference.disabled),
+          ),
+          bedtimeNowProvider.overrideWithValue(DateTime(2026, 6, 6, 22, 20)),
+        ],
+      );
+      addTearDown(container.dispose);
+
+      await pumpBedtimePage(tester, container: container);
+
+      await tester.scrollUntilVisible(find.textContaining('提醒当前未开启'), 120);
+      await tester.pumpAndSettle();
+
+      expect(find.text('已恢复今晚未完成的选择', skipOffstage: false), findsOneWidget);
+      expect(find.textContaining('提醒当前未开启'), findsOneWidget);
+      expect(find.text('提醒已开启，今晚目标会继续围绕 11:00 PM 提醒你收尾。'), findsNothing);
+    },
+  );
+
+  testWidgets('renders bedtime hero layout for before-target state', (
+    tester,
+  ) async {
+    final container = ProviderContainer(
+      overrides: [
+        goalScheduleRepositoryProvider.overrideWithValue(
+          _FakeGoalScheduleRepository(
+            GoalSchedule(
+              id: 'fixture',
+              bedtimeMinutes: 23 * 60,
+              wakeTimeMinutes: 7 * 60,
+              createdAt: DateTime(2026, 6, 6),
+            ),
+          ),
+        ),
+        bedtimeSessionRepositoryProvider.overrideWithValue(
+          _FakeBedtimeSessionRepository(),
+        ),
+        reminderPreferenceRepositoryProvider.overrideWithValue(
+          _FakeReminderPreferenceRepository(ReminderPreference.gentle),
+        ),
+        bedtimeNowProvider.overrideWithValue(DateTime(2026, 6, 6, 22, 20)),
+      ],
+    );
+    addTearDown(container.dispose);
+
+    await pumpBedtimePage(tester, container: container);
+
+    expect(find.byKey(const Key('bedtime-scroll-view')), findsOneWidget);
+    expect(find.byKey(const Key('bedtime-hero-card')), findsOneWidget);
+    expect(find.byKey(const Key('bedtime-countdown-ring')), findsOneWidget);
+    expect(find.byKey(const Key('bedtime-target-card')), findsOneWidget);
+    expect(find.byKey(const Key('bedtime-choice-grid')), findsOneWidget);
+    expect(find.byKey(const Key('bedtime-action-card')), findsOneWidget);
+    expect(find.byType(FilledButton), findsOneWidget);
+  });
+
+  testWidgets(
+    'keeps choice and action entry inside the initial phone viewport',
+    (tester) async {
+      tester.view.physicalSize = const Size(430, 932);
+      tester.view.devicePixelRatio = 1;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
+      final container = ProviderContainer(
+        overrides: [
+          goalScheduleRepositoryProvider.overrideWithValue(
+            _FakeGoalScheduleRepository(
+              GoalSchedule(
+                id: 'fixture',
+                bedtimeMinutes: 23 * 60,
+                wakeTimeMinutes: 7 * 60,
+                createdAt: DateTime(2026, 6, 6),
+              ),
+            ),
+          ),
+          bedtimeSessionRepositoryProvider.overrideWithValue(
+            _FakeBedtimeSessionRepository(),
+          ),
+          reminderPreferenceRepositoryProvider.overrideWithValue(
+            _FakeReminderPreferenceRepository(ReminderPreference.gentle),
+          ),
+          bedtimeNowProvider.overrideWithValue(DateTime(2026, 6, 6, 22, 20)),
+        ],
+      );
+      addTearDown(container.dispose);
+
+      await pumpBedtimePage(tester, container: container);
+
+      final choiceRect = tester.getRect(
+        find.byKey(const Key('bedtime-choice-grid')),
+      );
+      final actionRect = tester.getRect(
+        find.byKey(const Key('bedtime-action-card')),
+      );
+
+      expect(choiceRect.top, lessThan(820));
+      expect(actionRect.top, lessThan(932));
+    },
+  );
+
+  testWidgets('keeps single-cta structure in likely-delay state', (
+    tester,
+  ) async {
+    final container = ProviderContainer(
+      overrides: [
+        goalScheduleRepositoryProvider.overrideWithValue(
+          _FakeGoalScheduleRepository(
+            GoalSchedule(
+              id: 'fixture',
+              bedtimeMinutes: 23 * 60,
+              wakeTimeMinutes: 7 * 60,
+              createdAt: DateTime(2026, 6, 6),
+            ),
+          ),
+        ),
+        bedtimeSessionRepositoryProvider.overrideWithValue(
+          _FakeBedtimeSessionRepository(),
+        ),
+        reminderPreferenceRepositoryProvider.overrideWithValue(
+          _FakeReminderPreferenceRepository(ReminderPreference.gentle),
+        ),
+        bedtimeNowProvider.overrideWithValue(DateTime(2026, 6, 6, 23, 35)),
+      ],
+    );
+    addTearDown(container.dispose);
+
+    await pumpBedtimePage(tester, container: container);
+
+    expect(find.byKey(const Key('bedtime-hero-card')), findsOneWidget);
+    expect(find.byKey(const Key('bedtime-choice-grid')), findsOneWidget);
+    expect(find.byKey(const Key('bedtime-choice-delay')), findsOneWidget);
+    expect(find.byKey(const Key('bedtime-primary-action')), findsOneWidget);
+    expect(find.byType(FilledButton), findsOneWidget);
+  });
+
+  testWidgets(
+    'shows restored and reminder-off hints without changing primary-action hierarchy',
+    (tester) async {
+      final container = ProviderContainer(
+        overrides: [
+          goalScheduleRepositoryProvider.overrideWithValue(
+            _FakeGoalScheduleRepository(
+              GoalSchedule(
+                id: 'fixture',
+                bedtimeMinutes: 23 * 60,
+                wakeTimeMinutes: 7 * 60,
+                createdAt: DateTime(2026, 6, 6),
+              ),
+            ),
+          ),
+          bedtimeSessionRepositoryProvider.overrideWithValue(
+            _FakeBedtimeSessionRepository(
+              stored: BedtimeSessionRecord(
+                sessionDate: DateTime(2026, 6, 6),
+                selectedChoice: BedtimeStatusChoice.needWindDown,
+                entrySource: BedtimeEntrySource.notification,
+                isCompleted: false,
+                updatedAt: DateTime(2026, 6, 6, 22, 10),
+              ),
+            ),
+          ),
+          reminderPreferenceRepositoryProvider.overrideWithValue(
+            _FakeReminderPreferenceRepository(ReminderPreference.disabled),
+          ),
+          bedtimeNowProvider.overrideWithValue(DateTime(2026, 6, 6, 22, 20)),
+        ],
+      );
+      addTearDown(container.dispose);
+
+      await pumpBedtimePage(tester, container: container);
+
+      expect(find.byKey(const Key('bedtime-restored-banner')), findsOneWidget);
+      expect(find.byKey(const Key('bedtime-reminder-chip')), findsOneWidget);
+      expect(find.byKey(const Key('bedtime-primary-action')), findsOneWidget);
+      expect(find.byType(FilledButton), findsOneWidget);
+    },
+  );
+
+  testWidgets('keeps completed state single and non-placeholder', (
+    tester,
+  ) async {
+    final container = ProviderContainer(
+      overrides: [
+        goalScheduleRepositoryProvider.overrideWithValue(
+          _FakeGoalScheduleRepository(
+            GoalSchedule(
+              id: 'fixture',
+              bedtimeMinutes: 23 * 60,
+              wakeTimeMinutes: 7 * 60,
+              createdAt: DateTime(2026, 6, 6),
+            ),
+          ),
+        ),
+        bedtimeSessionRepositoryProvider.overrideWithValue(
+          _FakeBedtimeSessionRepository(
+            stored: BedtimeSessionRecord(
+              sessionDate: DateTime(2026, 6, 6),
+              selectedChoice: BedtimeStatusChoice.readyToSleep,
+              entrySource: BedtimeEntrySource.appOpen,
+              isCompleted: true,
+              updatedAt: DateTime(2026, 6, 6, 22, 50),
+            ),
+          ),
+        ),
+        reminderPreferenceRepositoryProvider.overrideWithValue(
+          _FakeReminderPreferenceRepository(ReminderPreference.gentle),
+        ),
+        bedtimeNowProvider.overrideWithValue(DateTime(2026, 6, 6, 23, 5)),
+      ],
+    );
+    addTearDown(container.dispose);
+
+    await pumpBedtimePage(tester, container: container);
+
+    final actionButton = tester.widget<FilledButton>(
+      find.byKey(const Key('bedtime-primary-action')),
+    );
+    expect(find.byKey(const Key('bedtime-completed-hero')), findsOneWidget);
+    expect(find.text('初始化占位'), findsNothing);
+    expect(actionButton.onPressed, isNull);
   });
 }

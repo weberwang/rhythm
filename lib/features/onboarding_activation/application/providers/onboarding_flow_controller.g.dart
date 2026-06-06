@@ -45,7 +45,7 @@ final class OnboardingFlowControllerProvider
 }
 
 String _$onboardingFlowControllerHash() =>
-    r'ec9458805b6924b7ccd2171e0105ed24fb90106f';
+    r'745ddac421775c71eb4804ce9af68e87e811c049';
 
 /// 管理 onboarding 的最小激活状态机，并统一提交权限结果、作息与完成标记。
 

@@ -8,6 +8,12 @@ abstract class SleepRecordRepository {
   /// 读取最近若干条记录，供趋势摘要或后续月历复用。
   Future<List<SleepRecord>> readRecentRecords({required int limit});
 
+  /// 读取指定日期范围内的记录，供 calendar 等月视图按窗口聚合。
+  Future<List<SleepRecord>> readRecordsInRange({
+    required DateTime startDate,
+    required DateTime endDate,
+  });
+
   /// 保存用户手动补录或修正后的记录。
   Future<void> saveManualRecord(SleepRecord record);
 }

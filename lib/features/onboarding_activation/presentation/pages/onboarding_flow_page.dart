@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rhythm/l10n/app_localizations.dart';
 
 import '../../application/providers/onboarding_capability_gateways.dart';
 import '../../application/providers/onboarding_flow_controller.dart';
 import '../../domain/entities/onboarding_draft.dart';
-import '../../../today/presentation/pages/today_page.dart';
 import '../widgets/onboarding_flow_sections.dart';
 
 /// 承接真实首启激活漏斗的页面，实现 7 步最小 onboarding 流程。
@@ -69,6 +67,17 @@ class OnboardingFlowPage extends HookConsumerWidget {
                             ),
                             title: _titleForStep(localization, draft.step),
                             body: _bodyForStep(localization, draft.step),
+                            trailingAction: draft.step == OnboardingStep.welcome
+                                ? TextButton(
+                                    onPressed: isSubmitting.value
+                                        ? null
+                                        : () => _completeOnboarding(
+                                              controller: controller,
+                                              isSubmitting: isSubmitting,
+                                            ),
+                                    child: Text(localization.onboardingSkip),
+                                  )
+                                : null,
                           ),
                           const SizedBox(height: 28),
                           AnimatedSwitcher(
@@ -110,12 +119,7 @@ class OnboardingFlowPage extends HookConsumerWidget {
                             }
 
                             if (draft.step == OnboardingStep.permissionValue) {
-                              isSubmitting.value = true;
-                              try {
-                                await controller.requestHealthPermissionAndContinue();
-                              } finally {
-                                isSubmitting.value = false;
-                              }
+                              controller.deferHealthPermissionAndContinue();
                               return;
                             }
 
@@ -139,10 +143,6 @@ class OnboardingFlowPage extends HookConsumerWidget {
                             isSubmitting.value = true;
                             try {
                               await controller.complete();
-                              if (context.mounted) {
-                                // onboarding 完成后的主路径应固定进入今日页，而不是复用首启前的外部入口意图。
-                                context.go(TodayPage.routePath);
-                              }
                             } finally {
                               isSubmitting.value = false;
                             }
@@ -157,6 +157,23 @@ class OnboardingFlowPage extends HookConsumerWidget {
         ),
       ),
     );
+  }
+
+  /// 允许用户在欢迎页直接跳过引导，并复用同一套完成逻辑落盘默认首夜配置。
+  Future<void> _completeOnboarding({
+    required OnboardingFlowController controller,
+    required ValueNotifier<bool> isSubmitting,
+  }) async {
+    if (isSubmitting.value) {
+      return;
+    }
+
+    isSubmitting.value = true;
+    try {
+      await controller.complete();
+    } finally {
+      isSubmitting.value = false;
+    }
   }
 
   /// 将步骤枚举转换成展示序号，保证显示层与状态机始终一致。

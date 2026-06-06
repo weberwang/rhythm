@@ -95,6 +95,7 @@
   "onboardingPermissionStatusGranted": "Granted",
   "onboardingPermissionStatusDeferred": "Decide later",
   "onboardingPermissionStatusUnavailable": "Unsupported on this device",
+  "onboardingSkip": "Skip onboarding",
   "tabToday": "Today",
   "tabBedtime": "Bedtime",
   "tabCalendar": "Calendar",
@@ -217,16 +218,115 @@
   "bedtimeActionProtectWakeBody": "Limit the damage tonight instead of trying to fix everything. Protecting the wake-up time matters more than dragging the night longer.",
   "bedtimeActionCompletedTitle": "Tonight''s action is done",
   "bedtimeActionCompletedBody": "When you come back tomorrow morning, Rhythm will use last night''s result to continue the explanation.",
+  "bedtimeRestoredSessionBody": "We restored the unfinished choice from tonight.",
   "bedtimeReminderEnabledBody": "Reminders are on, and tonight will keep nudging you around the {bedtime} target.",
   "@bedtimeReminderEnabledBody": {
     "placeholders": {
       "bedtime": {}
     }
   },
+  "bedtimeReminderDisabledBody": "Reminders are currently off. Follow tonight''s action here first, then enable them later in settings if you want.",
+  "bedtimeCountdownCompletedValue": "Done",
   "bedtimePrimaryActionLabel": "Do this step",
   "bedtimePrimaryActionCompleted": "Tonight is already done",
   "calendarTitle": "Calendar",
-  "calendarBody": "Calendar heatmap and day detail experiences will be connected after the data contracts land.",
+  "calendarBody": "Review monthly offsets, adjustments, and day details against your goal.",
+  "calendarSummarySubtitle": "Read this month through goal offsets before deciding what to correct or revisit.",
+  "calendarRecordedNightsLabel": "{count} nights recorded this month",
+  "@calendarRecordedNightsLabel": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "calendarOnTargetLabel": "{count} nights on target",
+  "@calendarOnTargetLabel": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "calendarDelayedLabel": "{count} nights delayed",
+  "@calendarDelayedLabel": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "calendarAdjustedLabel": "{count} nights adjusted",
+  "@calendarAdjustedLabel": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "calendarPartialLabel": "{count} partial nights",
+  "@calendarPartialLabel": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "calendarFilterAll": "All records",
+  "calendarFilterDelayed": "Delayed",
+  "calendarFilterAdjusted": "Adjusted",
+  "calendarFilterLockedInsights": "Insights",
+  "calendarNoDataTitle": "No sleep records yet this month",
+  "calendarNoDataMessage": "Keep the monthly view in place and add your first night to start reading offsets against your goal.",
+  "calendarLockedTitle": "Earlier history and cause breakdown unlock in Insights",
+  "calendarLockedMessage": "This month''s heatmap stays here. Jump to Insights when you want deeper history and premium explanations.",
+  "calendarOpenInsightsCta": "Open Insights",
+  "calendarHeatmapLegendOnTarget": "On target",
+  "calendarHeatmapLegendDelayed": "Delayed",
+  "calendarHeatmapLegendPartial": "Partial",
+  "calendarHeatmapLegendEmpty": "No data",
+  "calendarDayDetailSourceLabel": "Source",
+  "calendarDayDetailAdjustmentLabel": "Adjustment",
+  "calendarDayDetailOffsetLabel": "Vs target",
+  "calendarDayDetailDurationLabel": "Total sleep",
+  "calendarDayDetailConfidenceLabel": "Confidence",
+  "calendarDayDetailNoteLabel": "Note",
+  "calendarDayDetailNoNote": "No additional note",
+  "calendarRecordSourceManual": "Manual entry",
+  "calendarRecordSourceHealth": "Health sync",
+  "calendarAdjustmentAdjusted": "Adjusted manually",
+  "calendarAdjustmentOriginal": "Original record",
+  "calendarConfidenceTrusted": "Complete sample",
+  "calendarConfidencePartial": "Partial sample",
+  "calendarOffsetOnTarget": "On target",
+  "calendarOffsetEarly": "{minutes} minutes early",
+  "@calendarOffsetEarly": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "calendarOffsetLate": "{minutes} minutes late",
+  "@calendarOffsetLate": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "calendarDurationLabel": "{hours}h {minutes}m",
+  "@calendarDurationLabel": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      },
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "calendarSleepWindowLabel": "Bedtime / wake time",
   "insightsTitle": "Insights",
   "insightsBody": "Weekly reports and premium insight widgets are reserved but not implemented yet.",
   "profileTitle": "Profile",

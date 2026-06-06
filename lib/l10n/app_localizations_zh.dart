@@ -265,6 +265,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String get onboardingPermissionStatusUnavailable => '当前设备不支持';
 
   @override
+  String get onboardingSkip => '跳过引导';
+
+  @override
   String get tabToday => '今日';
 
   @override
@@ -545,9 +548,18 @@ class AppLocalizationsZh extends AppLocalizations {
   String get bedtimeActionCompletedBody => '明早回来时，Rhythm 会优先用昨晚结果继续解释你的节奏。';
 
   @override
+  String get bedtimeRestoredSessionBody => '已恢复今晚未完成的选择';
+
+  @override
   String bedtimeReminderEnabledBody(Object bedtime) {
     return '提醒已开启，今晚目标会继续围绕 $bedtime 提醒你收尾。';
   }
+
+  @override
+  String get bedtimeReminderDisabledBody => '提醒当前未开启，今晚先按页面动作推进，之后可去设置页补上提醒。';
+
+  @override
+  String get bedtimeCountdownCompletedValue => '完成';
 
   @override
   String get bedtimePrimaryActionLabel => '执行这一步';
@@ -559,7 +571,134 @@ class AppLocalizationsZh extends AppLocalizations {
   String get calendarTitle => '日历';
 
   @override
-  String get calendarBody => '热力图与单日详情将在共享数据契约落地后接入真实查询。';
+  String get calendarBody => '按月查看相对目标的偏移、修正与单日详情。';
+
+  @override
+  String get calendarSummarySubtitle => '先看相对目标的偏移，再决定要不要补录或回看某一天。';
+
+  @override
+  String calendarRecordedNightsLabel(int count) {
+    return '本月已记录 $count 晚';
+  }
+
+  @override
+  String calendarOnTargetLabel(int count) {
+    return '$count 晚接近目标';
+  }
+
+  @override
+  String calendarDelayedLabel(int count) {
+    return '$count 晚明显偏离';
+  }
+
+  @override
+  String calendarAdjustedLabel(int count) {
+    return '$count 晚手动修正';
+  }
+
+  @override
+  String calendarPartialLabel(int count) {
+    return '$count 晚部分数据';
+  }
+
+  @override
+  String get calendarFilterAll => '全部记录';
+
+  @override
+  String get calendarFilterDelayed => '晚睡';
+
+  @override
+  String get calendarFilterAdjusted => '手动修正';
+
+  @override
+  String get calendarFilterLockedInsights => '高级洞察';
+
+  @override
+  String get calendarNoDataTitle => '本月还没有睡眠记录';
+
+  @override
+  String get calendarNoDataMessage => '先保留月视图，补录第一晚后这里会开始按目标偏移解释节奏。';
+
+  @override
+  String get calendarLockedTitle => '更早历史与原因分布将在洞察页解锁';
+
+  @override
+  String get calendarLockedMessage => '本月热力图仍会保留在这里，想看更早历史和原因分布时再进入洞察。';
+
+  @override
+  String get calendarOpenInsightsCta => '前往洞察';
+
+  @override
+  String get calendarHeatmapLegendOnTarget => '接近目标';
+
+  @override
+  String get calendarHeatmapLegendDelayed => '明显偏离';
+
+  @override
+  String get calendarHeatmapLegendPartial => '部分数据';
+
+  @override
+  String get calendarHeatmapLegendEmpty => '待补录';
+
+  @override
+  String get calendarDayDetailSourceLabel => '来源';
+
+  @override
+  String get calendarDayDetailAdjustmentLabel => '修正状态';
+
+  @override
+  String get calendarDayDetailOffsetLabel => '相对目标';
+
+  @override
+  String get calendarDayDetailDurationLabel => '睡眠时长';
+
+  @override
+  String get calendarDayDetailConfidenceLabel => '数据完整度';
+
+  @override
+  String get calendarDayDetailNoteLabel => '备注';
+
+  @override
+  String get calendarDayDetailNoNote => '今晚没有额外备注';
+
+  @override
+  String get calendarRecordSourceManual => '手动补录';
+
+  @override
+  String get calendarRecordSourceHealth => '健康同步';
+
+  @override
+  String get calendarAdjustmentAdjusted => '手动修正';
+
+  @override
+  String get calendarAdjustmentOriginal => '原始记录';
+
+  @override
+  String get calendarConfidenceTrusted => '完整样本';
+
+  @override
+  String get calendarConfidencePartial => '部分样本';
+
+  @override
+  String get calendarOffsetOnTarget => '基本准点';
+
+  @override
+  String calendarOffsetEarly(int minutes) {
+    return '提前 $minutes 分钟';
+  }
+
+  @override
+  String calendarOffsetLate(int minutes) {
+    return '晚了 $minutes 分钟';
+  }
+
+  @override
+  String calendarDurationLabel(int hours, int minutes) {
+    return '$hours小时 $minutes分钟';
+  }
+
+  @override
+  String get calendarSleepWindowLabel => '入睡 / 起床';
 
   @override
   String get insightsTitle => '洞察';

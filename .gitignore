@@ -34,6 +34,13 @@ migrate_working_dir/
 /coverage/
 /node_modules/
 /.npm-cache/
+**/*.g.dart
+**/*.freezed.dart
+**/*.gen.dart
+**/*.gr.dart
+**/*.mocks.dart
+**/*.config.dart
+/lib/l10n/app_localizations*.dart
 
 # Generated image outputs
 /output/imagegen/*.png

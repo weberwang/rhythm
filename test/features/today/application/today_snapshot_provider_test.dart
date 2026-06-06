@@ -48,6 +48,20 @@ class _FakeSleepRecordRepository implements SleepRecordRepository {
   }
 
   @override
+  Future<List<SleepRecord>> readRecordsInRange({
+    required DateTime startDate,
+    required DateTime endDate,
+  }) async {
+    return _records
+        .where(
+          (record) =>
+              !record.sleepDate.isBefore(startDate) &&
+              !record.sleepDate.isAfter(endDate),
+        )
+        .toList(growable: false);
+  }
+
+  @override
   Future<void> saveManualRecord(SleepRecord record) async {
     _records.insert(0, record);
   }

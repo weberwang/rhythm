@@ -93,6 +93,7 @@
   "onboardingPermissionStatusGranted": "已授权",
   "onboardingPermissionStatusDeferred": "稍后决定",
   "onboardingPermissionStatusUnavailable": "当前设备不支持",
+  "onboardingSkip": "跳过引导",
   "onboardingFinishSetup": "完成并进入今日页",
   "onboardingBack": "返回",
   "tabToday": "今日",
@@ -217,16 +218,115 @@
   "bedtimeActionProtectWakeBody": "今晚先止损，不追求补完一切；把明早起床时间守住，比继续拖更重要。",
   "bedtimeActionCompletedTitle": "今晚动作已完成",
   "bedtimeActionCompletedBody": "明早回来时，Rhythm 会优先用昨晚结果继续解释你的节奏。",
+  "bedtimeRestoredSessionBody": "已恢复今晚未完成的选择",
   "bedtimeReminderEnabledBody": "提醒已开启，今晚目标会继续围绕 {bedtime} 提醒你收尾。",
   "@bedtimeReminderEnabledBody": {
     "placeholders": {
       "bedtime": {}
     }
   },
+  "bedtimeReminderDisabledBody": "提醒当前未开启，今晚先按页面动作推进，之后可去设置页补上提醒。",
+  "bedtimeCountdownCompletedValue": "完成",
   "bedtimePrimaryActionLabel": "执行这一步",
   "bedtimePrimaryActionCompleted": "已完成今晚动作",
   "calendarTitle": "日历",
-  "calendarBody": "热力图与单日详情将在共享数据契约落地后接入真实查询。",
+  "calendarBody": "按月查看相对目标的偏移、修正与单日详情。",
+  "calendarSummarySubtitle": "先看相对目标的偏移，再决定要不要补录或回看某一天。",
+  "calendarRecordedNightsLabel": "本月已记录 {count} 晚",
+  "@calendarRecordedNightsLabel": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "calendarOnTargetLabel": "{count} 晚接近目标",
+  "@calendarOnTargetLabel": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "calendarDelayedLabel": "{count} 晚明显偏离",
+  "@calendarDelayedLabel": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "calendarAdjustedLabel": "{count} 晚手动修正",
+  "@calendarAdjustedLabel": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "calendarPartialLabel": "{count} 晚部分数据",
+  "@calendarPartialLabel": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "calendarFilterAll": "全部记录",
+  "calendarFilterDelayed": "晚睡",
+  "calendarFilterAdjusted": "手动修正",
+  "calendarFilterLockedInsights": "高级洞察",
+  "calendarNoDataTitle": "本月还没有睡眠记录",
+  "calendarNoDataMessage": "先保留月视图，补录第一晚后这里会开始按目标偏移解释节奏。",
+  "calendarLockedTitle": "更早历史与原因分布将在洞察页解锁",
+  "calendarLockedMessage": "本月热力图仍会保留在这里，想看更早历史和原因分布时再进入洞察。",
+  "calendarOpenInsightsCta": "前往洞察",
+  "calendarHeatmapLegendOnTarget": "接近目标",
+  "calendarHeatmapLegendDelayed": "明显偏离",
+  "calendarHeatmapLegendPartial": "部分数据",
+  "calendarHeatmapLegendEmpty": "待补录",
+  "calendarDayDetailSourceLabel": "来源",
+  "calendarDayDetailAdjustmentLabel": "修正状态",
+  "calendarDayDetailOffsetLabel": "相对目标",
+  "calendarDayDetailDurationLabel": "睡眠时长",
+  "calendarDayDetailConfidenceLabel": "数据完整度",
+  "calendarDayDetailNoteLabel": "备注",
+  "calendarDayDetailNoNote": "今晚没有额外备注",
+  "calendarRecordSourceManual": "手动补录",
+  "calendarRecordSourceHealth": "健康同步",
+  "calendarAdjustmentAdjusted": "手动修正",
+  "calendarAdjustmentOriginal": "原始记录",
+  "calendarConfidenceTrusted": "完整样本",
+  "calendarConfidencePartial": "部分样本",
+  "calendarOffsetOnTarget": "基本准点",
+  "calendarOffsetEarly": "提前 {minutes} 分钟",
+  "@calendarOffsetEarly": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "calendarOffsetLate": "晚了 {minutes} 分钟",
+  "@calendarOffsetLate": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "calendarDurationLabel": "{hours}小时 {minutes}分钟",
+  "@calendarDurationLabel": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      },
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "calendarSleepWindowLabel": "入睡 / 起床",
   "insightsTitle": "洞察",
   "insightsBody": "周报、稳定度与付费洞察区块已预留，但尚未进入真实实现。",
   "profileTitle": "我的",

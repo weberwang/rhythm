@@ -3,16 +3,16 @@ artifact_type: flutter_workflow_record
 workflow_status: active
 execution_mode: auto
 current_stage: implementing
-current_module: bedtime
+current_module: calendar
 confirmation_status: not_required
 next_skill: flutter-dev
 pending_next_stage: none
 pending_next_skill: none
 pending_status_updates: none
-route_lock: implementing|bedtime|flutter-dev|implementing|bedtime.code_status=in_progress
+route_lock: implementing|calendar|flutter-dev|implementing|calendar.code_status=in_progress
 execution_owner: orchestrator
 last_receipt_status: advanced
-auto_progress_delta: bedtime gained session persistence, draft restoration, and completion writeback on top of the real execution screen
+auto_progress_delta: calendar gained monthly range queries, real heatmap aggregation, filter + locked state handling, day-detail bottom sheet, and Android phone-viewport overflow hardening
 ---
 
 # workflow_summary
@@ -30,6 +30,11 @@ auto_progress_delta: bedtime gained session persistence, draft restoration, and 
 - `today` 本轮已正式接入最小 `SleepRecord` 本地仓储：昨晚结果不再只依赖共享状态占位，快捷补录会通过 sheet 写入真实记录，7 日趋势也开始消费最近样本而不是固定折线常量。
 - `bedtime` 已从占位页推进到真实单任务执行页：当前可根据目标作息和当前时间显示倒计时/超时语义，支持三态判断，并收敛成单一主动作卡。
 - `bedtime` 本轮继续补齐最小会话持久化：未完成选择可按会话日恢复，执行主动作后会写回完成态，不再只停留在页面内存状态。
+- `bedtime` 本轮已接通 `onboarding-activation -> sleep-data-core -> bedtime` 的提醒偏好闭环：睡前页不再硬编码“提醒已开启”，而是按共享偏好展示“提醒已开启 / 当前未开启”语义。
+- `bedtime` 本轮已把“恢复未完成会话”从隐式仓储行为提升为显式界面语义：检测到未完成会话时会提示“已恢复今晚未完成的选择”，并回放上次选择。
+- `bedtime` 显示层本轮已按冻结预览图重实现：首屏改为大倒计时环、单层目标时间卡、三列状态选择区、单动作卡和唯一主 CTA，不再是功能卡片纵向堆叠。
+- `calendar` 本轮已从占位页推进到真实月视图：页面开始消费 `SleepRecordRepository` 的月范围查询，展示月度摘要、热力图、筛选器、历史锁定说明和单日详情底部层。
+- `calendar` 本轮已补 Android 手机视口硬化：真实模拟器先暴露热力图格子 `BOTTOM OVERFLOWED`，随后通过新增手机视口 widget 测试与格子自适应压缩修复了该问题。
 
 # current_stage_detail
 
@@ -39,28 +44,30 @@ auto_progress_delta: bedtime gained session persistence, draft restoration, and 
 - 模块细化不再被解释为“一次性批量产出”；严格轨迹见 `docs/rd/04-superpowers-module-refinement-log.md`。
 - `flutter-init` 产物已被真实消费，启动分发与本地目标作息不再停留在占位实现。
 - 当前实现仍聚焦基础模块，不得把 `today`、`calendar`、`insights` 的业务数据接线提前越过 `sleep-data-core` 的共享契约边界。
-- 当前 route lock 为：`implementing -> current_module=bedtime -> next_skill=flutter-dev`，本轮只允许把 `bedtime` 从“单页实时状态”推进到“含草稿恢复与完成态写回的最小真实闭环”，不扩散到通知调度或长期报告。
+- 当前 route lock 为：`implementing -> current_module=calendar -> next_skill=flutter-dev`，本轮只允许把 `calendar` 从占位页推进到真实月视图，不扩散到洞察周报、会员全量流程或远端同步。
+- 当前 route lock 已在显示层维度兑现：`calendar` 保留“月度摘要 -> 筛选 -> 热力图 -> 单日详情”的冻结层级，只把高级历史解释收敛为锁定态卡片，不把热力图退化成普通列表。
 - 当前执行 ownership 仍在 orchestrator；未委派子代理，最新 receipt 已由真实代码、测试与生成产物验证为 `advanced`。
 - `app-shell` 的 root redirect 与 `global feedback host` 已满足 Stage 1 主壳基线，`sleep-data-core` 也已具备最小共享状态透出，因此 Stage 2 的 `onboarding-activation` 已可进入真实实现。
-- 当前阶段的实现焦点已切换到 `bedtime`，目标是把“进入 -> 判断 -> 选择 -> 执行”从占位页推进到真实睡前执行主路径。
-- 当前 `bedtime` 已落最小 `BedtimeSessionDraft`、`BedtimeSessionRecord` 与控制器，开始真实消费目标作息、入口意图和会话仓储；首屏已能区分 `before_target / likely_delay / session_completed`，并对三态选择切换单一动作建议。
+- 当前阶段的实现焦点已切换到 `calendar`，目标是把“按月看偏移 -> 切筛选 -> 点单日解释”从占位页推进到真实历史回看主路径。
+- 当前 `calendar` 已落 `CalendarOverview` 聚合、`CalendarFilterMode`、`CalendarDayDetail` 与页面层热力图结构，开始真实消费目标作息与月范围睡眠记录。
 
 # current_module_detail
 
-- `current_module`: `bedtime`
+- `current_module`: `calendar`
 - 当前活跃实施波次已从 Stage 2 激活漏斗切换到 Stage 3 核心日常体验。
-- `app-shell`、`sleep-data-core` 与 `onboarding-activation` 已提供当前模块所需的路由、作息、入口意图与共享基线，因此 `bedtime` 现在是依赖安全模块。
+- `app-shell`、`sleep-data-core` 与 `onboarding-activation` 已提供当前模块所需的路由、目标作息与共享记录边界，因此 `calendar` 现在是依赖安全模块。
 - 当前模块成熟度：
   - `app-shell`: `uiux_status=landed`、`impl_status=landed`、`design_source_status=frozen`、`code_status=in_progress`
   - `sleep-data-core`: `uiux_status=landed`、`impl_status=landed`、`design_source_status=frozen`、`code_status=in_progress`
   - `onboarding-activation`: `uiux_status=landed`、`impl_status=landed`、`design_source_status=frozen`、`code_status=in_progress`
   - `today`: `uiux_status=landed`、`impl_status=landed`、`design_source_status=frozen`、`code_status=in_progress`
   - `bedtime`: `uiux_status=landed`、`impl_status=landed`、`design_source_status=frozen`、`code_status=in_progress`
+  - `calendar`: `uiux_status=landed`、`impl_status=landed`、`design_source_status=frozen`、`code_status=in_progress`
 - 所有模块的 paired docs 都应理解为：对应 `module_uiux_refinement` 阶段，由 `@superpowers` 按模块细化契约收敛到实现前粒度后的定稿输入。
-- `bedtime` 当前已落倒计时 hero、目标时间卡、三态选择卡、单动作建议卡与单主 CTA。
-- `bedtime` 当前聚合输入已扩展为：`GoalScheduleRepository`、`BedtimeSessionRepository`、`currentEntryIntentProvider` 与测试可控的当前时间；页面已经不再是占位页，并可按会话日恢复草稿与写回完成态。
-- `bedtime` 当前仍保持低刺激单任务焦点：三态选择不超过三类、页面没有第二个强主 CTA、完成态只保留“已完成今晚动作”收口。
-- `bedtime` 当前 display-layer readiness 已满足：结构、状态数、主动作、入口语义和最小会话恢复均已对齐模块 RD；下一步应继续补“通知入口细化 / 提醒状态 / 更完整 session 语义”，而不是回退到占位骨架。
+- `calendar` 当前已落月度摘要卡、四类筛选按钮、热力图图例、月度日格与单日详情 bottom sheet。
+- `calendar` 当前已补冻结稿要求的显示层锚点：相对目标偏移优先、单日来源/修正/完整度解释、历史锁定先讲边界再给洞察入口。
+- `calendar` 当前聚合输入已扩展为：`GoalScheduleRepository`、`SleepRecordRepository.readRecordsInRange` 与测试可控的当前时间；页面已经不再是占位页，并可按筛选模式重算摘要与热力图高亮。
+- `calendar` 当前已完成手机视口硬化：`.omo/evidence/calendar-populated-emulator-fixed-seed.png`、`.omo/evidence/calendar-detail-emulator-final.png`、`.omo/evidence/calendar-locked-emulator.png` 与 `.omo/evidence/calendar-no-data-emulator-2.png` 提供了真实 Android 模拟器证据，不应再回退到桌面专用布局或错误兜底页。
 
 # next_action
 
@@ -79,7 +86,7 @@ auto_progress_delta: bedtime gained session persistence, draft restoration, and 
   - `docs/rd/modules/*/*.ui-ux.md`
   - `docs/rd/modules/*/*.impl.md`
 - 目标：
-  - 继续扩展 `bedtime`：补通知入口细化、提醒状态与更完整 session 语义，而不是退回占位页
+  - 当前 `calendar` 已完成首个真实版本；若继续推进，应进入 `profile-settings`，而不是回退 `calendar` 为占位页或静态说明
   - 保持现有 7 步最小漏斗作为真实激活主路径，不再退回占位页
   - 继续沿用已落地的 `health` / `home_widget` gateway 边界，而不是把插件调用回推到页面层
   - 保持 `app-shell` 的全局反馈 host 作为后续 `sync_failed`、`timezone_shift` 的统一承载层
@@ -137,7 +144,7 @@ auto_progress_delta: bedtime gained session persistence, draft restoration, and 
 | onboarding-activation | implementing | not_required | flutter-dev | none | none | none | docs/rd/modules/onboarding-activation/onboarding-activation.ui-ux.md | landed | docs/rd/modules/onboarding-activation/onboarding-activation.impl.md | landed | verified_executed | docs/rd/global-design-guidelines.md | docs/rd/light-theme-freeze.yaml | docs/rd/dark-theme-freeze.yaml | docs/rd/02-shared-design-packet.md | docs/rd/modules/onboarding-activation/onboarding-welcome.png | frozen | in_progress | landed | none |
 | today | implementing | not_required | flutter-dev | none | none | none | docs/rd/modules/today/today.ui-ux.md | landed | docs/rd/modules/today/today.impl.md | landed | verified_executed | docs/rd/global-design-guidelines.md | docs/rd/light-theme-freeze.yaml | docs/rd/dark-theme-freeze.yaml | docs/rd/02-shared-design-packet.md | docs/rd/modules/today/today-dashboard.png | frozen | in_progress | landed | none |
 | bedtime | implementing | not_required | flutter-dev | none | none | none | docs/rd/modules/bedtime/bedtime.ui-ux.md | landed | docs/rd/modules/bedtime/bedtime.impl.md | landed | verified_executed | docs/rd/global-design-guidelines.md | docs/rd/light-theme-freeze.yaml | docs/rd/dark-theme-freeze.yaml | docs/rd/02-shared-design-packet.md | docs/rd/modules/bedtime/bedtime-mode.png | frozen | in_progress | landed | none |
-| calendar | architecture_ready | not_required | none | none | none | none | docs/rd/modules/calendar/calendar.ui-ux.md | landed | docs/rd/modules/calendar/calendar.impl.md | landed | verified_executed | docs/rd/global-design-guidelines.md | docs/rd/light-theme-freeze.yaml | docs/rd/dark-theme-freeze.yaml | docs/rd/02-shared-design-packet.md | docs/rd/modules/calendar/calendar-heatmap.png | frozen | not_started | landed | waiting_for_stage1_foundation |
+| calendar | implementing | not_required | flutter-dev | none | none | none | docs/rd/modules/calendar/calendar.ui-ux.md | landed | docs/rd/modules/calendar/calendar.impl.md | landed | verified_executed | docs/rd/global-design-guidelines.md | docs/rd/light-theme-freeze.yaml | docs/rd/dark-theme-freeze.yaml | docs/rd/02-shared-design-packet.md | docs/rd/modules/calendar/calendar-heatmap.png | frozen | in_progress | landed | none |
 | profile-settings | architecture_ready | not_required | none | none | none | none | docs/rd/modules/profile-settings/profile-settings.ui-ux.md | landed | docs/rd/modules/profile-settings/profile-settings.impl.md | landed | verified_executed | docs/rd/global-design-guidelines.md | docs/rd/light-theme-freeze.yaml | docs/rd/dark-theme-freeze.yaml | docs/rd/02-shared-design-packet.md | docs/rd/modules/profile-settings/profile-settings.png | frozen | not_started | landed | waiting_for_stage1_foundation |
 | insights | architecture_ready | not_required | none | none | none | none | docs/rd/modules/insights/insights.ui-ux.md | landed | docs/rd/modules/insights/insights.impl.md | landed | verified_executed | docs/rd/global-design-guidelines.md | docs/rd/light-theme-freeze.yaml | docs/rd/dark-theme-freeze.yaml | docs/rd/02-shared-design-packet.md | docs/rd/modules/insights/insights-weekly-report.png | frozen | not_started | landed | waiting_for_stage1_foundation |
 
@@ -176,3 +183,8 @@ auto_progress_delta: bedtime gained session persistence, draft restoration, and 
 - 2026-06-06: `today` 本轮已补最小 `SleepRecord` 真实基线：`sleep-data-core` 新增 Drift 表、`SleepRecordRepository` 与本地实现；首页聚合开始根据最近记录区分 `on_target / slight_delay / major_delay`，快捷记录通过 sheet 写入手动记录并触发首页刷新，趋势折线也改为消费最近样本；新增仓储、控制器、聚合与页面测试覆盖。
 - 2026-06-06: `current_module` 已从 `today` 切换到 `bedtime`；`BedtimePage` 不再是占位骨架，当前已落最小 `BedtimeSessionDraft`、倒计时语义、三态选择卡、单动作建议卡和单主 CTA，并通过应用层控制器在 `before_target / likely_delay / session_completed` 间切换；全量 `flutter test` 已通过。
 - 2026-06-06: `bedtime` 本轮已补最小 `BedtimeSessionRepository` 真实基线：新增 Drift 表、会话记录实体与本地实现；控制器现可按会话日恢复未完成选择，并在执行主动作后写回完成态；新增仓储测试、控制器恢复测试与页面隔离测试覆盖。
+- 2026-06-06: `bedtime` 已补齐本轮剩余缺口：`onboarding-activation` 完成时会把提醒策略持久化为共享提醒偏好，`bedtime` 控制器会真实读取该偏好并输出 `enabled / disabled` 语义；页面会显示“提醒当前未开启”提示与“已恢复今晚未完成的选择”横幅；相关控制器、页面与 onboarding 回归测试均已通过，并已在 Android 模拟器上完成真实界面验证。
+- 2026-06-06: `bedtime` 显示层已按冻结预览图重实现：页面从功能纵向卡片改为大倒计时环、目标时间卡、三列状态选择区、单动作卡和唯一主 CTA；新增 `bedtime_page_test` 红绿回归后，`flutter analyze` 与 `flutter test` 通过，并以 Windows 临时 QA 入口完成 `before_target / likely_delay / restored_disabled` 三组真实桌面截图验证。
+- 2026-06-06: `current_module` 已从 `bedtime` 切换到 `calendar`；`SleepRecordRepository` 新增 `readRecordsInRange`，`calendar` 通过 `CalendarOverview` 聚合真实消费月范围记录和目标作息，页面开始展示月度摘要、热力图、筛选器和单日详情。
+- 2026-06-06: `calendar` 在 Android 模拟器首轮 QA 中暴露热力图手机视口 `BOTTOM OVERFLOWED`；随后新增 `keeps calendar heatmap inside phone viewport` widget 测试并通过自适应 cell padding 修复，复跑 `flutter analyze` 与 `flutter test` 通过。
+- 2026-06-06: `calendar` 已在 Android 模拟器完成四类真实界面验证：`populated`、`detail`、`locked`、`no_data`，对应证据为 `.omo/evidence/calendar-populated-emulator-fixed-seed.png`、`.omo/evidence/calendar-detail-emulator-final.png`、`.omo/evidence/calendar-locked-emulator.png` 与 `.omo/evidence/calendar-no-data-emulator-2.png`。

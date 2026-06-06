@@ -34,6 +34,25 @@ class LocalSleepRecordRepository implements SleepRecordRepository {
   }
 
   @override
+  Future<List<SleepRecord>> readRecordsInRange({
+    required DateTime startDate,
+    required DateTime endDate,
+  }) async {
+    final query =
+        _database.select(_database.sleepRecordEntries)
+          ..where(
+            (table) =>
+                table.sleepDate.isBiggerOrEqualValue(startDate) &
+                table.sleepDate.isSmallerOrEqualValue(endDate),
+          )
+          ..orderBy([(table) => OrderingTerm.desc(table.sleepDate)])
+          ..orderBy([(table) => OrderingTerm.desc(table.createdAt)]);
+
+    final rows = await query.get();
+    return rows.map(_mapRecord).toList(growable: false);
+  }
+
+  @override
   Future<void> saveManualRecord(SleepRecord record) {
     return _database
         .into(_database.sleepRecordEntries)

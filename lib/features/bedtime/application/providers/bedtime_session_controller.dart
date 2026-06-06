@@ -6,7 +6,9 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../../app_shell/application/providers/current_entry_intent_provider.dart';
 import '../../../app_shell/domain/entities/entry_intent.dart';
 import '../../../sleep_data_core/application/providers/goal_schedule_repository_provider.dart';
+import '../../../sleep_data_core/application/providers/reminder_preference_repository_provider.dart';
 import '../../../sleep_data_core/domain/entities/goal_schedule.dart';
+import '../../../sleep_data_core/domain/entities/reminder_preference.dart';
 import '../../domain/entities/bedtime_session_draft.dart';
 import '../../domain/entities/bedtime_session_record.dart';
 import 'bedtime_session_repository_provider.dart';
@@ -27,12 +29,19 @@ class BedtimeSessionController extends _$BedtimeSessionController {
   FutureOr<BedtimeSessionDraft> build() async {
     final scheduleRepository = ref.watch(goalScheduleRepositoryProvider);
     final sessionRepository = ref.watch(bedtimeSessionRepositoryProvider);
+    final reminderPreferenceRepository = ref.watch(
+      reminderPreferenceRepositoryProvider,
+    );
     final schedule =
         await scheduleRepository.readActiveSchedule() ?? _fallbackSchedule();
     final now = ref.watch(bedtimeNowProvider);
     final entryIntent = ref.watch(currentEntryIntentProvider);
     final sessionDate = _resolveSessionDate(now: now, schedule: schedule);
-    final restoredSession = await sessionRepository.readSessionForDate(sessionDate);
+    final restoredSession = await sessionRepository.readSessionForDate(
+      sessionDate,
+    );
+    final reminderPreference = await reminderPreferenceRepository
+        .readReminderPreference();
 
     return _buildDraft(
       schedule: schedule,
@@ -41,6 +50,9 @@ class BedtimeSessionController extends _$BedtimeSessionController {
       selectedChoice: restoredSession?.selectedChoice,
       restoredEntrySource: restoredSession?.entrySource,
       isCompleted: restoredSession?.isCompleted ?? false,
+      reminderState: _resolveReminderState(reminderPreference),
+      isSessionRestored:
+          restoredSession != null && !(restoredSession.isCompleted),
     );
   }
 
@@ -70,6 +82,8 @@ class BedtimeSessionController extends _$BedtimeSessionController {
         selectedChoice: choice,
         restoredEntrySource: currentDraft.entrySource,
         isCompleted: false,
+        reminderState: currentDraft.reminderState,
+        isSessionRestored: currentDraft.isSessionRestored,
       ),
     );
   }
@@ -100,6 +114,8 @@ class BedtimeSessionController extends _$BedtimeSessionController {
         selectedChoice: currentDraft.selectedChoice,
         restoredEntrySource: currentDraft.entrySource,
         isCompleted: true,
+        reminderState: currentDraft.reminderState,
+        isSessionRestored: false,
       ),
     );
   }
@@ -133,6 +149,8 @@ BedtimeSessionDraft _buildDraft({
   required BedtimeStatusChoice? selectedChoice,
   required BedtimeEntrySource? restoredEntrySource,
   required bool isCompleted,
+  required BedtimeReminderState reminderState,
+  required bool isSessionRestored,
 }) {
   final minutesToTarget = _calculateMinutesToTarget(
     now: now,
@@ -165,8 +183,19 @@ BedtimeSessionDraft _buildDraft({
     entrySource: restoredEntrySource ?? _entrySource(entryIntent),
     selectedChoice: selectedChoice,
     actionKind: isCompleted ? BedtimeActionKind.completed : actionTitle,
-    reminderEnabled: true,
+    reminderState: reminderState,
+    isSessionRestored: isSessionRestored && !isCompleted,
   );
+}
+
+/// 缺少偏好时先保持轻提醒默认值，避免老用户因为未落偏好而退回误导性的空状态。
+BedtimeReminderState _resolveReminderState(
+  ReminderPreference? reminderPreference,
+) {
+  return switch (reminderPreference) {
+    ReminderPreference.disabled => BedtimeReminderState.disabled,
+    ReminderPreference.gentle || null => BedtimeReminderState.enabled,
+  };
 }
 
 /// 在凌晨仍应归属昨晚会话，避免跨午夜后把未完成草稿切到新的一天。

@@ -28,10 +28,13 @@ class _FakeOnboardingWidgetGuideGateway implements OnboardingWidgetGuideGateway 
 /// 用假的健康权限网关锁定权限步骤，不依赖真实设备插件。
 class _FakeOnboardingHealthPermissionGateway
     implements OnboardingHealthPermissionGateway {
-  const _FakeOnboardingHealthPermissionGateway();
+  _FakeOnboardingHealthPermissionGateway();
+
+  int requestCount = 0;
 
   @override
   Future<OnboardingHealthPermissionStatus> requestSleepPermission() async {
+    requestCount += 1;
     return OnboardingHealthPermissionStatus.denied;
   }
 }
@@ -62,6 +65,8 @@ void main() {
         await tester.pump(const Duration(milliseconds: 300));
       }
 
+      final healthPermissionGateway = _FakeOnboardingHealthPermissionGateway();
+
       await tester.pumpWidget(
         ProviderScope(
           overrides: [
@@ -69,7 +74,7 @@ void main() {
               const _FakeOnboardingAccountGateway(),
             ),
             onboardingHealthPermissionGatewayProvider.overrideWithValue(
-              const _FakeOnboardingHealthPermissionGateway(),
+              healthPermissionGateway,
             ),
             onboardingWidgetGuideGatewayProvider.overrideWithValue(
               const _FakeOnboardingWidgetGuideGateway(),
@@ -106,6 +111,7 @@ void main() {
 
       await tester.tap(find.text('继续设置'));
       await pumpFlow();
+      expect(healthPermissionGateway.requestCount, 0);
 
       await tester.tap(find.text('继续设置'));
       await pumpFlow();
@@ -125,4 +131,31 @@ void main() {
       expect(find.text('第 7 步 / 7'), findsOneWidget);
     },
   );
+
+  testWidgets('welcome step exposes skip action', (tester) async {
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          onboardingAccountGatewayProvider.overrideWithValue(
+            const _FakeOnboardingAccountGateway(),
+          ),
+          onboardingHealthPermissionGatewayProvider.overrideWithValue(
+            _FakeOnboardingHealthPermissionGateway(),
+          ),
+          onboardingWidgetGuideGatewayProvider.overrideWithValue(
+            const _FakeOnboardingWidgetGuideGateway(),
+          ),
+        ],
+        child: MaterialApp(
+          locale: const Locale('zh'),
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: const OnboardingFlowPage(),
+        ),
+      ),
+    );
+    await tester.pump();
+
+    expect(find.text('跳过引导'), findsOneWidget);
+  });
 }
