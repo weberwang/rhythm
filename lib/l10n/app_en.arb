@@ -30,6 +30,16 @@
   "onboardingGoalBody": "Pick the bedtime and wake-up target you want Rhythm to guide you toward first.",
   "onboardingReminderTitle": "Choose your reminder posture",
   "onboardingReminderBody": "Start with the gentlest reminder strategy that still feels realistic for tonight.",
+  "onboardingWidgetGuideTitle": "Put Rhythm on your home screen for tonight",
+  "onboardingWidgetGuideBody": "A home-screen entry is optional, but it makes it faster to return to the key actions tonight and tomorrow morning.",
+  "onboardingWidgetGuideBaseTitle": "This step only explains the value, not a forced setup",
+  "onboardingWidgetGuideBaseBody": "Finish tonight first, then decide later whether your device should pin Rhythm to the home screen.",
+  "onboardingWidgetGuideSupportedTitle": "This device can pin the entry directly",
+  "onboardingWidgetGuideSupportedBody": "When you are ready, you can pin Rhythm to the home screen or widget panel so the next return takes less effort.",
+  "onboardingWidgetGuideManualTitle": "This platform works better with manual setup later",
+  "onboardingWidgetGuideManualBody": "Finish activation first. After that, add the Rhythm widget from your home-screen edit mode when you want faster access.",
+  "onboardingWidgetGuideUnavailableTitle": "This device does not support home-screen widgets right now",
+  "onboardingWidgetGuideUnavailableBody": "That does not block the setup tonight. Add a widget later when you return on a supported mobile device.",
   "onboardingCompletionTitle": "You are ready for tonight",
   "onboardingCompletionBody": "Rhythm has enough context to start the first night without forcing extra setup right now.",
   "onboardingStartSetup": "Start setup",
@@ -44,8 +54,16 @@
   "onboardingBenefitTrackingBody": "Start with clear goals first, then connect richer data when you are ready.",
   "onboardingEntryLocalTitle": "Start in local-first mode",
   "onboardingEntryLocalBody": "Use Rhythm right away on this device and keep the activation flow simple tonight.",
-  "onboardingEntrySyncLaterTitle": "Set up now, sync later",
-  "onboardingEntrySyncLaterBody": "Finish the same setup first, then come back for Apple / Google sign-in when needed.",
+  "onboardingEntryAppleTitle": "Continue with Apple",
+  "onboardingEntryAppleBody": "Bring your Apple identity into onboarding first, then continue with health access, goal schedule, and sync semantics.",
+  "onboardingEntryGoogleTitle": "Continue with Google",
+  "onboardingEntryGoogleBody": "Bring your Google identity into onboarding first, then continue with health access, goal schedule, and sync semantics.",
+  "onboardingEntryAuthCancelledTitle": "This sign-in was cancelled",
+  "onboardingEntryAuthCancelledBody": "Try again, or switch to the local-first path and finish the setup tonight first.",
+  "onboardingEntryAuthUnavailableTitle": "This sign-in path is unavailable on this device",
+  "onboardingEntryAuthUnavailableBody": "Switch to the local-first path for tonight, then connect your account later on a supported platform.",
+  "onboardingEntryAuthFailedTitle": "Sign-in could not finish",
+  "onboardingEntryAuthFailedBody": "Try once more. If the environment still is not ready, continue with the local-first path for now.",
   "onboardingHealthValueTitle": "Health access stays optional for now",
   "onboardingHealthValueBody": "This step explains what health data can unlock, but it will not request real system permission yet.",
   "onboardingPermissionBenefitTitle": "What health access can unlock",
@@ -73,6 +91,10 @@
   },
   "onboardingCompletionEntryLabel": "Entry mode",
   "onboardingCompletionReminderLabel": "Reminder strategy",
+  "onboardingCompletionHealthLabel": "Health access",
+  "onboardingPermissionStatusGranted": "Granted",
+  "onboardingPermissionStatusDeferred": "Decide later",
+  "onboardingPermissionStatusUnavailable": "Unsupported on this device",
   "tabToday": "Today",
   "tabBedtime": "Bedtime",
   "tabCalendar": "Calendar",
@@ -81,14 +103,146 @@
   "placeholderStatus": "Initialization placeholder",
   "todayTitle": "Today",
   "todayBody": "The Today dashboard will consume sleep-data-core contracts in the implementation stage.",
+  "todayGreetingNamed": "Good morning, {name}",
+  "@todayGreetingNamed": {
+    "placeholders": {
+      "name": {}
+    }
+  },
+  "todayGreetingGeneric": "Good morning, start with the rhythm for tonight",
+  "todayGreetingBody": "Look at last night first, then decide what to do tonight.",
+  "todaySectionLastNight": "Last night",
+  "todayLastNightNoDataTitle": "Last night is still waiting for the first sample",
+  "todayLastNightNoDataBody": "Onboarding is complete. Once tonight is recorded, this card will explain the result, source confidence, and your next step first.",
+  "todayLastNightSyncTitle": "The local result is safe, and sync can wait",
+  "todayLastNightSyncBody": "Sync did not finish cleanly, but your latest updates are still safe on this device. Keep tonight on track first.",
+  "todayLastNightManualTitle": "This result now follows a manual adjustment",
+  "todayLastNightManualBody": "Rhythm will respect your latest manual correction and use it as the baseline for the explanation tonight.",
+  "todayLastNightOnTargetTitle": "Last night stayed close to the target",
+  "todayLastNightOnTargetBody": "The rhythm was basically on track. Keep tonight steady and avoid over-correcting a night that already landed well.",
+  "todayLastNightSlightDelayTitle": "Last night drifted a little later than planned",
+  "todayLastNightSlightDelayBody": "The delay is still manageable. Tighten tonight''s wind-down and keep the next wake-up anchored.",
+  "todayLastNightMajorDelayTitle": "Last night drifted far beyond the target",
+  "todayLastNightMajorDelayBody": "Treat tonight as a recovery night: lower stimulation earlier and keep the next morning from sliding later again.",
+  "todaySectionTonightGoal": "Goal for tonight",
+  "todayTonightGoalHeadline": "Bedtime target",
+  "todayTonightGoalReminderLabel": "Wind-down reminder",
+  "todayTonightGoalBody": "Start winding down at {windDown}, and keep the wake-up target at {wakeTime}.",
+  "@todayTonightGoalBody": {
+    "placeholders": {
+      "windDown": {},
+      "wakeTime": {}
+    }
+  },
+  "todaySectionRecovery": "Recovery suggestion",
+  "todayRecoveryBuildBaselineTitle": "Start by completing the first night",
+  "todayRecoveryBuildBaselineBody": "Finish the routine tonight first, then come back tomorrow morning for the first result and a clearer recovery suggestion.",
+  "todayRecoverySyncTitle": "Stay on the local rhythm first, repair sync later",
+  "todayRecoverySyncBody": "The important part right now is preserving the rhythm tonight, not interrupting the local record flow for a sync repair.",
+  "todayRecoveryDelayTitle": "Use tonight to pull the rhythm back earlier",
+  "todayRecoveryDelayBody": "Keep the next wind-down short and decisive, and avoid compensating by sleeping much later tomorrow morning.",
+  "todayRecoveryMomentumTitle": "Protect the corrected rhythm tonight",
+  "todayRecoveryMomentumBody": "Since the result was adjusted manually, keep tonight aligned with that corrected baseline instead of adding more corrective tasks.",
+  "todaySectionQuickRecord": "Quick record",
+  "todayQuickRecordTitle": "Log the check-in for tonight",
+  "todayQuickRecordRecommendedBody": "If tonight drifts from the goal, add a quick mood, energy, or note so the explanation tomorrow has context.",
+  "todayQuickRecordOptionalBody": "If anything feels worth noting tonight, add a short check-in so the first-week trend can build with context.",
+  "todayQuickRecordSheetTitle": "Add last night''s record",
+  "todayQuickRecordSheetBody": "Capture the minimum facts first so the result card and the first-week trend stop falling back to placeholders.",
+  "todayQuickRecordDateLabel": "Sleep date",
+  "todayQuickRecordBedtimeLabel": "Fell asleep at",
+  "todayQuickRecordWakeTimeLabel": "Woke up at",
+  "todayQuickRecordNoteLabel": "Note (optional)",
+  "todayQuickRecordSaveAction": "Save record",
+  "todayQuickRecordSaved": "Last night''s record was saved.",
+  "todaySectionTrend": "7-day trend",
+  "todayTrendScoreLabel": "Sleep score",
+  "todayTrendBuildingTitle": "The 7-day trend starts building tonight",
+  "todayTrendBuildingBody": "During the first week, this section focuses on context and explainability instead of competing with the primary home-page judgment.",
+  "todayTrendReadyBody": "The chart is now using your recent samples, so you can quickly judge whether the rhythm is pulling back toward the target.",
+  "todayFooterHint": "Today currently consumes the shipped goal schedule, shared status, and account snapshot baseline. Real sleep-record wiring will follow in a later module pass.",
+  "todayErrorTitle": "The today snapshot could not be restored just now",
+  "todayErrorBody": "The shell is still usable. Rhythm will try to rebuild the home-page snapshot the next time you return here.",
   "bedtimeTitle": "Bedtime",
   "bedtimeBody": "The bedtime focus flow is scaffolded and waiting for module implementation.",
+  "bedtimeEntryFromToday": "From today",
+  "bedtimeEntryFromNotification": "From notification",
+  "bedtimeEntryFromWidget": "From widget",
+  "bedtimeBeforeTargetHeadline": "{minutes} minutes until the target",
+  "@bedtimeBeforeTargetHeadline": {
+    "placeholders": {
+      "minutes": {}
+    }
+  },
+  "bedtimeAfterTargetHeadline": "{minutes} minutes past the target",
+  "@bedtimeAfterTargetHeadline": {
+    "placeholders": {
+      "minutes": {}
+    }
+  },
+  "bedtimeCompletedHeadline": "Tonight''s wind-down is done",
+  "bedtimeBeforeTargetBody": "Pull the focus back to one decision tonight. The target bedtime is {bedtime}.",
+  "@bedtimeBeforeTargetBody": {
+    "placeholders": {
+      "bedtime": {}
+    }
+  },
+  "bedtimeDelayBody": "Tonight is about limiting the drift first. Keep tomorrow''s wake-up target at {wakeTime}.",
+  "@bedtimeDelayBody": {
+    "placeholders": {
+      "wakeTime": {}
+    }
+  },
+  "bedtimeCompletedBody": "Keep the wake-up target at {wakeTime} tomorrow morning. No extra tasks need to pile on now.",
+  "@bedtimeCompletedBody": {
+    "placeholders": {
+      "wakeTime": {}
+    }
+  },
+  "bedtimeTargetBedtimeLabel": "Target bedtime",
+  "bedtimeTargetWakeLabel": "Target wake-up",
+  "bedtimeChoiceSectionTitle": "What is the best call for tonight?",
+  "bedtimeChoiceReadyTitle": "Ready to sleep",
+  "bedtimeChoiceReadyBody": "Do not open new tasks. Move straight into the smallest wind-down action.",
+  "bedtimeChoiceWindDownTitle": "Need a little wind-down",
+  "bedtimeChoiceWindDownBody": "Give yourself a short buffer, but do not reopen another stimulating task.",
+  "bedtimeChoiceDelayTitle": "Tonight will likely drift late",
+  "bedtimeChoiceDelayBody": "Acknowledge the drift, then reduce the damage for tomorrow morning and the next recovery step.",
+  "bedtimeActionSectionTitle": "Tonight''s action",
+  "bedtimeActionStartWindDownTitle": "Start a 10-minute wind-down",
+  "bedtimeActionStartWindDownBody": "The most important thing now is to turn off stimulation and give yourself one short closing window.",
+  "bedtimeActionPutPhoneAwayTitle": "Put the phone away for 10 minutes",
+  "bedtimeActionPutPhoneAwayBody": "Push the screen and unfinished tasks back for 10 minutes so the body can actually start relaxing.",
+  "bedtimeActionProtectWakeTitle": "Protect tomorrow''s wake-up time first",
+  "bedtimeActionProtectWakeBody": "Limit the damage tonight instead of trying to fix everything. Protecting the wake-up time matters more than dragging the night longer.",
+  "bedtimeActionCompletedTitle": "Tonight''s action is done",
+  "bedtimeActionCompletedBody": "When you come back tomorrow morning, Rhythm will use last night''s result to continue the explanation.",
+  "bedtimeReminderEnabledBody": "Reminders are on, and tonight will keep nudging you around the {bedtime} target.",
+  "@bedtimeReminderEnabledBody": {
+    "placeholders": {
+      "bedtime": {}
+    }
+  },
+  "bedtimePrimaryActionLabel": "Do this step",
+  "bedtimePrimaryActionCompleted": "Tonight is already done",
   "calendarTitle": "Calendar",
   "calendarBody": "Calendar heatmap and day detail experiences will be connected after the data contracts land.",
   "insightsTitle": "Insights",
   "insightsBody": "Weekly reports and premium insight widgets are reserved but not implemented yet.",
   "profileTitle": "Profile",
   "profileBody": "Account, membership, sync, reminder, and privacy settings will be implemented after initialization.",
+  "profileAccountAnonymousTitle": "You are currently in local-first mode",
+  "profileAccountAnonymousBody": "Tonight updates stay on this device first. You can connect an account and enable sync later.",
+  "profileAccountConnectedTitle": "{provider} account connected",
+  "@profileAccountConnectedTitle": {
+    "placeholders": {
+      "provider": {}
+    }
+  },
+  "profileAccountConnectedBody": "Your account snapshot is already stored on this device, and sync, membership, and privacy settings can build on it next.",
+  "profileAccountLoadFallbackBody": "Account state could not be restored just now, so settings will stay in the local-first path for now.",
+  "accountProviderAppleLabel": "Apple",
+  "accountProviderGoogleLabel": "Google",
   "globalFeedbackDismiss": "Dismiss",
   "globalFeedbackSyncFailedTitle": "Sync paused locally",
   "globalFeedbackSyncFailedBody": "Your recent updates are still stored on this device. Review sync settings when you are ready.",

@@ -8,17 +8,15 @@ part of 'current_entry_intent_provider.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
-/// 暴露当前统一入口意图，为后续通知与小组件路由分发保留扩展点。
+/// 暴露当前统一入口意图，并允许在首启完成后重置一次性外部入口。
 
-@ProviderFor(currentEntryIntent)
+@ProviderFor(CurrentEntryIntent)
 const currentEntryIntentProvider = CurrentEntryIntentProvider._();
 
-/// 暴露当前统一入口意图，为后续通知与小组件路由分发保留扩展点。
-
+/// 暴露当前统一入口意图，并允许在首启完成后重置一次性外部入口。
 final class CurrentEntryIntentProvider
-    extends $FunctionalProvider<EntryIntent, EntryIntent, EntryIntent>
-    with $Provider<EntryIntent> {
-  /// 暴露当前统一入口意图，为后续通知与小组件路由分发保留扩展点。
+    extends $NotifierProvider<CurrentEntryIntent, EntryIntent> {
+  /// 暴露当前统一入口意图，并允许在首启完成后重置一次性外部入口。
   const CurrentEntryIntentProvider._()
     : super(
         from: null,
@@ -35,13 +33,7 @@ final class CurrentEntryIntentProvider
 
   @$internal
   @override
-  $ProviderElement<EntryIntent> $createElement($ProviderPointer pointer) =>
-      $ProviderElement(pointer);
-
-  @override
-  EntryIntent create(Ref ref) {
-    return currentEntryIntent(ref);
-  }
+  CurrentEntryIntent create() => CurrentEntryIntent();
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(EntryIntent value) {
@@ -53,4 +45,25 @@ final class CurrentEntryIntentProvider
 }
 
 String _$currentEntryIntentHash() =>
-    r'b42478af60b9cf0e53d727e4878fcb3d55bade32';
+    r'f5e8c59363ca8fccae3cd251a4b91b6680ede33d';
+
+/// 暴露当前统一入口意图，并允许在首启完成后重置一次性外部入口。
+
+abstract class _$CurrentEntryIntent extends $Notifier<EntryIntent> {
+  EntryIntent build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref = this.ref as $Ref<EntryIntent, EntryIntent>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<EntryIntent, EntryIntent>,
+              EntryIntent,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}

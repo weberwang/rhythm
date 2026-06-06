@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rhythm/app/startup/launch_state.dart';
@@ -32,6 +34,20 @@ class _ThrowingGoalScheduleRepository implements GoalScheduleRepository {
   Future<GoalSchedule?> readActiveSchedule() {
     throw StateError('database unavailable');
   }
+
+  @override
+  Future<void> saveActiveSchedule(GoalSchedule schedule) async {}
+}
+
+/// 用可控异步读取模拟 provider 在等待期间被销毁的竞态。
+class _DelayedGoalScheduleRepository implements GoalScheduleRepository {
+  /// 创建用于测试销毁竞态的假仓储。
+  _DelayedGoalScheduleRepository(this._scheduleFuture);
+
+  final Future<GoalSchedule?> _scheduleFuture;
+
+  @override
+  Future<GoalSchedule?> readActiveSchedule() => _scheduleFuture;
 
   @override
   Future<void> saveActiveSchedule(GoalSchedule schedule) async {}
@@ -100,6 +116,27 @@ void main() {
       final snapshot = await container.read(launchStateProvider.future);
 
       expect(snapshot.destination, LaunchDestination.onboarding);
+    },
+  );
+
+  test(
+    'completeOnboarding does not use disposed ref after async gap',
+    () async {
+      SharedPreferences.setMockInitialValues({});
+      final readCompleter = Completer<GoalSchedule?>();
+      final container = ProviderContainer(
+        overrides: [
+          goalScheduleRepositoryProvider.overrideWithValue(
+            _DelayedGoalScheduleRepository(readCompleter.future),
+          ),
+        ],
+      );
+
+      final future = container.read(completeOnboardingProvider.future);
+      container.dispose();
+      readCompleter.complete(null);
+
+      await expectLater(future.timeout(const Duration(seconds: 1)), completes);
     },
   );
 }

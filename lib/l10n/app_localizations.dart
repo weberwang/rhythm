@@ -218,6 +218,66 @@ abstract class AppLocalizations {
   /// **'Start with the gentlest reminder strategy that still feels realistic for tonight.'**
   String get onboardingReminderBody;
 
+  /// No description provided for @onboardingWidgetGuideTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Put Rhythm on your home screen for tonight'**
+  String get onboardingWidgetGuideTitle;
+
+  /// No description provided for @onboardingWidgetGuideBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A home-screen entry is optional, but it makes it faster to return to the key actions tonight and tomorrow morning.'**
+  String get onboardingWidgetGuideBody;
+
+  /// No description provided for @onboardingWidgetGuideBaseTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'This step only explains the value, not a forced setup'**
+  String get onboardingWidgetGuideBaseTitle;
+
+  /// No description provided for @onboardingWidgetGuideBaseBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Finish tonight first, then decide later whether your device should pin Rhythm to the home screen.'**
+  String get onboardingWidgetGuideBaseBody;
+
+  /// No description provided for @onboardingWidgetGuideSupportedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'This device can pin the entry directly'**
+  String get onboardingWidgetGuideSupportedTitle;
+
+  /// No description provided for @onboardingWidgetGuideSupportedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'When you are ready, you can pin Rhythm to the home screen or widget panel so the next return takes less effort.'**
+  String get onboardingWidgetGuideSupportedBody;
+
+  /// No description provided for @onboardingWidgetGuideManualTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'This platform works better with manual setup later'**
+  String get onboardingWidgetGuideManualTitle;
+
+  /// No description provided for @onboardingWidgetGuideManualBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Finish activation first. After that, add the Rhythm widget from your home-screen edit mode when you want faster access.'**
+  String get onboardingWidgetGuideManualBody;
+
+  /// No description provided for @onboardingWidgetGuideUnavailableTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'This device does not support home-screen widgets right now'**
+  String get onboardingWidgetGuideUnavailableTitle;
+
+  /// No description provided for @onboardingWidgetGuideUnavailableBody.
+  ///
+  /// In en, this message translates to:
+  /// **'That does not block the setup tonight. Add a widget later when you return on a supported mobile device.'**
+  String get onboardingWidgetGuideUnavailableBody;
+
   /// No description provided for @onboardingCompletionTitle.
   ///
   /// In en, this message translates to:
@@ -302,17 +362,65 @@ abstract class AppLocalizations {
   /// **'Use Rhythm right away on this device and keep the activation flow simple tonight.'**
   String get onboardingEntryLocalBody;
 
-  /// No description provided for @onboardingEntrySyncLaterTitle.
+  /// No description provided for @onboardingEntryAppleTitle.
   ///
   /// In en, this message translates to:
-  /// **'Set up now, sync later'**
-  String get onboardingEntrySyncLaterTitle;
+  /// **'Continue with Apple'**
+  String get onboardingEntryAppleTitle;
 
-  /// No description provided for @onboardingEntrySyncLaterBody.
+  /// No description provided for @onboardingEntryAppleBody.
   ///
   /// In en, this message translates to:
-  /// **'Finish the same setup first, then come back for Apple / Google sign-in when needed.'**
-  String get onboardingEntrySyncLaterBody;
+  /// **'Bring your Apple identity into onboarding first, then continue with health access, goal schedule, and sync semantics.'**
+  String get onboardingEntryAppleBody;
+
+  /// No description provided for @onboardingEntryGoogleTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue with Google'**
+  String get onboardingEntryGoogleTitle;
+
+  /// No description provided for @onboardingEntryGoogleBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Bring your Google identity into onboarding first, then continue with health access, goal schedule, and sync semantics.'**
+  String get onboardingEntryGoogleBody;
+
+  /// No description provided for @onboardingEntryAuthCancelledTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'This sign-in was cancelled'**
+  String get onboardingEntryAuthCancelledTitle;
+
+  /// No description provided for @onboardingEntryAuthCancelledBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Try again, or switch to the local-first path and finish the setup tonight first.'**
+  String get onboardingEntryAuthCancelledBody;
+
+  /// No description provided for @onboardingEntryAuthUnavailableTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'This sign-in path is unavailable on this device'**
+  String get onboardingEntryAuthUnavailableTitle;
+
+  /// No description provided for @onboardingEntryAuthUnavailableBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Switch to the local-first path for tonight, then connect your account later on a supported platform.'**
+  String get onboardingEntryAuthUnavailableBody;
+
+  /// No description provided for @onboardingEntryAuthFailedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign-in could not finish'**
+  String get onboardingEntryAuthFailedTitle;
+
+  /// No description provided for @onboardingEntryAuthFailedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Try once more. If the environment still is not ready, continue with the local-first path for now.'**
+  String get onboardingEntryAuthFailedBody;
 
   /// No description provided for @onboardingHealthValueTitle.
   ///
@@ -440,6 +548,30 @@ abstract class AppLocalizations {
   /// **'Reminder strategy'**
   String get onboardingCompletionReminderLabel;
 
+  /// No description provided for @onboardingCompletionHealthLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Health access'**
+  String get onboardingCompletionHealthLabel;
+
+  /// No description provided for @onboardingPermissionStatusGranted.
+  ///
+  /// In en, this message translates to:
+  /// **'Granted'**
+  String get onboardingPermissionStatusGranted;
+
+  /// No description provided for @onboardingPermissionStatusDeferred.
+  ///
+  /// In en, this message translates to:
+  /// **'Decide later'**
+  String get onboardingPermissionStatusDeferred;
+
+  /// No description provided for @onboardingPermissionStatusUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Unsupported on this device'**
+  String get onboardingPermissionStatusUnavailable;
+
   /// No description provided for @tabToday.
   ///
   /// In en, this message translates to:
@@ -488,6 +620,300 @@ abstract class AppLocalizations {
   /// **'The Today dashboard will consume sleep-data-core contracts in the implementation stage.'**
   String get todayBody;
 
+  /// No description provided for @todayGreetingNamed.
+  ///
+  /// In en, this message translates to:
+  /// **'Good morning, {name}'**
+  String todayGreetingNamed(Object name);
+
+  /// No description provided for @todayGreetingGeneric.
+  ///
+  /// In en, this message translates to:
+  /// **'Good morning, start with the rhythm for tonight'**
+  String get todayGreetingGeneric;
+
+  /// No description provided for @todayGreetingBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Look at last night first, then decide what to do tonight.'**
+  String get todayGreetingBody;
+
+  /// No description provided for @todaySectionLastNight.
+  ///
+  /// In en, this message translates to:
+  /// **'Last night'**
+  String get todaySectionLastNight;
+
+  /// No description provided for @todayLastNightNoDataTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Last night is still waiting for the first sample'**
+  String get todayLastNightNoDataTitle;
+
+  /// No description provided for @todayLastNightNoDataBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Onboarding is complete. Once tonight is recorded, this card will explain the result, source confidence, and your next step first.'**
+  String get todayLastNightNoDataBody;
+
+  /// No description provided for @todayLastNightSyncTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'The local result is safe, and sync can wait'**
+  String get todayLastNightSyncTitle;
+
+  /// No description provided for @todayLastNightSyncBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Sync did not finish cleanly, but your latest updates are still safe on this device. Keep tonight on track first.'**
+  String get todayLastNightSyncBody;
+
+  /// No description provided for @todayLastNightManualTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'This result now follows a manual adjustment'**
+  String get todayLastNightManualTitle;
+
+  /// No description provided for @todayLastNightManualBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Rhythm will respect your latest manual correction and use it as the baseline for the explanation tonight.'**
+  String get todayLastNightManualBody;
+
+  /// No description provided for @todayLastNightOnTargetTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Last night stayed close to the target'**
+  String get todayLastNightOnTargetTitle;
+
+  /// No description provided for @todayLastNightOnTargetBody.
+  ///
+  /// In en, this message translates to:
+  /// **'The rhythm was basically on track. Keep tonight steady and avoid over-correcting a night that already landed well.'**
+  String get todayLastNightOnTargetBody;
+
+  /// No description provided for @todayLastNightSlightDelayTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Last night drifted a little later than planned'**
+  String get todayLastNightSlightDelayTitle;
+
+  /// No description provided for @todayLastNightSlightDelayBody.
+  ///
+  /// In en, this message translates to:
+  /// **'The delay is still manageable. Tighten tonight\'\'s wind-down and keep the next wake-up anchored.'**
+  String get todayLastNightSlightDelayBody;
+
+  /// No description provided for @todayLastNightMajorDelayTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Last night drifted far beyond the target'**
+  String get todayLastNightMajorDelayTitle;
+
+  /// No description provided for @todayLastNightMajorDelayBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Treat tonight as a recovery night: lower stimulation earlier and keep the next morning from sliding later again.'**
+  String get todayLastNightMajorDelayBody;
+
+  /// No description provided for @todaySectionTonightGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'Goal for tonight'**
+  String get todaySectionTonightGoal;
+
+  /// No description provided for @todayTonightGoalHeadline.
+  ///
+  /// In en, this message translates to:
+  /// **'Bedtime target'**
+  String get todayTonightGoalHeadline;
+
+  /// No description provided for @todayTonightGoalReminderLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Wind-down reminder'**
+  String get todayTonightGoalReminderLabel;
+
+  /// No description provided for @todayTonightGoalBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Start winding down at {windDown}, and keep the wake-up target at {wakeTime}.'**
+  String todayTonightGoalBody(Object windDown, Object wakeTime);
+
+  /// No description provided for @todaySectionRecovery.
+  ///
+  /// In en, this message translates to:
+  /// **'Recovery suggestion'**
+  String get todaySectionRecovery;
+
+  /// No description provided for @todayRecoveryBuildBaselineTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Start by completing the first night'**
+  String get todayRecoveryBuildBaselineTitle;
+
+  /// No description provided for @todayRecoveryBuildBaselineBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Finish the routine tonight first, then come back tomorrow morning for the first result and a clearer recovery suggestion.'**
+  String get todayRecoveryBuildBaselineBody;
+
+  /// No description provided for @todayRecoverySyncTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Stay on the local rhythm first, repair sync later'**
+  String get todayRecoverySyncTitle;
+
+  /// No description provided for @todayRecoverySyncBody.
+  ///
+  /// In en, this message translates to:
+  /// **'The important part right now is preserving the rhythm tonight, not interrupting the local record flow for a sync repair.'**
+  String get todayRecoverySyncBody;
+
+  /// No description provided for @todayRecoveryDelayTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Use tonight to pull the rhythm back earlier'**
+  String get todayRecoveryDelayTitle;
+
+  /// No description provided for @todayRecoveryDelayBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep the next wind-down short and decisive, and avoid compensating by sleeping much later tomorrow morning.'**
+  String get todayRecoveryDelayBody;
+
+  /// No description provided for @todayRecoveryMomentumTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Protect the corrected rhythm tonight'**
+  String get todayRecoveryMomentumTitle;
+
+  /// No description provided for @todayRecoveryMomentumBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Since the result was adjusted manually, keep tonight aligned with that corrected baseline instead of adding more corrective tasks.'**
+  String get todayRecoveryMomentumBody;
+
+  /// No description provided for @todaySectionQuickRecord.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick record'**
+  String get todaySectionQuickRecord;
+
+  /// No description provided for @todayQuickRecordTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Log the check-in for tonight'**
+  String get todayQuickRecordTitle;
+
+  /// No description provided for @todayQuickRecordRecommendedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'If tonight drifts from the goal, add a quick mood, energy, or note so the explanation tomorrow has context.'**
+  String get todayQuickRecordRecommendedBody;
+
+  /// No description provided for @todayQuickRecordOptionalBody.
+  ///
+  /// In en, this message translates to:
+  /// **'If anything feels worth noting tonight, add a short check-in so the first-week trend can build with context.'**
+  String get todayQuickRecordOptionalBody;
+
+  /// No description provided for @todayQuickRecordSheetTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Add last night\'\'s record'**
+  String get todayQuickRecordSheetTitle;
+
+  /// No description provided for @todayQuickRecordSheetBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Capture the minimum facts first so the result card and the first-week trend stop falling back to placeholders.'**
+  String get todayQuickRecordSheetBody;
+
+  /// No description provided for @todayQuickRecordDateLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Sleep date'**
+  String get todayQuickRecordDateLabel;
+
+  /// No description provided for @todayQuickRecordBedtimeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Fell asleep at'**
+  String get todayQuickRecordBedtimeLabel;
+
+  /// No description provided for @todayQuickRecordWakeTimeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Woke up at'**
+  String get todayQuickRecordWakeTimeLabel;
+
+  /// No description provided for @todayQuickRecordNoteLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Note (optional)'**
+  String get todayQuickRecordNoteLabel;
+
+  /// No description provided for @todayQuickRecordSaveAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Save record'**
+  String get todayQuickRecordSaveAction;
+
+  /// No description provided for @todayQuickRecordSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Last night\'\'s record was saved.'**
+  String get todayQuickRecordSaved;
+
+  /// No description provided for @todaySectionTrend.
+  ///
+  /// In en, this message translates to:
+  /// **'7-day trend'**
+  String get todaySectionTrend;
+
+  /// No description provided for @todayTrendScoreLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Sleep score'**
+  String get todayTrendScoreLabel;
+
+  /// No description provided for @todayTrendBuildingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'The 7-day trend starts building tonight'**
+  String get todayTrendBuildingTitle;
+
+  /// No description provided for @todayTrendBuildingBody.
+  ///
+  /// In en, this message translates to:
+  /// **'During the first week, this section focuses on context and explainability instead of competing with the primary home-page judgment.'**
+  String get todayTrendBuildingBody;
+
+  /// No description provided for @todayTrendReadyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'The chart is now using your recent samples, so you can quickly judge whether the rhythm is pulling back toward the target.'**
+  String get todayTrendReadyBody;
+
+  /// No description provided for @todayFooterHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Today currently consumes the shipped goal schedule, shared status, and account snapshot baseline. Real sleep-record wiring will follow in a later module pass.'**
+  String get todayFooterHint;
+
+  /// No description provided for @todayErrorTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'The today snapshot could not be restored just now'**
+  String get todayErrorTitle;
+
+  /// No description provided for @todayErrorBody.
+  ///
+  /// In en, this message translates to:
+  /// **'The shell is still usable. Rhythm will try to rebuild the home-page snapshot the next time you return here.'**
+  String get todayErrorBody;
+
   /// No description provided for @bedtimeTitle.
   ///
   /// In en, this message translates to:
@@ -499,6 +925,186 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The bedtime focus flow is scaffolded and waiting for module implementation.'**
   String get bedtimeBody;
+
+  /// No description provided for @bedtimeEntryFromToday.
+  ///
+  /// In en, this message translates to:
+  /// **'From today'**
+  String get bedtimeEntryFromToday;
+
+  /// No description provided for @bedtimeEntryFromNotification.
+  ///
+  /// In en, this message translates to:
+  /// **'From notification'**
+  String get bedtimeEntryFromNotification;
+
+  /// No description provided for @bedtimeEntryFromWidget.
+  ///
+  /// In en, this message translates to:
+  /// **'From widget'**
+  String get bedtimeEntryFromWidget;
+
+  /// No description provided for @bedtimeBeforeTargetHeadline.
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes} minutes until the target'**
+  String bedtimeBeforeTargetHeadline(Object minutes);
+
+  /// No description provided for @bedtimeAfterTargetHeadline.
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes} minutes past the target'**
+  String bedtimeAfterTargetHeadline(Object minutes);
+
+  /// No description provided for @bedtimeCompletedHeadline.
+  ///
+  /// In en, this message translates to:
+  /// **'Tonight\'\'s wind-down is done'**
+  String get bedtimeCompletedHeadline;
+
+  /// No description provided for @bedtimeBeforeTargetBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Pull the focus back to one decision tonight. The target bedtime is {bedtime}.'**
+  String bedtimeBeforeTargetBody(Object bedtime);
+
+  /// No description provided for @bedtimeDelayBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Tonight is about limiting the drift first. Keep tomorrow\'\'s wake-up target at {wakeTime}.'**
+  String bedtimeDelayBody(Object wakeTime);
+
+  /// No description provided for @bedtimeCompletedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep the wake-up target at {wakeTime} tomorrow morning. No extra tasks need to pile on now.'**
+  String bedtimeCompletedBody(Object wakeTime);
+
+  /// No description provided for @bedtimeTargetBedtimeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Target bedtime'**
+  String get bedtimeTargetBedtimeLabel;
+
+  /// No description provided for @bedtimeTargetWakeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Target wake-up'**
+  String get bedtimeTargetWakeLabel;
+
+  /// No description provided for @bedtimeChoiceSectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'What is the best call for tonight?'**
+  String get bedtimeChoiceSectionTitle;
+
+  /// No description provided for @bedtimeChoiceReadyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Ready to sleep'**
+  String get bedtimeChoiceReadyTitle;
+
+  /// No description provided for @bedtimeChoiceReadyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Do not open new tasks. Move straight into the smallest wind-down action.'**
+  String get bedtimeChoiceReadyBody;
+
+  /// No description provided for @bedtimeChoiceWindDownTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Need a little wind-down'**
+  String get bedtimeChoiceWindDownTitle;
+
+  /// No description provided for @bedtimeChoiceWindDownBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Give yourself a short buffer, but do not reopen another stimulating task.'**
+  String get bedtimeChoiceWindDownBody;
+
+  /// No description provided for @bedtimeChoiceDelayTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Tonight will likely drift late'**
+  String get bedtimeChoiceDelayTitle;
+
+  /// No description provided for @bedtimeChoiceDelayBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Acknowledge the drift, then reduce the damage for tomorrow morning and the next recovery step.'**
+  String get bedtimeChoiceDelayBody;
+
+  /// No description provided for @bedtimeActionSectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Tonight\'\'s action'**
+  String get bedtimeActionSectionTitle;
+
+  /// No description provided for @bedtimeActionStartWindDownTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Start a 10-minute wind-down'**
+  String get bedtimeActionStartWindDownTitle;
+
+  /// No description provided for @bedtimeActionStartWindDownBody.
+  ///
+  /// In en, this message translates to:
+  /// **'The most important thing now is to turn off stimulation and give yourself one short closing window.'**
+  String get bedtimeActionStartWindDownBody;
+
+  /// No description provided for @bedtimeActionPutPhoneAwayTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Put the phone away for 10 minutes'**
+  String get bedtimeActionPutPhoneAwayTitle;
+
+  /// No description provided for @bedtimeActionPutPhoneAwayBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Push the screen and unfinished tasks back for 10 minutes so the body can actually start relaxing.'**
+  String get bedtimeActionPutPhoneAwayBody;
+
+  /// No description provided for @bedtimeActionProtectWakeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Protect tomorrow\'\'s wake-up time first'**
+  String get bedtimeActionProtectWakeTitle;
+
+  /// No description provided for @bedtimeActionProtectWakeBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Limit the damage tonight instead of trying to fix everything. Protecting the wake-up time matters more than dragging the night longer.'**
+  String get bedtimeActionProtectWakeBody;
+
+  /// No description provided for @bedtimeActionCompletedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Tonight\'\'s action is done'**
+  String get bedtimeActionCompletedTitle;
+
+  /// No description provided for @bedtimeActionCompletedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'When you come back tomorrow morning, Rhythm will use last night\'\'s result to continue the explanation.'**
+  String get bedtimeActionCompletedBody;
+
+  /// No description provided for @bedtimeReminderEnabledBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminders are on, and tonight will keep nudging you around the {bedtime} target.'**
+  String bedtimeReminderEnabledBody(Object bedtime);
+
+  /// No description provided for @bedtimePrimaryActionLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Do this step'**
+  String get bedtimePrimaryActionLabel;
+
+  /// No description provided for @bedtimePrimaryActionCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Tonight is already done'**
+  String get bedtimePrimaryActionCompleted;
 
   /// No description provided for @calendarTitle.
   ///
@@ -535,6 +1141,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Account, membership, sync, reminder, and privacy settings will be implemented after initialization.'**
   String get profileBody;
+
+  /// No description provided for @profileAccountAnonymousTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'You are currently in local-first mode'**
+  String get profileAccountAnonymousTitle;
+
+  /// No description provided for @profileAccountAnonymousBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Tonight updates stay on this device first. You can connect an account and enable sync later.'**
+  String get profileAccountAnonymousBody;
+
+  /// No description provided for @profileAccountConnectedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'{provider} account connected'**
+  String profileAccountConnectedTitle(Object provider);
+
+  /// No description provided for @profileAccountConnectedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your account snapshot is already stored on this device, and sync, membership, and privacy settings can build on it next.'**
+  String get profileAccountConnectedBody;
+
+  /// No description provided for @profileAccountLoadFallbackBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Account state could not be restored just now, so settings will stay in the local-first path for now.'**
+  String get profileAccountLoadFallbackBody;
+
+  /// No description provided for @accountProviderAppleLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Apple'**
+  String get accountProviderAppleLabel;
+
+  /// No description provided for @accountProviderGoogleLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Google'**
+  String get accountProviderGoogleLabel;
 
   /// No description provided for @globalFeedbackDismiss.
   ///

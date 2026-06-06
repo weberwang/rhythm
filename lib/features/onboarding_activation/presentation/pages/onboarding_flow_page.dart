@@ -4,13 +4,13 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rhythm/l10n/app_localizations.dart';
 
-import '../../../app_shell/application/providers/current_entry_intent_provider.dart';
-import '../../../app_shell/domain/entities/shell_tab.dart';
+import '../../application/providers/onboarding_capability_gateways.dart';
 import '../../application/providers/onboarding_flow_controller.dart';
 import '../../domain/entities/onboarding_draft.dart';
+import '../../../today/presentation/pages/today_page.dart';
 import '../widgets/onboarding_flow_sections.dart';
 
-/// 承接真实首启激活漏斗的页面，实现 6 步最小 onboarding 流程。
+/// 承接真实首启激活漏斗的页面，实现 7 步最小 onboarding 流程。
 class OnboardingFlowPage extends HookConsumerWidget {
   /// 创建引导页面。
   const OnboardingFlowPage({super.key});
@@ -22,6 +22,7 @@ class OnboardingFlowPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final localization = AppLocalizations.of(context);
     final draft = ref.watch(onboardingFlowControllerProvider);
+    final widgetGuideAsync = ref.watch(onboardingWidgetGuideProvider);
     final controller = ref.read(onboardingFlowControllerProvider.notifier);
     final isSubmitting = useState(false);
 
@@ -64,7 +65,7 @@ class OnboardingFlowPage extends HookConsumerWidget {
                           OnboardingHeaderSection(
                             stepLabel: localization.onboardingStepCounter(
                               _stepNumber(draft.step),
-                              6,
+                              7,
                             ),
                             title: _titleForStep(localization, draft.step),
                             body: _bodyForStep(localization, draft.step),
@@ -75,7 +76,10 @@ class OnboardingFlowPage extends HookConsumerWidget {
                             child: OnboardingStepSection(
                               key: ValueKey(draft.step),
                               draft: draft,
+                              widgetGuideAsync: widgetGuideAsync,
                               onEntryModeSelected: controller.selectEntryMode,
+                              onAccountProviderSelected:
+                                  controller.selectAccountProvider,
                               onReminderStrategySelected:
                                   controller.selectReminderStrategy,
                               onPickBedtime: () => _pickTime(
@@ -101,12 +105,34 @@ class OnboardingFlowPage extends HookConsumerWidget {
                     onBack: controller.goToPreviousStep,
                     onPrimary: _canContinue(draft)
                         ? () async {
-                            if (draft.step != OnboardingStep.completion) {
-                              controller.goToNextStep();
+                            if (isSubmitting.value) {
                               return;
                             }
 
-                            if (isSubmitting.value) {
+                            if (draft.step == OnboardingStep.permissionValue) {
+                              isSubmitting.value = true;
+                              try {
+                                await controller.requestHealthPermissionAndContinue();
+                              } finally {
+                                isSubmitting.value = false;
+                              }
+                              return;
+                            }
+
+                            if (draft.step == OnboardingStep.entryMode &&
+                                draft.entryMode == OnboardingEntryMode.account &&
+                                draft.selectedAccountProvider != null) {
+                              isSubmitting.value = true;
+                              try {
+                                await controller.authenticateSelectedAccountAndContinue();
+                              } finally {
+                                isSubmitting.value = false;
+                              }
+                              return;
+                            }
+
+                            if (draft.step != OnboardingStep.completion) {
+                              controller.goToNextStep();
                               return;
                             }
 
@@ -114,12 +140,8 @@ class OnboardingFlowPage extends HookConsumerWidget {
                             try {
                               await controller.complete();
                               if (context.mounted) {
-                                final entryIntent = ref.read(
-                                  currentEntryIntentProvider,
-                                );
-                                context.go(
-                                  ShellTab.fromEntryIntent(entryIntent).location,
-                                );
+                                // onboarding 完成后的主路径应固定进入今日页，而不是复用首启前的外部入口意图。
+                                context.go(TodayPage.routePath);
                               }
                             } finally {
                               isSubmitting.value = false;
@@ -145,7 +167,8 @@ class OnboardingFlowPage extends HookConsumerWidget {
       OnboardingStep.permissionValue => 3,
       OnboardingStep.goalSchedule => 4,
       OnboardingStep.reminderStrategy => 5,
-      OnboardingStep.completion => 6,
+      OnboardingStep.widgetGuide => 6,
+      OnboardingStep.completion => 7,
     };
   }
 
@@ -157,6 +180,7 @@ class OnboardingFlowPage extends HookConsumerWidget {
       OnboardingStep.permissionValue => localization.onboardingPermissionTitle,
       OnboardingStep.goalSchedule => localization.onboardingGoalTitle,
       OnboardingStep.reminderStrategy => localization.onboardingReminderTitle,
+      OnboardingStep.widgetGuide => localization.onboardingWidgetGuideTitle,
       OnboardingStep.completion => localization.onboardingCompletionTitle,
     };
   }
@@ -169,6 +193,7 @@ class OnboardingFlowPage extends HookConsumerWidget {
       OnboardingStep.permissionValue => localization.onboardingPermissionBody,
       OnboardingStep.goalSchedule => localization.onboardingGoalBody,
       OnboardingStep.reminderStrategy => localization.onboardingReminderBody,
+      OnboardingStep.widgetGuide => localization.onboardingWidgetGuideBody,
       OnboardingStep.completion => localization.onboardingCompletionBody,
     };
   }
@@ -184,6 +209,7 @@ class OnboardingFlowPage extends HookConsumerWidget {
       OnboardingStep.permissionValue => localization.onboardingContinueSetup,
       OnboardingStep.goalSchedule => localization.onboardingContinueSetup,
       OnboardingStep.reminderStrategy => localization.onboardingContinueSetup,
+      OnboardingStep.widgetGuide => localization.onboardingContinueSetup,
       OnboardingStep.completion => localization.onboardingFinishSetup,
     };
   }
@@ -197,6 +223,7 @@ class OnboardingFlowPage extends HookConsumerWidget {
       OnboardingStep.goalSchedule =>
         draft.bedtimeMinutes != draft.wakeTimeMinutes,
       OnboardingStep.reminderStrategy => draft.reminderStrategy != null,
+      OnboardingStep.widgetGuide => true,
       OnboardingStep.completion => true,
     };
   }

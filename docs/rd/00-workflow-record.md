@@ -3,12 +3,16 @@ artifact_type: flutter_workflow_record
 workflow_status: active
 execution_mode: auto
 current_stage: implementing
-current_module: onboarding-activation
+current_module: bedtime
 confirmation_status: not_required
 next_skill: flutter-dev
 pending_next_stage: none
 pending_next_skill: none
 pending_status_updates: none
+route_lock: implementing|bedtime|flutter-dev|implementing|bedtime.code_status=in_progress
+execution_owner: orchestrator
+last_receipt_status: advanced
+auto_progress_delta: bedtime gained session persistence, draft restoration, and completion writeback on top of the real execution screen
 ---
 
 # workflow_summary
@@ -22,7 +26,10 @@ pending_status_updates: none
 - 当前已补齐 `app-shell` 根路由 redirect 收敛：未完成引导时拦截壳内路由，主壳就绪后禁止回流 onboarding，并已有 widget 测试覆盖。
 - 当前已补齐 `app-shell` 全局反馈承载层，以及 `sleep-data-core` 的最小共享状态契约：`sourceConfidence`、`syncStatus`、`timezoneContext`。
 - 启动恢复链路已改为“异常降级到 onboarding”，本地恢复失败不再把用户卡死在启动错误页。
-- `onboarding-activation` 已从占位页推进到真实 6 步最小漏斗：欢迎价值页、进入方式选择页、权限价值说明页、目标作息设置页、提醒策略页、完成过渡页，并已在模拟器验证首屏落地。
+- `onboarding-activation` 已从占位页推进到真实 7 步最小漏斗：欢迎价值页、进入方式选择页、权限价值说明页、目标作息设置页、提醒策略页、小组件引导页、完成过渡页，并已在测试中验证路径闭环。
+- `today` 本轮已正式接入最小 `SleepRecord` 本地仓储：昨晚结果不再只依赖共享状态占位，快捷补录会通过 sheet 写入真实记录，7 日趋势也开始消费最近样本而不是固定折线常量。
+- `bedtime` 已从占位页推进到真实单任务执行页：当前可根据目标作息和当前时间显示倒计时/超时语义，支持三态判断，并收敛成单一主动作卡。
+- `bedtime` 本轮继续补齐最小会话持久化：未完成选择可按会话日恢复，执行主动作后会写回完成态，不再只停留在页面内存状态。
 
 # current_stage_detail
 
@@ -32,22 +39,28 @@ pending_status_updates: none
 - 模块细化不再被解释为“一次性批量产出”；严格轨迹见 `docs/rd/04-superpowers-module-refinement-log.md`。
 - `flutter-init` 产物已被真实消费，启动分发与本地目标作息不再停留在占位实现。
 - 当前实现仍聚焦基础模块，不得把 `today`、`calendar`、`insights` 的业务数据接线提前越过 `sleep-data-core` 的共享契约边界。
+- 当前 route lock 为：`implementing -> current_module=bedtime -> next_skill=flutter-dev`，本轮只允许把 `bedtime` 从“单页实时状态”推进到“含草稿恢复与完成态写回的最小真实闭环”，不扩散到通知调度或长期报告。
+- 当前执行 ownership 仍在 orchestrator；未委派子代理，最新 receipt 已由真实代码、测试与生成产物验证为 `advanced`。
 - `app-shell` 的 root redirect 与 `global feedback host` 已满足 Stage 1 主壳基线，`sleep-data-core` 也已具备最小共享状态透出，因此 Stage 2 的 `onboarding-activation` 已可进入真实实现。
-- 当前阶段的实现焦点已切换到 `onboarding-activation`，目标是把“欢迎价值页 -> 最小步骤状态 -> 完成页分发”从占位骨架推进到真实流程。
-- 当前 `onboarding-activation` 已完成最小 6 步状态机与首个真实可交付页面，但登录网关、真实权限请求和小组件引导仍未落地，因此模块仍处于 `implementing`。
+- 当前阶段的实现焦点已切换到 `bedtime`，目标是把“进入 -> 判断 -> 选择 -> 执行”从占位页推进到真实睡前执行主路径。
+- 当前 `bedtime` 已落最小 `BedtimeSessionDraft`、`BedtimeSessionRecord` 与控制器，开始真实消费目标作息、入口意图和会话仓储；首屏已能区分 `before_target / likely_delay / session_completed`，并对三态选择切换单一动作建议。
 
 # current_module_detail
 
-- `current_module`: `onboarding-activation`
-- 当前活跃实施波次已从 Stage 1 基础模块切换到 Stage 2 激活漏斗。
-- `app-shell` 与 `sleep-data-core` 已提供当前模块所需的路由、作息与共享状态上游，因此 `onboarding-activation` 现在是依赖安全模块。
+- `current_module`: `bedtime`
+- 当前活跃实施波次已从 Stage 2 激活漏斗切换到 Stage 3 核心日常体验。
+- `app-shell`、`sleep-data-core` 与 `onboarding-activation` 已提供当前模块所需的路由、作息、入口意图与共享基线，因此 `bedtime` 现在是依赖安全模块。
 - 当前模块成熟度：
   - `app-shell`: `uiux_status=landed`、`impl_status=landed`、`design_source_status=frozen`、`code_status=in_progress`
   - `sleep-data-core`: `uiux_status=landed`、`impl_status=landed`、`design_source_status=frozen`、`code_status=in_progress`
   - `onboarding-activation`: `uiux_status=landed`、`impl_status=landed`、`design_source_status=frozen`、`code_status=in_progress`
+  - `today`: `uiux_status=landed`、`impl_status=landed`、`design_source_status=frozen`、`code_status=in_progress`
+  - `bedtime`: `uiux_status=landed`、`impl_status=landed`、`design_source_status=frozen`、`code_status=in_progress`
 - 所有模块的 paired docs 都应理解为：对应 `module_uiux_refinement` 阶段，由 `@superpowers` 按模块细化契约收敛到实现前粒度后的定稿输入。
-- `onboarding-activation` 当前已落欢迎页、进入方式选择页、权限价值说明页、目标作息设置页、提醒策略页、完成过渡页，以及完成引导提交逻辑。
-- 当前不再存在模块层阻塞；下一轮应继续补 `onboarding-activation` 的真实登录边界、小组件引导和权限执行路径，而不是切去 Stage 3。
+- `bedtime` 当前已落倒计时 hero、目标时间卡、三态选择卡、单动作建议卡与单主 CTA。
+- `bedtime` 当前聚合输入已扩展为：`GoalScheduleRepository`、`BedtimeSessionRepository`、`currentEntryIntentProvider` 与测试可控的当前时间；页面已经不再是占位页，并可按会话日恢复草稿与写回完成态。
+- `bedtime` 当前仍保持低刺激单任务焦点：三态选择不超过三类、页面没有第二个强主 CTA、完成态只保留“已完成今晚动作”收口。
+- `bedtime` 当前 display-layer readiness 已满足：结构、状态数、主动作、入口语义和最小会话恢复均已对齐模块 RD；下一步应继续补“通知入口细化 / 提醒状态 / 更完整 session 语义”，而不是回退到占位骨架。
 
 # next_action
 
@@ -66,12 +79,14 @@ pending_status_updates: none
   - `docs/rd/modules/*/*.ui-ux.md`
   - `docs/rd/modules/*/*.impl.md`
 - 目标：
-  - 继续扩展 `onboarding-activation`：补真实登录边界、小组件引导与权限执行路径
-  - 保持现有 6 步最小漏斗作为真实激活主路径，不再退回占位页
-  - 在不直接接真实插件的前提下，为后续 `health` / 登录 / 小组件接入预留清晰边界
+  - 继续扩展 `bedtime`：补通知入口细化、提醒状态与更完整 session 语义，而不是退回占位页
+  - 保持现有 7 步最小漏斗作为真实激活主路径，不再退回占位页
+  - 继续沿用已落地的 `health` / `home_widget` gateway 边界，而不是把插件调用回推到页面层
   - 保持 `app-shell` 的全局反馈 host 作为后续 `sync_failed`、`timezone_shift` 的统一承载层
   - 保持 `sleep-data-core` 的共享状态契约作为 `today` / `calendar` / `profile-settings` 的唯一上游语义来源
-  - 在 `onboarding-activation` 稳定后再放行 Stage 3 业务页真实接线
+  - `today` 保持当前可用态，后续再补更完整健康来源与恢复引擎，不和 `bedtime` 当前收口交叉打架
+  - 复用新的共享账号快照基线，不在 `today` / `profile-settings` 页面层重新拼登录状态
+  - `supabase_flutter` 真实会话与云同步接线应收敛到后续账号/同步模块，不回推到 onboarding 页面层
 
 # confirmation_gate
 
@@ -119,9 +134,9 @@ pending_status_updates: none
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | app-shell | implementing | not_required | none | none | none | none | docs/rd/modules/app-shell/app-shell.ui-ux.md | landed | docs/rd/modules/app-shell/app-shell.impl.md | landed | verified_executed | docs/rd/global-design-guidelines.md | docs/rd/light-theme-freeze.yaml | docs/rd/dark-theme-freeze.yaml | docs/rd/02-shared-design-packet.md | not_provided | frozen | in_progress | landed | none |
 | sleep-data-core | implementing | not_required | none | none | none | none | docs/rd/modules/sleep-data-core/sleep-data-core.ui-ux.md | landed | docs/rd/modules/sleep-data-core/sleep-data-core.impl.md | landed | verified_executed | docs/rd/global-design-guidelines.md | docs/rd/light-theme-freeze.yaml | docs/rd/dark-theme-freeze.yaml | docs/rd/02-shared-design-packet.md | not_provided | frozen | in_progress | landed | none |
-| onboarding-activation | implementing | not_required | flutter-dev | none | none | none | docs/rd/modules/onboarding-activation/onboarding-activation.ui-ux.md | landed | docs/rd/modules/onboarding-activation/onboarding-activation.impl.md | landed | verified_executed | docs/rd/global-design-guidelines.md | docs/rd/light-theme-freeze.yaml | docs/rd/dark-theme-freeze.yaml | docs/rd/02-shared-design-packet.md | docs/rd/modules/onboarding-activation/onboarding-welcome.png | frozen | in_progress | landed | pending_auth_widget_permission_execution |
-| today | architecture_ready | not_required | none | none | none | none | docs/rd/modules/today/today.ui-ux.md | landed | docs/rd/modules/today/today.impl.md | landed | verified_executed | docs/rd/global-design-guidelines.md | docs/rd/light-theme-freeze.yaml | docs/rd/dark-theme-freeze.yaml | docs/rd/02-shared-design-packet.md | docs/rd/modules/today/today-dashboard.png | frozen | not_started | landed | waiting_for_stage1_foundation |
-| bedtime | architecture_ready | not_required | none | none | none | none | docs/rd/modules/bedtime/bedtime.ui-ux.md | landed | docs/rd/modules/bedtime/bedtime.impl.md | landed | verified_executed | docs/rd/global-design-guidelines.md | docs/rd/light-theme-freeze.yaml | docs/rd/dark-theme-freeze.yaml | docs/rd/02-shared-design-packet.md | docs/rd/modules/bedtime/bedtime-mode.png | frozen | not_started | landed | waiting_for_stage1_foundation |
+| onboarding-activation | implementing | not_required | flutter-dev | none | none | none | docs/rd/modules/onboarding-activation/onboarding-activation.ui-ux.md | landed | docs/rd/modules/onboarding-activation/onboarding-activation.impl.md | landed | verified_executed | docs/rd/global-design-guidelines.md | docs/rd/light-theme-freeze.yaml | docs/rd/dark-theme-freeze.yaml | docs/rd/02-shared-design-packet.md | docs/rd/modules/onboarding-activation/onboarding-welcome.png | frozen | in_progress | landed | none |
+| today | implementing | not_required | flutter-dev | none | none | none | docs/rd/modules/today/today.ui-ux.md | landed | docs/rd/modules/today/today.impl.md | landed | verified_executed | docs/rd/global-design-guidelines.md | docs/rd/light-theme-freeze.yaml | docs/rd/dark-theme-freeze.yaml | docs/rd/02-shared-design-packet.md | docs/rd/modules/today/today-dashboard.png | frozen | in_progress | landed | none |
+| bedtime | implementing | not_required | flutter-dev | none | none | none | docs/rd/modules/bedtime/bedtime.ui-ux.md | landed | docs/rd/modules/bedtime/bedtime.impl.md | landed | verified_executed | docs/rd/global-design-guidelines.md | docs/rd/light-theme-freeze.yaml | docs/rd/dark-theme-freeze.yaml | docs/rd/02-shared-design-packet.md | docs/rd/modules/bedtime/bedtime-mode.png | frozen | in_progress | landed | none |
 | calendar | architecture_ready | not_required | none | none | none | none | docs/rd/modules/calendar/calendar.ui-ux.md | landed | docs/rd/modules/calendar/calendar.impl.md | landed | verified_executed | docs/rd/global-design-guidelines.md | docs/rd/light-theme-freeze.yaml | docs/rd/dark-theme-freeze.yaml | docs/rd/02-shared-design-packet.md | docs/rd/modules/calendar/calendar-heatmap.png | frozen | not_started | landed | waiting_for_stage1_foundation |
 | profile-settings | architecture_ready | not_required | none | none | none | none | docs/rd/modules/profile-settings/profile-settings.ui-ux.md | landed | docs/rd/modules/profile-settings/profile-settings.impl.md | landed | verified_executed | docs/rd/global-design-guidelines.md | docs/rd/light-theme-freeze.yaml | docs/rd/dark-theme-freeze.yaml | docs/rd/02-shared-design-packet.md | docs/rd/modules/profile-settings/profile-settings.png | frozen | not_started | landed | waiting_for_stage1_foundation |
 | insights | architecture_ready | not_required | none | none | none | none | docs/rd/modules/insights/insights.ui-ux.md | landed | docs/rd/modules/insights/insights.impl.md | landed | verified_executed | docs/rd/global-design-guidelines.md | docs/rd/light-theme-freeze.yaml | docs/rd/dark-theme-freeze.yaml | docs/rd/02-shared-design-packet.md | docs/rd/modules/insights/insights-weekly-report.png | frozen | not_started | landed | waiting_for_stage1_foundation |
@@ -153,3 +168,11 @@ pending_status_updates: none
 - 2026-06-04: Stage 1 第二轮代码落地完成：`app-shell` 已接入全局反馈 host，`sleep-data-core` 已落最小共享状态契约与聚合 provider，并通过新增测试覆盖共享状态聚合与同步失败全局提示；`onboarding-activation` 已被正式放行。
 - 2026-06-05: 启动恢复链路已支持异常降级：当本地作息恢复失败时，应用记录错误并回退到 onboarding，而不是停在启动错误页；Stage 2 现切换 `current_module=onboarding-activation`，下一轮直接进入真实激活流程实现。
 - 2026-06-05: `onboarding-activation` 已落最小 6 步激活流程：欢迎价值页、进入方式选择页、权限价值说明页、目标作息设置页、提醒策略页、完成过渡页；已新增控制器测试、页面推进测试，并在模拟器验证首屏不再是占位页。
+- 2026-06-06: `onboarding-activation` 已补齐缺失的小组件引导页，并将漏斗扩展为冻结要求的 7 步主路径；`health` 权限请求通过应用层 gateway 接入真实执行边界，`home_widget` 通过平台快照提供 `supported / manualOnly / unavailable` 三类降级语义；下一焦点收敛到真实登录边界与账号同步分流。
+- 2026-06-06: 修复 onboarding 完成落点被一次性外部入口劫持的问题：当用户在引导前带着通知/小组件目标进入时，完成引导会先把 `currentEntryIntent` 重置为 `appOpen`，再提交完成状态，因此完成 CTA 与路由守卫现在都稳定进入 `today`；已新增 app-level 回归测试覆盖该场景。
+- 2026-06-06: `onboarding-activation` 已补真实 Apple / Google 登录 gateway，并在完成引导时把账号结果折叠成共享账号快照写入安全存储；`profile-settings` 顶部已开始消费这条基线展示“本地优先 / 已连接账号”摘要，因此 Stage 2 不再被登录边界阻塞，后续 `supabase_flutter` 会话绑定应转入账号/同步模块继续实现。
+- 2026-06-06: `current_module` 已切换到 `today`；首页不再是占位页，`TodaySnapshot` 已开始真实消费目标作息、共享状态与账号快照，并落地“昨晚结果 -> 今晚目标 -> 恢复建议 -> 快捷记录 -> 趋势说明”五块首屏结构。当前仍未接入真实睡眠记录仓储，因此趋势与结果先按 `no_data / sync_recoverable / manual_adjusted` 语义解释，下一轮应继续补记录聚合与快捷补录落点。
+- 2026-06-06: `today` 显示层已按效果图进一步收紧：主壳首页不再只是语义正确的卡片堆叠，而是补齐了品牌头、头像入口、太阳装饰、结果环、双区块目标卡、带箭头的恢复/记录卡和近似效果图的趋势图；当前视觉元素仍优先用原生 Flutter 还原，尚未出现必须转为位图资产的复杂特效。
+- 2026-06-06: `today` 本轮已补最小 `SleepRecord` 真实基线：`sleep-data-core` 新增 Drift 表、`SleepRecordRepository` 与本地实现；首页聚合开始根据最近记录区分 `on_target / slight_delay / major_delay`，快捷记录通过 sheet 写入手动记录并触发首页刷新，趋势折线也改为消费最近样本；新增仓储、控制器、聚合与页面测试覆盖。
+- 2026-06-06: `current_module` 已从 `today` 切换到 `bedtime`；`BedtimePage` 不再是占位骨架，当前已落最小 `BedtimeSessionDraft`、倒计时语义、三态选择卡、单动作建议卡和单主 CTA，并通过应用层控制器在 `before_target / likely_delay / session_completed` 间切换；全量 `flutter test` 已通过。
+- 2026-06-06: `bedtime` 本轮已补最小 `BedtimeSessionRepository` 真实基线：新增 Drift 表、会话记录实体与本地实现；控制器现可按会话日恢复未完成选择，并在执行主动作后写回完成态；新增仓储测试、控制器恢复测试与页面隔离测试覆盖。

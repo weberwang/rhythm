@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rhythm/app/rhythm_app.dart';
+import 'package:rhythm/features/app_shell/application/providers/current_account_session_provider.dart';
 import 'package:rhythm/features/sleep_data_core/application/providers/goal_schedule_repository_provider.dart';
 import 'package:rhythm/features/sleep_data_core/application/providers/sleep_data_core_status_provider.dart';
 import 'package:rhythm/features/sleep_data_core/domain/entities/goal_schedule.dart';
@@ -40,6 +41,7 @@ void main() {
             ),
           ),
         ),
+        currentAccountSessionProvider.overrideWith((ref) async => null),
         sleepSyncStatusProvider.overrideWithValue(
           SleepSyncStatus.failedRecoverable,
         ),

@@ -32,7 +32,11 @@ Future<LaunchSnapshot> launchState(Ref ref) async {
     );
   } catch (error, stackTrace) {
     // 启动恢复失败时先降级到本地引导，避免用户被卡死在“启动基线需要修复”错误页。
-    _logger.error('Launch restore failed, fallback to onboarding.', error, stackTrace);
+    _logger.error(
+      'Launch restore failed, fallback to onboarding.',
+      error,
+      stackTrace,
+    );
 
     return LaunchSnapshot(
       destination: LaunchDestination.onboarding,
@@ -44,8 +48,9 @@ Future<LaunchSnapshot> launchState(Ref ref) async {
 /// 标记引导已经完成，让后续启动直接进入主壳。
 @riverpod
 Future<void> completeOnboarding(Ref ref) async {
-  final preferences = await ref.watch(sharedPreferencesProvider.future);
-  final repository = ref.watch(goalScheduleRepositoryProvider);
+  final preferencesFuture = ref.read(sharedPreferencesProvider.future);
+  final repository = ref.read(goalScheduleRepositoryProvider);
+  final preferences = await preferencesFuture;
   final existingSchedule = await repository.readActiveSchedule();
 
   // 首次完成引导时立即补齐默认目标作息，避免主壳进入后仍处于“已完成引导但无基础配置”的断裂态。
@@ -61,5 +66,11 @@ Future<void> completeOnboarding(Ref ref) async {
   }
 
   await preferences.setBool(_onboardingCompletedKey, true);
+
+  // 一次性动作 provider 在页面跳转或依赖刷新时可能已销毁，销毁后不能再继续触碰 ref。
+  if (!ref.mounted) {
+    return;
+  }
+
   ref.invalidate(launchStateProvider);
 }
