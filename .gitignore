@@ -50,6 +50,10 @@ migrate_working_dir/
 /pen/images/generated-*.png
 /artifacts/
 
+# 本地会话产物与临时调试文件
+/.omo/
+/tmp/
+
 # Codex local skill copies
 /.agents/skills/flutter-init/
 /.agents/skills/flutter-pen-to-architecture/

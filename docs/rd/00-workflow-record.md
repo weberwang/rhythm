@@ -1,190 +1,149 @@
 ---
 artifact_type: flutter_workflow_record
 workflow_status: active
-execution_mode: auto
-current_stage: implementing
-current_module: calendar
-confirmation_status: not_required
-next_skill: flutter-dev
-pending_next_stage: none
+execution_mode: manual
+current_stage: global_effect_images_ready
+current_module: not_selected
+confirmation_status: pending_confirmation
+next_skill: none
+pending_next_stage: stitch_design_source_ready
 pending_next_skill: none
-pending_status_updates: none
-route_lock: implementing|calendar|flutter-dev|implementing|calendar.code_status=in_progress
+pending_status_updates: stitch_project_mode=new; stitch_project_id=9392137754454631344; stitch_packet=docs/rd/stitch-design-source-packet.md
+route_lock: expected_stage=global_effect_images_ready|expected_module=not_selected|expected_next_skill=stitch|expected_next_stage=stitch_design_source_ready|expected_status_delta=stitch_project_mode+stitch_project_id+stitch_packet
 execution_owner: orchestrator
 last_receipt_status: advanced
-auto_progress_delta: calendar gained monthly range queries, real heatmap aggregation, filter + locked state handling, day-detail bottom sheet, and Android phone-viewport overflow hardening
+auto_progress_delta: stitch_project_created_and_all_pages_generated
 ---
 
-# workflow_summary
+## workflow_summary
 
-- 本次记录已按严格的 `flutter-workflow-orchestrator --auto` 语义回补，明确区分“模块拆分产物”和“`@superpowers` 逐模块 refinement 产物”。
-- `--auto` 在 `modules_split` 之后按依赖安全顺序推进：`app-shell -> sleep-data-core -> onboarding-activation -> today -> bedtime -> calendar -> profile-settings -> insights`。
-- 上述 8 个模块都已完成：`split_draft -> implementation_final -> design_source frozen -> uiux/impl landed -> architecture_ready` 的预实现闭环。
-- `flutter-init` 已执行完成，项目骨架、初始化装配与项目级 `flutter-dev` 已落地；当前进入 `project_initialized`，尚未开始功能实现。
-- 用户已显式要求按模块优先级进入实现，当前已启动 Stage 1 实施波次：`app-shell + sleep-data-core`。
-- 本轮已落地：主壳标签顺序修正、启动 guard 接入目标作息、onboarding 完成即补齐默认作息、`GoalScheduleRepository` 接入真实 Drift 持久化。
-- 当前已补齐 `app-shell` 根路由 redirect 收敛：未完成引导时拦截壳内路由，主壳就绪后禁止回流 onboarding，并已有 widget 测试覆盖。
-- 当前已补齐 `app-shell` 全局反馈承载层，以及 `sleep-data-core` 的最小共享状态契约：`sourceConfidence`、`syncStatus`、`timezoneContext`。
-- 启动恢复链路已改为“异常降级到 onboarding”，本地恢复失败不再把用户卡死在启动错误页。
-- `onboarding-activation` 已从占位页推进到真实 7 步最小漏斗：欢迎价值页、进入方式选择页、权限价值说明页、目标作息设置页、提醒策略页、小组件引导页、完成过渡页，并已在测试中验证路径闭环。
-- `today` 本轮已正式接入最小 `SleepRecord` 本地仓储：昨晚结果不再只依赖共享状态占位，快捷补录会通过 sheet 写入真实记录，7 日趋势也开始消费最近样本而不是固定折线常量。
-- `bedtime` 已从占位页推进到真实单任务执行页：当前可根据目标作息和当前时间显示倒计时/超时语义，支持三态判断，并收敛成单一主动作卡。
-- `bedtime` 本轮继续补齐最小会话持久化：未完成选择可按会话日恢复，执行主动作后会写回完成态，不再只停留在页面内存状态。
-- `bedtime` 本轮已接通 `onboarding-activation -> sleep-data-core -> bedtime` 的提醒偏好闭环：睡前页不再硬编码“提醒已开启”，而是按共享偏好展示“提醒已开启 / 当前未开启”语义。
-- `bedtime` 本轮已把“恢复未完成会话”从隐式仓储行为提升为显式界面语义：检测到未完成会话时会提示“已恢复今晚未完成的选择”，并回放上次选择。
-- `bedtime` 显示层本轮已按冻结预览图重实现：首屏改为大倒计时环、单层目标时间卡、三列状态选择区、单动作卡和唯一主 CTA，不再是功能卡片纵向堆叠。
-- `calendar` 本轮已从占位页推进到真实月视图：页面开始消费 `SleepRecordRepository` 的月范围查询，展示月度摘要、热力图、筛选器、历史锁定说明和单日详情底部层。
-- `calendar` 本轮已补 Android 手机视口硬化：真实模拟器先暴露热力图格子 `BOTTOM OVERFLOWED`，随后通过新增手机视口 widget 测试与格子自适应压缩修复了该问题。
+本轮已通过头脑风暴重新确认最终产品设计方向，并生成全页 light mode 页面证据。
+当前共享 light mode 全页效果图已被用户明确接受，工作流已处于 `global_effect_images_ready`。
+本轮已完成 Stitch 进入动作：新建 Stitch 项目、冻结 `stitch_project_mode=new`、冻结 `stitch_project_id=9392137754454631344`，并生成六张页面的 Stitch 设计产物。
+Stitch 本地设计源包已合并完成，但在手动模式下，进入 `stitch_design_source_ready` 仍需你的显式确认后才会继续走 freeze gate。
 
-# current_stage_detail
+## current_stage_detail
 
-- 当前确认阶段为 `implementing`，原因是用户已显式越过 `implementation_ready_waiting` 边界，并开始按模块优先级落地 Stage 1 基线代码。
-- `flutter-taste-router` 所要求的文本归一化已通过 `docs/rd/02-shared-design-packet.md` 完成。
-- 共享与模块静态图片目录检查已完成，并在 `IMAGE_BASE_URL` 与 `IMAGE_API_KEY` 可用的前提下生成了轻色模式预览图。
-- 模块细化不再被解释为“一次性批量产出”；严格轨迹见 `docs/rd/04-superpowers-module-refinement-log.md`。
-- `flutter-init` 产物已被真实消费，启动分发与本地目标作息不再停留在占位实现。
-- 当前实现仍聚焦基础模块，不得把 `today`、`calendar`、`insights` 的业务数据接线提前越过 `sleep-data-core` 的共享契约边界。
-- 当前 route lock 为：`implementing -> current_module=calendar -> next_skill=flutter-dev`，本轮只允许把 `calendar` 从占位页推进到真实月视图，不扩散到洞察周报、会员全量流程或远端同步。
-- 当前 route lock 已在显示层维度兑现：`calendar` 保留“月度摘要 -> 筛选 -> 热力图 -> 单日详情”的冻结层级，只把高级历史解释收敛为锁定态卡片，不把热力图退化成普通列表。
-- 当前执行 ownership 仍在 orchestrator；未委派子代理，最新 receipt 已由真实代码、测试与生成产物验证为 `advanced`。
-- `app-shell` 的 root redirect 与 `global feedback host` 已满足 Stage 1 主壳基线，`sleep-data-core` 也已具备最小共享状态透出，因此 Stage 2 的 `onboarding-activation` 已可进入真实实现。
-- 当前阶段的实现焦点已切换到 `calendar`，目标是把“按月看偏移 -> 切筛选 -> 点单日解释”从占位页推进到真实历史回看主路径。
-- 当前 `calendar` 已落 `CalendarOverview` 聚合、`CalendarFilterMode`、`CalendarDayDetail` 与页面层热力图结构，开始真实消费目标作息与月范围睡眠记录。
+当前确认阶段已提升为 `global_effect_images_ready`。用户已通过头脑风暴明确确认：
+- `编辑产品混合版`
+- `行动型主卡`
+- `稀疏型首屏`
+- `偏冷清醒`
+- `安静邀请型 CTA`
+- `稍有产品感` 的底部导航
+这些约束已经写回 `docs/rd/global-design-guidelines.md` 与 `docs/superpowers/specs/2026-06-07-rhythm-global-design-direction-design.md`。
+当前已在同一共享方向下生成以下页面证据：
+- `docs/rd/today-page.png`
+- `docs/rd/onboarding-page.png`
+- `docs/rd/bedtime-page.png`
+- `docs/rd/calendar-page.png`
+- `docs/rd/insights-page.png`
+- `docs/rd/profile-settings-page.png`
+其中 `today-page` 已完成按其他壳层页样式的统一修订：设备外框、顶部 Dynamic Island 状态区与底部导航构图已对齐 `calendar / bedtime / insights / profile-settings`。
+最新核验结果显示：`Today` tab 已改为太阳语义图标，tab 顺序与英文标签文案也与共享导航合同保持一致。
+同时，`today-page` 仍保留“今晚行动主卡是唯一首屏重心”的首页语义，没有退化成日历式或仪表盘式壳层页。
+用户已通过“进入 stitch”的明确指令接受当前六张页面图作为共享视觉系统基线，因此效果图确认门已关闭。
+本轮 Stitch 执行结果如下：
+- 已创建项目 `projects/9392137754454631344`
+- 已形成共享设计系统资产 `assets/ce15df8dfd494587b335ced8718a3cd3`
+- 已生成 `today / onboarding / bedtime / calendar / insights / profile-settings` 六张 Stitch 页面
+- 已合并本地设计源包 `docs/rd/stitch-design-source-packet.md`
+当前 route lock 已从“项目选择门”推进到“Stitch 结果确认门”：允许用户确认该设计源包是否可作为后续 shared freeze 输入，确认前不允许继续跨入 `flutter-design-freeze-gate`。
 
-# current_module_detail
+## current_module_detail
 
-- `current_module`: `calendar`
-- 当前活跃实施波次已从 Stage 2 激活漏斗切换到 Stage 3 核心日常体验。
-- `app-shell`、`sleep-data-core` 与 `onboarding-activation` 已提供当前模块所需的路由、目标作息与共享记录边界，因此 `calendar` 现在是依赖安全模块。
-- 当前模块成熟度：
-  - `app-shell`: `uiux_status=landed`、`impl_status=landed`、`design_source_status=frozen`、`code_status=in_progress`
-  - `sleep-data-core`: `uiux_status=landed`、`impl_status=landed`、`design_source_status=frozen`、`code_status=in_progress`
-  - `onboarding-activation`: `uiux_status=landed`、`impl_status=landed`、`design_source_status=frozen`、`code_status=in_progress`
-  - `today`: `uiux_status=landed`、`impl_status=landed`、`design_source_status=frozen`、`code_status=in_progress`
-  - `bedtime`: `uiux_status=landed`、`impl_status=landed`、`design_source_status=frozen`、`code_status=in_progress`
-  - `calendar`: `uiux_status=landed`、`impl_status=landed`、`design_source_status=frozen`、`code_status=in_progress`
-- 所有模块的 paired docs 都应理解为：对应 `module_uiux_refinement` 阶段，由 `@superpowers` 按模块细化契约收敛到实现前粒度后的定稿输入。
-- `calendar` 当前已落月度摘要卡、四类筛选按钮、热力图图例、月度日格与单日详情 bottom sheet。
-- `calendar` 当前已补冻结稿要求的显示层锚点：相对目标偏移优先、单日来源/修正/完整度解释、历史锁定先讲边界再给洞察入口。
-- `calendar` 当前聚合输入已扩展为：`GoalScheduleRepository`、`SleepRecordRepository.readRecordsInRange` 与测试可控的当前时间；页面已经不再是占位页，并可按筛选模式重算摘要与热力图高亮。
-- `calendar` 当前已完成手机视口硬化：`.omo/evidence/calendar-populated-emulator-fixed-seed.png`、`.omo/evidence/calendar-detail-emulator-final.png`、`.omo/evidence/calendar-locked-emulator.png` 与 `.omo/evidence/calendar-no-data-emulator-2.png` 提供了真实 Android 模拟器证据，不应再回退到桌面专用布局或错误兜底页。
+当前活动模块为 `not_selected`，本轮仍处于全局流程，不进入模块级拆分。
+模块级 `impl_status`、`design_source_status`、`code_status` 均为 `not_started`。
+当前不存在模块索引、模块 `impl.md`、模块冻结决策或可验证的执行痕迹。
 
-# next_action
+## next_action
 
-- `next_skill`: `flutter-dev`
-- 原因：已进入真实实现阶段，后续代码落地必须继续通过 `flutter-dev + flutter-project-guardrails` 执行。
-- `flutter_init_scope`:
-  - `app-shell`
-  - `sleep-data-core`
-  - shared bootstrap / router / storage / logging / theme baseline
-- `flutter_init_blockers`: `none`
-- 最小输入：
-  - `docs/rd/01-global-technical-baseline.md`
-  - `docs/rd/03-implementation-architecture.md`
-  - `docs/rd/04-superpowers-module-refinement-log.md`
-  - `docs/rd/00-module-index.md`
-  - `docs/rd/modules/*/*.ui-ux.md`
-  - `docs/rd/modules/*/*.impl.md`
-- 目标：
-  - 当前 `calendar` 已完成首个真实版本；若继续推进，应进入 `profile-settings`，而不是回退 `calendar` 为占位页或静态说明
-  - 保持现有 7 步最小漏斗作为真实激活主路径，不再退回占位页
-  - 继续沿用已落地的 `health` / `home_widget` gateway 边界，而不是把插件调用回推到页面层
-  - 保持 `app-shell` 的全局反馈 host 作为后续 `sync_failed`、`timezone_shift` 的统一承载层
-  - 保持 `sleep-data-core` 的共享状态契约作为 `today` / `calendar` / `profile-settings` 的唯一上游语义来源
-  - `today` 保持当前可用态，后续再补更完整健康来源与恢复引擎，不和 `bedtime` 当前收口交叉打架
-  - 复用新的共享账号快照基线，不在 `today` / `profile-settings` 页面层重新拼登录状态
-  - `supabase_flutter` 真实会话与云同步接线应收敛到后续账号/同步模块，不回推到 onboarding 页面层
+当前不再等待项目模式输入，Stitch 已实际执行完成。
+下一步应确认：当前 Stitch 设计源包是否可作为共享 freeze 输入。
+若确认，则进入 `flutter-design-freeze-gate`；若不确认，则应针对具体页面或共享设计系统做定向修订，而不是重新创建项目。
 
-# confirmation_gate
+## confirmation_gate
 
-- `confirmation_status`: `not_required`
-- 原因：`flutter-init` 已完成，当前只是阶段前移到 `project_initialized`，不存在新的待确认升级。
-- `pending_next_stage`: `none`
+- `confirmation_status`: `pending_confirmation`
+- 原因：Stitch 设计源包已生成完成，手动模式下需要先确认后再进入 freeze gate
+- `pending_next_stage`: `stitch_design_source_ready`
 - `pending_next_skill`: `none`
-- `pending_status_updates`: `none`
-- 当前不是确认门阻塞，也不是设计阶段 blocker；它是用户已显式开启实现后的正常执行态。
+- `pending_status_updates`: `stitch_project_mode=new; stitch_project_id=9392137754454631344; stitch_packet=docs/rd/stitch-design-source-packet.md`
+- 用户确认目标：确认 `docs/rd/stitch-design-source-packet.md` 可作为共享 freeze 的 Stitch 结构化设计源输入
 
-# blockers
+## blockers
 
-- `none`
+- `waiting_for_user_confirmation`
 
-# global_artifact_index
+## global_artifact_index
 
-- PRD: `docs/rhythm-sleep-routine-management-prd-commercial-2026-06-02.md`
-- 工作流记录: `docs/rd/00-workflow-record.md`
-- 模块索引: `docs/rd/00-module-index.md`
-- 全局技术基线: `docs/rd/01-global-technical-baseline.md`
-- 共享设计包: `docs/rd/02-shared-design-packet.md`
-- 实现前架构摘要: `docs/rd/03-implementation-architecture.md`
-- `@superpowers` 细化执行痕迹: `docs/rd/04-superpowers-module-refinement-log.md`
-- 全局设计冻结文档: `docs/rd/global-design-guidelines.md`
-- Light theme freeze: `docs/rd/light-theme-freeze.yaml`
-- Dark theme freeze: `docs/rd/dark-theme-freeze.yaml`
-- 共享全局预览图: `docs/rd/today-dashboard.png`
-- 共享预览模式: `light_mode`
-- 全局参考图来源模块副本: `docs/rd/modules/today/today-dashboard.png`
-- 模块预览图:
-  - `docs/rd/modules/onboarding-activation/onboarding-welcome.png`
-  - `docs/rd/modules/bedtime/bedtime-mode.png`
-  - `docs/rd/modules/calendar/calendar-heatmap.png`
-  - `docs/rd/modules/insights/insights-weekly-report.png`
-  - `docs/rd/modules/profile-settings/profile-settings.png`
+- raw requirement source: 用户请求“重新走全局设计冻结起始流程”
+- requirements brainstorming notes: 已内化到当前 PRD，未单独拆分文件
+- prd question ledger: `docs/rhythm-sleep-routine-management-prd-commercial-2026-06-02.md` 第 17 节
+- prd: `docs/rhythm-sleep-routine-management-prd-commercial-2026-06-02.md`
+- global visual design brainstorming packet: `docs/rd/global-design-guidelines.md`
+- final product design direction confirmation record: 用户于 2026-06-07 确认当前共享设计方向可作为最终产品设计方向基线
+- design brainstorm spec: `docs/superpowers/specs/2026-06-07-rhythm-global-design-direction-design.md`
+- representative effect image path: `docs/rd/today-page.png`
+- representative effect image page: `today-page`
+- representative effect image status: `pending_confirmation`
+- representative effect image previous historical backup: `docs/rd/today-page.history.png`
+- representative effect image stale pre-regen backup: `docs/rd/today-page.pre-regen-stale.png`
+- representative effect image pre-shell-unify backup: `docs/rd/today-page.pre-shell-unify.png`
+- all-page light-mode effect-image set and approval status: `docs/rd/today-page.png`、`docs/rd/onboarding-page.png`、`docs/rd/bedtime-page.png`、`docs/rd/calendar-page.png`、`docs/rd/insights-page.png`、`docs/rd/profile-settings-page.png`（confirmed_for_stitch_entry）
+- global technical baseline: `docs/rd/global-technical-baseline.md`
+- taste direction packet: `docs/rd/global-design-guidelines.md`
+- verified platform identifier or target validation surface: `ios_device`
+- module index: none
+- global-design-guidelines.md: `docs/rd/global-design-guidelines.md`
+- light-theme-freeze.yaml: none
+- dark-theme-freeze.yaml: none
+- shared freeze evidence or freeze decision: none
+- shared global effect-image directory under docs/rd/: `docs/rd/`
+- stitch design-source packet path and modelId: `docs/rd/stitch-design-source-packet.md` + `GEMINI_3_1_PRO`
+- frozen stitch_project_mode: `new`
+- frozen stitch_project_id: `9392137754454631344`
+- stitch page-design batch id or trace path: `projects/9392137754454631344`
+- page-level Stitch receipt paths: `today=2eda27b626844ff491142abab092fe18; onboarding=cbbe81054aa7484582cbc8cca5cde1db; bedtime=f7eac11372464614a3dfe17999af8cd1; calendar=c9f73ab917d54fa2828b5ab0afbc8e1b; insights=5eab24e547c646258b15c1cb24a8e221; profile=bddd6cd7240a43d6a9165fd28921ca57`
+- downloaded Stitch image asset source paths or URLs: none
+- downloaded Stitch image asset local paths: none
+- Stitch source effect-image paths: none
+- Stitch-vs-effect-image validation result: none
+- effect-image policy recorded in global-design-guidelines.md: 当前全页 light mode 效果图已被接受，并已扩展为 Stitch 结构化设计源候选；确认 `docs/rd/stitch-design-source-packet.md` 前不得进入 freeze gate
+- fidelity-critical display evidence pack paths: none
+- architecture summary: none
 - Flutter project root: `D:\Projects\Flutter\rhythm`
-- bootstrap_critical_baseline_ready: `true`
-- flutter-init summary: `completed; scaffold, bootstrap, router, storage, logging, theme, localization, and project-local flutter-dev are present`
-- project-local flutter-dev: `D:\Projects\Flutter\rhythm\.agents\skills\flutter-dev`
-- approved generated bitmap assets: `none`
+- flutter-init directory-creation summary: none
+- project-local skills/flutter-dev/: none
+- project-level @superpowers execution trace: none
+- approved generated bitmap assets: none
 
-# module_status_table
+## module_status_table
 
-| module | current_state | confirmation_status | next_skill | pending_next_stage | pending_next_skill | pending_status_updates | uiux_rd | uiux_status | impl_rd | impl_status | superpowers_refinement_status | global_guidelines | light_theme | dark_theme | taste_direction | visual_evidence | design_source_status | code_status | init_status | blockers |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| app-shell | implementing | not_required | none | none | none | none | docs/rd/modules/app-shell/app-shell.ui-ux.md | landed | docs/rd/modules/app-shell/app-shell.impl.md | landed | verified_executed | docs/rd/global-design-guidelines.md | docs/rd/light-theme-freeze.yaml | docs/rd/dark-theme-freeze.yaml | docs/rd/02-shared-design-packet.md | not_provided | frozen | in_progress | landed | none |
-| sleep-data-core | implementing | not_required | none | none | none | none | docs/rd/modules/sleep-data-core/sleep-data-core.ui-ux.md | landed | docs/rd/modules/sleep-data-core/sleep-data-core.impl.md | landed | verified_executed | docs/rd/global-design-guidelines.md | docs/rd/light-theme-freeze.yaml | docs/rd/dark-theme-freeze.yaml | docs/rd/02-shared-design-packet.md | not_provided | frozen | in_progress | landed | none |
-| onboarding-activation | implementing | not_required | flutter-dev | none | none | none | docs/rd/modules/onboarding-activation/onboarding-activation.ui-ux.md | landed | docs/rd/modules/onboarding-activation/onboarding-activation.impl.md | landed | verified_executed | docs/rd/global-design-guidelines.md | docs/rd/light-theme-freeze.yaml | docs/rd/dark-theme-freeze.yaml | docs/rd/02-shared-design-packet.md | docs/rd/modules/onboarding-activation/onboarding-welcome.png | frozen | in_progress | landed | none |
-| today | implementing | not_required | flutter-dev | none | none | none | docs/rd/modules/today/today.ui-ux.md | landed | docs/rd/modules/today/today.impl.md | landed | verified_executed | docs/rd/global-design-guidelines.md | docs/rd/light-theme-freeze.yaml | docs/rd/dark-theme-freeze.yaml | docs/rd/02-shared-design-packet.md | docs/rd/modules/today/today-dashboard.png | frozen | in_progress | landed | none |
-| bedtime | implementing | not_required | flutter-dev | none | none | none | docs/rd/modules/bedtime/bedtime.ui-ux.md | landed | docs/rd/modules/bedtime/bedtime.impl.md | landed | verified_executed | docs/rd/global-design-guidelines.md | docs/rd/light-theme-freeze.yaml | docs/rd/dark-theme-freeze.yaml | docs/rd/02-shared-design-packet.md | docs/rd/modules/bedtime/bedtime-mode.png | frozen | in_progress | landed | none |
-| calendar | implementing | not_required | flutter-dev | none | none | none | docs/rd/modules/calendar/calendar.ui-ux.md | landed | docs/rd/modules/calendar/calendar.impl.md | landed | verified_executed | docs/rd/global-design-guidelines.md | docs/rd/light-theme-freeze.yaml | docs/rd/dark-theme-freeze.yaml | docs/rd/02-shared-design-packet.md | docs/rd/modules/calendar/calendar-heatmap.png | frozen | in_progress | landed | none |
-| profile-settings | architecture_ready | not_required | none | none | none | none | docs/rd/modules/profile-settings/profile-settings.ui-ux.md | landed | docs/rd/modules/profile-settings/profile-settings.impl.md | landed | verified_executed | docs/rd/global-design-guidelines.md | docs/rd/light-theme-freeze.yaml | docs/rd/dark-theme-freeze.yaml | docs/rd/02-shared-design-packet.md | docs/rd/modules/profile-settings/profile-settings.png | frozen | not_started | landed | waiting_for_stage1_foundation |
-| insights | architecture_ready | not_required | none | none | none | none | docs/rd/modules/insights/insights.ui-ux.md | landed | docs/rd/modules/insights/insights.impl.md | landed | verified_executed | docs/rd/global-design-guidelines.md | docs/rd/light-theme-freeze.yaml | docs/rd/dark-theme-freeze.yaml | docs/rd/02-shared-design-packet.md | docs/rd/modules/insights/insights-weekly-report.png | frozen | not_started | landed | waiting_for_stage1_foundation |
+| module | current_state | confirmation_status | next_skill | pending_next_stage | pending_next_skill | pending_status_updates | stitch_project_mode | stitch_project_id | stitch_design_source | effect_images | impl_rd | impl_status | generation_trace_status | global_guidelines | light_theme | dark_theme | taste_direction | visual_evidence | high_fidelity_freeze_status | design_source_status | code_status | init_status | blockers |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| global | global_effect_images_ready | pending_confirmation | none | stitch_design_source_ready | none | stitch_project_mode=new; stitch_project_id=9392137754454631344; stitch_packet=docs/rd/stitch-design-source-packet.md | new | 9392137754454631344 | `docs/rd/stitch-design-source-packet.md` | `docs/rd/today-page.png` + `docs/rd/onboarding-page.png` + `docs/rd/bedtime-page.png` + `docs/rd/calendar-page.png` + `docs/rd/insights-page.png` + `docs/rd/profile-settings-page.png` | none | not_started | advanced | `docs/rd/global-design-guidelines.md` | none | none | `docs/rd/global-design-guidelines.md` | all-page-set-confirmed | not_evaluated | not_started | not_started | not_started | waiting_for_user_confirmation |
 
-# decision_log
+## decision_log
 
-- 2026-06-04: 初始化 `docs/rd/00-workflow-record.md`，执行模式设为 `auto`。
-- 2026-06-04: 基于商业级 PRD 生成全局技术基线 `docs/rd/01-global-technical-baseline.md`，确认产品采用 `local-first + optional cloud sync` 的 Flutter 路线。
-- 2026-06-04: 完成共享设计文本归一化 `docs/rd/02-shared-design-packet.md`。
-- 2026-06-04: 检查共享/模块静态视觉目录未发现现成证据，检测到图像凭据可用，因此自动生成轻色模式页面预览图。
-- 2026-06-04: 基于共享设计包与页面预览图冻结 `global-design-guidelines.md`、`light-theme-freeze.yaml`、`dark-theme-freeze.yaml`。
-- 2026-06-04: 完成模块拆分，形成 `docs/rd/00-module-index.md`，各模块 paired docs 初始状态为 `split_draft`。
-- 2026-06-04: `current_module=app-shell`，通过 `@superpowers` 执行 `module_uiux_refinement`，随后完成模块冻结与 architecture 输出。
-- 2026-06-04: `current_module=sleep-data-core`，通过 `@superpowers` 执行 `module_uiux_refinement`，随后完成模块冻结与 architecture 输出。
-- 2026-06-04: `current_module=onboarding-activation`，通过 `@superpowers` 执行 `module_uiux_refinement`，随后完成模块冻结与 architecture 输出。
-- 2026-06-04: `current_module=today`，通过 `@superpowers` 执行 `module_uiux_refinement`，随后完成模块冻结与 architecture 输出。
-- 2026-06-04: `current_module=bedtime`，通过 `@superpowers` 执行 `module_uiux_refinement`，随后完成模块冻结与 architecture 输出。
-- 2026-06-04: `current_module=calendar`，通过 `@superpowers` 执行 `module_uiux_refinement`，随后完成模块冻结与 architecture 输出。
-- 2026-06-04: `current_module=profile-settings`，通过 `@superpowers` 执行 `module_uiux_refinement`，随后完成模块冻结与 architecture 输出。
-- 2026-06-04: `current_module=insights`，通过 `@superpowers` 执行 `module_uiux_refinement`，随后完成模块冻结与 architecture 输出。
-- 2026-06-04: auto loop 重新评估剩余模块，确认全部目标模块已满足预实现边界 stop condition。
-- 2026-06-04: auto loop 到达预实现边界，确认 `bootstrap_critical_baseline_ready=true`，下一步应进入 `flutter-init`。
-- 2026-06-04: 严格纠偏后将 `workflow_status` 从误判的 `blocked` 改回 `active`；`lib/` 为空与 `flutter-dev` 缺失被重新归类为 `flutter-init` 的执行目标，而不是设计阶段 blocker。
-- 2026-06-04: `flutter-init` 已完成，项目骨架、路由、主题、本地化、日志、存储和项目级 `flutter-dev` 已落地，工作流从 `architecture_ready` 前移到 `project_initialized`。
-- 2026-06-04: 复跑 `flutter-workflow-orchestrator --auto`，确认全部模块已满足实现边界 stop condition；工作流现处于 `implementation_ready_waiting`，自动流程停止在代码实现之前。
-- 2026-06-04: 用户显式要求“按照模块优先级进入实现”，因此工作流从 `implementation_ready_waiting` 进入 `implementing`，首先启动 `app-shell + sleep-data-core`。
-- 2026-06-04: Stage 1 首轮代码落地完成：修正五标签顺序，启动 guard 接入 `GoalScheduleRepository` 与 `EntryIntent`，onboarding 完成时补齐默认作息，并让 `GoalScheduleRepository` 改为真实 Drift 持久化。
-- 2026-06-04: `app-shell` 继续落地 root redirect 守卫：补齐壳内路由拦截、onboarding 回流限制，并新增 `test/app/app_router_test.dart` 覆盖未完成引导与通知入口回流场景；下一焦点转为 `global feedback host + sleep-data-core` 共享状态契约。
-- 2026-06-04: Stage 1 第二轮代码落地完成：`app-shell` 已接入全局反馈 host，`sleep-data-core` 已落最小共享状态契约与聚合 provider，并通过新增测试覆盖共享状态聚合与同步失败全局提示；`onboarding-activation` 已被正式放行。
-- 2026-06-05: 启动恢复链路已支持异常降级：当本地作息恢复失败时，应用记录错误并回退到 onboarding，而不是停在启动错误页；Stage 2 现切换 `current_module=onboarding-activation`，下一轮直接进入真实激活流程实现。
-- 2026-06-05: `onboarding-activation` 已落最小 6 步激活流程：欢迎价值页、进入方式选择页、权限价值说明页、目标作息设置页、提醒策略页、完成过渡页；已新增控制器测试、页面推进测试，并在模拟器验证首屏不再是占位页。
-- 2026-06-06: `onboarding-activation` 已补齐缺失的小组件引导页，并将漏斗扩展为冻结要求的 7 步主路径；`health` 权限请求通过应用层 gateway 接入真实执行边界，`home_widget` 通过平台快照提供 `supported / manualOnly / unavailable` 三类降级语义；下一焦点收敛到真实登录边界与账号同步分流。
-- 2026-06-06: 修复 onboarding 完成落点被一次性外部入口劫持的问题：当用户在引导前带着通知/小组件目标进入时，完成引导会先把 `currentEntryIntent` 重置为 `appOpen`，再提交完成状态，因此完成 CTA 与路由守卫现在都稳定进入 `today`；已新增 app-level 回归测试覆盖该场景。
-- 2026-06-06: `onboarding-activation` 已补真实 Apple / Google 登录 gateway，并在完成引导时把账号结果折叠成共享账号快照写入安全存储；`profile-settings` 顶部已开始消费这条基线展示“本地优先 / 已连接账号”摘要，因此 Stage 2 不再被登录边界阻塞，后续 `supabase_flutter` 会话绑定应转入账号/同步模块继续实现。
-- 2026-06-06: `current_module` 已切换到 `today`；首页不再是占位页，`TodaySnapshot` 已开始真实消费目标作息、共享状态与账号快照，并落地“昨晚结果 -> 今晚目标 -> 恢复建议 -> 快捷记录 -> 趋势说明”五块首屏结构。当前仍未接入真实睡眠记录仓储，因此趋势与结果先按 `no_data / sync_recoverable / manual_adjusted` 语义解释，下一轮应继续补记录聚合与快捷补录落点。
-- 2026-06-06: `today` 显示层已按效果图进一步收紧：主壳首页不再只是语义正确的卡片堆叠，而是补齐了品牌头、头像入口、太阳装饰、结果环、双区块目标卡、带箭头的恢复/记录卡和近似效果图的趋势图；当前视觉元素仍优先用原生 Flutter 还原，尚未出现必须转为位图资产的复杂特效。
-- 2026-06-06: `today` 本轮已补最小 `SleepRecord` 真实基线：`sleep-data-core` 新增 Drift 表、`SleepRecordRepository` 与本地实现；首页聚合开始根据最近记录区分 `on_target / slight_delay / major_delay`，快捷记录通过 sheet 写入手动记录并触发首页刷新，趋势折线也改为消费最近样本；新增仓储、控制器、聚合与页面测试覆盖。
-- 2026-06-06: `current_module` 已从 `today` 切换到 `bedtime`；`BedtimePage` 不再是占位骨架，当前已落最小 `BedtimeSessionDraft`、倒计时语义、三态选择卡、单动作建议卡和单主 CTA，并通过应用层控制器在 `before_target / likely_delay / session_completed` 间切换；全量 `flutter test` 已通过。
-- 2026-06-06: `bedtime` 本轮已补最小 `BedtimeSessionRepository` 真实基线：新增 Drift 表、会话记录实体与本地实现；控制器现可按会话日恢复未完成选择，并在执行主动作后写回完成态；新增仓储测试、控制器恢复测试与页面隔离测试覆盖。
-- 2026-06-06: `bedtime` 已补齐本轮剩余缺口：`onboarding-activation` 完成时会把提醒策略持久化为共享提醒偏好，`bedtime` 控制器会真实读取该偏好并输出 `enabled / disabled` 语义；页面会显示“提醒当前未开启”提示与“已恢复今晚未完成的选择”横幅；相关控制器、页面与 onboarding 回归测试均已通过，并已在 Android 模拟器上完成真实界面验证。
-- 2026-06-06: `bedtime` 显示层已按冻结预览图重实现：页面从功能纵向卡片改为大倒计时环、目标时间卡、三列状态选择区、单动作卡和唯一主 CTA；新增 `bedtime_page_test` 红绿回归后，`flutter analyze` 与 `flutter test` 通过，并以 Windows 临时 QA 入口完成 `before_target / likely_delay / restored_disabled` 三组真实桌面截图验证。
-- 2026-06-06: `current_module` 已从 `bedtime` 切换到 `calendar`；`SleepRecordRepository` 新增 `readRecordsInRange`，`calendar` 通过 `CalendarOverview` 聚合真实消费月范围记录和目标作息，页面开始展示月度摘要、热力图、筛选器和单日详情。
-- 2026-06-06: `calendar` 在 Android 模拟器首轮 QA 中暴露热力图手机视口 `BOTTOM OVERFLOWED`；随后新增 `keeps calendar heatmap inside phone viewport` widget 测试并通过自适应 cell padding 修复，复跑 `flutter analyze` 与 `flutter test` 通过。
-- 2026-06-06: `calendar` 已在 Android 模拟器完成四类真实界面验证：`populated`、`detail`、`locked`、`no_data`，对应证据为 `.omo/evidence/calendar-populated-emulator-fixed-seed.png`、`.omo/evidence/calendar-detail-emulator-final.png`、`.omo/evidence/calendar-locked-emulator.png` 与 `.omo/evidence/calendar-no-data-emulator-2.png`。
+- 2026-06-07：首次建立 `docs/rd/00-workflow-record.md`，将本项目纳入 `flutter-workflow-orchestrator` 工作流记录。
+- 2026-06-07：在全局范围完成 `docs/rhythm-sleep-routine-management-prd-commercial-2026-06-02.md` 优化，补齐问题定义、用户故事、默认假设、风险与问题台账；产物已生成。
+- 2026-06-07：上一轮 `--auto` 曾将工作流推进到共享视觉方向与代表页效果图生成，并产出 `docs/rd/global-design-guidelines.md` 与 `docs/rd/today-page.png`。
+- 2026-06-07：用户明确要求“重新走全局设计冻结起始流程”；编排器终止上一轮代表图确认门，保留既有共享视觉方向包与代表图作为历史痕迹，不再作为当前冻结依据。
+- 2026-06-07：预检发现仓库内缺少可验证的全局技术基线产物，现将工作流回正到 `prd_ready`，并将下一跳锁定为 `flutter-prd-rd-writer -> technical_baseline_ready`。
+- 2026-06-07：已生成新的全局技术基线 `docs/rd/global-technical-baseline.md`，当前在手动模式下等待用户确认后提升到 `technical_baseline_ready`，随后进入 `flutter-taste-router`。
+- 2026-06-07：收到 `flutter-workflow-orchestrator --auto` 后，自动应用技术基线确认门，将阶段提升为 `technical_baseline_ready`。
+- 2026-06-07：按 `technical_baseline_ready -> flutter-taste-router` 路由刷新共享设计方向包 `docs/rd/global-design-guidelines.md`，当前自动推进已停在“最终产品设计方向确认”合法停点。
+- 2026-06-07：用户确认当前共享设计方向可作为最终产品设计方向基线；自动推进据此进入 `product_direction_confirmed`。
+- 2026-06-07：已生成新的代表页 light mode 效果图 `docs/rd/today-page.png`，并将上一轮历史图备份到 `docs/rd/today-page.history.png`；当前按规则停在代表图确认门。
+- 2026-06-07：用户指出此前未进行视觉头脑风暴；经重新头脑风暴并确认“编辑产品混合版”后，当前代表图被判定与新方向不一致，工作流已回退到 `product_direction_confirmed`，等待重生成代表图。
+- 2026-06-07：已按头脑风暴确认后的方向重生成 `docs/rd/today-page.png`，并将重生成前的旧草图备份到 `docs/rd/today-page.pre-regen-stale.png`；当前重新停在代表图确认门。
+- 2026-06-07：已补齐 `onboarding-page`、`bedtime-page`、`calendar-page`、`insights-page`、`profile-settings-page` 五张 light mode 页面证据；当前停在全页效果图确认门，确认后进入 Stitch 前置选择。
+- 2026-06-07：本轮规范核验发现壳层导航合同未真正统一，`today-page` 与其余壳层页的 `Today` tab 图标语义不一致；同时 `docs/rd/00-workflow-record.md` 与 `docs/rd/global-design-guidelines.md` 对当前批次状态描述冲突。工作流已改写为 `blocked`，下一步先重生成 `today / calendar / bedtime / insights / profile-settings` 五张壳层页，再重新核验。
+- 2026-06-07：用户指定采用“以其他壳层页样式为准”的修订策略，并要求连设备外框与顶部状态区一起统一；已新增修图设计说明 `docs/superpowers/specs/2026-06-07-rhythm-today-shell-unification-design.md`。
+- 2026-06-07：已备份旧版 `docs/rd/today-page.png` 到 `docs/rd/today-page.pre-shell-unify.png`，并用 `gpt-image-2` 重生成新的 `docs/rd/today-page.png`。
+- 2026-06-07：重生成后的 `today-page` 已通过共享壳层合同复核：`Today` tab 改为太阳语义图标，设备外框与顶部状态区已对齐其他壳层页，首页主行动卡仍保持唯一首屏重心。工作流已回到“全页效果图确认门”。
+- 2026-06-07：用户明确要求“进入 stitch”；该指令视为接受当前六张全页效果图基线，工作流已推进到 `global_effect_images_ready`。根据 Stitch 前置规则，当前阻塞点变为 `stitch_project_mode:new_or_existing`，在模式与项目 ID 冻结前不得调用 Stitch。
+- 2026-06-07：用户选择 `new`，已创建 Stitch 项目 `projects/9392137754454631344`，并冻结 `stitch_project_mode=new` 与 `stitch_project_id=9392137754454631344`。
+- 2026-06-07：已先生成代表页 `today-page`，Stitch 同步沉淀出共享设计系统资产 `assets/ce15df8dfd494587b335ced8718a3cd3`，随后使用同一设计系统生成 `onboarding / bedtime / calendar / insights / profile-settings` 五页。
+- 2026-06-07：已合并本地 Stitch 设计源包 `docs/rd/stitch-design-source-packet.md`。当前在手动模式下停在 `stitch_design_source_ready` 的确认门前；确认后下一步进入 `flutter-design-freeze-gate`。
