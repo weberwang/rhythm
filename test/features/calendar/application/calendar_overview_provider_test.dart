@@ -135,6 +135,9 @@ void main() {
     expect(overview.summary.recordedNights, 3);
     expect(overview.summary.onTargetNights, 1);
     expect(overview.summary.delayedNights, 2);
+    expect(overview.summary.averageDelayMinutes, 41);
+    expect(overview.summary.averageSleepDurationMinutes, 451);
+    expect(overview.summary.averageWakeTimeMinutes, 432);
     expect(
       overview.days.firstWhere((day) => day.dayOfMonth == 2).visualState,
       CalendarDayVisualState.partial,
@@ -153,6 +156,9 @@ void main() {
 
     expect(overview.state, CalendarOverviewState.noData);
     expect(overview.summary.recordedNights, 0);
+    expect(overview.summary.averageDelayMinutes, 0);
+    expect(overview.summary.averageSleepDurationMinutes, 0);
+    expect(overview.summary.averageWakeTimeMinutes, 0);
     expect(overview.days, isNotEmpty);
   });
 
@@ -179,6 +185,9 @@ void main() {
     final overview = await container.read(calendarOverviewProvider.future);
 
     expect(overview.accessState, CalendarHistoryAccessState.locked);
+    expect(overview.summary.averageDelayMinutes, 35);
+    expect(overview.summary.averageSleepDurationMinutes, 455);
+    expect(overview.summary.averageWakeTimeMinutes, 430);
     expect(overview.days.where((day) => day.hasRecord), isNotEmpty);
   });
 }

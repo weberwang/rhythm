@@ -1256,6 +1256,48 @@ abstract class AppLocalizations {
   /// **'No data'**
   String get calendarHeatmapLegendEmpty;
 
+  /// No description provided for @calendarMetricAverageDelayLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Avg. offset'**
+  String get calendarMetricAverageDelayLabel;
+
+  /// No description provided for @calendarMetricAverageSleepLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Avg. sleep'**
+  String get calendarMetricAverageSleepLabel;
+
+  /// No description provided for @calendarMetricAverageWakeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Avg. wake'**
+  String get calendarMetricAverageWakeLabel;
+
+  /// No description provided for @calendarMetricTrackedDaysLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Days tracked'**
+  String get calendarMetricTrackedDaysLabel;
+
+  /// No description provided for @calendarDetailBedtimeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Bedtime'**
+  String get calendarDetailBedtimeLabel;
+
+  /// No description provided for @calendarDetailWakeTimeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Wake time'**
+  String get calendarDetailWakeTimeLabel;
+
+  /// No description provided for @calendarDetailTotalSleepLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Total sleep'**
+  String get calendarDetailTotalSleepLabel;
+
   /// No description provided for @calendarDayDetailSourceLabel.
   ///
   /// In en, this message translates to:

@@ -124,10 +124,26 @@ CalendarMonthlySummary _buildMonthlySummary({
   required List<SleepRecord> records,
   required GoalSchedule schedule,
 }) {
+  if (records.isEmpty) {
+    return const CalendarMonthlySummary(
+      recordedNights: 0,
+      onTargetNights: 0,
+      delayedNights: 0,
+      adjustedNights: 0,
+      partialNights: 0,
+      averageDelayMinutes: 0,
+      averageSleepDurationMinutes: 0,
+      averageWakeTimeMinutes: 0,
+    );
+  }
+
   var onTargetNights = 0;
   var delayedNights = 0;
   var adjustedNights = 0;
   var partialNights = 0;
+  var totalDelayMinutes = 0;
+  var totalSleepDurationMinutes = 0;
+  var totalWakeTimeMinutes = 0;
 
   for (final record in records) {
     final visualState = _resolveVisualState(record: record, schedule: schedule);
@@ -148,6 +164,9 @@ CalendarMonthlySummary _buildMonthlySummary({
     if (record.confidence == SleepRecordConfidence.partial) {
       partialNights += 1;
     }
+    totalDelayMinutes += delayMinutes;
+    totalSleepDurationMinutes += _calculateSleepDurationMinutes(record);
+    totalWakeTimeMinutes += record.wakeTimeMinutes;
   }
 
   return CalendarMonthlySummary(
@@ -156,6 +175,11 @@ CalendarMonthlySummary _buildMonthlySummary({
     delayedNights: delayedNights,
     adjustedNights: adjustedNights,
     partialNights: partialNights,
+    // 摘要首屏需要“整个月大致怎么样”的读数，因此在聚合层统一做平均。
+    averageDelayMinutes: (totalDelayMinutes / records.length).round(),
+    averageSleepDurationMinutes:
+        (totalSleepDurationMinutes / records.length).round(),
+    averageWakeTimeMinutes: (totalWakeTimeMinutes / records.length).round(),
   );
 }
 

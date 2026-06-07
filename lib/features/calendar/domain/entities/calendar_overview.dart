@@ -65,6 +65,14 @@ abstract class CalendarMonthlySummary with _$CalendarMonthlySummary {
     required int delayedNights,
     required int adjustedNights,
     required int partialNights,
+    /// 平均相对目标偏移，供摘要首屏直接展示整体节奏。
+    required int averageDelayMinutes,
+
+    /// 平均睡眠时长，避免显示层重复扫描全部记录再计算。
+    required int averageSleepDurationMinutes,
+
+    /// 平均起床时间，保持月度摘要和单日详情共用同一套时间语义。
+    required int averageWakeTimeMinutes,
   }) = _CalendarMonthlySummary;
 }
 

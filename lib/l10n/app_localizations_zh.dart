@@ -641,6 +641,27 @@ class AppLocalizationsZh extends AppLocalizations {
   String get calendarHeatmapLegendEmpty => '待补录';
 
   @override
+  String get calendarMetricAverageDelayLabel => '平均偏移';
+
+  @override
+  String get calendarMetricAverageSleepLabel => '平均睡眠';
+
+  @override
+  String get calendarMetricAverageWakeLabel => '平均起床';
+
+  @override
+  String get calendarMetricTrackedDaysLabel => '已记录天数';
+
+  @override
+  String get calendarDetailBedtimeLabel => '入睡时间';
+
+  @override
+  String get calendarDetailWakeTimeLabel => '起床时间';
+
+  @override
+  String get calendarDetailTotalSleepLabel => '总睡时长';
+
+  @override
   String get calendarDayDetailSourceLabel => '来源';
 
   @override

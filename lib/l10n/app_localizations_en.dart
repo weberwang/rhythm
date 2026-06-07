@@ -710,6 +710,27 @@ class AppLocalizationsEn extends AppLocalizations {
   String get calendarHeatmapLegendEmpty => 'No data';
 
   @override
+  String get calendarMetricAverageDelayLabel => 'Avg. offset';
+
+  @override
+  String get calendarMetricAverageSleepLabel => 'Avg. sleep';
+
+  @override
+  String get calendarMetricAverageWakeLabel => 'Avg. wake';
+
+  @override
+  String get calendarMetricTrackedDaysLabel => 'Days tracked';
+
+  @override
+  String get calendarDetailBedtimeLabel => 'Bedtime';
+
+  @override
+  String get calendarDetailWakeTimeLabel => 'Wake time';
+
+  @override
+  String get calendarDetailTotalSleepLabel => 'Total sleep';
+
+  @override
   String get calendarDayDetailSourceLabel => 'Source';
 
   @override

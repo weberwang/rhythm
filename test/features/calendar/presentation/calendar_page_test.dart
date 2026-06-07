@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rhythm/features/calendar/application/providers/calendar_overview_provider.dart';
+import 'package:rhythm/features/calendar/domain/entities/calendar_overview.dart';
 import 'package:rhythm/features/calendar/presentation/pages/calendar_page.dart';
 import 'package:rhythm/features/sleep_data_core/application/providers/goal_schedule_repository_provider.dart';
 import 'package:rhythm/features/sleep_data_core/application/providers/sleep_record_repository_provider.dart';
@@ -60,6 +61,13 @@ class _FakeSleepRecordRepository implements SleepRecordRepository {
 
 /// 验证 calendar 页面已从占位页进入真实月视图与单日详情体验。
 void main() {
+  void usePhoneViewport(WidgetTester tester) {
+    tester.view.physicalSize = const Size(430, 932);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+  }
+
   Future<void> pumpCalendarPage(
     WidgetTester tester, {
     required ProviderContainer container,
@@ -122,68 +130,81 @@ void main() {
     );
   }
 
-  testWidgets('calendar page renders heatmap summary and filter', (
+  testWidgets('calendar page matches populated high-fidelity layout', (
     tester,
   ) async {
+    usePhoneViewport(tester);
     final container = createContainer();
     addTearDown(container.dispose);
 
     await pumpCalendarPage(tester, container: container);
 
-    expect(find.text('日历'), findsOneWidget);
+    expect(find.text('Rhythm'), findsOneWidget);
     expect(find.text('2026年6月'), findsOneWidget);
-    expect(find.text('本月已记录 2 晚'), findsOneWidget);
+    expect(find.byKey(const Key('calendar-monthly-summary-card')), findsOneWidget);
+    expect(find.byKey(const Key('calendar-summary-metric-average-delay')), findsOneWidget);
+    expect(find.byKey(const Key('calendar-summary-metric-average-sleep')), findsOneWidget);
+    expect(find.byKey(const Key('calendar-summary-metric-average-wake')), findsOneWidget);
+    expect(find.byKey(const Key('calendar-summary-metric-tracked-days')), findsOneWidget);
     expect(find.byKey(const Key('calendar-heatmap-grid')), findsOneWidget);
-    expect(find.text('全部记录'), findsOneWidget);
-    expect(find.text('晚睡'), findsOneWidget);
-    expect(find.text('手动修正'), findsOneWidget);
-    expect(find.text('高级洞察'), findsOneWidget);
+    expect(find.byKey(const Key('calendar-filter-strip')), findsOneWidget);
+    expect(find.byKey(const Key('calendar-day-detail-card')), findsOneWidget);
     expect(find.text('初始化占位'), findsNothing);
   });
 
-  testWidgets('opens day detail sheet with source and adjustment', (
+  testWidgets('calendar page keeps locked state and selected day detail semantics', (
     tester,
   ) async {
+    usePhoneViewport(tester);
     final container = createContainer();
     addTearDown(container.dispose);
 
     await pumpCalendarPage(tester, container: container);
 
-    await tester.tap(find.byKey(const Key('calendar-day-3')));
-    await tester.pumpAndSettle();
-
-    expect(find.text('6月3日'), findsOneWidget);
-    expect(find.text('来源'), findsOneWidget);
-    expect(find.text('手动补录'), findsOneWidget);
-    expect(find.text('手动修正'), findsAtLeastNWidgets(1));
-  });
-
-  testWidgets('shows lock explanation for premium history filter', (
-    tester,
-  ) async {
-    final container = createContainer();
-    addTearDown(container.dispose);
-
-    await pumpCalendarPage(tester, container: container);
-
-    await tester.tap(find.text('高级洞察'));
+    container
+        .read(calendarFilterControllerProvider.notifier)
+        .select(CalendarFilterMode.lockedInsights);
     await tester.pumpAndSettle();
 
     expect(find.text('更早历史与原因分布将在洞察页解锁'), findsOneWidget);
     expect(find.byKey(const Key('calendar-heatmap-grid')), findsOneWidget);
+
+    expect(find.byKey(const Key('calendar-day-detail-card')), findsOneWidget);
+    expect(find.text('手动补录'), findsOneWidget);
+    expect(find.text('手动修正'), findsAtLeastNWidgets(1));
   });
 
-  testWidgets('keeps calendar heatmap inside phone viewport', (tester) async {
-    tester.view.physicalSize = const Size(430, 932);
-    tester.view.devicePixelRatio = 1;
-    addTearDown(tester.view.resetPhysicalSize);
-    addTearDown(tester.view.resetDevicePixelRatio);
+  testWidgets('calendar page keeps empty month structure without overflow', (
+    tester,
+  ) async {
+    usePhoneViewport(tester);
 
-    final container = createContainer();
+    final container = ProviderContainer(
+      overrides: [
+        goalScheduleRepositoryProvider.overrideWithValue(
+          _FakeGoalScheduleRepository(
+            GoalSchedule(
+              id: 'fixture',
+              bedtimeMinutes: 23 * 60,
+              wakeTimeMinutes: 7 * 60,
+              createdAt: DateTime(2026, 6, 6),
+            ),
+          ),
+        ),
+        sleepRecordRepositoryProvider.overrideWithValue(
+          _FakeSleepRecordRepository(const []),
+        ),
+        calendarNowProvider.overrideWithValue(DateTime(2026, 6, 18, 8)),
+      ],
+    );
     addTearDown(container.dispose);
 
     await pumpCalendarPage(tester, container: container);
 
+    expect(find.text('Rhythm'), findsOneWidget);
+    expect(find.byKey(const Key('calendar-monthly-summary-card')), findsOneWidget);
+    expect(find.byKey(const Key('calendar-heatmap-grid')), findsOneWidget);
+    expect(find.text('本月还没有睡眠记录'), findsOneWidget);
     expect(tester.takeException(), isNull);
   });
 }
