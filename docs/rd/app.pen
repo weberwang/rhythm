@@ -8,7 +8,7 @@
       "y": 0,
       "name": "Rhythm Shared Design Master",
       "width": 1500,
-      "fill": "$color-surface",
+      "fill": "#F6F2EA",
       "layout": "vertical",
       "gap": 24,
       "padding": 24,
@@ -17,23 +17,24 @@
           "type": "text",
           "id": "cwmE5",
           "name": "Master Title",
-          "fill": "$color-on-surface",
+          "fill": "#1F2622",
           "content": "Rhythm Shared Design Master",
-          "fontFamily": "$font-display",
-          "fontSize": 28,
+          "fontFamily": "Playfair Display",
+          "fontSize": 30,
           "fontWeight": "700"
         },
         {
           "type": "text",
           "id": "oNqeK",
           "name": "Master Subtitle",
-          "fill": "$color-secondary",
+          "fill": "#7F8983",
           "textGrowth": "fixed-width",
           "width": "fill_container",
-          "content": "Shared public shell, primary card families, and calm recovery interaction language.",
+          "content": "Quiet-order shared shell, result-first reading flow, and low-pressure recovery guidance.",
           "lineHeight": 1.4,
           "fontFamily": "$font-body",
-          "fontSize": 14
+          "fontSize": 14,
+          "fontWeight": "normal"
         },
         {
           "type": "frame",
@@ -115,30 +116,30 @@
               "name": "Primary Action Card",
               "reusable": true,
               "width": 358,
-              "fill": "#FFFFFF",
-              "cornerRadius": 20,
-              "stroke": "#EAF0F3",
+              "fill": "#FCF9F3",
+              "cornerRadius": 28,
+              "stroke": "#E5DDD0",
               "strokeWidth": 1,
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
-                "color": "#14313A12",
+                "color": "#1F262214",
                 "offset": {
                   "x": 0,
-                  "y": 10
+                  "y": 8
                 },
-                "blur": 28
+                "blur": 24
               },
               "layout": "vertical",
               "gap": 16,
-              "padding": 22,
+              "padding": 24,
               "children": [
                 {
                   "type": "text",
                   "id": "c7MzH",
                   "name": "Action Eyebrow",
-                  "fill": "#6F8490",
-                  "content": "Tonight",
+                  "fill": "#99A4AA",
+                  "content": "Next step",
                   "fontFamily": "$font-caption",
                   "fontSize": 11,
                   "fontWeight": "600",
@@ -148,42 +149,43 @@
                   "type": "text",
                   "id": "psFeF",
                   "name": "Action Title",
-                  "fill": "#102127",
+                  "fill": "#1F2622",
                   "textGrowth": "fixed-width",
                   "width": "fill_container",
-                  "content": "Start winding down before 23:10",
+                  "content": "Protect your wind-down tonight",
                   "lineHeight": 1.14,
                   "fontFamily": "$font-display",
-                  "fontSize": 25,
+                  "fontSize": 24,
                   "fontWeight": "650"
                 },
                 {
                   "type": "text",
                   "id": "G2GVcY",
                   "name": "Action Body",
-                  "fill": "#60757F",
+                  "fill": "#7F8983",
                   "textGrowth": "fixed-width",
                   "width": "fill_container",
-                  "content": "Keep the next step obvious and gentle. The screen should feel like an invitation, not a score report.",
+                  "content": "One small action now will make tonight easier to stop on time.",
                   "lineHeight": 1.45,
                   "fontFamily": "$font-body",
-                  "fontSize": 13
+                  "fontSize": 13,
+                  "fontWeight": "normal"
                 },
                 {
                   "type": "frame",
                   "id": "IfGte",
                   "name": "Action Button",
-                  "fill": "#255968",
+                  "fill": "#718C74",
                   "cornerRadius": "$radius-full",
                   "effect": {
                     "type": "shadow",
                     "shadowType": "outer",
-                    "color": "#25596829",
+                    "color": "#718C7424",
                     "offset": {
                       "x": 0,
                       "y": 8
                     },
-                    "blur": 20
+                    "blur": 22
                   },
                   "padding": [
                     13,
@@ -196,8 +198,8 @@
                       "type": "text",
                       "id": "DVRye",
                       "name": "Action Button Label",
-                      "fill": "$color-on-primary",
-                      "content": "Start easing into bedtime",
+                      "fill": "#F8F6F1",
+                      "content": "Start wind-down",
                       "fontFamily": "$font-body",
                       "fontSize": 14,
                       "fontWeight": "600"
@@ -220,29 +222,29 @@
                   "name": "Summary Card",
                   "reusable": true,
                   "width": "fill_container",
-                  "fill": "#F9FBFC",
-                  "cornerRadius": 18,
-                  "stroke": "#E7EEF2",
+                  "fill": "#FCF9F3",
+                  "cornerRadius": 28,
+                  "stroke": "#E5DDD0",
                   "strokeWidth": 1,
                   "effect": {
                     "type": "shadow",
                     "shadowType": "outer",
-                    "color": "#18313A0D",
+                    "color": "#1F262210",
                     "offset": {
                       "x": 0,
                       "y": 6
                     },
-                    "blur": 18
+                    "blur": 20
                   },
                   "layout": "vertical",
                   "gap": 10,
-                  "padding": 18,
+                  "padding": 24,
                   "children": [
                     {
                       "type": "text",
                       "id": "ETdiJ",
                       "name": "Summary Eyebrow",
-                      "fill": "#758890",
+                      "fill": "#99A4AA",
                       "content": "Last night",
                       "fontFamily": "$font-caption",
                       "fontSize": 11,
@@ -253,26 +255,27 @@
                       "type": "text",
                       "id": "PV2hW",
                       "name": "Summary Title",
-                      "fill": "#18242B",
+                      "fill": "#1F2622",
                       "textGrowth": "fixed-width",
                       "width": "fill_container",
-                      "content": "24 minutes later than target",
-                      "lineHeight": 1.22,
+                      "content": "45 minutes later than your target",
+                      "lineHeight": 1.08,
                       "fontFamily": "$font-display",
-                      "fontSize": 17,
+                      "fontSize": 34,
                       "fontWeight": "600"
                     },
                     {
                       "type": "text",
                       "id": "GFvnm",
                       "name": "Summary Body",
-                      "fill": "#6C8089",
+                      "fill": "#7F8983",
                       "textGrowth": "fixed-width",
                       "width": "fill_container",
-                      "content": "Outcome information stays calm and readable so it never outranks tonight's task.",
+                      "content": "You were in bed at 12:45 AM. Target was 12:00 AM.",
                       "lineHeight": 1.45,
                       "fontFamily": "$font-body",
-                      "fontSize": 12
+                      "fontSize": 13,
+                      "fontWeight": "normal"
                     }
                   ]
                 },
@@ -282,14 +285,14 @@
                   "name": "Recovery Card",
                   "reusable": true,
                   "width": "fill_container",
-                  "fill": "#FFF9F3",
-                  "cornerRadius": 18,
-                  "stroke": "#F1DEC9",
+                  "fill": "#F9F5EE",
+                  "cornerRadius": 24,
+                  "stroke": "#EAD8BD",
                   "strokeWidth": 1,
                   "effect": {
                     "type": "shadow",
                     "shadowType": "outer",
-                    "color": "#9F6C2A12",
+                    "color": "#C99A6118",
                     "offset": {
                       "x": 0,
                       "y": 6
@@ -298,14 +301,14 @@
                   },
                   "layout": "vertical",
                   "gap": 10,
-                  "padding": 18,
+                  "padding": 20,
                   "children": [
                     {
                       "type": "text",
                       "id": "I4NtH",
                       "name": "Recovery Eyebrow",
-                      "fill": "#B3783E",
-                      "content": "Recovery path",
+                      "fill": "#C99A61",
+                      "content": "Tonight's target",
                       "fontFamily": "$font-caption",
                       "fontSize": 11,
                       "fontWeight": "600",
@@ -315,26 +318,27 @@
                       "type": "text",
                       "id": "cvCkO",
                       "name": "Recovery Title",
-                      "fill": "#18242B",
+                      "fill": "#1F2622",
                       "textGrowth": "fixed-width",
                       "width": "fill_container",
-                      "content": "Shift gently for the next two nights",
-                      "lineHeight": 1.22,
+                      "content": "12:15 AM",
+                      "lineHeight": 1.1,
                       "fontFamily": "$font-display",
-                      "fontSize": 17,
+                      "fontSize": 28,
                       "fontWeight": "600"
                     },
                     {
                       "type": "text",
                       "id": "YQuUK",
                       "name": "Recovery Body",
-                      "fill": "#7B817B",
+                      "fill": "#7F8983",
                       "textGrowth": "fixed-width",
                       "width": "fill_container",
-                      "content": "Use supportive guidance, never shame-heavy language or alarm styling.",
+                      "content": "Wind down by 11:30 PM. A smaller shift tonight helps you reset.",
                       "lineHeight": 1.45,
                       "fontFamily": "$font-body",
-                      "fontSize": 12
+                      "fontSize": 13,
+                      "fontWeight": "normal"
                     }
                   ]
                 }
@@ -363,19 +367,19 @@
               "name": "Tab Bar Surface",
               "width": 358,
               "height": 54,
-              "fill": "#FFFFFFF0",
+              "fill": "#FCF9F3F2",
               "cornerRadius": 20,
-              "stroke": "#E8EEF2",
+              "stroke": "#E5DDD0",
               "strokeWidth": 1,
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
-                "color": "#18242B14",
+                "color": "#1F262210",
                 "offset": {
                   "x": 0,
-                  "y": 10
+                  "y": 8
                 },
-                "blur": 28
+                "blur": 20
               },
               "padding": [
                 5,
@@ -388,7 +392,7 @@
                   "type": "frame",
                   "id": "H5SaBa",
                   "name": "Tab Today",
-                  "fill": "#E8F4F6",
+                  "fill": "#EEE8DC",
                   "cornerRadius": 14,
                   "layout": "vertical",
                   "gap": 2,
@@ -583,9 +587,9 @@
       "name": "Today Screen",
       "clip": true,
       "width": 390,
-      "fill": "$color-surface",
+      "fill": "#F6F2EA",
       "layout": "vertical",
-      "gap": 26,
+      "gap": 28,
       "children": [
         {
           "type": "frame",
@@ -613,7 +617,7 @@
           "name": "Today Screen Content",
           "width": "fill_container",
           "layout": "vertical",
-          "gap": 26,
+          "gap": 24,
           "padding": [
             0,
             18
@@ -631,49 +635,29 @@
                   "type": "text",
                   "id": "NUXpJ",
                   "name": "Tonight Title",
-                  "fill": "#142229",
+                  "fill": "#1F2622",
                   "textGrowth": "fixed-width",
                   "width": "fill_container",
-                  "content": "Tonight",
-                  "lineHeight": 1.15,
+                  "content": "Today",
+                  "lineHeight": 1,
                   "fontFamily": "$font-display",
-                  "fontSize": 31,
-                  "fontWeight": "650"
+                  "fontSize": 36,
+                  "fontWeight": "600"
                 },
                 {
                   "type": "text",
                   "id": "mGNV1",
                   "name": "Tonight Subtitle",
-                  "fill": "#6A7D86",
+                  "fill": "#7F8983",
                   "textGrowth": "fixed-width",
                   "width": "fill_container",
-                  "content": "Keep the next step clear, calm, and easy to reach.",
+                  "content": "Read last night first, then protect tonight.",
                   "lineHeight": 1.45,
                   "fontFamily": "$font-body",
-                  "fontSize": 13
+                  "fontSize": 14,
+                  "fontWeight": "normal"
                 }
               ]
-            },
-            {
-              "id": "Uwqnk",
-              "type": "ref",
-              "ref": "w4XXe",
-              "name": "Tonight Action Card",
-              "width": "fill_container",
-              "descendants": {
-                "c7MzH": {
-                  "content": "Tonight"
-                },
-                "psFeF": {
-                  "content": "Start winding down before 23:10"
-                },
-                "G2GVcY": {
-                  "content": "The first screen answers what to do now. Everything else stays supportive."
-                },
-                "DVRye": {
-                  "content": "Start easing into bedtime"
-                }
-              }
             },
             {
               "type": "frame",
@@ -681,59 +665,440 @@
               "name": "Today Feedback Row",
               "width": "fill_container",
               "layout": "vertical",
-              "gap": 14,
+              "gap": 18,
               "children": [
                 {
-                  "id": "a5uZ4e",
-                  "type": "ref",
-                  "ref": "ZjgOl",
+                  "type": "frame",
+                  "id": "xRh0o",
                   "name": "Last Night Summary",
                   "width": "fill_container",
-                  "descendants": {
-                    "ETdiJ": {
-                      "content": "Last night"
+                  "fill": "$color-surface-container",
+                  "cornerRadius": 28,
+                  "stroke": "$color-outline",
+                  "strokeWidth": 1,
+                  "effect": {
+                    "type": "shadow",
+                    "shadowType": "outer",
+                    "color": "#1F262210",
+                    "offset": {
+                      "x": 0,
+                      "y": 6
                     },
-                    "PV2hW": {
-                      "content": "24 minutes later than target"
+                    "blur": 20
+                  },
+                  "layout": "vertical",
+                  "gap": 16,
+                  "padding": 24,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "aLHFY",
+                      "name": "Summary Header Row",
+                      "width": "fill_container",
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "htFSd",
+                          "name": "Summary Eyebrow",
+                          "fill": "$color-info",
+                          "content": "Last night",
+                          "fontFamily": "$font-caption",
+                          "fontSize": 11,
+                          "fontWeight": "600",
+                          "letterSpacing": 0.4
+                        },
+                        {
+                          "type": "text",
+                          "id": "STHXK",
+                          "name": "Summary Date",
+                          "fill": "$color-secondary",
+                          "content": "Sun, May 18",
+                          "fontFamily": "$font-body",
+                          "fontSize": 12,
+                          "fontWeight": "600"
+                        }
+                      ]
                     },
-                    "GFvnm": {
-                      "content": "Keep the summary reflective and calm so it never outranks tonight's action."
+                    {
+                      "type": "text",
+                      "id": "BKuGG",
+                      "name": "Summary Title",
+                      "fill": "$color-on-surface",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "45 minutes later than your target",
+                      "lineHeight": 1.04,
+                      "fontFamily": "$font-display",
+                      "fontSize": 38,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "oldXV",
+                      "name": "Summary Body",
+                      "fill": "$color-secondary",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "You settled at 12:45 AM. The drift was smaller than your recent pattern, but tonight still needs protection.",
+                      "lineHeight": 1.45,
+                      "fontFamily": "$font-body",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "rectangle",
+                      "id": "J6gCZ",
+                      "name": "Summary Divider",
+                      "fill": "#ECE4D8",
+                      "width": "fill_container",
+                      "height": 1
+                    },
+                    {
+                      "type": "frame",
+                      "id": "xrmZ0",
+                      "name": "Summary Metrics",
+                      "width": "fill_container",
+                      "gap": 16,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "xqzJ6",
+                          "name": "Sleep Window Metric",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": 4,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "pxmLc",
+                              "name": "Sleep Window Label",
+                              "fill": "$color-secondary",
+                              "content": "SLEEP WINDOW",
+                              "fontFamily": "$font-caption",
+                              "fontSize": 10,
+                              "fontWeight": "600",
+                              "letterSpacing": 0.38
+                            },
+                            {
+                              "type": "text",
+                              "id": "VLvWn",
+                              "name": "Sleep Window Value",
+                              "fill": "$color-on-surface",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "12:45 AM - 7:08 AM",
+                              "lineHeight": 1.08,
+                              "fontFamily": "$font-display",
+                              "fontSize": 21,
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "text",
+                              "id": "V5tzT9",
+                              "name": "Sleep Window Caption",
+                              "fill": "$color-secondary",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "6h 23m in bed",
+                              "lineHeight": 1.4,
+                              "fontFamily": "$font-body",
+                              "fontSize": 12,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "rectangle",
+                          "id": "hXGVV",
+                          "name": "Metric Divider",
+                          "fill": "#ECE4D8",
+                          "width": 1,
+                          "height": 72
+                        },
+                        {
+                          "type": "frame",
+                          "id": "j7Ub37",
+                          "name": "Rhythm Metric",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": 4,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "CA5cZ",
+                              "name": "Rhythm Label",
+                              "fill": "$color-secondary",
+                              "content": "RHYTHM",
+                              "fontFamily": "$font-caption",
+                              "fontSize": 10,
+                              "fontWeight": "600",
+                              "letterSpacing": 0.38
+                            },
+                            {
+                              "type": "text",
+                              "id": "g6Nbc",
+                              "name": "Rhythm Value",
+                              "fill": "$color-tertiary",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "Watch tonight",
+                              "lineHeight": 1.08,
+                              "fontFamily": "$font-display",
+                              "fontSize": 21,
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "text",
+                              "id": "p5gXQq",
+                              "name": "Rhythm Caption",
+                              "fill": "$color-secondary",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "A small reset keeps you on rhythm.",
+                              "lineHeight": 1.4,
+                              "fontFamily": "$font-body",
+                              "fontSize": 12,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        }
+                      ]
                     }
-                  }
+                  ]
                 },
                 {
-                  "id": "tfIGS",
-                  "type": "ref",
-                  "ref": "K3o0m",
+                  "type": "frame",
+                  "id": "xGavp",
                   "name": "Tonight Recovery",
                   "width": "fill_container",
-                  "descendants": {
-                    "I4NtH": {
-                      "content": "Recovery path"
+                  "fill": "#F9F5EE",
+                  "cornerRadius": 24,
+                  "stroke": "#EAD8BD",
+                  "strokeWidth": 1,
+                  "effect": {
+                    "type": "shadow",
+                    "shadowType": "outer",
+                    "color": "#C99A6118",
+                    "offset": {
+                      "x": 0,
+                      "y": 6
                     },
-                    "cvCkO": {
-                      "content": "Aim for a soft reset over the next two nights"
+                    "blur": 18
+                  },
+                  "layout": "vertical",
+                  "gap": 14,
+                  "padding": 20,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "E5xuNR",
+                      "name": "Recovery Header Row",
+                      "width": "fill_container",
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "R7ih0",
+                          "name": "Recovery Eyebrow",
+                          "fill": "$color-tertiary",
+                          "content": "Tonight's target",
+                          "fontFamily": "$font-caption",
+                          "fontSize": 11,
+                          "fontWeight": "600",
+                          "letterSpacing": 0.35
+                        },
+                        {
+                          "type": "frame",
+                          "id": "SDY5m",
+                          "name": "Recovery Status Chip",
+                          "fill": "#F4E5CF",
+                          "cornerRadius": 9999,
+                          "padding": [
+                            7,
+                            12
+                          ],
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "M9cft",
+                              "name": "Recovery Status Label",
+                              "fill": "$color-tertiary",
+                              "content": "SMALL RESET",
+                              "fontFamily": "$font-caption",
+                              "fontSize": 10,
+                              "fontWeight": "600",
+                              "letterSpacing": 0.35
+                            }
+                          ]
+                        }
+                      ]
                     },
-                    "YQuUK": {
-                      "content": "Recovery guidance should feel reassuring, not punitive."
+                    {
+                      "type": "text",
+                      "id": "jaMsn",
+                      "name": "Recovery Title",
+                      "fill": "$color-on-surface",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "12:15 AM",
+                      "lineHeight": 1.06,
+                      "fontFamily": "$font-display",
+                      "fontSize": 30,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "OIn9r",
+                      "name": "Recovery Body",
+                      "fill": "$color-secondary",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Wind down by 11:30 PM. Protect a calmer 7-hour window tonight.",
+                      "lineHeight": 1.45,
+                      "fontFamily": "$font-body",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
                     }
-                  }
+                  ]
                 }
               ]
             },
             {
               "type": "frame",
-              "id": "OQtIR",
-              "name": "Trend Preview",
+              "id": "sYqvI",
+              "name": "Tonight Action Card",
               "width": "fill_container",
-              "fill": "#F8FBFC",
-              "cornerRadius": 18,
-              "stroke": "#E7EEF2",
+              "fill": "$color-surface-container",
+              "cornerRadius": 28,
+              "stroke": "$color-outline",
               "strokeWidth": 1,
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
-                "color": "#18313A0C",
+                "color": "#1F262214",
+                "offset": {
+                  "x": 0,
+                  "y": 8
+                },
+                "blur": 24
+              },
+              "layout": "vertical",
+              "gap": 16,
+              "padding": 24,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "wHtnu",
+                  "name": "Action Eyebrow",
+                  "fill": "$color-info",
+                  "content": "Next right step",
+                  "fontFamily": "$font-caption",
+                  "fontSize": 11,
+                  "fontWeight": "600",
+                  "letterSpacing": 0.4
+                },
+                {
+                  "type": "frame",
+                  "id": "cVY7s",
+                  "name": "Action Content Row",
+                  "width": "fill_container",
+                  "gap": 16,
+                  "alignItems": "end",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "gSv6G",
+                      "name": "Action Copy",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 8,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "DUYRE",
+                          "name": "Action Title",
+                          "fill": "$color-on-surface",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Begin your wind-down",
+                          "lineHeight": 1.1,
+                          "fontFamily": "$font-display",
+                          "fontSize": 26,
+                          "fontWeight": "650"
+                        },
+                        {
+                          "type": "text",
+                          "id": "Tq4oe",
+                          "name": "Action Body",
+                          "fill": "$color-secondary",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Dim the lights, put things away, and give yourself 30 quiet minutes.",
+                          "lineHeight": 1.45,
+                          "fontFamily": "$font-body",
+                          "fontSize": 13,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "Q25vj",
+                      "name": "Action Button",
+                      "width": 136,
+                      "fill": "$color-primary",
+                      "cornerRadius": 18,
+                      "effect": {
+                        "type": "shadow",
+                        "shadowType": "outer",
+                        "color": "#718C7424",
+                        "offset": {
+                          "x": 0,
+                          "y": 8
+                        },
+                        "blur": 22
+                      },
+                      "padding": [
+                        16,
+                        18
+                      ],
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "IWaOQ",
+                          "name": "Action Button Label",
+                          "fill": "$color-on-primary",
+                          "content": "Start wind-down",
+                          "fontFamily": "$font-body",
+                          "fontSize": 14,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "NSD1u",
+              "name": "Trend Preview",
+              "width": "fill_container",
+              "fill": "#FBF8F2",
+              "cornerRadius": 24,
+              "stroke": "$color-outline",
+              "strokeWidth": 1,
+              "effect": {
+                "type": "shadow",
+                "shadowType": "outer",
+                "color": "#1F262210",
                 "offset": {
                   "x": 0,
                   "y": 6
@@ -741,15 +1106,15 @@
                 "blur": 18
               },
               "layout": "vertical",
-              "gap": 12,
-              "padding": 18,
+              "gap": 16,
+              "padding": 20,
               "children": [
                 {
                   "type": "text",
-                  "id": "o5L7JN",
+                  "id": "O6Xrh",
                   "name": "Trend Preview Title",
-                  "fill": "#758890",
-                  "content": "7-day trend",
+                  "fill": "$color-info",
+                  "content": "7-day rhythm preview",
                   "fontFamily": "$font-caption",
                   "fontSize": 11,
                   "fontWeight": "600",
@@ -757,110 +1122,382 @@
                 },
                 {
                   "type": "frame",
-                  "id": "FsQEv",
-                  "name": "Trend Bars",
+                  "id": "t2Pa2",
+                  "name": "Trend Day Row",
                   "width": "fill_container",
-                  "height": 74,
-                  "gap": 8,
-                  "alignItems": "end",
+                  "justifyContent": "space_between",
                   "children": [
                     {
-                      "type": "rectangle",
-                      "cornerRadius": [
-                        12,
-                        12,
-                        4,
-                        4
-                      ],
-                      "id": "TyQOS",
-                      "name": "Trend Bar 44",
-                      "fill": "#CFE0E6",
-                      "width": 38,
-                      "height": 44
+                      "type": "frame",
+                      "id": "B41mC",
+                      "name": "Trend Day Tue",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 10,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "frKAj",
+                          "name": "Trend Day Tue Label",
+                          "fill": "$color-secondary",
+                          "content": "TUE",
+                          "fontFamily": "$font-caption",
+                          "fontSize": 10,
+                          "fontWeight": "600",
+                          "letterSpacing": 0.35
+                        },
+                        {
+                          "type": "ellipse",
+                          "id": "Nwstj",
+                          "name": "Trend Day Tue Dot",
+                          "fill": "#A8B88F",
+                          "width": 18,
+                          "height": 18
+                        },
+                        {
+                          "type": "text",
+                          "id": "E90v6",
+                          "name": "Trend Day Tue Status",
+                          "fill": "$color-secondary",
+                          "content": "On",
+                          "fontFamily": "$font-body",
+                          "fontSize": 12,
+                          "fontWeight": "500"
+                        }
+                      ]
                     },
                     {
-                      "type": "rectangle",
-                      "cornerRadius": [
-                        12,
-                        12,
-                        4,
-                        4
-                      ],
-                      "id": "q4neFw",
-                      "name": "Trend Bar 58",
-                      "fill": "#CFE0E6",
-                      "width": 38,
-                      "height": 58
+                      "type": "frame",
+                      "id": "MtHvL",
+                      "name": "Trend Day Wed",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 10,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "LCwrF",
+                          "name": "Trend Day Wed Label",
+                          "fill": "$color-secondary",
+                          "content": "WED",
+                          "fontFamily": "$font-caption",
+                          "fontSize": 10,
+                          "fontWeight": "600",
+                          "letterSpacing": 0.35
+                        },
+                        {
+                          "type": "ellipse",
+                          "id": "u4W55",
+                          "name": "Trend Day Wed Dot",
+                          "fill": "#A8B88F",
+                          "width": 18,
+                          "height": 18
+                        },
+                        {
+                          "type": "text",
+                          "id": "BSS1F",
+                          "name": "Trend Day Wed Status",
+                          "fill": "$color-secondary",
+                          "content": "On",
+                          "fontFamily": "$font-body",
+                          "fontSize": 12,
+                          "fontWeight": "500"
+                        }
+                      ]
                     },
                     {
-                      "type": "rectangle",
-                      "cornerRadius": [
-                        12,
-                        12,
-                        4,
-                        4
-                      ],
-                      "id": "oBTeN",
-                      "name": "Trend Bar 36",
-                      "fill": "#CFE0E6",
-                      "width": 38,
-                      "height": 36
+                      "type": "frame",
+                      "id": "D9Eif",
+                      "name": "Trend Day Thu",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 10,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "YvLF2",
+                          "name": "Trend Day Thu Label",
+                          "fill": "$color-secondary",
+                          "content": "THU",
+                          "fontFamily": "$font-caption",
+                          "fontSize": 10,
+                          "fontWeight": "600",
+                          "letterSpacing": 0.35
+                        },
+                        {
+                          "type": "ellipse",
+                          "id": "u5uyN",
+                          "name": "Trend Day Thu Dot",
+                          "fill": "#D6B169",
+                          "width": 18,
+                          "height": 18
+                        },
+                        {
+                          "type": "text",
+                          "id": "RsIbl",
+                          "name": "Trend Day Thu Status",
+                          "fill": "$color-secondary",
+                          "content": "Watch",
+                          "fontFamily": "$font-body",
+                          "fontSize": 12,
+                          "fontWeight": "500"
+                        }
+                      ]
                     },
                     {
-                      "type": "rectangle",
-                      "cornerRadius": [
-                        12,
-                        12,
-                        4,
-                        4
-                      ],
-                      "id": "P0DoWp",
-                      "name": "Trend Bar 64",
-                      "fill": "#CFE0E6",
-                      "width": 38,
-                      "height": 64
+                      "type": "frame",
+                      "id": "iaOm1",
+                      "name": "Trend Day Fri",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 10,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "qA51x",
+                          "name": "Trend Day Fri Label",
+                          "fill": "$color-secondary",
+                          "content": "FRI",
+                          "fontFamily": "$font-caption",
+                          "fontSize": 10,
+                          "fontWeight": "600",
+                          "letterSpacing": 0.35
+                        },
+                        {
+                          "type": "ellipse",
+                          "id": "e2DXt",
+                          "name": "Trend Day Fri Dot",
+                          "fill": "#A8B88F",
+                          "width": 18,
+                          "height": 18
+                        },
+                        {
+                          "type": "text",
+                          "id": "UgLyd",
+                          "name": "Trend Day Fri Status",
+                          "fill": "$color-secondary",
+                          "content": "On",
+                          "fontFamily": "$font-body",
+                          "fontSize": 12,
+                          "fontWeight": "500"
+                        }
+                      ]
                     },
                     {
-                      "type": "rectangle",
-                      "cornerRadius": [
-                        12,
-                        12,
-                        4,
-                        4
-                      ],
-                      "id": "R56KqK",
-                      "name": "Trend Bar 52",
-                      "fill": "#CFE0E6",
-                      "width": 38,
-                      "height": 52
+                      "type": "frame",
+                      "id": "LyO4e",
+                      "name": "Trend Day Sat",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 10,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "bgWvc",
+                          "name": "Trend Day Sat Label",
+                          "fill": "$color-secondary",
+                          "content": "SAT",
+                          "fontFamily": "$font-caption",
+                          "fontSize": 10,
+                          "fontWeight": "600",
+                          "letterSpacing": 0.35
+                        },
+                        {
+                          "type": "ellipse",
+                          "id": "LhJJX",
+                          "name": "Trend Day Sat Dot",
+                          "fill": "$color-error",
+                          "width": 18,
+                          "height": 18
+                        },
+                        {
+                          "type": "text",
+                          "id": "umdpC",
+                          "name": "Trend Day Sat Status",
+                          "fill": "$color-secondary",
+                          "content": "Late",
+                          "fontFamily": "$font-body",
+                          "fontSize": 12,
+                          "fontWeight": "500"
+                        }
+                      ]
                     },
                     {
-                      "type": "rectangle",
-                      "cornerRadius": [
-                        12,
-                        12,
-                        4,
-                        4
-                      ],
-                      "id": "BqEMY",
-                      "name": "Trend Bar 40",
-                      "fill": "#CFE0E6",
-                      "width": 38,
-                      "height": 40
+                      "type": "frame",
+                      "id": "FuskK",
+                      "name": "Trend Day Sun",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 10,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "lbAXp",
+                          "name": "Trend Day Sun Label",
+                          "fill": "$color-secondary",
+                          "content": "SUN",
+                          "fontFamily": "$font-caption",
+                          "fontSize": 10,
+                          "fontWeight": "600",
+                          "letterSpacing": 0.35
+                        },
+                        {
+                          "type": "ellipse",
+                          "id": "ndZ32",
+                          "name": "Trend Day Sun Dot",
+                          "fill": "#A8B88F",
+                          "width": 18,
+                          "height": 18
+                        },
+                        {
+                          "type": "text",
+                          "id": "K4bmrh",
+                          "name": "Trend Day Sun Status",
+                          "fill": "$color-secondary",
+                          "content": "On",
+                          "fontFamily": "$font-body",
+                          "fontSize": 12,
+                          "fontWeight": "500"
+                        }
+                      ]
                     },
                     {
-                      "type": "rectangle",
-                      "cornerRadius": [
-                        12,
-                        12,
-                        4,
-                        4
-                      ],
-                      "id": "haV30",
-                      "name": "Trend Bar 70",
-                      "fill": "#CFE0E6",
-                      "width": 38,
-                      "height": 66
+                      "type": "frame",
+                      "id": "zbKDw",
+                      "name": "Trend Day Mon",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 10,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "a8KSyd",
+                          "name": "Trend Day Mon Label",
+                          "fill": "$color-secondary",
+                          "content": "MON",
+                          "fontFamily": "$font-caption",
+                          "fontSize": 10,
+                          "fontWeight": "600",
+                          "letterSpacing": 0.35
+                        },
+                        {
+                          "type": "ellipse",
+                          "id": "mpgxf",
+                          "name": "Trend Day Mon Dot",
+                          "fill": "#A8B88F",
+                          "width": 18,
+                          "height": 18
+                        },
+                        {
+                          "type": "text",
+                          "id": "vfHY0",
+                          "name": "Trend Day Mon Status",
+                          "fill": "$color-secondary",
+                          "content": "On",
+                          "fontFamily": "$font-body",
+                          "fontSize": 12,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "LRqsp",
+                  "name": "Trend Legend Row",
+                  "width": "fill_container",
+                  "gap": 18,
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "GQLlE",
+                      "name": "Trend Legend On",
+                      "gap": 6,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "ellipse",
+                          "id": "AGcLp",
+                          "name": "Trend Legend On Dot",
+                          "fill": "#A8B88F",
+                          "width": 10,
+                          "height": 10
+                        },
+                        {
+                          "type": "text",
+                          "id": "vIwxr",
+                          "name": "Trend Legend On Label",
+                          "fill": "$color-secondary",
+                          "content": "On plan",
+                          "fontFamily": "$font-body",
+                          "fontSize": 12,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "CqAWQ",
+                      "name": "Trend Legend Watch",
+                      "gap": 6,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "ellipse",
+                          "id": "x7ukKh",
+                          "name": "Trend Legend Watch Dot",
+                          "fill": "#D6B169",
+                          "width": 10,
+                          "height": 10
+                        },
+                        {
+                          "type": "text",
+                          "id": "GLIMA",
+                          "name": "Trend Legend Watch Label",
+                          "fill": "$color-secondary",
+                          "content": "Watch",
+                          "fontFamily": "$font-body",
+                          "fontSize": 12,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "kWGMs",
+                      "name": "Trend Legend Late",
+                      "gap": 6,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "ellipse",
+                          "id": "g83N5",
+                          "name": "Trend Legend Late Dot",
+                          "fill": "$color-error",
+                          "width": 10,
+                          "height": 10
+                        },
+                        {
+                          "type": "text",
+                          "id": "nN6Pc",
+                          "name": "Trend Legend Late Label",
+                          "fill": "$color-secondary",
+                          "content": "Late",
+                          "fontFamily": "$font-body",
+                          "fontSize": 12,
+                          "fontWeight": "500"
+                        }
+                      ]
                     }
                   ]
                 }
@@ -1017,7 +1654,8 @@
                   "content": "Review long-term rhythm without turning the page into a data dashboard.",
                   "lineHeight": 1.45,
                   "fontFamily": "$font-body",
-                  "fontSize": 14
+                  "fontSize": 14,
+                  "fontWeight": "normal"
                 }
               ]
             },
@@ -1057,7 +1695,8 @@
                   "content": "The calendar screen should make patterns scannable while keeping visual pressure low.",
                   "lineHeight": 1.45,
                   "fontFamily": "$font-body",
-                  "fontSize": 13
+                  "fontSize": 13,
+                  "fontWeight": "normal"
                 }
               ]
             },
@@ -1615,7 +2254,8 @@
                   "content": "Lower the friction of starting the nightly shutdown sequence.",
                   "lineHeight": 1.45,
                   "fontFamily": "$font-body",
-                  "fontSize": 14
+                  "fontSize": 14,
+                  "fontWeight": "normal"
                 }
               ]
             },
@@ -1896,7 +2536,8 @@
                   "content": "Turn repeated behavior into calm weekly understanding and recovery planning.",
                   "lineHeight": 1.45,
                   "fontFamily": "$font-body",
-                  "fontSize": 14
+                  "fontSize": 14,
+                  "fontWeight": "normal"
                 }
               ]
             },
@@ -2210,7 +2851,8 @@
                   "content": "Keep account, permissions, sync, and membership management quiet and trustworthy.",
                   "lineHeight": 1.45,
                   "fontFamily": "$font-body",
-                  "fontSize": 14
+                  "fontSize": 14,
+                  "fontWeight": "normal"
                 }
               ]
             },
@@ -2269,7 +2911,8 @@
                           "content": "Bedtime 23:10 · Wake 07:20",
                           "lineHeight": 1.4,
                           "fontFamily": "$font-body",
-                          "fontSize": 12
+                          "fontSize": 12,
+                          "fontWeight": "normal"
                         }
                       ]
                     },
@@ -2332,7 +2975,8 @@
                           "content": "Connected with manual correction available",
                           "lineHeight": 1.4,
                           "fontFamily": "$font-body",
-                          "fontSize": 12
+                          "fontSize": 12,
+                          "fontWeight": "normal"
                         }
                       ]
                     },
@@ -2395,7 +3039,8 @@
                           "content": "Anonymous local mode with account upgrade path",
                           "lineHeight": 1.4,
                           "fontFamily": "$font-body",
-                          "fontSize": 12
+                          "fontSize": 12,
+                          "fontWeight": "normal"
                         }
                       ]
                     },
@@ -2458,7 +3103,8 @@
                           "content": "Recovery plans and long-term history available here",
                           "lineHeight": 1.4,
                           "fontFamily": "$font-body",
-                          "fontSize": 12
+                          "fontSize": 12,
+                          "fontWeight": "normal"
                         }
                       ]
                     },
@@ -2627,7 +3273,8 @@
                   "content": "A soft, practical setup that explains value before permissions.",
                   "lineHeight": 1.45,
                   "fontFamily": "$font-body",
-                  "fontSize": 14
+                  "fontSize": 14,
+                  "fontWeight": "normal"
                 }
               ]
             },
@@ -2667,7 +3314,8 @@
                   "content": "Rhythm helps you see tonight's next step, understand last night gently, and recover without pressure.",
                   "lineHeight": 1.45,
                   "fontFamily": "$font-body",
-                  "fontSize": 14
+                  "fontSize": 14,
+                  "fontWeight": "normal"
                 }
               ]
             },
@@ -3316,59 +3964,59 @@
   "variables": {
     "color-error": {
       "type": "color",
-      "value": "#C96E66"
+      "value": "#D48672"
     },
     "color-info": {
       "type": "color",
-      "value": "#7A93A0"
+      "value": "#99A4AA"
     },
     "color-on-primary": {
       "type": "color",
-      "value": "#F7FBFC"
+      "value": "#F8F6F1"
     },
     "color-on-surface": {
       "type": "color",
-      "value": "#18242B"
+      "value": "#1F2622"
     },
     "color-outline": {
       "type": "color",
-      "value": "#D9E4EA"
+      "value": "#E5DDD0"
     },
     "color-primary": {
       "type": "color",
-      "value": "#2F6B7A"
+      "value": "#718C74"
     },
     "color-secondary": {
       "type": "color",
-      "value": "#6F8490"
+      "value": "#7F8983"
     },
     "color-success": {
       "type": "color",
-      "value": "#5F8F78"
+      "value": "#718C74"
     },
     "color-surface": {
       "type": "color",
-      "value": "#F5F8FA"
+      "value": "#F6F2EA"
     },
     "color-surface-container": {
       "type": "color",
-      "value": "#FCFEFF"
+      "value": "#FCF9F3"
     },
     "color-tertiary": {
       "type": "color",
-      "value": "#C88B4A"
+      "value": "#C99A61"
     },
     "color-warning": {
       "type": "color",
-      "value": "#C88B4A"
+      "value": "#C99A61"
     },
     "font-body": {
       "type": "string",
-      "value": "Geist"
+      "value": "Inter"
     },
     "font-display": {
       "type": "string",
-      "value": "Geist"
+      "value": "Playfair Display"
     },
     "radius-full": {
       "type": "number",
@@ -3376,11 +4024,11 @@
     },
     "radius-lg": {
       "type": "number",
-      "value": 24
+      "value": 28
     },
     "radius-md": {
       "type": "number",
-      "value": 16
+      "value": 18
     },
     "radius-sm": {
       "type": "number",
@@ -3416,7 +4064,7 @@
     },
     "font-data": {
       "type": "string",
-      "value": "Geist Mono"
+      "value": "IBM Plex Mono"
     }
   }
 }
