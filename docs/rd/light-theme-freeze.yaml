@@ -1,0 +1,75 @@
+artifact_type: theme_freeze
+theme_id: light
+platform_baseline: ios_hig
+color_roles:
+  primary: "#255968"
+  on_primary: "#F7FBFC"
+  secondary: "#6F8490"
+  on_secondary: "#FFFFFF"
+  accent: "#B3783E"
+surface_roles:
+  background: "#F5F8FA"
+  surface: "#FFFFFF"
+  surface_subtle: "#F8FBFC"
+  surface_elevated: "#FFFFFF"
+  surface_inverse: "#18242B"
+text_roles:
+  text_primary: "#18242B"
+  text_secondary: "#60757F"
+  text_tertiary: "#758890"
+  text_inverse: "#F7FBFC"
+icon_roles:
+  icon_primary: "#255968"
+  icon_secondary: "#6F8490"
+  icon_inverse: "#F7FBFC"
+border_roles:
+  border_subtle: "#E7EEF2"
+  border_strong: "#D9E4EA"
+  divider: "#EAF0F3"
+status_roles:
+  success: "#5F8F78"
+  on_success: "#F7FBFC"
+  warning: "#B3783E"
+  on_warning: "#FFF9F3"
+  error: "#C96E66"
+  on_error: "#FFF6F5"
+  info: "#7A93A0"
+  on_info: "#F7FBFC"
+shadow_or_overlay_roles:
+  shadow_color: "rgba(24, 49, 58, 0.10)"
+  overlay_scrim: "rgba(24, 36, 43, 0.24)"
+  focus_ring: "#6FA5B3"
+component_state_roles:
+  primary_button:
+    default_background: "#255968"
+    default_text: "#F7FBFC"
+    disabled_background: "#BFD0D7"
+    disabled_text: "#F5F8FA"
+    pressed_background: "#1F4C58"
+  secondary_button:
+    default_background: "#F8FBFC"
+    default_text: "#255968"
+    default_border: "#D9E4EA"
+    pressed_background: "#EEF4F7"
+  input_field:
+    default_background: "#FCFEFF"
+    default_text: "#18242B"
+    default_border: "#D9E4EA"
+    focus_border: "#6FA5B3"
+    disabled_background: "#F2F5F7"
+  card:
+    default_background: "#FFFFFF"
+    default_border: "#E7EEF2"
+    elevated_shadow: "rgba(20, 49, 58, 0.10)"
+    recovery_background: "#FFF9F3"
+contrast_rules:
+  body_text_on_background: ">= 4.5:1"
+  body_text_on_surface: ">= 4.5:1"
+  text_on_primary: ">= 4.5:1"
+  cta_text_on_primary: ">= 4.5:1"
+  essential_iconography: ">= 3:1"
+forbidden_overrides:
+  - "Do not replace semantic primary with ad-hoc gradients."
+  - "Do not darken or warm the global background until the calm cool reading posture is lost."
+  - "Do not promote secondary cards to the same contrast band as the primary action card."
+  - "Do not swap recovery warning roles with decorative accent usage."

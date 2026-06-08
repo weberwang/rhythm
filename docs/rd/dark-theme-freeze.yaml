@@ -1,0 +1,75 @@
+artifact_type: theme_freeze
+theme_id: dark
+platform_baseline: ios_hig
+color_roles:
+  primary: "#4F95A5"
+  on_primary: "#081217"
+  secondary: "#8FA7B1"
+  on_secondary: "#081217"
+  accent: "#D19A62"
+surface_roles:
+  background: "#0C1318"
+  surface: "#121B21"
+  surface_subtle: "#162129"
+  surface_elevated: "#1B2831"
+  surface_inverse: "#F5F8FA"
+text_roles:
+  text_primary: "#F2F7F9"
+  text_secondary: "#C4D1D8"
+  text_tertiary: "#96AAB4"
+  text_inverse: "#18242B"
+icon_roles:
+  icon_primary: "#86B6C2"
+  icon_secondary: "#9CB0B9"
+  icon_inverse: "#18242B"
+border_roles:
+  border_subtle: "#223038"
+  border_strong: "#30424D"
+  divider: "#26363F"
+status_roles:
+  success: "#75A58C"
+  on_success: "#081217"
+  warning: "#D19A62"
+  on_warning: "#081217"
+  error: "#DA8B84"
+  on_error: "#081217"
+  info: "#8FA7B1"
+  on_info: "#081217"
+shadow_or_overlay_roles:
+  shadow_color: "rgba(0, 0, 0, 0.40)"
+  overlay_scrim: "rgba(3, 7, 10, 0.56)"
+  focus_ring: "#7CB2C0"
+component_state_roles:
+  primary_button:
+    default_background: "#4F95A5"
+    default_text: "#081217"
+    disabled_background: "#32444D"
+    disabled_text: "#7E919B"
+    pressed_background: "#5EA7B7"
+  secondary_button:
+    default_background: "#162129"
+    default_text: "#D6E2E7"
+    default_border: "#30424D"
+    pressed_background: "#1B2831"
+  input_field:
+    default_background: "#121B21"
+    default_text: "#F2F7F9"
+    default_border: "#30424D"
+    focus_border: "#7CB2C0"
+    disabled_background: "#11181D"
+  card:
+    default_background: "#121B21"
+    default_border: "#223038"
+    elevated_shadow: "rgba(0, 0, 0, 0.32)"
+    recovery_background: "#231C16"
+contrast_rules:
+  body_text_on_background: ">= 4.5:1"
+  body_text_on_surface: ">= 4.5:1"
+  text_on_primary: ">= 4.5:1"
+  cta_text_on_primary: ">= 4.5:1"
+  essential_iconography: ">= 3:1"
+forbidden_overrides:
+  - "Do not turn dark mode into pure black neon contrast noise."
+  - "Do not push the primary CTA into glow-heavy or electric accent treatment."
+  - "Do not collapse secondary text into unreadable low-contrast gray."
+  - "Do not reuse light-mode warning and recovery backgrounds without rebuilding contrast."
