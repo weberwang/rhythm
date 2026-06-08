@@ -1,4 +1,3422 @@
 {
   "version": "2.13",
-  "children": []
+  "children": [
+    {
+      "type": "frame",
+      "id": "s3gcd",
+      "x": 0,
+      "y": 0,
+      "name": "Rhythm Shared Design Master",
+      "width": 1500,
+      "fill": "$color-surface",
+      "layout": "vertical",
+      "gap": 24,
+      "padding": 24,
+      "children": [
+        {
+          "type": "text",
+          "id": "cwmE5",
+          "name": "Master Title",
+          "fill": "$color-on-surface",
+          "content": "Rhythm Shared Design Master",
+          "fontFamily": "$font-display",
+          "fontSize": 28,
+          "fontWeight": "700"
+        },
+        {
+          "type": "text",
+          "id": "oNqeK",
+          "name": "Master Subtitle",
+          "fill": "$color-secondary",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "Shared public shell, primary card families, and calm recovery interaction language.",
+          "lineHeight": 1.4,
+          "fontFamily": "$font-body",
+          "fontSize": 14
+        },
+        {
+          "type": "frame",
+          "id": "TVAVx",
+          "name": "Component Row",
+          "width": "fill_container",
+          "gap": 24,
+          "children": [
+            {
+              "type": "frame",
+              "id": "qs9oz",
+              "name": "Status Bar Component",
+              "reusable": true,
+              "width": 358,
+              "height": 62,
+              "fill": "#00000000",
+              "stroke": "#00000000",
+              "padding": [
+                0,
+                2
+              ],
+              "justifyContent": "space_between",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "aemli",
+                  "name": "Status Time",
+                  "fill": "$color-on-surface",
+                  "content": "9:41",
+                  "fontFamily": "$font-caption",
+                  "fontSize": 14,
+                  "fontWeight": "600"
+                },
+                {
+                  "type": "frame",
+                  "id": "hqDSX",
+                  "name": "Status Icons",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "LjK9g",
+                      "name": "Signal",
+                      "fill": "$color-on-surface",
+                      "content": "●●●",
+                      "fontFamily": "$font-caption",
+                      "fontSize": 11,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "rJkwx",
+                      "name": "Wifi",
+                      "fill": "$color-on-surface",
+                      "content": "◔",
+                      "fontFamily": "$font-caption",
+                      "fontSize": 12,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "SyAlp",
+                      "name": "Battery",
+                      "fill": "$color-on-surface",
+                      "content": "88%",
+                      "fontFamily": "$font-caption",
+                      "fontSize": 11,
+                      "fontWeight": "600"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "w4XXe",
+              "name": "Primary Action Card",
+              "reusable": true,
+              "width": 358,
+              "fill": "#FFFFFF",
+              "cornerRadius": 20,
+              "stroke": "#EAF0F3",
+              "strokeWidth": 1,
+              "effect": {
+                "type": "shadow",
+                "shadowType": "outer",
+                "color": "#14313A12",
+                "offset": {
+                  "x": 0,
+                  "y": 10
+                },
+                "blur": 28
+              },
+              "layout": "vertical",
+              "gap": 16,
+              "padding": 22,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "c7MzH",
+                  "name": "Action Eyebrow",
+                  "fill": "#6F8490",
+                  "content": "Tonight",
+                  "fontFamily": "$font-caption",
+                  "fontSize": 11,
+                  "fontWeight": "600",
+                  "letterSpacing": 0.4
+                },
+                {
+                  "type": "text",
+                  "id": "psFeF",
+                  "name": "Action Title",
+                  "fill": "#102127",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Start winding down before 23:10",
+                  "lineHeight": 1.14,
+                  "fontFamily": "$font-display",
+                  "fontSize": 25,
+                  "fontWeight": "650"
+                },
+                {
+                  "type": "text",
+                  "id": "G2GVcY",
+                  "name": "Action Body",
+                  "fill": "#60757F",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Keep the next step obvious and gentle. The screen should feel like an invitation, not a score report.",
+                  "lineHeight": 1.45,
+                  "fontFamily": "$font-body",
+                  "fontSize": 13
+                },
+                {
+                  "type": "frame",
+                  "id": "IfGte",
+                  "name": "Action Button",
+                  "fill": "#255968",
+                  "cornerRadius": "$radius-full",
+                  "effect": {
+                    "type": "shadow",
+                    "shadowType": "outer",
+                    "color": "#25596829",
+                    "offset": {
+                      "x": 0,
+                      "y": 8
+                    },
+                    "blur": 20
+                  },
+                  "padding": [
+                    13,
+                    18
+                  ],
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "DVRye",
+                      "name": "Action Button Label",
+                      "fill": "$color-on-primary",
+                      "content": "Start easing into bedtime",
+                      "fontFamily": "$font-body",
+                      "fontSize": 14,
+                      "fontWeight": "600"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "sELFx",
+              "name": "Secondary Card Column",
+              "width": 358,
+              "layout": "vertical",
+              "gap": 24,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "ZjgOl",
+                  "name": "Summary Card",
+                  "reusable": true,
+                  "width": "fill_container",
+                  "fill": "#F9FBFC",
+                  "cornerRadius": 18,
+                  "stroke": "#E7EEF2",
+                  "strokeWidth": 1,
+                  "effect": {
+                    "type": "shadow",
+                    "shadowType": "outer",
+                    "color": "#18313A0D",
+                    "offset": {
+                      "x": 0,
+                      "y": 6
+                    },
+                    "blur": 18
+                  },
+                  "layout": "vertical",
+                  "gap": 10,
+                  "padding": 18,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "ETdiJ",
+                      "name": "Summary Eyebrow",
+                      "fill": "#758890",
+                      "content": "Last night",
+                      "fontFamily": "$font-caption",
+                      "fontSize": 11,
+                      "fontWeight": "600",
+                      "letterSpacing": 0.4
+                    },
+                    {
+                      "type": "text",
+                      "id": "PV2hW",
+                      "name": "Summary Title",
+                      "fill": "#18242B",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "24 minutes later than target",
+                      "lineHeight": 1.22,
+                      "fontFamily": "$font-display",
+                      "fontSize": 17,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "GFvnm",
+                      "name": "Summary Body",
+                      "fill": "#6C8089",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Outcome information stays calm and readable so it never outranks tonight's task.",
+                      "lineHeight": 1.45,
+                      "fontFamily": "$font-body",
+                      "fontSize": 12
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "K3o0m",
+                  "name": "Recovery Card",
+                  "reusable": true,
+                  "width": "fill_container",
+                  "fill": "#FFF9F3",
+                  "cornerRadius": 18,
+                  "stroke": "#F1DEC9",
+                  "strokeWidth": 1,
+                  "effect": {
+                    "type": "shadow",
+                    "shadowType": "outer",
+                    "color": "#9F6C2A12",
+                    "offset": {
+                      "x": 0,
+                      "y": 6
+                    },
+                    "blur": 18
+                  },
+                  "layout": "vertical",
+                  "gap": 10,
+                  "padding": 18,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "I4NtH",
+                      "name": "Recovery Eyebrow",
+                      "fill": "#B3783E",
+                      "content": "Recovery path",
+                      "fontFamily": "$font-caption",
+                      "fontSize": 11,
+                      "fontWeight": "600",
+                      "letterSpacing": 0.35
+                    },
+                    {
+                      "type": "text",
+                      "id": "cvCkO",
+                      "name": "Recovery Title",
+                      "fill": "#18242B",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Shift gently for the next two nights",
+                      "lineHeight": 1.22,
+                      "fontFamily": "$font-display",
+                      "fontSize": 17,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "YQuUK",
+                      "name": "Recovery Body",
+                      "fill": "#7B817B",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Use supportive guidance, never shame-heavy language or alarm styling.",
+                      "lineHeight": 1.45,
+                      "fontFamily": "$font-body",
+                      "fontSize": 12
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "OkwbA",
+          "name": "Shared Tab Bar",
+          "reusable": true,
+          "width": 390,
+          "layout": "vertical",
+          "gap": 10,
+          "padding": [
+            0,
+            0,
+            10,
+            0
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "Qm0rk",
+              "name": "Tab Bar Surface",
+              "width": 358,
+              "height": 54,
+              "fill": "#FFFFFFF0",
+              "cornerRadius": 20,
+              "stroke": "#E8EEF2",
+              "strokeWidth": 1,
+              "effect": {
+                "type": "shadow",
+                "shadowType": "outer",
+                "color": "#18242B14",
+                "offset": {
+                  "x": 0,
+                  "y": 10
+                },
+                "blur": 28
+              },
+              "padding": [
+                5,
+                7
+              ],
+              "justifyContent": "space_between",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "H5SaBa",
+                  "name": "Tab Today",
+                  "fill": "#E8F4F6",
+                  "cornerRadius": 14,
+                  "layout": "vertical",
+                  "gap": 2,
+                  "padding": [
+                    6,
+                    8
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon",
+                      "id": "f7PRo",
+                      "name": "Today Icon",
+                      "width": 19,
+                      "height": 19,
+                      "icon": "home",
+                      "library": "Material Symbols Rounded",
+                      "fill": "$color-primary"
+                    },
+                    {
+                      "type": "text",
+                      "id": "OkbtZ",
+                      "name": "Today Label",
+                      "fill": "$color-primary",
+                      "content": "Today",
+                      "fontFamily": "$font-caption",
+                      "fontSize": 9,
+                      "fontWeight": "600",
+                      "letterSpacing": 0.2
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "NNrpn",
+                  "name": "Tab Calendar",
+                  "fill": "#00000000",
+                  "cornerRadius": 14,
+                  "layout": "vertical",
+                  "gap": 2,
+                  "padding": [
+                    6,
+                    8
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon",
+                      "id": "Y8XL0",
+                      "name": "Calendar Icon",
+                      "width": 19,
+                      "height": 19,
+                      "icon": "calendar_month",
+                      "library": "Material Symbols Rounded",
+                      "fill": "$color-secondary"
+                    },
+                    {
+                      "type": "text",
+                      "id": "yLUhb",
+                      "name": "Calendar Label",
+                      "fill": "$color-secondary",
+                      "content": "Calendar",
+                      "fontFamily": "$font-caption",
+                      "fontSize": 9,
+                      "fontWeight": "500",
+                      "letterSpacing": 0.2
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "p7vOR",
+                  "name": "Tab Bedtime",
+                  "fill": "#00000000",
+                  "cornerRadius": 14,
+                  "layout": "vertical",
+                  "gap": 2,
+                  "padding": [
+                    6,
+                    8
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon",
+                      "id": "pQdIQ",
+                      "name": "Bedtime Icon",
+                      "width": 19,
+                      "height": 19,
+                      "icon": "bedtime",
+                      "library": "Material Symbols Rounded",
+                      "fill": "$color-secondary"
+                    },
+                    {
+                      "type": "text",
+                      "id": "sR4Ob",
+                      "name": "Bedtime Label",
+                      "fill": "$color-secondary",
+                      "content": "Bedtime",
+                      "fontFamily": "$font-caption",
+                      "fontSize": 9,
+                      "fontWeight": "500",
+                      "letterSpacing": 0.2
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "h4VmN",
+                  "name": "Tab Insights",
+                  "fill": "#00000000",
+                  "cornerRadius": 14,
+                  "layout": "vertical",
+                  "gap": 2,
+                  "padding": [
+                    6,
+                    8
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon",
+                      "id": "SRIFT",
+                      "name": "Insights Icon",
+                      "width": 19,
+                      "height": 19,
+                      "icon": "bar_chart_4_bars",
+                      "library": "Material Symbols Rounded",
+                      "fill": "$color-secondary"
+                    },
+                    {
+                      "type": "text",
+                      "id": "ADLso",
+                      "name": "Insights Label",
+                      "fill": "$color-secondary",
+                      "content": "Insights",
+                      "fontFamily": "$font-caption",
+                      "fontSize": 9,
+                      "fontWeight": "500",
+                      "letterSpacing": 0.2
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "xOQ0x",
+                  "name": "Tab Profile",
+                  "fill": "#00000000",
+                  "cornerRadius": 14,
+                  "layout": "vertical",
+                  "gap": 2,
+                  "padding": [
+                    6,
+                    8
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon",
+                      "id": "ytcxx",
+                      "name": "Profile Icon",
+                      "width": 19,
+                      "height": 19,
+                      "icon": "person",
+                      "library": "Material Symbols Rounded",
+                      "fill": "$color-secondary"
+                    },
+                    {
+                      "type": "text",
+                      "id": "N1i51B",
+                      "name": "Profile Label",
+                      "fill": "$color-secondary",
+                      "content": "Profile",
+                      "fontFamily": "$font-caption",
+                      "fontSize": 9,
+                      "fontWeight": "500",
+                      "letterSpacing": 0.2
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "MCgNV",
+      "x": 0,
+      "y": 590,
+      "name": "Today Screen",
+      "clip": true,
+      "width": 390,
+      "fill": "$color-surface",
+      "layout": "vertical",
+      "gap": 26,
+      "children": [
+        {
+          "type": "frame",
+          "id": "erXEn",
+          "name": "Today Screen Top Wrap",
+          "width": "fill_container",
+          "layout": "vertical",
+          "padding": [
+            0,
+            16
+          ],
+          "children": [
+            {
+              "id": "s4xMBx",
+              "type": "ref",
+              "ref": "qs9oz",
+              "name": "Today Screen Status Bar",
+              "width": "fill_container"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "SkdDW",
+          "name": "Today Screen Content",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 26,
+          "padding": [
+            0,
+            18
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "Zx8rv",
+              "name": "Tonight Header",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 6,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "NUXpJ",
+                  "name": "Tonight Title",
+                  "fill": "#142229",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Tonight",
+                  "lineHeight": 1.15,
+                  "fontFamily": "$font-display",
+                  "fontSize": 31,
+                  "fontWeight": "650"
+                },
+                {
+                  "type": "text",
+                  "id": "mGNV1",
+                  "name": "Tonight Subtitle",
+                  "fill": "#6A7D86",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Keep the next step clear, calm, and easy to reach.",
+                  "lineHeight": 1.45,
+                  "fontFamily": "$font-body",
+                  "fontSize": 13
+                }
+              ]
+            },
+            {
+              "id": "Uwqnk",
+              "type": "ref",
+              "ref": "w4XXe",
+              "name": "Tonight Action Card",
+              "width": "fill_container",
+              "descendants": {
+                "c7MzH": {
+                  "content": "Tonight"
+                },
+                "psFeF": {
+                  "content": "Start winding down before 23:10"
+                },
+                "G2GVcY": {
+                  "content": "The first screen answers what to do now. Everything else stays supportive."
+                },
+                "DVRye": {
+                  "content": "Start easing into bedtime"
+                }
+              }
+            },
+            {
+              "type": "frame",
+              "id": "FjkfP",
+              "name": "Today Feedback Row",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 14,
+              "children": [
+                {
+                  "id": "a5uZ4e",
+                  "type": "ref",
+                  "ref": "ZjgOl",
+                  "name": "Last Night Summary",
+                  "width": "fill_container",
+                  "descendants": {
+                    "ETdiJ": {
+                      "content": "Last night"
+                    },
+                    "PV2hW": {
+                      "content": "24 minutes later than target"
+                    },
+                    "GFvnm": {
+                      "content": "Keep the summary reflective and calm so it never outranks tonight's action."
+                    }
+                  }
+                },
+                {
+                  "id": "tfIGS",
+                  "type": "ref",
+                  "ref": "K3o0m",
+                  "name": "Tonight Recovery",
+                  "width": "fill_container",
+                  "descendants": {
+                    "I4NtH": {
+                      "content": "Recovery path"
+                    },
+                    "cvCkO": {
+                      "content": "Aim for a soft reset over the next two nights"
+                    },
+                    "YQuUK": {
+                      "content": "Recovery guidance should feel reassuring, not punitive."
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "OQtIR",
+              "name": "Trend Preview",
+              "width": "fill_container",
+              "fill": "#F8FBFC",
+              "cornerRadius": 18,
+              "stroke": "#E7EEF2",
+              "strokeWidth": 1,
+              "effect": {
+                "type": "shadow",
+                "shadowType": "outer",
+                "color": "#18313A0C",
+                "offset": {
+                  "x": 0,
+                  "y": 6
+                },
+                "blur": 18
+              },
+              "layout": "vertical",
+              "gap": 12,
+              "padding": 18,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "o5L7JN",
+                  "name": "Trend Preview Title",
+                  "fill": "#758890",
+                  "content": "7-day trend",
+                  "fontFamily": "$font-caption",
+                  "fontSize": 11,
+                  "fontWeight": "600",
+                  "letterSpacing": 0.35
+                },
+                {
+                  "type": "frame",
+                  "id": "FsQEv",
+                  "name": "Trend Bars",
+                  "width": "fill_container",
+                  "height": 74,
+                  "gap": 8,
+                  "alignItems": "end",
+                  "children": [
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": [
+                        12,
+                        12,
+                        4,
+                        4
+                      ],
+                      "id": "TyQOS",
+                      "name": "Trend Bar 44",
+                      "fill": "#CFE0E6",
+                      "width": 38,
+                      "height": 44
+                    },
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": [
+                        12,
+                        12,
+                        4,
+                        4
+                      ],
+                      "id": "q4neFw",
+                      "name": "Trend Bar 58",
+                      "fill": "#CFE0E6",
+                      "width": 38,
+                      "height": 58
+                    },
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": [
+                        12,
+                        12,
+                        4,
+                        4
+                      ],
+                      "id": "oBTeN",
+                      "name": "Trend Bar 36",
+                      "fill": "#CFE0E6",
+                      "width": 38,
+                      "height": 36
+                    },
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": [
+                        12,
+                        12,
+                        4,
+                        4
+                      ],
+                      "id": "P0DoWp",
+                      "name": "Trend Bar 64",
+                      "fill": "#CFE0E6",
+                      "width": 38,
+                      "height": 64
+                    },
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": [
+                        12,
+                        12,
+                        4,
+                        4
+                      ],
+                      "id": "R56KqK",
+                      "name": "Trend Bar 52",
+                      "fill": "#CFE0E6",
+                      "width": 38,
+                      "height": 52
+                    },
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": [
+                        12,
+                        12,
+                        4,
+                        4
+                      ],
+                      "id": "BqEMY",
+                      "name": "Trend Bar 40",
+                      "fill": "#CFE0E6",
+                      "width": 38,
+                      "height": 40
+                    },
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": [
+                        12,
+                        12,
+                        4,
+                        4
+                      ],
+                      "id": "haV30",
+                      "name": "Trend Bar 70",
+                      "fill": "#CFE0E6",
+                      "width": 38,
+                      "height": 66
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "y07u5Z",
+          "name": "Today Screen Nav Wrap",
+          "width": "fill_container",
+          "layout": "vertical",
+          "padding": [
+            0,
+            16
+          ],
+          "children": [
+            {
+              "id": "NnWMB",
+              "type": "ref",
+              "ref": "OkwbA",
+              "name": "Today Screen Tab Bar",
+              "width": "fill_container",
+              "descendants": {
+                "H5SaBa": {
+                  "fill": "#E8F4F6"
+                },
+                "f7PRo": {
+                  "fill": "$color-primary"
+                },
+                "OkbtZ": {
+                  "fill": "$color-primary",
+                  "fontWeight": "600"
+                },
+                "NNrpn": {
+                  "fill": "#00000000"
+                },
+                "Y8XL0": {
+                  "fill": "$color-secondary"
+                },
+                "yLUhb": {
+                  "fill": "$color-secondary",
+                  "fontWeight": "500"
+                },
+                "p7vOR": {
+                  "fill": "#00000000"
+                },
+                "pQdIQ": {
+                  "fill": "$color-secondary"
+                },
+                "sR4Ob": {
+                  "fill": "$color-secondary",
+                  "fontWeight": "500"
+                },
+                "h4VmN": {
+                  "fill": "#00000000"
+                },
+                "SRIFT": {
+                  "fill": "$color-secondary"
+                },
+                "ADLso": {
+                  "fill": "$color-secondary",
+                  "fontWeight": "500"
+                },
+                "xOQ0x": {
+                  "fill": "#00000000"
+                },
+                "ytcxx": {
+                  "fill": "$color-secondary"
+                },
+                "N1i51B": {
+                  "fill": "$color-secondary",
+                  "fontWeight": "500"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "SvlPW",
+      "x": 454,
+      "y": 590,
+      "name": "Calendar Screen",
+      "clip": true,
+      "width": 390,
+      "fill": "$color-surface",
+      "layout": "vertical",
+      "gap": 24,
+      "children": [
+        {
+          "type": "frame",
+          "id": "zf2UX",
+          "name": "Calendar Screen Top Wrap",
+          "width": "fill_container",
+          "layout": "vertical",
+          "padding": [
+            0,
+            16
+          ],
+          "children": [
+            {
+              "id": "e91eo",
+              "type": "ref",
+              "ref": "qs9oz",
+              "name": "Calendar Screen Status Bar",
+              "width": "fill_container"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "m6cq7Y",
+          "name": "Calendar Screen Content",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 24,
+          "padding": [
+            0,
+            16
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "ZoBzB",
+              "name": "Calendar Header",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 8,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "i8jyu",
+                  "name": "Calendar Title",
+                  "fill": "$color-on-surface",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Calendar",
+                  "lineHeight": 1.2,
+                  "fontFamily": "$font-display",
+                  "fontSize": 30,
+                  "fontWeight": "650"
+                },
+                {
+                  "type": "text",
+                  "id": "a7GeA",
+                  "name": "Calendar Subtitle",
+                  "fill": "$color-secondary",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Review long-term rhythm without turning the page into a data dashboard.",
+                  "lineHeight": 1.45,
+                  "fontFamily": "$font-body",
+                  "fontSize": 14
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "lkVYO",
+              "name": "Calendar Summary",
+              "width": "fill_container",
+              "fill": "$color-surface-container",
+              "cornerRadius": "$radius-lg",
+              "stroke": "$color-outline",
+              "strokeWidth": 1,
+              "layout": "vertical",
+              "gap": 10,
+              "padding": 18,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "QUPHg",
+                  "name": "Calendar Summary Title",
+                  "fill": "$color-on-surface",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "This month is getting steadier",
+                  "lineHeight": 1.25,
+                  "fontFamily": "$font-display",
+                  "fontSize": 18,
+                  "fontWeight": "600"
+                },
+                {
+                  "type": "text",
+                  "id": "ux8IM",
+                  "name": "Calendar Summary Body",
+                  "fill": "$color-secondary",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "The calendar screen should make patterns scannable while keeping visual pressure low.",
+                  "lineHeight": 1.45,
+                  "fontFamily": "$font-body",
+                  "fontSize": 13
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "ZpNAA",
+              "name": "Heatmap Card",
+              "width": "fill_container",
+              "fill": "$color-surface-container",
+              "cornerRadius": "$radius-lg",
+              "stroke": "$color-outline",
+              "strokeWidth": 1,
+              "layout": "vertical",
+              "gap": 10,
+              "padding": 18,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "J8k1PB",
+                  "name": "Heatmap Title",
+                  "fill": "$color-secondary",
+                  "content": "May rhythm map",
+                  "fontFamily": "$font-body",
+                  "fontSize": 12,
+                  "fontWeight": "600"
+                },
+                {
+                  "type": "frame",
+                  "id": "Zuc0W",
+                  "name": "Heatmap Row",
+                  "width": "fill_container",
+                  "gap": 8,
+                  "children": [
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": "$radius-sm",
+                      "id": "k4CMDf",
+                      "name": "Heat Cell",
+                      "fill": "#EAF2F5",
+                      "width": "fill_container",
+                      "height": 24
+                    },
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": "$radius-sm",
+                      "id": "PNU5F",
+                      "name": "Heat Cell",
+                      "fill": "#D9E7EC",
+                      "width": "fill_container",
+                      "height": 24
+                    },
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": "$radius-sm",
+                      "id": "rI9T5",
+                      "name": "Heat Cell",
+                      "fill": "#C5D9E1",
+                      "width": "fill_container",
+                      "height": 24
+                    },
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": "$radius-sm",
+                      "id": "ONlFx",
+                      "name": "Heat Cell",
+                      "fill": "#EAF2F5",
+                      "width": "fill_container",
+                      "height": 24
+                    },
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": "$radius-sm",
+                      "id": "DKbnq",
+                      "name": "Heat Cell",
+                      "fill": "#C5D9E1",
+                      "width": "fill_container",
+                      "height": 24
+                    },
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": "$radius-sm",
+                      "id": "qT0hS",
+                      "name": "Heat Cell",
+                      "fill": "#D9E7EC",
+                      "width": "fill_container",
+                      "height": 24
+                    },
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": "$radius-sm",
+                      "id": "ZDOU0",
+                      "name": "Heat Cell",
+                      "fill": "#EAF2F5",
+                      "width": "fill_container",
+                      "height": 24
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "nWwiW",
+                  "name": "Heatmap Row",
+                  "width": "fill_container",
+                  "gap": 8,
+                  "children": [
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": "$radius-sm",
+                      "id": "jeIa8",
+                      "name": "Heat Cell",
+                      "fill": "#D9E7EC",
+                      "width": "fill_container",
+                      "height": 24
+                    },
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": "$radius-sm",
+                      "id": "Sq6BZ",
+                      "name": "Heat Cell",
+                      "fill": "#C5D9E1",
+                      "width": "fill_container",
+                      "height": 24
+                    },
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": "$radius-sm",
+                      "id": "jkv20",
+                      "name": "Heat Cell",
+                      "fill": "#B4CDD7",
+                      "width": "fill_container",
+                      "height": 24
+                    },
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": "$radius-sm",
+                      "id": "o3d9s",
+                      "name": "Heat Cell",
+                      "fill": "#D9E7EC",
+                      "width": "fill_container",
+                      "height": 24
+                    },
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": "$radius-sm",
+                      "id": "Tzk8D",
+                      "name": "Heat Cell",
+                      "fill": "#EAF2F5",
+                      "width": "fill_container",
+                      "height": 24
+                    },
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": "$radius-sm",
+                      "id": "kohpk",
+                      "name": "Heat Cell",
+                      "fill": "#C5D9E1",
+                      "width": "fill_container",
+                      "height": 24
+                    },
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": "$radius-sm",
+                      "id": "O2cxDh",
+                      "name": "Heat Cell",
+                      "fill": "#D9E7EC",
+                      "width": "fill_container",
+                      "height": 24
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "TNpen",
+                  "name": "Heatmap Row",
+                  "width": "fill_container",
+                  "gap": 8,
+                  "children": [
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": "$radius-sm",
+                      "id": "vfyqB",
+                      "name": "Heat Cell",
+                      "fill": "#EAF2F5",
+                      "width": "fill_container",
+                      "height": 24
+                    },
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": "$radius-sm",
+                      "id": "Tudae",
+                      "name": "Heat Cell",
+                      "fill": "#D9E7EC",
+                      "width": "fill_container",
+                      "height": 24
+                    },
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": "$radius-sm",
+                      "id": "QvIAa",
+                      "name": "Heat Cell",
+                      "fill": "#C5D9E1",
+                      "width": "fill_container",
+                      "height": 24
+                    },
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": "$radius-sm",
+                      "id": "H4l8L",
+                      "name": "Heat Cell",
+                      "fill": "#B4CDD7",
+                      "width": "fill_container",
+                      "height": 24
+                    },
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": "$radius-sm",
+                      "id": "veWoS",
+                      "name": "Heat Cell",
+                      "fill": "#D9E7EC",
+                      "width": "fill_container",
+                      "height": 24
+                    },
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": "$radius-sm",
+                      "id": "piv7s",
+                      "name": "Heat Cell",
+                      "fill": "#EAF2F5",
+                      "width": "fill_container",
+                      "height": 24
+                    },
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": "$radius-sm",
+                      "id": "uQAQA",
+                      "name": "Heat Cell",
+                      "fill": "#C5D9E1",
+                      "width": "fill_container",
+                      "height": 24
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "pJxMX",
+                  "name": "Heatmap Row",
+                  "width": "fill_container",
+                  "gap": 8,
+                  "children": [
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": "$radius-sm",
+                      "id": "CiyO4",
+                      "name": "Heat Cell",
+                      "fill": "#C5D9E1",
+                      "width": "fill_container",
+                      "height": 24
+                    },
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": "$radius-sm",
+                      "id": "cQzUP",
+                      "name": "Heat Cell",
+                      "fill": "#B4CDD7",
+                      "width": "fill_container",
+                      "height": 24
+                    },
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": "$radius-sm",
+                      "id": "l7jz23",
+                      "name": "Heat Cell",
+                      "fill": "#D9E7EC",
+                      "width": "fill_container",
+                      "height": 24
+                    },
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": "$radius-sm",
+                      "id": "lPxEH",
+                      "name": "Heat Cell",
+                      "fill": "#EAF2F5",
+                      "width": "fill_container",
+                      "height": 24
+                    },
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": "$radius-sm",
+                      "id": "c8gENP",
+                      "name": "Heat Cell",
+                      "fill": "#C5D9E1",
+                      "width": "fill_container",
+                      "height": 24
+                    },
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": "$radius-sm",
+                      "id": "JPjHq",
+                      "name": "Heat Cell",
+                      "fill": "#D9E7EC",
+                      "width": "fill_container",
+                      "height": 24
+                    },
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": "$radius-sm",
+                      "id": "BOozg",
+                      "name": "Heat Cell",
+                      "fill": "#EAF2F5",
+                      "width": "fill_container",
+                      "height": 24
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "l7Mn7",
+                  "name": "Heatmap Row",
+                  "width": "fill_container",
+                  "gap": 8,
+                  "children": [
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": "$radius-sm",
+                      "id": "tLV5H",
+                      "name": "Heat Cell",
+                      "fill": "#EAF2F5",
+                      "width": "fill_container",
+                      "height": 24
+                    },
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": "$radius-sm",
+                      "id": "SG8d3",
+                      "name": "Heat Cell",
+                      "fill": "#D9E7EC",
+                      "width": "fill_container",
+                      "height": 24
+                    },
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": "$radius-sm",
+                      "id": "JLqqB",
+                      "name": "Heat Cell",
+                      "fill": "#C5D9E1",
+                      "width": "fill_container",
+                      "height": 24
+                    },
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": "$radius-sm",
+                      "id": "Yk4SZ",
+                      "name": "Heat Cell",
+                      "fill": "#D9E7EC",
+                      "width": "fill_container",
+                      "height": 24
+                    },
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": "$radius-sm",
+                      "id": "DjGkb",
+                      "name": "Heat Cell",
+                      "fill": "#EAF2F5",
+                      "width": "fill_container",
+                      "height": 24
+                    },
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": "$radius-sm",
+                      "id": "GrsMS",
+                      "name": "Heat Cell",
+                      "fill": "#B4CDD7",
+                      "width": "fill_container",
+                      "height": 24
+                    },
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": "$radius-sm",
+                      "id": "aGOPM",
+                      "name": "Heat Cell",
+                      "fill": "#C5D9E1",
+                      "width": "fill_container",
+                      "height": 24
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "Ms3OJ",
+              "type": "ref",
+              "ref": "ZjgOl",
+              "name": "Calendar Reflection",
+              "width": "fill_container",
+              "descendants": {
+                "ETdiJ": {
+                  "content": "Pattern note"
+                },
+                "PV2hW": {
+                  "content": "Later weekends are the main drift source"
+                },
+                "GFvnm": {
+                  "content": "Interpretation stays helpful and concise instead of clinical."
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "YydNl",
+          "name": "Calendar Screen Nav Wrap",
+          "width": "fill_container",
+          "layout": "vertical",
+          "padding": [
+            0,
+            16
+          ],
+          "children": [
+            {
+              "id": "ZMGNz",
+              "type": "ref",
+              "ref": "OkwbA",
+              "name": "Calendar Screen Tab Bar",
+              "width": "fill_container",
+              "descendants": {
+                "H5SaBa": {
+                  "fill": "#00000000"
+                },
+                "f7PRo": {
+                  "fill": "$color-secondary"
+                },
+                "OkbtZ": {
+                  "fill": "$color-secondary",
+                  "fontWeight": "500"
+                },
+                "NNrpn": {
+                  "fill": "#E8F4F6"
+                },
+                "Y8XL0": {
+                  "fill": "$color-primary"
+                },
+                "yLUhb": {
+                  "fill": "$color-primary",
+                  "fontWeight": "600"
+                },
+                "p7vOR": {
+                  "fill": "#00000000"
+                },
+                "pQdIQ": {
+                  "fill": "$color-secondary"
+                },
+                "sR4Ob": {
+                  "fill": "$color-secondary",
+                  "fontWeight": "500"
+                },
+                "h4VmN": {
+                  "fill": "#00000000"
+                },
+                "SRIFT": {
+                  "fill": "$color-secondary"
+                },
+                "ADLso": {
+                  "fill": "$color-secondary",
+                  "fontWeight": "500"
+                },
+                "xOQ0x": {
+                  "fill": "#00000000"
+                },
+                "ytcxx": {
+                  "fill": "$color-secondary"
+                },
+                "N1i51B": {
+                  "fill": "$color-secondary",
+                  "fontWeight": "500"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "N3lMk",
+      "x": 908,
+      "y": 590,
+      "name": "Bedtime Screen",
+      "clip": true,
+      "width": 390,
+      "fill": "$color-surface",
+      "layout": "vertical",
+      "gap": 24,
+      "children": [
+        {
+          "type": "frame",
+          "id": "b6VvB",
+          "name": "Bedtime Screen Top Wrap",
+          "width": "fill_container",
+          "layout": "vertical",
+          "padding": [
+            0,
+            16
+          ],
+          "children": [
+            {
+              "id": "OBMjN",
+              "type": "ref",
+              "ref": "qs9oz",
+              "name": "Bedtime Screen Status Bar",
+              "width": "fill_container"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "KSIsH",
+          "name": "Bedtime Screen Content",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 24,
+          "padding": [
+            0,
+            16
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "y07q8",
+              "name": "Bedtime Header",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 8,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "iza8J",
+                  "name": "Bedtime Title",
+                  "fill": "$color-on-surface",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Bedtime",
+                  "lineHeight": 1.2,
+                  "fontFamily": "$font-display",
+                  "fontSize": 30,
+                  "fontWeight": "650"
+                },
+                {
+                  "type": "text",
+                  "id": "NNyjk",
+                  "name": "Bedtime Subtitle",
+                  "fill": "$color-secondary",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Lower the friction of starting the nightly shutdown sequence.",
+                  "lineHeight": 1.45,
+                  "fontFamily": "$font-body",
+                  "fontSize": 14
+                }
+              ]
+            },
+            {
+              "id": "Rn3wW",
+              "type": "ref",
+              "ref": "w4XXe",
+              "name": "Bedtime Focus Card",
+              "width": "fill_container",
+              "descendants": {
+                "c7MzH": {
+                  "content": "Ready to settle"
+                },
+                "psFeF": {
+                  "content": "Start a 10-minute wind-down now"
+                },
+                "G2GVcY": {
+                  "content": "The bedtime screen is action-led, simple, and reachable with one hand."
+                },
+                "DVRye": {
+                  "content": "Begin wind-down"
+                }
+              }
+            },
+            {
+              "type": "frame",
+              "id": "dvHLt",
+              "name": "Bedtime States",
+              "width": "fill_container",
+              "gap": 10,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "n6hmrX",
+                  "name": "Tired but scrolling Chip",
+                  "fill": "$color-surface-container",
+                  "cornerRadius": "$radius-full",
+                  "stroke": "$color-outline",
+                  "strokeWidth": 1,
+                  "padding": [
+                    10,
+                    12
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "RsBXT",
+                      "name": "Tired but scrolling Label",
+                      "fill": "$color-on-surface",
+                      "content": "Tired but scrolling",
+                      "fontFamily": "$font-body",
+                      "fontSize": 12,
+                      "fontWeight": "600"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "GNaWL",
+                  "name": "Still working Chip",
+                  "fill": "$color-surface-container",
+                  "cornerRadius": "$radius-full",
+                  "stroke": "$color-outline",
+                  "strokeWidth": 1,
+                  "padding": [
+                    10,
+                    12
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "a7WSgu",
+                      "name": "Still working Label",
+                      "fill": "$color-on-surface",
+                      "content": "Still working",
+                      "fontFamily": "$font-body",
+                      "fontSize": 12,
+                      "fontWeight": "600"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "BF4ol",
+                  "name": "Mind racing Chip",
+                  "fill": "$color-surface-container",
+                  "cornerRadius": "$radius-full",
+                  "stroke": "$color-outline",
+                  "strokeWidth": 1,
+                  "padding": [
+                    10,
+                    12
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "E877Bu",
+                      "name": "Mind racing Label",
+                      "fill": "$color-on-surface",
+                      "content": "Mind racing",
+                      "fontFamily": "$font-body",
+                      "fontSize": 12,
+                      "fontWeight": "600"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "Mh9KG",
+              "type": "ref",
+              "ref": "K3o0m",
+              "name": "Bedtime Gentle Prompt",
+              "width": "fill_container",
+              "descendants": {
+                "I4NtH": {
+                  "content": "Tonight tip"
+                },
+                "cvCkO": {
+                  "content": "Choose one small stop signal"
+                },
+                "YQuUK": {
+                  "content": "This screen should reduce negotiation, not add more decisions."
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "zNcw9",
+          "name": "Bedtime Screen Nav Wrap",
+          "width": "fill_container",
+          "layout": "vertical",
+          "padding": [
+            0,
+            16
+          ],
+          "children": [
+            {
+              "id": "KAQZb",
+              "type": "ref",
+              "ref": "OkwbA",
+              "name": "Bedtime Screen Tab Bar",
+              "width": "fill_container",
+              "descendants": {
+                "H5SaBa": {
+                  "fill": "#00000000"
+                },
+                "f7PRo": {
+                  "fill": "$color-secondary"
+                },
+                "OkbtZ": {
+                  "fill": "$color-secondary",
+                  "fontWeight": "500"
+                },
+                "NNrpn": {
+                  "fill": "#00000000"
+                },
+                "Y8XL0": {
+                  "fill": "$color-secondary"
+                },
+                "yLUhb": {
+                  "fill": "$color-secondary",
+                  "fontWeight": "500"
+                },
+                "p7vOR": {
+                  "fill": "#E8F4F6"
+                },
+                "pQdIQ": {
+                  "fill": "$color-primary"
+                },
+                "sR4Ob": {
+                  "fill": "$color-primary",
+                  "fontWeight": "600"
+                },
+                "h4VmN": {
+                  "fill": "#00000000"
+                },
+                "SRIFT": {
+                  "fill": "$color-secondary"
+                },
+                "ADLso": {
+                  "fill": "$color-secondary",
+                  "fontWeight": "500"
+                },
+                "xOQ0x": {
+                  "fill": "#00000000"
+                },
+                "ytcxx": {
+                  "fill": "$color-secondary"
+                },
+                "N1i51B": {
+                  "fill": "$color-secondary",
+                  "fontWeight": "500"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "OSwll",
+      "x": 1362,
+      "y": 590,
+      "name": "Insights Screen",
+      "clip": true,
+      "width": 390,
+      "fill": "$color-surface",
+      "layout": "vertical",
+      "gap": 24,
+      "children": [
+        {
+          "type": "frame",
+          "id": "w261d",
+          "name": "Insights Screen Top Wrap",
+          "width": "fill_container",
+          "layout": "vertical",
+          "padding": [
+            0,
+            16
+          ],
+          "children": [
+            {
+              "id": "HvnEw",
+              "type": "ref",
+              "ref": "qs9oz",
+              "name": "Insights Screen Status Bar",
+              "width": "fill_container"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "d7Ylp",
+          "name": "Insights Screen Content",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 24,
+          "padding": [
+            0,
+            16
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "rHnFQ",
+              "name": "Insights Header",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 8,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "G9wB3O",
+                  "name": "Insights Title",
+                  "fill": "$color-on-surface",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Insights",
+                  "lineHeight": 1.2,
+                  "fontFamily": "$font-display",
+                  "fontSize": 30,
+                  "fontWeight": "650"
+                },
+                {
+                  "type": "text",
+                  "id": "d7V1O",
+                  "name": "Insights Subtitle",
+                  "fill": "$color-secondary",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Turn repeated behavior into calm weekly understanding and recovery planning.",
+                  "lineHeight": 1.45,
+                  "fontFamily": "$font-body",
+                  "fontSize": 14
+                }
+              ]
+            },
+            {
+              "id": "Z9VNc6",
+              "type": "ref",
+              "ref": "ZjgOl",
+              "name": "Weekly Summary",
+              "width": "fill_container",
+              "descendants": {
+                "ETdiJ": {
+                  "content": "This week"
+                },
+                "PV2hW": {
+                  "content": "4 steady nights out of 7"
+                },
+                "GFvnm": {
+                  "content": "Insight surfaces should feel editorial and useful, never like dense KPI boards."
+                }
+              }
+            },
+            {
+              "type": "frame",
+              "id": "tazl2",
+              "name": "Insight Metrics",
+              "width": "fill_container",
+              "gap": 12,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "HtI9G",
+                  "name": "Stability Metric",
+                  "width": "fill_container",
+                  "fill": "$color-surface-container",
+                  "cornerRadius": "$radius-lg",
+                  "stroke": "$color-outline",
+                  "strokeWidth": 1,
+                  "layout": "vertical",
+                  "gap": 8,
+                  "padding": 16,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "MYctw",
+                      "name": "Stability Label",
+                      "fill": "$color-secondary",
+                      "content": "Stability",
+                      "fontFamily": "$font-body",
+                      "fontSize": 12,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "xhmP8",
+                      "name": "Stability Value",
+                      "fill": "$color-on-surface",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Better",
+                      "lineHeight": 1.25,
+                      "fontFamily": "$font-display",
+                      "fontSize": 18,
+                      "fontWeight": "600"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "sxVcd",
+                  "name": "Recovery Metric",
+                  "width": "fill_container",
+                  "fill": "$color-surface-container",
+                  "cornerRadius": "$radius-lg",
+                  "stroke": "$color-outline",
+                  "strokeWidth": 1,
+                  "layout": "vertical",
+                  "gap": 8,
+                  "padding": 16,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "PbZZs",
+                      "name": "Recovery Label",
+                      "fill": "$color-secondary",
+                      "content": "Recovery",
+                      "fontFamily": "$font-body",
+                      "fontSize": 12,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "N91RM",
+                      "name": "Recovery Value",
+                      "fill": "$color-on-surface",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "2 plans",
+                      "lineHeight": 1.25,
+                      "fontFamily": "$font-display",
+                      "fontSize": 18,
+                      "fontWeight": "600"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "H2SYI",
+                  "name": "Trend Metric",
+                  "width": "fill_container",
+                  "fill": "$color-surface-container",
+                  "cornerRadius": "$radius-lg",
+                  "stroke": "$color-outline",
+                  "strokeWidth": 1,
+                  "layout": "vertical",
+                  "gap": 8,
+                  "padding": 16,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "lZM4w",
+                      "name": "Trend Label",
+                      "fill": "$color-secondary",
+                      "content": "Trend",
+                      "fontFamily": "$font-body",
+                      "fontSize": 12,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "IoP9x",
+                      "name": "Trend Value",
+                      "fill": "$color-on-surface",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Improving",
+                      "lineHeight": 1.25,
+                      "fontFamily": "$font-display",
+                      "fontSize": 18,
+                      "fontWeight": "600"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "V2AiZ4",
+              "type": "ref",
+              "ref": "K3o0m",
+              "name": "Recovery Plan Highlight",
+              "width": "fill_container",
+              "descendants": {
+                "I4NtH": {
+                  "content": "Next focus"
+                },
+                "cvCkO": {
+                  "content": "Protect the next two work nights"
+                },
+                "YQuUK": {
+                  "content": "Paid insight areas should still preserve the same calm and recovery-led voice."
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "aPd4R",
+          "name": "Insights Screen Nav Wrap",
+          "width": "fill_container",
+          "layout": "vertical",
+          "padding": [
+            0,
+            16
+          ],
+          "children": [
+            {
+              "id": "O0cCjs",
+              "type": "ref",
+              "ref": "OkwbA",
+              "name": "Insights Screen Tab Bar",
+              "width": "fill_container",
+              "descendants": {
+                "H5SaBa": {
+                  "fill": "#00000000"
+                },
+                "f7PRo": {
+                  "fill": "$color-secondary"
+                },
+                "OkbtZ": {
+                  "fill": "$color-secondary",
+                  "fontWeight": "500"
+                },
+                "NNrpn": {
+                  "fill": "#00000000"
+                },
+                "Y8XL0": {
+                  "fill": "$color-secondary"
+                },
+                "yLUhb": {
+                  "fill": "$color-secondary",
+                  "fontWeight": "500"
+                },
+                "p7vOR": {
+                  "fill": "#00000000"
+                },
+                "pQdIQ": {
+                  "fill": "$color-secondary"
+                },
+                "sR4Ob": {
+                  "fill": "$color-secondary",
+                  "fontWeight": "500"
+                },
+                "h4VmN": {
+                  "fill": "#E8F4F6"
+                },
+                "SRIFT": {
+                  "fill": "$color-primary"
+                },
+                "ADLso": {
+                  "fill": "$color-primary",
+                  "fontWeight": "600"
+                },
+                "xOQ0x": {
+                  "fill": "#00000000"
+                },
+                "ytcxx": {
+                  "fill": "$color-secondary"
+                },
+                "N1i51B": {
+                  "fill": "$color-secondary",
+                  "fontWeight": "500"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "BwvXZ",
+      "x": 1816,
+      "y": 590,
+      "name": "Profile Screen",
+      "clip": true,
+      "width": 390,
+      "fill": "$color-surface",
+      "layout": "vertical",
+      "gap": 24,
+      "children": [
+        {
+          "type": "frame",
+          "id": "s4cxS",
+          "name": "Profile Screen Top Wrap",
+          "width": "fill_container",
+          "layout": "vertical",
+          "padding": [
+            0,
+            16
+          ],
+          "children": [
+            {
+              "id": "oFWIk",
+              "type": "ref",
+              "ref": "qs9oz",
+              "name": "Profile Screen Status Bar",
+              "width": "fill_container"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "pm6fN",
+          "name": "Profile Screen Content",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 24,
+          "padding": [
+            0,
+            16
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "jC9K6",
+              "name": "Profile Header",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 8,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "KVFzC",
+                  "name": "Profile Title",
+                  "fill": "$color-on-surface",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Profile",
+                  "lineHeight": 1.2,
+                  "fontFamily": "$font-display",
+                  "fontSize": 30,
+                  "fontWeight": "650"
+                },
+                {
+                  "type": "text",
+                  "id": "a31xpX",
+                  "name": "Profile Subtitle",
+                  "fill": "$color-secondary",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Keep account, permissions, sync, and membership management quiet and trustworthy.",
+                  "lineHeight": 1.45,
+                  "fontFamily": "$font-body",
+                  "fontSize": 14
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "iRQfA",
+              "name": "Settings Group",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 12,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "b1HLY",
+                  "name": "Target schedule Row",
+                  "width": "fill_container",
+                  "fill": "$color-surface-container",
+                  "cornerRadius": "$radius-md",
+                  "stroke": "$color-outline",
+                  "strokeWidth": 1,
+                  "padding": [
+                    14,
+                    16
+                  ],
+                  "justifyContent": "space_between",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "Y0921k",
+                      "name": "Target schedule Copy",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 4,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "Eottp",
+                          "name": "Target schedule Row Title",
+                          "fill": "$color-on-surface",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Target schedule",
+                          "lineHeight": 1.35,
+                          "fontFamily": "$font-body",
+                          "fontSize": 15,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "KMf6o",
+                          "name": "Target schedule Row Subtitle",
+                          "fill": "$color-secondary",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Bedtime 23:10 · Wake 07:20",
+                          "lineHeight": 1.4,
+                          "fontFamily": "$font-body",
+                          "fontSize": 12
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "osg2V",
+                      "name": "Target schedule Chevron",
+                      "fill": "$color-secondary",
+                      "content": "›",
+                      "fontFamily": "$font-body",
+                      "fontSize": 18,
+                      "fontWeight": "600"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "uDkXS",
+                  "name": "Health permissions Row",
+                  "width": "fill_container",
+                  "fill": "$color-surface-container",
+                  "cornerRadius": "$radius-md",
+                  "stroke": "$color-outline",
+                  "strokeWidth": 1,
+                  "padding": [
+                    14,
+                    16
+                  ],
+                  "justifyContent": "space_between",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "WPw0R",
+                      "name": "Health permissions Copy",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 4,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "o8uKm",
+                          "name": "Health permissions Row Title",
+                          "fill": "$color-on-surface",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Health permissions",
+                          "lineHeight": 1.35,
+                          "fontFamily": "$font-body",
+                          "fontSize": 15,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "K1QqM",
+                          "name": "Health permissions Row Subtitle",
+                          "fill": "$color-secondary",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Connected with manual correction available",
+                          "lineHeight": 1.4,
+                          "fontFamily": "$font-body",
+                          "fontSize": 12
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "FnMV7",
+                      "name": "Health permissions Chevron",
+                      "fill": "$color-secondary",
+                      "content": "›",
+                      "fontFamily": "$font-body",
+                      "fontSize": 18,
+                      "fontWeight": "600"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "r4UMJr",
+                  "name": "Sync and backup Row",
+                  "width": "fill_container",
+                  "fill": "$color-surface-container",
+                  "cornerRadius": "$radius-md",
+                  "stroke": "$color-outline",
+                  "strokeWidth": 1,
+                  "padding": [
+                    14,
+                    16
+                  ],
+                  "justifyContent": "space_between",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "K3oo1C",
+                      "name": "Sync and backup Copy",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 4,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "IX75X",
+                          "name": "Sync and backup Row Title",
+                          "fill": "$color-on-surface",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Sync and backup",
+                          "lineHeight": 1.35,
+                          "fontFamily": "$font-body",
+                          "fontSize": 15,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "zb4BV",
+                          "name": "Sync and backup Row Subtitle",
+                          "fill": "$color-secondary",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Anonymous local mode with account upgrade path",
+                          "lineHeight": 1.4,
+                          "fontFamily": "$font-body",
+                          "fontSize": 12
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "afxnZ",
+                      "name": "Sync and backup Chevron",
+                      "fill": "$color-secondary",
+                      "content": "›",
+                      "fontFamily": "$font-body",
+                      "fontSize": 18,
+                      "fontWeight": "600"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "cNx2b",
+                  "name": "Membership Row",
+                  "width": "fill_container",
+                  "fill": "$color-surface-container",
+                  "cornerRadius": "$radius-md",
+                  "stroke": "$color-outline",
+                  "strokeWidth": 1,
+                  "padding": [
+                    14,
+                    16
+                  ],
+                  "justifyContent": "space_between",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "c5nxL",
+                      "name": "Membership Copy",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 4,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "mTqH1",
+                          "name": "Membership Row Title",
+                          "fill": "$color-on-surface",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Membership",
+                          "lineHeight": 1.35,
+                          "fontFamily": "$font-body",
+                          "fontSize": 15,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "mIDcx",
+                          "name": "Membership Row Subtitle",
+                          "fill": "$color-secondary",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Recovery plans and long-term history available here",
+                          "lineHeight": 1.4,
+                          "fontFamily": "$font-body",
+                          "fontSize": 12
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "UaqHL",
+                      "name": "Membership Chevron",
+                      "fill": "$color-secondary",
+                      "content": "›",
+                      "fontFamily": "$font-body",
+                      "fontSize": 18,
+                      "fontWeight": "600"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "ZGUxf",
+          "name": "Profile Screen Nav Wrap",
+          "width": "fill_container",
+          "layout": "vertical",
+          "padding": [
+            0,
+            16
+          ],
+          "children": [
+            {
+              "id": "TeJAn",
+              "type": "ref",
+              "ref": "OkwbA",
+              "name": "Profile Screen Tab Bar",
+              "width": "fill_container",
+              "descendants": {
+                "H5SaBa": {
+                  "fill": "#00000000"
+                },
+                "f7PRo": {
+                  "fill": "$color-secondary"
+                },
+                "OkbtZ": {
+                  "fill": "$color-secondary",
+                  "fontWeight": "500"
+                },
+                "NNrpn": {
+                  "fill": "#00000000"
+                },
+                "Y8XL0": {
+                  "fill": "$color-secondary"
+                },
+                "yLUhb": {
+                  "fill": "$color-secondary",
+                  "fontWeight": "500"
+                },
+                "p7vOR": {
+                  "fill": "#00000000"
+                },
+                "pQdIQ": {
+                  "fill": "$color-secondary"
+                },
+                "sR4Ob": {
+                  "fill": "$color-secondary",
+                  "fontWeight": "500"
+                },
+                "h4VmN": {
+                  "fill": "#00000000"
+                },
+                "SRIFT": {
+                  "fill": "$color-secondary"
+                },
+                "ADLso": {
+                  "fill": "$color-secondary",
+                  "fontWeight": "500"
+                },
+                "xOQ0x": {
+                  "fill": "#E8F4F6"
+                },
+                "ytcxx": {
+                  "fill": "$color-primary"
+                },
+                "N1i51B": {
+                  "fill": "$color-primary",
+                  "fontWeight": "600"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "dMZS3",
+      "x": 2270,
+      "y": 590,
+      "name": "Onboarding Screen",
+      "clip": true,
+      "width": 390,
+      "fill": "$color-surface",
+      "layout": "vertical",
+      "gap": 24,
+      "children": [
+        {
+          "type": "frame",
+          "id": "tWjI1",
+          "name": "Onboarding Screen Top Wrap",
+          "width": "fill_container",
+          "layout": "vertical",
+          "padding": [
+            0,
+            16
+          ],
+          "children": [
+            {
+              "id": "a5zrdF",
+              "type": "ref",
+              "ref": "qs9oz",
+              "name": "Onboarding Screen Status Bar",
+              "width": "fill_container"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "laiHb",
+          "name": "Onboarding Screen Content",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 24,
+          "padding": [
+            0,
+            16
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "qahsM",
+              "name": "Find your way back to rhythm Header",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 8,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "JH7ud",
+                  "name": "Find your way back to rhythm Title",
+                  "fill": "$color-on-surface",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Find your way back to rhythm",
+                  "lineHeight": 1.2,
+                  "fontFamily": "$font-display",
+                  "fontSize": 30,
+                  "fontWeight": "650"
+                },
+                {
+                  "type": "text",
+                  "id": "d2fGrI",
+                  "name": "Find your way back to rhythm Subtitle",
+                  "fill": "$color-secondary",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "A soft, practical setup that explains value before permissions.",
+                  "lineHeight": 1.45,
+                  "fontFamily": "$font-body",
+                  "fontSize": 14
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "kdUzT",
+              "name": "Welcome Card",
+              "width": "fill_container",
+              "fill": "$color-surface-container",
+              "cornerRadius": "$radius-lg",
+              "stroke": "$color-outline",
+              "strokeWidth": 1,
+              "layout": "vertical",
+              "gap": 14,
+              "padding": 20,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "cfVsx",
+                  "name": "Welcome Title",
+                  "fill": "$color-on-surface",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "This is not a score app.",
+                  "lineHeight": 1.2,
+                  "fontFamily": "$font-display",
+                  "fontSize": 24,
+                  "fontWeight": "650"
+                },
+                {
+                  "type": "text",
+                  "id": "QdiQH",
+                  "name": "Welcome Body",
+                  "fill": "$color-secondary",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Rhythm helps you see tonight's next step, understand last night gently, and recover without pressure.",
+                  "lineHeight": 1.45,
+                  "fontFamily": "$font-body",
+                  "fontSize": 14
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "Ecwds",
+              "name": "Onboarding Values",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 12,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "QoAdr",
+                  "name": "Set a target bedtime and wake time Value",
+                  "width": "fill_container",
+                  "fill": "$color-surface-container",
+                  "cornerRadius": "$radius-md",
+                  "stroke": "$color-outline",
+                  "strokeWidth": 1,
+                  "gap": 12,
+                  "padding": 16,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "ellipse",
+                      "id": "jhi3n",
+                      "name": "Set a target bedtime and wake time Dot",
+                      "fill": "$color-primary",
+                      "width": 10,
+                      "height": 10
+                    },
+                    {
+                      "type": "text",
+                      "id": "nveBV",
+                      "name": "Set a target bedtime and wake time Copy",
+                      "fill": "$color-on-surface",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Set a target bedtime and wake time",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$font-body",
+                      "fontSize": 14,
+                      "fontWeight": "500"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "QiUc9",
+                  "name": "Connect health data or continue with manual records Value",
+                  "width": "fill_container",
+                  "fill": "$color-surface-container",
+                  "cornerRadius": "$radius-md",
+                  "stroke": "$color-outline",
+                  "strokeWidth": 1,
+                  "gap": 12,
+                  "padding": 16,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "ellipse",
+                      "id": "oQiFa",
+                      "name": "Connect health data or continue with manual records Dot",
+                      "fill": "$color-primary",
+                      "width": 10,
+                      "height": 10
+                    },
+                    {
+                      "type": "text",
+                      "id": "CaQSu",
+                      "name": "Connect health data or continue with manual records Copy",
+                      "fill": "$color-on-surface",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Connect health data or continue with manual records",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$font-body",
+                      "fontSize": 14,
+                      "fontWeight": "500"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "JW0HD",
+                  "name": "Choose reminders that feel supportive, not intrusive Value",
+                  "width": "fill_container",
+                  "fill": "$color-surface-container",
+                  "cornerRadius": "$radius-md",
+                  "stroke": "$color-outline",
+                  "strokeWidth": 1,
+                  "gap": 12,
+                  "padding": 16,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "ellipse",
+                      "id": "VQxT4",
+                      "name": "Choose reminders that feel supportive, not intrusive Dot",
+                      "fill": "$color-primary",
+                      "width": 10,
+                      "height": 10
+                    },
+                    {
+                      "type": "text",
+                      "id": "H37leE",
+                      "name": "Choose reminders that feel supportive, not intrusive Copy",
+                      "fill": "$color-on-surface",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Choose reminders that feel supportive, not intrusive",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$font-body",
+                      "fontSize": 14,
+                      "fontWeight": "500"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "xhJDI",
+              "type": "ref",
+              "ref": "w4XXe",
+              "name": "Onboarding CTA Card",
+              "width": "fill_container",
+              "descendants": {
+                "c7MzH": {
+                  "content": "Setup"
+                },
+                "psFeF": {
+                  "content": "Build a gentle nightly baseline"
+                },
+                "G2GVcY": {
+                  "content": "Permissions and account choices follow clear value explanation, not pressure."
+                },
+                "DVRye": {
+                  "content": "Start setup"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "VRrsM",
+      "x": 2740,
+      "y": 590,
+      "name": "App Shell Module Draft",
+      "width": 430,
+      "fill": "$color-surface",
+      "layout": "vertical",
+      "gap": 20,
+      "padding": 24,
+      "children": [
+        {
+          "type": "frame",
+          "id": "Z5frc",
+          "name": "App Shell Draft Header",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 8,
+          "children": [
+            {
+              "type": "text",
+              "id": "k1fcb",
+              "name": "App Shell Draft Title",
+              "fill": "$color-on-surface",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "App Shell module draft",
+              "lineHeight": 1.2,
+              "fontFamily": "$font-display",
+              "fontSize": 28,
+              "fontWeight": "650"
+            },
+            {
+              "type": "text",
+              "id": "F5EIpj",
+              "name": "App Shell Draft Subtitle",
+              "fill": "$color-secondary",
+              "textGrowth": "fixed-width",
+              "width": 382,
+              "content": "This module draft makes startup recovery, shell banners, source routing, and shared tab hosting explicit before module freeze.",
+              "lineHeight": 1.45,
+              "fontFamily": "$font-body",
+              "fontSize": 14,
+              "fontWeight": "normal"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "R6JzXX",
+          "name": "Launch Recovery State",
+          "width": "fill_container",
+          "fill": "$color-surface-container",
+          "cornerRadius": "$radius-lg",
+          "stroke": "$color-outline",
+          "strokeWidth": 1,
+          "layout": "vertical",
+          "gap": 14,
+          "padding": 18,
+          "children": [
+            {
+              "id": "spxuv",
+              "type": "ref",
+              "ref": "qs9oz",
+              "name": "Launch Recovery Status Bar",
+              "width": "fill_container"
+            },
+            {
+              "type": "frame",
+              "id": "hhGfj",
+              "name": "Launch Recovery Copy",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 8,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "Z0ltTV",
+                  "name": "Launch Recovery Title",
+                  "fill": "$color-on-surface",
+                  "textGrowth": "fixed-width",
+                  "width": 346,
+                  "content": "Restoring your rhythm",
+                  "lineHeight": 1.2,
+                  "fontFamily": "$font-display",
+                  "fontSize": 24,
+                  "fontWeight": "650"
+                },
+                {
+                  "type": "text",
+                  "id": "d9Dy49",
+                  "name": "Launch Recovery Body",
+                  "fill": "$color-secondary",
+                  "textGrowth": "fixed-width",
+                  "width": 346,
+                  "content": "Cold start should resolve entry target, session summary, and minimum readiness without exposing a blank shell or stacked redirects.",
+                  "lineHeight": 1.45,
+                  "fontFamily": "$font-body",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "g2dfj",
+              "name": "Launch Recovery Hint",
+              "width": "fill_container",
+              "fill": "#EEF4F6",
+              "cornerRadius": "$radius-md",
+              "layout": "vertical",
+              "gap": 6,
+              "padding": 14,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "yOh6I",
+                  "name": "Launch Recovery Hint Label",
+                  "fill": "$color-info",
+                  "content": "Fallback rule",
+                  "fontFamily": "$font-caption",
+                  "fontSize": 11,
+                  "fontWeight": "600",
+                  "letterSpacing": 0.35
+                },
+                {
+                  "type": "text",
+                  "id": "U1emMR",
+                  "name": "Launch Recovery Hint Body",
+                  "fill": "$color-on-surface",
+                  "textGrowth": "fixed-width",
+                  "width": 318,
+                  "content": "If restore fails, continue locally and hand control to Today or onboarding instead of trapping the user in a dead end.",
+                  "lineHeight": 1.45,
+                  "fontFamily": "$font-body",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "tbCMr",
+          "name": "Shell Active State",
+          "width": "fill_container",
+          "fill": "$color-surface-container",
+          "cornerRadius": "$radius-lg",
+          "stroke": "$color-outline",
+          "strokeWidth": 1,
+          "layout": "vertical",
+          "gap": 16,
+          "padding": 20,
+          "children": [
+            {
+              "type": "text",
+              "id": "VWSbR",
+              "name": "Shell Active State Label",
+              "fill": "$color-info",
+              "content": "Shell active state",
+              "fontFamily": "$font-caption",
+              "fontSize": 11,
+              "fontWeight": "600",
+              "letterSpacing": 0.35
+            },
+            {
+              "type": "frame",
+              "id": "R7s3M",
+              "name": "Shell Active Preview",
+              "clip": true,
+              "width": "fill_container",
+              "fill": "$color-surface",
+              "cornerRadius": "$radius-lg",
+              "layout": "vertical",
+              "gap": 18,
+              "padding": [
+                16,
+                16,
+                0,
+                16
+              ],
+              "children": [
+                {
+                  "id": "QSLfm",
+                  "type": "ref",
+                  "ref": "qs9oz",
+                  "name": "Shell Active Status Bar",
+                  "width": "fill_container"
+                },
+                {
+                  "type": "frame",
+                  "id": "c7ttQB",
+                  "name": "Global Banner Preview",
+                  "width": "fill_container",
+                  "fill": "#EEF4F6",
+                  "cornerRadius": "$radius-md",
+                  "stroke": "$color-outline",
+                  "strokeWidth": 1,
+                  "padding": [
+                    12,
+                    14
+                  ],
+                  "justifyContent": "space_between",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "jHyI1",
+                      "name": "Global Banner Copy",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 4,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "i5Bmr",
+                          "name": "Global Banner Title",
+                          "fill": "$color-on-surface",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Sync paused, local rhythm is still available",
+                          "lineHeight": 1.35,
+                          "fontFamily": "$font-body",
+                          "fontSize": 13,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "lybwF",
+                          "name": "Global Banner Body",
+                          "fill": "$color-secondary",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Keep the banner brief. It explains the issue without stealing the page's primary action.",
+                          "lineHeight": 1.45,
+                          "fontFamily": "$font-body",
+                          "fontSize": 12,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "Eb7WM",
+                      "name": "Global Banner Action",
+                      "fill": "$color-primary",
+                      "content": "Review",
+                      "fontFamily": "$font-caption",
+                      "fontSize": 11,
+                      "fontWeight": "600",
+                      "letterSpacing": 0.3
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "fflJ3",
+                  "name": "Feature Content Host",
+                  "width": "fill_container",
+                  "height": 260,
+                  "fill": "#F8FBFC",
+                  "cornerRadius": "$radius-lg",
+                  "stroke": "$color-outline",
+                  "strokeWidth": 1,
+                  "layout": "vertical",
+                  "gap": 10,
+                  "padding": 24,
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "lOshO",
+                      "name": "Feature Content Host Title",
+                      "fill": "$color-on-surface",
+                      "textGrowth": "fixed-width",
+                      "width": 294,
+                      "content": "Feature page content host",
+                      "lineHeight": 1.2,
+                      "textAlign": "center",
+                      "fontFamily": "$font-display",
+                      "fontSize": 22,
+                      "fontWeight": "650"
+                    },
+                    {
+                      "type": "text",
+                      "id": "gnRhl",
+                      "name": "Feature Content Host Body",
+                      "fill": "$color-secondary",
+                      "textGrowth": "fixed-width",
+                      "width": 294,
+                      "content": "Top-level destinations render here. The shell owns routing, source context, and shared navigation. The feature owns business content.",
+                      "lineHeight": 1.45,
+                      "textAlign": "center",
+                      "fontFamily": "$font-body",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "id": "u7xEq5",
+                  "type": "ref",
+                  "ref": "OkwbA",
+                  "name": "Shell Shared Tab Bar",
+                  "width": "fill_container"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "P9JUf",
+          "name": "Source Routing Rules",
+          "width": "fill_container",
+          "fill": "$color-surface-container",
+          "cornerRadius": "$radius-lg",
+          "stroke": "$color-outline",
+          "strokeWidth": 1,
+          "layout": "vertical",
+          "gap": 10,
+          "padding": 18,
+          "children": [
+            {
+              "type": "text",
+              "id": "zmHYK",
+              "name": "Source Routing Title",
+              "fill": "$color-on-surface",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Source routing rules",
+              "lineHeight": 1.2,
+              "fontFamily": "$font-display",
+              "fontSize": 20,
+              "fontWeight": "650"
+            },
+            {
+              "type": "text",
+              "id": "H2sqIU",
+              "name": "Source Routing Body",
+              "fill": "$color-secondary",
+              "textGrowth": "fixed-width",
+              "width": 346,
+              "content": "Notification, widget, and deep-link targets are resolved at shell level. When a target is invalid or not ready, the shell safely degrades to the nearest top-level destination.",
+              "lineHeight": 1.45,
+              "fontFamily": "$font-body",
+              "fontSize": 13,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "frame",
+              "id": "k05sn6",
+              "name": "Source Routing Rule List",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 10,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "lQ2hL",
+                  "name": "Notification entry Row",
+                  "width": "fill_container",
+                  "fill": "#F8FBFC",
+                  "cornerRadius": "$radius-md",
+                  "stroke": "$color-outline",
+                  "strokeWidth": 1,
+                  "layout": "vertical",
+                  "gap": 4,
+                  "padding": [
+                    12,
+                    14
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "oTeZa",
+                      "name": "Notification entry Title",
+                      "fill": "$color-on-surface",
+                      "textGrowth": "fixed-width",
+                      "width": 318,
+                      "content": "Notification entry",
+                      "lineHeight": 1.35,
+                      "fontFamily": "$font-body",
+                      "fontSize": 13,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "OE5AO",
+                      "name": "Notification entry Body",
+                      "fill": "$color-secondary",
+                      "textGrowth": "fixed-width",
+                      "width": 318,
+                      "content": "Prefer the intended destination when its prerequisites are met.",
+                      "lineHeight": 1.45,
+                      "fontFamily": "$font-body",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "PXGYt",
+                  "name": "Widget entry Row",
+                  "width": "fill_container",
+                  "fill": "#F8FBFC",
+                  "cornerRadius": "$radius-md",
+                  "stroke": "$color-outline",
+                  "strokeWidth": 1,
+                  "layout": "vertical",
+                  "gap": 4,
+                  "padding": [
+                    12,
+                    14
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "UgumQ",
+                      "name": "Widget entry Title",
+                      "fill": "$color-on-surface",
+                      "textGrowth": "fixed-width",
+                      "width": 318,
+                      "content": "Widget entry",
+                      "lineHeight": 1.35,
+                      "fontFamily": "$font-body",
+                      "fontSize": 13,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "E6Shb",
+                      "name": "Widget entry Body",
+                      "fill": "$color-secondary",
+                      "textGrowth": "fixed-width",
+                      "width": 318,
+                      "content": "Land in the matching top-level tab and preserve source context.",
+                      "lineHeight": 1.45,
+                      "fontFamily": "$font-body",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "cqNQc",
+                  "name": "Invalid target Row",
+                  "width": "fill_container",
+                  "fill": "#F8FBFC",
+                  "cornerRadius": "$radius-md",
+                  "stroke": "$color-outline",
+                  "strokeWidth": 1,
+                  "layout": "vertical",
+                  "gap": 4,
+                  "padding": [
+                    12,
+                    14
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "O9Bvbm",
+                      "name": "Invalid target Title",
+                      "fill": "$color-on-surface",
+                      "textGrowth": "fixed-width",
+                      "width": 318,
+                      "content": "Invalid target",
+                      "lineHeight": 1.35,
+                      "fontFamily": "$font-body",
+                      "fontSize": 13,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "hz5uK",
+                      "name": "Invalid target Body",
+                      "fill": "$color-secondary",
+                      "textGrowth": "fixed-width",
+                      "width": 318,
+                      "content": "Fall back to Today instead of exposing an empty or broken route.",
+                      "lineHeight": 1.45,
+                      "fontFamily": "$font-body",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "variables": {
+    "color-error": {
+      "type": "color",
+      "value": "#C96E66"
+    },
+    "color-info": {
+      "type": "color",
+      "value": "#7A93A0"
+    },
+    "color-on-primary": {
+      "type": "color",
+      "value": "#F7FBFC"
+    },
+    "color-on-surface": {
+      "type": "color",
+      "value": "#18242B"
+    },
+    "color-outline": {
+      "type": "color",
+      "value": "#D9E4EA"
+    },
+    "color-primary": {
+      "type": "color",
+      "value": "#2F6B7A"
+    },
+    "color-secondary": {
+      "type": "color",
+      "value": "#6F8490"
+    },
+    "color-success": {
+      "type": "color",
+      "value": "#5F8F78"
+    },
+    "color-surface": {
+      "type": "color",
+      "value": "#F5F8FA"
+    },
+    "color-surface-container": {
+      "type": "color",
+      "value": "#FCFEFF"
+    },
+    "color-tertiary": {
+      "type": "color",
+      "value": "#C88B4A"
+    },
+    "color-warning": {
+      "type": "color",
+      "value": "#C88B4A"
+    },
+    "font-body": {
+      "type": "string",
+      "value": "Geist"
+    },
+    "font-display": {
+      "type": "string",
+      "value": "Geist"
+    },
+    "radius-full": {
+      "type": "number",
+      "value": 9999
+    },
+    "radius-lg": {
+      "type": "number",
+      "value": 24
+    },
+    "radius-md": {
+      "type": "number",
+      "value": 16
+    },
+    "radius-sm": {
+      "type": "number",
+      "value": 8
+    },
+    "spacing-lg": {
+      "type": "number",
+      "value": 24
+    },
+    "spacing-md": {
+      "type": "number",
+      "value": 16
+    },
+    "spacing-sm": {
+      "type": "number",
+      "value": 8
+    },
+    "spacing-xl": {
+      "type": "number",
+      "value": 40
+    },
+    "spacing-xs": {
+      "type": "number",
+      "value": 4
+    },
+    "spacing-xxl": {
+      "type": "number",
+      "value": 56
+    },
+    "font-caption": {
+      "type": "string",
+      "value": "IBM Plex Mono"
+    },
+    "font-data": {
+      "type": "string",
+      "value": "Geist Mono"
+    }
+  }
 }
