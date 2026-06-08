@@ -9,13 +9,14 @@
 > - `docs/rd/light-theme-freeze.yaml`
 > - `docs/rd/dark-theme-freeze.yaml`
 > - `docs/rd/pencil-design-source-packet.md`
+> - `docs/rd/shared-design-freeze-decision.md`
 > 当前模式：`initial_split`
 > 文档成熟度：`split_draft`
 
 ## 1. 拆分结论
 
-本次按“用户任务边界 + 导航壳层边界 + 数据生命周期边界 + 平台能力边界”进行初始模块拆分。  
-拆分结果保留技术基线里已经冻结的 8 个粗粒度模块，不额外细碎化页面，不提前把模块草案冒充为可直接实现稿。
+本次是在 `静夜秩序` 共享冻结确认后，对模块拆分结果进行重新落盘。  
+模块边界整体保持 8 个粗粒度模块不变，因为产品任务边界、导航壳层边界、数据生命周期边界和平台能力边界没有变化；发生变化的是共享 UI 优先级和视觉合同，这要求后续模块草案统一改用新的共享设计上游，而不是继续沿用旧的行动优先首页假设。
 
 ## 2. 模块总表
 
@@ -24,7 +25,7 @@
 | `app-shell` | 根路由、共享壳层、底部导航、启动分发、深链入口 | `docs/rd/modules/app-shell/app-shell.ui-ux.md` | `docs/rd/modules/app-shell/app-shell.impl.md` | none | `onboarding-activation`、`today`、`bedtime`、`calendar`、`insights`、`profile-settings` | `foundation-a` | `stage-1` | 必须先落定，其他顶层模块不能各自藏一份壳层逻辑 |
 | `sleep-data-core` | 睡眠记录、目标作息、提醒计划、手动修正、恢复计划基础能力 | `docs/rd/modules/sleep-data-core/sleep-data-core.ui-ux.md` | `docs/rd/modules/sleep-data-core/sleep-data-core.impl.md` | none | `onboarding-activation`、`today`、`bedtime`、`calendar`、`insights`、`profile-settings` | `foundation-b` | `stage-1` | 与 `app-shell` 同波次，但若权限/存储方案未落稳，不应放开下游功能模块 |
 | `onboarding-activation` | 首次激活漏斗、登录策略、健康授权、目标设置、提醒设置、小组件引导 | `docs/rd/modules/onboarding-activation/onboarding-activation.ui-ux.md` | `docs/rd/modules/onboarding-activation/onboarding-activation.impl.md` | `app-shell`、`sleep-data-core` | `today`、`profile-settings` | `activation` | `stage-2` | 依赖基础壳层与目标/权限/提醒的数据写入能力 |
-| `today` | 每日主入口，承载昨晚结果、今晚行动、快捷补录、恢复摘要 | `docs/rd/modules/today/today.ui-ux.md` | `docs/rd/modules/today/today.impl.md` | `app-shell`、`sleep-data-core`、`onboarding-activation` | `insights` | `behavior-loop` | `stage-3` | 可与 `bedtime`、`calendar` 条件并行，但依赖目标作息和记录读写能力先稳定 |
+| `today` | 每日主入口，承载昨晚结果、今晚目标、下一步动作、快捷补录与恢复摘要 | `docs/rd/modules/today/today.ui-ux.md` | `docs/rd/modules/today/today.impl.md` | `app-shell`、`sleep-data-core`、`onboarding-activation` | `insights` | `behavior-loop` | `stage-3` | 可与 `bedtime`、`calendar` 条件并行，但必须继承结果优先首屏层级 |
 | `bedtime` | 睡前模式、状态选择、轻量收尾动作、行为线索留痕 | `docs/rd/modules/bedtime/bedtime.ui-ux.md` | `docs/rd/modules/bedtime/bedtime.impl.md` | `app-shell`、`sleep-data-core`、`onboarding-activation` | `today`、`insights` | `behavior-loop` | `stage-3` | 与 `today` 高耦合于闭环语义，但代码上可在共享契约稳定后并行推进 |
 | `calendar` | 月历热力图、单日详情、趋势筛选、历史边界 | `docs/rd/modules/calendar/calendar.ui-ux.md` | `docs/rd/modules/calendar/calendar.impl.md` | `app-shell`、`sleep-data-core`、`onboarding-activation` | `insights`、`profile-settings` | `behavior-loop` | `stage-3` | 对热力图与历史锁定规则敏感，依赖数据口径和订阅口径明确 |
 | `insights` | 周报、稳定度、原因分布、恢复计划详情、付费承接 | `docs/rd/modules/insights/insights.ui-ux.md` | `docs/rd/modules/insights/insights.impl.md` | `app-shell`、`sleep-data-core`、`today`、`bedtime`、`calendar` | `profile-settings` | `monetization` | `stage-4` | 不应在行为闭环未跑通前先做重洞察与重付费表达 |
@@ -43,7 +44,7 @@
 
 ### 3.3 主闭环依赖
 
-- `today`、`bedtime`、`calendar` 共享同一闭环语义，都是 `stage-3` 候选。
+- `today`、`bedtime`、`calendar` 共享同一条行为闭环，但新的共享冻结要求 `today` 明确承担“结果先读懂”的主页角色。
 - `today` 消费 `bedtime` 留下的行为线索与 `sleep-data-core` 聚合结果。
 - `calendar` 对单日记录与历史边界有只读放大作用，但数据口径仍依赖 `sleep-data-core`。
 
@@ -73,7 +74,7 @@
 - `bedtime`
 - `calendar`
 
-说明：三者共享一条主闭环，可在契约明确后并行推进模块细化，但默认仍应先选一个活动模块串行进入后续冻结与实现流程。
+说明：三者共享主闭环，可在契约明确后并行推进模块细化，但默认仍应先选一个活动模块串行进入后续冻结与实现流程。基于当前共享冻结，`today` 的模块细化优先级较高，因为它承担结果优先首屏合同。
 
 ### `stage-4`
 
@@ -109,7 +110,7 @@
 
 - 用户任务：快速理解昨晚结果、今晚目标和下一步动作
 - 页面/状态范围：Today 顶层页、快捷补录入口、恢复摘要入口
-- 数据所有权：日级聚合 ViewState、主 CTA 触发路径
+- 数据所有权：日级聚合 ViewState、主结果卡与主 CTA 排序
 - 释放价值：承载日活与主闭环回访
 
 ### `bedtime`
@@ -157,6 +158,6 @@
 
 ## 8. 后续建议
 
-- 下一步不是直接写代码，而是先确认本次模块拆分结果。
-- 确认后，按串行活动模块机制进入后续模块细化；默认先处理 `app-shell` 或 `onboarding-activation`，再进入主闭环模块。
-- 在进入单模块设计冻结前，仍需保持 Pencil 共享设计源和共享冻结合同作为唯一上游设计标准。
+- 下一步不是直接写代码，而是先确认本次重跑后的模块拆分结果。
+- 确认后，按串行活动模块机制进入后续模块细化；在当前共享冻结下，建议优先处理 `today` 或 `app-shell`。
+- 在进入单模块设计冻结前，必须继续把 Pencil 共享设计源和新的共享冻结合同作为唯一上游设计标准。
