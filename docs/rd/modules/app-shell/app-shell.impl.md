@@ -15,6 +15,7 @@
   - `docs/rd/light-theme-freeze.yaml`
   - `docs/rd/dark-theme-freeze.yaml`
   - `docs/rd/pencil-design-source-packet.md`
+  - `docs/rd/modules/app-shell/app-shell.pencil-design-source-packet.md`
 
 ## 2. 业务能力与边界上下文
 
@@ -229,6 +230,7 @@
 
 - `docs/rd/pencil-design-source-packet.md` 中的共享壳层规则
 - `docs/rd/global-design-guidelines.md` 中的全局导航、CTA 与信息层级约束
+- `docs/rd/modules/app-shell/app-shell.pencil-design-source-packet.md` 中的模块级壳层状态、横幅层级与来源降级约束
 
 ## 13. 显示层决策说明
 
