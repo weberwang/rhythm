@@ -55,11 +55,7 @@ migrate_working_dir/
 /tmp/
 
 # Codex local skill copies
-/.agents/skills/flutter-init/
-/.agents/skills/flutter-pen-to-architecture/
-/.agents/skills/flutter-prd-rd-writer/
-/.agents/skills/flutter-project-guardrails/
-/.agents/skills/mobile-ui-design-coach/
+/.agents/skills/
 
 # Symbolication related
 app.*.symbols
