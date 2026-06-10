@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:rhythm/features/app_shell/application/app_shell_overlay_controller.dart';
 import 'package:rhythm/app/theme/rhythm_theme.dart';
 import 'package:rhythm/features/app_shell/presentation/root_shell_page.dart';
 import 'package:rhythm/l10n/app_localizations.dart';
@@ -37,6 +38,32 @@ void main() {
     expect(find.text('Today Page'), findsOneWidget);
     expect(find.text('Bedtime Page'), findsNothing);
   });
+
+  testWidgets('root shell 会消费 app-shell 全局 overlay 队列', (tester) async {
+    final router = _buildTestRouter(initialLocation: '/today');
+    final container = ProviderContainer();
+    addTearDown(container.dispose);
+
+    await tester.pumpWidget(
+      UncontrolledProviderScope(
+        container: container,
+        child: _MaterialRouterApp(router: router),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    container
+        .read(appShellOverlayControllerProvider.notifier)
+        .showSuccess('Session restored.');
+    await tester.pump();
+
+    expect(find.text('Session restored.'), findsOneWidget);
+
+    await tester.pump(const Duration(seconds: 3));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Session restored.'), findsNothing);
+  });
 }
 
 GoRouter _buildTestRouter({required String initialLocation}) {
@@ -52,7 +79,8 @@ GoRouter _buildTestRouter({required String initialLocation}) {
             routes: [
               GoRoute(
                 path: '/today',
-                builder: (context, state) => const _BranchPage(title: 'Today Page'),
+                builder: (context, state) =>
+                    const _BranchPage(title: 'Today Page'),
               ),
             ],
           ),
@@ -105,13 +133,24 @@ class _TestApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ProviderScope(
-      child: MaterialApp.router(
-        routerConfig: router,
-        theme: buildRhythmLightTheme(),
-        localizationsDelegates: AppLocalizations.localizationsDelegates,
-        supportedLocales: AppLocalizations.supportedLocales,
-      ),
+    return ProviderScope(child: _MaterialRouterApp(router: router));
+  }
+}
+
+/// 复用测试环境下的 MaterialApp.router 装配，避免每条用例重复配置。
+class _MaterialRouterApp extends StatelessWidget {
+  /// 创建测试用路由壳。
+  const _MaterialRouterApp({required this.router});
+
+  final GoRouter router;
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp.router(
+      routerConfig: router,
+      theme: buildRhythmLightTheme(),
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
     );
   }
 }
@@ -125,10 +164,6 @@ class _BranchPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Text(title),
-      ),
-    );
+    return Scaffold(body: Center(child: Text(title)));
   }
 }

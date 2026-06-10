@@ -2,6 +2,7 @@ import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:rhythm/features/app_shell/presentation/root_shell_page.dart';
 import 'package:rhythm/features/app_shell/presentation/startup_gate_page.dart';
+import 'package:rhythm/features/onboarding_activation/presentation/onboarding_activation_page.dart';
 import 'package:rhythm/l10n/app_localizations.dart';
 import 'package:rhythm/shared/widgets/module_placeholder_page.dart';
 
@@ -28,11 +29,7 @@ GoRouter appRouter(Ref ref) {
       ),
       GoRoute(
         path: '/onboarding',
-        builder: (context, state) => ModulePlaceholderPage(
-          title: AppLocalizations.of(context).onboardingPlaceholderTitle,
-          description:
-              AppLocalizations.of(context).onboardingPlaceholderDescription,
-        ),
+        builder: (context, state) => const OnboardingActivationPage(),
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
@@ -45,8 +42,9 @@ GoRouter appRouter(Ref ref) {
                 path: '/today',
                 builder: (context, state) => ModulePlaceholderPage(
                   title: AppLocalizations.of(context).todayPlaceholderTitle,
-                  description:
-                      AppLocalizations.of(context).todayPlaceholderDescription,
+                  description: AppLocalizations.of(
+                    context,
+                  ).todayPlaceholderDescription,
                 ),
               ),
             ],
@@ -70,8 +68,9 @@ GoRouter appRouter(Ref ref) {
                 path: '/bedtime',
                 builder: (context, state) => ModulePlaceholderPage(
                   title: AppLocalizations.of(context).bedtimePlaceholderTitle,
-                  description:
-                      AppLocalizations.of(context).bedtimePlaceholderDescription,
+                  description: AppLocalizations.of(
+                    context,
+                  ).bedtimePlaceholderDescription,
                 ),
               ),
             ],
@@ -82,8 +81,9 @@ GoRouter appRouter(Ref ref) {
                 path: '/insights',
                 builder: (context, state) => ModulePlaceholderPage(
                   title: AppLocalizations.of(context).insightsPlaceholderTitle,
-                  description:
-                      AppLocalizations.of(context).insightsPlaceholderDescription,
+                  description: AppLocalizations.of(
+                    context,
+                  ).insightsPlaceholderDescription,
                 ),
               ),
             ],
@@ -94,8 +94,9 @@ GoRouter appRouter(Ref ref) {
                 path: '/profile',
                 builder: (context, state) => ModulePlaceholderPage(
                   title: AppLocalizations.of(context).profilePlaceholderTitle,
-                  description:
-                      AppLocalizations.of(context).profilePlaceholderDescription,
+                  description: AppLocalizations.of(
+                    context,
+                  ).profilePlaceholderDescription,
                 ),
               ),
             ],

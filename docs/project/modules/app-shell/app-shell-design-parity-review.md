@@ -25,7 +25,7 @@
 
 - 代码入口：[root_shell_page.dart](/E:/Projects/flutter/rhythm/lib/features/app_shell/presentation/root_shell_page.dart)、[startup_gate_page.dart](/E:/Projects/flutter/rhythm/lib/features/app_shell/presentation/startup_gate_page.dart)、[global_overlay_host.dart](/E:/Projects/flutter/rhythm/lib/features/app_shell/presentation/widgets/global_overlay_host.dart)
 - 运行态截图：仅补到 onboarding 路径的 Web 390x844 截图；尚未补到 root-shell、deep-link handoff、overlay 成功态的真实运行证据
-- 自动校验：`flutter analyze` 通过，`flutter test` 通过
+- 自动校验：`dart analyze lib test integration_test` 通过；`flutter test` 相关 widget tests 通过；`integration_test/app_shell_bootstrap_test.dart` 已在 Android 模拟器 `emulator-5554 / API 35` 上通过
 
 ## review_dimensions
 
@@ -42,31 +42,27 @@
 
 ### state
 
-- `startup_loading`、`startup_failed`、`blocked handoff` 已有测试证据，但 `deep_link_blocked` 的实现行为与冻结状态不一致。
-- `overlay_success`、`overlay_warning`、`overlay_error` 缺少真正接线，当前只是宿主组件存在。
+- `startup_loading`、`startup_failed`、`blocked handoff` 已有测试证据，且 blocked fallback 已改为“说明 + 单一主动作”，与冻结状态一致。
+- `overlay_success` 已接入启动恢复链路，`root-shell` 会消费全局 overlay 队列；`overlay_warning`、`overlay_error` 仍缺真实运行截图。
 
 ### motion
 
-- `deep-link-handoff` 仍采用统一自动跳转，未区分 blocked fallback 的人工回退动作。
-- overlay 进出场与优先级调度缺少真实运行证据。
+- `deep-link-handoff` 已区分 blocked fallback 的人工回退动作，非 blocked handoff 仍保持自动过渡。
+- overlay 进出场与优先级调度已有自动测试，但仍缺真实运行截图佐证。
 
 ## gap_list
 
-1. `P0` [startup_gate_page.dart](/E:/Projects/flutter/rhythm/lib/features/app_shell/presentation/startup_gate_page.dart)
-   `DeepLinkHandoffPage` 对 blocked fallback 仍然在 450ms 后自动 `go()`，没有实现 UI/UX RD 要求的“回退说明 + 单一主动作”。这会改变冻结的交互意图。
-2. `P1` [root_shell_page.dart](/E:/Projects/flutter/rhythm/lib/features/app_shell/presentation/root_shell_page.dart)
-   `GlobalOverlayHost` 被固定传入空事件队列，导致 `overlay_success / warning / error` 三类冻结状态没有真正接入运行链路。
-3. `P1` [startup_gate_page.dart](/E:/Projects/flutter/rhythm/lib/features/app_shell/presentation/startup_gate_page.dart)
-   `LaunchDecision.redirect.successMessage` 在启动分发路径中没有被消费，`sessionRestored` 的成功反馈无法进入全局 overlay。
-4. `P2` [startup_gate_page.dart](/E:/Projects/flutter/rhythm/lib/features/app_shell/presentation/startup_gate_page.dart)
-   `error` 分支仍有硬编码英文文案 `Unable to finish startup. Please try again.`，不符合当前项目的国际化约束。
-5. `P1`
+1. `P1`
    当前只有 [app-shell-runtime-onboarding-web-390x844.png](/E:/Projects/flutter/rhythm/docs/project/modules/app-shell/app-shell-runtime-onboarding-web-390x844.png) 一张运行态截图，缺少 root-shell、tab active、deep-link handoff、overlay 成功态的同尺度证据，按审查规则不能直接通过模块验收。
+2. `P1` [integration_test/app_shell_runtime_capture_test.dart](/E:/Projects/flutter/rhythm/integration_test/app_shell_runtime_capture_test.dart)
+   运行态截图采集链路在 Windows 集成测试环境下依赖 `integration_test` 的原生截图通道，当前会抛出 `MissingPluginException(captureScreenshot)`；需要改为 Android 模拟器可稳定执行的截图方式，或转为 adb / 原生截图采集方案。
+3. `P2`
+   Android 模拟器人工截图出现过仅显示底部 tab、主体内容空白的中间态画面；自动 bootstrap 集成测试未复现该问题，后续补正式运行证据时仍需复核截图时机与冷启动状态是否一致。
 
 ## severity
 
 - 总体结论：`未通过`
-- 最高严重级别：`P0`
+- 最高严重级别：`P1`
 
 ## fix_owner
 
@@ -79,5 +75,5 @@
 
 ## review_notes
 
-- 当前发现的是实现缺口和运行证据缺口，不是设计源本身冲突。
-- 在补齐 blocked handoff、overlay 接线和运行截图前，不应把 `app-shell` 记为最终验收通过。
+- 当前剩余问题以运行证据缺口和截图链路不稳定为主，不再是设计源与实现逻辑冲突。
+- Android 模拟器上的启动链路已经过自动验证，但在补齐 root-shell、handoff、overlay 成功态截图前，仍不应把 `app-shell` 记为最终验收通过。

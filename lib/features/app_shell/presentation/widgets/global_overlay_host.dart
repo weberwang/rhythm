@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:rhythm/app/theme/rhythm_theme.dart';
 import 'package:rhythm/features/app_shell/domain/app_shell_models.dart';
 
 /// 根级 overlay 宿主。
-class GlobalOverlayHost extends StatelessWidget {
+class GlobalOverlayHost extends HookWidget {
   /// 创建 overlay 宿主。
   const GlobalOverlayHost({
     required this.events,
+    required this.onDismiss,
     super.key,
   });
 
   /// 待展示的事件队列。
   final List<AppShellOverlayEvent> events;
+
+  /// 当宿主消费完非阻断反馈后回传移除动作。
+  final ValueChanged<AppShellOverlayEvent> onDismiss;
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +24,23 @@ class GlobalOverlayHost extends StatelessWidget {
     if (activeEvent == null) {
       return const SizedBox.shrink();
     }
+
+    useEffect(() {
+      if (activeEvent.type == AppShellOverlayType.blockingError) {
+        return null;
+      }
+
+      var cancelled = false;
+      Future<void>.delayed(const Duration(seconds: 3), () {
+        if (!cancelled) {
+          onDismiss(activeEvent);
+        }
+      });
+
+      return () {
+        cancelled = true;
+      };
+    }, [activeEvent]);
 
     return SafeArea(
       child: Align(
@@ -71,9 +93,10 @@ class GlobalOverlayHost extends StatelessWidget {
       return null;
     }
 
-    final sorted = [...queue]..sort((left, right) {
-      return _priorityOf(left.type).compareTo(_priorityOf(right.type));
-    });
+    final sorted = [...queue]
+      ..sort((left, right) {
+        return _priorityOf(left.type).compareTo(_priorityOf(right.type));
+      });
     return sorted.first;
   }
 

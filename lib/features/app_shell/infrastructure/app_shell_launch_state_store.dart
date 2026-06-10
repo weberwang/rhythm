@@ -13,8 +13,18 @@ class AppShellLaunchStateStore {
 
   /// 读取 onboarding 是否完成。
   Future<bool> hasCompletedOnboarding(Ref ref) async {
-    final preferences = await ref.watch(sharedPreferencesInstanceProvider.future);
+    final preferences = await ref.watch(
+      sharedPreferencesInstanceProvider.future,
+    );
     return preferences.getBool(onboardingCompletedKey) ?? false;
+  }
+
+  /// 写入 onboarding 已完成标记，供首次激活完成后回流主链路。
+  Future<void> markOnboardingCompleted(Ref ref) async {
+    final preferences = await ref.read(
+      sharedPreferencesInstanceProvider.future,
+    );
+    await preferences.setBool(onboardingCompletedKey, true);
   }
 }
 

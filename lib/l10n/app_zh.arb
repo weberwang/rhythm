@@ -1,0 +1,92 @@
+{
+  "@@locale": "zh",
+  "appName": "Rhythm",
+  "appShellTabToday": "今日",
+  "appShellTabCalendar": "日历",
+  "appShellTabBedtime": "睡前",
+  "appShellTabInsights": "洞察",
+  "appShellTabProfile": "我的",
+  "startupGatePreparingTitle": "正在准备你的路径",
+  "startupGatePreparingMessage": "带你前往合适的位置。",
+  "startupGateOpeningShortcutTitle": "正在打开快捷入口",
+  "startupGateRedirectingSafelyTitle": "正在安全回退",
+  "startupGateOpeningDestinationTitle": "正在打开目标页面",
+  "startupGateLoadingTitle": "正在准备 Rhythm",
+  "startupGateLoadingMessage": "正在检查启动状态。",
+  "startupGateNeedsAttentionTitle": "启动需要处理",
+  "startupGateUnexpectedErrorMessage": "暂时无法完成启动，请重试。",
+  "startupGateCompleteOnboardingAction": "完成引导",
+  "startupGateGoToTodayAction": "前往今日",
+  "startupGateContinueAction": "继续",
+  "appShellRetry": "重试",
+  "handoffFromNotification": "正在从通知进入。",
+  "handoffFromWidget": "正在从小组件快捷入口进入。",
+  "handoffFromShortcut": "正在从快捷入口进入。",
+  "deepLinkNeedsOnboarding": "请先完成引导，再打开快捷入口。",
+  "sessionRestored": "会话已恢复。",
+  "onboardingLoadingMessage": "正在恢复你的激活进度。",
+  "onboardingLoadFailedTitle": "暂时无法打开激活流程",
+  "onboardingLoadFailedBody": "请重试，当前设备上的已保存进度会被保留。",
+  "onboardingStepCounter": "第 {current} / {total} 步",
+  "@onboardingStepCounter": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "onboardingWelcomeTitle": "欢迎",
+  "onboardingWelcomeBody": "先完成这一步快速激活，再进入今天的主链路。",
+  "onboardingAnonymousTitle": "先在本机继续",
+  "onboardingAnonymousBody": "先建立本地节律计划，之后再决定是否开启账号同步。",
+  "onboardingConnectLaterTitle": "稍后再绑定账号",
+  "onboardingConnectLaterBody": "今天先完成本地设置，Google 或 Apple 绑定可以留到设置页之后再做。",
+  "onboardingHealthAccessTitle": "选择健康数据路径",
+  "onboardingHealthAccessBody": "你可以先按接入健康数据的方向准备，也可以先完全手动使用，不会影响主链路开启。",
+  "onboardingHealthConnectTitle": "后续接入健康数据",
+  "onboardingHealthConnectBody": "等更完整的数据桥接准备好后，再引导你进入 Health Connect 或 HealthKit。",
+  "onboardingHealthManualTitle": "先走手动路径",
+  "onboardingHealthManualBody": "暂不授权也能先用睡前提醒、作息目标和次日反馈主链路。",
+  "onboardingSleepWindowTitle": "设置目标作息窗口",
+  "onboardingSleepWindowBody": "先选一个现实可执行的入睡与起床时间，让今晚提醒节奏更贴近你的真实习惯。",
+  "onboardingBedtimeLabel": "目标入睡时间",
+  "onboardingWakeTimeLabel": "目标起床时间",
+  "onboardingSleepWindowHint": "这些时间后续都可以在设置里继续调整。",
+  "onboardingReminderTitle": "选择提醒节奏",
+  "onboardingReminderBody": "决定 Rhythm 是否在睡前提前提醒你，或先保持第一周无通知进入。",
+  "onboardingReminderEnabledTitle": "保留睡前提醒",
+  "onboardingReminderEnabledBody": "在目标入睡前给你一个轻提示，帮助你开始收尾。",
+  "onboardingReminderDisabledTitle": "暂不提醒",
+  "onboardingReminderDisabledBody": "之后你仍然可以随时从今日页手动进入睡前模式。",
+  "onboardingReminderLeadLabel": "提醒时间",
+  "onboardingReminderLeadOption": "睡前 {minutes} 分钟",
+  "@onboardingReminderLeadOption": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "onboardingContinueAction": "继续",
+  "onboardingBackAction": "返回",
+  "onboardingFinishAction": "进入今日",
+  "onboardingHealthDeferredMessage": "健康数据权限暂未就绪，Rhythm 会先按手动模式开始。",
+  "onboardingReminderDeferredMessage": "当前设备暂时无法完成提醒调度，你仍然可以继续进入今日。",
+  "onboardingCompletionFailedMessage": "暂时无法完成引导，请重试。",
+  "modulePlaceholderCardMessage": "当前为底座占位，功能行为会在后续接入。",
+  "onboardingPlaceholderTitle": "欢迎",
+  "onboardingPlaceholderDescription": "引导激活占位页。",
+  "todayPlaceholderTitle": "今日",
+  "todayPlaceholderDescription": "今日模块底座占位页。",
+  "calendarPlaceholderTitle": "日历",
+  "calendarPlaceholderDescription": "日历模块底座占位页。",
+  "bedtimePlaceholderTitle": "睡前",
+  "bedtimePlaceholderDescription": "睡前模块底座占位页。",
+  "insightsPlaceholderTitle": "洞察",
+  "insightsPlaceholderDescription": "洞察模块底座占位页。",
+  "profilePlaceholderTitle": "我的",
+  "profilePlaceholderDescription": "个人设置模块底座占位页。"
+}

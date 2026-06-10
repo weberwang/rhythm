@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rhythm/app/theme/rhythm_theme.dart';
 import 'package:rhythm/features/app_shell/application/app_shell_bootstrap_controller.dart';
+import 'package:rhythm/features/app_shell/application/app_shell_overlay_controller.dart';
 import 'package:rhythm/features/app_shell/domain/app_shell_models.dart';
 import 'package:rhythm/l10n/app_localizations.dart';
 
@@ -26,34 +27,38 @@ class StartupGatePage extends HookConsumerWidget {
     ref.listen<AsyncValue<LaunchDecision>>(
       appShellBootstrapControllerProvider,
       (previous, next) {
-        next.whenData(
-          (value) {
-            WidgetsBinding.instance.addPostFrameCallback((duration) {
-              if (!context.mounted) {
-                return;
-              }
+        next.whenData((value) {
+          WidgetsBinding.instance.addPostFrameCallback((duration) {
+            if (!context.mounted) {
+              return;
+            }
 
-              value.when(
-                redirect: (target, successMessage) => context.go(target.path),
-                handoff: (target, reason) => context.goNamed(
-                  DeepLinkHandoffPage.routeName,
-                  extra: DeepLinkHandoffArgs(
-                    target: target,
-                    reason: reason,
-                  ),
+            value.when(
+              redirect: (target, successMessage) {
+                // 启动恢复成功时先把反馈入队，再跳转到 root shell 消费。
+                if (successMessage != null && successMessage.isNotEmpty) {
+                  ref
+                      .read(appShellOverlayControllerProvider.notifier)
+                      .showSuccess(_resolveStartupCopy(l10n, successMessage));
+                }
+
+                context.go(target.path);
+              },
+              handoff: (target, reason) => context.goNamed(
+                DeepLinkHandoffPage.routeName,
+                extra: DeepLinkHandoffArgs(target: target, reason: reason),
+              ),
+              blocked: (fallbackTarget, message) => context.goNamed(
+                DeepLinkHandoffPage.routeName,
+                extra: DeepLinkHandoffArgs.blocked(
+                  target: fallbackTarget,
+                  reason: message,
                 ),
-                blocked: (fallbackTarget, message) => context.goNamed(
-                  DeepLinkHandoffPage.routeName,
-                  extra: DeepLinkHandoffArgs.blocked(
-                    target: fallbackTarget,
-                    reason: message,
-                  ),
-                ),
-                failure: (message) {},
-              );
-            });
-          },
-        );
+              ),
+              failure: (message) {},
+            );
+          });
+        });
       },
     );
 
@@ -83,13 +88,15 @@ class StartupGatePage extends HookConsumerWidget {
                 failure: (message) => _StartupErrorView(
                   title: l10n.startupGateNeedsAttentionTitle,
                   message: message,
-                  onRetry: () => ref.invalidate(appShellBootstrapControllerProvider),
+                  onRetry: () =>
+                      ref.invalidate(appShellBootstrapControllerProvider),
                   retryLabel: l10n.appShellRetry,
                 ),
               ),
               error: (error, stackTrace) => _StartupErrorView(
-                message: 'Unable to finish startup. Please try again.',
-                onRetry: () => ref.invalidate(appShellBootstrapControllerProvider),
+                message: l10n.startupGateUnexpectedErrorMessage,
+                onRetry: () =>
+                    ref.invalidate(appShellBootstrapControllerProvider),
                 title: l10n.startupGateNeedsAttentionTitle,
                 retryLabel: l10n.appShellRetry,
               ),
@@ -125,21 +132,19 @@ class DeepLinkHandoffPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
 
-    useEffect(
-      () {
-        Future<void>.delayed(
-          const Duration(milliseconds: 450),
-          () {
-            if (context.mounted) {
-              context.go(args.target.path);
-            }
-          },
-        );
+    useEffect(() {
+      if (args.isBlocked) {
         return null;
-      },
-      const [],
-    );
-    
+      }
+
+      Future<void>.delayed(const Duration(milliseconds: 450), () {
+        if (context.mounted) {
+          context.go(args.target.path);
+        }
+      });
+      return null;
+    }, const []);
+
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -153,7 +158,13 @@ class DeepLinkHandoffPage extends HookConsumerWidget {
               icon: args.isBlocked
                   ? Icons.shield_outlined
                   : Icons.open_in_new_rounded,
-              showProgress: true,
+              showProgress: !args.isBlocked,
+              actionLabel: args.isBlocked
+                  ? _blockedHandoffActionLabel(l10n, args.target)
+                  : null,
+              onAction: args.isBlocked
+                  ? () => context.go(args.target.path)
+                  : null,
             ),
           ),
         ),
@@ -195,12 +206,16 @@ class _StartupStatusView extends StatelessWidget {
     required this.message,
     required this.icon,
     this.showProgress = false,
+    this.actionLabel,
+    this.onAction,
   });
 
   final String title;
   final String message;
   final IconData icon;
   final bool showProgress;
+  final String? actionLabel;
+  final VoidCallback? onAction;
 
   @override
   Widget build(BuildContext context) {
@@ -239,6 +254,10 @@ class _StartupStatusView extends StatelessWidget {
                 RhythmColors.brandPrimary,
               ),
             ),
+          ],
+          if (actionLabel != null && onAction != null) ...[
+            const SizedBox(height: RhythmSpacing.l),
+            FilledButton(onPressed: onAction, child: Text(actionLabel!)),
           ],
         ],
       ),
@@ -295,10 +314,7 @@ class _StartupErrorView extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: RhythmSpacing.l),
-          FilledButton(
-            onPressed: onRetry,
-            child: Text(retryLabel),
-          ),
+          FilledButton(onPressed: onRetry, child: Text(retryLabel)),
         ],
       ),
     );
@@ -340,5 +356,23 @@ String _resolveStartupCopy(AppLocalizations l10n, String key) {
       return l10n.sessionRestored;
     default:
       return key;
+  }
+}
+
+/// 根据 blocked fallback 的落点输出唯一主动作文案。
+String _blockedHandoffActionLabel(
+  AppLocalizations l10n,
+  LaunchRouteTarget target,
+) {
+  switch (target) {
+    case LaunchRouteTarget.onboarding:
+      return l10n.startupGateCompleteOnboardingAction;
+    case LaunchRouteTarget.today:
+      return l10n.startupGateGoToTodayAction;
+    case LaunchRouteTarget.calendar:
+    case LaunchRouteTarget.bedtime:
+    case LaunchRouteTarget.insights:
+    case LaunchRouteTarget.profile:
+      return l10n.startupGateContinueAction;
   }
 }

@@ -14,12 +14,68 @@
   "startupGateLoadingTitle": "Getting Rhythm ready",
   "startupGateLoadingMessage": "Checking your launch state.",
   "startupGateNeedsAttentionTitle": "Startup needs attention",
+  "startupGateUnexpectedErrorMessage": "Unable to finish startup. Please try again.",
+  "startupGateCompleteOnboardingAction": "Complete onboarding",
+  "startupGateGoToTodayAction": "Go to Today",
+  "startupGateContinueAction": "Continue",
   "appShellRetry": "Retry",
   "handoffFromNotification": "Opening from a notification.",
   "handoffFromWidget": "Opening from a widget shortcut.",
   "handoffFromShortcut": "Opening from a shortcut.",
   "deepLinkNeedsOnboarding": "Complete onboarding before opening shortcuts.",
   "sessionRestored": "Session restored.",
+  "onboardingLoadingMessage": "Restoring your activation progress.",
+  "onboardingLoadFailedTitle": "Unable to open activation",
+  "onboardingLoadFailedBody": "Please retry. Your saved progress will stay on this device.",
+  "onboardingStepCounter": "Step {current} of {total}",
+  "@onboardingStepCounter": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "onboardingWelcomeTitle": "Welcome",
+  "onboardingWelcomeBody": "Finish the quick activation step to enter your daily flow.",
+  "onboardingAnonymousTitle": "Continue on this device",
+  "onboardingAnonymousBody": "Start with a local rhythm plan now, then decide later if you want account sync.",
+  "onboardingConnectLaterTitle": "Plan to connect later",
+  "onboardingConnectLaterBody": "Keep the same local setup today and leave Google or Apple binding for settings later.",
+  "onboardingHealthAccessTitle": "Choose your health path",
+  "onboardingHealthAccessBody": "You can start with connected sleep data or stay fully manual for now without losing the main flow.",
+  "onboardingHealthConnectTitle": "Connect health data later",
+  "onboardingHealthConnectBody": "We will guide you toward Health Connect or HealthKit when the deeper data bridge is ready.",
+  "onboardingHealthManualTitle": "Stay manual for now",
+  "onboardingHealthManualBody": "You can still track bedtime, reminders, and next-day feedback without granting health access first.",
+  "onboardingSleepWindowTitle": "Set a target sleep window",
+  "onboardingSleepWindowBody": "Pick a realistic bedtime and wake time so tonight''s reminder cadence feels achievable.",
+  "onboardingBedtimeLabel": "Target bedtime",
+  "onboardingWakeTimeLabel": "Target wake time",
+  "onboardingSleepWindowHint": "You can fine-tune these times later from settings.",
+  "onboardingReminderTitle": "Choose a reminder rhythm",
+  "onboardingReminderBody": "Decide whether Rhythm should nudge you before bed, or keep the first week notification-free.",
+  "onboardingReminderEnabledTitle": "Keep a bedtime reminder",
+  "onboardingReminderEnabledBody": "Use a gentle heads-up before your target bedtime to start winding down.",
+  "onboardingReminderDisabledTitle": "Skip reminders for now",
+  "onboardingReminderDisabledBody": "You can still enter bedtime mode manually from Today whenever you''re ready.",
+  "onboardingReminderLeadLabel": "Reminder timing",
+  "onboardingReminderLeadOption": "{minutes} minutes before bed",
+  "@onboardingReminderLeadOption": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "onboardingContinueAction": "Continue",
+  "onboardingBackAction": "Back",
+  "onboardingFinishAction": "Enter Today",
+  "onboardingHealthDeferredMessage": "Health access is not ready yet, so Rhythm will start in manual mode for now.",
+  "onboardingReminderDeferredMessage": "Reminder scheduling is not available yet on this device. You can still continue into Today.",
+  "onboardingCompletionFailedMessage": "Unable to complete onboarding right now. Please try again.",
   "modulePlaceholderCardMessage": "Bootstrap placeholder. Feature behavior lands later.",
   "onboardingPlaceholderTitle": "Welcome",
   "onboardingPlaceholderDescription": "Onboarding activation placeholder.",

@@ -14,6 +14,7 @@ void main() {
             AppShellOverlayEvent.success(message: 'ok'),
             AppShellOverlayEvent.blockingError(message: 'fatal'),
           ],
+          onDismiss: (_) {},
         ),
       ),
     );
@@ -26,14 +27,42 @@ void main() {
   testWidgets('无事件时不渲染 overlay', (tester) async {
     await tester.pumpWidget(
       const _OverlayTestApp(
-        child: GlobalOverlayHost(events: []),
+        child: GlobalOverlayHost(events: [], onDismiss: _noopDismiss),
       ),
     );
 
     expect(find.byType(Icon), findsNothing);
     expect(find.byType(Text), findsNothing);
   });
+
+  testWidgets('success 反馈会在展示后自动回收', (tester) async {
+    AppShellOverlayEvent? dismissedEvent;
+
+    await tester.pumpWidget(
+      _OverlayTestApp(
+        child: GlobalOverlayHost(
+          events: const [AppShellOverlayEvent.success(message: 'restored')],
+          onDismiss: (event) {
+            dismissedEvent = event;
+          },
+        ),
+      ),
+    );
+
+    expect(find.text('restored'), findsOneWidget);
+
+    await tester.pump(const Duration(seconds: 3));
+    await tester.pump();
+
+    expect(
+      dismissedEvent,
+      const AppShellOverlayEvent.success(message: 'restored'),
+    );
+  });
 }
+
+/// 为 const 构造测试提供空 dismiss 回调。
+void _noopDismiss(AppShellOverlayEvent _) {}
 
 class _OverlayTestApp extends StatelessWidget {
   const _OverlayTestApp({required this.child});

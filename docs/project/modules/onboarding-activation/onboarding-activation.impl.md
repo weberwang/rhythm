@@ -2,8 +2,8 @@
 
 ## 文档状态
 
-- impl_status：`split_draft`
-- superpowers_refinement_status：`not_executed`
+- impl_status：`implementation_in_progress`
+- superpowers_refinement_status：`deferred_then_minimal_landed`
 
 ## 关联文档
 
@@ -34,10 +34,30 @@
 - 可向 `sleep-data-core` 写入初始目标与提醒配置
 - 权限状态应统一通过 `core/permissions` 转换
 
+## 当前已落地实现
+
+- `presentation/`：已从单欢迎页扩展为四步激活流，包含步骤头、选择卡、作息窗口和提醒节奏设置
+- `application/`：已使用生成式 Riverpod controller 承接步骤切换、返回、完成提交和本地恢复
+- `infrastructure/`：已新增基于 `shared_preferences` 的草稿状态存储，保存当前步骤、进入方式、健康路径、作息时间和提醒策略
+- `infrastructure/`：已新增 `health` 权限桥接与 `flutter_local_notifications + timezone + flutter_timezone` 提醒调度桥接；当前策略为“真实调用、失败降级但不阻断进入 today”
+- `app-shell` 协作：完成后仍统一写入 onboarding 完成标记并回流 `/today`
+
 ## 埋点与测试
 
 - 埋点：`onboarding_started`、`goal_setup_completed`、`health_permission_granted`、`health_permission_skipped`
 - 测试：步骤跳转、保存恢复、授权拒绝兜底、登录失败回退
+
+当前验证：
+
+- `dart analyze lib test integration_test` 通过
+- `test/features/onboarding_activation/presentation/onboarding_activation_page_test.dart` 通过
+- `integration_test/app_shell_bootstrap_test.dart` 已在 Android 模拟器 `emulator-5554 / API 35` 上通过
+
+当前仍未落地：
+
+- 真实 Google / Apple / Supabase 绑定入口
+- 向 `sleep-data-core` 写入初始目标与提醒配置
+- 权限拒绝后的延迟教育页与更细粒度权限状态机
 
 ## 模块约束
 

@@ -21,9 +21,7 @@ void main() {
             (ref) => completer.future,
           ),
         ],
-        child: const _StartupGateScaffold(
-          child: StartupGatePage(),
-        ),
+        child: const _StartupGateScaffold(child: StartupGatePage()),
       ),
     );
 
@@ -37,14 +35,11 @@ void main() {
       ProviderScope(
         overrides: [
           appShellBootstrapControllerProvider.overrideWith(
-            (ref) async => const LaunchDecision.failure(
-              message: 'startupFailed',
-            ),
+            (ref) async =>
+                const LaunchDecision.failure(message: 'startupFailed'),
           ),
         ],
-        child: const _StartupGateScaffold(
-          child: StartupGatePage(),
-        ),
+        child: const _StartupGateScaffold(child: StartupGatePage()),
       ),
     );
     await tester.pumpAndSettle();
@@ -65,9 +60,7 @@ void main() {
             return const LaunchDecision.failure(message: 'startupFailed');
           }),
         ],
-        child: const _StartupGateScaffold(
-          child: StartupGatePage(),
-        ),
+        child: const _StartupGateScaffold(child: StartupGatePage()),
       ),
     );
     await tester.pumpAndSettle();
@@ -79,6 +72,26 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(attempts, 2);
+  });
+
+  testWidgets('provider 抛错时展示本地化兜底错误文案', (tester) async {
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          appShellBootstrapControllerProvider.overrideWith((ref) async {
+            throw StateError('boom');
+          }),
+        ],
+        child: const _StartupGateScaffold(child: StartupGatePage()),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    expect(
+      find.text('Unable to finish startup. Please try again.'),
+      findsOneWidget,
+    );
+    expect(find.text('Retry'), findsOneWidget);
   });
 
   testWidgets('blocked handoff 展示安全回退语义', (tester) async {
@@ -120,8 +133,13 @@ void main() {
       find.text('Complete onboarding before opening shortcuts.'),
       findsOneWidget,
     );
+    expect(find.text('Complete onboarding'), findsOneWidget);
 
     await tester.pump(const Duration(milliseconds: 500));
+
+    expect(find.text('Onboarding Destination'), findsNothing);
+
+    await tester.tap(find.text('Complete onboarding'));
     await tester.pumpAndSettle();
 
     expect(find.text('Onboarding Destination'), findsOneWidget);

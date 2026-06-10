@@ -3,7 +3,7 @@
 - 当前阶段：`project_initialized`
 - 当前阶段：`bootstrap_code_ready`
 - 当前阶段：`implementing`
-- 当前模块：`app-shell`
+- 当前模块：`onboarding-activation`
 - 已确认主线：`design_source_adapter = stitch`
 - Stitch 项目：`existing / 7107477570523131437`
 - 共享冻结结果：`frozen_shared_for_split`
@@ -14,8 +14,11 @@
 - `app-shell` Spec：`approved`
 - `app-shell` Plan：`executed`
 - `app-shell` 代码状态：`landed`
-- `app-shell` 设计复核：`blocked`
-- 下一前置动作：修复 parity gap，并补 root-shell / handoff / overlay 运行态证据
+- `app-shell` 设计复核：`deferred-by-user`
+- `onboarding-activation` 文档状态：`implementation_in_progress`
+- `onboarding-activation` 代码状态：`activation_flow_plus_gateways_landed`
+- 用户决策：`app-shell` 运行态证据延后到后续运行时统一验收，本轮先继续推进下游模块
+- 下一前置动作：继续深化 `onboarding-activation` 的真实登录入口与 sleep-data-core 写入，同时保留 `app-shell` 运行态证据待补
 
 ## 已归位产物
 | 类型 | 路径 | 说明 |
@@ -52,7 +55,10 @@
 
 ## 仍待补齐
 
-- `app-shell` 的 blocked handoff / overlay 接线修复
 - `app-shell` 的 root-shell、handoff、overlay 运行态截图
+- Android 模拟器下可稳定复用的截图采集链路
+- `onboarding-activation` 的真实登录入口
+- `onboarding-activation` 向 `sleep-data-core` 写入初始目标与提醒配置
+- `onboarding-activation` 的 refinement 收口与模块级设计冻结
 - 其余模块的 refinement 与模块级设计冻结产物
 - feature 真实实现代码
