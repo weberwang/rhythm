@@ -3,13 +3,19 @@
 Use this reference before applying any state/status promotion, freeze decision, implementation handoff, visual-evidence decision, or downstream delegation.
 
 - Do not split implementation modules from a raw PRD before a global technical baseline and package stack exist.
+- Do not write durable project workflow artifacts outside `docs/project/` unless the user or an explicit downstream contract requires a different path.
 - Do not route raw requirements, a one-line feature idea, or an ambiguity-heavy request directly into technical baseline, taste direction, executable module document generation, architecture, or implementation before the requirements-to-PRD flow has resolved decision-blocking questions and produced a PRD artifact.
 - Do not treat assumptions as resolved requirements unless the PRD records them explicitly with rationale and risk.
+- Do not treat a minimal summary note as workflow-valid PRD readiness unless it passes the PRD completeness gate.
+- Do not let downstream stages infer core scope, roles, success metrics, or non-goals that should have been fixed in the PRD.
 - Do not treat routing as a best-effort recommendation flow; it is a locked state machine owned by the orchestrator.
 - Do not invoke a downstream skill until the route lock is persisted and the preflight gate passes.
 - Do not delegate workflow truth ownership to a subagent.
 - Do not use `flutter-prd-rd-writer` for detailed module design.
-- Do not confirm the final product design direction before the global visual design direction has first been brainstormed through `flutter-taste-router`.
+- Do not begin global design exploration, effect-image generation, or structured design-source preparation before the target design-device preset and base resolution are frozen for the current design cycle.
+- Do not let any page design shrink below the frozen design viewport for the active cycle.
+- Do not confirm the final product design direction before `@product-design` has first confirmed the design brief and produced or validated the direction input for this request.
+- Do not let a pre-direction Creative Production exploration branch close the final product-direction gate by itself; it may only contribute reviewable direction evidence.
 - Do not start module `impl.md` generation immediately after the technical baseline. All module-related workflow must wait until the shared/global design freeze is complete.
 - Do not skip `DESIGN.md` output after final product design direction confirmation.
 - Do not treat a visually polished `DESIGN.md` as complete if it still lacks task-priority rules, interaction-feedback rules, responsive strategy, or critical-state coverage that the product clearly needs.
@@ -17,7 +23,10 @@ Use this reference before applying any state/status promotion, freeze decision, 
 - Do not skip `flutter-taste-router` textual normalization before any shared freeze or module freeze check.
 - Do not generate new static visuals before checking whether the target directories already contain usable page images.
 - Do not use effect images as the only design source when a structured design-source adapter has been chosen; convert or validate them into the selected design-source packet first.
+- Do not use Creative Production outputs as the structured design source for Flutter implementation by themselves; they are creative evidence or asset outputs, not the selected adapter packet.
 - Do not enter structured design-source generation or validation unless the user has first chosen `design_source_adapter=stitch` or `design_source_adapter=pencil`.
+- Do not treat Stitch or Pencil internal guidance, adapter defaults, generated helper prose, or tool-native style suggestions as valid design guidance. Design guidance may come only from the frozen global design, the active module design package, and `DESIGN.md`.
+- Do not ask Stitch or Pencil to produce any page design during shared/global design freeze. That stage may generate or validate only the shared theme system, shared public shell, shared public component families, and shared interaction principles.
 - Do not allow either Stitch or Pencil to restore pages with a different style direction, different theme system, different public shell, or different shared public component family from the approved shared design master packet.
 - Do not allow either Stitch or Pencil to restore pages with weaker task hierarchy, weaker CTA discoverability, different interaction-feedback rhythm, or a different responsive strategy from the approved shared design master packet.
 - Do not enter Stitch design-source generation or validation unless the user has first chosen `stitch_project_mode=new` or `stitch_project_mode=existing`.
@@ -25,7 +34,7 @@ Use this reference before applying any state/status promotion, freeze decision, 
 - Do not enter Pencil design-source generation or validation unless the Pencil source reference is confirmed and frozen.
 - Do not run more than 6 Stitch page-design subagents in parallel.
 - Do not let a Stitch page-design subagent own more than one page in the same parallel batch.
-- Do not freeze a Stitch design-source packet until every in-scope page has a successful page-level Stitch receipt and the orchestrator has merged the receipts.
+- Do not freeze a Stitch design-source packet on a module page-generation path until every in-scope page has a successful page-level Stitch receipt and the orchestrator has merged the receipts.
 - Do not block direct image-asset use when the image can be downloaded from the approved Stitch/effect-image source and saved into the project asset tree.
 - Do not mark a Stitch design-source packet as frozen when required downloaded image assets lack recorded source paths, local asset paths, and intended page regions.
 - Do not change `stitch_project_mode` or `stitch_project_id` after freeze without routing through `flutter-design-source-control`.
@@ -33,7 +42,7 @@ Use this reference before applying any state/status promotion, freeze decision, 
 - Do not commit or document literal Stitch API keys.
 - Do not accept or generate dark-mode effect images as the default workflow reference set; the default effect-image baseline is light mode.
 - Do not treat effect images as a default mandatory gate for shared design freeze. They are optional evidence unless the current revision path explicitly requires them.
-- Do not let `--auto --preview` generate effect images without the required `gpt-image-2-generator` credentials.
+- Do not let `--auto --preview` generate effect images without `gpt-image-2-generator` being available for that branch.
 - In manual mode, do not generate the remaining optional page-effect set before one representative effect image has been explicitly confirmed.
 - Do not send shared/global or module-stage effect-image generation requests without explicit style constraints once the design packet already defines them.
 - Do not let module-stage effect-image generation redefine palette, typography mood, component family, image treatment, or CTA posture after a shared/global direction has been approved.
@@ -46,18 +55,22 @@ Use this reference before applying any state/status promotion, freeze decision, 
 - Do not let a feature module start landing before the required global public code baseline is present.
 - Do not force a network baseline into projects or modules that do not require remote data or network capabilities.
 - Do not postpone `flutter-init` until every feature module is fully architecture-ready when the shared bootstrap-critical baseline is already sufficient to initialize the project.
+- Do not delay `project_initialized` or `bootstrap_code_ready` until after late module milestones when the shared freeze and shared bootstrap-critical baseline are already complete.
 - Do not let `flutter-init` implement bootstrap code, feature pages, feature business flows, shared wiring, or module-specific behavior while initializing the project.
 - Do not treat `project_initialized` as proof that bootstrap code already exists; bootstrap is a separate stage that must land before feature-module implementation.
 - Do not mark `impl_status=landed` until the module `impl.md` references a confirmed frozen selected structured design-source packet.
 - Do not start module-scoped display-layer design draft generation before the active module's `impl.md` has fixed the module function, key states, main task path, and non-display behavior boundaries.
+- Do not freeze or translate a module design that has not yet considered the concrete target platform's interaction, layout, density, and feedback expectations.
 - Do not land ordinary page-module display-layer code before the module's non-display behavior, service wiring, and state-flow contracts are stable enough to support that display faithfully.
 - Do not treat module implementation as `display first, behavior later`; the required local order is `impl -> design draft -> non-display code -> display restoration`.
+- Do not dilute a frozen premium/high-fidelity module design into a generic implementation compromise without routing back through design control.
 - Do not mark `code_status=landed` until code output exists and the landed status change has been explicitly confirmed.
 - Do not route around `flutter-design-freeze-gate` on implied approval.
 - Do not let a complete shared or module design draft skip `flutter-design-freeze-gate` before freeze.
 - Do not allow design packages with unresolved hierarchy, task guidance, typography, contrast, CTA, or state-coverage defects to advance into shared freeze or module design freeze.
 - Do not allow design packages with unresolved loading, empty, error, disabled, permission-denied, long-content, short-content, or slow-network behavior to advance into shared freeze or module design freeze when those states are relevant to the product.
 - Do not allow a design package to pass freeze if the first-screen task path or primary CTA is still visually ambiguous.
+- Do not compress away core whitespace, spacing rhythm, or structural breathing room merely to fit more content into the frozen design viewport.
 - Do not treat architecture planning, Flutterization, or implementation convenience as a substitute for resolving high-fidelity visual decisions during module design freeze.
 - Do not let `--auto` enter `implementing` before `@superpowers` `Spec` and `Plan` exist for the active module.
 - Do not let `--auto` skip blockers, unresolved dependencies, or missing design inputs.
@@ -68,7 +81,11 @@ Use this reference before applying any state/status promotion, freeze decision, 
 - Do not leave `next_skill` as a passive handoff recommendation after a local module milestone when `execution_mode=auto` and more target modules are still pending.
 - Do not continue `--auto` into module workflow when the shared/global design freeze is incomplete, or past executable module document generation when the selected active module, its module-index row, or its `impl.md` cannot be verified on disk.
 - Do not skip directory inspection and environment-variable checks before auto-generating static visual evidence in `--auto` mode.
-- Do not treat missing `gpt-image-2-generator` credentials as a blocker for the whole workflow unless the optional effect-image branch is actually in scope for the current revision path.
+- Do not treat missing `gpt-image-2-generator` access or credentials as a blocker for the whole workflow unless the optional effect-image branch is actually in scope for the current revision path.
+- Do not use Creative Production to bypass `@product-design` brief confirmation, final product direction confirmation, or `DESIGN.md` when the request is really about product-surface UI direction.
+- Do not open the Creative Production polish path before a concrete direction or deterministic base exists.
+- Do not let `Creative Production:generative-polish` own exact copy, claims, logos, charts, prices, dimensions, safe zones, or filenames for publish-bound assets.
+- Do not let a Creative Production branch silently redefine the frozen app-shell, product interaction model, or shared component family contract after Product Design freeze.
 - Do not treat textual packets as a substitute for the frozen selected structured design-source packet during module freeze.
 - Do not generate new module real-device effect images during module `impl.md` generation or module freeze by default; require explicit `--preview` opt-in.
 - Do not treat `--preview` as permission to redefine the approved shared/global style direction; it only enables effect-image evidence generation.
@@ -85,7 +102,7 @@ Use this reference before applying any state/status promotion, freeze decision, 
 - Do not let `.impl.md` claim `generation_trace_status=verified_executed` unless the workflow record or execution trace contains the real delegated inputs and outputs for that module.
 - Do not start display-layer landing before the preflight inputs are complete enough to avoid image-only guessing.
 - Do not start high-fidelity display-layer landing with only a broad page effect image when fidelity-critical regions still lack detail, state, scroll, or overlay evidence.
-- Do not let display-layer code land without consulting the corresponding page image through `$image-to-code` when such image evidence exists.
+- Do not let display-layer code land without consulting the corresponding page image and frozen design evidence when such image evidence exists.
 - Do not let effect images alone decide final Flutter widget strategy when documented interaction or architecture semantics say otherwise.
 - Do not leave a fidelity-critical region without an explicit `preserve_faithfully`, `flutterize`, or `simplify` classification in architecture output.
 - Do not let engineering convenience flatten locked spacing, layer depth, or CTA dominance for regions marked `preserve_faithfully`.
@@ -98,7 +115,7 @@ Use this reference before applying any state/status promotion, freeze decision, 
 - Do not accept a downstream result without a verifiable receipt containing artifacts, evidence, and blockers.
 - Do not treat an iteration with no status delta and no new blocker as valid progress in `--auto`.
 - Do not continue auto-advancement after route drift, receipt mismatch, or empty progress.
-- Do not run multiple subagents in parallel against the same active module or the same workflow record when their outputs could race, except for the route-locked Stitch page-design batch with at most 6 page-scoped subagents.
+- Do not run multiple subagents in parallel against the same active module or the same workflow record when their outputs could race, except for the route-locked module page-design batch with at most 6 page-scoped subagents.
 - Do not treat the Stitch page-design parallelism exception as permission to parallelize module freeze, implementation, workflow-record updates, or stage promotion.
 - Do not let a subagent decide whether `--auto` should switch modules, stop, or promote a stage.
 - Do not treat one module's state as proof that another module is ready.

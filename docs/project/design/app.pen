@@ -1,0 +1,546 @@
+{
+  "version": "2.13",
+  "children": [
+    {
+      "type": "frame",
+      "id": "rNOHm",
+      "x": 0,
+      "y": 0,
+      "name": "Rhythm Shared Components",
+      "clip": true,
+      "width": 360,
+      "fill": "$--background",
+      "layout": "vertical",
+      "gap": 24,
+      "padding": 24,
+      "children": [
+        {
+          "type": "text",
+          "id": "dChFZ",
+          "name": "Components Title",
+          "fill": "$--foreground",
+          "content": "Rhythm Shared Components",
+          "fontFamily": "$--font-primary",
+          "fontSize": 20,
+          "fontWeight": "600"
+        },
+        {
+          "type": "frame",
+          "id": "XOg7x",
+          "name": "Button/Primary",
+          "reusable": true,
+          "fill": "$--primary",
+          "cornerRadius": "$--radius-pill",
+          "gap": 8,
+          "padding": [
+            12,
+            18
+          ],
+          "justifyContent": "center",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "RodHb",
+              "name": "Button Label",
+              "fill": "$--primary-foreground",
+              "content": "Start Wind-down",
+              "fontFamily": "$--font-secondary",
+              "fontSize": 16,
+              "fontWeight": "600"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "OMq8B",
+          "name": "Card/Summary",
+          "reusable": true,
+          "width": 320,
+          "fill": "$--surface",
+          "cornerRadius": "$--radius-l",
+          "stroke": "$--border",
+          "strokeWidth": 1,
+          "layout": "vertical",
+          "gap": 10,
+          "padding": 24,
+          "children": [
+            {
+              "type": "text",
+              "id": "KkFve",
+              "name": "Summary Eyebrow",
+              "fill": "$--muted-foreground",
+              "content": "Last night",
+              "fontFamily": "$--font-secondary",
+              "fontSize": 12,
+              "fontWeight": "600"
+            },
+            {
+              "type": "text",
+              "id": "KNcb7",
+              "name": "Summary Value",
+              "fill": "$--foreground",
+              "content": "00:48 asleep",
+              "fontFamily": "$--font-primary",
+              "fontSize": 28,
+              "fontWeight": "600"
+            },
+            {
+              "type": "text",
+              "id": "IqRDJ",
+              "name": "Summary Note",
+              "fill": "$--muted-foreground",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "23 minutes later than target, but recovery remains practical.",
+              "lineHeight": 1.45,
+              "fontFamily": "$--font-secondary",
+              "fontSize": 14,
+              "fontWeight": "normal"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "eRlnU",
+          "name": "Shell/Tab Item",
+          "reusable": true,
+          "cornerRadius": "$--radius-m",
+          "layout": "vertical",
+          "gap": 6,
+          "padding": [
+            8,
+            10
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "icon",
+              "id": "HLpS6",
+              "name": "Tab Icon",
+              "width": 22,
+              "height": 22,
+              "icon": "home",
+              "library": "Material Symbols Rounded",
+              "weight": 500,
+              "fill": "$--primary"
+            },
+            {
+              "type": "text",
+              "id": "r9l2n",
+              "name": "Tab Label",
+              "fill": "$--primary",
+              "content": "Today",
+              "fontFamily": "$--font-secondary",
+              "fontSize": 12,
+              "fontWeight": "600"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "J4IHzw",
+          "name": "Input/Default",
+          "reusable": true,
+          "width": 320,
+          "layout": "vertical",
+          "gap": 8,
+          "children": [
+            {
+              "type": "text",
+              "id": "L6qP7",
+              "name": "Input Label",
+              "fill": "$--muted-foreground",
+              "content": "Sleep goal",
+              "fontFamily": "$--font-secondary",
+              "fontSize": 12,
+              "fontWeight": "600"
+            },
+            {
+              "type": "frame",
+              "id": "C2rnAK",
+              "name": "Input Field",
+              "width": "fill_container",
+              "fill": "$--surface",
+              "cornerRadius": "$--radius-m",
+              "stroke": "$--border",
+              "strokeWidth": 1,
+              "padding": [
+                12,
+                16
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "Yp1Yy",
+                  "name": "Input Value",
+                  "fill": "$--foreground",
+                  "content": "11:30 PM",
+                  "fontFamily": "$--font-secondary",
+                  "fontSize": 16,
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "ukYZP",
+      "x": 440,
+      "y": 0,
+      "name": "Shared Public Shell",
+      "clip": true,
+      "width": 390,
+      "height": 844,
+      "fill": "$--background",
+      "cornerRadius": "$--radius-l",
+      "layout": "vertical",
+      "gap": 20,
+      "padding": [
+        24,
+        20,
+        20,
+        20
+      ],
+      "children": [
+        {
+          "type": "frame",
+          "id": "mZu49",
+          "name": "Header Block",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 14,
+          "children": [
+            {
+              "type": "frame",
+              "id": "U1PRg",
+              "name": "Header Top",
+              "width": "fill_container",
+              "justifyContent": "space_between",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "I8cwoX",
+                  "name": "Brand Label",
+                  "fill": "$--foreground",
+                  "content": "Rhythm",
+                  "fontFamily": "$--font-primary",
+                  "fontSize": 24,
+                  "fontWeight": "600"
+                },
+                {
+                  "type": "frame",
+                  "id": "n3Cxy",
+                  "name": "Status Chip",
+                  "fill": "$--surface",
+                  "cornerRadius": "$--radius-pill",
+                  "stroke": "$--border",
+                  "strokeWidth": 1,
+                  "padding": [
+                    8,
+                    12
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "SspIW",
+                      "name": "Status Chip Text",
+                      "fill": "$--primary",
+                      "content": "On track tonight",
+                      "fontFamily": "$--font-secondary",
+                      "fontSize": 12,
+                      "fontWeight": "600"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "id": "d80SC",
+              "name": "Header Note",
+              "fill": "$--muted-foreground",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Read last night clearly, protect tonight's plan, and keep the next action gentle.",
+              "lineHeight": 1.45,
+              "fontFamily": "$--font-secondary",
+              "fontSize": 15,
+              "fontWeight": "normal"
+            }
+          ]
+        },
+        {
+          "id": "fGVMt",
+          "type": "ref",
+          "ref": "OMq8B",
+          "name": "Hero Summary",
+          "width": "fill_container",
+          "descendants": {
+            "KkFve": {
+              "content": "Tonight"
+            },
+            "KNcb7": {
+              "content": "Tonight target 11:20 PM"
+            },
+            "IqRDJ": {
+              "content": "A warm, schedule-first summary keeps the user's next action obvious without pressure."
+            }
+          }
+        },
+        {
+          "type": "frame",
+          "id": "V2Thp",
+          "name": "Content Rail",
+          "width": "fill_container",
+          "height": "fill_container",
+          "layout": "vertical",
+          "gap": 16,
+          "children": [
+            {
+              "type": "frame",
+              "id": "t8m1mi",
+              "name": "Focus Card",
+              "width": "fill_container",
+              "fill": "$--surface",
+              "cornerRadius": "$--radius-l",
+              "stroke": "$--border",
+              "strokeWidth": 1,
+              "layout": "vertical",
+              "gap": 12,
+              "padding": 20,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "U4v7Z4",
+                  "name": "Focus Title",
+                  "fill": "$--foreground",
+                  "content": "Suggested wind-down",
+                  "fontFamily": "$--font-primary",
+                  "fontSize": 20,
+                  "fontWeight": "600"
+                },
+                {
+                  "type": "text",
+                  "id": "fGf2Y",
+                  "name": "Focus Body",
+                  "fill": "$--muted-foreground",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Silence notifications, dim the room, and start the routine while recovery cost is still low.",
+                  "lineHeight": 1.45,
+                  "fontFamily": "$--font-secondary",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "id": "GsoiE",
+              "type": "ref",
+              "ref": "XOg7x",
+              "name": "Primary Action",
+              "descendants": {
+                "RodHb": {
+                  "content": "Start Wind-down"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "OotTa",
+          "name": "Bottom Navigation",
+          "width": "fill_container",
+          "fill": "$--surface",
+          "cornerRadius": "$--radius-l",
+          "stroke": "$--border",
+          "strokeWidth": 1,
+          "padding": [
+            10,
+            12
+          ],
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "id": "u192D0",
+              "type": "ref",
+              "ref": "eRlnU",
+              "name": "Tab Today",
+              "descendants": {
+                "HLpS6": {
+                  "icon": "home",
+                  "fill": "$--primary"
+                },
+                "r9l2n": {
+                  "content": "Today",
+                  "fill": "$--primary"
+                }
+              }
+            },
+            {
+              "id": "Rmm3P",
+              "type": "ref",
+              "ref": "eRlnU",
+              "name": "Tab Calendar",
+              "descendants": {
+                "HLpS6": {
+                  "icon": "calendar_today",
+                  "fill": "$--muted-foreground"
+                },
+                "r9l2n": {
+                  "content": "Calendar",
+                  "fill": "$--muted-foreground"
+                }
+              }
+            },
+            {
+              "id": "Q2IRpW",
+              "type": "ref",
+              "ref": "eRlnU",
+              "name": "Tab Bedtime",
+              "descendants": {
+                "HLpS6": {
+                  "icon": "bedtime",
+                  "fill": "$--muted-foreground"
+                },
+                "r9l2n": {
+                  "content": "Bedtime",
+                  "fill": "$--muted-foreground"
+                }
+              }
+            },
+            {
+              "id": "UhlBF",
+              "type": "ref",
+              "ref": "eRlnU",
+              "name": "Tab Insights",
+              "descendants": {
+                "HLpS6": {
+                  "icon": "equalizer",
+                  "fill": "$--muted-foreground"
+                },
+                "r9l2n": {
+                  "content": "Insights",
+                  "fill": "$--muted-foreground"
+                }
+              }
+            },
+            {
+              "id": "sOqP4",
+              "type": "ref",
+              "ref": "eRlnU",
+              "name": "Tab Me",
+              "descendants": {
+                "HLpS6": {
+                  "icon": "person",
+                  "fill": "$--muted-foreground"
+                },
+                "r9l2n": {
+                  "content": "Me",
+                  "fill": "$--muted-foreground"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "variables": {
+    "--accent-warm": {
+      "type": "color",
+      "value": "#D0A05F"
+    },
+    "--background": {
+      "type": "color",
+      "value": "#F7F4EC"
+    },
+    "--border": {
+      "type": "color",
+      "value": "#E6DED1"
+    },
+    "--error": {
+      "type": "color",
+      "value": "#D98972"
+    },
+    "--font-primary": {
+      "type": "string",
+      "value": "Inter"
+    },
+    "--font-secondary": {
+      "type": "string",
+      "value": "Inter"
+    },
+    "--foreground": {
+      "type": "color",
+      "value": "#1F2A24"
+    },
+    "--info": {
+      "type": "color",
+      "value": "#9EA8A3"
+    },
+    "--muted-foreground": {
+      "type": "color",
+      "value": "#6F8077"
+    },
+    "--primary": {
+      "type": "color",
+      "value": "#5E8A6C"
+    },
+    "--primary-foreground": {
+      "type": "color",
+      "value": "#F8F5EE"
+    },
+    "--radius-l": {
+      "type": "number",
+      "value": 24
+    },
+    "--radius-m": {
+      "type": "number",
+      "value": 16
+    },
+    "--radius-pill": {
+      "type": "number",
+      "value": 9999
+    },
+    "--radius-s": {
+      "type": "number",
+      "value": 8
+    },
+    "--space-l": {
+      "type": "number",
+      "value": 24
+    },
+    "--space-m": {
+      "type": "number",
+      "value": 16
+    },
+    "--space-s": {
+      "type": "number",
+      "value": 8
+    },
+    "--space-xl": {
+      "type": "number",
+      "value": 40
+    },
+    "--space-xs": {
+      "type": "number",
+      "value": 4
+    },
+    "--space-xxl": {
+      "type": "number",
+      "value": 56
+    },
+    "--surface": {
+      "type": "color",
+      "value": "#FCFAF4"
+    }
+  }
+}

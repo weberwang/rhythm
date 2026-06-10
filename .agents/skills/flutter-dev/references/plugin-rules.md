@@ -8,12 +8,12 @@
 
 ## Project Plugin Inventory
 
-- Core plugin set: `flutter_secure_storage, shared_preferences, supabase_flutter, flutter_local_notifications, timezone, flutter_timezone, drift`
-- Platform-sensitive plugins: `health, home_widget, google_sign_in, sign_in_with_apple`
+- Core plugin set: `health, flutter_local_notifications, flutter_timezone, home_widget, flutter_secure_storage, shared_preferences, drift`
+- Platform-sensitive plugins: `google_sign_in, sign_in_with_apple, device_info_plus, connectivity_plus, package_info_plus`
 - Cloud or console-backed plugins: `supabase_flutter, purchases_flutter`
 
 ## Reconfigure Notes
 
-- Plugin reconfiguration scope: `本次 flutter-init 未传入 --force，且工程已存在平台目录与插件解析产物，因此保留现有原生插件配置`
-- Config files or native entries affected: `android/, ios/, macos/, web/, windows/, linux/, .flutter-plugins-dependencies, pubspec.yaml`
-- Post-reconfigure verification: `flutter pub get && flutter gen-l10n && dart run build_runner build --delete-conflicting-outputs && flutter analyze && flutter test`
+- Plugin reconfiguration scope: `本次未传 --force，且现有平台工程与依赖配置已存在，因此不重复覆盖插件配置。`
+- Config files or native entries affected: `none in this initialization pass`
+- Post-reconfigure verification: `flutter pub get; flutter analyze`

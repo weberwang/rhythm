@@ -1,31 +1,31 @@
 ---
 version: alpha
-name: Rhythm Quiet Order Design System
-description: A quiet, ordered mobile design system for helping late-sleep users read last-night drift clearly, recover without shame, and return to tonight's rhythm through one calm next step.
+name: Rhythm Rhythm Rail Design System
+description: A calm, schedule-centric mobile design system for helping late-sleep users read last-night rhythm clearly, protect tonight's plan, and move through one practical wind-down path without shame.
 colors:
-  primary: "#718C74"
-  on-primary: "#F8F6F1"
-  secondary: "#7F8983"
-  tertiary: "#C99A61"
-  surface: "#F6F2EA"
-  on-surface: "#1F2622"
-  surface-container: "#FCF9F3"
-  outline: "#E5DDD0"
-  success: "#718C74"
-  warning: "#C99A61"
-  error: "#D48672"
-  info: "#99A4AA"
+  primary: "#5E8A6C"
+  on-primary: "#F8F5EE"
+  secondary: "#6F8077"
+  tertiary: "#D0A05F"
+  surface: "#F7F4EC"
+  on-surface: "#1F2A24"
+  surface-container: "#FCFAF4"
+  outline: "#E6DED1"
+  success: "#5E8A6C"
+  warning: "#D0A05F"
+  error: "#D98972"
+  info: "#9EA8A3"
 typography:
   display-lg:
-    fontFamily: "Source Serif 4, Noto Serif SC, Georgia, serif"
-    fontSize: 56px
-    fontWeight: "600"
-    lineHeight: 62px
+    fontFamily: "SF Pro Display, PingFang SC, Inter, system-ui, sans-serif"
+    fontSize: 54px
+    fontWeight: "650"
+    lineHeight: 60px
     letterSpacing: -0.02em
   headline-lg:
     fontFamily: "SF Pro Display, PingFang SC, Inter, system-ui, sans-serif"
     fontSize: 30px
-    fontWeight: "650"
+    fontWeight: "620"
     lineHeight: 38px
     letterSpacing: -0.01em
   title-md:
@@ -50,8 +50,8 @@ typography:
     lineHeight: 16px
 rounded:
   sm: 8px
-  md: 18px
-  lg: 28px
+  md: 16px
+  lg: 24px
   full: 9999px
 spacing:
   xs: 4px
@@ -72,11 +72,16 @@ components:
     textColor: "{colors.on-surface}"
     rounded: "{rounded.lg}"
     padding: "{spacing.lg}"
-  card-result:
+  card-summary:
     backgroundColor: "{colors.surface-container}"
     textColor: "{colors.on-surface}"
     rounded: "{rounded.lg}"
     padding: "{spacing.xl}"
+  card-timeline:
+    backgroundColor: "{colors.surface-container}"
+    textColor: "{colors.on-surface}"
+    rounded: "{rounded.md}"
+    padding: "{spacing.md}"
   chip-status:
     backgroundColor: "{colors.surface}"
     textColor: "{colors.on-surface}"
@@ -98,113 +103,167 @@ components:
 
 ## Overview
 
-Rhythm is not a medical dashboard and not a dreamy sleep-content product. It is a behavior-reset tool for people who stay up too late and need one calm, readable path back to rhythm. The system should feel quiet, ordered, warm-light, and trustworthy. It should lower shame, lower noise, and let the user understand last night before deciding what to do tonight.
+Rhythm is not a medical dashboard, not a dreamy sleep-content product, and not a punitive productivity tracker. It is a calm behavior-navigation system for users who stay up too late and need a readable path back to rhythm. The product should feel precise, quiet, and practical first, then warm and supportive second.
 
-The selected direction is `静夜秩序`. Its defining experience is not novelty, but composure: generous whitespace, strong large-type moments, restrained containers, and one clearly guided reading order. The interface should feel like a premium personal routine system with editorial calm, not like a data console, not like a wellness fantasy, and not like a productivity punishment tool.
+The selected direction is `Rhythm Rail`. Its defining quality is structured calm: a strong top summary, clear time windows, gentle schedule rails, and a predictable next action. The interface should help users understand what happened last night, what tonight's plan is, and where they are in the evening sequence without making the product feel clinical or over-designed.
+
+The frozen base design viewport for this cycle is `390 x 844 px`. No page should be reduced below that baseline to fit more content. When density pressure appears, solve it through hierarchy, disclosure, or staged reveal rather than compressed spacing.
 
 ## Colors
 
-The palette is bright, warm-neutral, and low-pressure. Page surfaces stay in porcelain off-white and soft stone tones rather than cool clinical gray or dreamy purple. Sage green is the primary action and stability color. Amber expresses slight drift or caution. Desaturated coral marks meaningful lateness or recovery need. Gray-blue exists only as a neutral support color for partial, missing, or secondary information.
+The palette is bright, warm-neutral, and schedule-oriented. The page surface stays in porcelain and soft paper tones, not cool gray, dark charcoal, or dreamy lavender. Sage green is the primary structure and action color. Amber marks caution, threshold moments, and planning emphasis. Desaturated coral is reserved for lateness, recovery need, or meaningful deviation. Neutral gray-green supports secondary labels, partial data, and quiet guidance.
 
-Contrast should be strongest between the main reading statement and the surrounding surface, then between the primary CTA and the page body. Color must never be the only state signal. Every warning, recovery, success, and partial-data moment must also include plain-language explanation or icon support.
+Contrast should be strongest on:
+
+- the main top summary
+- tonight's target window
+- the primary action or next schedule step
+
+Color must never be the only signal for status. Every success, warning, recovery, missing-data, and delay state must also use copy or icon reinforcement.
 
 ## Typography
 
-Typography carries much of the system's identity. The user should feel the hierarchy before they consciously read it. Large result statements may use a refined serif display voice, especially when explaining drift, time offset, or the single most important outcome from last night. The rest of the product should remain highly readable and implementation-friendly through a clean iOS-native sans rhythm.
+Typography in this system should feel confident and clean rather than poetic or decorative. The interface is organized by precision and readability. Large summary figures, time ranges, and page-level statements may scale up strongly, but they should remain crisp and product-like rather than editorially dramatic.
 
-Display type is reserved for one focal statement per screen. Headline and title tiers organize page structure. Body copy stays short, direct, and emotionally steady. Labels, chips, and tab text should feel compact, precise, and quiet rather than decorative.
+Display text is reserved for:
+
+- the main page title
+- a large summary number or time window
+- one high-priority statement when the screen needs it
+
+Body and label styles should stay highly readable on mobile, with enough rhythm to support stacked schedules, trend summaries, and settings rows. Labels should feel exact and steady, never playful.
 
 ## Layout
 
-The layout system is phone-first and vertically sequenced. Each primary screen should read as one guided stack with one dominant focal block and only a few supporting regions. The design should not depend on equal-weight card grids or multi-axis dashboard logic. Whitespace should carry most grouping work, with containers added only when semantic separation or tactile focus is needed.
-
-The shared shell must remain recognizable across Today, Calendar, Bedtime, Insights, and Profile, but the shell is not the hero. On the main Today path, the first screen should let the user understand three things in order:
+The layout system is phone-first, vertical, and sequence-driven. This product should not feel like a dashboard of equal-weight cards. The screen should usually read in one guided order:
 
 1. what happened last night
-2. what tonight's target is
-3. what the next gentle step should be
+2. what tonight's plan is
+3. what the user should do next
+4. what the recent rhythm trend suggests
 
-The page should feel settled and breathable even when multiple cards are present.
+Use whitespace and vertical sequencing first. Use containers where semantic grouping matters. Use cards as grouped surfaces, not as decoration. Avoid cards inside cards and avoid breaking one guided story into too many visually equivalent blocks.
+
+The shared shell must stay recognizable across Today, Calendar, Bedtime, Insights, and Profile, but the shell must remain quieter than the page's primary task content.
 
 ## Elevation & Depth
 
-Depth is quiet and tactile. Containers may separate from the page through subtle value shifts, faint outline contrast, and very light shadow, but never through glossy lift, blur spectacle, or floating card drama. The visual system should feel premium because it is disciplined, not because it is ornamented.
+Depth is restrained and structural. Surfaces may separate through soft tonal contrast, a faint outline, and extremely light shadow, but not through glassmorphism, glossy lift, or theatrical blur. Premium quality here comes from order and proportion, not spectacle.
 
-When emphasis is needed, prefer spacing, scale, and typographic contrast before adding more depth. Result cards, target cards, and recovery cards may feel slightly more substantial than secondary lists, but the entire app should still read as one calm surface family.
+When emphasis is needed, prefer:
+
+- larger time or result scale
+- stronger alignment
+- cleaner grouping
+- slightly warmer or cooler semantic tint
+
+Do not use depth to make every block feel equally important.
 
 ## Shapes
 
-Shape language is soft and unforced. Primary content cards use generous rounded corners. Inputs and secondary action rows use medium rounding. Chips and buttons can lean pill-shaped when they express invitation or state. No element should feel sharp, aggressive, or over-rounded for effect.
+Shape language is soft, practical, and reliable. Main summary cards and grouped timeline containers should use generous rounded corners. Secondary rows, settings items, and compact action containers should use medium rounding. Chips and CTAs may become pill-shaped when they express readiness or status.
 
-Icons should be fine-lined, calm, and precise. They should support interpretation, not become decorative mascots. Corners, icon geometry, and navigation surfaces must belong to one family so the product feels intentionally composed.
+The geometry should feel stable, not playful. Corners, icon stroke weight, and navigation shapes must belong to the same family so the product reads like one coherent planning system.
 
 ## Components
 
-The most important shared component family is the result-first summary stack:
+The most important shared component families are:
 
-- result statement cards
-- tonight target cards
-- recovery guidance cards
-- quiet primary action buttons
+- summary cards for last-night result and tonight plan
+- timeline or schedule-rail rows
+- calm primary CTA buttons
+- compact status chips
+- weekly rhythm summary surfaces
+- quiet bottom navigation
 
-Result cards must carry the emotional weight of the system without becoming dramatic. They explain drift clearly, preserve dignity, and open the path to recovery. Target cards should feel more structured and practical. Recovery cards should feel supportive, not promotional. Trend and insight cards should be lighter, more secondary, and never visually outrank the first-screen reading path.
-
-Buttons should feel invitational rather than commanding. Their presence should be obvious, but their tone should remain calm. Bottom navigation is a stable public component family and must remain consistent across all main tabs. Inputs, settings rows, and filters should feel light, low-friction, and native to the same quiet system.
+Summary cards should explain rather than impress. Timeline rows should feel ordered, tappable, and lightweight. Weekly rhythm summaries should stay secondary to the immediate action path. Inputs, settings rows, and filters should feel native, low-friction, and consistent with the same quiet structure system.
 
 ## Task Priorities
 
-The highest-priority task on the main user journey is to help the user calmly read last night and then move into tonight's next step. The first-screen hierarchy on the Today surface should always privilege:
+The highest-priority task is not "see all data." It is helping the user calmly read last night and move into tonight's plan without confusion.
 
-1. last night's core result
-2. tonight's target bedtime and wind-down frame
-3. recovery guidance or immediate next action
-4. lightweight trend awareness
-5. secondary navigation, monetization, or settings entry
+The first 3 seconds on the main Today journey must make these things obvious:
 
-No chart, paywall cue, historical archive, or decorative device treatment may outrank the first-screen result statement. The user should understand the outcome quickly and then feel invited into the next action, not interrupted by analytics or commercial prompts.
+1. last night's outcome or current sleep status
+2. tonight's target sleep window or wind-down timing
+3. the next concrete step in the evening path
+
+Charts, long history, settings, monetization, and secondary insights must not outrank the first-screen task path.
 
 ## Interaction & Feedback
 
-Feedback must feel predictable, gentle, and immediate. Tap and press states should confirm readiness without flashing. Loading states should resemble the final structure and preserve the reading order. Success should feel steady and reassuring. Warning should feel attentive, not punishing. Error should keep the user moving with a next action, not just explain failure.
+Feedback should feel immediate, quiet, and dependable. Tap states should confirm intent without flashing. Loading states should preserve the same reading order as the final content. Success should feel steady. Warning should feel attentive. Error should preserve motion toward a next step instead of stopping at diagnosis.
 
-Motion should remain restrained and meaningful. It may support continuity between sections, sheets, and shell transitions, but it should never create theatrical emphasis. State changes in bedtime mode, permission prompts, and recovery actions should feel smooth and controlled, especially at night.
+Motion, when used, should help with:
+
+- timeline continuity
+- sheet and panel transitions
+- state confirmation
+- reducing perceived friction in the bedtime path
+
+Motion must not delay bedtime actions or distract from the page's reading order.
 
 ## Responsive Strategy
 
-The primary validation surface is iPhone-class mobile. The system is optimized for single-hand scanning, bottom navigation reliability, comfortable vertical rhythm, and fast first-screen comprehension under fatigue. Tablet may expand whitespace and container width, but it must not invent a second visual language. Desktop is not the defining composition target for this product.
+The design is frozen around an iPhone-class base viewport of `390 x 844 px`. Tablet may add whitespace and widen grouped surfaces, but must not invent a second design language. Desktop is not a primary composition target for this product and should not define layout behavior.
 
 Visually locked relationships include:
 
-- the result-first reading order on Today
-- the dominant countdown or state-selection block on Bedtime
-- the quiet summary-first posture on Insights
-- the shared shell and primary card family
+- the top summary-first order on Today
+- the main schedule window and evening progression logic
+- the shared shell, summary cards, timeline rows, and primary CTA posture
 
-Flexible regions include trend previews, list density, support notes, and deeper configuration groupings.
+Flexible regions include:
+
+- trend preview density
+- list length handling
+- secondary metadata placement
+- deeper configuration grouping in settings-heavy pages
 
 ## States & Edge Cases
 
-Every critical screen must intentionally support ideal, loading, empty, partial-data, disabled, success, warning, error, permission-denied, premium-locked, long-content, short-content, and slow-network situations. These states must preserve the core reading order instead of collapsing into generic placeholders.
+Every critical screen must support:
 
-When data is missing or delayed, the product should say so plainly and keep a usable next step alive. When a user slept late, the system should prioritize recovery explanation over shame. When content grows long, the first-screen focal statement and core next action must survive. When content is short, the interface should still feel complete, grounded, and deliberate.
+- ideal
+- loading
+- empty
+- partial-data
+- disabled
+- success
+- warning
+- error
+- permission-denied
+- premium-locked
+- long-content
+- short-content
+- slow-network
+
+When data is missing or delayed, the product must say so plainly and preserve a useful next step. When the user slept late, the product should prioritize recovery explanation or tonight-plan protection over shame. When content grows long, the top summary, tonight plan, and primary CTA must remain intact. When content is short, the screen should still feel complete and intentional.
 
 ## Content & Tone
 
-The voice is calm, clear, and non-medical. It should sound like a composed guide that helps the user face reality without punishment. The product does not dramatize lateness and does not perform therapy. CTA language should feel like a quiet invitation such as “start wind-down” or “protect your evening,” not an order or challenge.
+The voice is calm, direct, and non-medical. It should sound like a composed guide that helps the user protect rhythm through small, practical choices. The product does not dramatize lateness, does not imitate therapy, and does not talk like a punishment system.
 
-Naming must stay stable across screens and states. Shared component names and state names should reflect real usage situations: last night, tonight's target, recovery summary, trend note, permission needed, partial sync, premium locked. Copy should reduce shame and increase clarity in both good nights and rough nights.
+CTA language should feel practical and gentle, for example:
+
+- start wind-down
+- protect tonight's window
+- keep your rhythm
+- view recovery plan
+
+Naming should stay stable across screens and states. Shared names should reflect real usage situations: last night, tonight plan, sleep window, wind-down, partial sync, recovery note, premium locked.
 
 ## Do's and Don'ts
 
-- Do preserve the result-first hierarchy on the main Today path.
-- Do keep the shell, card families, status chips, and navigation visually consistent across screens.
-- Do use whitespace and typography before decoration to create hierarchy.
-- Do keep warning and recovery states warm, clear, and non-punitive.
-- Do design empty, loading, partial-data, error, and locked states as first-class experiences.
-- Do keep the visual system light-mode calm by default and avoid decorative darkness as identity.
-- Don't turn the app into a medical dashboard or data console.
-- Don't let charts, metrics, or monetization compete with the first-screen reading path.
-- Don't fall back to blue-purple dream gradients, glossy glassmorphism, or heavy wellness cliches.
-- Don't let page-local styling break the shared shell, shared CTA posture, or shared card family.
-- Don't rely on color alone to explain lateness, recovery need, or sync problems.
-- Don't let responsive adaptation become a different product language.
+- Do preserve the summary-first reading order on the main Today path.
+- Do keep time windows, rails, and next steps clearer than charts or promotions.
+- Do use whitespace and grouping before decoration to create hierarchy.
+- Do keep the shared shell, summary cards, timeline rows, and CTA posture consistent across screens.
+- Do design all major data, permission, loading, and recovery states explicitly.
+- Do keep the visual system in light mode by default for this workflow.
+- Don't turn the app into a medical dashboard, quantified-self console, or dreamy wellness fantasy.
+- Don't let charts, historical depth, or paywall prompts outrank tonight's plan.
+- Don't fall back to blue-purple gradients, glossy glass, or ornamental lifestyle styling.
+- Don't compress spacing or collapse hierarchy to fit more content below the frozen base viewport.
+- Don't let page-local styling break the shared shell, shared card family, or shared timeline language.
+- Don't rely on color alone to express lateness, caution, or recovery need.

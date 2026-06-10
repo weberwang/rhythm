@@ -1,0 +1,80 @@
+artifact_type: theme_freeze
+theme_id: light
+platform_baseline: ios_hig
+color_roles:
+  primary: "#234D3D"
+  on_primary: "#F9F7F0"
+  secondary: "#74836E"
+  on_secondary: "#FFFFFF"
+  accent: "#C89B4A"
+surface_roles:
+  background: "#F7F4EC"
+  surface: "#FFFDF8"
+  surface_subtle: "#F1EDE4"
+  surface_elevated: "#FFFFFF"
+  surface_inverse: "#24312B"
+text_roles:
+  text_primary: "#17352B"
+  text_secondary: "#6C746D"
+  text_tertiary: "#97A098"
+  text_inverse: "#F8F6EF"
+icon_roles:
+  icon_primary: "#355E4E"
+  icon_secondary: "#8A948B"
+  icon_inverse: "#F8F6EF"
+border_roles:
+  border_subtle: "#E7E1D6"
+  border_strong: "#D1C8BA"
+  divider: "#ECE5DA"
+status_roles:
+  success: "#5D8B60"
+  on_success: "#FFFFFF"
+  warning: "#D3A94D"
+  on_warning: "#FFFFFF"
+  error: "#EE8E6D"
+  on_error: "#FFFFFF"
+  info: "#8FA09A"
+  on_info: "#FFFFFF"
+shadow_or_overlay_roles:
+  shadow_color: "rgba(22, 42, 33, 0.06)"
+  overlay_scrim: "rgba(23, 31, 28, 0.24)"
+  focus_ring: "#8BAF95"
+component_state_roles:
+  primary_button:
+    background: "#234D3D"
+    text: "#F9F7F0"
+    border: "#234D3D"
+    pressed_background: "#1B3D30"
+    disabled_background: "#D7D8D1"
+    disabled_text: "#8F958E"
+  secondary_button:
+    background: "#FFFDF8"
+    text: "#355E4E"
+    border: "#D1C8BA"
+    pressed_background: "#F3EEE4"
+    disabled_background: "#F0ECE4"
+    disabled_text: "#A3A79F"
+  input_field:
+    background: "#FFFDF8"
+    text: "#17352B"
+    placeholder: "#97A098"
+    border: "#D8D1C5"
+    focus_border: "#8BAF95"
+    disabled_background: "#F2EEE5"
+  card:
+    background: "#FFFDF8"
+    border: "#E7E1D6"
+    highlighted_background: "#FAF6EE"
+    warning_background: "#FFF8EC"
+    error_background: "#FFF3EF"
+contrast_rules:
+  body_text_on_background: ">= 4.5:1"
+  body_text_on_surface: ">= 4.5:1"
+  text_on_primary: ">= 4.5:1"
+  cta_text_on_primary: ">= 4.5:1"
+  essential_iconography: ">= 3:1"
+forbidden_overrides:
+  - "Do not replace the warm off-white page background with cool gray or pure white."
+  - "Do not collapse primary text and secondary text into the same contrast band."
+  - "Do not swap warning with accent inside recovery or schedule-status widgets."
+  - "Do not remove subtle borders from cards unless equivalent hierarchy is preserved."

@@ -25,10 +25,10 @@ Operate on the initialized Rhythm Flutter app using the project decisions captur
 
 - Project name: `Rhythm`
 - Package id: `com.example.rhythm`
-- Platforms: `android, ios, web, macos, windows, linux`
-- Environments: `default local-first baseline`
-- Primary features: `app-shell, sleep-data-core, onboarding-activation, today, bedtime, calendar, profile-settings, insights`
-- Core integrations: `Riverpod, GoRouter, Drift, SharedPreferences, FlutterSecureStorage, Supabase, Health, Local Notifications, Home Widget, Purchases`
+- Platforms: `Android, iOS, macOS, Linux, Windows, Web`
+- Environments: `单环境 baseline，后续如需多环境统一扩展 app/bootstrap/config`
+- Primary features: `app-shell, onboarding-activation, sleep-data-core, today, bedtime, calendar, insights, profile-settings`
+- Core integrations: `Health, local notifications, home_widget, Supabase, purchases_flutter, secure/local storage`
 
 ## Workflow
 
@@ -49,14 +49,15 @@ Operate on the initialized Rhythm Flutter app using the project decisions captur
 - Do not take over initialization, plugin setup, or force-based reconfiguration responsibilities.
 - Do not use this skill as a standalone path that bypasses explicit `@superpowers` invocation for module refinement or module implementation.
 - If this project uses `flutter_hooks` or `hooks_riverpod`, do not write new applicable UI logic as `StatefulWidget` or manual lifecycle glue where hooks can express it directly.
+- Replace every `{{PLACEHOLDER}}` before shipping this generated skill with the project.
 
 ## Project Conventions
 
-- Route strategy: `launch gate -> onboarding -> five-tab shell, all managed by GoRouter`
-- Networking strategy: `single Dio host plus Retrofit baseline; do not invent business endpoints before contracts freeze`
-- Storage strategy: `Drift for structured local data, SharedPreferences for lightweight flags, FlutterSecureStorage for sensitive data`
-- Test commands: `flutter analyze && flutter test`
-- Build commands: `flutter pub get && flutter gen-l10n && dart run build_runner build --delete-conflicting-outputs`
+- Route strategy: `go_router root shell + feature branch ownership`
+- Networking strategy: `dio + retrofit for custom remote contracts, Supabase SDK for auth/sync`
+- Storage strategy: `drift + flutter_secure_storage + shared_preferences`
+- Test commands: `flutter test` / `flutter analyze`
+- Build commands: `dart run build_runner build --delete-conflicting-outputs`
 
 ## References
 

@@ -3,27 +3,27 @@
 ## Product Summary
 
 - Project name: `Rhythm`
-- Goal: `帮助长期晚睡但有调整意愿的用户，以本地优先方式完成“睡前收尾 - 次日理解偏移 - 持续恢复节奏”的闭环`
-- Target users: `20-35 岁长期晚睡用户、远程办公人群、跨时区用户与轮班用户`
+- Goal: `构建本地优先、行为闭环导向的作息管理 Flutter 应用，帮助长期晚睡用户完成“今晚提醒 -> 睡前收尾 -> 次日反馈 -> 恢复建议 -> 周复盘”链路。`
+- Target users: `长期晚睡但愿意主动调整节律的移动端用户，首发以 iOS 真机用户为主。`
 - Package id: `com.example.rhythm`
-- Supported platforms: `Android, iOS, Web, macOS, Windows, Linux`
+- Supported platforms: `Android, iOS, macOS, Linux, Windows, Web`
 
 ## Delivery Scope
 
-- First release scope: `app-shell, sleep-data-core, onboarding-activation, today, bedtime, calendar, profile-settings, insights 的初始化与后续分模块实现`
-- Out of scope: `医学诊断、社区打卡、硬件联动、首发 AI 聊天教练`
-- Key integrations: `Supabase, Health, Flutter Local Notifications, Timezone, Home Widget, Purchases, Google Sign-In, Sign in with Apple`
+- First release scope: `app-shell, onboarding-activation, sleep-data-core, today, bedtime, calendar, insights, profile-settings 的目录级与后续 bootstrap-ready 骨架。`
+- Out of scope: `当前初始化阶段不实现真实 app shell、启动 wiring、业务页面、状态机和 feature 行为。`
+- Key integrations: `health, flutter_local_notifications, home_widget, flutter_secure_storage, shared_preferences, drift, Supabase, purchases_flutter`
 
 ## Environments
 
-- Environments: `default`
+- Environments: `单环境 baseline`
 - Flavor or config strategy: `初始化阶段先采用单环境基线；如后续引入多环境，必须在 app/bootstrap 与 core/config 统一扩展`
-- Secrets handling: `敏感凭据走 FlutterSecureStorage；远端密钥与平台配置保留在原生配置层，不在页面或 Provider 中硬编码`
+- Secrets handling: `敏感信息不入仓库；运行时 secrets 通过本地环境或平台配置注入`
 
 ## Commands
 
 - Fetch dependencies: `flutter pub get`
-- Generate code: `flutter gen-l10n && dart run build_runner build --delete-conflicting-outputs`
+- Generate code: `dart run build_runner build --delete-conflicting-outputs`
 - Analyze: `flutter analyze`
 - Test: `flutter test`
 - Run app: `flutter run`

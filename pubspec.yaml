@@ -10,6 +10,8 @@ dependencies:
   flutter:
     sdk: flutter
 
+  flutter_screenutil: ^5.9.3
+
   # 路由与状态管理：适合“今日 / 日历 / 睡前 / 洞察 / 我的”多模块拆分。
   flutter_riverpod: ^3.0.3
   flutter_hooks: ^0.21.3+1

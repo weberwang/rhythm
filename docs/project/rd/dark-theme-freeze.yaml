@@ -1,0 +1,80 @@
+artifact_type: theme_freeze
+theme_id: dark
+platform_baseline: ios_hig
+color_roles:
+  primary: "#8FB39A"
+  on_primary: "#13261E"
+  secondary: "#A1AF9D"
+  on_secondary: "#18201B"
+  accent: "#D5B06A"
+surface_roles:
+  background: "#151915"
+  surface: "#1D231E"
+  surface_subtle: "#242B25"
+  surface_elevated: "#2B332D"
+  surface_inverse: "#F4F0E7"
+text_roles:
+  text_primary: "#F3F0E8"
+  text_secondary: "#C6CDC6"
+  text_tertiary: "#9AA39B"
+  text_inverse: "#17211C"
+icon_roles:
+  icon_primary: "#DDE5DD"
+  icon_secondary: "#A9B3AA"
+  icon_inverse: "#17211C"
+border_roles:
+  border_subtle: "#323A34"
+  border_strong: "#465048"
+  divider: "#2C342E"
+status_roles:
+  success: "#79A97C"
+  on_success: "#0F1C14"
+  warning: "#D9B15D"
+  on_warning: "#231706"
+  error: "#F0A187"
+  on_error: "#2F150E"
+  info: "#A7BBB4"
+  on_info: "#15211D"
+shadow_or_overlay_roles:
+  shadow_color: "rgba(0, 0, 0, 0.32)"
+  overlay_scrim: "rgba(0, 0, 0, 0.42)"
+  focus_ring: "#9FC3A9"
+component_state_roles:
+  primary_button:
+    background: "#8FB39A"
+    text: "#13261E"
+    border: "#8FB39A"
+    pressed_background: "#7FA38A"
+    disabled_background: "#3A433D"
+    disabled_text: "#788078"
+  secondary_button:
+    background: "#1D231E"
+    text: "#D6DDD6"
+    border: "#465048"
+    pressed_background: "#2A312B"
+    disabled_background: "#222823"
+    disabled_text: "#707871"
+  input_field:
+    background: "#1D231E"
+    text: "#F3F0E8"
+    placeholder: "#9AA39B"
+    border: "#465048"
+    focus_border: "#9FC3A9"
+    disabled_background: "#212722"
+  card:
+    background: "#1D231E"
+    border: "#323A34"
+    highlighted_background: "#242B25"
+    warning_background: "#2F281B"
+    error_background: "#32231F"
+contrast_rules:
+  body_text_on_background: ">= 4.5:1"
+  body_text_on_surface: ">= 4.5:1"
+  text_on_primary: ">= 4.5:1"
+  cta_text_on_primary: ">= 4.5:1"
+  essential_iconography: ">= 3:1"
+forbidden_overrides:
+  - "Do not invert the light theme mechanically or introduce neon green for the primary action."
+  - "Do not darken surfaces until primary and secondary text lose their contrast separation."
+  - "Do not reuse light-mode warning or error saturation without glare restraint."
+  - "Do not remove border contrast from cards and inputs in dark mode."

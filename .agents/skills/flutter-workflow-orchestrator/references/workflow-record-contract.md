@@ -24,6 +24,8 @@ Do not treat the artifact as a stable bundled skill resource. If persistence is 
 
 Create parent directories only for the current run when persistence is actually enabled.
 
+Project-level durable workflow artifacts default to `docs/project/` unless a downstream contract or the user explicitly requires another path. Runtime workflow state remains outside that tree.
+
 ## Purpose
 
 When persisted, this runtime artifact is the single stable source for project workflow state for that run. It should let any downstream agent answer:
@@ -40,9 +42,11 @@ When persisted, this runtime artifact is the single stable source for project wo
 - whether PRD decision-blocking questions are resolved, defaulted, or still blocked
 - where the generated PRD artifact lives
 - whether the global visual design direction has already been brainstormed before asking the user to confirm it
-- whether the workflow used direct confirmation or subagent recommendation before final design-direction confirmation
+- whether the workflow used a confirmed Product Design brief, approved visual source, or Product Design recommendation artifact before final design-direction confirmation
+- whether the target design-device preset and base resolution are already frozen for the current design cycle
+- which iPhone preset or custom viewport was selected
 - whether the common public shell has already been explicitly agreed before any effect-image generation starts
-- whether the final product design direction has been confirmed with the user after the global visual design brainstorming step
+- whether the final product design direction has been confirmed with the user after the Product Design brief and direction step
 - whether a root-level `DESIGN.md` already exists for the confirmed final design direction
 - whether `DESIGN.md` already captures task-priority and first-screen CTA rules
 - whether `DESIGN.md` already captures interaction and feedback rules
@@ -61,8 +65,9 @@ When persisted, this runtime artifact is the single stable source for project wo
 - whether Stitch MCP was available and which `modelId` was used for structured design-source generation or validation
 - whether `stitch_project_mode` is confirmed as `new` or `existing` before Stitch design-source work starts
 - whether `stitch_project_id` is confirmed and frozen after the Stitch project mode choice
-- whether Stitch page design ran in page-scoped subagents and whether the batch respected the 6-subagent concurrency cap
-- whether every in-scope page has a successful page-level Stitch receipt before packet merge and freeze
+- whether the shared/global Stitch packet is limited to shared theme/public-shell design only
+- when module-scoped Stitch page design runs, whether it used page-scoped subagents and whether the batch respected the 6-subagent concurrency cap
+- when module-scoped page generation was required, whether every in-scope page has a successful page-level Stitch receipt before packet merge and freeze
 - whether Stitch restoration downloaded image assets for direct use, and where those assets were saved
 - whether the Stitch design-source packet has been checked against its source effect image or approved visual comp
 - whether the active module's high-fidelity visual contract was evaluated as the first module design-freeze priority
@@ -168,7 +173,7 @@ Use these values consistently:
 
 Summarize the project's overall workflow posture in 2-4 short lines.
 
-Include whether the workflow is still in requirements brainstorming, PRD generation, global visual design brainstorming, recommendation review, final product design direction confirmation, `DESIGN.md` output, optional representative effect-image confirmation, optional remaining page-effect generation, shared freeze, module `impl.md` generation, module page component drafting, module freeze, bootstrap code generation, code implementation, or human visual inspection handoff.
+Include whether the workflow is still in requirements brainstorming, PRD generation, Product Design brief confirmation, Product Design recommendation review, final product design direction confirmation, `DESIGN.md` output, optional representative effect-image confirmation, optional remaining page-effect generation, shared freeze, module `impl.md` generation, module page component drafting, module freeze, bootstrap code generation, code implementation, or human visual inspection handoff.
 
 If `execution_mode=auto`, also state whether the workflow is still auto-advancing or has stopped at workflow completion.
 
@@ -179,6 +184,8 @@ If `execution_mode=auto` and not all target modules are fully implemented yet, e
 Record why the project is in the current stage and what must become true before the stage can advance.
 
 If the global visual design direction has not yet been brainstormed, say so explicitly and keep final product design direction confirmation blocked.
+
+If the target design-device preset or base resolution is still missing, say so explicitly and keep Product Design brief confirmation, visual recommendation, and optional effect-image generation blocked.
 
 If the common public shell has not yet been explicitly agreed, say so explicitly and keep design-direction confirmation plus optional effect-image generation blocked.
 
@@ -195,6 +202,8 @@ If taste direction is missing before detailed design-source work, say so explici
 If the workflow is still in requirements brainstorming, state whether raw requirements are captured, whether the PRD question ledger exists, which decision-blocking questions remain, and whether a PRD artifact has been generated.
 
 If the shared/global design freeze is not complete yet, say so explicitly and keep all module-related workflow blocked.
+
+If shared/global structured design-source work is in progress, state explicitly that this scope is limited to shared theme and public-shell design and does not include page design.
 
 If the active module lacks an executable `impl.md`, say so explicitly.
 
@@ -275,7 +284,8 @@ Track project-level artifact paths when known, such as:
 - requirements brainstorming notes
 - PRD question ledger
 - PRD
-- global visual design brainstorming packet
+- Product Design brief or recommendation packet
+- frozen design-device preset and base resolution record
 - design confirmation mode
 - design recommendation packet
 - public shell confirmation record
@@ -295,12 +305,12 @@ Track project-level artifact paths when known, such as:
 - `light-theme-freeze.yaml`
 - `dark-theme-freeze.yaml`
 - shared freeze evidence or freeze decision
-- shared global effect-image directory under `docs/rd/`
+- shared global effect-image directory under `docs/project/`
 - Stitch design-source packet path and `modelId`
 - frozen `stitch_project_mode`
 - frozen `stitch_project_id`
-- Stitch page-design batch id or trace path
-- page-level Stitch receipt paths
+- module page-design batch id or trace path when module-scoped page generation ran
+- page-level Stitch receipt paths when module-scoped page generation ran
 - downloaded Stitch image asset source paths or URLs
 - downloaded Stitch image asset local paths
 - Stitch source effect-image paths
@@ -316,7 +326,7 @@ Track project-level artifact paths when known, such as:
 - project-level `@superpowers` execution trace when one exists
 - any approved generated bitmap assets that implementation must consume
 
-When the chosen global effect image originates from a module page, keep only the global effect-image path under `docs/rd/`; do not require or index a copied module-local path.
+When the chosen global effect image originates from a module page, keep only the global effect-image path under `docs/project/`; do not require or index a copied module-local path.
 
 If the shared/public component freeze is tracked in a dedicated artifact, index it here too.
 
@@ -352,9 +362,11 @@ When route drift, receipt mismatch, or no-progress auto stopping happens, add a 
 - If requirements brainstorming resolves decision-blocking questions, index the generated PRD artifact and queue `pending_next_stage=prd_ready` instead of silently jumping to technical baseline.
 - If decision-blocking questions remain unresolved, record them in `required_inputs` or `blockers`, keep `current_stage=requirements_brainstorming`, and do not route to technical baseline, taste direction, executable module document generation, architecture, or implementation.
 - If a default is used to answer a PRD question, record the assumption, rationale, and risk in the workflow record or PRD artifact index.
-- If the PRD exists but the global visual design direction has not yet been brainstormed, keep `DESIGN.md`, structured design-source work, and optional effect-image generation blocked and route to `flutter-taste-router` before asking for confirmation.
+- If the PRD exists but the global visual design direction has not yet been brainstormed, keep `DESIGN.md`, structured design-source work, and optional effect-image generation blocked and route first to `@product-design` brief confirmation or visual-direction recommendation as needed. If richer commercial evidence is needed before confirmation, record the pending pre-direction Creative Production branch explicitly instead of treating `flutter-taste-router` as the primary direction owner.
+- If the technical baseline exists but the target design-device preset or base resolution is still missing, keep `current_stage=technical_baseline_ready`, record `required_inputs=design_device_preset_and_resolution`, and do not route to Product Design brief confirmation yet. In `--auto`, if the viewport is still missing, record that `390 x 844 px` was auto-selected.
 - If the global visual direction exists but the common public shell has not yet been agreed, keep design-direction confirmation and optional effect-image generation blocked, record `required_inputs=public_shell_confirmation`, and do not route to representative or full page-effect generation.
 - If the brainstormed direction exists but the final product design direction has not been confirmed with the user, keep `DESIGN.md`, structured design-source work, and optional effect-image generation blocked, record `required_inputs=final_product_design_direction_confirmation`, and do not route to downstream design-source generation.
+- If final product design direction is confirmed but the shared or module freeze packet is still not standardized, route to `flutter-taste-router` for textual normalization and freeze-contract consolidation before any freeze promotion is queued.
 - If final product design direction is confirmed, index the confirmation artifact or decision-log entry before writing the root-level `DESIGN.md` or generating any optional effect image.
 - If the root-level `DESIGN.md` is written, index its path before generating any structured design source.
 - If `DESIGN.md` captures task priority, first-screen CTA posture, interaction feedback, responsive strategy, critical states, and content tone, record that quality audit explicitly. If not, record the missing areas as blockers before structured design-source generation.
@@ -367,20 +379,21 @@ When route drift, receipt mismatch, or no-progress auto stopping happens, add a 
 - If `flutter-taste-router` completes textual normalization, record that status in the relevant summary or decision entry before any freeze promotion is queued.
 - If freeze preparation inspects static-image directories, record whether existing evidence was reused, skipped due to missing environment variables, or newly generated.
 - If effect images are accepted for workflow use, record whether they satisfy the default light-mode requirement.
-- If Stitch is used as the structured design source, record the Stitch packet path, `modelId`, source effect-image paths, page-level Stitch receipt paths, downloaded image asset source/local paths, page-design batch concurrency, and Stitch-vs-effect-image validation result.
+- If Stitch is used as the structured design source, record the Stitch packet path, `modelId`, source effect-image paths, and Stitch-vs-effect-image validation result. Record page-level Stitch receipt paths, downloaded image asset source/local paths, and page-design batch concurrency only when module-scoped page generation actually ran.
 - Before any Stitch design-source generation or validation, verify that `stitch_project_mode` is confirmed as `new` or `existing`. If it is missing or ambiguous, record `stitch_status=blocked_missing_project_mode`, keep the current stage unchanged, and stop with `required_inputs=stitch_project_mode:new_or_existing`.
 - After `stitch_project_mode` is confirmed, record how the id is obtained. For `new`, create the Stitch project and freeze the returned `stitch_project_id`; if creation cannot return a frozen id, record `stitch_status=blocked_project_creation` and stop with `required_inputs=stitch_project_creation`. For `existing`, verify that the user-provided `stitch_project_id` is confirmed and frozen; if it is missing, ambiguous, or mutable, record `stitch_status=blocked_missing_project_id`, keep the current stage unchanged, and stop with `required_inputs=stitch_project_id`.
 - If `stitch_project_mode` or `stitch_project_id` changes after being frozen, route through `flutter-design-source-control` and treat existing Stitch packets as needing revalidation.
 - If Stitch MCP is required but unavailable in the current tool context, record `stitch_status=unavailable`, keep the relevant freeze blocked, and do not silently fall back to raw effect images as the only design source.
-- If Stitch page design is delegated, record the page-to-subagent assignment, enforce `stitch_parallel_limit=6`, and keep workflow record updates orchestrator-owned.
-- If any page-level Stitch receipt is missing or blocked, keep `design_source_status` out of `frozen`, record the failed page, and stop packet freeze.
-- If a Stitch page subagent downloads image assets for direct use, index each source URL or artifact path, local asset path, owning page, intended component/region, and direct-use decision.
+- If module-scoped Stitch page design is delegated, record the page-to-subagent assignment, enforce `stitch_parallel_limit=6`, and keep workflow record updates orchestrator-owned.
+- If any required module-scoped page-level Stitch receipt is missing or blocked, keep `design_source_status` out of `frozen`, record the failed page, and stop packet freeze.
+- If a module-scoped Stitch page subagent downloads image assets for direct use, index each source URL or artifact path, local asset path, owning page, intended component/region, and direct-use decision.
 - If a required downloaded image asset is missing, keep the relevant Stitch packet unfrozen and record the missing asset as a blocker.
 - If shared/global effect images were generated, record the complete page list, one approved image path per page, and whether every in-scope page is covered for that optional branch.
 - If the representative effect image was generated, record its path, selected page, and approval status.
 - If shared/global freeze is under review, record whether the approved effect images required by the active revision path now exist or whether that path is still blocked on image generation.
 - If shared/global freeze is under review, record whether task hierarchy, CTA discoverability, interaction feedback, responsive strategy, and critical-state coverage were explicitly verified.
 - If generated effect images were created after a shared/global direction existed, record whether palette direction, typography mood, component family cues, CTA posture, visual system, and image treatment were explicitly inherited.
+- If shared/global effect images were created, record the frozen base design viewport they were generated against.
 - If `design-preview-to-global-guidelines` artifacts are created, update the relevant module row and queue `global_guidelines_frozen` in `pending_next_stage` instead of switching immediately.
 - If a freeze evaluation fails, keep the current stage unchanged, clear any queued freeze promotion, and route back to the correct upstream skill for exactly one scope-matched revision pass.
 - If `execution_mode=auto`, the orchestrator should apply deterministic queued transitions and queued status updates without pausing for ordinary downstream confirmation, and it must otherwise stop only when workflow completion is reached or when a blocker appears.
@@ -408,7 +421,7 @@ When route drift, receipt mismatch, or no-progress auto stopping happens, add a 
 - If `flutter-init` completes, also record that bootstrap code and feature implementation have not started yet and that initialization stopped at directory-creation boundaries.
 - If `flutter-init` has not run yet, record whether the shared bootstrap-critical baseline is already ready or still blocked, so the next routing decision can tell whether initialization should happen now.
 - If bootstrap code lands after initialization, record the execution summary or trace, the covered global public code baseline, and queue or apply `bootstrap_code_ready`.
-- If the workflow is entering delegated module document generation or module implementation, record that execution must be explicitly invoked through `@superpowers`; if corresponding page-image evidence exists, mention that display-layer landing should consult `$image-to-code`.
+- If the workflow is entering delegated module document generation or module implementation, record that execution must be explicitly invoked through `@superpowers`; if corresponding page-image evidence exists, mention that display-layer landing should consult the page image and frozen design evidence.
 - If the workflow is entering implementation, record whether `@superpowers` `Spec` exists, whether `@superpowers` `Plan` exists, and do not treat execution as authorized before both exist.
 - If implementation execution begins, record the active serial module order, the current active module, and any explicitly approved ownership split. Default expectation is serial module execution.
 - If a selected module, module index row, executable module `impl.md`, or required Stitch design-source packet cannot be verified on disk, record the blocker and keep all generation, freeze, and architecture trace fields as `未执行`, `not_executed`, or `unknown`.
@@ -434,13 +447,13 @@ When route drift, receipt mismatch, or no-progress auto stopping happens, add a 
 - Do not mark `impl_status=landed` before the module `impl.md` references a confirmed frozen selected structured design-source packet.
 - Do not mark `design_source_status=frozen` for module implementation when `high_fidelity_freeze_status` is `blocked`, `not_evaluated`, or missing.
 - Do not mark `code_status=landed` before code output actually exists.
-- Do not claim static visual evidence was generated before recording whether the directory was checked first and whether the image environment variables were actually available.
+- Do not claim static visual evidence was generated before recording whether the directory was checked first and whether `gpt-image-2-generator` for that branch was actually available.
 - Do not accept effect-image evidence into the workflow record without stating whether it meets the default light-mode requirement.
 - Do not mark a Stitch design-source packet as frozen before recording the source effect-image paths, `modelId`, and validation result.
 - Do not mark a Stitch design-source packet as frozen before recording the frozen `stitch_project_mode`.
 - Do not mark a Stitch design-source packet as frozen before recording the frozen `stitch_project_id`.
-- Do not mark a Stitch design-source packet as frozen before recording successful page-level Stitch receipts for every in-scope page.
-- Do not mark a Stitch design-source packet as frozen before recording local paths for every downloaded image asset required for direct implementation use.
+- Do not mark a Stitch design-source packet as frozen before recording successful page-level Stitch receipts for every in-scope page when module-scoped page generation was required.
+- Do not mark a Stitch design-source packet as frozen before recording local paths for every downloaded image asset required for direct implementation use when module-scoped asset download was part of the accepted packet.
 - Do not store literal Stitch API keys in the workflow record.
 - Do not accept shared/global effect-image evidence into the workflow record without stating whether every in-scope page has an approved light-mode effect image for that optional branch.
 - Do not treat a representative effect image as if the complete all-page effect-image set already exists.
@@ -469,7 +482,7 @@ When route drift, receipt mismatch, or no-progress auto stopping happens, add a 
 - Do not mark `bootstrap_code_ready` unless the required global public code baseline actually exists on disk.
 - Do not let `execution_mode=auto` claim implementation progress without recording the corresponding `@superpowers` gates, execution evidence, and code artifacts.
 - Do not wait for every feature module to finish late-stage architecture planning before triggering `flutter-init` when the shared bootstrap-critical baseline is already sufficient.
-- Do not hide the `@superpowers` implementation ownership or `$image-to-code` display-layer dependency when the module is already in or beyond implementation and those controls are relevant.
+- Do not hide the `@superpowers` implementation ownership or the display-layer evidence dependency when the module is already in or beyond implementation and those controls are relevant.
 - Do not treat implementation execution as valid before both `@superpowers` `Spec` and `@superpowers` `Plan` are recorded for the active module.
 - Do not treat implementation execution as valid unless the workflow record shows the active serial module order, the current active module, and any explicitly approved ownership split when one exists.
 - Do not record delegated module document generation or implementation as valid if it was routed directly to a downstream execution skill without explicit `@superpowers` invocation when execution ownership was required.
