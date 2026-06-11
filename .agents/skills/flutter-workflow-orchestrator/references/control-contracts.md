@@ -43,7 +43,8 @@ The preflight gate must verify at minimum:
 - the selected module exists in the module index when module-scoped work is requested
 - all required artifact paths for the intended move exist on disk
 - all required maturity prerequisites are already confirmed, not merely implied in prose
-- `platform_identifier` is explicit before architecture, implementation-readiness, human visual inspection, or implementation work that depends on a concrete validation surface
+- `platform_identifier` is explicit as the primary runtime and validation platform before architecture, implementation-readiness, human visual inspection, or implementation work that depends on a concrete validation surface
+- validation follows the primary platform only: if exactly one eligible device exists, use it; if multiple eligible devices exist, stop and wait for explicit device selection; if no eligible device exists and the platform supports emulator or simulator startup, start one and validate there
 - when `--auto` is active, the next move is still authorized by the current confirmed artifacts and does not skip required execution gates
 
 If any preflight check fails, stop immediately. Record the exact failed check as a blocker. Do not let a downstream skill try to compensate for missing prerequisites by reconstructing state, inferring approvals, or backfilling artifacts opportunistically.
@@ -129,7 +130,7 @@ The following specialist stages may run inside a subagent, as long as the orches
 - `flutter-design-source-control` when post-freeze design changes must be incorporated in a controlled way
 - `flutter-uiux-to-architecture` for architecture mapping, display-layer decision tables, and native-vs-bitmap decisions
 - `flutter-init` for directory-skeleton creation, as long as it stops at initialization boundaries
-- module implementation through explicit `@superpowers` `Spec`, then explicit `@superpowers` `Plan`, then serial execution of the active module loop with project-local `flutter-dev` and `flutter-project-guardrails`
+- module implementation through explicit `@superpowers` `Spec`, then explicit `@superpowers` `Plan`, then serial execution of the active module loop with sibling `flutter-dev` and `flutter-project-guardrails`
 - human visual inspection handoff when implementation output or screenshots are ready
 - an MCP-driven image or design tool when the workflow already proved a raster asset is the correct implementation fallback
 

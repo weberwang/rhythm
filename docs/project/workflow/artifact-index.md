@@ -1,11 +1,11 @@
 # 工作流产物索引
 ## 当前状态
-- 当前阶段：`project_initialized`
-- 当前阶段：`bootstrap_code_ready`
-- 当前阶段：`implementing`
+- 当前阶段：`module_impl_docs_ready`
 - 当前模块：`onboarding-activation`
-- 已确认主线：`design_source_adapter = stitch`
-- Stitch 项目：`existing / 7107477570523131437`
+- 当前确认状态：`pending_confirmation`
+- 已确认主线：`global shared freeze = stitch`
+- 当前模块设计源：`onboarding-activation -> pencil`
+- Pencil 来源引用：`docs/project/design/app.pen`
 - 共享冻结结果：`frozen_shared_for_split`
 - 当前模块冻结结果：`app-shell -> frozen_module_for_architecture`
 - 当前模块架构结果：`app-shell -> architecture_ready`
@@ -15,10 +15,11 @@
 - `app-shell` Plan：`executed`
 - `app-shell` 代码状态：`landed`
 - `app-shell` 设计复核：`deferred-by-user`
-- `onboarding-activation` 文档状态：`implementation_in_progress`
+- `onboarding-activation` 文档状态：`implementation_final_for_design_review`
+- `onboarding-activation` 设计源状态：`preview_round_generated_waiting_direction`
 - `onboarding-activation` 代码状态：`activation_flow_plus_gateways_landed`
 - 用户决策：`app-shell` 运行态证据延后到后续运行时统一验收，本轮先继续推进下游模块
-- 下一前置动作：继续深化 `onboarding-activation` 的真实登录入口与 sleep-data-core 写入，同时保留 `app-shell` 运行态证据待补
+- 下一前置动作：先在 `preview-v1 / v2 / v3` 中选定 `onboarding-activation` 的代表页方向，再扩展其余步骤并进入 Pencil 重建准备
 
 ## 已归位产物
 | 类型 | 路径 | 说明 |
@@ -42,6 +43,8 @@
 | app-shell 架构产物 | [app-shell.architecture.md](/E:/Projects/flutter/rhythm/docs/project/modules/app-shell/app-shell.architecture.md) | `app-shell` Flutter 架构映射产物 |
 | app-shell 设计复核 | [app-shell-design-parity-review.md](/E:/Projects/flutter/rhythm/docs/project/modules/app-shell/app-shell-design-parity-review.md) | `app-shell` 实现对照冻结设计的复核结果 |
 | app-shell 运行态截图 | [app-shell-runtime-onboarding-web-390x844.png](/E:/Projects/flutter/rhythm/docs/project/modules/app-shell/app-shell-runtime-onboarding-web-390x844.png) | 当前已补到的 onboarding Web 视口截图 |
+| onboarding-activation 模块设计源包 | [onboarding-activation.design-source-packet.md](/E:/Projects/flutter/rhythm/docs/project/modules/onboarding-activation/onboarding-activation.design-source-packet.md) | `onboarding-activation` 当前 Pencil 分支设计输入包 |
+| onboarding-activation Pencil preview 评审 | [onboarding-activation-pencil-preview-review.md](/E:/Projects/flutter/rhythm/docs/project/modules/onboarding-activation/onboarding-activation-pencil-preview-review.md) | 当前代表页 preview 方向评审记录 |
 | 项目初始化总结 | [project-initialization-summary.md](/E:/Projects/flutter/rhythm/docs/project/rd/project-initialization-summary.md) | `flutter-init` 阶段交付说明 |
 | bootstrap 总结 | [bootstrap-code-summary.md](/E:/Projects/flutter/rhythm/docs/project/rd/bootstrap-code-summary.md) | 共享运行时底座交付说明 |
 | app-shell Spec | [2026-06-10-app-shell-design.md](/E:/Projects/flutter/rhythm/docs/superpowers/specs/2026-06-10-app-shell-design.md) | `@superpowers Spec` 阶段交付说明 |
@@ -53,12 +56,27 @@
 - 未擅自恢复 Git 中已记录但当前工作区缺失的历史工作流文件，避免覆盖已有删除决策。
 - 运行态状态文件保留在 `tmp/flutter-workflow-orchestrator/`，不混入长期归档目录。
 
+## 最新推进
+
+- 已按用户要求将 `onboarding-activation` 的模块设计源切换到 Pencil 分支，项目级来源引用为 [app.pen](/E:/Projects/flutter/rhythm/docs/project/design/app.pen)。
+- 已生成代表页 3 个 preview 方向图：
+  - [preview-v1-welcome-entry.png](/E:/Projects/flutter/rhythm/docs/project/modules/onboarding-activation/previews/preview-v1-welcome-entry.png)
+  - [preview-v2-welcome-entry.png](/E:/Projects/flutter/rhythm/docs/project/modules/onboarding-activation/previews/preview-v2-welcome-entry.png)
+  - [preview-v3-welcome-entry.png](/E:/Projects/flutter/rhythm/docs/project/modules/onboarding-activation/previews/preview-v3-welcome-entry.png)
+- 已确认 `preview-v2` 作为 `onboarding-activation` 当前设计周期唯一视觉基线，并补齐：
+  - [preview-v2-step-2-health-access.png](/E:/Projects/flutter/rhythm/docs/project/modules/onboarding-activation/previews/preview-v2-step-2-health-access.png)
+  - [preview-v2-step-3-sleep-window.png](/E:/Projects/flutter/rhythm/docs/project/modules/onboarding-activation/previews/preview-v2-step-3-sleep-window.png)
+  - [preview-v2-step-4-reminder-strategy.png](/E:/Projects/flutter/rhythm/docs/project/modules/onboarding-activation/previews/preview-v2-step-4-reminder-strategy.png)
+- 已新增 [onboarding-activation-pencil-preview-review.md](/E:/Projects/flutter/rhythm/docs/project/modules/onboarding-activation/onboarding-activation-pencil-preview-review.md) 记录当前方向门评审结果。
+
 ## 仍待补齐
 
 - `app-shell` 的 root-shell、handoff、overlay 运行态截图
 - Android 模拟器下可稳定复用的截图采集链路
+- `onboarding-activation` 的模块级冻结评审与 freeze decision
+- `onboarding-activation` Pencil 代表页方向确认
+- `onboarding-activation` 剩余 Step 2-4 preview 扩展
 - `onboarding-activation` 的真实登录入口
 - `onboarding-activation` 向 `sleep-data-core` 写入初始目标与提醒配置
-- `onboarding-activation` 的 refinement 收口与模块级设计冻结
 - 其余模块的 refinement 与模块级设计冻结产物
 - feature 真实实现代码

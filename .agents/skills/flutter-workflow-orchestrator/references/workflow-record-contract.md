@@ -55,9 +55,11 @@ When persisted, this runtime artifact is the single stable source for project wo
 - whether `DESIGN.md` already captures content tone and naming rules when relevant
 - whether one representative light-mode effect image has been generated before remaining optional page-image generation starts
 - whether the representative effect image is pending confirmation, confirmed, or rejected
+- whether a confirmed representative or approved direction effect image has frozen the current-cycle visual baseline and closed alternative-direction browsing
 - whether every page in scope has an approved light-mode effect image when the optional full effect-image branch is active
 - whether taste direction exists and which constraints it introduced
-- whether `platform_baseline` exists and whether `platform_identifier` has been explicitly verified
+- whether `platform_baseline` exists and whether `platform_identifier` has been explicitly verified as the primary runtime and validation platform
+- whether the primary-platform validation target is a selected real device, a pending device choice, or an emulator/simulator fallback
 - whether freeze preparation already passed through `flutter-taste-router` textual normalization
 - whether a shared or module design-source package has already been freeze-evaluated
 - whether freeze evaluation already verified task hierarchy, CTA discoverability, interaction feedback, responsive strategy, and critical-state coverage
@@ -87,7 +89,7 @@ When persisted, this runtime artifact is the single stable source for project wo
 - whether the module design-source packet is frozen
 - whether code has landed for the active module
 - what blockers still prevent the next move
-- whether `flutter-init` has already produced the directory skeleton and project-local `skills/flutter-dev/`
+- whether `flutter-init` has already produced the directory skeleton and sibling `skills/flutter-dev/`
 - whether the shared bootstrap-critical baseline is already clear enough to trigger `flutter-init`
 - whether initialization has stopped at directory-creation boundaries without starting bootstrap or feature implementation
 - whether the separate bootstrap code stage has landed the required global public code baseline
@@ -197,6 +199,8 @@ If `DESIGN.md` exists but still lacks task-priority, interaction-feedback, respo
 
 If the representative effect image exists but is still waiting for user confirmation, say so explicitly and keep remaining optional page-image generation blocked.
 
+If the representative effect image has already been confirmed, say so explicitly, state that alternative-direction browsing is closed for the current design cycle, and allow only same-direction completion work unless the user explicitly restarts or rejects that baseline.
+
 If taste direction is missing before detailed design-source work, say so explicitly.
 
 If the workflow is still in requirements brainstorming, state whether raw requirements are captured, whether the PRD question ledger exists, which decision-blocking questions remain, and whether a PRD artifact has been generated.
@@ -213,7 +217,9 @@ If module design freeze is in progress, state whether the module function is alr
 
 If effect images are present, state whether the workflow is using the optional light-mode effect-image baseline or an explicitly approved override.
 
-If the workflow is moving toward freeze, architecture, or implementation, state whether `platform_identifier` is already explicit, and do not treat `platform_baseline` as a substitute.
+If the workflow is moving toward freeze, architecture, or implementation, state whether `platform_identifier` is already explicit as the primary runtime and validation platform, and do not treat `platform_baseline` as a substitute.
+
+If the workflow is entering validation, debugging, human visual inspection, or implementation verification, state whether the primary-platform execution target is already resolved. If multiple eligible devices exist, say that the workflow is blocked on explicit device selection. If no eligible device exists but the primary platform supports emulator or simulator startup, say whether that fallback has already been started.
 
 If the workflow is in or beyond `project_initialized`, state whether bootstrap code is still pending or already landed.
 
@@ -295,10 +301,12 @@ Track project-level artifact paths when known, such as:
 - representative effect image path
 - representative effect image page
 - representative effect image status
+- representative effect-image baseline lock record
 - all-page light-mode effect-image set and approval status, when the optional full image branch is active
 - global technical baseline
 - taste direction packet
-- verified platform identifier or target validation surface
+- verified primary platform identifier
+- primary-platform device selection or emulator-start record
 - module index
 - `global-design-guidelines.md`
 - chosen `design_source_adapter`
@@ -321,7 +329,7 @@ Track project-level artifact paths when known, such as:
 - architecture summary
 - Flutter project root
 - `flutter-init` directory-creation summary
-- project-local `skills/flutter-dev/`
+- sibling `skills/flutter-dev/`
 - bootstrap code artifact summary or execution trace
 - project-level `@superpowers` execution trace when one exists
 - any approved generated bitmap assets that implementation must consume
@@ -376,6 +384,7 @@ When route drift, receipt mismatch, or no-progress auto stopping happens, add a 
 - If `execution_mode=auto` and `--preview` is active, generate the in-scope effect images automatically, record their paths, and do not create a confirmation stop.
 - If taste direction is produced, index its artifact path in `global_artifact_index` and link it from active module rows when relevant.
 - If `platform_identifier` becomes explicit, record it in the relevant summary or artifact index instead of leaving it implicit in prose.
+- If primary-platform validation target selection changes from pending to selected device or emulator fallback, record that transition explicitly in the relevant summary or artifact index.
 - If `flutter-taste-router` completes textual normalization, record that status in the relevant summary or decision entry before any freeze promotion is queued.
 - If freeze preparation inspects static-image directories, record whether existing evidence was reused, skipped due to missing environment variables, or newly generated.
 - If effect images are accepted for workflow use, record whether they satisfy the default light-mode requirement.
@@ -417,7 +426,7 @@ When route drift, receipt mismatch, or no-progress auto stopping happens, add a 
 - If the user confirms only queued status changes and there is no stage switch, keep `current_stage` unchanged, apply `pending_status_updates`, clear all pending fields to `none`, and set `confirmation_status: confirmed`.
 - If the user rejects a pending transition or pending status change, keep the current confirmed stage and maturity values, set `confirmation_status: rejected`, and write the rejection reason into blockers plus the decision log.
 - If a step returns `blocked`, keep `current_stage` unchanged, clear `pending_next_stage`, `pending_next_skill`, and `pending_status_updates` to `none`, and do not rewrite the module into the next workflow state or next maturity level.
-- If `flutter-init` completes, update the global artifact index with the project root, directory-creation summary, and `skills/flutter-dev/` path, then queue the relevant stage as `project_initialized` instead of switching immediately.
+- If `flutter-init` completes, update the global artifact index with the project root, directory-creation summary, and sibling `skills/flutter-dev/` path, then queue the relevant stage as `project_initialized` instead of switching immediately.
 - If `flutter-init` completes, also record that bootstrap code and feature implementation have not started yet and that initialization stopped at directory-creation boundaries.
 - If `flutter-init` has not run yet, record whether the shared bootstrap-critical baseline is already ready or still blocked, so the next routing decision can tell whether initialization should happen now.
 - If bootstrap code lands after initialization, record the execution summary or trace, the covered global public code baseline, and queue or apply `bootstrap_code_ready`.
@@ -438,7 +447,8 @@ When route drift, receipt mismatch, or no-progress auto stopping happens, add a 
 - Do not treat raw requirements as `prd_ready` until a PRD artifact exists and decision-blocking questions are resolved or explicitly defaulted.
 - Do not route from raw demand directly into technical baseline, taste direction, executable module document generation, architecture, or implementation.
 - Do not record PRD assumptions as facts unless their rationale and risk are explicit.
-- Do not treat `platform_baseline` as if it already verified the real target surface.
+- Do not treat `platform_baseline` as if it already verified the real primary runtime and validation platform.
+- Do not leave the primary-platform validation target ambiguous once validation, debugging, human visual inspection, or implementation verification is in scope.
 - Do not leave `route_lock`, `last_receipt_status`, or `auto_progress_delta` blank once routing has started.
 - Do not leave `execution_owner` blank once a turn has selected local orchestration or delegated specialist ownership.
 - Do not mark a stage as advanced until the required artifacts for that stage are actually available.
@@ -477,7 +487,7 @@ When route drift, receipt mismatch, or no-progress auto stopping happens, add a 
 - Do not keep auto running when `auto_progress_delta` is `none` and no new blocker was recorded.
 - Do not keep `pending_next_stage`, `pending_next_skill`, or `pending_status_updates` populated after a `blocked` result.
 - Do not rewrite `current_stage` to a later workflow state when the latest routing result is `blocked`.
-- Do not mark `project_initialized` unless both the directory skeleton and project-local `skills/flutter-dev/` exist.
+- Do not mark `project_initialized` unless both the directory skeleton and sibling `skills/flutter-dev/` exist.
 - Do not treat `project_initialized` as proof that any feature, page, or module implementation code already exists.
 - Do not mark `bootstrap_code_ready` unless the required global public code baseline actually exists on disk.
 - Do not let `execution_mode=auto` claim implementation progress without recording the corresponding `@superpowers` gates, execution evidence, and code artifacts.

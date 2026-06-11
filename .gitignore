@@ -56,6 +56,7 @@ migrate_working_dir/
 
 # Codex local skill copies
 /.agents/skills/
+/.codegraph/
 
 # Symbolication related
 app.*.symbols

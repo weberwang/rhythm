@@ -19,7 +19,7 @@ Use this reference before applying any state/status promotion, freeze decision, 
 - Do not start module `impl.md` generation immediately after the technical baseline. All module-related workflow must wait until the shared/global design freeze is complete.
 - Do not skip `DESIGN.md` output after final product design direction confirmation.
 - Do not treat a visually polished `DESIGN.md` as complete if it still lacks task-priority rules, interaction-feedback rules, responsive strategy, or critical-state coverage that the product clearly needs.
-- Do not confuse `platform_baseline` with a verified `platform_identifier`.
+- Do not confuse `platform_baseline` with a verified `platform_identifier`. Here `platform_identifier` means the primary runtime and validation platform for this workflow, not an optional cross-platform matrix.
 - Do not skip `flutter-taste-router` textual normalization before any shared freeze or module freeze check.
 - Do not generate new static visuals before checking whether the target directories already contain usable page images.
 - Do not use effect images as the only design source when a structured design-source adapter has been chosen; convert or validate them into the selected design-source packet first.
@@ -44,6 +44,8 @@ Use this reference before applying any state/status promotion, freeze decision, 
 - Do not treat effect images as a default mandatory gate for shared design freeze. They are optional evidence unless the current revision path explicitly requires them.
 - Do not let `--auto --preview` generate effect images without `gpt-image-2-generator` being available for that branch.
 - In manual mode, do not generate the remaining optional page-effect set before one representative effect image has been explicitly confirmed.
+- Do not reopen alternative-direction browsing after a representative effect image or approved direction effect image has been explicitly confirmed for the current design cycle; that confirmation freezes the visual baseline until the user explicitly rejects it or restarts the design cycle.
+- Do not generate, show, or compare other-direction effect images after that confirmation merely for more browsing; only same-direction completion, evidence expansion, or scope-matched revision is allowed.
 - Do not send shared/global or module-stage effect-image generation requests without explicit style constraints once the design packet already defines them.
 - Do not let module-stage effect-image generation redefine palette, typography mood, component family, image treatment, or CTA posture after a shared/global direction has been approved.
 - Do not let module `impl.md` generation, module page component design drafts, or module freeze drift away from the already frozen shared visual design, shared interaction principles, shared public shell, or shared component families.
@@ -61,6 +63,7 @@ Use this reference before applying any state/status promotion, freeze decision, 
 - Do not mark `impl_status=landed` until the module `impl.md` references a confirmed frozen selected structured design-source packet.
 - Do not start module-scoped display-layer design draft generation before the active module's `impl.md` has fixed the module function, key states, main task path, and non-display behavior boundaries.
 - Do not freeze or translate a module design that has not yet considered the concrete target platform's interaction, layout, density, and feedback expectations.
+- Do not treat secondary desktop, web, or other convenience surfaces as required validation targets when the primary platform is already defined. Validation should follow the primary platform only unless the user explicitly changes that platform.
 - Do not land ordinary page-module display-layer code before the module's non-display behavior, service wiring, and state-flow contracts are stable enough to support that display faithfully.
 - Do not treat module implementation as `display first, behavior later`; the required local order is `impl -> design draft -> non-display code -> display restoration`.
 - Do not dilute a frozen premium/high-fidelity module design into a generic implementation compromise without routing back through design control.
@@ -91,16 +94,18 @@ Use this reference before applying any state/status promotion, freeze decision, 
 - Do not treat `--preview` as permission to redefine the approved shared/global style direction; it only enables effect-image evidence generation.
 - Do not require page-level Pen, `.pen`, Pencil MCP data, or `pen_status` unless the workflow has actually chosen the Pencil design-source branch.
 - Do not let implementation rewrite design intent. Design changes after freeze must return to design control.
-- Do not route directly from `architecture_ready` to project-local `flutter-dev`; new project scaffolding must pass through `flutter-init`.
+- Do not route directly from `architecture_ready` to sibling `flutter-dev`; new project scaffolding must pass through `flutter-init`.
 - Do not let delegated module document generation or code landing bypass `@superpowers` when real execution ownership is required.
 - Do not enter implementation execution before `@superpowers` has produced both `Spec` and `Plan` for the active module.
 - Do not open parallel module implementation lanes by default once `Spec` and `Plan` exist. Module execution stays serial unless the workflow contract is explicitly changed.
-- Do not directly route module implementation to `flutter-rd-module-splitter`, `flutter-dev`, project-local implementation skills, or any other execution path without explicit `@superpowers` invocation.
-- Do not directly route module implementation to `flutter-dev` or project-local execution skills without explicit `@superpowers` invocation.
+- Do not directly route module implementation to `flutter-rd-module-splitter`, `flutter-dev`, sibling implementation skills, or any other execution path without explicit `@superpowers` invocation.
+- Do not directly route module implementation to `flutter-dev` or sibling execution skills without explicit `@superpowers` invocation.
 - Do not let multiple module implementation subagents run in parallel against different active modules in the default workflow.
 - Do not treat a complete-looking `impl.md` as proof that delegated generation or execution really happened.
 - Do not let `.impl.md` claim `generation_trace_status=verified_executed` unless the workflow record or execution trace contains the real delegated inputs and outputs for that module.
 - Do not start display-layer landing before the preflight inputs are complete enough to avoid image-only guessing.
+- Do not auto-pick among multiple eligible devices on the primary platform during validation. If more than one device matches, stop and wait for explicit user choice.
+- Do not mark validation as ready on the primary platform when no eligible device exists and the platform supports emulator or simulator startup but that fallback has not been attempted yet.
 - Do not start high-fidelity display-layer landing with only a broad page effect image when fidelity-critical regions still lack detail, state, scroll, or overlay evidence.
 - Do not let display-layer code land without consulting the corresponding page image and frozen design evidence when such image evidence exists.
 - Do not let effect images alone decide final Flutter widget strategy when documented interaction or architecture semantics say otherwise.

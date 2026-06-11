@@ -2,13 +2,14 @@
 
 ## 文档状态
 
-- impl_status：`implementation_in_progress`
+- impl_status：`implementation_final`
 - superpowers_refinement_status：`deferred_then_minimal_landed`
 
 ## 关联文档
 
 - 配对 UI/UX：[onboarding-activation.ui-ux.md](/E:/Projects/flutter/rhythm/docs/project/modules/onboarding-activation/onboarding-activation.ui-ux.md)
 - 全局技术基线：[global-technical-baseline.md](/E:/Projects/flutter/rhythm/docs/project/rd/global-technical-baseline.md)
+- 模块设计源包：[onboarding-activation.design-source-packet.md](/E:/Projects/flutter/rhythm/docs/project/modules/onboarding-activation/onboarding-activation.design-source-packet.md)
 
 ## 业务能力与边界
 
@@ -33,6 +34,7 @@
 - 依赖 `app-shell` 提供完成后回流 today 的 root 路由
 - 可向 `sleep-data-core` 写入初始目标与提醒配置
 - 权限状态应统一通过 `core/permissions` 转换
+- 当前显示层冻结输入以 `onboarding-activation.design-source-packet.md` 为准，四步流的层级、sticky footer 和关键状态不得在实现时自行改写
 
 ## 当前已落地实现
 
@@ -41,6 +43,7 @@
 - `infrastructure/`：已新增基于 `shared_preferences` 的草稿状态存储，保存当前步骤、进入方式、健康路径、作息时间和提醒策略
 - `infrastructure/`：已新增 `health` 权限桥接与 `flutter_local_notifications + timezone + flutter_timezone` 提醒调度桥接；当前策略为“真实调用、失败降级但不阻断进入 today”
 - `app-shell` 协作：完成后仍统一写入 onboarding 完成标记并回流 `/today`
+- `design-source/`：已在 Stitch 项目 `7107477570523131437` 生成四步模块设计稿，当前进入模块级 freeze review
 
 ## 埋点与测试
 
@@ -58,6 +61,11 @@
 - 真实 Google / Apple / Supabase 绑定入口
 - 向 `sleep-data-core` 写入初始目标与提醒配置
 - 权限拒绝后的延迟教育页与更细粒度权限状态机
+
+## 进入实现前约束
+
+- 必须先通过模块级设计冻结，再进入架构映射或 `@superpowers` Spec / Plan
+- 四步激活流的步骤头、选择卡、时间设置行、提醒 chips 和 sticky footer 属于高保真关键区域
 
 ## 模块约束
 
